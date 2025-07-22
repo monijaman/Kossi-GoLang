@@ -294,6 +294,8 @@ go run cmd/migrate/main.go -migrate -dsn "host=prod-db user=prod password=secret
 |------|-------------|--------------|
 | `-migrate` | Run safe migration (recommended) | ✅ **Safe** |
 | `-fresh` | Drop all + recreate (development) | 🚨 **Dangerous** |
+| `-fresh-seed` | Drop, migrate, and seed (development) | 🚨 **Dangerous** |
+| `-seed` | Run all database seeders | ✅ **Safe** |
 | `-drop` | Drop all tables | 🚨 **Dangerous** |
 | `-fk` | Add foreign keys only | ✅ **Safe** |
 | `-indexes` | Create indexes only | ✅ **Safe** |
@@ -452,6 +454,234 @@ go run cmd/migrate/main.go -migrate -dsn "your_connection_string"
 
 ---
 
+## 10. Database Seeding System 🌱
+
+Our Clean Architecture includes a comprehensive database seeding system that populates your database with realistic test data following Laravel-style seeding patterns.
+
+### Quick Start
+
+```bash
+# Run fresh setup with seeding (development only)
+go run cmd/migrate/main.go -fresh-seed
+
+# Run seeders only (existing database)
+go run cmd/migrate/main.go -seed
+
+# Verify seeded data
+go run cmd/seedtest/main.go
+```
+
+### What Gets Seeded
+
+The seeding system includes **400+ records** organized across multiple tables:
+
+| **Seeder** | **Records** | **Description** |
+|------------|-------------|-----------------|
+| **Categories** | 128 records | Product categories (Electronics, Footwear, Automotive, etc.) |
+| **Brands** | 152 records | Global brands (Apple, Nike, BMW, Google, etc.) |
+| **Brand-Categories** | 415 relationships | Smart brand-category mappings |
+
+### Seeded Data Examples
+
+**📂 Categories Include:**
+- Electronics, Mobile Phones, Laptops
+- Footwear, Clothing, Sports Equipment  
+- Automotive, Luxury Cars, Electric Vehicles
+- Beauty Products, Personal Care, Skincare
+- Food & Beverages, Restaurants, Coffee
+
+**🏷️ Brands Include:**
+- **Tech**: Apple, Google, Microsoft, Samsung, Intel
+- **Automotive**: BMW, Mercedes-Benz, Tesla, Toyota, Audi  
+- **Fashion**: Nike, Adidas, Gucci, Louis Vuitton, Zara
+- **F&B**: Coca-Cola, Starbucks, McDonald's, Nestlé
+
+**🔗 Smart Relationships:**
+- Apple → Electronics, Mobile Phones, Laptops, Technology
+- Nike → Footwear, Clothing, Sports Equipment
+- BMW → Automotive, Luxury Cars, Motorcycles
+- Starbucks → Food & Beverages, Coffee, Restaurants
+
+### Seeding CLI Options
+
+| **Flag** | **Description** | **Use Case** |
+|----------|-----------------|--------------|
+| `-seed` | Run all seeders | Adding data to existing database |
+| `-fresh-seed` | Drop, migrate, and seed | Complete fresh setup (dev only) |
+
+### Architecture Overview
+
+The seeding system follows Clean Architecture principles:
+
+```
+internal/infrastructure/database/seeders/
+├── seeder.go              # Core seeding framework & interfaces
+├── category_seeder.go     # Category data seeding
+├── brand_seeder.go        # Brand data seeding  
+└── brand_category_seeder.go # Relationship seeding
+```
+
+**Key Components:**
+- **SeederManager**: Orchestrates all seeders with progress tracking
+- **Seeder Interface**: Common contract for all seeders
+- **BaseSeeder**: Shared functionality and naming
+- **Helper Functions**: Duplicate detection, slug generation, relationship creation
+
+### Programmatic Usage
+
+```go
+package main
+
+import (
+    "kossti/internal/infrastructure/database/seeders"
+    "gorm.io/gorm"
+)
+
+func setupSeeders(db *gorm.DB) {
+    // Setup all seeders
+    manager := seeders.SetupAllSeeders(db)
+    
+    // Run all seeders
+    if err := manager.RunAll(); err != nil {
+        log.Fatal("Seeding failed:", err)
+    }
+    
+    // Or run specific seeders
+    manager.AddSeeder(seeders.NewCategorySeeder())
+    manager.AddSeeder(seeders.NewBrandSeeder())
+    
+    if err := manager.RunAll(); err != nil {
+        log.Fatal("Seeding failed:", err)
+    }
+}
+```
+
+### Creating Custom Seeders
+
+```go
+package seeders
+
+import (
+    "kossti/internal/domain/entities"
+    "kossti/internal/infrastructure/database/models"
+    "gorm.io/gorm"
+)
+
+// CustomSeeder example
+type ProductSeeder struct {
+    BaseSeeder
+}
+
+func NewProductSeeder() *ProductSeeder {
+    return &ProductSeeder{
+        BaseSeeder: BaseSeeder{name: "Products"},
+    }
+}
+
+func (ps *ProductSeeder) Seed(db *gorm.DB) error {
+    products := []struct {
+        Name     string
+        Category string
+        Brand    string
+    }{
+        {"iPhone 15", "Mobile Phones", "Apple"},
+        {"Air Jordan 1", "Footwear", "Nike"},
+    }
+    
+    for _, product := range products {
+        // Get related entities
+        category, err := CreateOrFindCategory(db, product.Category, GenerateSlug(product.Category))
+        if err != nil {
+            return err
+        }
+        
+        brand, err := CreateOrFindBrand(db, product.Brand, GenerateSlug(product.Brand))
+        if err != nil {
+            return err
+        }
+        
+        // Create product entity
+        productEntity := &entities.Product{
+            Name:       product.Name,
+            CategoryID: &category.ID,
+            BrandID:    &brand.ID,
+        }
+        
+        // Convert and save
+        var productModel models.ProductModel
+        productModel.FromEntity(productEntity)
+        
+        if err := db.Create(&productModel).Error; err != nil {
+            return err
+        }
+    }
+    
+    return nil
+}
+```
+
+### Seeder Output Example
+
+```
+🌱 Starting database seeding...
+   🔄 Running Categories seeder...
+   ✅ Categories seeder completed successfully
+   🔄 Running Brands seeder...
+   ✅ Brands seeder completed successfully  
+   🔄 Running Brand Categories seeder...
+   ✅ Brand Categories seeder completed successfully
+🎉 All seeders completed successfully!
+```
+
+### Verification & Testing
+
+**Quick Verification:**
+```bash
+go run cmd/seedtest/main.go
+```
+
+**Output:**
+```
+🌱 SEEDING VERIFICATION DEMO
+================================
+📂 Categories seeded: 128
+🏷️ Brands seeded: 152
+🔗 Brand-Category relationships: 415
+
+📋 Sample Categories:
+   - Footwear (slug: footwear)
+   - Electronics (slug: electronics)
+   - Automotive (slug: automotive)
+
+🏢 Sample Brands:
+   - Apple (slug: apple)
+   - Nike (slug: nike)
+   - BMW (slug: bmw)
+
+🎯 Apple's Categories:
+   - Electronics
+   - Mobile Phones
+   - Laptops
+   - Technology
+✅ Seeding verification completed successfully!
+```
+
+### Best Practices
+
+**✅ Do:**
+- Use seeders for development and testing environments
+- Run verification after seeding
+- Keep seeder data realistic and diverse
+- Follow Clean Architecture patterns in custom seeders
+
+**❌ Don't:**
+- Run seeders in production without careful consideration
+- Modify core seeder files directly  
+- Skip duplicate detection in custom seeders
+- Hardcode IDs in seeder relationships
+
+---
+
 ## 11. CLI Tools Available
 
 ### Main Application Server
@@ -489,6 +719,12 @@ go run ./cmd/migrate/main.go -migrate
 # Fresh setup (development only - DANGEROUS)
 go run ./cmd/migrate/main.go -fresh
 
+# Fresh setup with seeding (development only - DANGEROUS)
+go run ./cmd/migrate/main.go -fresh-seed
+
+# Run seeders only
+go run ./cmd/migrate/main.go -seed
+
 # Show help and all options
 go run ./cmd/migrate/main.go -h
 
@@ -499,10 +735,27 @@ go build -o bin/kossti-migrate ./cmd/migrate
 **Migration Options:**
 - `-migrate` - Safe migration (production ready)
 - `-fresh` - Drop all + recreate (development only)
+- `-fresh-seed` - Drop, migrate, and seed (development only)
+- `-seed` - Run all database seeders
 - `-drop` - Drop all tables (dangerous)
 - `-fk` - Add foreign keys only
 - `-indexes` - Create indexes only
 - `-dsn` - Custom database connection string
+
+### Database Seeding Verification Tool
+```bash
+# Verify seeded data
+go run ./cmd/seedtest/main.go
+
+# Build the verification tool
+go build -o bin/kossti-seedtest ./cmd/seedtest
+```
+
+**Features:**
+- ✅ Shows count of seeded records
+- ✅ Displays sample data from each table
+- ✅ Verifies relationships (e.g., Apple's categories)
+- ✅ Clean Architecture compliance testing
 
 ### Build All Tools
 ```bash

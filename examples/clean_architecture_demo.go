@@ -2,12 +2,12 @@
 package main
 
 import (
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/infrastructure/database/models"
-	"fmt"
 )
 
-func main() {
+func mains() {
 	fmt.Println("🎯 Clean Architecture GORM Decoupling Demo")
 	fmt.Println("==========================================")
 

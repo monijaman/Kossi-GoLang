@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"kossti/internal/infrastructure/database"
+	"kossti/internal/infrastructure/database/seeders"
 	"log"
 	"os"
 
@@ -35,6 +36,8 @@ func main() {
 		drop     = flag.Bool("drop", false, "Drop all tables (DANGEROUS)")
 		fk       = flag.Bool("fk", false, "Add foreign keys only")
 		indexes  = flag.Bool("indexes", false, "Create indexes only")
+		seed     = flag.Bool("seed", false, "Run all seeders")
+		freshSeed = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
 		dsn      = flag.String("dsn", defaultDSN, "Database DSN")
 	)
 	flag.Parse()
@@ -52,6 +55,26 @@ func main() {
 
 	// Execute based on flags
 	switch {
+	case *freshSeed:
+		fmt.Println("🚨 FRESH SETUP WITH SEEDING: This will DROP ALL TABLES!")
+		if !confirmDangerous() {
+			return
+		}
+		if err := manager.DropAllTables(); err != nil {
+			log.Fatal("Failed to drop tables:", err)
+		}
+		if err := manager.Setup(); err != nil {
+			log.Fatal("Failed to setup:", err)
+		}
+		
+		// Run seeders
+		fmt.Println("🌱 Running seeders...")
+		seederManager := seeders.SetupAllSeeders(db)
+		if err := seederManager.RunAll(); err != nil {
+			log.Fatal("Failed to run seeders:", err)
+		}
+		fmt.Println("✅ Fresh setup with seeding completed!")
+
 	case *fresh:
 		fmt.Println("🚨 FRESH SETUP: This will DROP ALL TABLES!")
 		if !confirmDangerous() {
@@ -64,6 +87,14 @@ func main() {
 			log.Fatal("Failed to setup:", err)
 		}
 		fmt.Println("✅ Fresh setup completed!")
+
+	case *seed:
+		fmt.Println("🌱 Running seeders...")
+		seederManager := seeders.SetupAllSeeders(db)
+		if err := seederManager.RunAll(); err != nil {
+			log.Fatal("Failed to run seeders:", err)
+		}
+		fmt.Println("✅ Seeding completed!")
 
 	case *migrate:
 		fmt.Println("🛡️ Running safe migration...")
@@ -122,16 +153,20 @@ func printUsage() {
 	fmt.Println("  DATABASE_URL    Database connection string (reads from .env file)")
 	fmt.Println("")
 	fmt.Println("Flags:")
-	fmt.Println("  -migrate    Run safe migration (recommended for production)")
-	fmt.Println("  -fresh      Drop all tables and recreate (DANGEROUS - dev only)")
-	fmt.Println("  -drop       Drop all tables (DANGEROUS)")
-	fmt.Println("  -fk         Add foreign keys only")
-	fmt.Println("  -indexes    Create indexes only")
-	fmt.Println("  -dsn        Database connection string (overrides DATABASE_URL)")
+	fmt.Println("  -migrate      Run safe migration (recommended for production)")
+	fmt.Println("  -fresh        Drop all tables and recreate (DANGEROUS - dev only)")
+	fmt.Println("  -fresh-seed   Drop, migrate, and seed database (DANGEROUS - dev only)")
+	fmt.Println("  -seed         Run all database seeders")
+	fmt.Println("  -drop         Drop all tables (DANGEROUS)")
+	fmt.Println("  -fk           Add foreign keys only")
+	fmt.Println("  -indexes      Create indexes only")
+	fmt.Println("  -dsn          Database connection string (overrides DATABASE_URL)")
 	fmt.Println("")
 	fmt.Println("Examples:")
 	fmt.Println("  go run cmd/migrate/main.go -migrate")
 	fmt.Println("  go run cmd/migrate/main.go -fresh")
+	fmt.Println("  go run cmd/migrate/main.go -fresh-seed")
+	fmt.Println("  go run cmd/migrate/main.go -seed")
 	fmt.Println("  go run cmd/migrate/main.go -dsn 'host=prod-db user=prod password=secret dbname=production'")
 	fmt.Println("")
 	fmt.Println("Note: The tool automatically reads DATABASE_URL from .env file if present")
