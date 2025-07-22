@@ -1,2 +1,2 @@
 # gocrit_server
-go conversion of crit api
+go conversion of crit api.
