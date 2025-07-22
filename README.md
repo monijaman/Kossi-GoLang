@@ -90,11 +90,13 @@ go get golang.org/x/crypto/bcrypt
 ### 5. Run the Applications
 
 #### Main Application (API Server)
+
 ```sh
 go run ./cmd/app/main.go
 ```
 
 #### Database Migration Tool
+
 ```sh
 # Run safe migration (recommended)
 go run ./cmd/migrate/main.go -migrate
@@ -259,18 +261,21 @@ For larger projects with multiple models, we have a comprehensive migration syst
 ### Using the Migration CLI Tool
 
 #### 1. Safe Migration (Production Recommended)
+
 ```bash
 # Migrates all tables, adds foreign keys, and creates indexes
 go run cmd/migrate/main.go -migrate
 ```
 
 #### 2. Fresh Setup (Development Only)
+
 ```bash
 # ⚠️ DANGEROUS: Drops all tables and recreates them
 go run cmd/migrate/main.go -fresh
 ```
 
 #### 3. Individual Operations
+
 ```bash
 # Drop all tables (testing/cleanup)
 go run cmd/migrate/main.go -drop
@@ -283,6 +288,7 @@ go run cmd/migrate/main.go -indexes
 ```
 
 #### 4. Custom Database Connection
+
 ```bash
 # Use custom database connection
 go run cmd/migrate/main.go -migrate -dsn "host=prod-db user=prod password=secret dbname=production port=5432 sslmode=require"
@@ -290,16 +296,16 @@ go run cmd/migrate/main.go -migrate -dsn "host=prod-db user=prod password=secret
 
 ### Migration CLI Options
 
-| Flag | Description | Safety Level |
-|------|-------------|--------------|
-| `-migrate` | Run safe migration (recommended) | ✅ **Safe** |
-| `-fresh` | Drop all + recreate (development) | 🚨 **Dangerous** |
+| Flag          | Description                           | Safety Level     |
+| ------------- | ------------------------------------- | ---------------- |
+| `-migrate`    | Run safe migration (recommended)      | ✅ **Safe**      |
+| `-fresh`      | Drop all + recreate (development)     | 🚨 **Dangerous** |
 | `-fresh-seed` | Drop, migrate, and seed (development) | 🚨 **Dangerous** |
-| `-seed` | Run all database seeders | ✅ **Safe** |
-| `-drop` | Drop all tables | 🚨 **Dangerous** |
-| `-fk` | Add foreign keys only | ✅ **Safe** |
-| `-indexes` | Create indexes only | ✅ **Safe** |
-| `-dsn` | Custom database connection string | ℹ️ **Config** |
+| `-seed`       | Run all database seeders              | ✅ **Safe**      |
+| `-drop`       | Drop all tables                       | 🚨 **Dangerous** |
+| `-fk`         | Add foreign keys only                 | ✅ **Safe**      |
+| `-indexes`    | Create indexes only                   | ✅ **Safe**      |
+| `-dsn`        | Custom database connection string     | ℹ️ **Config**    |
 
 ### Programmatic Usage (In Your App)
 
@@ -348,31 +354,37 @@ func setupDatabase() {
 The migration system handles **60+ database models** organized into:
 
 #### Core System Tables (15 models)
+
 - `users`, `sessions`, `password_reset_tokens`
 - `cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`
 - `personal_access_tokens`, `history_logs`
 
 #### Permission System (5 models)
+
 - `permissions`, `roles`
 - `model_has_permissions`, `model_has_roles`, `role_has_permissions`
 
 #### Product System (10 models)
+
 - `products`, `product_reviews`, `categories`, `brands`
 - `brand_categories`, `productables`, `images`, `tags`
 - `feedback`, `form_generators`
 
 #### Translation Tables (8 models)
+
 - `product_translations`, `category_translations`, `brand_translations`
 - `product_review_translations`, `feedback_translations`
 - `comment_translations`, `specification_translations`, `specification_key_translations`
 
 #### Content System (8 models)
+
 - `comments`, `specifications`, `specification_keys`
 - And their translation tables
 
 ### Migration Best Practices
 
 #### For Development
+
 ```bash
 # First time setup
 go run cmd/migrate/main.go -fresh
@@ -382,6 +394,7 @@ go run cmd/migrate/main.go -migrate
 ```
 
 #### For Production
+
 ```bash
 # Always use safe migration
 go run cmd/migrate/main.go -migrate
@@ -390,6 +403,7 @@ go run cmd/migrate/main.go -migrate
 ```
 
 #### For Testing
+
 ```bash
 # Clean slate for tests
 go run cmd/migrate/main.go -drop
@@ -398,38 +412,42 @@ go run cmd/migrate/main.go -migrate
 
 ### Migration vs AutoMigrate Comparison
 
-| Feature | AutoMigrate | Migration Manager |
-|---------|-------------|-------------------|
-| Model Count | Manual (1-5 models) | Automatic (60+ models) |
-| Progress Tracking | ❌ No | ✅ Yes |
-| Foreign Keys | ❌ Manual | ✅ Automatic |
-| Indexes | ❌ Manual | ✅ Automatic |
-| Error Handling | ❌ Basic | ✅ Advanced |
-| Production Ready | ⚠️ Limited | ✅ Yes |
+| Feature           | AutoMigrate         | Migration Manager      |
+| ----------------- | ------------------- | ---------------------- |
+| Model Count       | Manual (1-5 models) | Automatic (60+ models) |
+| Progress Tracking | ❌ No               | ✅ Yes                 |
+| Foreign Keys      | ❌ Manual           | ✅ Automatic           |
+| Indexes           | ❌ Manual           | ✅ Automatic           |
+| Error Handling    | ❌ Basic            | ✅ Advanced            |
+| Production Ready  | ⚠️ Limited          | ✅ Yes                 |
 
 ### Troubleshooting Migrations
 
 #### Common Issues
 
 **"Table already exists" error:**
+
 ```bash
 # This is normal - migration will skip existing tables
 go run cmd/migrate/main.go -migrate
 ```
 
 **Foreign key constraint errors:**
+
 ```bash
 # Run foreign keys separately
 go run cmd/migrate/main.go -fk
 ```
 
 **Permission denied:**
+
 ```bash
 # Make sure your database user has CREATE privileges
 GRANT CREATE ON DATABASE gocrit_db TO your_user;
 ```
 
 **Connection refused:**
+
 ```bash
 # Check your database is running and connection string is correct
 go run cmd/migrate/main.go -migrate -dsn "your_connection_string"
@@ -475,28 +493,31 @@ go run cmd/seedtest/main.go
 
 The seeding system includes **400+ records** organized across multiple tables:
 
-| **Seeder** | **Records** | **Description** |
-|------------|-------------|-----------------|
-| **Categories** | 128 records | Product categories (Electronics, Footwear, Automotive, etc.) |
-| **Brands** | 152 records | Global brands (Apple, Nike, BMW, Google, etc.) |
-| **Brand-Categories** | 415 relationships | Smart brand-category mappings |
+| **Seeder**           | **Records**       | **Description**                                              |
+| -------------------- | ----------------- | ------------------------------------------------------------ |
+| **Categories**       | 128 records       | Product categories (Electronics, Footwear, Automotive, etc.) |
+| **Brands**           | 152 records       | Global brands (Apple, Nike, BMW, Google, etc.)               |
+| **Brand-Categories** | 415 relationships | Smart brand-category mappings                                |
 
 ### Seeded Data Examples
 
 **📂 Categories Include:**
+
 - Electronics, Mobile Phones, Laptops
-- Footwear, Clothing, Sports Equipment  
+- Footwear, Clothing, Sports Equipment
 - Automotive, Luxury Cars, Electric Vehicles
 - Beauty Products, Personal Care, Skincare
 - Food & Beverages, Restaurants, Coffee
 
 **🏷️ Brands Include:**
+
 - **Tech**: Apple, Google, Microsoft, Samsung, Intel
-- **Automotive**: BMW, Mercedes-Benz, Tesla, Toyota, Audi  
+- **Automotive**: BMW, Mercedes-Benz, Tesla, Toyota, Audi
 - **Fashion**: Nike, Adidas, Gucci, Louis Vuitton, Zara
 - **F&B**: Coca-Cola, Starbucks, McDonald's, Nestlé
 
 **🔗 Smart Relationships:**
+
 - Apple → Electronics, Mobile Phones, Laptops, Technology
 - Nike → Footwear, Clothing, Sports Equipment
 - BMW → Automotive, Luxury Cars, Motorcycles
@@ -504,10 +525,10 @@ The seeding system includes **400+ records** organized across multiple tables:
 
 ### Seeding CLI Options
 
-| **Flag** | **Description** | **Use Case** |
-|----------|-----------------|--------------|
-| `-seed` | Run all seeders | Adding data to existing database |
-| `-fresh-seed` | Drop, migrate, and seed | Complete fresh setup (dev only) |
+| **Flag**      | **Description**         | **Use Case**                     |
+| ------------- | ----------------------- | -------------------------------- |
+| `-seed`       | Run all seeders         | Adding data to existing database |
+| `-fresh-seed` | Drop, migrate, and seed | Complete fresh setup (dev only)  |
 
 ### Architecture Overview
 
@@ -517,11 +538,12 @@ The seeding system follows Clean Architecture principles:
 internal/infrastructure/database/seeders/
 ├── seeder.go              # Core seeding framework & interfaces
 ├── category_seeder.go     # Category data seeding
-├── brand_seeder.go        # Brand data seeding  
+├── brand_seeder.go        # Brand data seeding
 └── brand_category_seeder.go # Relationship seeding
 ```
 
 **Key Components:**
+
 - **SeederManager**: Orchestrates all seeders with progress tracking
 - **Seeder Interface**: Common contract for all seeders
 - **BaseSeeder**: Shared functionality and naming
@@ -540,16 +562,16 @@ import (
 func setupSeeders(db *gorm.DB) {
     // Setup all seeders
     manager := seeders.SetupAllSeeders(db)
-    
+
     // Run all seeders
     if err := manager.RunAll(); err != nil {
         log.Fatal("Seeding failed:", err)
     }
-    
+
     // Or run specific seeders
     manager.AddSeeder(seeders.NewCategorySeeder())
     manager.AddSeeder(seeders.NewBrandSeeder())
-    
+
     if err := manager.RunAll(); err != nil {
         log.Fatal("Seeding failed:", err)
     }
@@ -587,35 +609,35 @@ func (ps *ProductSeeder) Seed(db *gorm.DB) error {
         {"iPhone 15", "Mobile Phones", "Apple"},
         {"Air Jordan 1", "Footwear", "Nike"},
     }
-    
+
     for _, product := range products {
         // Get related entities
         category, err := CreateOrFindCategory(db, product.Category, GenerateSlug(product.Category))
         if err != nil {
             return err
         }
-        
+
         brand, err := CreateOrFindBrand(db, product.Brand, GenerateSlug(product.Brand))
         if err != nil {
             return err
         }
-        
+
         // Create product entity
         productEntity := &entities.Product{
             Name:       product.Name,
             CategoryID: &category.ID,
             BrandID:    &brand.ID,
         }
-        
+
         // Convert and save
         var productModel models.ProductModel
         productModel.FromEntity(productEntity)
-        
+
         if err := db.Create(&productModel).Error; err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 ```
@@ -627,7 +649,7 @@ func (ps *ProductSeeder) Seed(db *gorm.DB) error {
    🔄 Running Categories seeder...
    ✅ Categories seeder completed successfully
    🔄 Running Brands seeder...
-   ✅ Brands seeder completed successfully  
+   ✅ Brands seeder completed successfully
    🔄 Running Brand Categories seeder...
    ✅ Brand Categories seeder completed successfully
 🎉 All seeders completed successfully!
@@ -636,11 +658,13 @@ func (ps *ProductSeeder) Seed(db *gorm.DB) error {
 ### Verification & Testing
 
 **Quick Verification:**
+
 ```bash
 go run cmd/seedtest/main.go
 ```
 
 **Output:**
+
 ```
 🌱 SEEDING VERIFICATION DEMO
 ================================
@@ -669,14 +693,16 @@ go run cmd/seedtest/main.go
 ### Best Practices
 
 **✅ Do:**
+
 - Use seeders for development and testing environments
 - Run verification after seeding
 - Keep seeder data realistic and diverse
 - Follow Clean Architecture patterns in custom seeders
 
 **❌ Don't:**
+
 - Run seeders in production without careful consideration
-- Modify core seeder files directly  
+- Modify core seeder files directly
 - Skip duplicate detection in custom seeders
 - Hardcode IDs in seeder relationships
 
@@ -685,6 +711,7 @@ go run cmd/seedtest/main.go
 ## 11. CLI Tools Available
 
 ### Main Application Server
+
 ```bash
 # Start the HTTP API server (default port: 8080)
 go run ./cmd/app/main.go
@@ -694,6 +721,7 @@ go build -o bin/kossti-server ./cmd/app
 ```
 
 **Features:**
+
 - ✅ User registration and login endpoints
 - ✅ RESTful API for user management
 - ✅ Automatic database migration on startup
@@ -702,6 +730,7 @@ go build -o bin/kossti-server ./cmd/app
 - ✅ Port conflict detection
 
 **API Endpoints:**
+
 - `POST /register` - User registration
 - `POST /login` - User login
 - `GET /api/users` - List users (paginated)
@@ -712,6 +741,7 @@ go build -o bin/kossti-server ./cmd/app
 - `GET /health` - Health check
 
 ### Database Migration Tool
+
 ```bash
 # Safe migration (recommended for production)
 go run ./cmd/migrate/main.go -migrate
@@ -733,6 +763,7 @@ go build -o bin/kossti-migrate ./cmd/migrate
 ```
 
 **Migration Options:**
+
 - `-migrate` - Safe migration (production ready)
 - `-fresh` - Drop all + recreate (development only)
 - `-fresh-seed` - Drop, migrate, and seed (development only)
@@ -743,6 +774,7 @@ go build -o bin/kossti-migrate ./cmd/migrate
 - `-dsn` - Custom database connection string
 
 ### Database Seeding Verification Tool
+
 ```bash
 # Verify seeded data
 go run ./cmd/seedtest/main.go
@@ -752,12 +784,14 @@ go build -o bin/kossti-seedtest ./cmd/seedtest
 ```
 
 **Features:**
+
 - ✅ Shows count of seeded records
 - ✅ Displays sample data from each table
 - ✅ Verifies relationships (e.g., Apple's categories)
 - ✅ Clean Architecture compliance testing
 
 ### Build All Tools
+
 ```bash
 # Using Makefile (Linux/Mac/WSL)
 make build
@@ -773,6 +807,7 @@ go build -o bin/kossti-migrate ./cmd/migrate
 ```
 
 ### Docker Usage (if configured)
+
 ```bash
 # Run the application in Docker
 docker-compose up -d
