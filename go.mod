@@ -1,4 +1,4 @@
-module auth-module
+module kossti
 
 go 1.24.2
 

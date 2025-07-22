@@ -10,9 +10,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"auth-module/internal/domain/entity"
-	"auth-module/internal/interface/repository/postgres"
-	"auth-module/internal/usecase/auth"
+	"kossti/internal/domain/entity"
+	"kossti/internal/interface/repository/postgres"
+	"kossti/internal/usecase/auth"
 )
 
 type RegisterRequest struct {
@@ -38,7 +38,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Create user entity
 	user := &entity.User{
-		Username: req.Username,
+		Name:     req.Username, // Using username as name for compatibility
 		Email:    req.Email,
 		Password: req.Password,
 	}
@@ -106,7 +106,7 @@ func RegisterHandlerWithRepo(w http.ResponseWriter, r *http.Request, repo *postg
 	}
 
 	user := &entity.User{
-		Username: req.Username,
+		Name:     req.Username, // Using username as name for compatibility
 		Email:    req.Email,
 		Password: req.Password,
 	}

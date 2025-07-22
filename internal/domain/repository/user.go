@@ -7,21 +7,21 @@ package repository
 // - Makes the code testable and decoupled from infrastructure (e.g., Postgres, MongoDB, etc).
 
 import (
-	"auth-module/internal/domain/entity"
 	"context"
+	"kossti/internal/domain/entities"
 )
 
 type UserRepository interface {
-	Create(ctx context.Context, user *entity.User) (*entity.User, error)
-	GetByID(ctx context.Context, id entity.UserID) (*entity.User, error)
-	GetByEmail(ctx context.Context, email string) (*entity.User, error)
-	GetByUsername(ctx context.Context, username string) (*entity.User, error)
-	Update(ctx context.Context, user *entity.User) error
-	Delete(ctx context.Context, id entity.UserID) error
-	List(ctx context.Context, limit, offset int) ([]*entity.User, error)
+	Create(ctx context.Context, user *entities.User) (*entities.User, error)
+	GetByID(ctx context.Context, id uint) (*entities.User, error)
+	GetByEmail(ctx context.Context, email string) (*entities.User, error)
+	GetByUsername(ctx context.Context, username string) (*entities.User, error)
+	Update(ctx context.Context, user *entities.User) error
+	Delete(ctx context.Context, id uint) error
+	List(ctx context.Context, limit, offset int) ([]*entities.User, error)
 	
 	// Additional methods for better user management
 	Count(ctx context.Context) (int64, error)
-	Search(ctx context.Context, query string, limit, offset int) ([]*entity.User, error)
-	GetByEmailOrUsername(ctx context.Context, emailOrUsername string) (*entity.User, error)
+	Search(ctx context.Context, query string, limit, offset int) ([]*entities.User, error)
+	GetByEmailOrUsername(ctx context.Context, emailOrUsername string) (*entities.User, error)
 }

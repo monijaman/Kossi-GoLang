@@ -1,7 +1,7 @@
 package database
 
 import (
-	"auth-module/internal/infrastructure/database/models"
+	"kossti/internal/infrastructure/database/models"
 	"fmt"
 	"log"
 

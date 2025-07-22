@@ -5,7 +5,7 @@ services:
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=authdb
+      - POSTGRES_DB=kossti
       - POSTGRES_INITDB_ARGS=--auth-host=md5
     ports:
       - "5428:5432"

@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"auth-module/internal/domain/entity"
-	"auth-module/internal/domain/repository"
+	"kossti/internal/domain/entity"
+	"kossti/internal/domain/repository"
 	"context"
 	"errors"
 )

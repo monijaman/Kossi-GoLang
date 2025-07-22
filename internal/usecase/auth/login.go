@@ -8,8 +8,8 @@ package auth
 // This makes the code modular, testable, and easy to maintain.
 
 import (
-	"auth-module/internal/domain/repository"
-	"auth-module/pkg/hash"
+	"kossti/internal/domain/repository"
+	"kossti/pkg/hash"
 	"context"
 	"errors"
 )

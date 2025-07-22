@@ -12,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"auth-module/internal/domain/entity"
-	"auth-module/internal/domain/repository"
-	userUseCase "auth-module/internal/usecase/user"
+	"kossti/internal/domain/entity"
+	"kossti/internal/domain/repository"
+	userUseCase "kossti/internal/usecase/user"
 )
 
 // UserResponse represents the user data returned to client
@@ -46,14 +46,22 @@ type CountResponse struct {
 
 // convertUserToResponse converts domain entity to response format
 func convertUserToResponse(user *entity.User) UserResponse {
+	var phone, address string
+	if user.Phone != nil {
+		phone = *user.Phone
+	}
+	if user.Address != nil {
+		address = *user.Address
+	}
+	
 	return UserResponse{
 		ID:        string(user.ID),
-		Username:  user.Username,
+		Username:  user.Name, // Using name as username for compatibility
 		Email:     user.Email,
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
-		Phone:     user.Phone,
-		Address:   user.Address,
+		Phone:     phone,
+		Address:   address,
 		CreatedAt: user.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt: user.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
