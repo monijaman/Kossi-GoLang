@@ -267,14 +267,24 @@ For larger projects with multiple models, we have a comprehensive migration syst
 go run cmd/migrate/main.go -migrate
 ```
 
-#### 2. Fresh Setup (Development Only)
+#### 2. Database Creation + Migration (Recommended for New Projects)
+
+```bash
+# Creates database if not exists, then runs complete migration
+go run cmd/migrate/main.go -create-db
+```
+
+#### 3. Fresh Setup (Development Only)
 
 ```bash
 # ⚠️ DANGEROUS: Drops all tables and recreates them
 go run cmd/migrate/main.go -fresh
+
+# ⚠️ DANGEROUS: Fresh setup with sample data
+go run cmd/migrate/main.go -fresh-seed
 ```
 
-#### 3. Individual Operations
+#### 4. Individual Operations
 
 ```bash
 # Drop all tables (testing/cleanup)
@@ -285,27 +295,34 @@ go run cmd/migrate/main.go -fk
 
 # Create indexes only
 go run cmd/migrate/main.go -indexes
+
+# Run seeders only (add sample data)
+go run cmd/migrate/main.go -seed
 ```
 
-#### 4. Custom Database Connection
+#### 5. Custom Database Connection
 
 ```bash
 # Use custom database connection
 go run cmd/migrate/main.go -migrate -dsn "host=prod-db user=prod password=secret dbname=production port=5432 sslmode=require"
+
+# Create new database with custom connection
+go run cmd/migrate/main.go -create-db -dsn "host=localhost user=root password=root dbname=new_project port=5428 sslmode=disable TimeZone=UTC"
 ```
 
 ### Migration CLI Options
 
-| Flag          | Description                           | Safety Level     |
-| ------------- | ------------------------------------- | ---------------- |
-| `-migrate`    | Run safe migration (recommended)      | ✅ **Safe**      |
-| `-fresh`      | Drop all + recreate (development)     | 🚨 **Dangerous** |
-| `-fresh-seed` | Drop, migrate, and seed (development) | 🚨 **Dangerous** |
-| `-seed`       | Run all database seeders              | ✅ **Safe**      |
-| `-drop`       | Drop all tables                       | 🚨 **Dangerous** |
-| `-fk`         | Add foreign keys only                 | ✅ **Safe**      |
-| `-indexes`    | Create indexes only                   | ✅ **Safe**      |
-| `-dsn`        | Custom database connection string     | ℹ️ **Config**    |
+| Flag          | Description                             | Safety Level     |
+| ------------- | --------------------------------------- | ---------------- |
+| `-migrate`    | Run safe migration (recommended)        | ✅ **Safe**      |
+| `-create-db`  | Create database if not exists + migrate | ✅ **Safe**      |
+| `-fresh`      | Drop all + recreate (development)       | 🚨 **Dangerous** |
+| `-fresh-seed` | Drop, migrate, and seed (development)   | 🚨 **Dangerous** |
+| `-seed`       | Run all database seeders                | ✅ **Safe**      |
+| `-drop`       | Drop all tables                         | 🚨 **Dangerous** |
+| `-fk`         | Add foreign keys only                   | ✅ **Safe**      |
+| `-indexes`    | Create indexes only                     | ✅ **Safe**      |
+| `-dsn`        | Custom database connection string       | ℹ️ **Config**    |
 
 ### Programmatic Usage (In Your App)
 
@@ -458,9 +475,9 @@ go run cmd/migrate/main.go -migrate -dsn "your_connection_string"
 ```
 🛡️ Running safe migration...
 2025/07/22 10:30:45 Starting database migration...
-2025/07/22 10:30:45 Migrating model 1/60: *models.UserModel
-2025/07/22 10:30:45 Migrating model 2/60: *models.PasswordResetTokenModel
-2025/07/22 10:30:45 Migrating model 3/60: *models.SessionModel
+2025/07/22 10:30:45 Migrating model 1/36: *models.UserModel
+2025/07/22 10:30:45 Migrating model 2/36: *models.PasswordResetTokenModel
+2025/07/22 10:30:45 Migrating model 3/36: *models.SessionModel
 ...
 2025/07/22 10:30:47 All migrations completed successfully!
 2025/07/22 10:30:47 Adding foreign key constraints...
@@ -468,6 +485,37 @@ go run cmd/migrate/main.go -migrate -dsn "your_connection_string"
 2025/07/22 10:30:47 Creating additional indexes...
 2025/07/22 10:30:47 Additional indexes created!
 ✅ Migration completed!
+```
+
+### Quick Reference Commands
+
+**Most Common Commands:**
+
+```bash
+# 🎯 NEW PROJECT: Create database and run migration
+go run cmd/migrate/main.go -create-db
+
+# 🔄 EXISTING PROJECT: Run safe migration only
+go run cmd/migrate/main.go -migrate
+
+# 🌱 DEVELOPMENT: Fresh setup with sample data
+go run cmd/migrate/main.go -fresh-seed
+
+# 🧪 TESTING: Clean database for tests
+go run cmd/migrate/main.go -drop && go run cmd/migrate/main.go -migrate
+```
+
+**Custom Database Examples:**
+
+```bash
+# Create new database with custom name
+go run cmd/migrate/main.go -create-db -dsn "host=localhost user=root password=root dbname=new_project port=5428 sslmode=disable TimeZone=UTC"
+
+# Production migration with SSL
+go run cmd/migrate/main.go -migrate -dsn "host=prod-server user=prod_user password=secure_pass dbname=prod_db port=5432 sslmode=require"
+
+# Test different database locally
+go run cmd/migrate/main.go -create-db -dsn "host=localhost user=root password=root dbname=test_db port=5428 sslmode=disable TimeZone=UTC"
 ```
 
 ---
@@ -742,9 +790,58 @@ go build -o bin/kossti-server ./cmd/app
 
 ### Database Migration Tool
 
+#### Database Creation Features
+
+The migration system can automatically create the PostgreSQL database if it doesn't exist:
+
+```bash
+# Create database if not exists, then run migration
+go run ./cmd/migrate/main.go -create-db
+```
+
+**How it works:**
+
+1. **Connects to `postgres` default database** to check if target database exists
+2. **Queries `pg_database`** system catalog to verify database existence
+3. **Creates database** using `CREATE DATABASE` if it doesn't exist
+4. **Runs normal migration** after database creation
+
+**Database Name Detection:**
+
+The system automatically extracts database name from your connection string:
+
+```bash
+# Key-value format
+"host=localhost user=root password=root dbname=kossti port=5428"
+# Extracts: kossti
+
+# URL format
+"postgres://root:root@localhost:5428/kossti?sslmode=disable"
+# Extracts: kossti
+```
+
+**Example output:**
+
+```
+🔨 Creating database if not exists, then running migration...
+🔄 Checking if database 'kossti' exists...
+🔨 Creating database 'kossti'...
+✅ Database 'kossti' created successfully!
+🛡️ Starting database migration...
+📋 Migrating model 1/60: *models.UserModel
+📋 Migrating model 2/60: *models.PasswordResetTokenModel
+...
+✅ Database created and migration completed!
+```
+
+#### Migration Commands
+
 ```bash
 # Safe migration (recommended for production)
 go run ./cmd/migrate/main.go -migrate
+
+# Create database if not exists, then migrate (safe)
+go run ./cmd/migrate/main.go -create-db
 
 # Fresh setup (development only - DANGEROUS)
 go run ./cmd/migrate/main.go -fresh
@@ -765,6 +862,7 @@ go build -o bin/kossti-migrate ./cmd/migrate
 **Migration Options:**
 
 - `-migrate` - Safe migration (production ready)
+- `-create-db` - Create database if not exists, then migrate (safe)
 - `-fresh` - Drop all + recreate (development only)
 - `-fresh-seed` - Drop, migrate, and seed (development only)
 - `-seed` - Run all database seeders
@@ -815,6 +913,125 @@ docker-compose up -d
 # Run migrations in Docker
 docker-compose exec app ./bin/kossti-migrate -migrate
 ```
+
+---
+
+## PostgreSQL Troubleshooting
+
+### Common PostgreSQL Docker Issues
+
+#### Problem: "PostgreSQL Database directory appears to contain a database; Skipping initialization"
+
+**Error Message:**
+
+```
+postgres-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+postgres-1  | FATAL: could not open directory "pg_notify": No such file or directory
+postgres-1  | LOG: database system is shut down
+```
+
+**Cause:** Corrupted or incomplete PostgreSQL data in the `postgres-data` directory.
+
+**Solution:**
+
+1. **Stop the PostgreSQL container:**
+
+   ```bash
+   docker-compose down
+   ```
+
+2. **Remove the corrupted data directory:**
+
+   ```bash
+   rm -rf postgres-data
+   ```
+
+3. **Restart PostgreSQL with fresh initialization:**
+   ```bash
+   docker-compose up postgres
+   ```
+
+#### Problem: Database Does Not Exist
+
+**Error:** `database "kossti" does not exist`
+
+**Solution:** Use the automatic database creation feature:
+
+```bash
+# Create database if not exists, then migrate
+go run ./cmd/migrate/main.go -create-db
+```
+
+**Manual Solution:**
+
+```bash
+# Connect to PostgreSQL as superuser
+docker-compose exec postgres psql -U root -d postgres
+
+# Create database manually
+CREATE DATABASE kossti;
+
+# Exit and run normal migration
+go run ./cmd/migrate/main.go -migrate
+```
+
+#### Problem: Healthcheck Database Name Mismatch
+
+**Error:** Healthcheck fails because it's checking the wrong database name.
+
+**Solution:** Ensure the healthcheck database name matches your `POSTGRES_DB` environment variable in `docker-compose.yml`:
+
+```yaml
+environment:
+  - POSTGRES_DB=kossti
+healthcheck:
+  test: ["CMD-SHELL", "pg_isready -U root -d kossti"] # Match this with POSTGRES_DB
+```
+
+#### Problem: Port Conflicts
+
+**Error:** `bind: address already in use`
+
+**Solution:** Change the host port in `docker-compose.yml`:
+
+```yaml
+ports:
+  - "5429:5432" # Change 5428 to another available port
+```
+
+#### Problem: Connection Refused
+
+**Troubleshooting Steps:**
+
+1. **Check if PostgreSQL is running:**
+
+   ```bash
+   docker-compose ps
+   ```
+
+2. **Check PostgreSQL logs:**
+
+   ```bash
+   docker-compose logs postgres
+   ```
+
+3. **Test connection:**
+
+   ```bash
+   docker-compose exec postgres psql -U root -d kossti
+   ```
+
+4. **Verify port mapping:**
+   ```bash
+   netstat -an | grep 5428
+   ```
+
+### Best Practices
+
+- Always use `docker-compose down` before removing data directories
+- Backup your database regularly if it contains important data
+- Use specific PostgreSQL versions instead of `latest` for production
+- Keep your `init-db` scripts in version control
 
 ---
 

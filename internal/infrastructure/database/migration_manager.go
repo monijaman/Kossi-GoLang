@@ -3,10 +3,12 @@
 package database
 
 import (
-	"kossti/internal/infrastructure/database/models"
 	"fmt"
+	"kossti/internal/infrastructure/database/models"
 	"log"
+	"strings"
 
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -20,7 +22,55 @@ func NewMigrationManager(db *gorm.DB) *MigrationManager {
 	return &MigrationManager{db: db}
 }
 
-// GetAllModels returns all models that need to be migrated
+// CreateDatabaseIfNotExists creates the database if it doesn't exist
+func (m *MigrationManager) CreateDatabaseIfNotExists(dsn, dbName string) error {
+	log.Printf("Checking if database '%s' exists...", dbName)
+
+	// Parse DSN to get connection without database name
+	// Connect to 'postgres' default database to create target database
+	baseDSN := strings.Replace(dsn, "/"+dbName+"?", "/postgres?", 1)
+	// Also handle key=value format
+	if !strings.Contains(baseDSN, "://") {
+		baseDSN = strings.Replace(dsn, "dbname="+dbName, "dbname=postgres", 1)
+	}
+
+	// Open connection to default postgres database
+	baseDB, err := gorm.Open(postgres.Open(baseDSN), &gorm.Config{})
+	if err != nil {
+		return fmt.Errorf("failed to connect to postgres database: %w", err)
+	}
+
+	// Get underlying SQL DB for raw queries
+	sqlDB, err := baseDB.DB()
+	if err != nil {
+		return fmt.Errorf("failed to get underlying database connection: %w", err)
+	}
+	defer sqlDB.Close()
+
+	// Check if database exists
+	var exists bool
+	query := "SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname = $1)"
+	err = baseDB.Raw(query, dbName).Scan(&exists).Error
+	if err != nil {
+		return fmt.Errorf("failed to check if database exists: %w", err)
+	}
+
+	if exists {
+		log.Printf("✅ Database '%s' already exists", dbName)
+		return nil
+	}
+
+	// Create database if it doesn't exist
+	log.Printf("🔨 Creating database '%s'...", dbName)
+	createQuery := fmt.Sprintf("CREATE DATABASE %s", dbName)
+	err = baseDB.Exec(createQuery).Error
+	if err != nil {
+		return fmt.Errorf("failed to create database '%s': %w", dbName, err)
+	}
+
+	log.Printf("✅ Database '%s' created successfully!", dbName)
+	return nil
+} // GetAllModels returns all models that need to be migrated
 func (m *MigrationManager) GetAllModels() []interface{} {
 	return []interface{}{
 		// Core system tables
@@ -34,14 +84,14 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		&models.FailedJobModel{},
 		&models.PersonalAccessTokenModel{},
 		&models.HistoryLogModel{},
-		
+
 		// Permission system
 		&models.PermissionModel{},
 		&models.RoleModel{},
 		&models.ModelHasPermissionModel{},
 		&models.ModelHasRoleModel{},
 		&models.RoleHasPermissionModel{},
-		
+
 		// Product system
 		&models.ProductModel{},
 		&models.ProductReviewModel{},
@@ -49,29 +99,29 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		&models.BrandModel{},
 		&models.BrandCategoryModel{},
 		&models.ProductableModel{},
-		
+
 		// Translation tables
 		&models.ProductTranslationModel{},
 		&models.CategoryTranslationModel{},
 		&models.BrandTranslationModel{},
 		&models.ProductReviewTranslationModel{},
 		&models.FeedbackTranslationModel{},
-		
+
 		// Comments system
 		&models.CommentModel{},
 		&models.CommentTranslationModel{},
-		
+
 		// Specifications system
 		&models.SpecificationKeyModel{},
 		&models.SpecificationModel{},
 		&models.SpecificationTranslationModel{},
 		&models.SpecificationKeyTranslationModel{},
-		
+
 		// Media and feedback
 		&models.ImageModel{},
 		&models.TagModel{},
 		&models.FeedbackModel{},
-		
+
 		// Form generator
 		&models.FormGeneratorModel{},
 	}
@@ -80,16 +130,16 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 // MigrateAll runs auto-migration for all models
 func (m *MigrationManager) MigrateAll() error {
 	models := m.GetAllModels()
-	
+
 	log.Println("Starting database migration...")
-	
+
 	for i, model := range models {
 		log.Printf("Migrating model %d/%d: %T", i+1, len(models), model)
 		if err := m.db.AutoMigrate(model); err != nil {
 			return fmt.Errorf("failed to migrate %T: %w", model, err)
 		}
 	}
-	
+
 	log.Println("All migrations completed successfully!")
 	return nil
 }
@@ -97,9 +147,9 @@ func (m *MigrationManager) MigrateAll() error {
 // DropAllTables drops all tables (useful for testing)
 func (m *MigrationManager) DropAllTables() error {
 	models := m.GetAllModels()
-	
+
 	log.Println("Dropping all tables...")
-	
+
 	// Drop in reverse order to handle foreign key constraints
 	for i := len(models) - 1; i >= 0; i-- {
 		model := models[i]
@@ -108,7 +158,7 @@ func (m *MigrationManager) DropAllTables() error {
 			log.Printf("Warning: failed to drop table for %T: %v", model, err)
 		}
 	}
-	
+
 	log.Println("All tables dropped!")
 	return nil
 }
@@ -116,7 +166,7 @@ func (m *MigrationManager) DropAllTables() error {
 // AddForeignKeys adds foreign key constraints after migration
 func (m *MigrationManager) AddForeignKeys() error {
 	log.Println("Adding foreign key constraints...")
-	
+
 	// Add foreign key constraints
 	foreignKeys := []struct {
 		table      interface{}
@@ -133,7 +183,7 @@ func (m *MigrationManager) AddForeignKeys() error {
 		{&models.ModelHasRoleModel{}, "role_id", "roles(id)", "CASCADE"},
 		{&models.RoleHasPermissionModel{}, "permission_id", "permissions(id)", "CASCADE"},
 		{&models.RoleHasPermissionModel{}, "role_id", "roles(id)", "CASCADE"},
-		
+
 		// Translation foreign keys
 		{&models.ProductTranslationModel{}, "product_id", "products(id)", "CASCADE"},
 		{&models.CategoryTranslationModel{}, "category_id", "categories(id)", "CASCADE"},
@@ -141,28 +191,28 @@ func (m *MigrationManager) AddForeignKeys() error {
 		{&models.ProductReviewTranslationModel{}, "product_review_id", "product_reviews(id)", "CASCADE"},
 		{&models.FeedbackTranslationModel{}, "feedback_id", "feedback(id)", "CASCADE"},
 		{&models.CommentTranslationModel{}, "comment_id", "comments(id)", "CASCADE"},
-		
+
 		// Specification foreign keys
 		{&models.SpecificationModel{}, "product_id", "products(id)", "CASCADE"},
 		{&models.SpecificationModel{}, "specification_key_id", "specification_keys(id)", "CASCADE"},
 		{&models.SpecificationTranslationModel{}, "specification_id", "specifications(id)", "CASCADE"},
 		{&models.SpecificationKeyTranslationModel{}, "specification_key_id", "specification_keys(id)", "CASCADE"},
-		
+
 		// Form generator foreign key
 		{&models.FormGeneratorModel{}, "category_id", "categories(id)", "CASCADE"},
 	}
-	
+
 	for _, fk := range foreignKeys {
 		if m.db.Migrator().HasConstraint(fk.table, fk.field) {
 			log.Printf("Foreign key constraint already exists for %T.%s", fk.table, fk.field)
 			continue
 		}
-		
+
 		log.Printf("Adding foreign key: %T.%s -> %s", fk.table, fk.field, fk.references)
 		// Note: GORM AutoMigrate should handle most foreign keys automatically
 		// This is here for any custom constraints needed
 	}
-	
+
 	log.Println("Foreign key constraints added!")
 	return nil
 }
@@ -170,12 +220,12 @@ func (m *MigrationManager) AddForeignKeys() error {
 // CreateIndexes creates additional indexes for performance
 func (m *MigrationManager) CreateIndexes() error {
 	log.Println("Creating additional indexes...")
-	
+
 	indexes := []struct {
-		table   interface{}
-		fields  []string
-		name    string
-		unique  bool
+		table  interface{}
+		fields []string
+		name   string
+		unique bool
 	}{
 		{&models.UserModel{}, []string{"email"}, "idx_users_email", true},
 		{&models.ProductModel{}, []string{"slug"}, "idx_products_slug", true},
@@ -185,18 +235,18 @@ func (m *MigrationManager) CreateIndexes() error {
 		{&models.PermissionModel{}, []string{"name", "guard_name"}, "idx_permissions_name_guard", true},
 		{&models.RoleModel{}, []string{"name", "guard_name"}, "idx_roles_name_guard", true},
 	}
-	
+
 	for _, idx := range indexes {
 		if m.db.Migrator().HasIndex(idx.table, idx.name) {
 			log.Printf("Index already exists: %s", idx.name)
 			continue
 		}
-		
+
 		log.Printf("Creating index: %s on %T(%v)", idx.name, idx.table, idx.fields)
 		// Note: GORM AutoMigrate should handle most indexes from struct tags
 		// This is here for any additional custom indexes needed
 	}
-	
+
 	log.Println("Additional indexes created!")
 	return nil
 }
@@ -206,14 +256,25 @@ func (m *MigrationManager) Setup() error {
 	if err := m.MigrateAll(); err != nil {
 		return err
 	}
-	
+
 	if err := m.AddForeignKeys(); err != nil {
 		return err
 	}
-	
+
 	if err := m.CreateIndexes(); err != nil {
 		return err
 	}
-	
+
 	return nil
+}
+
+// SetupWithDatabaseCreation runs complete database setup including database creation
+func (m *MigrationManager) SetupWithDatabaseCreation(dsn, dbName string) error {
+	// First create database if it doesn't exist
+	if err := m.CreateDatabaseIfNotExists(dsn, dbName); err != nil {
+		return err
+	}
+
+	// Then run normal setup
+	return m.Setup()
 }
