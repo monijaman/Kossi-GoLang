@@ -4,6 +4,77 @@ Welcome! This guide is designed to help you present and explain your Go authenti
 
 ---
 
+## 📋 Table of Contents
+
+### 🏗️ **Architecture & Concepts**
+
+- [1. What is Clean Architecture?](#1-what-is-clean-architecture)
+- [2. Project Structure (Visual)](#2-project-structure-visual)
+- [3. Layers Explained (Simple)](#3-layers-explained-simple)
+- [4. How the Parts Work Together](#4-how-the-parts-work-together)
+
+### 🚀 **Getting Started**
+
+- [4.5. Quick Start (Working Tools)](#45-quick-start-working-tools-)
+- [5. Setup & Run (Step-by-Step)](#5-setup--run-step-by-step)
+  - [5.1. Install Go and PostgreSQL](#1-install-go-and-postgresql)
+  - [5.2. Install Project Dependencies](#2-install-project-dependencies)
+  - [5.3. Create a Database](#3-create-a-database)
+  - [5.4. Set Environment Variables](#4-set-environment-variables)
+  - [5.5. Run the Applications](#5-run-the-applications)
+  - [5.6. Test the API](#6-test-the-api)
+
+### 🛠️ **Development Tools**
+
+- [6. Development Tools & Troubleshooting](#6-development-tools--troubleshooting)
+  - [6.1. Air Hot Reloading Issues](#61-air-hot-reloading-issues)
+  - [6.2. Go Dependencies Issues](#62-go-dependencies-issues)
+  - [6.3. PostgreSQL Connection Issues](#63-postgresql-connection-issues)
+- [7. PostgreSQL Password Setup](#7-how-to-set-or-change-the-password-for-the-postgres-user-in-postgresql)
+
+### 📊 **Database Management**
+
+- [9. How to Migrate the Database Schema](#9-how-to-migrate-the-database-schema-automigrate)
+- [10. Advanced Database Migration System](#10-advanced-database-migration-system)
+  - [10.1. Migration Manager Features](#101-migration-manager-features)
+  - [10.2. Using the Migration CLI Tool](#102-using-the-migration-cli-tool)
+  - [10.3. Migration CLI Options](#103-migration-cli-options)
+  - [10.4. Programmatic Usage](#104-programmatic-usage-in-your-app)
+  - [10.5. What Gets Migrated](#105-what-gets-migrated)
+  - [10.6. Migration Best Practices](#106-migration-best-practices)
+  - [10.7. Troubleshooting Migrations](#107-troubleshooting-migrations)
+- [11. Database Seeding System](#11-database-seeding-system-)
+  - [11.1. Quick Start](#111-quick-start)
+  - [11.2. What Gets Seeded](#112-what-gets-seeded)
+  - [11.3. Seeded Data Examples](#113-seeded-data-examples)
+  - [11.4. Seeding CLI Options](#114-seeding-cli-options)
+  - [11.5. Architecture Overview](#115-architecture-overview)
+  - [11.6. Programmatic Usage](#116-programmatic-usage)
+  - [11.7. Creating Custom Seeders](#117-creating-custom-seeders)
+  - [11.8. Verification & Testing](#118-verification--testing)
+
+### 🔧 **CLI Tools & Commands**
+
+- [12. CLI Tools Available](#12-cli-tools-available)
+  - [12.1. Main Application Server](#121-main-application-server)
+  - [12.2. Database Migration Tool](#122-database-migration-tool)
+  - [12.3. Database Seeding Verification Tool](#123-database-seeding-verification-tool)
+  - [12.4. Build All Tools](#124-build-all-tools)
+
+### 🐘 **PostgreSQL Reference**
+
+- [13. PostgreSQL Troubleshooting](#13-postgresql-troubleshooting)
+  - [13.1. Common PostgreSQL Docker Issues](#131-common-postgresql-docker-issues)
+  - [13.2. Connection Problems](#132-connection-problems)
+  - [13.3. Best Practices](#133-best-practices)
+
+### 🎓 **Learning Resources**
+
+- [8. Clean Architecture Benefits (Recap)](#8-clean-architecture-benefits-recap)
+- [9. For You](#9-for-you)
+
+---
+
 ## 1. What is Clean Architecture?
 
 - **Clean Architecture** is a way to organize code so that each part has a clear job.
@@ -55,44 +126,165 @@ kossti/
 
 ---
 
+## 4.5. Quick Start (Working Tools) 🚀
+
+If you want to get started immediately with the working components:
+
+```bash
+# 1. Install dependencies
+go mod download
+
+# 2. Install Air for hot reloading (optional)
+go install github.com/cosmtrek/air@latest
+
+# 3. Create database and run migration
+go run ./cmd/migrate/main.go -create-db
+
+# 4. Seed with sample data
+go run ./cmd/migrate/main.go -seed
+
+# 5. Verify setup
+go run ./cmd/seedtest/main.go
+```
+
+**What's working:**
+✅ Database migration system (60+ models)  
+✅ Comprehensive seeding system (400+ records)  
+✅ Data verification tools  
+✅ Clean Architecture structure  
+✅ Air hot reloading (with working migration tools)
+
+**What needs attention:**
+⚠️ Main API server has entity import conflicts  
+⚠️ Use case layer needs entity reconciliation
+
+### 🔥 Quick Fix for Air Issues
+
+If you get `'tmp\main.exe' is not recognized` error with Air:
+
+```bash
+# Option 1: Use Air with migration tools (works perfectly)
+air -c .air-migrate.toml
+
+# Option 2: Use direct commands (reliable)
+go run ./cmd/migrate/main.go -create-db
+go run ./cmd/migrate/main.go -seed
+
+# Option 3: Manual build test to see specific errors
+mkdir tmp
+go build -o ./tmp/main.exe ./cmd/app/main.go
+```
+
+---
+
 ## 5. Setup & Run (Step-by-Step)
 
 ### 1. Install Go and PostgreSQL
 
-- [Go download](https://go.dev/dl/)
+- [Go download](https://go.dev/dl/) (Go 1.19 or higher required)
 - [PostgreSQL download](https://www.postgresql.org/download/)
 
-### 2. Create a Database
+### 2. Install Project Dependencies
 
-```sh
-createdb -U postgres authdb
+#### Install Go Dependencies
+
+```bash
+# Navigate to project directory
+cd gocrit_server
+
+# Install all Go dependencies
+go mod download
+
+# Verify dependencies
+go mod verify
 ```
 
-### 3. Set Environment Variables
+#### Install Development Tools (Optional but Recommended)
+
+```bash
+# Install Air for hot reloading during development
+go install github.com/cosmtrek/air@latest
+
+# Install golangci-lint for code linting
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+# Install migrate tool for database migrations (alternative CLI)
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+```
+
+### 3. Create a Database
+
+```bash
+createdb -U postgres kossti
+```
+
+### 4. Set Environment Variables
 
 Create a `.env` file in the project root:
 
 ```env
-DATABASE_URL=postgres://postgres:yourpassword@localhost:5432/authdb?sslmode=disable
-JWT_SECRET=your_jwt_key
+# Database Configuration
+DATABASE_URL=postgres://root:root@localhost:5428/kossti?sslmode=disable&TimeZone=UTC
+JWT_SECRET=your_jwt_secret_key_here
 KAFKA_BROKER=localhost:9092
-```
 
-### 4. Install Dependencies
-
-```sh
-go mod init kossti
-go get github.com/lib/pq
-go get github.com/joho/godotenv
-go get golang.org/x/crypto/bcrypt
+# Server Configuration
+PORT=8080
+GO_ENV=development
 ```
 
 ### 5. Run the Applications
 
 #### Main Application (API Server)
 
-```sh
+**Standard Go Run:**
+
+```bash
 go run ./cmd/app/main.go
+```
+
+**With Air for Hot Reloading (For Working Tools):**
+
+_Note: The main app has compilation issues. Use Air for the working migration tools:_
+
+```bash
+# Option 1: Use Air with the fixed .air.toml (will show build errors)
+air
+
+# Option 2: Use the working migration tools directly
+go run ./cmd/migrate/main.go -migrate
+go run ./cmd/migrate/main.go -seed
+go run ./cmd/seedtest/main.go
+
+# Option 3: Manual build test to see errors
+go build -o ./tmp/main.exe ./cmd/app/main.go
+```
+
+**Air Configuration:**
+Your project includes multiple `.air.toml` configuration files:
+
+- `.air.toml` - For main application (has compilation issues)
+- `.air-migrate.toml` - For migration tools (working alternative)
+
+If the main Air fails, use the migration-focused config:
+
+```bash
+# Use the working migration Air config
+air -c .air-migrate.toml
+
+# This will run the migration tool with hot reloading
+# Default command: ./tmp/migrate.exe -h (shows help)
+```
+
+To customize the migration Air config for specific tasks:
+
+```toml
+# Edit .air-migrate.toml and change args_bin:
+args_bin = ["-migrate"]     # Auto-run migration on changes
+# or
+args_bin = ["-seed"]        # Auto-run seeding on changes
+# or
+args_bin = ["-h"]          # Show help (default, safe)
 ```
 
 #### Database Migration Tool
@@ -134,7 +326,181 @@ go run ./cmd/migrate/main.go -h
 
 ---
 
-## 6. Troubleshooting
+## 6. Development Tools & Troubleshooting
+
+### 6.1. Air Hot Reloading Issues
+
+**Problem: `cmd\main.go: directory not found`**
+
+_Solution:_ The `.air.toml` file has been configured for this project structure. Make sure you're running Air from the project root:
+
+```bash
+# Correct project structure uses cmd/app/main.go, not cmd/main.go
+air
+
+# If still failing, try rebuilding the air config:
+air init
+```
+
+**Problem: `'air' is not recognized as an internal or external command`**
+
+_Solution:_ Air is not installed or not in PATH:
+
+```bash
+# Install Air
+go install github.com/cosmtrek/air@latest
+
+# Add Go bin to PATH (Windows)
+set PATH=%PATH%;%USERPROFILE%\go\bin
+
+# Add Go bin to PATH (Linux/Mac)
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# Or run with full path
+$(go env GOPATH)/bin/air
+```
+
+**Problem: Build errors with Air**
+
+_Solution:_ Check the `.air.toml` configuration and build logs:
+
+```bash
+# Check build errors
+cat build-errors.log
+
+# Manual build test
+go build -o ./tmp/main.exe ./cmd/app/main.go
+
+# Clean tmp directory
+rm -rf tmp
+mkdir tmp
+```
+
+**Problem: Compilation errors when using Air**
+
+_Solution:_ The project may have entity import conflicts. Use the working migration and seeding tools:
+
+```bash
+# Working tools that compile successfully:
+go run ./cmd/migrate/main.go -migrate
+go run ./cmd/migrate/main.go -seed
+go run ./cmd/seedtest/main.go
+
+# For development, focus on these working components:
+go run ./cmd/migrate/main.go -create-db  # Create DB and migrate
+go run ./cmd/migrate/main.go -fresh-seed # Fresh setup with data
+go run ./cmd/seedtest/main.go           # Verify seeded data
+```
+
+**Problem: `'tmp\main.exe' is not recognized as an internal or external command`**
+
+_Solution:_ Air build is failing or path issues on Windows:
+
+```bash
+# Step 1: Check if build succeeds manually
+go build -o ./tmp/main.exe ./cmd/app/main.go
+
+# Step 2: If build fails, check the errors
+mkdir tmp
+go build -o ./tmp/main.exe ./cmd/app/main.go
+
+# Step 3: Fix .air.toml for Windows (ensure .exe extension)
+# Update your .air.toml file:
+# bin = "./tmp/main.exe"
+# cmd = "go build -o ./tmp/main.exe ./cmd/app/main.go"
+
+# Step 4: Alternative - Use the working migration tools with Air
+# Change .air.toml to build migration tool instead:
+# cmd = "go build -o ./tmp/migrate.exe ./cmd/migrate/main.go"
+# bin = "./tmp/migrate.exe"
+# args_bin = ["-migrate"]
+```
+
+**Problem: Air shows compilation errors**
+
+_Solution:_ The main app has known entity conflicts. Use Air with the working migration tool:
+
+```bash
+# Option 1: Use migration tool with Air (modify .air.toml)
+# Change these lines in .air.toml:
+# cmd = "go build -o ./tmp/migrate.exe ./cmd/migrate/main.go"
+# bin = "./tmp/migrate.exe"
+# args_bin = ["-h"]  # This will show help
+
+# Option 2: Skip Air and use direct commands
+go run ./cmd/migrate/main.go -create-db
+go run ./cmd/migrate/main.go -seed
+go run ./cmd/seedtest/main.go
+
+# Option 3: Check specific build errors
+go build -o ./tmp/main.exe ./cmd/app/main.go 2>&1 | tee build-errors.log
+```
+
+### 6.2. Go Dependencies Issues
+
+**Problem: `go: module not found`**
+
+_Solution:_ Initialize and download dependencies:
+
+```bash
+# Initialize Go module (if not done)
+go mod init kossti
+
+# Download dependencies
+go mod download
+
+# Clean module cache if corrupted
+go clean -modcache
+go mod download
+```
+
+**Problem: Version conflicts**
+
+_Solution:_ Update dependencies:
+
+```bash
+# Update all dependencies
+go get -u ./...
+
+# Tidy up go.mod and go.sum
+go mod tidy
+
+# Verify dependencies
+go mod verify
+```
+
+### 6.3. PostgreSQL Connection Issues
+
+**Problem: `connection refused` or `database does not exist`**
+
+_Solution:_ Use the automatic database creation:
+
+```bash
+# Create database if not exists, then migrate
+go run ./cmd/migrate/main.go -create-db
+
+# Or manually create database
+createdb -U root kossti
+```
+
+**Problem: Docker PostgreSQL issues**
+
+_Solution:_ Reset PostgreSQL data:
+
+```bash
+# Stop containers
+docker-compose down
+
+# Remove corrupted data
+rm -rf postgres-data
+
+# Restart with fresh data
+docker-compose up postgres
+```
+
+---
+
+## 7. Troubleshooting
 
 - **Database connection failed:**
   - Make sure Postgres is running and your password is correct.
@@ -192,7 +558,7 @@ If you see an error like `'psql' is not recognized as an internal or external co
 
 ---
 
-## How to Migrate the Database Schema (AutoMigrate)
+## 9. How to Migrate the Database Schema (AutoMigrate)
 
 You can automatically create or update your database tables to match your Go structs using GORM's AutoMigrate feature.
 
@@ -249,7 +615,7 @@ go run ./cmd/app/main.go
 
 For larger projects with multiple models, we have a comprehensive migration system that handles all database operations.
 
-### Migration Manager Features
+### 10.1. Migration Manager Features
 
 - ✅ **Batch Migration**: Migrates all 60+ models at once
 - ✅ **Progress Logging**: See which model is being migrated
@@ -258,7 +624,7 @@ For larger projects with multiple models, we have a comprehensive migration syst
 - ✅ **Production Safe**: Won't break existing data
 - ✅ **CLI Tool**: Easy command-line interface
 
-### Using the Migration CLI Tool
+### 10.2. Using the Migration CLI Tool
 
 #### 1. Safe Migration (Production Recommended)
 
@@ -310,7 +676,7 @@ go run cmd/migrate/main.go -migrate -dsn "host=prod-db user=prod password=secret
 go run cmd/migrate/main.go -create-db -dsn "host=localhost user=root password=root dbname=new_project port=5428 sslmode=disable TimeZone=UTC"
 ```
 
-### Migration CLI Options
+### 10.3. Migration CLI Options
 
 | Flag          | Description                             | Safety Level     |
 | ------------- | --------------------------------------- | ---------------- |
@@ -324,7 +690,7 @@ go run cmd/migrate/main.go -create-db -dsn "host=localhost user=root password=ro
 | `-indexes`    | Create indexes only                     | ✅ **Safe**      |
 | `-dsn`        | Custom database connection string       | ℹ️ **Config**    |
 
-### Programmatic Usage (In Your App)
+### 10.4. Programmatic Usage (In Your App)
 
 ```go
 package main
@@ -366,7 +732,7 @@ func setupDatabase() {
 }
 ```
 
-### What Gets Migrated
+### 10.5. What Gets Migrated
 
 The migration system handles **60+ database models** organized into:
 
@@ -398,7 +764,7 @@ The migration system handles **60+ database models** organized into:
 - `comments`, `specifications`, `specification_keys`
 - And their translation tables
 
-### Migration Best Practices
+### 10.6. Migration Best Practices
 
 #### For Development
 
@@ -438,7 +804,7 @@ go run cmd/migrate/main.go -migrate
 | Error Handling    | ❌ Basic            | ✅ Advanced            |
 | Production Ready  | ⚠️ Limited          | ✅ Yes                 |
 
-### Troubleshooting Migrations
+### 10.7. Troubleshooting Migrations
 
 #### Common Issues
 
@@ -520,11 +886,11 @@ go run cmd/migrate/main.go -create-db -dsn "host=localhost user=root password=ro
 
 ---
 
-## 10. Database Seeding System 🌱
+## 11. Database Seeding System 🌱
 
 Our Clean Architecture includes a comprehensive database seeding system that populates your database with realistic test data following Laravel-style seeding patterns.
 
-### Quick Start
+### 11.1. Quick Start
 
 ```bash
 # Run fresh setup with seeding (development only)
@@ -537,7 +903,7 @@ go run cmd/migrate/main.go -seed
 go run cmd/seedtest/main.go
 ```
 
-### What Gets Seeded
+### 11.2. What Gets Seeded
 
 The seeding system includes **400+ records** organized across multiple tables:
 
@@ -547,7 +913,7 @@ The seeding system includes **400+ records** organized across multiple tables:
 | **Brands**           | 152 records       | Global brands (Apple, Nike, BMW, Google, etc.)               |
 | **Brand-Categories** | 415 relationships | Smart brand-category mappings                                |
 
-### Seeded Data Examples
+### 11.3. Seeded Data Examples
 
 **📂 Categories Include:**
 
@@ -571,14 +937,14 @@ The seeding system includes **400+ records** organized across multiple tables:
 - BMW → Automotive, Luxury Cars, Motorcycles
 - Starbucks → Food & Beverages, Coffee, Restaurants
 
-### Seeding CLI Options
+### 11.4. Seeding CLI Options
 
 | **Flag**      | **Description**         | **Use Case**                     |
 | ------------- | ----------------------- | -------------------------------- |
 | `-seed`       | Run all seeders         | Adding data to existing database |
 | `-fresh-seed` | Drop, migrate, and seed | Complete fresh setup (dev only)  |
 
-### Architecture Overview
+### 11.5. Architecture Overview
 
 The seeding system follows Clean Architecture principles:
 
@@ -597,7 +963,7 @@ internal/infrastructure/database/seeders/
 - **BaseSeeder**: Shared functionality and naming
 - **Helper Functions**: Duplicate detection, slug generation, relationship creation
 
-### Programmatic Usage
+### 11.6. Programmatic Usage
 
 ```go
 package main
@@ -626,7 +992,7 @@ func setupSeeders(db *gorm.DB) {
 }
 ```
 
-### Creating Custom Seeders
+### 11.7. Creating Custom Seeders
 
 ```go
 package seeders
@@ -703,7 +1069,7 @@ func (ps *ProductSeeder) Seed(db *gorm.DB) error {
 🎉 All seeders completed successfully!
 ```
 
-### Verification & Testing
+### 11.8. Verification & Testing
 
 **Quick Verification:**
 
@@ -756,9 +1122,9 @@ go run cmd/seedtest/main.go
 
 ---
 
-## 11. CLI Tools Available
+## 12. CLI Tools Available
 
-### Main Application Server
+### 12.1. Main Application Server
 
 ```bash
 # Start the HTTP API server (default port: 8080)
@@ -788,7 +1154,7 @@ go build -o bin/kossti-server ./cmd/app
 - `GET /api/users/{id}` - Get user by ID
 - `GET /health` - Health check
 
-### Database Migration Tool
+### 12.2. Database Migration Tool
 
 #### Database Creation Features
 
@@ -871,7 +1237,7 @@ go build -o bin/kossti-migrate ./cmd/migrate
 - `-indexes` - Create indexes only
 - `-dsn` - Custom database connection string
 
-### Database Seeding Verification Tool
+### 12.3. Database Seeding Verification Tool
 
 ```bash
 # Verify seeded data
@@ -888,7 +1254,7 @@ go build -o bin/kossti-seedtest ./cmd/seedtest
 - ✅ Verifies relationships (e.g., Apple's categories)
 - ✅ Clean Architecture compliance testing
 
-### Build All Tools
+### 12.4. Build All Tools
 
 ```bash
 # Using Makefile (Linux/Mac/WSL)
@@ -916,9 +1282,9 @@ docker-compose exec app ./bin/kossti-migrate -migrate
 
 ---
 
-## PostgreSQL Troubleshooting
+## 13. PostgreSQL Troubleshooting
 
-### Common PostgreSQL Docker Issues
+### 13.1. Common PostgreSQL Docker Issues
 
 #### Problem: "PostgreSQL Database directory appears to contain a database; Skipping initialization"
 
@@ -999,7 +1365,7 @@ ports:
   - "5429:5432" # Change 5428 to another available port
 ```
 
-#### Problem: Connection Refused
+### 13.2. Connection Problems
 
 **Troubleshooting Steps:**
 
@@ -1026,12 +1392,32 @@ ports:
    netstat -an | grep 5428
    ```
 
-### Best Practices
+### 13.3. Best Practices
 
 - Always use `docker-compose down` before removing data directories
 - Backup your database regularly if it contains important data
 - Use specific PostgreSQL versions instead of `latest` for production
 - Keep your `init-db` scripts in version control
+
+---
+
+## 8. Clean Architecture Benefits (Recap)
+
+✅ **Easy Testing**: Each layer can be tested independently  
+✅ **Framework Independence**: Swap databases, web frameworks without breaking business logic  
+✅ **Maintainable Code**: Clear separation of concerns makes code easier to understand  
+✅ **Scalable Architecture**: Add new features without affecting existing functionality  
+✅ **Database Agnostic**: Switch from PostgreSQL to MySQL with minimal changes
+
+---
+
+## 9. For You
+
+- Ask questions about any layer or file!
+- Try changing the database or adding a new feature (like password reset)
+- Practice writing tests for the use cases
+- Experiment with the seeding system to add your own data
+- Build additional CLI tools using the existing patterns
 
 ---
 

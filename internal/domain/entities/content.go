@@ -38,33 +38,33 @@ type SpecificationKey struct {
 
 // ProductTranslation represents product translations
 type ProductTranslation struct {
-	ID                   uint
-	ProductID            uint
-	Locale               string
-	TranslatedName       string
+	ID                    uint
+	ProductID             uint
+	Locale                string
+	TranslatedName        string
 	TranslatedDescription *string
-	CreatedAt            time.Time
-	UpdatedAt            time.Time
+	CreatedAt             time.Time
+	UpdatedAt             time.Time
 }
 
 // CategoryTranslation represents category translations
 type CategoryTranslation struct {
-	ID              uint
-	CategoryID      uint
-	Locale          string
-	TranslatedName  string
-	CreatedAt       time.Time
-	UpdatedAt       time.Time
+	ID             uint
+	CategoryID     uint
+	Locale         string
+	TranslatedName string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
 }
 
 // BrandTranslation represents brand translations
 type BrandTranslation struct {
-	ID              uint
-	BrandID         uint
-	Locale          string
-	TranslatedName  string
-	CreatedAt       time.Time
-	UpdatedAt       time.Time
+	ID             uint
+	BrandID        uint
+	Locale         string
+	TranslatedName string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
 }
 
 // ProductReviewTranslation represents product review translations
@@ -99,20 +99,10 @@ type SpecificationTranslation struct {
 
 // SpecificationKeyTranslation represents specification key translations
 type SpecificationKeyTranslation struct {
-	ID                  uint
-	SpecificationKeyID  uint
-	Locale              string
-	TranslatedKey       string
-	CreatedAt           time.Time
-	UpdatedAt           time.Time
-}
-
-// FeedbackTranslation represents feedback translations
-type FeedbackTranslation struct {
-	ID                uint
-	FeedbackID        uint
-	Locale            string
-	TranslatedContent string
-	CreatedAt         time.Time
-	UpdatedAt         time.Time
+	ID                 uint
+	SpecificationKeyID uint
+	Locale             string
+	TranslatedKey      string
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
 }

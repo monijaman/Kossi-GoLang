@@ -59,9 +59,9 @@ type BrandCategory struct {
 
 // Productable represents polymorphic product relationships
 type Productable struct {
-	ProductID        uint
-	ProductableID    uint
-	ProductableType  string
+	ProductID       uint
+	ProductableID   uint
+	ProductableType string
 }
 
 // Image represents an image
@@ -81,17 +81,6 @@ type Tag struct {
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
-}
-
-// Feedback represents user feedback
-type Feedback struct {
-	ID        uint
-	UserID    *uint
-	Content   string
-	Status    bool
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt *time.Time
 }
 
 // FormGenerator represents form generator configuration

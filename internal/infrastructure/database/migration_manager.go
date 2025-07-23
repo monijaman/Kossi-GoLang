@@ -105,7 +105,6 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		&models.CategoryTranslationModel{},
 		&models.BrandTranslationModel{},
 		&models.ProductReviewTranslationModel{},
-		&models.FeedbackTranslationModel{},
 
 		// Comments system
 		&models.CommentModel{},
@@ -120,7 +119,6 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		// Media and feedback
 		&models.ImageModel{},
 		&models.TagModel{},
-		&models.FeedbackModel{},
 
 		// Form generator
 		&models.FormGeneratorModel{},
@@ -176,7 +174,6 @@ func (m *MigrationManager) AddForeignKeys() error {
 	}{
 		{&models.SessionModel{}, "user_id", "users(id)", "SET NULL"},
 		{&models.ProductReviewModel{}, "user_id", "users(id)", "CASCADE"},
-		{&models.FeedbackModel{}, "user_id", "users(id)", "SET NULL"},
 		{&models.BrandCategoryModel{}, "brand_id", "brands(id)", "CASCADE"},
 		{&models.BrandCategoryModel{}, "category_id", "categories(id)", "CASCADE"},
 		{&models.ModelHasPermissionModel{}, "permission_id", "permissions(id)", "CASCADE"},
@@ -189,7 +186,6 @@ func (m *MigrationManager) AddForeignKeys() error {
 		{&models.CategoryTranslationModel{}, "category_id", "categories(id)", "CASCADE"},
 		{&models.BrandTranslationModel{}, "brand_id", "brands(id)", "CASCADE"},
 		{&models.ProductReviewTranslationModel{}, "product_review_id", "product_reviews(id)", "CASCADE"},
-		{&models.FeedbackTranslationModel{}, "feedback_id", "feedback(id)", "CASCADE"},
 		{&models.CommentTranslationModel{}, "comment_id", "comments(id)", "CASCADE"},
 
 		// Specification foreign keys
