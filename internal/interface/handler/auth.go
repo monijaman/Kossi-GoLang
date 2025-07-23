@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"kossti/internal/domain/entity"
+	"kossti/internal/domain/entities"
 	"kossti/internal/interface/repository/postgres"
 	"kossti/internal/usecase/auth"
 )
@@ -37,7 +37,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create user entity
-	user := &entity.User{
+	user := &entities.User{
 		Name:     req.Username, // Using username as name for compatibility
 		Email:    req.Email,
 		Password: req.Password,
@@ -105,7 +105,7 @@ func RegisterHandlerWithRepo(w http.ResponseWriter, r *http.Request, repo *postg
 		return
 	}
 
-	user := &entity.User{
+	user := &entities.User{
 		Name:     req.Username, // Using username as name for compatibility
 		Email:    req.Email,
 		Password: req.Password,
@@ -154,4 +154,3 @@ func LoginHandlerWithRepo(w http.ResponseWriter, r *http.Request, repo *postgres
 		"email":   req.Email,
 	})
 }
-

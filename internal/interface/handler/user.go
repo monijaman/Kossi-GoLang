@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"kossti/internal/domain/entity"
+	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	userUseCase "kossti/internal/usecase/user"
 )
@@ -32,11 +32,11 @@ type UserResponse struct {
 
 // PaginatedUsersResponse represents paginated user list response
 type PaginatedUsersResponse struct {
-	Users      []UserResponse `json:"users"`
-	Total      int64          `json:"total"`
-	Limit      int            `json:"limit"`
-	Offset     int            `json:"offset"`
-	HasMore    bool           `json:"has_more"`
+	Users   []UserResponse `json:"users"`
+	Total   int64          `json:"total"`
+	Limit   int            `json:"limit"`
+	Offset  int            `json:"offset"`
+	HasMore bool           `json:"has_more"`
 }
 
 // CountResponse represents user count response
@@ -45,23 +45,15 @@ type CountResponse struct {
 }
 
 // convertUserToResponse converts domain entity to response format
-func convertUserToResponse(user *entity.User) UserResponse {
-	var phone, address string
-	if user.Phone != nil {
-		phone = *user.Phone
-	}
-	if user.Address != nil {
-		address = *user.Address
-	}
-	
+func convertUserToResponse(user *entities.User) UserResponse {
 	return UserResponse{
-		ID:        string(user.ID),
+		ID:        strconv.FormatUint(uint64(user.ID), 10),
 		Username:  user.Name, // Using name as username for compatibility
 		Email:     user.Email,
-		FirstName: user.FirstName,
-		LastName:  user.LastName,
-		Phone:     phone,
-		Address:   address,
+		FirstName: "", // Not available in entities.User
+		LastName:  "", // Not available in entities.User
+		Phone:     "", // Not available in entities.User
+		Address:   "", // Not available in entities.User
 		CreatedAt: user.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt: user.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
@@ -255,14 +247,19 @@ func GetUserByIDHandler(w http.ResponseWriter, r *http.Request, userRepo reposit
 		return
 	}
 
-	// Convert string ID to UserID
-	userID := entity.UserID(path)
+	// Convert string ID to uint
+	userID, err := strconv.ParseUint(path, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid user ID"})
+		return
+	}
 
 	// Create use case
 	uc := userUseCase.NewUserUseCase(userRepo)
 
 	// Get user
-	user, err := uc.GetUserByID(r.Context(), userID)
+	user, err := uc.GetUserByID(r.Context(), uint(userID))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})

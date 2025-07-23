@@ -8,15 +8,15 @@ package auth
 // This makes the code modular, testable, and easy to maintain.
 
 import (
-	"kossti/internal/domain/entity"
-	"kossti/internal/domain/repository"
-	"kossti/pkg/hash"
 	"context"
 	"errors"
+	"kossti/internal/domain/entities"
+	"kossti/internal/domain/repository"
+	"kossti/pkg/hash"
 	"time"
 )
 
-func Register(ctx context.Context, repo repository.UserRepository, user *entity.User) error {
+func Register(ctx context.Context, repo repository.UserRepository, user *entities.User) error {
 	// Check if user already exists
 	existing, _ := repo.GetByEmail(ctx, user.Email)
 	if existing != nil {
@@ -30,7 +30,7 @@ func Register(ctx context.Context, repo repository.UserRepository, user *entity.
 	user.Password = hashed
 	user.CreatedAt = time.Now()
 	user.UpdatedAt = time.Now()
-	
+
 	_, err = repo.Create(ctx, user)
 	return err
 }

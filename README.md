@@ -175,6 +175,27 @@ mkdir tmp
 go build -o ./tmp/main.exe ./cmd/app/main.go
 ```
 
+### 🚨 Entity Import Conflict Issue
+
+The main app currently has compilation errors due to conflicting entity packages:
+
+**Error:** `cannot use user (variable of type *entity.User) as *entities.User value`
+
+**Solution:** Use the working tools while this is resolved:
+
+```bash
+# ✅ WORKING: Migration and seeding tools
+go run ./cmd/migrate/main.go -create-db  # Create database
+go run ./cmd/migrate/main.go -seed       # Add sample data
+go run ./cmd/seedtest/main.go           # Verify data
+
+# ✅ WORKING: Air with migration tools
+air -c .air-migrate.toml                # Hot reload for DB work
+
+# ❌ NOT WORKING: Main API server (entity conflicts)
+# go run ./cmd/app/main.go              # Has compilation errors
+```
+
 ---
 
 ## 5. Setup & Run (Step-by-Step)
@@ -467,6 +488,102 @@ go mod tidy
 
 # Verify dependencies
 go mod verify
+```
+
+**Problem: Entity import conflicts**
+
+_Solution:_ The project has conflicting entity packages causing type mismatches:
+
+```bash
+# Error symptoms:
+# cannot use user (variable of type *entity.User) as *entities.User value
+# cannot use createdUser (variable of type *entities.User) as *entity.User value
+
+# Quick diagnosis - check import conflicts:
+grep -r "entity\." internal/usecase/
+grep -r "entities\." internal/usecase/
+
+# Temporary workaround - use the working migration tools:
+go run ./cmd/migrate/main.go -create-db
+go run ./cmd/migrate/main.go -seed
+go run ./cmd/seedtest/main.go
+
+# Long-term fix - standardize entity imports:
+# Option 1: Use only 'entities' package everywhere
+# Option 2: Use only 'entity' package everywhere
+# Option 3: Create type aliases for compatibility
+```
+
+**Entity Conflict Troubleshooting Steps:**
+
+```bash
+# Step 1: Identify conflicting imports
+find internal/ -name "*.go" -exec grep -l "entity\." {} \;
+find internal/ -name "*.go" -exec grep -l "entities\." {} \;
+
+# Step 2: Check which entity package is primary
+ls internal/domain/entities/
+ls internal/domain/entity/
+
+# Step 3: Temporarily focus on working tools
+# These compile successfully:
+go run ./cmd/migrate/main.go -h          # Shows migration options
+go run ./cmd/migrate/main.go -create-db  # Database setup
+go run ./cmd/migrate/main.go -seed       # Data seeding
+go run ./cmd/seedtest/main.go           # Verification
+
+# Step 4: Use Air with working migration tools
+air -c .air-migrate.toml  # Uses migration tools instead of main app
+```
+
+**Specific Compilation Errors Fix:**
+
+If you see these exact errors:
+
+```
+cannot use user (variable of type *entity.User) as *entities.User value
+cannot use createdUser (variable of type *entities.User) as *entity.User value
+user.UpdateProfile undefined (type *entities.User has no field or method UpdateProfile)
+```
+
+**Root Cause:** The project has two entity packages:
+
+- `internal/domain/entity/` (singular)
+- `internal/domain/entities/` (plural)
+
+**Immediate Solutions:**
+
+```bash
+# Option A: Focus on working components (recommended)
+air -c .air-migrate.toml                # Use migration tools with hot reload
+go run ./cmd/migrate/main.go -create-db  # Database operations work
+go run ./cmd/migrate/main.go -seed       # Seeding works perfectly
+
+# Option B: Check which entity package is actually used
+ls internal/domain/entity*/             # See which directories exist
+grep -r "type.*User struct" internal/   # Find where User is defined
+
+# Option C: Quick fix for development
+# Edit internal/usecase/user/user.go and change imports:
+# FROM: "kossti/internal/domain/entity"
+# TO:   "kossti/internal/domain/entities"
+```
+
+**Long-term Resolution Strategy:**
+
+```bash
+# 1. Identify the primary entity package
+find internal/ -name "*.go" -exec grep -l "package entities" {} \;
+find internal/ -name "*.go" -exec grep -l "package entity" {} \;
+
+# 2. Standardize all imports to use the same package
+# Either use 'entities' everywhere or 'entity' everywhere
+
+# 3. Update repository interfaces to match
+# Make sure all interfaces use the same entity types
+
+# 4. Test with migration tools (these work regardless)
+go run ./cmd/migrate/main.go -migrate
 ```
 
 ### 6.3. PostgreSQL Connection Issues
