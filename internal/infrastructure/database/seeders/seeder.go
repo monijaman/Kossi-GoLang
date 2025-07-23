@@ -38,17 +38,17 @@ func (sm *SeederManager) AddSeeder(seeder Seeder) {
 // RunAll runs all registered seeders
 func (sm *SeederManager) RunAll() error {
 	fmt.Println("🌱 Starting database seeding...")
-	
+
 	for _, seeder := range sm.seeders {
 		fmt.Printf("   🔄 Running %s seeder...\n", seeder.GetName())
-		
+
 		if err := seeder.Seed(sm.db); err != nil {
 			return fmt.Errorf("failed to run %s seeder: %w", seeder.GetName(), err)
 		}
-		
+
 		fmt.Printf("   ✅ %s seeder completed successfully\n", seeder.GetName())
 	}
-	
+
 	fmt.Println("🎉 All seeders completed successfully!")
 	return nil
 }
@@ -58,16 +58,16 @@ func (sm *SeederManager) RunSpecific(name string) error {
 	for _, seeder := range sm.seeders {
 		if seeder.GetName() == name {
 			fmt.Printf("🔄 Running %s seeder...\n", name)
-			
+
 			if err := seeder.Seed(sm.db); err != nil {
 				return fmt.Errorf("failed to run %s seeder: %w", name, err)
 			}
-			
+
 			fmt.Printf("✅ %s seeder completed successfully\n", name)
 			return nil
 		}
 	}
-	
+
 	return fmt.Errorf("seeder '%s' not found", name)
 }
 
@@ -84,7 +84,7 @@ func (bs *BaseSeeder) GetName() string {
 // Helper function to create or find a category
 func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, error) {
 	var categoryModel models.CategoryModel
-	
+
 	// Try to find existing category
 	if err := db.Where("name = ?", name).First(&categoryModel).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -93,7 +93,7 @@ func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, e
 				Name: name,
 				Slug: slug,
 			}
-			
+
 			categoryModel.FromEntity(category)
 			if err := db.Create(&categoryModel).Error; err != nil {
 				return nil, err
@@ -102,14 +102,14 @@ func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, e
 			return nil, err
 		}
 	}
-	
+
 	return categoryModel.ToEntity(), nil
 }
 
 // Helper function to create or find a brand
 func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) {
 	var brandModel models.BrandModel
-	
+
 	// Try to find existing brand
 	if err := db.Where("name = ?", name).First(&brandModel).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -118,7 +118,7 @@ func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) 
 				Name: name,
 				Slug: slug,
 			}
-			
+
 			brandModel.FromEntity(brand)
 			if err := db.Create(&brandModel).Error; err != nil {
 				return nil, err
@@ -127,14 +127,14 @@ func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) 
 			return nil, err
 		}
 	}
-	
+
 	return brandModel.ToEntity(), nil
 }
 
 // Helper function to create brand-category relationship
 func CreateBrandCategoryRelation(db *gorm.DB, brandID, categoryID uint) error {
 	var brandCategoryModel models.BrandCategoryModel
-	
+
 	// Check if relation already exists
 	if err := db.Where("brand_id = ? AND category_id = ?", brandID, categoryID).First(&brandCategoryModel).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -143,7 +143,7 @@ func CreateBrandCategoryRelation(db *gorm.DB, brandID, categoryID uint) error {
 				BrandID:    brandID,
 				CategoryID: categoryID,
 			}
-			
+
 			brandCategoryModel.FromEntity(relation)
 			if err := db.Create(&brandCategoryModel).Error; err != nil {
 				return err
@@ -152,7 +152,7 @@ func CreateBrandCategoryRelation(db *gorm.DB, brandID, categoryID uint) error {
 			return err
 		}
 	}
-	
+
 	return nil
 }
 
@@ -163,7 +163,7 @@ func GenerateSlug(name string) string {
 	for _, char := range name {
 		if char == ' ' || char == '&' {
 			slug += "-"
-		} else if (char >= 'A' && char <= 'Z') {
+		} else if char >= 'A' && char <= 'Z' {
 			slug += string(char + 32) // Convert to lowercase
 		} else if (char >= 'a' && char <= 'z') || (char >= '0' && char <= '9') {
 			slug += string(char)
@@ -172,14 +172,42 @@ func GenerateSlug(name string) string {
 	return slug
 }
 
+// Helper function to create or find a specification key
+func CreateOrFindSpecificationKey(db *gorm.DB, key string) (*entities.SpecificationKey, error) {
+	var specKeyModel models.SpecificationKeyModel
+
+	// Try to find existing specification key
+	if err := db.Where("specification_key = ?", key).First(&specKeyModel).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			// Create new specification key
+			specKey := &entities.SpecificationKey{
+				SpecificationKey: key,
+			}
+
+			specKeyModel.FromEntity(specKey)
+			if err := db.Create(&specKeyModel).Error; err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+
+	return specKeyModel.ToEntity(), nil
+}
+
 // SetupAllSeeders configures all available seeders
 func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager := NewSeederManager(db)
-	
+
 	// Add all seeders in the correct order
 	manager.AddSeeder(NewCategorySeeder())
 	manager.AddSeeder(NewBrandSeeder())
+	manager.AddSeeder(NewSpecificationKeySeeder())
+	manager.AddSeeder(NewCategoryTranslationSeeder())
+	manager.AddSeeder(NewBrandTranslationSeeder())
+	manager.AddSeeder(NewSpecificationKeyTranslationSeeder())
 	manager.AddSeeder(NewBrandCategorySeeder())
-	
+
 	return manager
 }
