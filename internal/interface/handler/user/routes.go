@@ -10,6 +10,20 @@ import (
 
 // RegisterUserRoutes registers all user-related endpoints to the mux.
 func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) {
+	// Public route example
+	mux.HandleFunc("/api/users/all", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": "Only GET method is allowed",
+			})
+			return
+		}
+		handler.GetAllUsersHandler(w, r, userRepo)
+	})
+
+	// Protected routes
 	mux.HandleFunc("/api/users", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
@@ -20,18 +34,6 @@ func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) 
 			return
 		}
 		handler.ListUsersHandler(w, r, userRepo)
-	}))
-
-	mux.HandleFunc("/api/users/all", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only GET method is allowed",
-			})
-			return
-		}
-		handler.GetAllUsersHandler(w, r, userRepo)
 	}))
 
 	mux.HandleFunc("/api/users/search", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {

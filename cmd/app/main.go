@@ -30,6 +30,7 @@ import (
 
 	"kossti/internal/infrastructure/database"
 	handlerauth "kossti/internal/interface/handler/auth"
+	handlerproduct "kossti/internal/interface/handler/product"
 	handleruser "kossti/internal/interface/handler/user"
 	pgRepo "kossti/internal/interface/repository/postgres"
 )
@@ -107,6 +108,7 @@ func main() {
 	// Create repository instance with GORM DB
 	userRepo := pgRepo.NewPostgresUserRepo(db)
 	refreshTokenRepo := pgRepo.NewPostgresRefreshTokenRepo(db)
+	productRepo := pgRepo.NewPostgresProductRepo(db)
 
 	fmt.Println("Database migration complete! Setting up HTTP routes...")
 
@@ -116,6 +118,7 @@ func main() {
 	// Register grouped routes
 	handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
 	handleruser.RegisterUserRoutes(mux, userRepo)
+	handlerproduct.RegisterProductRoutes(mux, productRepo)
 
 	// Add health check endpoint
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

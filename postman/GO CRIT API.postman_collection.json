@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "c2064615-34fe-4262-b8b2-9ee65b3f6bef",
+		"name": "GO CRIT API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31468968"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/register",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// ✅ Save access token if present\r",
+									"if (jsonData.token) {\r",
+									"    pm.environment.set(\"access_token\", jsonData.token);\r",
+									"    pm.environment.set(\"refresh_token\", jsonData.refresh_token);\r",
+									"    pm.globals.set(\"TOKEN\", jsonData.token);  // use jsonData.token directly\r",
+									"    console.log(\"✅ Access token stored:\", jsonData.token);\r",
+									"} else {\r",
+									"    console.warn(\"⚠️ No token found in response!\", jsonData);\r",
+									"}\r",
+									"\r",
+									"// ✅ Test: Status code is 200\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Response has required fields\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"    pm.expect(jsonData).to.have.all.keys('email', 'message', 'refresh_token', 'token');\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Token is non-empty string\r",
+									"pm.test(\"Token must be a non-empty string\", function () {\r",
+									"    pm.expect(jsonData.token).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Response time < 200ms\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Response schema and field format\r",
+									"pm.test(\"Validate the response schema against the expected structure\", function () {\r",
+									"    pm.expect(jsonData).to.be.an('object').that.includes.all.keys('email', 'message', 'refresh_token', 'token');\r",
+									"\r",
+									"    pm.expect(jsonData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");\r",
+									"    pm.expect(jsonData.message).to.be.a('string');\r",
+									"    pm.expect(jsonData.refresh_token).to.be.a('string');\r",
+									"    pm.expect(jsonData.token).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"// ✅ (Redundant) Test: Request authorized — already covered by 200 check\r",
+									"pm.test(\"Request was authorized\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/login",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/api/users/all?limit=50",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Number of users to fetch (default: 50, max: 1000)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/api/users?limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of users to fetch (default: 50, max: 1000)"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/api/users/search?q=alice&limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "alice",
+									"description": "Search query (username, email, first name, or last name)"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of users to fetch"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of users to skip"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/api/users/count",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/api/users/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product (Store)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sample Product\",\n  \"description\": \"A test product\",\n  \"price\": 99.99,\n  \"categoryID\": 1,\n  \"brandID\": 1\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/api/products",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By ID (Go)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/product/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASEURL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": "22",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
