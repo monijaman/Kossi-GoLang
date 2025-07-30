@@ -1,3 +1,15 @@
+// main.go - Entry Point for the Auth Microservice
+//
+// This file is the main entry point for the authentication microservice.
+// It is responsible for:
+//   - Loading environment variables and configuration
+//   - Connecting to the database and running migrations
+//   - Initializing repositories and HTTP handlers
+//   - Registering all HTTP routes (auth, user, health, etc.)
+//   - Starting and gracefully shutting down the HTTP server
+//
+// This file wires together the infrastructure, domain, and interface layers according to Clean Architecture principles.
+
 package main
 
 import (
@@ -17,7 +29,8 @@ import (
 	"gorm.io/gorm"
 
 	"kossti/internal/infrastructure/database"
-	"kossti/internal/interface/handler"
+	handlerauth "kossti/internal/interface/handler/auth"
+	handleruser "kossti/internal/interface/handler/user"
 	pgRepo "kossti/internal/interface/repository/postgres"
 )
 
@@ -84,7 +97,7 @@ func main() {
 
 	// Initialize migration manager and run all migrations
 	migrationManager := database.NewMigrationManager(db)
-	
+
 	// Run complete database setup
 	fmt.Println("Running database migrations...")
 	if err := migrationManager.Setup(); err != nil {
@@ -93,99 +106,16 @@ func main() {
 
 	// Create repository instance with GORM DB
 	userRepo := pgRepo.NewPostgresUserRepo(db)
+	refreshTokenRepo := pgRepo.NewPostgresRefreshTokenRepo(db)
 
 	fmt.Println("Database migration complete! Setting up HTTP routes...")
 
 	// Create a new HTTP mux for better route handling
 	mux := http.NewServeMux()
 
-	// Register routes with method check and pass repository
-	mux.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only POST method is allowed",
-			})
-			return
-		}
-		handler.RegisterHandlerWithRepo(w, r, userRepo)
-	})
-
-	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only POST method is allowed",
-			})
-			return
-		}
-		handler.LoginHandlerWithRepo(w, r, userRepo)
-	})
-
-	// User management routes
-	mux.HandleFunc("/api/users", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only GET method is allowed",
-			})
-			return
-		}
-		handler.ListUsersHandler(w, r, userRepo)
-	})
-
-	mux.HandleFunc("/api/users/all", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only GET method is allowed",
-			})
-			return
-		}
-		log.Println("Handling GET /api/users/all.")
-		handler.GetAllUsersHandler(w, r, userRepo)
-	})
-
-	mux.HandleFunc("/api/users/search", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only GET method is allowed",
-			})
-			return
-		}
-		handler.SearchUsersHandler(w, r, userRepo)
-	})
-
-	mux.HandleFunc("/api/users/count", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only GET method is allowed",
-			})
-			return
-		}
-		handler.GetUserCountHandler(w, r, userRepo)
-	})
-
-	// Handle user by ID (this needs to be last to avoid conflicts)
-	mux.HandleFunc("/api/users/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			json.NewEncoder(w).Encode(map[string]string{
-				"error": "Only GET method is allowed",
-			})
-			return
-		}
-		handler.GetUserByIDHandler(w, r, userRepo)
-	})
+	// Register grouped routes
+	handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
+	handleruser.RegisterUserRoutes(mux, userRepo)
 
 	// Add health check endpoint
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

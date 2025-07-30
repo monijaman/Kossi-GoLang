@@ -498,6 +498,7 @@ _Solution:_ The project has conflicting entity packages causing type mismatches:
 # Error symptoms:
 # cannot use user (variable of type *entity.User) as *entities.User value
 # cannot use createdUser (variable of type *entities.User) as *entity.User value
+# user.UpdateProfile undefined (type *entities.User has no field or method UpdateProfile)
 
 # Quick diagnosis - check import conflicts:
 grep -r "entity\." internal/usecase/
@@ -1186,41 +1187,6 @@ func (ps *ProductSeeder) Seed(db *gorm.DB) error {
 🎉 All seeders completed successfully!
 ```
 
-### 11.8. Verification & Testing
-
-**Quick Verification:**
-
-```bash
-go run cmd/seedtest/main.go
-```
-
-**Output:**
-
-```
-🌱 SEEDING VERIFICATION DEMO
-================================
-📂 Categories seeded: 128
-🏷️ Brands seeded: 152
-🔗 Brand-Category relationships: 415
-
-📋 Sample Categories:
-   - Footwear (slug: footwear)
-   - Electronics (slug: electronics)
-   - Automotive (slug: automotive)
-
-🏢 Sample Brands:
-   - Apple (slug: apple)
-   - Nike (slug: nike)
-   - BMW (slug: bmw)
-
-🎯 Apple's Categories:
-   - Electronics
-   - Mobile Phones
-   - Laptops
-   - Technology
-✅ Seeding verification completed successfully!
-```
-
 ### Best Practices
 
 **✅ Do:**
@@ -1515,6 +1481,72 @@ ports:
 - Backup your database regularly if it contains important data
 - Use specific PostgreSQL versions instead of `latest` for production
 - Keep your `init-db` scripts in version control
+
+---
+
+## 🟢 Troubleshooting: Docker PostgreSQL Container Keeps Restarting
+
+If your `postgres` container starts and then keeps restarting, try these steps:
+
+1. **Stop and remove containers:**
+   ```sh
+   docker compose down
+   ```
+
+2. **Remove the data directory (this will delete all database data!):**
+   ```sh
+   rm -rf ./postgres-data
+   ```
+
+3. **(Optional) Check your `init-db` scripts** for errors or invalid SQL.
+
+4. **Start fresh:**
+   ```sh
+   docker compose up -d
+   ```
+
+5. **Check logs for errors:**
+   ```sh
+   docker compose logs postgres
+   ```
+
+**Common causes:**
+- Corrupted or permission-denied `postgres-data` directory
+- Invalid SQL in `init-db` scripts
+- Port already in use
+- Environment variables missing or mismatched
+
+**If you see:**
+```
+Error: Database is uninitialized and superuser password is not specified.
+You must specify POSTGRES_PASSWORD to a non-empty value for the superuser.
+```
+**Solution:**
+- Make sure your `docker-compose.yml` includes:
+  ```yaml
+  environment:
+    - POSTGRES_USER=root
+    - POSTGRES_PASSWORD=root
+    - POSTGRES_DB=kossti
+  ```
+- Never use `POSTGRES_HOST_AUTH_METHOD=trust` in production.
+
+**If you see:**
+```
+FATAL: could not open directory "pg_notify": No such file or directory
+```
+**Solution:**
+- Remove the `postgres-data` directory and restart the container.
+
+**If you see:**
+```
+database "kossti" does not exist
+```
+**Solution:**
+- Use the automatic database creation feature:
+  ```sh
+  go run ./cmd/migrate/main.go -create-db
+  ```
 
 ---
 

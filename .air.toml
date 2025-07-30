@@ -10,6 +10,7 @@ tmp_dir = "tmp"
   exclude_file = []
   exclude_regex = ["_test.go"]
   include_ext = ["go", "tpl", "tmpl", "html"]
+
   kill_delay = "2s"
   stop_on_root = false
 
@@ -25,3 +26,5 @@ tmp_dir = "tmp"
 
 [misc]
   clean_on_exit = true
+
+ 
