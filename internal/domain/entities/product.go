@@ -10,9 +10,11 @@ type Product struct {
 	ID          uint
 	Name        string
 	Description *string
+	Slug        string
 	Price       float64
 	CategoryID  *uint
 	BrandID     *uint
+	ViewsCount  int64
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   *time.Time

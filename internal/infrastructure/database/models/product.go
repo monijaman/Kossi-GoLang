@@ -14,8 +14,8 @@ type ProductModel struct {
 	Name        string     `gorm:"type:varchar(255);not null"`
 	Description *string    `gorm:"type:text"`
 	Slug        string     `gorm:"type:varchar(255);unique;not null"`
-	CategoryID  string     `gorm:"type:varchar(255);not null"`
-	BrandID     *int       `gorm:""`
+	CategoryID  *uint      `gorm:""`
+	BrandID     *uint      `gorm:""`
 	Model       *string    `gorm:"type:varchar(255)"`
 	Price       *float64   `gorm:"type:decimal(10,2)"`
 	Status      bool       `gorm:"default:false"`
@@ -35,23 +35,15 @@ func (p *ProductModel) ToEntity() *entities.Product {
 		price = *p.Price
 	}
 
-	var categoryID *uint
-	// Convert string CategoryID to uint if needed for business logic
-	// This is a simplified conversion - you might need more sophisticated logic
-
-	var brandID *uint
-	if p.BrandID != nil {
-		brandIDUint := uint(*p.BrandID)
-		brandID = &brandIDUint
-	}
-
 	return &entities.Product{
 		ID:          p.ID,
 		Name:        p.Name,
 		Description: p.Description,
+		Slug:        p.Slug,
 		Price:       price,
-		CategoryID:  categoryID,
-		BrandID:     brandID,
+		CategoryID:  p.CategoryID,
+		BrandID:     p.BrandID,
+		ViewsCount:  p.ViewsCount,
 		CreatedAt:   p.CreatedAt,
 		UpdatedAt:   p.UpdatedAt,
 		DeletedAt:   p.DeletedAt,
@@ -63,13 +55,11 @@ func (p *ProductModel) FromEntity(entity *entities.Product) {
 	p.ID = entity.ID
 	p.Name = entity.Name
 	p.Description = entity.Description
+	p.Slug = entity.Slug
 	p.Price = &entity.Price
-
-	if entity.BrandID != nil {
-		brandID := int(*entity.BrandID)
-		p.BrandID = &brandID
-	}
-
+	p.CategoryID = entity.CategoryID
+	p.BrandID = entity.BrandID
+	p.ViewsCount = entity.ViewsCount
 	p.CreatedAt = entity.CreatedAt
 	p.UpdatedAt = entity.UpdatedAt
 	p.DeletedAt = entity.DeletedAt

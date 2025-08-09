@@ -141,6 +141,10 @@ func main() {
 	fmt.Println("GET  http://localhost:8080/api/products")
 	fmt.Println("POST http://localhost:8080/api/products")
 	fmt.Println("GET  http://localhost:8080/api/products/{id}")
+	fmt.Println("PATCH http://localhost:8080/api/products/{id}")
+	fmt.Println("GET  http://localhost:8080/api/products-by-slug/{slug}")
+	fmt.Println("GET  http://localhost:8080/api/popular-products")
+	fmt.Println("POST http://localhost:8080/api/products/{id}/increment-views")
 	fmt.Println("GET  http://localhost:8080/health")
 
 	// Determine which port to use
