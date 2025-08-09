@@ -2,11 +2,16 @@ package product
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // ProductResponse represents the response format for products
@@ -351,4 +356,246 @@ func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo r
 
 	response := convertProductToResponse(product)
 	json.NewEncoder(w).Encode(response)
+}
+
+// AddProductImageHandler handles POST /api/addproductimage/{productId}
+func AddProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/api/addproductimage/")
+	productIDStr := strings.Trim(path, "/")
+
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	// Parse multipart form
+	err = r.ParseMultipartForm(10 << 20) // 10 MB max memory
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to parse form"})
+		return
+	}
+
+	file, handler, err := r.FormFile("image")
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "No image file provided"})
+		return
+	}
+	defer file.Close()
+
+	// Create uploads directory if it doesn't exist
+	uploadDir := "uploads/products"
+	if err := os.MkdirAll(uploadDir, 0755); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create upload directory"})
+		return
+	}
+
+	// Generate unique filename
+	filename := fmt.Sprintf("%d_%d_%s", productID, time.Now().Unix(), handler.Filename)
+	filePath := filepath.Join(uploadDir, filename)
+
+	// Create the file
+	dst, err := os.Create(filePath)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create file"})
+		return
+	}
+	defer dst.Close()
+
+	// Copy file content
+	_, err = io.Copy(dst, file)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to save file"})
+		return
+	}
+
+	// Save image record to database
+	image := &entities.Image{
+		ImageableType: "product",
+		ImageableID:   uint(productID),
+		ImagePath:     filePath,
+		CreatedAt:     time.Now(),
+		UpdatedAt:     time.Now(),
+	}
+
+	savedImage, err := imageRepo.Create(r.Context(), image)
+	if err != nil {
+		// Clean up file if database save fails
+		os.Remove(filePath)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to save image record"})
+		return
+	}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":    "Image uploaded successfully",
+		"image_id":   savedImage.ID,
+		"image_path": savedImage.ImagePath,
+	})
+}
+
+// GetProductImageHandler handles GET /api/get-product-image/{productId}
+func GetProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/api/get-product-image/")
+	productIDStr := strings.Trim(path, "/")
+
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	images, err := imageRepo.GetByImageableID(r.Context(), "product", uint(productID))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get images"})
+		return
+	}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"product_id": productID,
+		"images":     images,
+	})
+}
+
+// AddProductImageAltHandler handles POST /api/products/{product}/image
+func AddProductImageAltHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	pathParts := strings.Split(path, "/")
+
+	if len(pathParts) < 2 || pathParts[1] != "image" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format"})
+		return
+	}
+
+	productIDStr := pathParts[0]
+	_, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	// Reconstruct the URL for AddProductImageHandler
+	r.URL.Path = "/api/addproductimage/" + productIDStr
+	AddProductImageHandler(w, r, imageRepo)
+}
+
+// GetProductImagesHandler handles GET /api/products/{product}/images
+func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	pathParts := strings.Split(path, "/")
+
+	if len(pathParts) < 2 || pathParts[1] != "images" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format"})
+		return
+	}
+
+	productIDStr := pathParts[0]
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	images, err := imageRepo.GetByImageableID(r.Context(), "product", uint(productID))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get images"})
+		return
+	}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"product_id": productID,
+		"images":     images,
+	})
+}
+
+// CreateProductTranslationHandler handles POST /api/product-trans/{id}
+func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/api/product-trans/")
+	productIDStr := strings.Trim(path, "/")
+
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	var request struct {
+		Locale                string  `json:"locale"`
+		TranslatedName        string  `json:"translated_name"`
+		TranslatedDescription *string `json:"translated_description"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		return
+	}
+
+	if request.Locale == "" || request.TranslatedName == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Locale and translated_name are required"})
+		return
+	}
+
+	translation := &entities.ProductTranslation{
+		ProductID:             uint(productID),
+		Locale:                request.Locale,
+		TranslatedName:        request.TranslatedName,
+		TranslatedDescription: request.TranslatedDescription,
+		CreatedAt:             time.Now(),
+		UpdatedAt:             time.Now(),
+	}
+
+	savedTranslation, err := productRepo.CreateTranslation(r.Context(), translation)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create translation"})
+		return
+	}
+
+	json.NewEncoder(w).Encode(savedTranslation)
 }

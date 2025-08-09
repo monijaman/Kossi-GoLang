@@ -21,12 +21,12 @@ type CategoryTranslationModel struct {
 // ToEntity converts GORM model to domain entity
 func (ct *CategoryTranslationModel) ToEntity() *entities.CategoryTranslation {
 	return &entities.CategoryTranslation{
-		ID:              ct.ID,
-		CategoryID:      ct.CategoryID,
-		Locale:          ct.Locale,
-		TranslatedName:  ct.Name,
-		CreatedAt:       ct.CreatedAt,
-		UpdatedAt:       ct.UpdatedAt,
+		ID:             ct.ID,
+		CategoryID:     ct.CategoryID,
+		Locale:         ct.Locale,
+		TranslatedName: ct.Name,
+		CreatedAt:      ct.CreatedAt,
+		UpdatedAt:      ct.UpdatedAt,
 	}
 }
 
@@ -58,12 +58,12 @@ type BrandTranslationModel struct {
 // ToEntity converts GORM model to domain entity
 func (bt *BrandTranslationModel) ToEntity() *entities.BrandTranslation {
 	return &entities.BrandTranslation{
-		ID:              bt.ID,
-		BrandID:         bt.BrandID,
-		Locale:          bt.Locale,
-		TranslatedName:  bt.Name,
-		CreatedAt:       bt.CreatedAt,
-		UpdatedAt:       bt.UpdatedAt,
+		ID:             bt.ID,
+		BrandID:        bt.BrandID,
+		Locale:         bt.Locale,
+		TranslatedName: bt.Name,
+		CreatedAt:      bt.CreatedAt,
+		UpdatedAt:      bt.UpdatedAt,
 	}
 }
 
@@ -126,12 +126,13 @@ type SpecificationModel struct {
 // ToEntity converts GORM model to domain entity
 func (s *SpecificationModel) ToEntity() *entities.Specification {
 	return &entities.Specification{
-		ID:               s.ID,
-		ProductID:        s.ProductID,
-		SpecificationKey: s.Value, // Map SpecificationKeyID to key for simplicity
-		Value:            s.Value,
-		CreatedAt:        s.CreatedAt,
-		UpdatedAt:        s.UpdatedAt,
+		ID:                 s.ID,
+		ProductID:          s.ProductID,
+		SpecificationKeyID: s.SpecificationKeyID,
+		SpecificationKey:   "", // This would need to be populated through a join
+		Value:              s.Value,
+		CreatedAt:          s.CreatedAt,
+		UpdatedAt:          s.UpdatedAt,
 	}
 }
 
@@ -139,7 +140,7 @@ func (s *SpecificationModel) ToEntity() *entities.Specification {
 func (s *SpecificationModel) FromEntity(entity *entities.Specification) {
 	s.ID = entity.ID
 	s.ProductID = entity.ProductID
-	// s.SpecificationKeyID would need lookup logic
+	s.SpecificationKeyID = entity.SpecificationKeyID
 	s.Value = entity.Value
 	s.CreatedAt = entity.CreatedAt
 	s.UpdatedAt = entity.UpdatedAt
@@ -200,12 +201,12 @@ type SpecificationKeyTranslationModel struct {
 // ToEntity converts GORM model to domain entity
 func (skt *SpecificationKeyTranslationModel) ToEntity() *entities.SpecificationKeyTranslation {
 	return &entities.SpecificationKeyTranslation{
-		ID:                  skt.ID,
-		SpecificationKeyID:  skt.SpecificationKeyID,
-		Locale:              skt.Locale,
-		TranslatedKey:       skt.SpecificationKey,
-		CreatedAt:           skt.CreatedAt,
-		UpdatedAt:           skt.UpdatedAt,
+		ID:                 skt.ID,
+		SpecificationKeyID: skt.SpecificationKeyID,
+		Locale:             skt.Locale,
+		TranslatedKey:      skt.SpecificationKey,
+		CreatedAt:          skt.CreatedAt,
+		UpdatedAt:          skt.UpdatedAt,
 	}
 }
 

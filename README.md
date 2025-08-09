@@ -1228,6 +1228,8 @@ go build -o bin/kossti-server ./cmd/app
 
 **API Endpoints:**
 
+**Authentication & Users:**
+
 - `POST /register` - User registration
 - `POST /login` - User login
 - `GET /api/users` - List users (paginated)
@@ -1235,7 +1237,78 @@ go build -o bin/kossti-server ./cmd/app
 - `GET /api/users/search` - Search users
 - `GET /api/users/count` - Get user count
 - `GET /api/users/{id}` - Get user by ID
+
+**Products:**
+
+- `GET /api/products` - List products with pagination, search & filtering
+- `POST /api/products` - Create a new product
+- `GET /api/products/{id}` - Get product by ID
+- `PATCH /api/products/{id}` - Update product
+- `GET /api/products-by-slug/{slug}` - Get product by slug
+- `GET /api/popular-products` - Get popular products (sorted by views)
+- `POST /api/products/{id}/increment-views` - Increment product view count
+
+**Product Images:**
+
+- `POST /api/addproductimage/{productId}` - Upload image for product
+- `GET /api/get-product-image/{productId}` - Get all images for product
+- `POST /api/products/{product}/image` - Upload image (alternative endpoint)
+- `GET /api/products/{product}/images` - Get images (alternative endpoint)
+
+**Product Translations:**
+
+- `POST /api/product-trans/{id}` - Create product translation
+
+**System:**
+
 - `GET /health` - Health check
+
+**Query Parameters for Product Endpoints:**
+
+For `GET /api/products`:
+
+- `limit` - Number of products to return (default: 10)
+- `offset` - Number of products to skip (default: 0)
+- `search` - Search term for product name or description
+- `category_id` - Filter by category ID
+- `brand_id` - Filter by brand ID
+
+For `GET /api/popular-products`:
+
+- `limit` - Number of products to return (default: 10)
+
+**Example Requests:**
+
+```bash
+# List all products
+curl -X GET "http://localhost:8080/api/products"
+
+# Search products
+curl -X GET "http://localhost:8080/api/products?search=iphone&limit=5"
+
+# Get products by category
+curl -X GET "http://localhost:8080/api/products?category_id=1&limit=10"
+
+# Get popular products
+curl -X GET "http://localhost:8080/api/popular-products?limit=5"
+
+# Create product
+curl -X POST "http://localhost:8080/api/products" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"iPhone 15","description":"Latest iPhone","price":999.99,"category_id":1}'
+
+# Increment views
+curl -X POST "http://localhost:8080/api/products/1/increment-views"
+
+# Upload product image
+curl -X POST "http://localhost:8080/api/addproductimage/1" \
+  -F "image=@/path/to/image.jpg"
+
+# Create translation
+curl -X POST "http://localhost:8080/api/product-trans/1" \
+  -H "Content-Type: application/json" \
+  -d '{"locale":"bn","translated_name":"আইফোন ১৫","translated_description":"নতুন আইফোন"}'
+```
 
 ### 12.2. Database Migration Tool
 
@@ -1489,11 +1562,13 @@ ports:
 If your `postgres` container starts and then keeps restarting, try these steps:
 
 1. **Stop and remove containers:**
+
    ```sh
    docker compose down
    ```
 
 2. **Remove the data directory (this will delete all database data!):**
+
    ```sh
    rm -rf ./postgres-data
    ```
@@ -1501,6 +1576,7 @@ If your `postgres` container starts and then keeps restarting, try these steps:
 3. **(Optional) Check your `init-db` scripts** for errors or invalid SQL.
 
 4. **Start fresh:**
+
    ```sh
    docker compose up -d
    ```
@@ -1511,17 +1587,21 @@ If your `postgres` container starts and then keeps restarting, try these steps:
    ```
 
 **Common causes:**
+
 - Corrupted or permission-denied `postgres-data` directory
 - Invalid SQL in `init-db` scripts
 - Port already in use
 - Environment variables missing or mismatched
 
 **If you see:**
+
 ```
 Error: Database is uninitialized and superuser password is not specified.
 You must specify POSTGRES_PASSWORD to a non-empty value for the superuser.
 ```
+
 **Solution:**
+
 - Make sure your `docker-compose.yml` includes:
   ```yaml
   environment:
@@ -1532,17 +1612,23 @@ You must specify POSTGRES_PASSWORD to a non-empty value for the superuser.
 - Never use `POSTGRES_HOST_AUTH_METHOD=trust` in production.
 
 **If you see:**
+
 ```
 FATAL: could not open directory "pg_notify": No such file or directory
 ```
+
 **Solution:**
+
 - Remove the `postgres-data` directory and restart the container.
 
 **If you see:**
+
 ```
 database "kossti" does not exist
 ```
+
 **Solution:**
+
 - Use the automatic database creation feature:
   ```sh
   go run ./cmd/migrate/main.go -create-db

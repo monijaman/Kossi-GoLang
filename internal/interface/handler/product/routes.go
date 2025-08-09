@@ -7,7 +7,7 @@ import (
 )
 
 // RegisterProductRoutes registers product-related endpoints to the mux.
-func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRepository) {
+func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRepository, imageRepo repository.ImageRepository) {
 	// GET /api/products - List products with search, pagination, and filtering
 	mux.HandleFunc("/api/products", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
@@ -21,7 +21,7 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 		}
 	})
 
-	// GET /api/products/{id} - Get product by ID
+	// GET /api/products/{id} - Get product by ID, with support for multiple sub-paths
 	mux.HandleFunc("/api/products/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/api/products/")
 		pathParts := strings.Split(path, "/")
@@ -45,6 +45,24 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusMethodNotAllowed)
 				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+			}
+		} else if len(pathParts) == 2 && pathParts[1] == "image" {
+			// POST /api/products/{product}/image
+			if r.Method == http.MethodPost {
+				AddProductImageAltHandler(w, r, imageRepo)
+			} else {
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusMethodNotAllowed)
+				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+			}
+		} else if len(pathParts) == 2 && pathParts[1] == "images" {
+			// GET /api/products/{product}/images
+			if r.Method == http.MethodGet {
+				GetProductImagesHandler(w, r, imageRepo)
+			} else {
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusMethodNotAllowed)
+				w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			}
 		} else {
 			w.Header().Set("Content-Type", "application/json")
@@ -73,5 +91,39 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			return
 		}
 		GetPopularProductsHandler(w, r, productRepo)
+	})
+
+	// Image upload endpoints
+	// POST /api/addproductimage/{productId}
+	mux.HandleFunc("/api/addproductimage/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+			return
+		}
+		AddProductImageHandler(w, r, imageRepo)
+	})
+
+	// GET /api/get-product-image/{productId}
+	mux.HandleFunc("/api/get-product-image/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
+			return
+		}
+		GetProductImageHandler(w, r, imageRepo)
+	})
+
+	// POST /api/product-trans/{id} - Product translation
+	mux.HandleFunc("/api/product-trans/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+			return
+		}
+		CreateProductTranslationHandler(w, r, productRepo)
 	})
 }

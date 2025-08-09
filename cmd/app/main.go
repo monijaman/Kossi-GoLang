@@ -30,7 +30,13 @@ import (
 
 	"kossti/internal/infrastructure/database"
 	handlerauth "kossti/internal/interface/handler/auth"
+	handlerbrand "kossti/internal/interface/handler/brand"
+	handlercategory "kossti/internal/interface/handler/category"
+	handlerfeedback "kossti/internal/interface/handler/feedback"
+	handlerformgenerator "kossti/internal/interface/handler/formgenerator"
 	handlerproduct "kossti/internal/interface/handler/product"
+	handlerproductreview "kossti/internal/interface/handler/productreview"
+	handlerspecification "kossti/internal/interface/handler/specification"
 	handleruser "kossti/internal/interface/handler/user"
 	pgRepo "kossti/internal/interface/repository/postgres"
 )
@@ -109,6 +115,14 @@ func main() {
 	userRepo := pgRepo.NewPostgresUserRepo(db)
 	refreshTokenRepo := pgRepo.NewPostgresRefreshTokenRepo(db)
 	productRepo := pgRepo.NewPostgresProductRepo(db)
+	imageRepo := pgRepo.NewPostgresImageRepo(db)
+	categoryRepo := pgRepo.NewPostgresCategoryRepo(db)
+	brandRepo := pgRepo.NewPostgresBrandRepo(db)
+	specificationRepo := pgRepo.NewPostgresSpecificationRepo(db)
+	specificationKeyRepo := pgRepo.NewPostgresSpecificationKeyRepo(db)
+	productReviewRepo := pgRepo.NewProductReviewRepository(db)
+	formGeneratorRepo := pgRepo.NewFormGeneratorRepository(db)
+	feedbackRepo := pgRepo.NewFeedbackRepository(db)
 
 	fmt.Println("Database migration complete! Setting up HTTP routes...")
 
@@ -118,7 +132,13 @@ func main() {
 	// Register grouped routes
 	handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
 	handleruser.RegisterUserRoutes(mux, userRepo)
-	handlerproduct.RegisterProductRoutes(mux, productRepo)
+	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo)
+	handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
+	handlerbrand.RegisterBrandRoutes(mux, brandRepo)
+	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo)
+	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo)
+	handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
+	handlerfeedback.RegisterRoutes(mux, feedbackRepo)
 
 	// Add health check endpoint
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
@@ -131,13 +151,27 @@ func main() {
 	})
 
 	fmt.Println("\nAPI Endpoints:")
+	// Authentication endpoints
 	fmt.Println("POST http://localhost:8080/register")
 	fmt.Println("POST http://localhost:8080/login")
+	fmt.Println("POST http://localhost:8080/v1/refresh-token")
+	fmt.Println("POST http://localhost:8080/v1/registration")
+	fmt.Println("POST http://localhost:8080/v1/login")
+	fmt.Println("POST http://localhost:8080/v1/forgot-password")
+	fmt.Println("POST http://localhost:8080/v1/reset-password")
+	fmt.Println("POST http://localhost:8080/v1/logout")
+	fmt.Println("GET  http://localhost:8080/v1/check-token")
+	fmt.Println("GET  http://localhost:8080/v1/search_users")
+	fmt.Println("GET  http://localhost:8080/v1/profile")
+	fmt.Println("POST http://localhost:8080/v1/profile")
+	fmt.Println("GET  http://localhost:8080/v1/checkrole")
+	// User endpoints
 	fmt.Println("GET  http://localhost:8080/api/users")
 	fmt.Println("GET  http://localhost:8080/api/users/all")
 	fmt.Println("GET  http://localhost:8080/api/users/search")
 	fmt.Println("GET  http://localhost:8080/api/users/count")
 	fmt.Println("GET  http://localhost:8080/api/users/{id}")
+	// Product endpoints
 	fmt.Println("GET  http://localhost:8080/api/products")
 	fmt.Println("POST http://localhost:8080/api/products")
 	fmt.Println("GET  http://localhost:8080/api/products/{id}")
@@ -145,6 +179,58 @@ func main() {
 	fmt.Println("GET  http://localhost:8080/api/products-by-slug/{slug}")
 	fmt.Println("GET  http://localhost:8080/api/popular-products")
 	fmt.Println("POST http://localhost:8080/api/products/{id}/increment-views")
+	// Category endpoints
+	fmt.Println("GET  http://localhost:8080/api/categories")
+	fmt.Println("POST http://localhost:8080/api/categories")
+	fmt.Println("GET  http://localhost:8080/api/categories/{id}")
+	fmt.Println("PUT  http://localhost:8080/api/categories/{id}")
+	fmt.Println("DELETE http://localhost:8080/api/categories/{id}")
+	fmt.Println("GET  http://localhost:8080/api/wide-categories")
+	fmt.Println("POST http://localhost:8080/api/category-translation")
+	fmt.Println("GET  http://localhost:8080/api/category-translation/{id}")
+	fmt.Println("POST http://localhost:8080/api/category-brands")
+	fmt.Println("GET  http://localhost:8080/api/category-brands")
+	fmt.Println("POST http://localhost:8080/api/category-status/{id}")
+	// Brand endpoints
+	fmt.Println("GET  http://localhost:8080/api/brands")
+	fmt.Println("POST http://localhost:8080/api/brands")
+	fmt.Println("GET  http://localhost:8080/api/brands/{id}")
+	fmt.Println("PUT  http://localhost:8080/api/brands/{id}")
+	fmt.Println("DELETE http://localhost:8080/api/brands/{id}")
+	fmt.Println("GET  http://localhost:8080/api/wide-brands")
+	fmt.Println("GET  http://localhost:8080/api/public-brands")
+	fmt.Println("POST http://localhost:8080/api/brand-translation")
+	fmt.Println("GET  http://localhost:8080/api/brand-translation/{id}")
+	fmt.Println("POST http://localhost:8080/api/brand-status/{id}")
+	fmt.Println("POST http://localhost:8080/api/specifications")
+	fmt.Println("POST http://localhost:8080/api/specifications/bulk")
+	fmt.Println("GET  http://localhost:8080/api/get-specifications/{id}")
+	fmt.Println("GET  http://localhost:8080/api/specifications/{id}")
+	fmt.Println("PUT  http://localhost:8080/api/specifications/{id}")
+	fmt.Println("DELETE http://localhost:8080/api/specifications/{id}")
+	fmt.Println("GET  http://localhost:8080/api/specificationsearch")
+	fmt.Println("POST http://localhost:8080/api/spec_translation")
+	fmt.Println("GET  http://localhost:8080/api/spec_translation/{id}")
+	fmt.Println("GET  http://localhost:8080/api/get-public-spec/{id}")
+	fmt.Println("GET  http://localhost:8080/api/speckey")
+	fmt.Println("POST http://localhost:8080/api/speckey")
+	fmt.Println("GET  http://localhost:8080/api/speckey/{id}")
+	fmt.Println("POST http://localhost:8080/api/specremove/{id}")
+	fmt.Println("GET  http://localhost:8080/api/speckey-translation")
+	fmt.Println("POST http://localhost:8080/api/speckey-translation")
+	// FormGenerator endpoints
+	fmt.Println("POST http://localhost:8080/api/formgenerator")
+	fmt.Println("GET  http://localhost:8080/api/formgenerator/{id}")
+	fmt.Println("PUT  http://localhost:8080/api/formgenerator/{id}")
+	fmt.Println("GET  http://localhost:8080/api/catgory-specs/{categoryId}")
+	fmt.Println("")
+	fmt.Println("📋 Feedback Endpoints:")
+	fmt.Println("GET  http://localhost:8080/api/feedbacks")
+	fmt.Println("POST http://localhost:8080/api/feedbacks")
+	fmt.Println("GET  http://localhost:8080/api/feedbacks/{id}")
+	fmt.Println("PUT  http://localhost:8080/api/feedbacks/{id}")
+	fmt.Println("DEL  http://localhost:8080/api/feedbacks/{id}")
+	fmt.Println("GET  http://localhost:8080/api/feedbacks/{id}/translations")
 	fmt.Println("GET  http://localhost:8080/health")
 
 	// Determine which port to use

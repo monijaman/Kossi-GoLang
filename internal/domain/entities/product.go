@@ -94,3 +94,26 @@ type FormGenerator struct {
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
 }
+
+// Feedback represents user feedback for products
+type Feedback struct {
+	ID        uint
+	UserID    uint
+	Content   string
+	Status    bool
+	CreatedBy *uint
+	UpdatedBy *uint
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
+}
+
+// FeedbackTranslation represents feedback translations
+type FeedbackTranslation struct {
+	ID                uint
+	FeedbackID        uint
+	Locale            string
+	TranslatedContent string
+	CreatedAt         time.Time
+	UpdatedAt         time.Time
+}

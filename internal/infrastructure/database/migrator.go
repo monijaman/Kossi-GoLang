@@ -1,8 +1,8 @@
 package database
 
 import (
-	"kossti/internal/infrastructure/database/models"
 	"fmt"
+	"kossti/internal/infrastructure/database/models"
 	"log"
 
 	"gorm.io/gorm"
@@ -21,16 +21,19 @@ func NewMigrator(db *gorm.DB) *Migrator {
 // RunMigrations executes all database migrations
 func (m *Migrator) RunMigrations() error {
 	log.Println("Running database migrations...")
-	
+
 	err := m.db.AutoMigrate(
 		&models.UserModel{},
+		&models.ProductModel{},
+		&models.ImageModel{},
+		&models.ProductTranslationModel{},
 		// Add other models here as you create them
 	)
-	
+
 	if err != nil {
 		return fmt.Errorf("failed to run migrations: %w", err)
 	}
-	
+
 	log.Println("Database migrations completed successfully")
 	return nil
 }
@@ -38,15 +41,18 @@ func (m *Migrator) RunMigrations() error {
 // DropTables drops all tables (useful for development)
 func (m *Migrator) DropTables() error {
 	log.Println("Dropping database tables...")
-	
+
 	err := m.db.Migrator().DropTable(
 		&models.UserModel{},
+		&models.ProductModel{},
+		&models.ImageModel{},
+		&models.ProductTranslationModel{},
 	)
-	
+
 	if err != nil {
 		return fmt.Errorf("failed to drop tables: %w", err)
 	}
-	
+
 	log.Println("Database tables dropped successfully")
 	return nil
 }

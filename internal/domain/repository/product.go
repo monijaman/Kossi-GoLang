@@ -26,4 +26,9 @@ type ProductRepository interface {
 	Count(ctx context.Context) (int64, error)
 	CountByCategory(ctx context.Context, categoryID uint) (int64, error)
 	CountByBrand(ctx context.Context, brandID uint) (int64, error)
+
+	// Translation operations
+	CreateTranslation(ctx context.Context, translation *entities.ProductTranslation) (*entities.ProductTranslation, error)
+	GetTranslations(ctx context.Context, productID uint) ([]*entities.ProductTranslation, error)
+	GetTranslationByLocale(ctx context.Context, productID uint, locale string) (*entities.ProductTranslation, error)
 }

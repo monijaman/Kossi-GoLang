@@ -20,12 +20,13 @@ type Comment struct {
 
 // Specification represents a product specification
 type Specification struct {
-	ID               uint
-	ProductID        uint
-	SpecificationKey string
-	Value            string
-	CreatedAt        time.Time
-	UpdatedAt        time.Time
+	ID                 uint
+	ProductID          uint
+	SpecificationKeyID uint
+	SpecificationKey   string // This will be populated through joins
+	Value              string
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
 }
 
 // SpecificationKey represents a specification key

@@ -10,20 +10,20 @@ import (
 
 // ProductableModel represents the database model for productable polymorphic relationships (GORM-specific)
 type ProductableModel struct {
-	ID             uint      `gorm:"primaryKey;autoIncrement"`
-	ProductID      string    `gorm:"type:varchar(255);not null"`
-	ProductableType string   `gorm:"type:varchar(255);not null"`
-	ProductableID  uint      `gorm:"not null"`
-	CreatedAt      time.Time `gorm:"autoCreateTime"`
-	UpdatedAt      time.Time `gorm:"autoUpdateTime"`
+	ID              uint      `gorm:"primaryKey;autoIncrement"`
+	ProductID       string    `gorm:"type:varchar(255);not null"`
+	ProductableType string    `gorm:"type:varchar(255);not null"`
+	ProductableID   uint      `gorm:"not null"`
+	CreatedAt       time.Time `gorm:"autoCreateTime"`
+	UpdatedAt       time.Time `gorm:"autoUpdateTime"`
 }
 
 // ToEntity converts GORM model to domain entity
 func (p *ProductableModel) ToEntity() *entities.Productable {
 	return &entities.Productable{
-		ProductID:      uint(p.ProductID[0]), // Convert string to uint if needed
+		ProductID:       uint(p.ProductID[0]), // Convert string to uint if needed
 		ProductableType: p.ProductableType,
-		ProductableID:  p.ProductableID,
+		ProductableID:   p.ProductableID,
 	}
 }
 
@@ -41,25 +41,25 @@ func (ProductableModel) TableName() string {
 
 // ProductTranslationModel represents the database model for product translations (GORM-specific)
 type ProductTranslationModel struct {
-	ID        uint      `gorm:"primaryKey;autoIncrement"`
-	ProductID uint      `gorm:"not null"`
-	Locale    string    `gorm:"type:varchar(255);not null"`
-	Name      string    `gorm:"type:varchar(255);not null"`
-	Price     *string   `gorm:"type:varchar(255)"`
-	CreatedAt time.Time `gorm:"autoCreateTime"`
-	UpdatedAt time.Time `gorm:"autoUpdateTime"`
+	ID                    uint      `gorm:"primaryKey;autoIncrement"`
+	ProductID             uint      `gorm:"not null"`
+	Locale                string    `gorm:"type:varchar(255);not null"`
+	TranslatedName        string    `gorm:"type:varchar(255);not null"`
+	TranslatedDescription *string   `gorm:"type:text"`
+	CreatedAt             time.Time `gorm:"autoCreateTime"`
+	UpdatedAt             time.Time `gorm:"autoUpdateTime"`
 }
 
 // ToEntity converts GORM model to domain entity
 func (pt *ProductTranslationModel) ToEntity() *entities.ProductTranslation {
 	return &entities.ProductTranslation{
-		ID:        pt.ID,
-		ProductID: pt.ProductID,
-		Locale:    pt.Locale,
-		TranslatedName:       pt.Name,
-		TranslatedDescription: nil, // Price field doesn't map directly
-		CreatedAt: pt.CreatedAt,
-		UpdatedAt: pt.UpdatedAt,
+		ID:                    pt.ID,
+		ProductID:             pt.ProductID,
+		Locale:                pt.Locale,
+		TranslatedName:        pt.TranslatedName,
+		TranslatedDescription: pt.TranslatedDescription,
+		CreatedAt:             pt.CreatedAt,
+		UpdatedAt:             pt.UpdatedAt,
 	}
 }
 
@@ -68,8 +68,8 @@ func (pt *ProductTranslationModel) FromEntity(entity *entities.ProductTranslatio
 	pt.ID = entity.ID
 	pt.ProductID = entity.ProductID
 	pt.Locale = entity.Locale
-	pt.Name = entity.TranslatedName
-	// pt.Price = entity.Price // Price field doesn't exist in entity
+	pt.TranslatedName = entity.TranslatedName
+	pt.TranslatedDescription = entity.TranslatedDescription
 	pt.CreatedAt = entity.CreatedAt
 	pt.UpdatedAt = entity.UpdatedAt
 }

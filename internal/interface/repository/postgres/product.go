@@ -253,4 +253,48 @@ func (r *PostgresProductRepo) CountByBrand(ctx context.Context, brandID uint) (i
 	return count, err
 }
 
+// Translation methods
+func (r *PostgresProductRepo) CreateTranslation(ctx context.Context, translation *entities.ProductTranslation) (*entities.ProductTranslation, error) {
+	var translationModel models.ProductTranslationModel
+	translationModel.FromEntity(translation)
+
+	if err := r.db.WithContext(ctx).Create(&translationModel).Error; err != nil {
+		return nil, err
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
+func (r *PostgresProductRepo) GetTranslations(ctx context.Context, productID uint) ([]*entities.ProductTranslation, error) {
+	var translationModels []models.ProductTranslationModel
+
+	if err := r.db.WithContext(ctx).
+		Where("product_id = ?", productID).
+		Find(&translationModels).Error; err != nil {
+		return nil, err
+	}
+
+	translations := make([]*entities.ProductTranslation, len(translationModels))
+	for i, model := range translationModels {
+		translations[i] = model.ToEntity()
+	}
+
+	return translations, nil
+}
+
+func (r *PostgresProductRepo) GetTranslationByLocale(ctx context.Context, productID uint, locale string) (*entities.ProductTranslation, error) {
+	var translationModel models.ProductTranslationModel
+
+	if err := r.db.WithContext(ctx).
+		Where("product_id = ? AND locale = ?", productID, locale).
+		First(&translationModel).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("translation not found")
+		}
+		return nil, err
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
 var _ repository.ProductRepository = (*PostgresProductRepo)(nil)
