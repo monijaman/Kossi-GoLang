@@ -29,6 +29,7 @@ import (
 	"gorm.io/gorm"
 
 	"kossti/internal/infrastructure/database"
+	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
@@ -84,10 +85,18 @@ func killProcessOnPort(port int) {
 }
 
 func main() {
-	// Load .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No .env file found or error loading .env file")
+	// Load the appropriate .env file based on GO_ENV
+	env := os.Getenv("GO_ENV")
+	if env == "production" {
+		err := godotenv.Load(".env.production")
+		if err != nil {
+			log.Println("No .env.production file found or error loading .env.production file")
+		}
+	} else {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Println("No .env file found or error loading .env file")
+		}
 	}
 
 	dbURL := os.Getenv("DATABASE_URL")
@@ -130,6 +139,22 @@ func main() {
 	fmt.Println("Running database migrations...")
 	if err := migrationManager.Setup(); err != nil {
 		log.Fatalf("Database migration failed: %v", err)
+	}
+
+	// --- Seed data only if not already seeded ---
+	var userCount int64
+	err = db.Table("users").Count(&userCount).Error
+	if err != nil {
+		log.Fatalf("Failed to check users table for seeding: %v", err)
+	}
+	if userCount == 0 {
+		fmt.Println("No users found, running initial data seeder...")
+		if err := database_seeders.SetupAllSeeders(db).RunAll(); err != nil {
+			log.Fatalf("Database seeding failed: %v", err)
+		}
+		fmt.Println("Database seeding complete!")
+	} else {
+		fmt.Println("Seed data already exists, skipping seeder.")
 	}
 
 	// Create repository instance with GORM DB
@@ -218,14 +243,6 @@ func main() {
 	fmt.Println("GET  http://localhost:8080/api/brands/{id}")
 	fmt.Println("PUT  http://localhost:8080/api/brands/{id}")
 	fmt.Println("DELETE http://localhost:8080/api/brands/{id}")
-	fmt.Println("GET  http://localhost:8080/api/wide-brands")
-	fmt.Println("GET  http://localhost:8080/api/public-brands")
-	fmt.Println("POST http://localhost:8080/api/brand-translation")
-	fmt.Println("GET  http://localhost:8080/api/brand-translation/{id}")
-	fmt.Println("POST http://localhost:8080/api/brand-status/{id}")
-	fmt.Println("POST http://localhost:8080/api/specifications")
-	fmt.Println("POST http://localhost:8080/api/specifications/bulk")
-	fmt.Println("GET  http://localhost:8080/api/get-specifications/{id}")
 	fmt.Println("GET  http://localhost:8080/api/specifications/{id}")
 	fmt.Println("PUT  http://localhost:8080/api/specifications/{id}")
 	fmt.Println("DELETE http://localhost:8080/api/specifications/{id}")

@@ -12,21 +12,24 @@ func main() {
 	fmt.Println("🎯 COMPREHENSIVE Clean Architecture GORM Decoupling Demo")
 	fmt.Println("=========================================================")
 
-	// Test multiple models to ensure all are properly decoupled
+	// 1. Testing Core System Models
 	fmt.Println("\n1. Testing Core System Models:")
-	
-	// User Entity
+
+	// --- User Entity ---
+	// Create a domain User entity (business logic layer)
 	user := &entities.User{
 		ID:    1,
 		Name:  "John Doe",
 		Email: "john@example.com",
 	}
+	// Convert domain entity to GORM model (infrastructure layer)
 	userModel := &models.UserModel{}
 	userModel.FromEntity(user)
+	// Convert back from GORM model to domain entity
 	convertedUser := userModel.ToEntity()
 	fmt.Printf("   ✅ User: %s -> GORM -> %s\n", user.Name, convertedUser.Name)
 
-	// Session Entity
+	// --- Session Entity ---
 	session := &entities.Session{
 		ID:           "session123",
 		UserID:       &user.ID,
@@ -38,7 +41,7 @@ func main() {
 	convertedSession := sessionModel.ToEntity()
 	fmt.Printf("   ✅ Session: %s -> GORM -> %s\n", session.ID, convertedSession.ID)
 
-	// Cache Entity
+	// --- Cache Entity ---
 	cache := &entities.Cache{
 		Key:        "cache_key",
 		Value:      "cache_value",
@@ -49,9 +52,10 @@ func main() {
 	convertedCache := cacheModel.ToEntity()
 	fmt.Printf("   ✅ Cache: %s -> GORM -> %s\n", cache.Key, convertedCache.Key)
 
+	// 2. Testing Product System Models
 	fmt.Println("\n2. Testing Product System Models:")
-	
-	// Category Entity
+
+	// --- Category Entity ---
 	category := &entities.Category{
 		ID:   1,
 		Name: "Electronics",
@@ -62,7 +66,7 @@ func main() {
 	convertedCategory := categoryModel.ToEntity()
 	fmt.Printf("   ✅ Category: %s -> GORM -> %s\n", category.Name, convertedCategory.Name)
 
-	// Brand Entity
+	// --- Brand Entity ---
 	brand := &entities.Brand{
 		ID:   1,
 		Name: "Apple",
@@ -73,7 +77,7 @@ func main() {
 	convertedBrand := brandModel.ToEntity()
 	fmt.Printf("   ✅ Brand: %s -> GORM -> %s\n", brand.Name, convertedBrand.Name)
 
-	// Product Entity
+	// --- Product Entity ---
 	product := &entities.Product{
 		ID:         1,
 		Name:       "iPhone 15",
@@ -86,9 +90,10 @@ func main() {
 	convertedProduct := productModel.ToEntity()
 	fmt.Printf("   ✅ Product: %s -> GORM -> %s\n", product.Name, convertedProduct.Name)
 
+	// 3. Testing Content & Media Models
 	fmt.Println("\n3. Testing Content & Media Models:")
-	
-	// Image Entity
+
+	// --- Image Entity ---
 	image := &entities.Image{
 		ID:            1,
 		ImageableType: "Product",
@@ -100,7 +105,7 @@ func main() {
 	convertedImage := imageModel.ToEntity()
 	fmt.Printf("   ✅ Image: %s -> GORM -> %s\n", image.ImagePath, convertedImage.ImagePath)
 
-	// Tag Entity
+	// --- Tag Entity ---
 	tag := &entities.Tag{
 		ID:   1,
 		Name: "smartphone",
@@ -110,10 +115,10 @@ func main() {
 	convertedTag := tagModel.ToEntity()
 	fmt.Printf("   ✅ Tag: %s -> GORM -> %s\n", tag.Name, convertedTag.Name)
 
-	// Feedback Entity
+	// --- Feedback Entity ---
 	feedback := &entities.Feedback{
 		ID:      1,
-		UserID:  &user.ID,
+		UserID:  user.ID, // Pass as uint, not *uint
 		Content: "Great product!",
 		Status:  true,
 	}
@@ -122,9 +127,10 @@ func main() {
 	convertedFeedback := feedbackModel.ToEntity()
 	fmt.Printf("   ✅ Feedback: %s -> GORM -> %s\n", feedback.Content, convertedFeedback.Content)
 
+	// 4. Testing Job System Models
 	fmt.Println("\n4. Testing Job System Models:")
-	
-	// Job Entity
+
+	// --- Job Entity ---
 	job := &entities.Job{
 		ID:          1,
 		Queue:       "default",
@@ -138,9 +144,10 @@ func main() {
 	convertedJob := jobModel.ToEntity()
 	fmt.Printf("   ✅ Job: %s -> GORM -> %s\n", job.Queue, convertedJob.Queue)
 
+	// 5. Testing Authentication Models
 	fmt.Println("\n5. Testing Authentication Models:")
-	
-	// Personal Access Token Entity
+
+	// --- Personal Access Token Entity ---
 	token := &entities.PersonalAccessToken{
 		ID:            1,
 		TokenableType: "User",
@@ -153,7 +160,7 @@ func main() {
 	convertedToken := tokenModel.ToEntity()
 	fmt.Printf("   ✅ Token: %s -> GORM -> %s\n", token.Name, convertedToken.Name)
 
-	// Password Reset Token Entity
+	// --- Password Reset Token Entity ---
 	now := time.Now()
 	resetToken := &entities.PasswordResetToken{
 		Email:     user.Email,
@@ -165,6 +172,7 @@ func main() {
 	convertedResetToken := resetTokenModel.ToEntity()
 	fmt.Printf("   ✅ Reset Token: %s -> GORM -> %s\n", resetToken.Email, convertedResetToken.Email)
 
+	// Final summary and Clean Architecture message
 	fmt.Println("\n🎉 COMPREHENSIVE SUCCESS!")
 	fmt.Println("==========================")
 	fmt.Println("✅ ALL MODELS are now completely decoupled from GORM!")
