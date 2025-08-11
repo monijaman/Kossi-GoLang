@@ -1,6 +1,7 @@
 package product
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -14,18 +15,36 @@ import (
 	"time"
 )
 
+// CategoryResponse represents the response format for categories
+type CategoryResponse struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+	Slug string `json:"slug"`
+}
+
+// BrandResponse represents the response format for brands
+type BrandResponse struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+	Slug string `json:"slug"`
+}
+
 // ProductResponse represents the response format for products
 type ProductResponse struct {
-	ID          uint    `json:"id"`
-	Name        string  `json:"name"`
-	Description *string `json:"description,omitempty"`
-	Slug        string  `json:"slug"`
-	Price       float64 `json:"price"`
-	CategoryID  *uint   `json:"category_id,omitempty"`
-	BrandID     *uint   `json:"brand_id,omitempty"`
-	ViewsCount  int64   `json:"views_count"`
-	CreatedAt   string  `json:"created_at"`
-	UpdatedAt   string  `json:"updated_at"`
+	ID           uint              `json:"id"`
+	Name         string            `json:"name"`
+	Description  *string           `json:"description,omitempty"`
+	Slug         string            `json:"slug"`
+	Price        float64           `json:"price"`
+	CategoryID   *uint             `json:"category_id,omitempty"`
+	CategorySlug *string           `json:"category_slug,omitempty"`
+	BrandID      *uint             `json:"brand_id,omitempty"`
+	BrandSlug    *string           `json:"brand_slug,omitempty"`
+	Category     *CategoryResponse `json:"category,omitempty"`
+	Brand        *BrandResponse    `json:"brand,omitempty"`
+	ViewsCount   int64             `json:"views_count"`
+	CreatedAt    string            `json:"created_at"`
+	UpdatedAt    string            `json:"updated_at"`
 }
 
 // ProductListResponse represents paginated product list response
@@ -38,7 +57,51 @@ type ProductListResponse struct {
 }
 
 // convertProductToResponse converts domain entity to response format
-func convertProductToResponse(product *entities.Product) ProductResponse {
+func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) ProductResponse {
+	response := ProductResponse{
+		ID:          product.ID,
+		Name:        product.Name,
+		Description: product.Description,
+		Slug:        product.Slug,
+		Price:       product.Price,
+		CategoryID:  product.CategoryID,
+		BrandID:     product.BrandID,
+		ViewsCount:  product.ViewsCount,
+		CreatedAt:   product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
+	}
+
+	// Fetch category information if category ID exists
+	if product.CategoryID != nil && categoryRepo != nil {
+		category, err := categoryRepo.GetByID(context.Background(), *product.CategoryID)
+		if err == nil && category != nil {
+			response.CategorySlug = &category.Slug
+			response.Category = &CategoryResponse{
+				ID:   category.ID,
+				Name: category.Name,
+				Slug: category.Slug,
+			}
+		}
+	}
+
+	// Fetch brand information if brand ID exists
+	if product.BrandID != nil && brandRepo != nil {
+		brand, err := brandRepo.GetByID(context.Background(), *product.BrandID)
+		if err == nil && brand != nil {
+			response.BrandSlug = &brand.Slug
+			response.Brand = &BrandResponse{
+				ID:   brand.ID,
+				Name: brand.Name,
+				Slug: brand.Slug,
+			}
+		}
+	}
+
+	return response
+}
+
+// convertProductToResponseSimple converts domain entity to response format without fetching related data
+func convertProductToResponseSimple(product *entities.Product) ProductResponse {
 	return ProductResponse{
 		ID:          product.ID,
 		Name:        product.Name,
@@ -53,12 +116,12 @@ func convertProductToResponse(product *entities.Product) ProductResponse {
 	}
 }
 
-// GetProductByIDHandler handles GET /api/products/{id}
-func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+// GetProductByIDHandler handles GET /products/{id}
+func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract ID from URL path - handle both /api/products/{id} and /api/products/{id}/
-	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	// Extract ID from URL path - handle both /products/{id} and /products/{id}/
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
 	path = strings.TrimSuffix(path, "/")
 
 	// Split by slash and get the first part as ID
@@ -90,16 +153,16 @@ func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo reposito
 		return
 	}
 
-	response := convertProductToResponse(product)
+	response := convertProductToResponse(product, categoryRepo, brandRepo)
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetProductBySlugHandler handles GET /api/products-by-slug/{slug}
-func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+// GetProductBySlugHandler handles GET /products-by-slug/{slug}
+func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract slug from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/products-by-slug/")
+	path := strings.TrimPrefix(r.URL.Path, "/products-by-slug/")
 	path = strings.TrimSuffix(path, "/")
 
 	if path == "" {
@@ -118,11 +181,11 @@ func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo reposi
 		return
 	}
 
-	response := convertProductToResponse(product)
+	response := convertProductToResponse(product, categoryRepo, brandRepo)
 	json.NewEncoder(w).Encode(response)
 }
 
-// CreateProductHandler handles POST /api/products
+// CreateProductHandler handles POST /products
 func CreateProductHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -146,17 +209,17 @@ func CreateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 		return
 	}
 
-	response := convertProductToResponse(product)
+	response := convertProductToResponseSimple(product)
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(response)
 }
 
-// UpdateProductHandler handles PATCH /api/products/{id}
+// UpdateProductHandler handles PATCH /products/{id}
 func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
 	path = strings.TrimSuffix(path, "/")
 
 	pathParts := strings.Split(path, "/")
@@ -191,12 +254,12 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 		return
 	}
 
-	response := convertProductToResponse(product)
+	response := convertProductToResponseSimple(product)
 	json.NewEncoder(w).Encode(response)
 }
 
-// ListProductsHandler handles GET /api/products
-func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+// ListProductsHandler handles GET /products
+func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Parse query parameters
@@ -257,7 +320,7 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 	// Convert products to response format
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
 	}
 
 	// Get total count
@@ -274,8 +337,107 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 	json.NewEncoder(w).Encode(response)
 }
 
+// GetFilteredProductsHandler handles Laravel-compatible filtered product listing
+// GET /products?locale=en&page=1&limit=10&category=&brand=&priceRange=&searchterm=&sortby=
+func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Parse query parameters with Laravel compatibility
+	locale := r.URL.Query().Get("locale")
+	pageStr := r.URL.Query().Get("page")
+	limitStr := r.URL.Query().Get("limit")
+	category := r.URL.Query().Get("category")
+	brandParam := r.URL.Query().Get("brand")
+	priceRange := r.URL.Query().Get("priceRange")
+	searchterm := r.URL.Query().Get("searchterm")
+	sortby := r.URL.Query().Get("sortby")
+
+	// Set defaults
+	page := 1
+	limit := 10
+
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+
+	if limitStr != "" {
+		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
+			limit = l
+		}
+	}
+
+	// Convert brand parameter to array (Laravel sends comma-separated)
+	var brands []string
+	if brandParam != "" {
+		brands = strings.Split(brandParam, ",")
+		// Trim whitespace from each brand
+		for i, brand := range brands {
+			brands[i] = strings.TrimSpace(brand)
+		}
+	}
+
+	// Create filters struct
+	filters := &repository.ProductFilters{
+		Page:       page,
+		Limit:      limit,
+		Locale:     locale,
+		SearchTerm: searchterm,
+		Category:   category,
+		Brand:      brandParam, // Store original comma-separated string
+		BrandSlugs: brands,     // Store as array for filtering
+		PriceRange: priceRange,
+		SortBy:     sortby,
+	}
+
+	// Get filtered products
+	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		return
+	}
+
+	// Convert products to response format
+	productResponses := make([]ProductResponse, len(products))
+	for i, product := range products {
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
+	}
+
+	// Calculate pagination info
+	totalPages := (totalCount + int64(limit) - 1) / int64(limit)
+	hasNextPage := page < int(totalPages)
+	hasPrevPage := page > 1
+
+	// Laravel-compatible response format
+	response := map[string]interface{}{
+		"data": productResponses,
+		"meta": map[string]interface{}{
+			"current_page":  page,
+			"per_page":      limit,
+			"total":         totalCount,
+			"last_page":     totalPages,
+			"from":          (page-1)*limit + 1,
+			"to":            (page-1)*limit + len(productResponses),
+			"has_next_page": hasNextPage,
+			"has_prev_page": hasPrevPage,
+		},
+		"filters": map[string]interface{}{
+			"locale":      locale,
+			"category":    category,
+			"brand":       brandParam,
+			"price_range": priceRange,
+			"search_term": searchterm,
+			"sort_by":     sortby,
+		},
+	}
+
+	json.NewEncoder(w).Encode(response)
+}
+
 // GetPopularProductsHandler handles GET /api/popular-products
-func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	limitStr := r.URL.Query().Get("limit")
@@ -296,7 +458,7 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
 	}
 
 	response := ProductListResponse{
@@ -310,7 +472,7 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 }
 
 // IncrementProductViewsHandler handles POST /api/products/{id}/increment-views
-func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract ID from URL path - expecting /api/products/{id}/increment-views
@@ -354,7 +516,7 @@ func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo r
 		return
 	}
 
-	response := convertProductToResponse(product)
+	response := convertProductToResponse(product, categoryRepo, brandRepo)
 	json.NewEncoder(w).Encode(response)
 }
 
@@ -598,4 +760,61 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 	}
 
 	json.NewEncoder(w).Encode(savedTranslation)
+}
+
+// GetPublicReviewsHandler handles GET /public-reviews/{id}
+// This endpoint matches the Laravel API: Route::get('/public-reviews/{id}', [ProductReviewController::class, 'getPublicReviews']);
+func GetPublicReviewsHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/public-reviews/")
+	pathParts := strings.Split(path, "/")
+
+	if len(pathParts) == 0 || pathParts[0] == "" {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "Product ID is required"}`))
+		return
+	}
+
+	productIDStr := pathParts[0]
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "Invalid product ID"}`))
+		return
+	}
+
+	// Get locale from query parameter (default to 'en' like Laravel)
+	locale := r.URL.Query().Get("locale")
+	if locale == "" {
+		locale = "en"
+	}
+
+	// For now, return a simple response structure matching Laravel
+	// TODO: Implement actual review fetching logic when review repository is available
+	reviews := []map[string]interface{}{
+		{
+			"id":                 1,
+			"product_id":         uint(productID),
+			"rating":             5,
+			"reviews":            "Excellent product! Highly recommended.",
+			"additional_details": "Great quality and fast delivery",
+			"price":              999.99,
+			"locale":             locale,
+			"created_at":         time.Now().Format("2006-01-02T15:04:05Z07:00"),
+			"updated_at":         time.Now().Format("2006-01-02T15:04:05Z07:00"),
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	response := map[string]interface{}{
+		"data":    reviews,
+		"success": true,
+		"message": "Public reviews retrieved successfully",
+	}
+
+	json.NewEncoder(w).Encode(response)
 }

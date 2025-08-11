@@ -10,7 +10,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FormGeneratorRepository)
 	handler := NewFormGeneratorHandler(repo)
 
 	// Protected routes (TODO: Add JWT middleware)
-	mux.HandleFunc("/api/formgenerator", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/formgenerator", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
 			handler.CreateFormGenerator(w, r)
@@ -19,7 +19,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FormGeneratorRepository)
 		}
 	})
 
-	mux.HandleFunc("/api/formgenerator/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/formgenerator/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
 			handler.GetFormGeneratorByID(w, r)
@@ -31,7 +31,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FormGeneratorRepository)
 	})
 
 	// V1 API routes (for compatibility)
-	mux.HandleFunc("/api/v1/formgenerator", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/formgenerator", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
 			handler.CreateFormGenerator(w, r)
@@ -40,7 +40,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FormGeneratorRepository)
 		}
 	})
 
-	mux.HandleFunc("/api/v1/formgenerator/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/formgenerator/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
 			handler.GetFormGeneratorByID(w, r)
@@ -52,7 +52,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FormGeneratorRepository)
 	})
 
 	// Public routes
-	mux.HandleFunc("/api/catgory-specs/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/catgory-specs/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			handler.GetCategorySpec(w, r)
 		} else {
@@ -60,7 +60,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FormGeneratorRepository)
 		}
 	})
 
-	mux.HandleFunc("/api/v1/catgory-specs/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/catgory-specs/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			handler.GetCategorySpec(w, r)
 		} else {

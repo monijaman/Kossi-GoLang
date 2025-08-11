@@ -11,8 +11,8 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 
 	// Public category endpoints
 
-	// GET /api/categories - List all categories
-	mux.HandleFunc("/api/categories", func(w http.ResponseWriter, r *http.Request) {
+	// GET /categories - List all categories
+	mux.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			GetCategoriesHandler(w, r, categoryRepo)
 		} else if r.Method == http.MethodPost {
@@ -24,12 +24,12 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		}
 	})
 
-	// GET/PUT/DELETE /api/categories/{id} - Category CRUD by ID
-	mux.HandleFunc("/api/categories/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/api/categories/")
+	// GET/PUT/DELETE /categories/{id} - Category CRUD by ID
+	mux.HandleFunc("/categories/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.TrimPrefix(r.URL.Path, "/categories/")
 		if path == "" || path == "/" {
-			// This is the base /api/categories/ endpoint, redirect to /api/categories
-			http.Redirect(w, r, "/api/categories", http.StatusMovedPermanently)
+			// This is the base /categories/ endpoint, redirect to /categories
+			http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
 			return
 		}
 
@@ -46,8 +46,8 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		}
 	})
 
-	// GET /api/wide-categories - Get wide categories
-	mux.HandleFunc("/api/wide-categories", func(w http.ResponseWriter, r *http.Request) {
+	// GET /wide-categories - Get wide categories
+	mux.HandleFunc("/wide-categories", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -57,8 +57,8 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		GetWideCategoriesHandler(w, r, categoryRepo)
 	})
 
-	// POST /api/category-translation - Create category translation
-	mux.HandleFunc("/api/category-translation", func(w http.ResponseWriter, r *http.Request) {
+	// POST /category-translation - Create category translation
+	mux.HandleFunc("/category-translation", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -68,8 +68,8 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		CreateCategoryTranslationHandler(w, r, categoryRepo)
 	})
 
-	// GET /api/category-translation/{id} - Get category translations
-	mux.HandleFunc("/api/category-translation/", func(w http.ResponseWriter, r *http.Request) {
+	// GET /category-translation/{id} - Get category translations
+	mux.HandleFunc("/category-translation/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -79,8 +79,8 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		GetCategoryTranslationHandler(w, r, categoryRepo)
 	})
 
-	// POST/GET /api/category-brands - Category-Brand relations
-	mux.HandleFunc("/api/category-brands", func(w http.ResponseWriter, r *http.Request) {
+	// POST/GET /category-brands - Category-Brand relations
+	mux.HandleFunc("/category-brands", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
 			CreateCategoryBrandRelationHandler(w, r, categoryRepo)
 		} else if r.Method == http.MethodGet {
@@ -92,8 +92,8 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		}
 	})
 
-	// POST /api/category-status/{id} - Update category status
-	mux.HandleFunc("/api/category-status/", func(w http.ResponseWriter, r *http.Request) {
+	// POST /category-status/{id} - Update category status
+	mux.HandleFunc("/category-status/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)

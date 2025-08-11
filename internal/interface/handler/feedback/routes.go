@@ -10,7 +10,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 	handler := NewFeedbackHandler(repo)
 
 	// Protected routes (TODO: Add JWT middleware)
-	mux.HandleFunc("/api/feedback/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/feedback/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
 			handler.CreateFeedback(w, r)
@@ -28,7 +28,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 	})
 
 	// V1 API routes (for compatibility)
-	mux.HandleFunc("/api/v1/feedback/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/feedback/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
 			handler.CreateFeedback(w, r)
@@ -44,7 +44,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 	})
 
 	// Public routes
-	mux.HandleFunc("/api/feedback", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/feedback", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			handler.GetAllFeedback(w, r)
 		} else {
@@ -52,7 +52,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 		}
 	})
 
-	mux.HandleFunc("/api/v1/feedback", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/feedback", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			handler.GetAllFeedback(w, r)
 		} else {

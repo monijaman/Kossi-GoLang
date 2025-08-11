@@ -54,6 +54,27 @@ func findAvailablePort(startPort int) int {
 	return startPort // fallback to original port
 }
 
+// corsMiddleware adds CORS headers to allow cross-origin requests
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Set CORS headers
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+		w.Header().Set("Access-Control-Max-Age", "86400")
+
+		// Handle preflight OPTIONS request
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		// Call the next handler
+		next.ServeHTTP(w, r)
+	})
+}
+
 // killProcessOnPort attempts to find and kill any process using the specified port
 func killProcessOnPort(port int) {
 	// On Windows, you can use netstat + taskkill, but for now we'll just log
@@ -132,7 +153,7 @@ func main() {
 	// Register grouped routes
 	handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
 	handleruser.RegisterUserRoutes(mux, userRepo)
-	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo)
+	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo)
 	handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
 	handlerbrand.RegisterBrandRoutes(mux, brandRepo)
 	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo)
@@ -243,10 +264,10 @@ func main() {
 
 	serverAddr := fmt.Sprintf(":%d", availablePort)
 
-	// Create HTTP server
+	// Create HTTP server with CORS middleware
 	server := &http.Server{
 		Addr:         serverAddr,
-		Handler:      mux,
+		Handler:      corsMiddleware(mux),
 		ReadTimeout:  15 * time.Second,
 		WriteTimeout: 15 * time.Second,
 		IdleTimeout:  60 * time.Second,

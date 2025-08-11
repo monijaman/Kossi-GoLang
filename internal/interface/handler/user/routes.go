@@ -11,7 +11,7 @@ import (
 // RegisterUserRoutes registers all user-related endpoints to the mux.
 func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) {
 	// Public route example
-	mux.HandleFunc("/api/users/all", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/users/all", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -24,7 +24,7 @@ func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) 
 	})
 
 	// Protected routes
-	mux.HandleFunc("/api/users", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/users", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -36,7 +36,7 @@ func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) 
 		handler.ListUsersHandler(w, r, userRepo)
 	}))
 
-	mux.HandleFunc("/api/users/search", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/users/search", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -48,7 +48,7 @@ func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) 
 		handler.SearchUsersHandler(w, r, userRepo)
 	}))
 
-	mux.HandleFunc("/api/users/count", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/users/count", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -60,7 +60,7 @@ func RegisterUserRoutes(mux *http.ServeMux, userRepo repository.UserRepository) 
 		handler.GetUserCountHandler(w, r, userRepo)
 	}))
 
-	mux.HandleFunc("/api/users/", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/users/", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)

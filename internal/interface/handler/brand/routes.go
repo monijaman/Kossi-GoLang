@@ -11,8 +11,8 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 
 	// Public brand endpoints
 
-	// GET /api/brands - List all brands
-	mux.HandleFunc("/api/brands", func(w http.ResponseWriter, r *http.Request) {
+	// GET /brands - List all brands
+	mux.HandleFunc("/brands", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			GetBrandsHandler(w, r, brandRepo)
 		} else if r.Method == http.MethodPost {
@@ -24,11 +24,11 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 		}
 	})
 
-	// GET/PUT/DELETE /api/brands/{id} - Brand CRUD by ID
-	mux.HandleFunc("/api/brands/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/api/brands/")
+	// GET/PUT/DELETE /brands/{id} - Brand CRUD by ID
+	mux.HandleFunc("/brands/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.TrimPrefix(r.URL.Path, "/brands/")
 		if path == "" || path == "/" {
-			// Handle /api/brands/ - redirect to /api/brands
+			// Handle /brands/ - redirect to /brands
 			if r.Method == http.MethodGet {
 				GetBrandsHandler(w, r, brandRepo)
 			} else if r.Method == http.MethodPost {
@@ -56,8 +56,8 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 		}
 	})
 
-	// GET /api/wide-brands - Get wide brands (public access)
-	mux.HandleFunc("/api/wide-brands", func(w http.ResponseWriter, r *http.Request) {
+	// GET /wide-brands - Get wide brands (public access)
+	mux.HandleFunc("/wide-brands", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			GetWideBrandsHandler(w, r, brandRepo)
 		} else {
@@ -67,8 +67,8 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 		}
 	})
 
-	// GET /api/public-brands - Get public brands
-	mux.HandleFunc("/api/public-brands", func(w http.ResponseWriter, r *http.Request) {
+	// GET /public-brands - Get public brands
+	mux.HandleFunc("/public-brands", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			GetPublicBrandsHandler(w, r, brandRepo)
 		} else {
@@ -80,8 +80,8 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 
 	// Brand translation endpoints
 
-	// POST /api/brand-translation - Create brand translation
-	mux.HandleFunc("/api/brand-translation", func(w http.ResponseWriter, r *http.Request) {
+	// POST /brand-translation - Create brand translation
+	mux.HandleFunc("/brand-translation", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
 			CreateBrandTranslationHandler(w, r, brandRepo)
 		} else {
@@ -91,11 +91,11 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 		}
 	})
 
-	// GET /api/brand-translation/{id} - Get brand translations by brand ID
-	mux.HandleFunc("/api/brand-translation/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/api/brand-translation/")
+	// GET /brand-translation/{id} - Get brand translations by brand ID
+	mux.HandleFunc("/brand-translation/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.TrimPrefix(r.URL.Path, "/brand-translation/")
 		if path == "" || path == "/" {
-			// Handle /api/brand-translation/ - redirect to creation
+			// Handle /brand-translation/ - redirect to creation
 			if r.Method == http.MethodPost {
 				CreateBrandTranslationHandler(w, r, brandRepo)
 			} else {
@@ -118,9 +118,9 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 
 	// Brand status endpoints
 
-	// POST /api/brand-status/{id} - Update brand status
-	mux.HandleFunc("/api/brand-status/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/api/brand-status/")
+	// POST /brand-status/{id} - Update brand status
+	mux.HandleFunc("/brand-status/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.TrimPrefix(r.URL.Path, "/brand-status/")
 		if path == "" || path == "/" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusNotFound)

@@ -5,6 +5,22 @@ import (
 	"kossti/internal/domain/entities"
 )
 
+// ProductFilters represents filter parameters for product queries
+type ProductFilters struct {
+	Page         int      `json:"page"`
+	Limit        int      `json:"limit"`
+	Locale       string   `json:"locale"`
+	SearchTerm   string   `json:"searchterm"`
+	Category     string   `json:"category"`
+	Brand        string   `json:"brand"`
+	PriceRange   string   `json:"priceRange"`
+	SortBy       string   `json:"sortby"`
+	MinPrice     *float64 `json:"minPrice,omitempty"`
+	MaxPrice     *float64 `json:"maxPrice,omitempty"`
+	BrandSlugs   []string `json:"brandSlugs,omitempty"`
+	CategorySlug string   `json:"categorySlug,omitempty"`
+}
+
 type ProductRepository interface {
 	// Basic CRUD operations
 	GetByID(ctx context.Context, id uint) (*entities.Product, error)
@@ -12,6 +28,9 @@ type ProductRepository interface {
 	Create(ctx context.Context, product *entities.Product) (*entities.Product, error)
 	Update(ctx context.Context, id uint, product *entities.Product) (*entities.Product, error)
 	List(ctx context.Context, limit, offset int) ([]*entities.Product, error)
+
+	// Advanced filtering - Laravel API compatible
+	GetWithFilters(ctx context.Context, filters *ProductFilters) ([]*entities.Product, int64, error)
 
 	// Search and filtering
 	Search(ctx context.Context, query string, limit, offset int) ([]*entities.Product, error)

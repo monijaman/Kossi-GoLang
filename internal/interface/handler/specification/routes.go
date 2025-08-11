@@ -11,8 +11,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 
 	// Public specification endpoints
 
-	// POST /api/specifications - Create specification
-	mux.HandleFunc("/api/specifications", func(w http.ResponseWriter, r *http.Request) {
+	// POST /specifications - Create specification
+	mux.HandleFunc("/specifications", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -22,8 +22,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		CreateSpecificationHandler(w, r, specRepo, keyRepo)
 	})
 
-	// POST /api/specifications/bulk - Bulk upsert specifications
-	mux.HandleFunc("/api/specifications/bulk", func(w http.ResponseWriter, r *http.Request) {
+	// POST /specifications/bulk - Bulk upsert specifications
+	mux.HandleFunc("/specifications/bulk", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -33,8 +33,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		BulkUpsertSpecificationHandler(w, r, specRepo, keyRepo)
 	})
 
-	// GET /api/get-specifications/{id} - Get specifications by product ID
-	mux.HandleFunc("/api/get-specifications/", func(w http.ResponseWriter, r *http.Request) {
+	// GET /get-specifications/{id} - Get specifications by product ID
+	mux.HandleFunc("/get-specifications/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -44,8 +44,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		GetSpecificationsByProductHandler(w, r, specRepo)
 	})
 
-	// GET/PUT /api/specifications/{id} - Get or update specification by ID
-	mux.HandleFunc("/api/specifications/", func(w http.ResponseWriter, r *http.Request) {
+	// GET/PUT /specifications/{id} - Get or update specification by ID
+	mux.HandleFunc("/specifications/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			GetSpecificationByIDHandler(w, r, specRepo)
 		} else if r.Method == http.MethodPut {
@@ -59,8 +59,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		}
 	})
 
-	// GET /api/specificationsearch - Search specifications
-	mux.HandleFunc("/api/specificationsearch", func(w http.ResponseWriter, r *http.Request) {
+	// GET /specificationsearch - Search specifications
+	mux.HandleFunc("/specificationsearch", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -70,8 +70,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		SearchSpecificationsHandler(w, r, specRepo)
 	})
 
-	// POST /api/spec_translation - Create specification translation
-	mux.HandleFunc("/api/spec_translation", func(w http.ResponseWriter, r *http.Request) {
+	// POST /spec_translation - Create specification translation
+	mux.HandleFunc("/spec_translation", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -81,8 +81,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		CreateSpecificationTranslationHandler(w, r, specRepo)
 	})
 
-	// GET /api/spec_translation/{id} - Get specification translations
-	mux.HandleFunc("/api/spec_translation/", func(w http.ResponseWriter, r *http.Request) {
+	// GET /spec_translation/{id} - Get specification translations
+	mux.HandleFunc("/spec_translation/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -92,8 +92,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		GetSpecificationTranslationHandler(w, r, specRepo)
 	})
 
-	// GET /api/get-public-spec/{id} - Get public specification
-	mux.HandleFunc("/api/get-public-spec/", func(w http.ResponseWriter, r *http.Request) {
+	// GET /get-public-spec/{id} - Get public specification
+	mux.HandleFunc("/get-public-spec/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -105,8 +105,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 
 	// Specification Key endpoints (these would typically be authenticated)
 
-	// POST /api/speckey - Create or update specification key
-	mux.HandleFunc("/api/speckey", func(w http.ResponseWriter, r *http.Request) {
+	// POST /speckey - Create or update specification key
+	mux.HandleFunc("/speckey", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
 			CreateOrUpdateSpecificationKeyHandler(w, r, keyRepo)
 		} else if r.Method == http.MethodGet {
@@ -118,12 +118,12 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		}
 	})
 
-	// GET /api/speckey/{id} - Get specification key by ID
-	mux.HandleFunc("/api/speckey/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/api/speckey/")
+	// GET /speckey/{id} - Get specification key by ID
+	mux.HandleFunc("/speckey/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.TrimPrefix(r.URL.Path, "/speckey/")
 		if path == "" || path == "/" {
-			// This is the base /api/speckey/ endpoint, redirect to /api/speckey
-			http.Redirect(w, r, "/api/speckey", http.StatusMovedPermanently)
+			// This is the base /speckey/ endpoint, redirect to /speckey
+			http.Redirect(w, r, "/speckey", http.StatusMovedPermanently)
 			return
 		}
 
@@ -136,8 +136,8 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		GetSpecificationKeyByIDHandler(w, r, keyRepo)
 	})
 
-	// POST /api/specremove/{id} - Delete specification key
-	mux.HandleFunc("/api/specremove/", func(w http.ResponseWriter, r *http.Request) {
+	// POST /specremove/{id} - Delete specification key
+	mux.HandleFunc("/specremove/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -149,9 +149,9 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 
 	// Specification Key Translation endpoints
 
-	// POST /api/speckey-translation - Create specification key translation
-	// GET /api/speckey-translation - Get all specification key translations
-	mux.HandleFunc("/api/speckey-translation", func(w http.ResponseWriter, r *http.Request) {
+	// POST /speckey-translation - Create specification key translation
+	// GET /speckey-translation - Get all specification key translations
+	mux.HandleFunc("/speckey-translation", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
 			CreateSpecificationKeyTranslationHandler(w, r, keyRepo)
 		} else if r.Method == http.MethodGet {

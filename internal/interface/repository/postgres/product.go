@@ -297,4 +297,81 @@ func (r *PostgresProductRepo) GetTranslationByLocale(ctx context.Context, produc
 	return translationModel.ToEntity(), nil
 }
 
+// GetWithFilters implements Laravel-compatible filtering for products
+func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repository.ProductFilters) ([]*entities.Product, int64, error) {
+	var productModels []models.ProductModel
+	var totalCount int64
+
+	// Start building the query
+	query := r.db.WithContext(ctx).Model(&models.ProductModel{})
+
+	// Apply filters
+	r.applyFilters(query, filters)
+
+	// Get total count for pagination
+	if err := query.Count(&totalCount).Error; err != nil {
+		return nil, 0, err
+	}
+
+	// Apply sorting
+	r.applySorting(query, filters.SortBy)
+
+	// Apply pagination
+	offset := (filters.Page - 1) * filters.Limit
+	if err := query.Limit(filters.Limit).Offset(offset).Find(&productModels).Error; err != nil {
+		return nil, 0, err
+	}
+
+	// Convert models to entities
+	products := make([]*entities.Product, len(productModels))
+	for i, model := range productModels {
+		products[i] = model.ToEntity()
+	}
+
+	return products, totalCount, nil
+}
+
+// applyFilters applies all filters to the query
+func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters) {
+	// Search term filter
+	if filters.SearchTerm != "" {
+		query.Where("name ILIKE ?", "%"+filters.SearchTerm+"%")
+	}
+
+	// Category filter
+	if filters.CategorySlug != "" {
+		query.Joins("JOIN categories ON products.category_id = categories.id").
+			Where("categories.slug = ?", filters.CategorySlug)
+	}
+
+	// Brand filter (multiple brands supported)
+	if len(filters.BrandSlugs) > 0 {
+		query.Joins("JOIN brands ON products.brand_id = brands.id").
+			Where("brands.slug IN ?", filters.BrandSlugs)
+	}
+
+	// Price range filter
+	if filters.MinPrice != nil {
+		query.Where("price >= ?", *filters.MinPrice)
+	}
+	if filters.MaxPrice != nil {
+		query.Where("price <= ?", *filters.MaxPrice)
+	}
+}
+
+// applySorting applies sorting based on sortby parameter
+func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) {
+	switch sortBy {
+	case "popular":
+		query.Order("priority ASC, views_count DESC")
+	case "price_asc":
+		query.Order("priority ASC, price ASC")
+	case "price_desc":
+		query.Order("priority ASC, price DESC")
+	default:
+		// Default sorting by priority
+		query.Order("priority ASC")
+	}
+}
+
 var _ repository.ProductRepository = (*PostgresProductRepo)(nil)

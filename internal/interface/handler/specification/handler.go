@@ -597,42 +597,59 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 	})
 }
 
-// GetPublicSpecificationHandler handles GET /api/get-public-spec/{id}
+// GetPublicSpecificationHandler handles GET /api/get-public-spec/{id} - Get specifications for a product (Laravel compatibility)
 func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract specification ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/get-public-spec/")
-	specIDStr := strings.Trim(path, "/")
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/get-public-spec/")
+	productIDStr := strings.Trim(path, "/")
 
-	specID, err := strconv.ParseUint(specIDStr, 10, 32)
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{
-			"error":    "Invalid specification ID format",
-			"received": specIDStr,
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
 		})
 		return
 	}
 
-	specification, err := specRepo.GetByID(r.Context(), uint(specID))
+	// Get locale from query parameters (default to 'en')
+	locale := r.URL.Query().Get("locale")
+	if locale == "" {
+		locale = "en"
+	}
+
+	// Get all specifications for the product
+	specifications, err := specRepo.GetByProductID(r.Context(), uint(productID))
 	if err != nil {
-		if err.Error() == "specification not found" {
-			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Specification not found"})
-		} else {
-			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get specification"})
-		}
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get specifications"})
 		return
 	}
 
-	// For public endpoint, we might want to include translations
-	translations, _ := specRepo.GetTranslations(r.Context(), uint(specID))
+	// Format the response to match Laravel structure
+	type SpecificationResponse struct {
+		SpecificationKeyID uint   `json:"specification_key_id"`
+		TranslatedKey      string `json:"translated_key"`
+		TranslatedValue    string `json:"translated_value"`
+	}
 
-	response := convertSpecificationToResponse(specification)
+	var dataset []SpecificationResponse
+	for _, spec := range specifications {
+		// For now, return the basic specification data
+		// TODO: Add proper translation support based on locale
+		response := SpecificationResponse{
+			SpecificationKeyID: spec.SpecificationKeyID,
+			TranslatedKey:      spec.SpecificationKey, // This would need proper key lookup
+			TranslatedValue:    spec.Value,
+		}
+		dataset = append(dataset, response)
+	}
+
+	// Return the dataset in Laravel-compatible format
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"specification": response,
-		"translations":  translations,
+		"dataset": dataset,
 	})
 }
