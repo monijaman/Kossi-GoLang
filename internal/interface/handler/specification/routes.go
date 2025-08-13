@@ -100,7 +100,7 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			return
 		}
-		GetPublicSpecificationHandler(w, r, specRepo)
+		GetPublicSpecificationHandler(w, r, specRepo, keyRepo)
 	})
 
 	// Specification Key endpoints (these would typically be authenticated)

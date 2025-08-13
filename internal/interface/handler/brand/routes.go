@@ -11,19 +11,6 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 
 	// Public brand endpoints
 
-	// GET /brands - List all brands
-	mux.HandleFunc("/brands", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			GetBrandsHandler(w, r, brandRepo)
-		} else if r.Method == http.MethodPost {
-			CreateBrandHandler(w, r, brandRepo)
-		} else {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only GET and POST methods are allowed"}`))
-		}
-	})
-
 	// GET/PUT/DELETE /brands/{id} - Brand CRUD by ID
 	mux.HandleFunc("/brands/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/brands/")

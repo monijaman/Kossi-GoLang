@@ -14,6 +14,7 @@ type ImageModel struct {
 	ImageableType string     `gorm:"type:varchar(255);not null"`
 	ImageableID   uint       `gorm:"not null"`
 	ImagePath     string     `gorm:"type:varchar(255);not null"`
+	Status        int        `gorm:"default:1"`
 	CreatedAt     time.Time  `gorm:"autoCreateTime"`
 	UpdatedAt     time.Time  `gorm:"autoUpdateTime"`
 	DeletedAt     *time.Time `gorm:"index"`
@@ -26,6 +27,7 @@ func (i *ImageModel) ToEntity() *entities.Image {
 		ImageableType: i.ImageableType,
 		ImageableID:   i.ImageableID,
 		ImagePath:     i.ImagePath,
+		Status:        i.Status,
 		CreatedAt:     i.CreatedAt,
 		UpdatedAt:     i.UpdatedAt,
 		DeletedAt:     i.DeletedAt,
@@ -38,6 +40,7 @@ func (i *ImageModel) FromEntity(entity *entities.Image) {
 	i.ImageableType = entity.ImageableType
 	i.ImageableID = entity.ImageableID
 	i.ImagePath = entity.ImagePath
+	i.Status = entity.Status
 	i.CreatedAt = entity.CreatedAt
 	i.UpdatedAt = entity.UpdatedAt
 	i.DeletedAt = entity.DeletedAt

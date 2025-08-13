@@ -120,7 +120,7 @@ func main() {
 		ID:      1,
 		UserID:  user.ID, // Pass as uint, not *uint
 		Content: "Great product!",
-		Status:  true,
+		Status:  1,
 	}
 	feedbackModel := &models.FeedbackModel{}
 	feedbackModel.FromEntity(feedback)

@@ -17,7 +17,7 @@ type CreateFeedbackRequest struct {
 
 type UpdateFeedbackRequest struct {
 	Content *string `json:"content,omitempty"`
-	Status  *bool   `json:"status,omitempty"`
+	Status  *int    `json:"status,omitempty"`
 }
 
 type CreateTranslationRequest struct {
@@ -30,7 +30,7 @@ type FeedbackResponse struct {
 	ID        uint   `json:"id"`
 	UserID    uint   `json:"user_id"`
 	Content   string `json:"content"`
-	Status    bool   `json:"status"`
+	Status    int    `json:"status"`
 	CreatedBy *uint  `json:"created_by"`
 	UpdatedBy *uint  `json:"updated_by"`
 	CreatedAt string `json:"created_at"`

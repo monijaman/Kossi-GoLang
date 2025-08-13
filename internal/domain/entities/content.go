@@ -25,6 +25,7 @@ type Specification struct {
 	SpecificationKeyID uint
 	SpecificationKey   string // This will be populated through joins
 	Value              string
+	Status             int
 	CreatedAt          time.Time
 	UpdatedAt          time.Time
 }

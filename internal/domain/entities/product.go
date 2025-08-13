@@ -15,6 +15,7 @@ type Product struct {
 	CategoryID  *uint
 	BrandID     *uint
 	ViewsCount  int64
+	Status      int
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   *time.Time
@@ -37,6 +38,7 @@ type Category struct {
 	ID        uint
 	Name      string
 	Slug      string
+	Status    int
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time
@@ -47,6 +49,7 @@ type Brand struct {
 	ID        uint
 	Name      string
 	Slug      string
+	Status    int
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time
@@ -72,6 +75,7 @@ type Image struct {
 	ImageableType string
 	ImageableID   uint
 	ImagePath     string
+	Status        int
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 	DeletedAt     *time.Time
@@ -100,7 +104,7 @@ type Feedback struct {
 	ID        uint
 	UserID    uint
 	Content   string
-	Status    bool
+	Status    int
 	CreatedBy *uint
 	UpdatedBy *uint
 	CreatedAt time.Time

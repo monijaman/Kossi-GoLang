@@ -13,6 +13,7 @@ type BrandModel struct {
 	ID        uint       `gorm:"primaryKey;autoIncrement"`
 	Name      string     `gorm:"type:varchar(255);not null"`
 	Slug      string     `gorm:"type:varchar(255);unique;not null"`
+	Status    int        `gorm:"default:1"`
 	CreatedAt time.Time  `gorm:"autoCreateTime"`
 	UpdatedAt time.Time  `gorm:"autoUpdateTime"`
 	DeletedAt *time.Time `gorm:"index"`
@@ -24,6 +25,7 @@ func (b *BrandModel) ToEntity() *entities.Brand {
 		ID:        b.ID,
 		Name:      b.Name,
 		Slug:      b.Slug,
+		Status:    b.Status,
 		CreatedAt: b.CreatedAt,
 		UpdatedAt: b.UpdatedAt,
 		DeletedAt: b.DeletedAt,
@@ -35,6 +37,7 @@ func (b *BrandModel) FromEntity(entity *entities.Brand) {
 	b.ID = entity.ID
 	b.Name = entity.Name
 	b.Slug = entity.Slug
+	b.Status = entity.Status
 	b.CreatedAt = entity.CreatedAt
 	b.UpdatedAt = entity.UpdatedAt
 	b.DeletedAt = entity.DeletedAt

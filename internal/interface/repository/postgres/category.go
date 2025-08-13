@@ -260,11 +260,14 @@ func (r *PostgresCategoryRepo) DeleteBrandRelation(ctx context.Context, category
 }
 
 // Status operations (assuming we add a status field to Category)
-func (r *PostgresCategoryRepo) UpdateStatus(ctx context.Context, id uint, status bool) error {
+func (r *PostgresCategoryRepo) UpdateStatus(ctx context.Context, id uint, status int) error {
 	result := r.db.WithContext(ctx).
 		Model(&models.CategoryModel{}).
 		Where("id = ?", id).
-		Update("updated_at", time.Now())
+		Updates(map[string]interface{}{
+			"status":     status,
+			"updated_at": time.Now(),
+		})
 
 	if result.Error != nil {
 		return result.Error

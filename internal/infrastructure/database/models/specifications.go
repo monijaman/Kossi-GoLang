@@ -119,6 +119,7 @@ type SpecificationModel struct {
 	ProductID          uint      `gorm:"not null"`
 	SpecificationKeyID uint      `gorm:"not null"`
 	Value              string    `gorm:"type:varchar(500);not null"`
+	Status             int       `gorm:"default:1"`
 	CreatedAt          time.Time `gorm:"autoCreateTime"`
 	UpdatedAt          time.Time `gorm:"autoUpdateTime"`
 }
@@ -131,6 +132,7 @@ func (s *SpecificationModel) ToEntity() *entities.Specification {
 		SpecificationKeyID: s.SpecificationKeyID,
 		SpecificationKey:   "", // This would need to be populated through a join
 		Value:              s.Value,
+		Status:             s.Status,
 		CreatedAt:          s.CreatedAt,
 		UpdatedAt:          s.UpdatedAt,
 	}
@@ -142,6 +144,7 @@ func (s *SpecificationModel) FromEntity(entity *entities.Specification) {
 	s.ProductID = entity.ProductID
 	s.SpecificationKeyID = entity.SpecificationKeyID
 	s.Value = entity.Value
+	s.Status = entity.Status
 	s.CreatedAt = entity.CreatedAt
 	s.UpdatedAt = entity.UpdatedAt
 }

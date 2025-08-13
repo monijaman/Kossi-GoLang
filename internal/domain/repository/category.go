@@ -29,6 +29,6 @@ type CategoryRepository interface {
 	DeleteBrandRelation(ctx context.Context, categoryID, brandID uint) error
 
 	// Status operations
-	UpdateStatus(ctx context.Context, id uint, status bool) error
+	UpdateStatus(ctx context.Context, id uint, status int) error
 	GetCount(ctx context.Context) (int64, error)
 }

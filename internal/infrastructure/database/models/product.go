@@ -18,7 +18,7 @@ type ProductModel struct {
 	BrandID     *uint      `gorm:""`
 	Model       *string    `gorm:"type:varchar(255)"`
 	Price       *float64   `gorm:"type:decimal(10,2)"`
-	Status      bool       `gorm:"default:false"`
+	Status      int        `gorm:"default:1"`
 	Priority    int        `gorm:"default:1"`
 	CreatedBy   *string    `gorm:"type:varchar(255)"`
 	ViewsCount  int64      `gorm:"default:0"`
@@ -44,6 +44,7 @@ func (p *ProductModel) ToEntity() *entities.Product {
 		CategoryID:  p.CategoryID,
 		BrandID:     p.BrandID,
 		ViewsCount:  p.ViewsCount,
+		Status:      p.Status,
 		CreatedAt:   p.CreatedAt,
 		UpdatedAt:   p.UpdatedAt,
 		DeletedAt:   p.DeletedAt,
@@ -60,6 +61,7 @@ func (p *ProductModel) FromEntity(entity *entities.Product) {
 	p.CategoryID = entity.CategoryID
 	p.BrandID = entity.BrandID
 	p.ViewsCount = entity.ViewsCount
+	p.Status = entity.Status
 	p.CreatedAt = entity.CreatedAt
 	p.UpdatedAt = entity.UpdatedAt
 	p.DeletedAt = entity.DeletedAt

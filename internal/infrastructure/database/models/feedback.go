@@ -13,7 +13,7 @@ type FeedbackModel struct {
 	ID        uint       `gorm:"primaryKey;autoIncrement"`
 	UserID    uint       `gorm:"not null"`
 	Content   string     `gorm:"type:text;not null"`
-	Status    bool       `gorm:"default:true"`
+	Status    int        `gorm:"default:1"`
 	CreatedBy *uint      `gorm:"nullable"`
 	UpdatedBy *uint      `gorm:"nullable"`
 	CreatedAt time.Time  `gorm:"autoCreateTime"`

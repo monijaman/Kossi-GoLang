@@ -5,6 +5,7 @@ package database
 import (
 	"fmt"
 	"kossti/internal/infrastructure/database/models"
+	"kossti/internal/infrastructure/migrations"
 	"log"
 	"strings"
 
@@ -119,6 +120,8 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		// Media and feedback
 		&models.ImageModel{},
 		&models.TagModel{},
+		&models.FeedbackModel{},
+		&models.FeedbackTranslationModel{},
 
 		// Form generator
 		&models.FormGeneratorModel{},
@@ -251,6 +254,11 @@ func (m *MigrationManager) CreateIndexes() error {
 
 // Setup runs the complete database setup
 func (m *MigrationManager) Setup() error {
+	// Run custom migrations first to handle schema changes
+	if err := migrations.MigrateStatusFields(m.db); err != nil {
+		return fmt.Errorf("failed to run status fields migration: %w", err)
+	}
+
 	if err := m.MigrateAll(); err != nil {
 		return err
 	}

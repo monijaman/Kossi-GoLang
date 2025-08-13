@@ -598,7 +598,7 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 }
 
 // GetPublicSpecificationHandler handles GET /api/get-public-spec/{id} - Get specifications for a product (Laravel compatibility)
-func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
+func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
@@ -629,7 +629,6 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 		return
 	}
 
-	// Format the response to match Laravel structure
 	type SpecificationResponse struct {
 		SpecificationKeyID uint   `json:"specification_key_id"`
 		TranslatedKey      string `json:"translated_key"`
@@ -638,17 +637,28 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 
 	var dataset []SpecificationResponse
 	for _, spec := range specifications {
-		// For now, return the basic specification data
-		// TODO: Add proper translation support based on locale
-		response := SpecificationResponse{
-			SpecificationKeyID: spec.SpecificationKeyID,
-			TranslatedKey:      spec.SpecificationKey, // This would need proper key lookup
-			TranslatedValue:    spec.Value,
+		translatedKey := spec.SpecificationKey // fallback
+		translatedValue := spec.Value          // fallback
+
+		// Get translated key if locale is not 'en'
+		if locale != "en" {
+			if keyTranslation, err := keyRepo.GetKeyTranslationByLocale(r.Context(), spec.SpecificationKeyID, locale); err == nil && keyTranslation != nil && keyTranslation.TranslatedKey != "" {
+				translatedKey = keyTranslation.TranslatedKey
+			}
+
+			// Get translated value if locale is not 'en'
+			if valueTranslation, err := specRepo.GetTranslationByLocale(r.Context(), spec.ID, locale); err == nil && valueTranslation != nil && valueTranslation.TranslatedValue != "" {
+				translatedValue = valueTranslation.TranslatedValue
+			}
 		}
-		dataset = append(dataset, response)
+
+		dataset = append(dataset, SpecificationResponse{
+			SpecificationKeyID: spec.SpecificationKeyID,
+			TranslatedKey:      translatedKey,
+			TranslatedValue:    translatedValue,
+		})
 	}
 
-	// Return the dataset in Laravel-compatible format
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"dataset": dataset,
 	})

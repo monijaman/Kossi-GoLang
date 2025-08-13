@@ -67,17 +67,25 @@ func (r *PostgresSpecificationRepo) GetByID(ctx context.Context, id uint) (*enti
 }
 
 func (r *PostgresSpecificationRepo) GetByProductID(ctx context.Context, productID uint) ([]*entities.Specification, error) {
-	var specModels []models.SpecificationModel
+	var results []struct {
+		models.SpecificationModel
+		SpecificationKeyName string `gorm:"column:specification_key_name"`
+	}
 
 	if err := r.db.WithContext(ctx).
-		Where("product_id = ?", productID).
-		Find(&specModels).Error; err != nil {
+		Table("specifications").
+		Select("specifications.*, specification_keys.specification_key as specification_key_name").
+		Joins("LEFT JOIN specification_keys ON specifications.specification_key_id = specification_keys.id").
+		Where("specifications.product_id = ?", productID).
+		Find(&results).Error; err != nil {
 		return nil, err
 	}
 
-	specs := make([]*entities.Specification, len(specModels))
-	for i, model := range specModels {
-		specs[i] = model.ToEntity()
+	specs := make([]*entities.Specification, len(results))
+	for i, result := range results {
+		spec := result.SpecificationModel.ToEntity()
+		spec.SpecificationKey = result.SpecificationKeyName
+		specs[i] = spec
 	}
 
 	return specs, nil

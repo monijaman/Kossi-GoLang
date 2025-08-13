@@ -2,6 +2,8 @@ package category
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"net/http"
@@ -15,6 +17,7 @@ type CategoryResponse struct {
 	ID        uint   `json:"id"`
 	Name      string `json:"name"`
 	Slug      string `json:"slug"`
+	Status    int    `json:"status"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
@@ -42,6 +45,7 @@ func convertCategoryToResponse(category *entities.Category) CategoryResponse {
 		ID:        category.ID,
 		Name:      category.Name,
 		Slug:      category.Slug,
+		Status:    category.Status,
 		CreatedAt: category.CreatedAt.Format(time.RFC3339),
 		UpdatedAt: category.UpdatedAt.Format(time.RFC3339),
 	}
@@ -72,14 +76,27 @@ func convertBrandCategoryToResponse(relation *entities.BrandCategory) BrandCateg
 func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var request struct {
-		Name string `json:"name"`
-		Slug string `json:"slug,omitempty"`
+	// Read the body to debug
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to read request body"})
+		return
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+	// Log what we received for debugging
+	fmt.Printf("Received body: %s\n", string(body))
+	fmt.Printf("Content-Type: %s\n", r.Header.Get("Content-Type"))
+
+	var request struct {
+		ID     *uint  `json:"id"`
+		Name   string `json:"name"`
+		Status *int   `json:"status,omitempty"`
+	}
+
+	if err := json.Unmarshal(body, &request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{"error": "Invalid JSON payload", "code": 400})
 		return
 	}
 
@@ -89,27 +106,60 @@ func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 		return
 	}
 
-	// Generate slug if not provided
-	if request.Slug == "" {
-		request.Slug = strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
-	}
+	if request.ID == nil {
+		// Create a new category
+		slug := strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
 
-	category := &entities.Category{
-		Name:      request.Name,
-		Slug:      request.Slug,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-	}
+		// Set status: use provided value or default to 1 (active)
+		status := 1
+		if request.Status != nil {
+			status = *request.Status
+		}
 
-	savedCategory, err := categoryRepo.Create(r.Context(), category)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create category"})
-		return
-	}
+		category := &entities.Category{
+			Name:      request.Name,
+			Slug:      slug,
+			Status:    status,
+			CreatedAt: time.Now(),
+			UpdatedAt: time.Now(),
+		}
 
-	response := convertCategoryToResponse(savedCategory)
-	json.NewEncoder(w).Encode(response)
+		savedCategory, err := categoryRepo.Create(r.Context(), category)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create category"})
+			return
+		}
+
+		response := convertCategoryToResponse(savedCategory)
+		json.NewEncoder(w).Encode(response)
+	} else {
+		// Update an existing category
+		existingCategory, err := categoryRepo.GetByID(r.Context(), *request.ID)
+		if err != nil {
+			if err.Error() == "category not found" {
+				w.WriteHeader(http.StatusNotFound)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Category not found"})
+			} else {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get category"})
+			}
+			return
+		}
+
+		existingCategory.Name = request.Name
+		existingCategory.UpdatedAt = time.Now()
+
+		savedCategory, err := categoryRepo.Update(r.Context(), *request.ID, existingCategory)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update category"})
+			return
+		}
+
+		response := convertCategoryToResponse(savedCategory)
+		json.NewEncoder(w).Encode(response)
+	}
 }
 
 // GetCategoriesHandler handles GET /api/categories
@@ -218,13 +268,14 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	}
 
 	var request struct {
-		Name string `json:"name"`
-		Slug string `json:"slug,omitempty"`
+		Name   string `json:"name"`
+		Slug   string `json:"slug,omitempty"`
+		Status *int   `json:"status,omitempty"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{"error": "Invalid JSON payload", "code": 400})
 		return
 	}
 
@@ -243,6 +294,11 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 		Name:      request.Name,
 		Slug:      request.Slug,
 		UpdatedAt: time.Now(),
+	}
+
+	// Set status if provided
+	if request.Status != nil {
+		category.Status = *request.Status
 	}
 
 	savedCategory, err := categoryRepo.Update(r.Context(), uint(categoryID), category)
@@ -295,35 +351,159 @@ func DeleteCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 }
 
 // GetWideCategoriesHandler handles GET /api/wide-categories
+// This endpoint supports comprehensive category retrieval with multiple query parameters:
+//
+// Query Parameters:
+//   - per_page: Number of items per page for pagination (default: 10)
+//   - search: Search term to filter categories by name/content
+//   - paginate: "true"/"false" to enable/disable pagination response format
+//   - locale: Language locale for internationalization (default: "en")
+//   - category_id: Filter results by specific category ID
+//   - page: Current page number for pagination (default: 1)
+//   - status: Category status filter (0 = inactive, 1 = active)
+//
+// Response Formats:
+//   - When paginate=true: {"data": {"categories": [...], "total": number}, "success": true}
+//   - When paginate=false: {"categories": [...], "count": number}
+//
+// The function intelligently chooses the appropriate repository method:
+//   - Uses Search() when search term is provided
+//   - Uses GetAll() with pagination when paginate=true
+//   - Falls back to GetWideCategories() for simple listing
 func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Parse query parameters
-	limitStr := r.URL.Query().Get("limit")
-	limit := 0 // 0 means no limit
+	perPageStr := r.URL.Query().Get("per_page")
+	search := r.URL.Query().Get("search")
+	paginateStr := r.URL.Query().Get("paginate")
+	locale := r.URL.Query().Get("locale")
+	categoryIDStr := r.URL.Query().Get("category_id")
+	statusStr := r.URL.Query().Get("status")
+	pageStr := r.URL.Query().Get("page")
 
-	if limitStr != "" {
-		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
-			limit = l
+	// Set defaults
+	perPage := 10
+	if perPageStr != "" {
+		if p, err := strconv.Atoi(perPageStr); err == nil && p > 0 {
+			perPage = p
 		}
 	}
 
-	categories, err := categoryRepo.GetWideCategories(r.Context(), limit)
+	page := 1
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+
+	if locale == "" {
+		locale = "en" // default locale
+	}
+
+	paginate := paginateStr == "true"
+
+	// Calculate offset for pagination
+	offset := 0
+	if paginate && page > 1 {
+		offset = (page - 1) * perPage
+	}
+
+	var categories []*entities.Category
+	var err error
+
+	// Use search if provided, otherwise get all categories
+	if search != "" {
+		categories, err = categoryRepo.Search(r.Context(), search, perPage, offset)
+	} else {
+		// For GetAll, we need to handle pagination ourselves if paginate is true
+		if paginate {
+			categories, err = categoryRepo.GetAll(r.Context(), perPage, offset)
+		} else {
+			categories, err = categoryRepo.GetWideCategories(r.Context(), 0) // 0 means no limit
+		}
+	}
+
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide categories"})
 		return
 	}
 
-	responses := make([]CategoryResponse, len(categories))
-	for i, category := range categories {
+	// Apply additional filters if needed
+	filteredCategories := categories
+
+	// Filter by category ID if provided
+	if categoryIDStr != "" {
+		if categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32); err == nil && categoryID > 0 {
+			var filtered []*entities.Category
+			for _, category := range filteredCategories {
+				if category.ID == uint(categoryID) {
+					filtered = append(filtered, category)
+				}
+			}
+			filteredCategories = filtered
+		}
+	}
+
+	// Filter by status if provided
+	if statusStr != "" {
+		if status, err := strconv.Atoi(statusStr); err == nil {
+			var filtered []*entities.Category
+			for _, category := range filteredCategories {
+				if category.Status == status {
+					filtered = append(filtered, category)
+				}
+			}
+			filteredCategories = filtered
+		}
+	}
+
+	responses := make([]CategoryResponse, len(filteredCategories))
+	for i, category := range filteredCategories {
 		responses[i] = convertCategoryToResponse(category)
 	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"categories": responses,
-		"count":      len(responses),
-	})
+	var total int
+	if paginate {
+		// Get total count without limit/offset for pagination
+		if search != "" {
+			// Count all matching search results
+			allCategories, err := categoryRepo.Search(r.Context(), search, 0, 0)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide categories"})
+				return
+			}
+			total = len(allCategories)
+		} else {
+			// Count all categories (no limit/offset)
+			allCategories, err := categoryRepo.GetAll(r.Context(), 0, 0)
+
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide categories"})
+				return
+			}
+			total = len(allCategories)
+		}
+	} else {
+		total = len(responses)
+	}
+
+	if paginate {
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"categories": responses,
+			"total":      total,
+			"success":    true,
+		})
+	} else {
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"categories": responses,
+			"count":      len(responses),
+		})
+	}
+
 }
 
 // CreateCategoryTranslationHandler handles POST /api/category-translation
@@ -525,10 +705,11 @@ func UpdateCategoryStatusHandler(w http.ResponseWriter, r *http.Request, categor
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/category-status/")
+	path := strings.TrimPrefix(r.URL.Path, "/category-status/")
 	categoryIDStr := strings.Trim(path, "/")
 
 	categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32)
+	fmt.Println(err)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{
@@ -538,16 +719,19 @@ func UpdateCategoryStatusHandler(w http.ResponseWriter, r *http.Request, categor
 		return
 	}
 
+	// Define the request struct with an integer status field
 	var request struct {
-		Status bool `json:"status"`
+		Status int `json:"status"`
 	}
 
+	// Decode the JSON payload
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{"error": "Invalid JSON payload", "code": 400})
 		return
 	}
 
+	// Update the status in the database
 	err = categoryRepo.UpdateStatus(r.Context(), uint(categoryID), request.Status)
 	if err != nil {
 		if err.Error() == "category not found" {
@@ -560,6 +744,7 @@ func UpdateCategoryStatusHandler(w http.ResponseWriter, r *http.Request, categor
 		return
 	}
 
+	// Respond with success
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"message":     "Category status updated successfully",
 		"category_id": categoryID,

@@ -94,10 +94,10 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 
 	// POST /category-status/{id} - Update category status
 	mux.HandleFunc("/category-status/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
+		if r.Method != http.MethodPut {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+			w.Write([]byte(`{"error": "Only PUT method is allowed"}`))
 			return
 		}
 		UpdateCategoryStatusHandler(w, r, categoryRepo)

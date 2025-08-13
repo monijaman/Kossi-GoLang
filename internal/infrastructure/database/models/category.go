@@ -13,6 +13,7 @@ type CategoryModel struct {
 	ID        uint       `gorm:"primaryKey;autoIncrement"`
 	Name      string     `gorm:"type:varchar(255);not null"`
 	Slug      string     `gorm:"type:varchar(255);unique;not null"`
+	Status    int        `gorm:"default:1"`
 	CreatedAt time.Time  `gorm:"autoCreateTime"`
 	UpdatedAt time.Time  `gorm:"autoUpdateTime"`
 	DeletedAt *time.Time `gorm:"index"`
@@ -24,6 +25,7 @@ func (c *CategoryModel) ToEntity() *entities.Category {
 		ID:        c.ID,
 		Name:      c.Name,
 		Slug:      c.Slug,
+		Status:    c.Status,
 		CreatedAt: c.CreatedAt,
 		UpdatedAt: c.UpdatedAt,
 		DeletedAt: c.DeletedAt,
@@ -35,6 +37,7 @@ func (c *CategoryModel) FromEntity(entity *entities.Category) {
 	c.ID = entity.ID
 	c.Name = entity.Name
 	c.Slug = entity.Slug
+	c.Status = entity.Status
 	c.CreatedAt = entity.CreatedAt
 	c.UpdatedAt = entity.UpdatedAt
 	c.DeletedAt = entity.DeletedAt

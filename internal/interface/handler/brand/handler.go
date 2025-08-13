@@ -15,6 +15,7 @@ type BrandResponse struct {
 	ID        uint   `json:"id"`
 	Name      string `json:"name"`
 	Slug      string `json:"slug"`
+	Status    int    `json:"status"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
@@ -35,6 +36,7 @@ func convertBrandToResponse(brand *entities.Brand) BrandResponse {
 		ID:        brand.ID,
 		Name:      brand.Name,
 		Slug:      brand.Slug,
+		Status:    brand.Status,
 		CreatedAt: brand.CreatedAt.Format(time.RFC3339),
 		UpdatedAt: brand.UpdatedAt.Format(time.RFC3339),
 	}
@@ -52,7 +54,7 @@ func convertBrandTranslationToResponse(translation *entities.BrandTranslation) B
 	}
 }
 
-// CreateBrandHandler handles POST /api/brands
+// CreateBrandHandler handles POST /brands
 func CreateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -81,6 +83,7 @@ func CreateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	brand := &entities.Brand{
 		Name:      request.Name,
 		Slug:      request.Slug,
+		Status:    1, // default to active
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -96,8 +99,7 @@ func CreateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetBrandsHandler handles GET /api/brands
-func GetBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
+func GetBrandsHandlero(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Parse query parameters
@@ -149,12 +151,150 @@ func GetBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo reposito
 	})
 }
 
-// GetBrandByIDHandler handles GET /api/brands/{id}
+// GetBrandsHandler handles GET /brands
+func GetBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
+	// func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Parse query parameters
+	perPageStr := r.URL.Query().Get("limit")
+	search := r.URL.Query().Get("search")
+	paginateStr := r.URL.Query().Get("paginate")
+	locale := r.URL.Query().Get("locale")
+	categoryIDStr := r.URL.Query().Get("category_id")
+	statusStr := r.URL.Query().Get("status")
+	pageStr := r.URL.Query().Get("page")
+
+	// Set defaults
+	perPage := 10
+	if perPageStr != "" {
+		if p, err := strconv.Atoi(perPageStr); err == nil && p > 0 {
+			perPage = p
+		}
+	}
+
+	page := 1
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+
+	if locale == "" {
+		locale = "en" // default locale
+	}
+
+	paginate := paginateStr == "true"
+
+	// Calculate offset for pagination
+	offset := 0
+	if paginate && page > 1 {
+		offset = (page - 1) * perPage
+	}
+
+	var brands []*entities.Brand
+	var err error
+
+	// Use search if provided, otherwise get all categories
+	if search != "" {
+		brands, err = brandRepo.Search(r.Context(), search, perPage, offset)
+	} else {
+		// For GetAll, we need to handle pagination ourselves if paginate is true
+		if paginate {
+			brands, err = brandRepo.GetAll(r.Context(), perPage, offset)
+		} else {
+			brands, err = brandRepo.GetWideBrands(r.Context(), 0) // 0 means no limit
+		}
+	}
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide categories"})
+		return
+	}
+
+	// Apply additional filters if needed
+	filteredBrands := brands
+
+	// Filter by category ID if provided
+	if categoryIDStr != "" {
+		if categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32); err == nil && categoryID > 0 {
+			var filtered []*entities.Brand
+			for _, brand := range filteredBrands {
+				if brand.ID == uint(categoryID) {
+					filtered = append(filtered, brand)
+				}
+			}
+			filteredBrands = filtered
+		}
+	}
+
+	// Filter by status if provided
+	if statusStr != "" {
+		if status, err := strconv.Atoi(statusStr); err == nil {
+			var filtered []*entities.Brand
+			for _, brand := range filteredBrands {
+				if brand.Status == status {
+					filtered = append(filtered, brand)
+				}
+			}
+			filteredBrands = filtered
+		}
+	}
+
+	responses := make([]BrandResponse, len(filteredBrands))
+	for i, brand := range filteredBrands {
+		responses[i] = convertBrandToResponse(brand)
+	}
+
+	var total int
+	if paginate {
+		// Get total count without limit/offset for pagination
+		if search != "" {
+			// Count all matching search results
+			allBrands, err := brandRepo.Search(r.Context(), search, 0, 0)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide categories"})
+				return
+			}
+			total = len(allBrands)
+		} else {
+			// Count all brands (no limit/offset)
+			allBrands, err := brandRepo.GetAll(r.Context(), 0, 0)
+
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide categories"})
+				return
+			}
+			total = len(allBrands)
+		}
+	} else {
+		total = len(responses)
+	}
+
+	if paginate {
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"brands":  responses,
+			"total":   total,
+			"success": true,
+		})
+	} else {
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"brands": responses,
+			"count":  len(responses),
+		})
+	}
+
+}
+
+// GetBrandByIDHandler handles GET /brands/{id}
 func GetBrandByIDHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract brand ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/brands/")
+	path := strings.TrimPrefix(r.URL.Path, "/brands/")
 	brandIDStr := strings.Trim(path, "/")
 
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
@@ -183,12 +323,12 @@ func GetBrandByIDHandler(w http.ResponseWriter, r *http.Request, brandRepo repos
 	json.NewEncoder(w).Encode(response)
 }
 
-// UpdateBrandHandler handles PUT /api/brands/{id}
+// UpdateBrandHandler handles PUT /brands/{id}
 func UpdateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract brand ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/brands/")
+	path := strings.TrimPrefix(r.URL.Path, "/brands/")
 	brandIDStr := strings.Trim(path, "/")
 
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
@@ -245,12 +385,12 @@ func UpdateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	json.NewEncoder(w).Encode(response)
 }
 
-// DeleteBrandHandler handles DELETE /api/brands/{id}
+// DeleteBrandHandler handles DELETE /brands/{id}
 func DeleteBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract brand ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/brands/")
+	path := strings.TrimPrefix(r.URL.Path, "/brands/")
 	brandIDStr := strings.Trim(path, "/")
 
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
@@ -278,7 +418,7 @@ func DeleteBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	json.NewEncoder(w).Encode(map[string]string{"message": "Brand deleted successfully"})
 }
 
-// GetWideBrandsHandler handles GET /api/wide-brands
+// GetWideBrandsHandler handles GET /wide-brands
 func GetWideBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -310,7 +450,7 @@ func GetWideBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repo
 	})
 }
 
-// GetPublicBrandsHandler handles GET /api/public-brands
+// GetPublicBrandsHandler handles GET /public-brands
 func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -354,7 +494,7 @@ func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo re
 	})
 }
 
-// CreateBrandTranslationHandler handles POST /api/brand-translation
+// CreateBrandTranslationHandler handles POST /brand-translation
 func CreateBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -395,12 +535,12 @@ func CreateBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brand
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetBrandTranslationHandler handles GET /api/brand-translation/{id}
+// GetBrandTranslationHandler handles GET /brand-translation/{id}
 func GetBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract brand ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/brand-translation/")
+	path := strings.TrimPrefix(r.URL.Path, "/brand-translation/")
 	brandIDStr := strings.Trim(path, "/")
 
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
@@ -454,12 +594,12 @@ func GetBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRep
 	}
 }
 
-// UpdateBrandStatusHandler handles POST /api/brand-status/{id}
+// UpdateBrandStatusHandler handles POST /brand-status/{id}
 func UpdateBrandStatusHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract brand ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/brand-status/")
+	path := strings.TrimPrefix(r.URL.Path, "/brand-status/")
 	brandIDStr := strings.Trim(path, "/")
 
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
@@ -473,12 +613,13 @@ func UpdateBrandStatusHandler(w http.ResponseWriter, r *http.Request, brandRepo 
 	}
 
 	var request struct {
-		Status bool `json:"status"`
+		Status int `json:"status"`
 	}
 
+	// Decode the JSON payload
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{"error": "Invalid JSON payload", "code": 400})
 		return
 	}
 

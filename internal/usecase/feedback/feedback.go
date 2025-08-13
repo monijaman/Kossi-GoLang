@@ -32,7 +32,7 @@ func CreateFeedback(ctx context.Context, repo repository.FeedbackRepository, use
 	feedback := &entities.Feedback{
 		UserID:    userID,
 		Content:   content,
-		Status:    true,
+		Status:    1,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -83,7 +83,7 @@ func GetAllFeedback(ctx context.Context, repo repository.FeedbackRepository, lim
 }
 
 // UpdateFeedback updates an existing feedback
-func UpdateFeedback(ctx context.Context, repo repository.FeedbackRepository, id uint, content *string, status *bool) (*entities.Feedback, error) {
+func UpdateFeedback(ctx context.Context, repo repository.FeedbackRepository, id uint, content *string, status *int) (*entities.Feedback, error) {
 	if id == 0 {
 		return nil, errors.New("feedback ID is required")
 	}
