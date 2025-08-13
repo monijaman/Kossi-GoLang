@@ -220,7 +220,7 @@ func GetCategoryByIDHandler(w http.ResponseWriter, r *http.Request, categoryRepo
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/categories/")
+	path := strings.TrimPrefix(r.URL.Path, "/categories/")
 	categoryIDStr := strings.Trim(path, "/")
 
 	categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32)

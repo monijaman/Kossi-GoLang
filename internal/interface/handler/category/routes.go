@@ -11,19 +11,6 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 
 	// Public category endpoints
 
-	// GET /categories - List all categories
-	mux.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			GetCategoriesHandler(w, r, categoryRepo)
-		} else if r.Method == http.MethodPost {
-			CreateCategoryHandler(w, r, categoryRepo)
-		} else {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only GET and POST methods are allowed"}`))
-		}
-	})
-
 	// GET/PUT/DELETE /categories/{id} - Category CRUD by ID
 	mux.HandleFunc("/categories/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/categories/")
