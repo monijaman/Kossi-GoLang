@@ -52,7 +52,7 @@ func convertSpecificationKeyToResponse(key *entities.SpecificationKey) Specifica
 	}
 }
 
-// CreateSpecificationHandler handles POST /api/specifications
+// CreateSpecificationHandler handles POST /specifications
 func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -141,7 +141,7 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 	json.NewEncoder(w).Encode(response)
 }
 
-// BulkUpsertSpecificationHandler handles POST /api/specifications/bulk
+// BulkUpsertSpecificationHandler handles POST /specifications/bulk
 func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -266,12 +266,12 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 	})
 }
 
-// UpdateSpecificationHandler handles PUT /api/specifications/{id}
+// UpdateSpecificationHandler handles PUT /specifications/{id}
 func UpdateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract specification ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/specifications/")
+	path := strings.TrimPrefix(r.URL.Path, "/specifications/")
 	specIDStr := strings.Trim(path, "/")
 
 	specID, err := strconv.ParseUint(specIDStr, 10, 32)
@@ -369,12 +369,12 @@ func UpdateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetSpecificationsByProductHandler handles GET /api/get-specifications/{id}
+// GetSpecificationsByProductHandler handles GET /get-specifications/{id}
 func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/get-specifications/")
+	path := strings.TrimPrefix(r.URL.Path, "/get-specifications/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
@@ -406,12 +406,12 @@ func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, s
 	})
 }
 
-// GetSpecificationByIDHandler handles GET /api/specifications/{id}
+// GetSpecificationByIDHandler handles GET /specifications/{id}
 func GetSpecificationByIDHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract specification ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/specifications/")
+	path := strings.TrimPrefix(r.URL.Path, "/specifications/")
 	specIDStr := strings.Trim(path, "/")
 
 	specID, err := strconv.ParseUint(specIDStr, 10, 32)
@@ -440,12 +440,12 @@ func GetSpecificationByIDHandler(w http.ResponseWriter, r *http.Request, specRep
 	json.NewEncoder(w).Encode(response)
 }
 
-// DeleteSpecificationHandler handles DELETE /api/specifications/{id}
+// DeleteSpecificationHandler handles DELETE /specifications/{id}
 func DeleteSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract specification ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/specifications/")
+	path := strings.TrimPrefix(r.URL.Path, "/specifications/")
 	specIDStr := strings.Trim(path, "/")
 
 	specID, err := strconv.ParseUint(specIDStr, 10, 32)
@@ -473,7 +473,7 @@ func DeleteSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 	json.NewEncoder(w).Encode(map[string]string{"message": "Specification deleted successfully"})
 }
 
-// SearchSpecificationsHandler handles GET /api/specificationsearch
+// SearchSpecificationsHandler handles GET /specificationsearch
 func SearchSpecificationsHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -525,7 +525,7 @@ func SearchSpecificationsHandler(w http.ResponseWriter, r *http.Request, specRep
 	})
 }
 
-// CreateSpecificationTranslationHandler handles POST /api/spec_translation
+// CreateSpecificationTranslationHandler handles POST /spec_translation
 func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -565,12 +565,12 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 	json.NewEncoder(w).Encode(savedTranslation)
 }
 
-// GetSpecificationTranslationHandler handles GET /api/spec_translation/{id}
+// GetSpecificationTranslationHandler handles GET /spec_translation/{id}
 func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract specification ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/spec_translation/")
+	path := strings.TrimPrefix(r.URL.Path, "/spec_translation/")
 	specIDStr := strings.Trim(path, "/")
 
 	specID, err := strconv.ParseUint(specIDStr, 10, 32)
@@ -597,7 +597,7 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 	})
 }
 
-// GetPublicSpecificationHandler handles GET /api/get-public-spec/{id} - Get specifications for a product (Laravel compatibility)
+// GetPublicSpecificationHandler handles GET /get-public-spec/{id} - Get specifications for a product (Laravel compatibility)
 func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 

@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// CreateOrUpdateSpecificationKeyHandler handles POST /api/speckey
+// CreateOrUpdateSpecificationKeyHandler handles POST /speckey
 func CreateOrUpdateSpecificationKeyHandler(w http.ResponseWriter, r *http.Request, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -73,7 +73,7 @@ func CreateOrUpdateSpecificationKeyHandler(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-// GetAllSpecificationKeysHandler handles GET /api/speckey
+// GetAllSpecificationKeysHandler handles GET /speckey
 func GetAllSpecificationKeysHandler(w http.ResponseWriter, r *http.Request, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -117,12 +117,12 @@ func GetAllSpecificationKeysHandler(w http.ResponseWriter, r *http.Request, keyR
 	})
 }
 
-// GetSpecificationKeyByIDHandler handles GET /api/speckey/{id}
+// GetSpecificationKeyByIDHandler handles GET /speckey/{id}
 func GetSpecificationKeyByIDHandler(w http.ResponseWriter, r *http.Request, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract key ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/speckey/")
+	path := strings.TrimPrefix(r.URL.Path, "/speckey/")
 	keyIDStr := strings.Trim(path, "/")
 
 	keyID, err := strconv.ParseUint(keyIDStr, 10, 32)
@@ -151,12 +151,12 @@ func GetSpecificationKeyByIDHandler(w http.ResponseWriter, r *http.Request, keyR
 	json.NewEncoder(w).Encode(response)
 }
 
-// DeleteSpecificationKeyHandler handles POST /api/specremove/{id}
+// DeleteSpecificationKeyHandler handles POST /specremove/{id}
 func DeleteSpecificationKeyHandler(w http.ResponseWriter, r *http.Request, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract key ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/specremove/")
+	path := strings.TrimPrefix(r.URL.Path, "/specremove/")
 	keyIDStr := strings.Trim(path, "/")
 
 	keyID, err := strconv.ParseUint(keyIDStr, 10, 32)
@@ -187,7 +187,7 @@ func DeleteSpecificationKeyHandler(w http.ResponseWriter, r *http.Request, keyRe
 	})
 }
 
-// CreateSpecificationKeyTranslationHandler handles POST /api/speckey-translation
+// CreateSpecificationKeyTranslationHandler handles POST /speckey-translation
 func CreateSpecificationKeyTranslationHandler(w http.ResponseWriter, r *http.Request, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -227,7 +227,7 @@ func CreateSpecificationKeyTranslationHandler(w http.ResponseWriter, r *http.Req
 	json.NewEncoder(w).Encode(savedTranslation)
 }
 
-// GetAllSpecificationKeyTranslationsHandler handles GET /api/speckey-translation
+// GetAllSpecificationKeyTranslationsHandler handles GET /speckey-translation
 func GetAllSpecificationKeyTranslationsHandler(w http.ResponseWriter, r *http.Request, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 

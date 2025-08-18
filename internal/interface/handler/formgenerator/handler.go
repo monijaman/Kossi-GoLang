@@ -117,9 +117,9 @@ func (h *FormGeneratorHandler) CreateFormGenerator(w http.ResponseWriter, r *htt
 // GetFormGeneratorByID handles GET /formgenerator/{id}
 func (h *FormGeneratorHandler) GetFormGeneratorByID(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/formgenerator/")
+	path := strings.TrimPrefix(r.URL.Path, "/formgenerator/")
 	if path == r.URL.Path {
-		path = strings.TrimPrefix(r.URL.Path, "/api/v1/formgenerator/")
+		path = strings.TrimPrefix(r.URL.Path, "/v1/formgenerator/")
 	}
 
 	idStr := strings.Split(path, "/")[0]
@@ -153,9 +153,9 @@ func (h *FormGeneratorHandler) GetFormGeneratorByID(w http.ResponseWriter, r *ht
 // UpdateFormGenerator handles PUT /formgenerator/{id}
 func (h *FormGeneratorHandler) UpdateFormGenerator(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/formgenerator/")
+	path := strings.TrimPrefix(r.URL.Path, "/formgenerator/")
 	if path == r.URL.Path {
-		path = strings.TrimPrefix(r.URL.Path, "/api/v1/formgenerator/")
+		path = strings.TrimPrefix(r.URL.Path, "/v1/formgenerator/")
 	}
 
 	idStr := strings.Split(path, "/")[0]
@@ -189,9 +189,9 @@ func (h *FormGeneratorHandler) UpdateFormGenerator(w http.ResponseWriter, r *htt
 // GetCategorySpec handles GET /catgory-specs/{categoryId}
 func (h *FormGeneratorHandler) GetCategorySpec(w http.ResponseWriter, r *http.Request) {
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/catgory-specs/")
+	path := strings.TrimPrefix(r.URL.Path, "/catgory-specs/")
 	if path == r.URL.Path {
-		path = strings.TrimPrefix(r.URL.Path, "/api/v1/catgory-specs/")
+		path = strings.TrimPrefix(r.URL.Path, "/v1/catgory-specs/")
 	}
 
 	idStr := strings.Split(path, "/")[0]

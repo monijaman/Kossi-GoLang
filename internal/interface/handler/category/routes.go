@@ -1,9 +1,9 @@
 package category
 
 import (
+	"fmt"
 	"kossti/internal/domain/repository"
 	"net/http"
-	"strings"
 )
 
 // RegisterCategoryRoutes registers category-related endpoints to the mux.
@@ -11,18 +11,27 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 
 	// Public category endpoints
 
+	// POST /categories - Create new category, GET /categories - List all categories
+	mux.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
+
+		fmt.Println("Handling /categories endpoint")
+		if r.Method == http.MethodPost {
+			CreateCategoryHandler(w, r, categoryRepo)
+		} else if r.Method == http.MethodGet {
+			GetCategoriesHandler(w, r, categoryRepo)
+		} else {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only GET and POST methods are allowed"}`))
+		}
+	})
+
 	// GET/PUT/DELETE /categories/{id} - Category CRUD by ID
 	mux.HandleFunc("/categories/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/categories/")
-		if path == "" || path == "/" {
-			// This is the base /categories/ endpoint, redirect to /categories
-			http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
-			return
-		}
-
 		if r.Method == http.MethodGet {
 			GetCategoryByIDHandler(w, r, categoryRepo)
 		} else if r.Method == http.MethodPut {
+
 			UpdateCategoryHandler(w, r, categoryRepo)
 		} else if r.Method == http.MethodDelete {
 			DeleteCategoryHandler(w, r, categoryRepo)
@@ -55,15 +64,17 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		CreateCategoryTranslationHandler(w, r, categoryRepo)
 	})
 
-	// GET /category-translation/{id} - Get category translations
+	// GET/PUT /category-translation/{id} - Get/Update category translations
 	mux.HandleFunc("/category-translation/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
+		if r.Method == http.MethodGet {
+			GetCategoryTranslationHandler(w, r, categoryRepo)
+		} else if r.Method == http.MethodPut {
+			UpdateCategoryTranslationHandler(w, r, categoryRepo)
+		} else {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
-			return
+			w.Write([]byte(`{"error": "Only GET and PUT methods are allowed"}`))
 		}
-		GetCategoryTranslationHandler(w, r, categoryRepo)
 	})
 
 	// POST/GET /category-brands - Category-Brand relations

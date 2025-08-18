@@ -19,6 +19,7 @@ type CategoryRepository interface {
 
 	// Translation operations
 	CreateTranslation(ctx context.Context, translation *entities.CategoryTranslation) (*entities.CategoryTranslation, error)
+	UpdateTranslation(ctx context.Context, translation *entities.CategoryTranslation) (*entities.CategoryTranslation, error)
 	GetTranslations(ctx context.Context, categoryID uint) ([]*entities.CategoryTranslation, error)
 	GetTranslationByLocale(ctx context.Context, categoryID uint, locale string) (*entities.CategoryTranslation, error)
 

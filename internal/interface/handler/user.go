@@ -59,7 +59,7 @@ func convertUserToResponse(user *entities.User) UserResponse {
 	}
 }
 
-// ListUsersHandler handles GET /api/users
+// ListUsersHandler handles GET /users
 func ListUsersHandler(w http.ResponseWriter, r *http.Request, userRepo repository.UserRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -119,7 +119,7 @@ func ListUsersHandler(w http.ResponseWriter, r *http.Request, userRepo repositor
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetAllUsersHandler handles GET /api/users/all
+// GetAllUsersHandler handles GET /users/all
 func GetAllUsersHandler(w http.ResponseWriter, r *http.Request, userRepo repository.UserRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -158,7 +158,7 @@ func GetAllUsersHandler(w http.ResponseWriter, r *http.Request, userRepo reposit
 	})
 }
 
-// SearchUsersHandler handles GET /api/users/search
+// SearchUsersHandler handles GET /users/search
 func SearchUsersHandler(w http.ResponseWriter, r *http.Request, userRepo repository.UserRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -215,7 +215,7 @@ func SearchUsersHandler(w http.ResponseWriter, r *http.Request, userRepo reposit
 	})
 }
 
-// GetUserCountHandler handles GET /api/users/count
+// GetUserCountHandler handles GET /users/count
 func GetUserCountHandler(w http.ResponseWriter, r *http.Request, userRepo repository.UserRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -235,12 +235,12 @@ func GetUserCountHandler(w http.ResponseWriter, r *http.Request, userRepo reposi
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetUserByIDHandler handles GET /api/users/{id}
+// GetUserByIDHandler handles GET /users/{id}
 func GetUserByIDHandler(w http.ResponseWriter, r *http.Request, userRepo repository.UserRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract user ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/users/")
+	path := strings.TrimPrefix(r.URL.Path, "/users/")
 	if path == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "User ID is required"})

@@ -436,7 +436,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetPopularProductsHandler handles GET /api/popular-products
+// GetPopularProductsHandler handles GET /popular-products
 func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -471,12 +471,12 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	json.NewEncoder(w).Encode(response)
 }
 
-// IncrementProductViewsHandler handles POST /api/products/{id}/increment-views
+// IncrementProductViewsHandler handles POST /products/{id}/increment-views
 func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract ID from URL path - expecting /api/products/{id}/increment-views
-	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	// Extract ID from URL path - expecting /products/{id}/increment-views
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
 	pathParts := strings.Split(path, "/")
 
 	if len(pathParts) < 2 || pathParts[0] == "" || pathParts[1] != "increment-views" {
@@ -520,12 +520,12 @@ func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo r
 	json.NewEncoder(w).Encode(response)
 }
 
-// AddProductImageHandler handles POST /api/addproductimage/{productId}
+// AddProductImageHandler handles POST /addproductimage/{productId}
 func AddProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/addproductimage/")
+	path := strings.TrimPrefix(r.URL.Path, "/addproductimage/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
@@ -608,12 +608,12 @@ func AddProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo re
 	})
 }
 
-// GetProductImageHandler handles GET /api/get-product-image/{productId}
+// GetProductImageHandler handles GET /get-product-image/{productId}
 func GetProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/get-product-image/")
+	path := strings.TrimPrefix(r.URL.Path, "/get-product-image/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
@@ -639,12 +639,12 @@ func GetProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo re
 	})
 }
 
-// AddProductImageAltHandler handles POST /api/products/{product}/image
+// AddProductImageAltHandler handles POST /products/{product}/image
 func AddProductImageAltHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
 	pathParts := strings.Split(path, "/")
 
 	if len(pathParts) < 2 || pathParts[1] != "image" {
@@ -665,16 +665,16 @@ func AddProductImageAltHandler(w http.ResponseWriter, r *http.Request, imageRepo
 	}
 
 	// Reconstruct the URL for AddProductImageHandler
-	r.URL.Path = "/api/addproductimage/" + productIDStr
+	r.URL.Path = "/addproductimage/" + productIDStr
 	AddProductImageHandler(w, r, imageRepo)
 }
 
-// GetProductImagesHandler handles GET /api/products/{product}/images
+// GetProductImagesHandler handles GET /products/{product}/images
 func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/products/")
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
 	pathParts := strings.Split(path, "/")
 
 	if len(pathParts) < 2 || pathParts[1] != "images" {
@@ -707,12 +707,12 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, imageRepo r
 	})
 }
 
-// CreateProductTranslationHandler handles POST /api/product-trans/{id}
+// CreateProductTranslationHandler handles POST /product-trans/{id}
 func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/product-trans/")
+	path := strings.TrimPrefix(r.URL.Path, "/product-trans/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)

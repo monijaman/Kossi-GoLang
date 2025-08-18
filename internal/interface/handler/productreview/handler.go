@@ -106,7 +106,7 @@ func CreateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/reviews/")
+	path := strings.TrimPrefix(r.URL.Path, "/reviews/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
@@ -261,7 +261,7 @@ func CreateReviewTranslationHandler(w http.ResponseWriter, r *http.Request, revi
 func UpdateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract review ID from URL path - pattern: /api/product/{id}/review/{reviewid}
+	// Extract review ID from URL path - pattern: /product/{id}/review/{reviewid}
 	path := r.URL.Path
 	parts := strings.Split(path, "/")
 	if len(parts) < 6 {
@@ -305,7 +305,7 @@ func UpdateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 func GetProductReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract product ID from URL path - pattern: /api/products/{productId}/reviews
+	// Extract product ID from URL path - pattern: /products/{productId}/reviews
 	path := r.URL.Path
 	parts := strings.Split(path, "/")
 	if len(parts) < 5 {
@@ -345,7 +345,7 @@ func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo reposit
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract review ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/reviews/")
+	path := strings.TrimPrefix(r.URL.Path, "/reviews/")
 	reviewIDStr := strings.Trim(path, "/")
 
 	reviewID, err := strconv.ParseUint(reviewIDStr, 10, 32)
@@ -397,7 +397,7 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/productimages/")
+	path := strings.TrimPrefix(r.URL.Path, "/productimages/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
@@ -421,7 +421,7 @@ func MakeDefaultImageHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract image ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/default-image/")
+	path := strings.TrimPrefix(r.URL.Path, "/default-image/")
 	imageIDStr := strings.Trim(path, "/")
 
 	imageID, err := strconv.ParseUint(imageIDStr, 10, 32)
@@ -451,7 +451,7 @@ func RemoveImageHandler(w http.ResponseWriter, r *http.Request, reviewRepo repos
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract image ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/imageremove/")
+	path := strings.TrimPrefix(r.URL.Path, "/imageremove/")
 	imageIDStr := strings.Trim(path, "/")
 
 	imageID, err := strconv.ParseUint(imageIDStr, 10, 32)
@@ -475,7 +475,7 @@ func GetPublicReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/public-reviews/")
+	path := strings.TrimPrefix(r.URL.Path, "/public-reviews/")
 	productIDStr := strings.Trim(path, "/")
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)

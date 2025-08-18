@@ -72,7 +72,7 @@ func convertBrandCategoryToResponse(relation *entities.BrandCategory) BrandCateg
 	}
 }
 
-// CreateCategoryHandler handles POST /api/categories
+// CreateCategoryHandler handles POST /categories
 func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -89,7 +89,6 @@ func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	fmt.Printf("Content-Type: %s\n", r.Header.Get("Content-Type"))
 
 	var request struct {
-		ID     *uint  `json:"id"`
 		Name   string `json:"name"`
 		Status *int   `json:"status,omitempty"`
 	}
@@ -106,63 +105,57 @@ func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 		return
 	}
 
-	if request.ID == nil {
-		// Create a new category
-		slug := strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
+	// Create a new category
+	baseSlug := strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
 
-		// Set status: use provided value or default to 1 (active)
-		status := 1
-		if request.Status != nil {
-			status = *request.Status
-		}
+	// Set status: use provided value or default to 1 (active)
+	status := 1
+	if request.Status != nil {
+		status = *request.Status
+	}
 
-		category := &entities.Category{
-			Name:      request.Name,
-			Slug:      slug,
-			Status:    status,
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		}
+	// Generate a unique slug by first trying the base slug, then adding suffix if needed
+	slug := baseSlug
 
-		savedCategory, err := categoryRepo.Create(r.Context(), category)
-		if err != nil {
+	// Try to create with the base slug first
+	category := &entities.Category{
+		Name:      request.Name,
+		Slug:      slug,
+		Status:    status,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+
+	savedCategory, err := categoryRepo.Create(r.Context(), category)
+	if err != nil {
+		// If it's a duplicate slug error, try with a timestamp suffix
+		if strings.Contains(err.Error(), "duplicate key value violates unique constraint") && strings.Contains(err.Error(), "slug") {
+			// Generate unique slug with timestamp
+			timestamp := time.Now().Unix()
+			slug = fmt.Sprintf("%s-%d", baseSlug, timestamp)
+
+			category.Slug = slug
+			savedCategory, err = categoryRepo.Create(r.Context(), category)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create category"})
+				fmt.Println("Error creating category with unique slug:", err)
+				return
+			}
+		} else {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create category"})
+			fmt.Println("Error creating category:", err)
 			return
 		}
-
-		response := convertCategoryToResponse(savedCategory)
-		json.NewEncoder(w).Encode(response)
-	} else {
-		// Update an existing category
-		existingCategory, err := categoryRepo.GetByID(r.Context(), *request.ID)
-		if err != nil {
-			if err.Error() == "category not found" {
-				w.WriteHeader(http.StatusNotFound)
-				json.NewEncoder(w).Encode(map[string]string{"error": "Category not found"})
-			} else {
-				w.WriteHeader(http.StatusInternalServerError)
-				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get category"})
-			}
-			return
-		}
-
-		existingCategory.Name = request.Name
-		existingCategory.UpdatedAt = time.Now()
-
-		savedCategory, err := categoryRepo.Update(r.Context(), *request.ID, existingCategory)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update category"})
-			return
-		}
-
-		response := convertCategoryToResponse(savedCategory)
-		json.NewEncoder(w).Encode(response)
 	}
+
+	response := convertCategoryToResponse(savedCategory)
+	json.NewEncoder(w).Encode(response)
+
 }
 
-// GetCategoriesHandler handles GET /api/categories
+// GetCategoriesHandler handles GET /categories
 func GetCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -215,7 +208,7 @@ func GetCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo r
 	})
 }
 
-// GetCategoryByIDHandler handles GET /api/categories/{id}
+// GetCategoryByIDHandler handles GET /categories/{id}
 func GetCategoryByIDHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -249,12 +242,12 @@ func GetCategoryByIDHandler(w http.ResponseWriter, r *http.Request, categoryRepo
 	json.NewEncoder(w).Encode(response)
 }
 
-// UpdateCategoryHandler handles PUT /api/categories/{id}
+// UpdateCategoryHandler handles PUT /categories/{id}
 func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/categories/")
+	path := strings.TrimPrefix(r.URL.Path, "/categories/")
 	categoryIDStr := strings.Trim(path, "/")
 
 	categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32)
@@ -269,7 +262,6 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 
 	var request struct {
 		Name   string `json:"name"`
-		Slug   string `json:"slug,omitempty"`
 		Status *int   `json:"status,omitempty"`
 	}
 
@@ -285,14 +277,23 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 		return
 	}
 
-	// Generate slug if not provided
-	if request.Slug == "" {
-		request.Slug = strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
+	// Get the existing category to preserve the slug
+	existingCategory, err := categoryRepo.GetByID(r.Context(), uint(categoryID))
+	if err != nil {
+		if err.Error() == "category not found" {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Category not found"})
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get category"})
+		}
+		return
 	}
 
+	// Update category with new name but keep existing slug
 	category := &entities.Category{
 		Name:      request.Name,
-		Slug:      request.Slug,
+		Slug:      existingCategory.Slug, // Keep the existing slug
 		UpdatedAt: time.Now(),
 	}
 
@@ -308,6 +309,7 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 			json.NewEncoder(w).Encode(map[string]string{"error": "Category not found"})
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println("Error updating category:", err)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update category"})
 		}
 		return
@@ -317,12 +319,12 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	json.NewEncoder(w).Encode(response)
 }
 
-// DeleteCategoryHandler handles DELETE /api/categories/{id}
+// DeleteCategoryHandler handles DELETE /categories/{id}
 func DeleteCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/categories/")
+	path := strings.TrimPrefix(r.URL.Path, "/categories/")
 	categoryIDStr := strings.Trim(path, "/")
 
 	categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32)
@@ -350,7 +352,7 @@ func DeleteCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	json.NewEncoder(w).Encode(map[string]string{"message": "Category deleted successfully"})
 }
 
-// GetWideCategoriesHandler handles GET /api/wide-categories
+// GetWideCategoriesHandler handles GET /wide-categories
 // This endpoint supports comprehensive category retrieval with multiple query parameters:
 //
 // Query Parameters:
@@ -506,7 +508,7 @@ func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRe
 
 }
 
-// CreateCategoryTranslationHandler handles POST /api/category-translation
+// CreateCategoryTranslationHandler handles POST /category-translation
 func CreateCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -547,12 +549,61 @@ func CreateCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, ca
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetCategoryTranslationHandler handles GET /api/category-translation/{id}
+func UpdateCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract translation ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/category-translation/")
+	translationIDStr := strings.Trim(path, "/")
+	translationID, err := strconv.ParseUint(translationIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid translation ID format",
+			"received": translationIDStr,
+		})
+		return
+	}
+
+	var request struct {
+		Locale         string `json:"locale"`
+		TranslatedName string `json:"name"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		return
+	}
+
+	// Update the translation
+	translation := &entities.CategoryTranslation{
+		ID:             uint(translationID),
+		Locale:         request.Locale,
+		TranslatedName: request.TranslatedName,
+		UpdatedAt:      time.Now(),
+	}
+
+	savedTranslation, err := categoryRepo.UpdateTranslation(r.Context(), translation)
+	if err != nil {
+		if err.Error() == "translation not found" {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Translation not found"})
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update category translation"})
+		}
+		return
+	}
+
+	response := convertCategoryTranslationToResponse(savedTranslation)
+	json.NewEncoder(w).Encode(response)
+} // GetCategoryTranslationHandler handles GET /category-translation/{id}
 func GetCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/api/category-translation/")
+	path := strings.TrimPrefix(r.URL.Path, "/category-translation/")
 	categoryIDStr := strings.Trim(path, "/")
 
 	categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32)
@@ -606,7 +657,7 @@ func GetCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, categ
 	}
 }
 
-// CreateCategoryBrandRelationHandler handles POST /api/category-brands
+// CreateCategoryBrandRelationHandler handles POST /category-brands
 func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -643,7 +694,7 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetCategoryBrandRelationsHandler handles GET /api/category-brands
+// GetCategoryBrandRelationsHandler handles GET /category-brands
 func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -700,7 +751,7 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 	}
 }
 
-// UpdateCategoryStatusHandler handles POST /api/category-status/{id}
+// UpdateCategoryStatusHandler handles POST /category-status/{id}
 func UpdateCategoryStatusHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 

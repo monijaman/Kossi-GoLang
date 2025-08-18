@@ -167,6 +167,23 @@ func (r *PostgresCategoryRepo) CreateTranslation(ctx context.Context, translatio
 	return translationModel.ToEntity(), nil
 }
 
+func (r *PostgresCategoryRepo) UpdateTranslation(ctx context.Context, translation *entities.CategoryTranslation) (*entities.CategoryTranslation, error) {
+	var translationModel models.CategoryTranslationModel
+	translationModel.FromEntity(translation)
+	translationModel.UpdatedAt = time.Now()
+
+	result := r.db.WithContext(ctx).Save(&translationModel)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	if result.RowsAffected == 0 {
+		return nil, errors.New("translation not found")
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
 func (r *PostgresCategoryRepo) GetTranslations(ctx context.Context, categoryID uint) ([]*entities.CategoryTranslation, error) {
 	var translationModels []models.CategoryTranslationModel
 
