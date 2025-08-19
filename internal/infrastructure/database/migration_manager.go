@@ -254,13 +254,14 @@ func (m *MigrationManager) CreateIndexes() error {
 
 // Setup runs the complete database setup
 func (m *MigrationManager) Setup() error {
-	// Run custom migrations first to handle schema changes
-	if err := migrations.MigrateStatusFields(m.db); err != nil {
-		return fmt.Errorf("failed to run status fields migration: %w", err)
-	}
-
+	// First create all tables
 	if err := m.MigrateAll(); err != nil {
 		return err
+	}
+
+	// Then run custom migrations for schema changes (after tables exist)
+	if err := migrations.MigrateStatusFields(m.db); err != nil {
+		return fmt.Errorf("failed to run status fields migration: %w", err)
 	}
 
 	if err := m.AddForeignKeys(); err != nil {

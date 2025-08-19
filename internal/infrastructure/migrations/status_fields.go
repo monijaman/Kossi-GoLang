@@ -23,12 +23,38 @@ func MigrateStatusFields(db *gorm.DB) error {
 	}
 
 	for _, table := range tables {
+		// Check if table exists first
+		var exists bool
+		err := db.Raw("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = ?)", table.tableName).Scan(&exists).Error
+		if err != nil {
+			log.Printf("Error checking if table %s exists: %v", table.tableName, err)
+			continue
+		}
+
+		if !exists {
+			log.Printf("Table %s does not exist, skipping migration", table.tableName)
+			continue
+		}
+
 		if table.hasStatus {
+			// Check if status field is already integer type
+			var dataType string
+			err := db.Raw("SELECT data_type FROM information_schema.columns WHERE table_name = ? AND column_name = 'status'", table.tableName).Scan(&dataType).Error
+			if err != nil {
+				log.Printf("Error checking status field type for %s: %v", table.tableName, err)
+				continue
+			}
+
+			if dataType == "integer" || dataType == "bigint" {
+				log.Printf("Status field for table %s is already integer type (%s), skipping conversion", table.tableName, dataType)
+				continue
+			}
+
 			// For tables that already have boolean status, convert to integer
 			log.Printf("Converting status field from boolean to integer for table: %s", table.tableName)
 
 			// Step 1: Add a temporary integer status column
-			err := db.Exec("ALTER TABLE " + table.tableName + " ADD COLUMN status_int INTEGER DEFAULT 1").Error
+			err = db.Exec("ALTER TABLE " + table.tableName + " ADD COLUMN status_int INTEGER DEFAULT 1").Error
 			if err != nil {
 				log.Printf("Warning: Could not add temp column to %s: %v", table.tableName, err)
 			}
