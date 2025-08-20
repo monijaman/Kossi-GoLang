@@ -2,6 +2,7 @@ package formgenerator
 
 import (
 	"encoding/json"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/usecase/formgenerator"
@@ -43,9 +44,10 @@ type SingleFormGeneratorResponse struct {
 }
 
 type SpecificationResponse struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-	// Add other specification fields as needed
+	ID               uint   `json:"id"`
+	SpecificationKey string `json:"specification_key"`
+	CreatedAt        string `json:"created_at"`
+	UpdatedAt        string `json:"updated_at"`
 }
 
 type CategorySpecResponse struct {
@@ -80,13 +82,20 @@ func NewFormGeneratorHandler(repo repository.FormGeneratorRepository) *FormGener
 // CreateFormGenerator handles POST /formgenerator
 func (h *FormGeneratorHandler) CreateFormGenerator(w http.ResponseWriter, r *http.Request) {
 	var req CreateFormGeneratorRequest
+
+	path := strings.TrimPrefix(r.URL.Path, "/formgenerator/")
+
+	idStr := strings.Split(path, "/")[0]
+
+	id, err := strconv.ParseUint(idStr, 10, 32)
+
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
 		return
 	}
 
 	// Validate required fields
-	if req.CategoryID == 0 {
+	if id == 0 {
 		http.Error(w, "category_id is required", http.StatusBadRequest)
 		return
 	}
@@ -96,22 +105,30 @@ func (h *FormGeneratorHandler) CreateFormGenerator(w http.ResponseWriter, r *htt
 		return
 	}
 
-	_, err := formgenerator.CreateFormGenerator(r.Context(), h.repo, req.CategoryID, req.SpecificationID, req.Status)
+	// Try to update first (if form generator exists for this category)
+	fg, err := formgenerator.UpdateFormGenerator(r.Context(), h.repo, uint(id), req.SpecificationID, &req.Status)
+
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		// If update fails (form generator doesn't exist), create a new one
+		if strings.Contains(err.Error(), "form generator not found") {
+			fg, err = formgenerator.CreateFormGenerator(r.Context(), h.repo, uint(id), req.SpecificationID, req.Status)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		} else {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
-	response := struct {
-		Success bool   `json:"success"`
-		Message string `json:"message"`
-	}{
-		Success: true,
-		Message: "Specification added successfully",
-	}
-
+	// Return the created/updated form generator
+	response := convertFormGeneratorToResponse(fg)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(SingleFormGeneratorResponse{
+		Message: "Form generator created/updated successfully!",
+		Data:    response,
+	})
 }
 
 // GetFormGeneratorByID handles GET /formgenerator/{id}
@@ -119,7 +136,7 @@ func (h *FormGeneratorHandler) GetFormGeneratorByID(w http.ResponseWriter, r *ht
 	// Extract ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/formgenerator/")
 	if path == r.URL.Path {
-		path = strings.TrimPrefix(r.URL.Path, "/v1/formgenerator/")
+		path = strings.TrimPrefix(r.URL.Path, "/formgenerator/")
 	}
 
 	idStr := strings.Split(path, "/")[0]
@@ -154,16 +171,10 @@ func (h *FormGeneratorHandler) GetFormGeneratorByID(w http.ResponseWriter, r *ht
 func (h *FormGeneratorHandler) UpdateFormGenerator(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/formgenerator/")
-	if path == r.URL.Path {
-		path = strings.TrimPrefix(r.URL.Path, "/v1/formgenerator/")
-	}
 
 	idStr := strings.Split(path, "/")[0]
+
 	id, err := strconv.ParseUint(idStr, 10, 32)
-	if err != nil {
-		http.Error(w, "Invalid form generator ID", http.StatusBadRequest)
-		return
-	}
 
 	var req UpdateFormGeneratorRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -171,7 +182,7 @@ func (h *FormGeneratorHandler) UpdateFormGenerator(w http.ResponseWriter, r *htt
 		return
 	}
 
-	fg, err := formgenerator.UpdateFormGenerator(r.Context(), h.repo, uint(id), req.CategoryID, req.SpecificationID, req.Status)
+	fg, err := formgenerator.UpdateFormGenerator(r.Context(), h.repo, uint(id), req.SpecificationID, req.Status)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -186,13 +197,10 @@ func (h *FormGeneratorHandler) UpdateFormGenerator(w http.ResponseWriter, r *htt
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetCategorySpec handles GET /catgory-specs/{categoryId}
+// GetCategorySpec handles GET /category-specs/{categoryId}
 func (h *FormGeneratorHandler) GetCategorySpec(w http.ResponseWriter, r *http.Request) {
 	// Extract category ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/catgory-specs/")
-	if path == r.URL.Path {
-		path = strings.TrimPrefix(r.URL.Path, "/v1/catgory-specs/")
-	}
+	path := strings.TrimPrefix(r.URL.Path, "/category-specs/")
 
 	idStr := strings.Split(path, "/")[0]
 	categoryID, err := strconv.ParseUint(idStr, 10, 32)
@@ -202,6 +210,8 @@ func (h *FormGeneratorHandler) GetCategorySpec(w http.ResponseWriter, r *http.Re
 	}
 
 	specifications, err := formgenerator.GetCategorySpecifications(r.Context(), h.repo, uint(categoryID))
+	fmt.Println("-----------------specifications", specifications)
+
 	if err != nil {
 		// Return empty array if not found
 		response := CategorySpecResponse{
@@ -217,8 +227,10 @@ func (h *FormGeneratorHandler) GetCategorySpec(w http.ResponseWriter, r *http.Re
 	var specResponses []SpecificationResponse
 	for _, spec := range specifications {
 		specResponses = append(specResponses, SpecificationResponse{
-			ID:   spec.ID,
-			Name: spec.SpecificationKey, // Use SpecificationKey field
+			ID:               spec.ID,
+			SpecificationKey: spec.SpecificationKey,
+			CreatedAt:        spec.CreatedAt.Format("2006-01-02T15:04:05.000000Z07:00"),
+			UpdatedAt:        spec.UpdatedAt.Format("2006-01-02T15:04:05.000000Z07:00"),
 		})
 	}
 

@@ -21,6 +21,7 @@ type CategoryRepository interface {
 	CreateTranslation(ctx context.Context, translation *entities.CategoryTranslation) (*entities.CategoryTranslation, error)
 	UpdateTranslation(ctx context.Context, translation *entities.CategoryTranslation) (*entities.CategoryTranslation, error)
 	GetTranslations(ctx context.Context, categoryID uint) ([]*entities.CategoryTranslation, error)
+	GetTranslationByID(ctx context.Context, translationID uint) (*entities.CategoryTranslation, error)
 	GetTranslationByLocale(ctx context.Context, categoryID uint, locale string) (*entities.CategoryTranslation, error)
 
 	// Brand-Category relationship operations

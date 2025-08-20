@@ -216,6 +216,19 @@ func (r *PostgresCategoryRepo) GetTranslationByLocale(ctx context.Context, categ
 	return translationModel.ToEntity(), nil
 }
 
+func (r *PostgresCategoryRepo) GetTranslationByID(ctx context.Context, translationID uint) (*entities.CategoryTranslation, error) {
+	var translationModel models.CategoryTranslationModel
+
+	if err := r.db.WithContext(ctx).First(&translationModel, translationID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("translation not found")
+		}
+		return nil, err
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
 // Brand-Category relationship operations
 func (r *PostgresCategoryRepo) CreateBrandRelation(ctx context.Context, relation *entities.BrandCategory) (*entities.BrandCategory, error) {
 	var relationModel models.BrandCategoryModel

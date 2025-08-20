@@ -482,11 +482,11 @@ func SearchSpecificationsHandler(w http.ResponseWriter, r *http.Request, specRep
 	limitStr := r.URL.Query().Get("limit")
 	offsetStr := r.URL.Query().Get("offset")
 
-	if query == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "query parameter is required"})
-		return
-	}
+	// if query == "" {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	json.NewEncoder(w).Encode(map[string]string{"error": "query parameter is required"})
+	// 	return
+	// }
 
 	// Set defaults
 	limit := 10

@@ -77,22 +77,20 @@ func GetFormGeneratorByCategoryID(ctx context.Context, repo repository.FormGener
 	return formGenerator, nil
 }
 
-// UpdateFormGenerator updates an existing form generator
-func UpdateFormGenerator(ctx context.Context, repo repository.FormGeneratorRepository, id uint, categoryID *uint, specificationIDs []uint, status *string) (*entities.FormGenerator, error) {
-	if id == 0 {
-		return nil, errors.New("form generator ID is required")
+// UpdateFormGenerator updates an existing form generator by category ID
+func UpdateFormGenerator(ctx context.Context, repo repository.FormGeneratorRepository, categoryID uint, specificationIDs []uint, status *string) (*entities.FormGenerator, error) {
+
+	if categoryID == 0 {
+		return nil, errors.New("Category ID is required")
 	}
 
-	// Get existing form generator
-	existingFormGenerator, err := repo.GetByID(ctx, id)
+	// Get existing form generator by category ID
+	existingFormGenerator, err := repo.GetByCategoryID(ctx, categoryID)
 	if err != nil {
 		return nil, errors.New("form generator not found")
 	}
 
 	// Update fields if provided
-	if categoryID != nil {
-		existingFormGenerator.CategoryID = *categoryID
-	}
 
 	if len(specificationIDs) > 0 {
 		specIDsJSON, err := json.Marshal(specificationIDs)
@@ -108,7 +106,7 @@ func UpdateFormGenerator(ctx context.Context, repo repository.FormGeneratorRepos
 
 	existingFormGenerator.UpdatedAt = time.Now()
 
-	updatedFormGenerator, err := repo.Update(ctx, id, existingFormGenerator)
+	updatedFormGenerator, err := repo.Update(ctx, existingFormGenerator.ID, existingFormGenerator)
 	if err != nil {
 		return nil, err
 	}

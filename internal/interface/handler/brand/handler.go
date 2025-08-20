@@ -60,29 +60,41 @@ func CreateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 
 	var request struct {
 		Name string `json:"name"`
-		Slug string `json:"slug,omitempty"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Invalid JSON payload",
+		})
 		return
 	}
 
 	if request.Name == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "name is required"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "name is required",
+		})
 		return
 	}
 
-	// Generate slug if not provided
-	if request.Slug == "" {
-		request.Slug = strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
+	// Check if a brand with the same name already exists
+	slug := strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
+	existingBrand, err := brandRepo.GetBySlug(r.Context(), slug)
+	if err == nil && existingBrand != nil {
+		w.WriteHeader(http.StatusConflict)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Brand with this name already exists",
+		})
+		return
 	}
 
 	brand := &entities.Brand{
 		Name:      request.Name,
-		Slug:      request.Slug,
+		Slug:      slug,
 		Status:    1, // default to active
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
@@ -91,12 +103,19 @@ func CreateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	savedBrand, err := brandRepo.Create(r.Context(), brand)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create brand"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Failed to create brand",
+		})
 		return
 	}
 
 	response := convertBrandToResponse(savedBrand)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Brand created successfully",
+	})
 }
 
 func GetBrandsHandlero(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
@@ -300,7 +319,8 @@ func GetBrandByIDHandler(w http.ResponseWriter, r *http.Request, brandRepo repos
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success":  false,
 			"error":    "Invalid brand ID format",
 			"received": brandIDStr,
 		})
@@ -311,16 +331,26 @@ func GetBrandByIDHandler(w http.ResponseWriter, r *http.Request, brandRepo repos
 	if err != nil {
 		if err.Error() == "brand not found" {
 			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Brand not found"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Brand not found",
+			})
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get brand"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to get brand",
+			})
 		}
 		return
 	}
 
 	response := convertBrandToResponse(brand)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Brand retrieved successfully",
+	})
 }
 
 // UpdateBrandHandler handles PUT /brands/{id}
@@ -334,7 +364,8 @@ func UpdateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success":  false,
 			"error":    "Invalid brand ID format",
 			"received": brandIDStr,
 		})
@@ -343,29 +374,51 @@ func UpdateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 
 	var request struct {
 		Name string `json:"name"`
-		Slug string `json:"slug,omitempty"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Invalid JSON payload",
+		})
 		return
 	}
 
 	if request.Name == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "name is required"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "name is required",
+		})
 		return
 	}
 
 	// Generate slug if not provided
-	if request.Slug == "" {
-		request.Slug = strings.ToLower(strings.ReplaceAll(request.Name, " ", "-"))
+
+	// Get existing brand to preserve status (and handle not found / errors)
+	existingBrand, err := brandRepo.GetByID(r.Context(), uint(brandID))
+	if err != nil {
+		if err.Error() == "brand not found" {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Brand not found",
+			})
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to get brand",
+			})
+		}
+		return
 	}
 
 	brand := &entities.Brand{
 		Name:      request.Name,
-		Slug:      request.Slug,
+		Slug:      existingBrand.Slug,
+		Status:    existingBrand.Status,
 		UpdatedAt: time.Now(),
 	}
 
@@ -373,16 +426,26 @@ func UpdateBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	if err != nil {
 		if err.Error() == "brand not found" {
 			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Brand not found"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Brand not found",
+			})
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update brand"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to update brand",
+			})
 		}
 		return
 	}
 
 	response := convertBrandToResponse(savedBrand)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Brand updated successfully",
+	})
 }
 
 // DeleteBrandHandler handles DELETE /brands/{id}
@@ -396,7 +459,8 @@ func DeleteBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success":  false,
 			"error":    "Invalid brand ID format",
 			"received": brandIDStr,
 		})
@@ -407,15 +471,24 @@ func DeleteBrandHandler(w http.ResponseWriter, r *http.Request, brandRepo reposi
 	if err != nil {
 		if err.Error() == "brand not found" {
 			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Brand not found"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Brand not found",
+			})
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to delete brand"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to delete brand",
+			})
 		}
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]string{"message": "Brand deleted successfully"})
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"message": "Brand deleted successfully",
+	})
 }
 
 // GetWideBrandsHandler handles GET /wide-brands
@@ -435,7 +508,10 @@ func GetWideBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repo
 	brands, err := brandRepo.GetWideBrands(r.Context(), limit)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get wide brands"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Failed to get wide brands",
+		})
 		return
 	}
 
@@ -445,8 +521,10 @@ func GetWideBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repo
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"brands": responses,
-		"count":  len(responses),
+		"success": true,
+		"data":    responses,
+		"message": "Wide brands retrieved successfully",
+		"count":   len(responses),
 	})
 }
 
@@ -477,7 +555,10 @@ func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo re
 	brands, err := brandRepo.GetPublicBrands(r.Context(), limit, offset)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get public brands"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Failed to get public brands",
+		})
 		return
 	}
 
@@ -487,10 +568,12 @@ func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo re
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"brands": responses,
-		"count":  len(responses),
-		"limit":  limit,
-		"offset": offset,
+		"success": true,
+		"data":    responses,
+		"message": "Public brands retrieved successfully",
+		"count":   len(responses),
+		"limit":   limit,
+		"offset":  offset,
 	})
 }
 
@@ -506,13 +589,19 @@ func CreateBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brand
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Invalid JSON payload",
+		})
 		return
 	}
 
 	if request.BrandID == 0 || request.Locale == "" || request.TranslatedName == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "brand_id, locale, and translated_name are required"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "brand_id, locale, and translated_name are required",
+		})
 		return
 	}
 
@@ -527,12 +616,19 @@ func CreateBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brand
 	savedTranslation, err := brandRepo.CreateTranslation(r.Context(), translation)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create brand translation"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Failed to create brand translation",
+		})
 		return
 	}
 
 	response := convertBrandTranslationToResponse(savedTranslation)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Brand translation created successfully",
+	})
 }
 
 // GetBrandTranslationHandler handles GET /brand-translation/{id}
@@ -546,7 +642,8 @@ func GetBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRep
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success":  false,
 			"error":    "Invalid brand ID format",
 			"received": brandIDStr,
 		})
@@ -562,22 +659,35 @@ func GetBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRep
 		if err != nil {
 			if err.Error() == "translation not found" {
 				w.WriteHeader(http.StatusNotFound)
-				json.NewEncoder(w).Encode(map[string]string{"error": "Translation not found"})
+				json.NewEncoder(w).Encode(map[string]interface{}{
+					"success": false,
+					"error":   "Translation not found",
+				})
 			} else {
 				w.WriteHeader(http.StatusInternalServerError)
-				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get translation"})
+				json.NewEncoder(w).Encode(map[string]interface{}{
+					"success": false,
+					"error":   "Failed to get translation",
+				})
 			}
 			return
 		}
 
 		response := convertBrandTranslationToResponse(translation)
-		json.NewEncoder(w).Encode(response)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": true,
+			"data":    response,
+			"message": "Brand translation retrieved successfully",
+		})
 	} else {
 		// Get all translations for the brand
 		translations, err := brandRepo.GetTranslations(r.Context(), uint(brandID))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get translations"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to get translations",
+			})
 			return
 		}
 
@@ -587,11 +697,98 @@ func GetBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRep
 		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"brand_id":     brandID,
-			"translations": responses,
-			"count":        len(responses),
+			"success":  true,
+			"data":     responses,
+			"message":  "Brand translations retrieved successfully",
+			"brand_id": brandID,
+			"count":    len(responses),
 		})
 	}
+}
+
+// UpdateBrandTranslationHandler handles PUT /brand-translation/{id}
+func UpdateBrandTranslationHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract brand translation ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/brand-translation/")
+	brandTranslationIDStr := strings.Trim(path, "/")
+
+	brandTranslationID, err := strconv.ParseUint(brandTranslationIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success":  false,
+			"error":    "Invalid brand translation ID format",
+			"received": brandTranslationIDStr,
+		})
+		return
+	}
+
+	var request struct {
+		Locale         string `json:"locale"`
+		TranslatedName string `json:"translated_name"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Invalid JSON payload",
+		})
+		return
+	}
+
+	if request.Locale == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "locale is required",
+		})
+		return
+	}
+
+	if request.TranslatedName == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "translated_name is required",
+		})
+		return
+	}
+
+	// Create brand translation object
+	brandTranslation := &entities.BrandTranslation{
+		BrandID:        uint(brandTranslationID),
+		Locale:         request.Locale,
+		TranslatedName: request.TranslatedName,
+		UpdatedAt:      time.Now(),
+	}
+
+	savedBrandTranslation, err := brandRepo.UpdateTranslation(r.Context(), uint(brandTranslationID), brandTranslation)
+	if err != nil {
+		if strings.Contains(err.Error(), "not found") {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Brand translation not found",
+			})
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to update brand translation",
+			})
+		}
+		return
+	}
+
+	response := convertBrandTranslationToResponse(savedBrandTranslation)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Brand translation updated successfully",
+	})
 }
 
 // UpdateBrandStatusHandler handles POST /brand-status/{id}
@@ -605,7 +802,8 @@ func UpdateBrandStatusHandler(w http.ResponseWriter, r *http.Request, brandRepo 
 	brandID, err := strconv.ParseUint(brandIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success":  false,
 			"error":    "Invalid brand ID format",
 			"received": brandIDStr,
 		})
@@ -619,7 +817,11 @@ func UpdateBrandStatusHandler(w http.ResponseWriter, r *http.Request, brandRepo 
 	// Decode the JSON payload
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]interface{}{"error": "Invalid JSON payload", "code": 400})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Invalid JSON payload",
+			"code":    400,
+		})
 		return
 	}
 
@@ -627,15 +829,22 @@ func UpdateBrandStatusHandler(w http.ResponseWriter, r *http.Request, brandRepo 
 	if err != nil {
 		if err.Error() == "brand not found" {
 			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Brand not found"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Brand not found",
+			})
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update brand status"})
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": false,
+				"error":   "Failed to update brand status",
+			})
 		}
 		return
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success":  true,
 		"message":  "Brand status updated successfully",
 		"brand_id": brandID,
 		"status":   request.Status,

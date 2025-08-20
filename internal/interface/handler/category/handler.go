@@ -151,7 +151,11 @@ func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	}
 
 	response := convertCategoryToResponse(savedCategory)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Category created successfully",
+	})
 
 }
 
@@ -239,7 +243,11 @@ func GetCategoryByIDHandler(w http.ResponseWriter, r *http.Request, categoryRepo
 	}
 
 	response := convertCategoryToResponse(category)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Category retrieved successfully",
+	})
 }
 
 // UpdateCategoryHandler handles PUT /categories/{id}
@@ -261,8 +269,7 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	}
 
 	var request struct {
-		Name   string `json:"name"`
-		Status *int   `json:"status,omitempty"`
+		Name string `json:"name"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -290,17 +297,15 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 		return
 	}
 
-	// Update category with new name but keep existing slug
+	// Update category with new name but keep existing slug and status
 	category := &entities.Category{
 		Name:      request.Name,
-		Slug:      existingCategory.Slug, // Keep the existing slug
+		Slug:      existingCategory.Slug,   // Keep the existing slug
+		Status:    existingCategory.Status, // Keep the existing status
 		UpdatedAt: time.Now(),
 	}
 
-	// Set status if provided
-	if request.Status != nil {
-		category.Status = *request.Status
-	}
+	// fmt.Println("============================", categoryID, "to new name:", request.Name)
 
 	savedCategory, err := categoryRepo.Update(r.Context(), uint(categoryID), category)
 	if err != nil {
@@ -316,7 +321,11 @@ func UpdateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 	}
 
 	response := convertCategoryToResponse(savedCategory)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"data":    response,
+		"message": "Category updated successfully",
+	})
 }
 
 // DeleteCategoryHandler handles DELETE /categories/{id}
@@ -565,9 +574,11 @@ func UpdateCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, ca
 		return
 	}
 
+	fmt.Println("Updating translation ID:", translationID)
+
 	var request struct {
 		Locale         string `json:"locale"`
-		TranslatedName string `json:"name"`
+		TranslatedName string `json:"translated_name"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -576,11 +587,38 @@ func UpdateCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, ca
 		return
 	}
 
-	// Update the translation
+	if request.Locale == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "locale is required"})
+		return
+	}
+
+	if request.TranslatedName == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "translated_name is required"})
+		return
+	}
+
+	// First, get the existing translation to preserve CategoryID and other fields
+	existingTranslation, err := categoryRepo.GetTranslationByID(r.Context(), uint(translationID))
+	if err != nil {
+		if err.Error() == "translation not found" {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Translation not found"})
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get existing translation"})
+		}
+		return
+	}
+
+	// Create translation object with the correct ID and preserved CategoryID
 	translation := &entities.CategoryTranslation{
-		ID:             uint(translationID),
+		ID:             uint(translationID),            // The translation record ID
+		CategoryID:     existingTranslation.CategoryID, // Preserve the original category ID
 		Locale:         request.Locale,
 		TranslatedName: request.TranslatedName,
+		CreatedAt:      existingTranslation.CreatedAt, // Preserve original creation time
 		UpdatedAt:      time.Now(),
 	}
 
@@ -650,9 +688,11 @@ func GetCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, categ
 		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"category_id":  categoryID,
-			"translations": responses,
-			"count":        len(responses),
+			"success":     true,
+			"data":        responses,
+			"message":     "Category translations retrieved successfully",
+			"category_id": categoryID,
+			"count":       len(responses),
 		})
 	}
 }

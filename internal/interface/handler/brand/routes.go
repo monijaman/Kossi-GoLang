@@ -1,6 +1,7 @@
 package brand
 
 import (
+	"fmt"
 	"kossti/internal/domain/repository"
 	"net/http"
 	"strings"
@@ -11,11 +12,27 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 
 	// Public brand endpoints
 
+	// GET/POST /brands - Brand listing and creation
+	mux.HandleFunc("/brands", func(w http.ResponseWriter, r *http.Request) {
+		// Handle /brands (without trailing slash)
+		if r.Method == http.MethodGet {
+			GetBrandsHandler(w, r, brandRepo)
+		} else if r.Method == http.MethodPost {
+			CreateBrandHandler(w, r, brandRepo)
+		} else {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only GET and POST methods are allowed"}`))
+		}
+	})
+
 	// GET/PUT/DELETE /brands/{id} - Brand CRUD by ID
 	mux.HandleFunc("/brands/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/brands/")
-		if path == "" || path == "/" {
-			// Handle /brands/ - redirect to /brands
+
+		fmt.Println("------------Handling request for path:", path)
+		if path == "" {
+			// Handle /brands/ - list all brands or create new brand
 			if r.Method == http.MethodGet {
 				GetBrandsHandler(w, r, brandRepo)
 			} else if r.Method == http.MethodPost {
@@ -81,25 +98,23 @@ func RegisterBrandRoutes(mux *http.ServeMux, brandRepo repository.BrandRepositor
 	// GET /brand-translation/{id} - Get brand translations by brand ID
 	mux.HandleFunc("/brand-translation/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/brand-translation/")
+
 		if path == "" || path == "/" {
-			// Handle /brand-translation/ - redirect to creation
-			if r.Method == http.MethodPost {
-				CreateBrandTranslationHandler(w, r, brandRepo)
-			} else {
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(http.StatusMethodNotAllowed)
-				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
-			}
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusNotFound)
+			w.Write([]byte(`{"error": "Brand ID required for status update"}`))
 			return
 		}
 
-		// Handle specific brand translation operations
-		if r.Method == http.MethodGet {
+		// Handle /brand-translation/ - redirect to creation
+		if r.Method == http.MethodPut {
+			UpdateBrandTranslationHandler(w, r, brandRepo)
+		} else if r.Method == http.MethodGet {
 			GetBrandTranslationHandler(w, r, brandRepo)
 		} else {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
+			w.Write([]byte(`{"error": "Only GET, PUT methods are allowed"}`))
 		}
 	})
 

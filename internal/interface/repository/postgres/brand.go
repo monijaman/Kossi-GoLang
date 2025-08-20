@@ -222,6 +222,39 @@ func (r *PostgresBrandRepo) GetTranslationByLocale(ctx context.Context, brandID 
 	return translationModel.ToEntity(), nil
 }
 
+func (r *PostgresBrandRepo) UpdateTranslation(ctx context.Context, id uint, translation *entities.BrandTranslation) (*entities.BrandTranslation, error) {
+	var translationModel models.BrandTranslationModel
+	translationModel.FromEntity(translation)
+	translationModel.ID = id
+	translationModel.UpdatedAt = time.Now()
+
+	result := r.db.WithContext(ctx).
+		Model(&models.BrandTranslationModel{}).
+		Where("id = ?", id).
+		Updates(map[string]interface{}{
+			"brand_id":   translationModel.BrandID,
+			"locale":     translationModel.Locale,
+			"name":       translationModel.Name,
+			"updated_at": translationModel.UpdatedAt,
+		})
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	if result.RowsAffected == 0 {
+		return nil, errors.New("brand translation not found")
+	}
+
+	// Get the updated record
+	var updatedModel models.BrandTranslationModel
+	if err := r.db.WithContext(ctx).First(&updatedModel, id).Error; err != nil {
+		return nil, err
+	}
+
+	return updatedModel.ToEntity(), nil
+}
+
 // Status operations
 func (r *PostgresBrandRepo) UpdateStatus(ctx context.Context, id uint, status int) error {
 	result := r.db.WithContext(ctx).

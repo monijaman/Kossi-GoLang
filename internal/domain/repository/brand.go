@@ -20,6 +20,7 @@ type BrandRepository interface {
 
 	// Translation operations
 	CreateTranslation(ctx context.Context, translation *entities.BrandTranslation) (*entities.BrandTranslation, error)
+	UpdateTranslation(ctx context.Context, id uint, translation *entities.BrandTranslation) (*entities.BrandTranslation, error)
 	GetTranslations(ctx context.Context, brandID uint) ([]*entities.BrandTranslation, error)
 	GetTranslationByLocale(ctx context.Context, brandID uint, locale string) (*entities.BrandTranslation, error)
 

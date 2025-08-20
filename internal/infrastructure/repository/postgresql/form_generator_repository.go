@@ -5,6 +5,8 @@ package postgresql
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	models "kossti/internal/infrastructure/database/models"
@@ -112,13 +114,53 @@ func (r *formGeneratorRepository) GetCategorySpecifications(ctx context.Context,
 	err := r.db.WithContext(ctx).Where("category_id = ?", categoryID).First(&formGenerator).Error
 
 	if err == gorm.ErrRecordNotFound {
+		fmt.Printf("DEBUG: No FormGenerator found for category_id: %d\n", categoryID)
 		return []*entities.Specification{}, nil
 	} else if err != nil {
 		return nil, err
 	}
 
-	// Parse specification IDs from JSON and get specifications
-	// For now, return empty slice as we need to implement SpecificationRepository
-	// TODO: Implement proper specification retrieval based on specification_id JSON array
-	return []*entities.Specification{}, nil
+	fmt.Printf("DEBUG: Found FormGenerator for category_id: %d, specification_id: %s\n", categoryID, formGenerator.SpecificationID)
+
+	// Check if specification_id is empty (equivalent to !empty($formItems->specification_id))
+	if formGenerator.SpecificationID == "" || formGenerator.SpecificationID == "[]" || formGenerator.SpecificationID == "null" {
+		return []*entities.Specification{}, nil
+	}
+
+	// Parse specification IDs from JSON
+	var specificationIDs []uint
+	err = json.Unmarshal([]byte(formGenerator.SpecificationID), &specificationIDs)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse specification IDs: %w", err)
+	}
+
+	if len(specificationIDs) == 0 {
+		return []*entities.Specification{}, nil
+	}
+
+	// Query specification keys using the IDs
+	var specKeyModels []models.SpecificationKeyModel
+	err = r.db.WithContext(ctx).Where("id IN ?", specificationIDs).Find(&specKeyModels).Error
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch specification keys: %w", err)
+	}
+
+	// Convert to Specification entities (using SpecificationKey data)
+	var specifications []*entities.Specification
+	for _, specKey := range specKeyModels {
+		spec := &entities.Specification{
+			ID:                 specKey.ID,
+			SpecificationKeyID: specKey.ID,
+			SpecificationKey:   specKey.SpecificationKey,
+			// Other fields can be set to defaults or left empty
+			ProductID: 0,
+			Value:     "",
+			Status:    1,
+			CreatedAt: specKey.CreatedAt,
+			UpdatedAt: specKey.UpdatedAt,
+		}
+		specifications = append(specifications, spec)
+	}
+
+	return specifications, nil
 }
