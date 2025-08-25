@@ -349,7 +349,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	category := r.URL.Query().Get("category")
 	brandParam := r.URL.Query().Get("brand")
 	priceRange := r.URL.Query().Get("priceRange")
-	searchterm := r.URL.Query().Get("searchterm")
+	searchterm := r.URL.Query().Get("search")
 	sortby := r.URL.Query().Get("sortby")
 
 	// Set defaults
@@ -390,7 +390,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		PriceRange: priceRange,
 		SortBy:     sortby,
 	}
-
+	fmt.Println(filters)
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
 	if err != nil {

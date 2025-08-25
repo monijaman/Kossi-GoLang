@@ -122,8 +122,12 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 	mux.HandleFunc("/speckey/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/speckey/")
 		if path == "" || path == "/" {
-			// This is the base /speckey/ endpoint, redirect to /speckey
-			http.Redirect(w, r, "/speckey", http.StatusMovedPermanently)
+			// This is the base /speckey/ endpoint, redirect to /speckey with query parameters preserved
+			redirectURL := "/speckey"
+			if r.URL.RawQuery != "" {
+				redirectURL += "?" + r.URL.RawQuery
+			}
+			http.Redirect(w, r, redirectURL, http.StatusMovedPermanently)
 			return
 		}
 

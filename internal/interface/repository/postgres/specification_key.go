@@ -61,6 +61,49 @@ func (r *PostgresSpecificationKeyRepo) GetAll(ctx context.Context, limit, offset
 	return keys, nil
 }
 
+func (r *PostgresSpecificationKeyRepo) GetCount(ctx context.Context) (int64, error) {
+	var count int64
+	if err := r.db.WithContext(ctx).Model(&models.SpecificationKeyModel{}).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (r *PostgresSpecificationKeyRepo) Search(ctx context.Context, searchTerm string, limit, offset int) ([]*entities.SpecificationKey, error) {
+	var keyModels []models.SpecificationKeyModel
+	query := r.db.WithContext(ctx).Model(&models.SpecificationKeyModel{})
+
+	if searchTerm != "" {
+		// Search in specification_key field using ILIKE for case-insensitive search
+		query = query.Where("specification_key ILIKE ?", "%"+searchTerm+"%")
+	}
+
+	if err := query.Limit(limit).Offset(offset).Find(&keyModels).Error; err != nil {
+		return nil, err
+	}
+
+	keys := make([]*entities.SpecificationKey, len(keyModels))
+	for i, model := range keyModels {
+		keys[i] = model.ToEntity()
+	}
+
+	return keys, nil
+}
+
+func (r *PostgresSpecificationKeyRepo) GetSearchCount(ctx context.Context, searchTerm string) (int64, error) {
+	var count int64
+	query := r.db.WithContext(ctx).Model(&models.SpecificationKeyModel{})
+
+	if searchTerm != "" {
+		query = query.Where("specification_key ILIKE ?", "%"+searchTerm+"%")
+	}
+
+	if err := query.Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
 func (r *PostgresSpecificationKeyRepo) GetByKey(ctx context.Context, key string) (*entities.SpecificationKey, error) {
 	var keyModel models.SpecificationKeyModel
 
@@ -112,6 +155,18 @@ func (r *PostgresSpecificationKeyRepo) CreateKeyTranslation(ctx context.Context,
 	translationModel.FromEntity(translation)
 
 	if err := r.db.WithContext(ctx).Create(&translationModel).Error; err != nil {
+		return nil, err
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
+func (r *PostgresSpecificationKeyRepo) UpdateKeyTranslation(ctx context.Context, id uint, translation *entities.SpecificationKeyTranslation) (*entities.SpecificationKeyTranslation, error) {
+	var translationModel models.SpecificationKeyTranslationModel
+	translationModel.FromEntity(translation)
+	translationModel.ID = id // Ensure we're updating the correct record
+
+	if err := r.db.WithContext(ctx).Save(&translationModel).Error; err != nil {
 		return nil, err
 	}
 

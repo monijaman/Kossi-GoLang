@@ -29,12 +29,16 @@ type SpecificationKeyRepository interface {
 	Create(ctx context.Context, key *entities.SpecificationKey) (*entities.SpecificationKey, error)
 	GetByID(ctx context.Context, id uint) (*entities.SpecificationKey, error)
 	GetAll(ctx context.Context, limit, offset int) ([]*entities.SpecificationKey, error)
+	Search(ctx context.Context, searchTerm string, limit, offset int) ([]*entities.SpecificationKey, error)
+	GetCount(ctx context.Context) (int64, error)
+	GetSearchCount(ctx context.Context, searchTerm string) (int64, error)
 	GetByKey(ctx context.Context, key string) (*entities.SpecificationKey, error)
 	Update(ctx context.Context, id uint, key *entities.SpecificationKey) (*entities.SpecificationKey, error)
 	Delete(ctx context.Context, id uint) error
 
 	// Translation operations
 	CreateKeyTranslation(ctx context.Context, translation *entities.SpecificationKeyTranslation) (*entities.SpecificationKeyTranslation, error)
+	UpdateKeyTranslation(ctx context.Context, id uint, translation *entities.SpecificationKeyTranslation) (*entities.SpecificationKeyTranslation, error)
 	GetKeyTranslations(ctx context.Context, keyID uint) ([]*entities.SpecificationKeyTranslation, error)
 	GetKeyTranslationByLocale(ctx context.Context, keyID uint, locale string) (*entities.SpecificationKeyTranslation, error)
 	GetAllKeyTranslations(ctx context.Context) ([]*entities.SpecificationKeyTranslation, error)
