@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"errors"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/infrastructure/database/models"
@@ -258,10 +259,22 @@ func (r *PostgresProductRepo) CreateTranslation(ctx context.Context, translation
 	var translationModel models.ProductTranslationModel
 	translationModel.FromEntity(translation)
 
+	// Debug: Log what's being sent to database
+	fmt.Printf("Repository CreateTranslation - Model before DB: ProductID=%d, Locale='%s', TranslatedName='%s' (len=%d)\n",
+		translationModel.ProductID, translationModel.Locale, translationModel.TranslatedName, len(translationModel.TranslatedName))
+
+	// Validate that the translated_name field is not empty before database call
+	if translationModel.TranslatedName == "" {
+		fmt.Printf("ERROR: Model.TranslatedName is empty before database call!\n")
+		return nil, fmt.Errorf("translated_name field cannot be empty")
+	}
+
 	if err := r.db.WithContext(ctx).Create(&translationModel).Error; err != nil {
+		fmt.Printf("Database create error: %v\n", err)
 		return nil, err
 	}
 
+	fmt.Printf("Translation created successfully in database with ID: %d\n", translationModel.ID)
 	return translationModel.ToEntity(), nil
 }
 
@@ -291,6 +304,17 @@ func (r *PostgresProductRepo) GetTranslationByLocale(ctx context.Context, produc
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, errors.New("translation not found")
 		}
+		return nil, err
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
+func (r *PostgresProductRepo) UpdateTranslation(ctx context.Context, translation *entities.ProductTranslation) (*entities.ProductTranslation, error) {
+	var translationModel models.ProductTranslationModel
+	translationModel.FromEntity(translation)
+
+	if err := r.db.WithContext(ctx).Save(&translationModel).Error; err != nil {
 		return nil, err
 	}
 

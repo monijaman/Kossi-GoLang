@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -43,6 +44,8 @@ type ProductResponse struct {
 	Category     *CategoryResponse `json:"category,omitempty"`
 	Brand        *BrandResponse    `json:"brand,omitempty"`
 	ViewsCount   int64             `json:"views_count"`
+	Status       bool              `json:"status"`
+	Priority     int               `json:"priority"`
 	CreatedAt    string            `json:"created_at"`
 	UpdatedAt    string            `json:"updated_at"`
 }
@@ -67,6 +70,8 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		CategoryID:  product.CategoryID,
 		BrandID:     product.BrandID,
 		ViewsCount:  product.ViewsCount,
+		Status:      product.Status,
+		Priority:    product.Priority,
 		CreatedAt:   product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
@@ -111,6 +116,8 @@ func convertProductToResponseSimple(product *entities.Product) ProductResponse {
 		CategoryID:  product.CategoryID,
 		BrandID:     product.BrandID,
 		ViewsCount:  product.ViewsCount,
+		Status:      product.Status,
+		Priority:    product.Priority,
 		CreatedAt:   product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
@@ -119,6 +126,8 @@ func convertProductToResponseSimple(product *entities.Product) ProductResponse {
 // GetProductByIDHandler handles GET /products/{id}
 func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
+
+	fmt.Println("========== DEBUG: GetProductByIDHandler called ==========")
 
 	// Extract ID from URL path - handle both /products/{id} and /products/{id}/
 	path := strings.TrimPrefix(r.URL.Path, "/products/")
@@ -153,7 +162,14 @@ func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo reposito
 		return
 	}
 
+	// DEBUG: Log the product entity before conversion
+	fmt.Printf("DEBUG: Product entity - ID: %d, Status: %v, Priority: %d\n", product.ID, product.Status, product.Priority)
+
 	response := convertProductToResponse(product, categoryRepo, brandRepo)
+
+	// DEBUG: Log the response before JSON encoding
+	fmt.Printf("DEBUG: Response struct - ID: %d, Status: %v, Priority: %d\n", response.ID, response.Status, response.Priority)
+
 	json.NewEncoder(w).Encode(response)
 }
 
@@ -202,8 +218,64 @@ func CreateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 		return
 	}
 
+	// Check for duplicate product names by searching for existing products
+	existingProducts, err := repo.Search(r.Context(), req.Name, 1, 0)
+	if err == nil && len(existingProducts) > 0 {
+		// Check for exact name match (case-insensitive)
+		for _, existing := range existingProducts {
+			if strings.EqualFold(existing.Name, req.Name) {
+				w.WriteHeader(http.StatusConflict)
+				json.NewEncoder(w).Encode(map[string]interface{}{
+					"error":   "Product with this name already exists",
+					"message": fmt.Sprintf("A product named '%s' already exists", req.Name),
+					"field":   "name",
+					"code":    "DUPLICATE_PRODUCT_NAME",
+				})
+				return
+			}
+		}
+	}
+
+	// Generate slug if not provided to check for slug duplicates
+	slug := req.Slug
+	if slug == "" {
+		// Generate slug from name (same logic as in repository)
+		slug = strings.ToLower(req.Name)
+		reg := regexp.MustCompile(`[^a-z0-9]+`)
+		slug = reg.ReplaceAllString(slug, "-")
+		slug = strings.Trim(slug, "-")
+	}
+
+	// Check for duplicate slug
+	existingProduct, err := repo.GetBySlug(r.Context(), slug)
+	if err == nil && existingProduct != nil {
+		w.WriteHeader(http.StatusConflict)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"error":      "Product with this slug already exists",
+			"message":    fmt.Sprintf("A product with slug '%s' already exists", slug),
+			"field":      "slug",
+			"code":       "DUPLICATE_PRODUCT_SLUG",
+			"suggestion": fmt.Sprintf("Consider using a different name or slug. Suggested slug: %s-1", slug),
+		})
+		return
+	}
+
 	product, err := repo.Create(r.Context(), &req)
 	if err != nil {
+		// Check if the error is related to database constraints (e.g., unique constraint violations)
+		if strings.Contains(strings.ToLower(err.Error()), "duplicate") ||
+			strings.Contains(strings.ToLower(err.Error()), "unique") ||
+			strings.Contains(strings.ToLower(err.Error()), "constraint") {
+			w.WriteHeader(http.StatusConflict)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"error":   "Duplicate product detected",
+				"message": "A product with similar details already exists in the database",
+				"details": err.Error(),
+				"code":    "DATABASE_CONSTRAINT_VIOLATION",
+			})
+			return
+		}
+
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
 		return
@@ -242,10 +314,17 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 
 	var req entities.Product
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		// DEBUG: Read body for debugging
+		r.Body.Close()
+		fmt.Printf("DEBUG: Failed to decode request body: %v\n", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid request body"})
 		return
 	}
+
+	// DEBUG: Log received product data
+	fmt.Printf("DEBUG: Received product update - ID: %d, Name: %s, Status: %v, Priority: %d\n",
+		req.ID, req.Name, req.Status, req.Priority)
 
 	product, err := repo.Update(r.Context(), uint(productID), &req)
 	if err != nil {
@@ -707,15 +786,52 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, imageRepo r
 	})
 }
 
-// CreateProductTranslationHandler handles POST /product-trans/{id}
+// CreateProductTranslationHandler handles POST /products/{id}/translation and POST /product-trans/{id}
+// Creates a new translation if one doesn't exist for the product and locale,
+// or updates an existing translation if one is found.
+// Returns 201 (Created) for new translations, 200 (OK) for updates.
 func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/product-trans/")
-	productIDStr := strings.Trim(path, "/")
+	// Debug log
+	fmt.Printf("CreateProductTranslationHandler called with URL: %s\n", r.URL.Path)
+
+	// Extract product ID from URL path - handle both /products/{id}/translation and /product-trans/{id}
+	var productIDStr string
+
+	if strings.HasPrefix(r.URL.Path, "/products/") {
+		// Handle /products/{id}/translation
+		path := strings.TrimPrefix(r.URL.Path, "/products/")
+		pathParts := strings.Split(path, "/")
+
+		if len(pathParts) < 2 {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format for /products/{id}/translation"})
+			return
+		}
+		productIDStr = pathParts[0]
+	} else if strings.HasPrefix(r.URL.Path, "/product-trans/") {
+		// Handle /product-trans/{id}
+		path := strings.TrimPrefix(r.URL.Path, "/product-trans/")
+		path = strings.TrimSuffix(path, "/")
+
+		if path == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format for /product-trans/{id}"})
+			return
+		}
+		productIDStr = path
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format"})
+		return
+	}
+
+	fmt.Printf("Extracted product ID string: %s\n", productIDStr)
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+
+	fmt.Printf("============================== Product ID: %d\n", productID)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{
@@ -726,40 +842,156 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 	}
 
 	var request struct {
-		Locale                string  `json:"locale"`
-		TranslatedName        string  `json:"translated_name"`
-		TranslatedDescription *string `json:"translated_description"`
+		Locale         string  `json:"locale"`
+		TranslatedName string  `json:"translated_name"`
+		Price          *string `json:"price"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		fmt.Printf("JSON decode error: %v\n", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
 		return
 	}
 
+	// Debug: Log the decoded request
+	fmt.Printf("Decoded request: Locale='%s', TranslatedName='%s'\n", request.Locale, request.TranslatedName)
+	fmt.Printf("Raw TranslatedName bytes: %v\n", []byte(request.TranslatedName))
+
 	if request.Locale == "" || request.TranslatedName == "" {
+		fmt.Printf("Validation failed: Locale='%s' (len=%d), TranslatedName='%s' (len=%d)\n",
+			request.Locale, len(request.Locale), request.TranslatedName, len(request.TranslatedName))
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Locale and translated_name are required"})
 		return
 	}
 
-	translation := &entities.ProductTranslation{
-		ProductID:             uint(productID),
-		Locale:                request.Locale,
-		TranslatedName:        request.TranslatedName,
-		TranslatedDescription: request.TranslatedDescription,
-		CreatedAt:             time.Now(),
-		UpdatedAt:             time.Now(),
-	}
-
-	savedTranslation, err := productRepo.CreateTranslation(r.Context(), translation)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create translation"})
+	// Additional validation for unicode characters
+	if len(strings.TrimSpace(request.TranslatedName)) == 0 {
+		fmt.Printf("TranslatedName contains only whitespace\n")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "translated_name cannot be empty or contain only whitespace"})
 		return
 	}
 
-	json.NewEncoder(w).Encode(savedTranslation)
+	// First, verify that the product exists
+	_, productErr := productRepo.GetByID(r.Context(), uint(productID))
+	if productErr != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Product not found",
+			"id":    productIDStr,
+		})
+		return
+	}
+
+	// Check if translation already exists for this product and locale
+	existingTranslation, err := productRepo.GetTranslationByLocale(r.Context(), uint(productID), request.Locale)
+
+	// Log the result of checking existing translation
+	if err != nil {
+		fmt.Printf("Error checking existing translation: %v\n", err)
+	} else if existingTranslation != nil {
+		fmt.Printf("Found existing translation: ID=%d, Locale=%s\n", existingTranslation.ID, existingTranslation.Locale)
+	} else {
+		fmt.Printf("No existing translation found for product %d, locale %s\n", productID, request.Locale)
+	}
+
+	var savedTranslation *entities.ProductTranslation
+	var isUpdate bool
+
+	if err == nil && existingTranslation != nil {
+		// Translation exists - update it
+		isUpdate = true
+		fmt.Printf("Updating existing translation for product %d, locale %s\n", productID, request.Locale)
+		existingTranslation.TranslatedName = request.TranslatedName
+		existingTranslation.Price = request.Price
+		existingTranslation.UpdatedAt = time.Now()
+
+		savedTranslation, err = productRepo.UpdateTranslation(r.Context(), existingTranslation)
+		if err != nil {
+			fmt.Printf("Database error updating translation: %v\n", err)
+			fmt.Printf("Translation data: ID=%d, ProductID=%d, Locale=%s, Name=%s\n",
+				existingTranslation.ID, existingTranslation.ProductID, existingTranslation.Locale, existingTranslation.TranslatedName)
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error":   "Failed to update translation",
+				"details": err.Error(),
+			})
+			return
+		}
+
+		fmt.Printf("Translation updated successfully\n")
+	} else {
+		// Translation doesn't exist - create new one
+		isUpdate = false
+		fmt.Printf("Creating new translation for product %d, locale %s\n", productID, request.Locale)
+
+		// Ensure we're not passing empty values
+		translatedName := strings.TrimSpace(request.TranslatedName)
+		if translatedName == "" {
+			fmt.Printf("ERROR: translatedName is empty after trimming\n")
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "translated_name cannot be empty"})
+			return
+		}
+
+		translation := &entities.ProductTranslation{
+			ProductID:      uint(productID),
+			Locale:         request.Locale,
+			TranslatedName: translatedName,
+			Price:          request.Price,
+			CreatedAt:      time.Now(),
+			UpdatedAt:      time.Now(),
+		}
+
+		// Debug: Log the translation object before database call
+		fmt.Printf("Translation object before DB call: ProductID=%d, Locale='%s', TranslatedName='%s' (len=%d)\n",
+			translation.ProductID, translation.Locale, translation.TranslatedName, len(translation.TranslatedName))
+
+		// Validate that all required fields are actually set
+		if translation.TranslatedName == "" {
+			fmt.Printf("ERROR: TranslatedName is empty in translation object!\n")
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Internal error: TranslatedName is empty"})
+			return
+		}
+
+		savedTranslation, err = productRepo.CreateTranslation(r.Context(), translation)
+		if err != nil {
+			fmt.Printf("Database error creating translation: %v\n", err)
+			fmt.Printf("Translation data: ProductID=%d, Locale=%s, Name=%s\n",
+				translation.ProductID, translation.Locale, translation.TranslatedName)
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error":   "Failed to create translation",
+				"details": err.Error(),
+			})
+			return
+		}
+
+		fmt.Printf("Translation created successfully\n")
+	}
+
+	// Set appropriate status code
+	if isUpdate {
+		w.WriteHeader(http.StatusOK)
+	} else {
+		w.WriteHeader(http.StatusCreated)
+	}
+
+	// Return success response
+	message := "Translation updated successfully"
+	if !isUpdate {
+		message = "Translation created successfully"
+	}
+
+	response := map[string]interface{}{
+		"message":     message,
+		"translation": savedTranslation,
+		"action":      map[string]bool{"created": !isUpdate, "updated": isUpdate},
+	}
+	json.NewEncoder(w).Encode(response)
 }
 
 // GetPublicReviewsHandler handles GET /public-reviews/{id}

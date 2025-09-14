@@ -40,13 +40,13 @@ type SpecificationKey struct {
 
 // ProductTranslation represents product translations
 type ProductTranslation struct {
-	ID                    uint
-	ProductID             uint
-	Locale                string
-	TranslatedName        string
-	TranslatedDescription *string
-	CreatedAt             time.Time
-	UpdatedAt             time.Time
+	ID             uint
+	ProductID      uint
+	Locale         string
+	TranslatedName string
+	Price          *string `json:"price,omitempty"`
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
 }
 
 // CategoryTranslation represents category translations

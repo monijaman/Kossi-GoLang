@@ -4,6 +4,7 @@
 package models
 
 import (
+	"fmt"
 	"kossti/internal/domain/entities"
 	"time"
 )
@@ -41,25 +42,25 @@ func (ProductableModel) TableName() string {
 
 // ProductTranslationModel represents the database model for product translations (GORM-specific)
 type ProductTranslationModel struct {
-	ID                    uint      `gorm:"primaryKey;autoIncrement"`
-	ProductID             uint      `gorm:"not null"`
-	Locale                string    `gorm:"type:varchar(255);not null"`
-	TranslatedName        string    `gorm:"type:varchar(255);not null"`
-	TranslatedDescription *string   `gorm:"type:text"`
-	CreatedAt             time.Time `gorm:"autoCreateTime"`
-	UpdatedAt             time.Time `gorm:"autoUpdateTime"`
+	ID             uint      `gorm:"primaryKey;autoIncrement"`
+	ProductID      uint      `gorm:"not null"`
+	Locale         string    `gorm:"type:varchar(255);not null"`
+	TranslatedName string    `gorm:"column:translated_name;type:varchar(255);not null"` // Database column is 'translated_name'
+	Price          *string   `gorm:"type:varchar(255)"`                                 // Laravel uses varchar for price
+	CreatedAt      time.Time `gorm:"autoCreateTime"`
+	UpdatedAt      time.Time `gorm:"autoUpdateTime"`
 }
 
 // ToEntity converts GORM model to domain entity
 func (pt *ProductTranslationModel) ToEntity() *entities.ProductTranslation {
 	return &entities.ProductTranslation{
-		ID:                    pt.ID,
-		ProductID:             pt.ProductID,
-		Locale:                pt.Locale,
-		TranslatedName:        pt.TranslatedName,
-		TranslatedDescription: pt.TranslatedDescription,
-		CreatedAt:             pt.CreatedAt,
-		UpdatedAt:             pt.UpdatedAt,
+		ID:             pt.ID,
+		ProductID:      pt.ProductID,
+		Locale:         pt.Locale,
+		TranslatedName: pt.TranslatedName, // Direct mapping
+		Price:          pt.Price,
+		CreatedAt:      pt.CreatedAt,
+		UpdatedAt:      pt.UpdatedAt,
 	}
 }
 
@@ -68,10 +69,14 @@ func (pt *ProductTranslationModel) FromEntity(entity *entities.ProductTranslatio
 	pt.ID = entity.ID
 	pt.ProductID = entity.ProductID
 	pt.Locale = entity.Locale
-	pt.TranslatedName = entity.TranslatedName
-	pt.TranslatedDescription = entity.TranslatedDescription
+	pt.TranslatedName = entity.TranslatedName // Direct mapping
+	pt.Price = entity.Price
 	pt.CreatedAt = entity.CreatedAt
 	pt.UpdatedAt = entity.UpdatedAt
+
+	// Debug: Log the conversion
+	fmt.Printf("FromEntity conversion: entity.TranslatedName='%s' -> model.TranslatedName='%s'\n",
+		entity.TranslatedName, pt.TranslatedName)
 }
 
 // TableName returns the table name for GORM

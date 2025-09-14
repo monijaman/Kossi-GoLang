@@ -1,6 +1,8 @@
 package product
 
 import (
+	"encoding/json"
+	"fmt"
 	"kossti/internal/domain/repository"
 	"net/http"
 	"strings"
@@ -11,7 +13,7 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 	// GET /products - List products with search, pagination, and filtering
 	mux.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			// Check if Laravel-style parameters are present (locale, page, sortby)
+			// Check if   parameters are present (locale, page, sortby)
 			if r.URL.Query().Get("locale") != "" || r.URL.Query().Get("page") != "" || r.URL.Query().Get("sortby") != "" {
 				GetFilteredProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
 			} else {
@@ -46,6 +48,17 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			// POST /products/{id}/increment-views
 			if r.Method == http.MethodPost {
 				IncrementProductViewsHandler(w, r, productRepo, categoryRepo, brandRepo)
+			} else {
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusMethodNotAllowed)
+				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+			}
+		} else if len(pathParts) == 2 && pathParts[1] == "translation" {
+			// POST /products/{id}/translation
+
+			fmt.Printf("Received request for ")
+			if r.Method == http.MethodPost {
+				CreateProductTranslationHandler(w, r, productRepo)
 			} else {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusMethodNotAllowed)
@@ -119,6 +132,36 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			return
 		}
 		GetProductImageHandler(w, r, imageRepo)
+	})
+
+	// Debug route
+	mux.HandleFunc("/debug-trans", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"debug": "translation route is working"}`))
+	})
+
+	// Debug route for testing JSON decoding
+	mux.HandleFunc("/debug-json", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
+		var request struct {
+			Locale                string  `json:"locale"`
+			TranslatedName        string  `json:"translated_name"`
+			TranslatedDescription *string `json:"translated_description"`
+		}
+
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+			return
+		}
+
+		response := map[string]interface{}{
+			"received":   request,
+			"locale_len": len(request.Locale),
+			"name_len":   len(request.TranslatedName),
+			"raw_bytes":  []byte(request.TranslatedName),
+		}
+		json.NewEncoder(w).Encode(response)
 	})
 
 	// POST /product-trans/{id} - Product translation

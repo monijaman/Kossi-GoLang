@@ -44,7 +44,8 @@ func (p *ProductModel) ToEntity() *entities.Product {
 		CategoryID:  p.CategoryID,
 		BrandID:     p.BrandID,
 		ViewsCount:  p.ViewsCount,
-		Status:      p.Status,
+		Status:      p.Status > 0, // Convert int to bool: 1+ = true, 0 = false
+		Priority:    p.Priority,
 		CreatedAt:   p.CreatedAt,
 		UpdatedAt:   p.UpdatedAt,
 		DeletedAt:   p.DeletedAt,
@@ -61,7 +62,13 @@ func (p *ProductModel) FromEntity(entity *entities.Product) {
 	p.CategoryID = entity.CategoryID
 	p.BrandID = entity.BrandID
 	p.ViewsCount = entity.ViewsCount
-	p.Status = entity.Status
+	// Convert bool to int: true = 1, false = 0
+	if entity.Status {
+		p.Status = 1
+	} else {
+		p.Status = 0
+	}
+	p.Priority = entity.Priority
 	p.CreatedAt = entity.CreatedAt
 	p.UpdatedAt = entity.UpdatedAt
 	p.DeletedAt = entity.DeletedAt
