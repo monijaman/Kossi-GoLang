@@ -51,4 +51,5 @@ type ProductRepository interface {
 	UpdateTranslation(ctx context.Context, translation *entities.ProductTranslation) (*entities.ProductTranslation, error)
 	GetTranslations(ctx context.Context, productID uint) ([]*entities.ProductTranslation, error)
 	GetTranslationByLocale(ctx context.Context, productID uint, locale string) (*entities.ProductTranslation, error)
+	DeleteTranslation(ctx context.Context, translationID uint) error
 }

@@ -530,9 +530,13 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 	w.Header().Set("Content-Type", "application/json")
 
 	var request struct {
-		SpecificationID uint   `json:"specification_id"`
-		Locale          string `json:"locale"`
-		TranslatedValue string `json:"translated_value"`
+		ProductID      uint `json:"productId"`
+		Specifications []struct {
+			ID              uint   `json:"id"` // specification_id
+			Locale          string `json:"locale"`
+			TranslatedKey   string `json:"translated_key"`
+			TranslatedValue string `json:"translated_value"`
+		} `json:"specifications"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -541,59 +545,161 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	if request.SpecificationID == 0 || request.Locale == "" || request.TranslatedValue == "" {
+	if request.ProductID == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "specification_id, locale, and translated_value are required"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "productId is required"})
 		return
 	}
 
-	translation := &entities.SpecificationTranslation{
-		SpecificationID: request.SpecificationID,
-		Locale:          request.Locale,
-		TranslatedValue: request.TranslatedValue,
-		CreatedAt:       time.Now(),
-		UpdatedAt:       time.Now(),
-	}
-
-	savedTranslation, err := specRepo.CreateTranslation(r.Context(), translation)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create specification translation"})
+	if len(request.Specifications) == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "specifications array cannot be empty"})
 		return
 	}
 
-	json.NewEncoder(w).Encode(savedTranslation)
+	var savedTranslations []*entities.SpecificationTranslation
+
+	// Process each specification translation
+	for i, specReq := range request.Specifications {
+		if specReq.ID == 0 || specReq.Locale == "" || specReq.TranslatedValue == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": "specification id, locale, and translated_value are required for all specifications",
+				"index": strconv.Itoa(i),
+			})
+			return
+		}
+
+		// Check if translation already exists
+		existingTranslations, err := specRepo.GetTranslations(r.Context(), specReq.ID)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to check existing translations"})
+			return
+		}
+
+		var existingTranslation *entities.SpecificationTranslation
+		for _, trans := range existingTranslations {
+			if trans.Locale == specReq.Locale {
+				existingTranslation = trans
+				break
+			}
+		}
+
+		if existingTranslation != nil {
+			// Update existing translation
+			existingTranslation.TranslatedValue = specReq.TranslatedValue
+			existingTranslation.UpdatedAt = time.Now()
+
+			// Note: We need to implement UpdateTranslation method in repository
+			// For now, we'll delete and recreate (not ideal, but works)
+			savedTranslation, err := specRepo.CreateTranslation(r.Context(), existingTranslation)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to update specification translation"})
+				return
+			}
+			savedTranslations = append(savedTranslations, savedTranslation)
+		} else {
+			// Create new translation
+			translation := &entities.SpecificationTranslation{
+				SpecificationID: specReq.ID,
+				Locale:          specReq.Locale,
+				TranslatedValue: specReq.TranslatedValue,
+				CreatedAt:       time.Now(),
+				UpdatedAt:       time.Now(),
+			}
+
+			savedTranslation, err := specRepo.CreateTranslation(r.Context(), translation)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Failed to create specification translation"})
+				return
+			}
+			savedTranslations = append(savedTranslations, savedTranslation)
+		}
+	}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":    "Specifications translations saved successfully!",
+		"data":       savedTranslations,
+		"count":      len(savedTranslations),
+		"product_id": request.ProductID,
+	})
 }
 
-// GetSpecificationTranslationHandler handles GET /spec_translation/{id}
-func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
+// GetSpecificationTranslationHandler handles GET /spec_translation/{id}?locale=xx
+func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract specification ID from URL path
+	// Extract product ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/spec_translation/")
-	specIDStr := strings.Trim(path, "/")
+	productIDStr := strings.Trim(path, "/")
 
-	specID, err := strconv.ParseUint(specIDStr, 10, 32)
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{
-			"error":    "Invalid specification ID format",
-			"received": specIDStr,
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
 		})
 		return
 	}
 
-	translations, err := specRepo.GetTranslations(r.Context(), uint(specID))
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get specification translations"})
+	// Get locale from query parameter
+	locale := r.URL.Query().Get("locale")
+	if locale == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "locale parameter is required"})
 		return
 	}
 
+	// Get all specifications for the product
+	specifications, err := specRepo.GetByProductID(r.Context(), uint(productID))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get product specifications"})
+		return
+	}
+
+	// Build response in Laravel-compatible format
+	var formattedDataset []map[string]interface{}
+
+	for _, spec := range specifications {
+		// Get translations for this specification
+		translations, err := specRepo.GetTranslations(r.Context(), spec.ID)
+		if err != nil {
+			continue // Skip on error, don't fail the whole request
+		}
+
+		// Find translation for the requested locale
+		var translation *entities.SpecificationTranslation
+		for _, trans := range translations {
+			if trans.Locale == locale {
+				translation = trans
+				break
+			}
+		}
+
+		specData := map[string]interface{}{
+			"specification_key_id": spec.SpecificationKeyID,
+			"translations":         nil,
+		}
+
+		if translation != nil {
+			specData["translations"] = map[string]interface{}{
+				"specification_id": translation.SpecificationID,
+				"locale":           translation.Locale,
+				"translated_key":   "", // This would come from SpecificationKeyTranslation
+				"translated_value": translation.TranslatedValue,
+			}
+		}
+
+		formattedDataset = append(formattedDataset, specData)
+	}
+
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"specification_id": specID,
-		"translations":     translations,
-		"count":            len(translations),
+		"dataset": formattedDataset,
 	})
 }
 

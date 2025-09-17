@@ -1050,3 +1050,159 @@ func GetPublicReviewsHandler(w http.ResponseWriter, r *http.Request, productRepo
 
 	json.NewEncoder(w).Encode(response)
 }
+
+// GetProductTranslationsHandler handles GET /products/{id}/translations
+// Retrieves all translations for a specific product, with optional locale filtering
+func GetProductTranslationsHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
+	pathParts := strings.Split(path, "/")
+
+	if len(pathParts) < 2 || pathParts[0] == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format for /products/{id}/translations"})
+		return
+	}
+
+	productIDStr := pathParts[0]
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	// First, verify that the product exists
+	_, productErr := productRepo.GetByID(r.Context(), uint(productID))
+	if productErr != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Product not found",
+			"id":    productIDStr,
+		})
+		return
+	}
+
+	// Check if locale filter is provided
+	locale := r.URL.Query().Get("locale")
+
+	if locale != "" {
+		// Get specific translation by locale
+		translation, err := productRepo.GetTranslationByLocale(r.Context(), uint(productID), locale)
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error":  "Translation not found for the specified locale",
+				"locale": locale,
+			})
+			return
+		}
+
+		w.WriteHeader(http.StatusOK)
+		response := map[string]interface{}{
+			"data":    translation,
+			"success": true,
+			"message": fmt.Sprintf("Translation retrieved successfully for locale %s", locale),
+		}
+		json.NewEncoder(w).Encode(response)
+	} else {
+		// Get all translations for the product
+		translations, err := productRepo.GetTranslations(r.Context(), uint(productID))
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error":   "Failed to retrieve translations",
+				"details": err.Error(),
+			})
+			return
+		}
+
+		w.WriteHeader(http.StatusOK)
+		response := map[string]interface{}{
+			"data":    translations,
+			"success": true,
+			"message": "Translations retrieved successfully",
+		}
+		json.NewEncoder(w).Encode(response)
+	}
+}
+
+// DeleteProductTranslationHandler handles DELETE /products/{id}/translations?locale=xx
+// Deletes a specific translation for a product by locale
+func DeleteProductTranslationHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/products/")
+	pathParts := strings.Split(path, "/")
+
+	if len(pathParts) < 2 || pathParts[0] == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format for /products/{id}/translations"})
+		return
+	}
+
+	productIDStr := pathParts[0]
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":    "Invalid product ID format",
+			"received": productIDStr,
+		})
+		return
+	}
+
+	// Get locale from query parameter
+	locale := r.URL.Query().Get("locale")
+	if locale == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "locale query parameter is required"})
+		return
+	}
+
+	// First, verify that the product exists
+	_, productErr := productRepo.GetByID(r.Context(), uint(productID))
+	if productErr != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Product not found",
+			"id":    productIDStr,
+		})
+		return
+	}
+
+	// Check if translation exists
+	translation, err := productRepo.GetTranslationByLocale(r.Context(), uint(productID), locale)
+	if err != nil || translation == nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":  "Translation not found for the specified locale",
+			"locale": locale,
+		})
+		return
+	}
+
+	// Delete the translation
+	err = productRepo.DeleteTranslation(r.Context(), translation.ID)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":   "Failed to delete translation",
+			"details": err.Error(),
+		})
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	response := map[string]interface{}{
+		"success": true,
+		"message": fmt.Sprintf("Translation deleted successfully for locale %s", locale),
+	}
+	json.NewEncoder(w).Encode(response)
+}

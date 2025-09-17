@@ -145,15 +145,30 @@ func (r *PostgresSpecificationRepo) BulkUpsert(ctx context.Context, specs []*ent
 
 	// Process each specification
 	for _, spec := range specs {
-		// Check for existing specification with same product_id and specification_key_id
-		existingSpec, err := r.GetByProductAndKey(ctx, spec.ProductID, spec.SpecificationKeyID)
-		if err != nil {
-			return nil, err
+		var existingSpec *entities.Specification
+		var err error
+
+		// If ID is provided, try to find by ID first
+		if spec.ID != 0 {
+			existingSpec, err = r.GetByID(ctx, spec.ID)
+			if err != nil && err.Error() != "specification not found" {
+				return nil, err
+			}
+			// If specification not found by ID, existingSpec remains nil
+		}
+
+		// If not found by ID (or no ID provided), check by product_id and specification_key_id
+		if existingSpec == nil {
+			existingSpec, err = r.GetByProductAndKey(ctx, spec.ProductID, spec.SpecificationKeyID)
+			if err != nil {
+				return nil, err
+			}
 		}
 
 		if existingSpec != nil {
 			// Update existing specification
 			existingSpec.Value = spec.Value
+			existingSpec.SpecificationKeyID = spec.SpecificationKeyID // Allow key changes
 			existingSpec.UpdatedAt = time.Now()
 
 			var specModel models.SpecificationModel

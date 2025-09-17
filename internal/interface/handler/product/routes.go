@@ -2,7 +2,6 @@ package product
 
 import (
 	"encoding/json"
-	"fmt"
 	"kossti/internal/domain/repository"
 	"net/http"
 	"strings"
@@ -53,16 +52,18 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 				w.WriteHeader(http.StatusMethodNotAllowed)
 				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
 			}
-		} else if len(pathParts) == 2 && pathParts[1] == "translation" {
-			// POST /products/{id}/translation
-
-			fmt.Printf("Received request for ")
-			if r.Method == http.MethodPost {
+		} else if len(pathParts) == 2 && pathParts[1] == "translations" {
+			// GET and POST /products/{id}/translations
+			if r.Method == http.MethodGet {
+				GetProductTranslationsHandler(w, r, productRepo)
+			} else if r.Method == http.MethodPost {
 				CreateProductTranslationHandler(w, r, productRepo)
+			} else if r.Method == http.MethodDelete {
+				DeleteProductTranslationHandler(w, r, productRepo)
 			} else {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusMethodNotAllowed)
-				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
+				w.Write([]byte(`{"error": "Only GET, POST, and DELETE methods are allowed"}`))
 			}
 		} else if len(pathParts) == 2 && pathParts[1] == "image" {
 			// POST /products/{product}/image

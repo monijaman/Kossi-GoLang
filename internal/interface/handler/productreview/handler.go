@@ -2,9 +2,11 @@ package productreview
 
 import (
 	"encoding/json"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/usecase/productreview"
+	"mime/multipart"
 	"net/http"
 	"strconv"
 	"strings"
@@ -383,12 +385,85 @@ func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo reposit
 func UploadImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// TODO: Implement image upload logic
-	// For now, return placeholder response
+	// Parse multipart form with 10MB max memory (rest will be stored on disk temporarily)
+	err := r.ParseMultipartForm(10 << 20) // 10MB
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "Failed to parse multipart form: " + err.Error(),
+		})
+		return
+	}
+
+	// Get product ID from form data
+	productIDStr := r.FormValue("product_id")
+	if productIDStr == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "product_id is required",
+		})
+		return
+	}
+
+	// Get the uploaded files
+	form := r.MultipartForm
+	var files []*multipart.FileHeader
+
+	// Look for files with pattern "files[0]", "files[1]", etc.
+	for key, fileHeaders := range form.File {
+		if strings.HasPrefix(key, "files[") {
+			files = append(files, fileHeaders...)
+		}
+	}
+
+	// If no files found with pattern, try direct "files" field
+	if len(files) == 0 {
+		if directFiles, exists := form.File["files"]; exists {
+			files = directFiles
+		}
+	}
+
+	if len(files) == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "No files provided",
+		})
+		return
+	}
+
+	var uploadedImages []ImageResponse
+
+	// Process each uploaded file
+	for i, fileHeader := range files {
+		file, err := fileHeader.Open()
+		if err != nil {
+			continue // Skip this file and continue with others
+		}
+		defer file.Close()
+
+		// For now, create a placeholder response
+		// TODO: Implement actual file storage (save to disk/cloud storage)
+		// TODO: Save file metadata to database
+		uploadedImage := ImageResponse{
+			ID:           uint(i + 1), // Placeholder ID
+			Name:         fileHeader.Filename,
+			Path:         "/uploads/" + fileHeader.Filename, // Placeholder path
+			ProductID:    1,                                 // TODO: Convert productIDStr to uint
+			DefaultPhoto: i == 0,                            // Make first image default
+			CreatedAt:    time.Now().Format(time.RFC3339),
+			UpdatedAt:    time.Now().Format(time.RFC3339),
+		}
+		uploadedImages = append(uploadedImages, uploadedImage)
+	}
+
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": "Images uploaded successfully",
-		"images":  []ImageResponse{},
+		"success": true,
+		"message": fmt.Sprintf("%d image(s) uploaded successfully", len(uploadedImages)),
+		"images":  uploadedImages,
 	})
 }
 

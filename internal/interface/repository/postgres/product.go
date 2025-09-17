@@ -398,4 +398,13 @@ func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) {
 	}
 }
 
+// DeleteTranslation deletes a product translation by its ID
+func (r *PostgresProductRepo) DeleteTranslation(ctx context.Context, translationID uint) error {
+	err := r.db.WithContext(ctx).Delete(&models.ProductTranslationModel{}, translationID).Error
+	if err != nil {
+		return fmt.Errorf("failed to delete product translation: %w", err)
+	}
+	return nil
+}
+
 var _ repository.ProductRepository = (*PostgresProductRepo)(nil)

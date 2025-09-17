@@ -7,7 +7,7 @@ import (
 )
 
 // RegisterSpecificationRoutes registers specification-related endpoints to the mux.
-func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
+func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository, productRepo repository.ProductRepository) {
 
 	// Public specification endpoints
 
@@ -89,7 +89,7 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			return
 		}
-		GetSpecificationTranslationHandler(w, r, specRepo)
+		GetSpecificationTranslationHandler(w, r, specRepo, productRepo)
 	})
 
 	// GET /get-public-spec/{id} - Get public specification
