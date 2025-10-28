@@ -4,6 +4,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	"kossti/internal/domain/entities"
 	"time"
@@ -169,23 +170,26 @@ func (CommentTranslationModel) TableName() string {
 
 // ProductReviewTranslationModel represents the database model for product review translations (GORM-specific)
 type ProductReviewTranslationModel struct {
-	ID              uint      `gorm:"primaryKey;autoIncrement"`
-	ProductReviewID uint      `gorm:"not null"`
-	Locale          string    `gorm:"type:varchar(255);not null"`
-	Reviews         string    `gorm:"type:text;not null"`
-	CreatedAt       time.Time `gorm:"autoCreateTime"`
-	UpdatedAt       time.Time `gorm:"autoUpdateTime"`
+	ID              uint   `gorm:"primaryKey;autoIncrement"`
+	ProductReviewID uint   `gorm:"not null"`
+	Locale          string `gorm:"type:varchar(255);not null"`
+	Reviews         string `gorm:"type:text;not null"`
+	// Store any structured additional details as JSON bytes
+	AdditionalDetails []byte    `gorm:"type:json"`
+	CreatedAt         time.Time `gorm:"autoCreateTime"`
+	UpdatedAt         time.Time `gorm:"autoUpdateTime"`
 }
 
 // ToEntity converts GORM model to domain entity
 func (prt *ProductReviewTranslationModel) ToEntity() *entities.ProductReviewTranslation {
 	return &entities.ProductReviewTranslation{
-		ID:               prt.ID,
-		ProductReviewID:  prt.ProductReviewID,
-		Locale:           prt.Locale,
-		TranslatedReview: prt.Reviews,
-		CreatedAt:        prt.CreatedAt,
-		UpdatedAt:        prt.UpdatedAt,
+		ID:                prt.ID,
+		ProductReviewID:   prt.ProductReviewID,
+		Locale:            prt.Locale,
+		TranslatedReview:  prt.Reviews,
+		AdditionalDetails: json.RawMessage(prt.AdditionalDetails),
+		CreatedAt:         prt.CreatedAt,
+		UpdatedAt:         prt.UpdatedAt,
 	}
 }
 
@@ -195,6 +199,9 @@ func (prt *ProductReviewTranslationModel) FromEntity(entity *entities.ProductRev
 	prt.ProductReviewID = entity.ProductReviewID
 	prt.Locale = entity.Locale
 	prt.Reviews = entity.TranslatedReview
+	if len(entity.AdditionalDetails) > 0 {
+		prt.AdditionalDetails = []byte(entity.AdditionalDetails)
+	}
 	prt.CreatedAt = entity.CreatedAt
 	prt.UpdatedAt = entity.UpdatedAt
 }

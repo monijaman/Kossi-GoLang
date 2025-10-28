@@ -92,6 +92,17 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		GetSpecificationTranslationHandler(w, r, specRepo, productRepo)
 	})
 
+	// PUT /spec_translation/values - Update only translated values
+	mux.HandleFunc("/spec_translation/values", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPut && r.Method != http.MethodPost {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only PUT and POST methods are allowed"}`))
+			return
+		}
+		UpdateSpecificationTranslationValues(w, r, specRepo)
+	})
+
 	// GET /get-public-spec/{id} - Get public specification
 	mux.HandleFunc("/get-public-spec/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {

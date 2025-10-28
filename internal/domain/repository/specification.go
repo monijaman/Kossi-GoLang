@@ -19,6 +19,7 @@ type SpecificationRepository interface {
 
 	// Translation operations
 	CreateTranslation(ctx context.Context, translation *entities.SpecificationTranslation) (*entities.SpecificationTranslation, error)
+	UpsertTranslation(ctx context.Context, translation *entities.SpecificationTranslation) (*entities.SpecificationTranslation, error)
 	GetTranslations(ctx context.Context, specID uint) ([]*entities.SpecificationTranslation, error)
 	GetTranslationByLocale(ctx context.Context, specID uint, locale string) (*entities.SpecificationTranslation, error)
 }

@@ -2,6 +2,7 @@ package specification
 
 import (
 	"encoding/json"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"net/http"
@@ -532,7 +533,7 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 	var request struct {
 		ProductID      uint `json:"productId"`
 		Specifications []struct {
-			ID              uint   `json:"id"` // specification_id
+			ID              uint   `json:"id"` // This could be either specification_id or specification_key_id
 			Locale          string `json:"locale"`
 			TranslatedKey   string `json:"translated_key"`
 			TranslatedValue string `json:"translated_value"`
@@ -561,17 +562,42 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 
 	// Process each specification translation
 	for i, specReq := range request.Specifications {
-		if specReq.ID == 0 || specReq.Locale == "" || specReq.TranslatedValue == "" {
+		if specReq.ID == 0 || specReq.Locale == "" {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{
-				"error": "specification id, locale, and translated_value are required for all specifications",
-				"index": strconv.Itoa(i),
+				"error": fmt.Sprintf("specification id and locale are required for all specifications at index %d", i),
+			})
+			return
+		}
+
+		// The frontend is sending the actual specification_id as id
+		// First, get all specifications for this product to find the matching specification
+		productSpecs, err := specRepo.GetByProductID(r.Context(), request.ProductID)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get product specifications"})
+			return
+		}
+
+		// Find the specification that matches this specification_id
+		var targetSpec *entities.Specification
+		for _, spec := range productSpecs {
+			if spec.ID == specReq.ID {
+				targetSpec = spec
+				break
+			}
+		}
+
+		if targetSpec == nil {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": fmt.Sprintf("No specification found for specification_id %d in product %d", specReq.ID, request.ProductID),
 			})
 			return
 		}
 
 		// Check if translation already exists
-		existingTranslations, err := specRepo.GetTranslations(r.Context(), specReq.ID)
+		existingTranslations, err := specRepo.GetTranslations(r.Context(), targetSpec.ID)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to check existing translations"})
@@ -586,9 +612,15 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 			}
 		}
 
+		// Use translated_value if provided, otherwise skip this translation
+		translatedValue := specReq.TranslatedValue
+		if translatedValue == "" {
+			continue // Skip empty translations
+		}
+
 		if existingTranslation != nil {
 			// Update existing translation
-			existingTranslation.TranslatedValue = specReq.TranslatedValue
+			existingTranslation.TranslatedValue = translatedValue
 			existingTranslation.UpdatedAt = time.Now()
 
 			// Note: We need to implement UpdateTranslation method in repository
@@ -603,9 +635,9 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 		} else {
 			// Create new translation
 			translation := &entities.SpecificationTranslation{
-				SpecificationID: specReq.ID,
+				SpecificationID: targetSpec.ID,
 				Locale:          specReq.Locale,
-				TranslatedValue: specReq.TranslatedValue,
+				TranslatedValue: translatedValue,
 				CreatedAt:       time.Now(),
 				UpdatedAt:       time.Now(),
 			}
@@ -767,5 +799,69 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"dataset": dataset,
+	})
+}
+
+// UpdateSpecificationTranslationValues handles PUT/PATCH requests to update only translated_value
+func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	var request struct {
+		ProductID      uint `json:"productId"`
+		Specifications []struct {
+			ID              uint   `json:"id"` // specification_id
+			Locale          string `json:"locale"`
+			TranslatedValue string `json:"translated_value"`
+		} `json:"specifications"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		return
+	}
+
+	if request.ProductID == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "productId is required"})
+		return
+	}
+
+	var savedTranslations []*entities.SpecificationTranslation
+
+	// Process each specification translation
+	for i, specReq := range request.Specifications {
+		if specReq.ID == 0 || specReq.Locale == "" || specReq.TranslatedValue == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": fmt.Sprintf("specification id, locale and translated_value are required at index %d", i),
+			})
+			return
+		}
+
+		// Create or update translation using upsert approach
+		translation := &entities.SpecificationTranslation{
+			SpecificationID: specReq.ID,
+			Locale:          specReq.Locale,
+			TranslatedValue: specReq.TranslatedValue,
+			CreatedAt:       time.Now(),
+			UpdatedAt:       time.Now(),
+		}
+
+		// Use the new UpsertTranslation method which handles create/update automatically
+		savedTranslation, err := specRepo.UpsertTranslation(r.Context(), translation)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("Failed to upsert specification translation: %v", err)})
+			return
+		}
+		savedTranslations = append(savedTranslations, savedTranslation)
+	}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":    "Specification translation values updated successfully!",
+		"data":       savedTranslations,
+		"count":      len(savedTranslations),
+		"product_id": request.ProductID,
 	})
 }

@@ -3,12 +3,13 @@ package product
 import (
 	"encoding/json"
 	"kossti/internal/domain/repository"
+	handlerproductreview "kossti/internal/interface/handler/productreview"
 	"net/http"
 	"strings"
 )
 
 // RegisterProductRoutes registers product-related endpoints to the mux.
-func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRepository, imageRepo repository.ImageRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRepository, imageRepo repository.ImageRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, reviewRepo repository.ProductReviewRepository) {
 	// GET /products - List products with search, pagination, and filtering
 	mux.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
@@ -83,6 +84,15 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 				w.WriteHeader(http.StatusMethodNotAllowed)
 				w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			}
+		} else if len(pathParts) == 2 && pathParts[1] == "reviews" {
+			// GET /products/{product}/reviews -> forward to productreview handler
+			if r.Method == http.MethodGet {
+				handlerproductreview.GetProductReviewsHandler(w, r, reviewRepo)
+				return
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 		} else {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusNotFound)

@@ -5,6 +5,7 @@ package productreview
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
@@ -12,7 +13,7 @@ import (
 )
 
 // CreateReview creates a new product review
-func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, userID uint, productID uint, rating int, review string, additionalDetails string) (*entities.ProductReview, error) {
+func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, userID uint, productID uint, rating int, review string, sourceURL *string, additionalDetails json.RawMessage) (*entities.ProductReview, error) {
 	if rating < 1 || rating > 5 {
 		return nil, errors.New("rating must be between 1 and 5")
 	}
@@ -21,11 +22,26 @@ func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 		return nil, errors.New("review content is required")
 	}
 
-	// Check if user already has a review for this product
-	existingReview, err := repo.GetByProductAndUser(ctx, productID, userID)
-	if err == nil && existingReview != nil {
-		return nil, errors.New("user has already reviewed this product")
+	// Check if a review already exists for this product (only one review per product allowed)
+	println("===== DEBUG CreateReview =====")
+	println("Requested ProductID:", productID)
+	println("Requested UserID:", userID)
+
+	existingReviews, err := repo.GetByProductID(ctx, productID)
+
+	println("existingReviews------------------------  :", existingReviews)
+
+	if err == nil && len(existingReviews) > 0 {
+		println("Found", len(existingReviews), "existing reviews for product", productID)
+		for i, rev := range existingReviews {
+			println("  Review", i+1, "- ID:", rev.ID, "ProductID:", rev.ProductID, "UserID:", rev.UserID)
+		}
+		println("==============================")
+		return nil, errors.New("a review already exists for this product")
 	}
+
+	println("No existing reviews found for product", productID)
+	println("==============================")
 
 	newReview := &entities.ProductReview{
 		ProductID: productID,
@@ -36,6 +52,14 @@ func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 		UpdatedAt: time.Now(),
 	}
 
+	if sourceURL != nil {
+		newReview.SourceURL = sourceURL
+	}
+
+	if len(additionalDetails) > 0 {
+		newReview.AdditionalDetails = additionalDetails
+	}
+
 	if err := repo.Create(ctx, newReview); err != nil {
 		return nil, err
 	}
@@ -44,7 +68,7 @@ func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 }
 
 // UpdateReview updates an existing product review
-func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, userID uint, rating int, review string, additionalDetails string) (*entities.ProductReview, error) {
+func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, userID uint, rating int, review string, sourceURL *string, additionalDetails json.RawMessage) (*entities.ProductReview, error) {
 	if rating < 1 || rating > 5 {
 		return nil, errors.New("rating must be between 1 and 5")
 	}
@@ -65,6 +89,14 @@ func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 	existingReview.Rating = rating
 	existingReview.Review = &review
 	existingReview.UpdatedAt = time.Now()
+
+	if sourceURL != nil {
+		existingReview.SourceURL = sourceURL
+	}
+
+	if len(additionalDetails) > 0 {
+		existingReview.AdditionalDetails = additionalDetails
+	}
 
 	if err := repo.Update(ctx, existingReview); err != nil {
 		return nil, err
@@ -98,7 +130,7 @@ func GetReviewsByUser(ctx context.Context, repo repository.ProductReviewReposito
 }
 
 // CreateTranslation creates a new translation for a product review
-func CreateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, review string) (*entities.ProductReviewTranslation, error) {
+func CreateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, review string, additionalDetails json.RawMessage) (*entities.ProductReviewTranslation, error) {
 	if locale == "" {
 		return nil, errors.New("locale is required")
 	}
@@ -114,11 +146,12 @@ func CreateTranslation(ctx context.Context, repo repository.ProductReviewReposit
 	}
 
 	translation := &entities.ProductReviewTranslation{
-		ProductReviewID:  reviewID,
-		Locale:           locale,
-		TranslatedReview: review,
-		CreatedAt:        time.Now(),
-		UpdatedAt:        time.Now(),
+		ProductReviewID:   reviewID,
+		Locale:            locale,
+		TranslatedReview:  review,
+		AdditionalDetails: additionalDetails,
+		CreatedAt:         time.Now(),
+		UpdatedAt:         time.Now(),
 	}
 
 	if err := repo.CreateTranslation(ctx, translation); err != nil {
@@ -129,7 +162,7 @@ func CreateTranslation(ctx context.Context, repo repository.ProductReviewReposit
 }
 
 // UpdateTranslation updates an existing translation
-func UpdateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, review string) (*entities.ProductReviewTranslation, error) {
+func UpdateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, review string, additionalDetails json.RawMessage) (*entities.ProductReviewTranslation, error) {
 	if locale == "" {
 		return nil, errors.New("locale is required")
 	}
@@ -145,6 +178,10 @@ func UpdateTranslation(ctx context.Context, repo repository.ProductReviewReposit
 
 	existingTranslation.TranslatedReview = review
 	existingTranslation.UpdatedAt = time.Now()
+
+	if len(additionalDetails) > 0 {
+		existingTranslation.AdditionalDetails = additionalDetails
+	}
 
 	if err := repo.UpdateTranslation(ctx, existingTranslation); err != nil {
 		return nil, err

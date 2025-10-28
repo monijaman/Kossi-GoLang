@@ -6,6 +6,7 @@ import (
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/usecase/productreview"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"strconv"
@@ -15,25 +16,27 @@ import (
 
 // Request/Response structures
 type CreateReviewRequest struct {
-	Rating            int    `json:"rating"`
-	Reviews           string `json:"reviews"`
-	AdditionalDetails string `json:"additional_details,omitempty"`
-	Priority          int    `json:"priority,omitempty"`
+	Rating            int             `json:"rating"`
+	Reviews           string          `json:"reviews"`
+	SourceURL         *string         `json:"source_url,omitempty"`
+	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
+	Priority          int             `json:"priority,omitempty"`
 }
 
 type UpdateReviewRequest struct {
-	Rating            int    `json:"rating"`
-	Reviews           string `json:"reviews"`
-	AdditionalDetails string `json:"additional_details,omitempty"`
-	Priority          int    `json:"priority,omitempty"`
+	Rating            int             `json:"rating"`
+	Reviews           string          `json:"reviews"`
+	SourceURL         *string         `json:"source_url,omitempty"`
+	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
+	Priority          int             `json:"priority,omitempty"`
 }
 
 type ReviewTranslationRequest struct {
-	ProductID         uint   `json:"product_id"`
-	Locale            string `json:"locale"`
-	Rating            int    `json:"rating"`
-	Review            string `json:"review"`
-	AdditionalDetails string `json:"additional_details,omitempty"`
+	ProductID         uint            `json:"product_id"`
+	Locale            string          `json:"locale"`
+	Rating            int             `json:"rating"`
+	Review            string          `json:"review"`
+	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
 }
 
 type UploadImageRequest struct {
@@ -42,25 +45,27 @@ type UploadImageRequest struct {
 }
 
 type ReviewResponse struct {
-	ID                uint   `json:"id"`
-	ProductID         uint   `json:"product_id"`
-	UserID            uint   `json:"user_id"`
-	Rating            int    `json:"rating"`
-	Reviews           string `json:"reviews"`
-	AdditionalDetails string `json:"additional_details"`
-	Priority          int    `json:"priority"`
-	Status            bool   `json:"status"`
-	CreatedAt         string `json:"created_at"`
-	UpdatedAt         string `json:"updated_at"`
+	ID                uint        `json:"id"`
+	ProductID         uint        `json:"product_id"`
+	UserID            uint        `json:"user_id"`
+	Rating            int         `json:"rating"`
+	Reviews           string      `json:"reviews"`
+	AdditionalDetails interface{} `json:"additional_details,omitempty"`
+	SourceURL         *string     `json:"source_url,omitempty"`
+	Priority          int         `json:"priority"`
+	Status            bool        `json:"status"`
+	CreatedAt         string      `json:"created_at"`
+	UpdatedAt         string      `json:"updated_at"`
 }
 
 type TranslationResponse struct {
-	ID               uint   `json:"id"`
-	ProductReviewID  uint   `json:"product_review_id"`
-	Locale           string `json:"locale"`
-	TranslatedReview string `json:"translated_review"`
-	CreatedAt        string `json:"created_at"`
-	UpdatedAt        string `json:"updated_at"`
+	ID                uint        `json:"id"`
+	ProductReviewID   uint        `json:"product_review_id"`
+	Locale            string      `json:"locale"`
+	TranslatedReview  string      `json:"translated_review"`
+	AdditionalDetails interface{} `json:"additional_details,omitempty"`
+	CreatedAt         string      `json:"created_at"`
+	UpdatedAt         string      `json:"updated_at"`
 }
 
 type ImageResponse struct {
@@ -80,41 +85,76 @@ func convertReviewToResponse(review *entities.ProductReview) ReviewResponse {
 		reviewText = *review.Review
 	}
 
+	var additional interface{}
+	if len(review.AdditionalDetails) > 0 {
+		if err := json.Unmarshal(review.AdditionalDetails, &additional); err != nil {
+			// If unmarshalling fails, fallback to the raw bytes as string
+			additional = string(review.AdditionalDetails)
+		}
+	}
+
 	return ReviewResponse{
-		ID:        review.ID,
-		ProductID: review.ProductID,
-		UserID:    review.UserID,
-		Rating:    review.Rating,
-		Reviews:   reviewText,
-		CreatedAt: review.CreatedAt.Format(time.RFC3339),
-		UpdatedAt: review.UpdatedAt.Format(time.RFC3339),
+		ID:                review.ID,
+		ProductID:         review.ProductID,
+		UserID:            review.UserID,
+		Rating:            review.Rating,
+		Reviews:           reviewText,
+		AdditionalDetails: additional,
+		SourceURL:         review.SourceURL,
+		CreatedAt:         review.CreatedAt.Format(time.RFC3339),
+		UpdatedAt:         review.UpdatedAt.Format(time.RFC3339),
 	}
 }
 
 // convertTranslationToResponse converts translation entity to response format
 func convertTranslationToResponse(translation *entities.ProductReviewTranslation) TranslationResponse {
+	var additional interface{}
+	if len(translation.AdditionalDetails) > 0 {
+		if err := json.Unmarshal(translation.AdditionalDetails, &additional); err != nil {
+			additional = string(translation.AdditionalDetails)
+		}
+	}
+
 	return TranslationResponse{
-		ID:               translation.ID,
-		ProductReviewID:  translation.ProductReviewID,
-		Locale:           translation.Locale,
-		TranslatedReview: translation.TranslatedReview,
-		CreatedAt:        translation.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:        translation.UpdatedAt.Format(time.RFC3339),
+		ID:                translation.ID,
+		ProductReviewID:   translation.ProductReviewID,
+		Locale:            translation.Locale,
+		TranslatedReview:  translation.TranslatedReview,
+		AdditionalDetails: additional,
+		CreatedAt:         translation.CreatedAt.Format(time.RFC3339),
+		UpdatedAt:         translation.UpdatedAt.Format(time.RFC3339),
 	}
 }
 
 // CreateReviewHandler handles POST /reviews/{id}
-func CreateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
+func CreateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/reviews/")
-	productIDStr := strings.Trim(path, "/")
+	// Extract product ID from URL path parameter (supports /reviews/{id})
+	// Fallback: if the route is different, handlers that call this should ensure the path contains the product id.
+	productIDStr := strings.TrimPrefix(r.URL.Path, "/reviews/")
+	productIDStr = strings.Trim(productIDStr, "/")
+
+	// Debugging info
+	println("===== HANDLER DEBUG =====")
+	println("Full URL Path:", r.URL.Path)
+	println("Parsed productIDStr:", productIDStr)
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid product ID"})
+		return
+	}
+
+	println("Parsed Product ID:", productID)
+	println("=========================")
+
+	// Validate product exists
+	_, err = productRepo.GetByID(r.Context(), uint(productID))
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Product not found"})
 		return
 	}
 
@@ -140,7 +180,8 @@ func CreateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 	// TODO: Extract user ID from JWT token
 	userID := uint(1) // Placeholder
 
-	review, err := productreview.CreateReview(r.Context(), reviewRepo, userID, uint(productID), req.Rating, req.Reviews, req.AdditionalDetails)
+	// Pass additional_details raw JSON to usecase so it's stored as structured JSON
+	review, err := productreview.CreateReview(r.Context(), reviewRepo, userID, uint(productID), req.Rating, req.Reviews, req.SourceURL, req.AdditionalDetails)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -223,14 +264,28 @@ func CreateReviewTranslationHandler(w http.ResponseWriter, r *http.Request, revi
 		return
 	}
 
-	// TODO: Get actual review ID from product and user
-	reviewID := uint(1) // Placeholder - would need to find existing review
+	// Determine the review ID to attach the translation to.
+	// Prefer an explicit mapping from ProductID -> existing product review.
+	var reviewID uint
+	if req.ProductID != 0 {
+		// Try to find existing reviews for the product and pick the first one.
+		reviews, err := productreview.GetReviewsByProduct(r.Context(), reviewRepo, req.ProductID)
+		if err != nil || len(reviews) == 0 {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"error": "No review found for provided product_id"})
+			return
+		}
+		reviewID = reviews[0].ID
+	} else {
+		// Fallback to placeholder if product_id not provided (legacy behaviour)
+		reviewID = uint(1)
+	}
 
 	// Check if translation exists and update or create
 	existingTranslation, err := reviewRepo.GetTranslation(r.Context(), reviewID, req.Locale)
 	if err == nil && existingTranslation != nil {
 		// Update existing translation
-		translation, err := productreview.UpdateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Review)
+		translation, err := productreview.UpdateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Review, req.AdditionalDetails)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -244,7 +299,7 @@ func CreateReviewTranslationHandler(w http.ResponseWriter, r *http.Request, revi
 		})
 	} else {
 		// Create new translation
-		translation, err := productreview.CreateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Review)
+		translation, err := productreview.CreateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Review, req.AdditionalDetails)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -266,7 +321,8 @@ func UpdateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 	// Extract review ID from URL path - pattern: /product/{id}/review/{reviewid}
 	path := r.URL.Path
 	parts := strings.Split(path, "/")
-	if len(parts) < 6 {
+	// Expect at least ["", "product", "{id}", "review", "{reviewid}"] -> len >= 5
+	if len(parts) < 5 {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format"})
 		return
@@ -289,7 +345,8 @@ func UpdateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 	// TODO: Extract user ID from JWT token
 	userID := uint(1) // Placeholder
 
-	review, err := productreview.UpdateReview(r.Context(), reviewRepo, uint(reviewID), userID, req.Rating, req.Reviews, req.AdditionalDetails)
+	// Pass raw JSON bytes for additional_details
+	review, err := productreview.UpdateReview(r.Context(), reviewRepo, uint(reviewID), userID, req.Rating, req.Reviews, req.SourceURL, req.AdditionalDetails)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -307,22 +364,36 @@ func UpdateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 func GetProductReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract product ID from URL path - pattern: /products/{productId}/reviews
+	// Extract product ID from URL path - supports both
+	// /products/{productId}/reviews and /api/.../products/{productId}/reviews
 	path := r.URL.Path
 	parts := strings.Split(path, "/")
-	if len(parts) < 5 {
+
+	// Expect at least ["", "products", "{id}", "reviews"] -> len >= 4
+	if len(parts) < 4 {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid URL format"})
 		return
 	}
 
-	productID, err := strconv.ParseUint(parts[len(parts)-2], 10, 32)
+	// Find the "reviews" segment at the end and pick the previous element as product id
+	var productIDStr string
+	if parts[len(parts)-1] == "reviews" {
+		// standard case: /.../products/{id}/reviews
+		productIDStr = parts[len(parts)-2]
+	} else if len(parts) >= 1 {
+		// fallback: maybe URL ends with the id directly
+		productIDStr = parts[len(parts)-1]
+	}
+
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid product ID"})
 		return
 	}
 
+	// Fetch reviews for the product
 	reviews, err := productreview.GetReviewsByProduct(r.Context(), reviewRepo, uint(productID))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -330,9 +401,32 @@ func GetProductReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo
 		return
 	}
 
-	reviewResponses := make([]ReviewResponse, len(reviews))
-	for i, review := range reviews {
-		reviewResponses[i] = convertReviewToResponse(review)
+	// If a locale is provided, try to load translations and prefer translated content when available
+	locale := r.URL.Query().Get("locale")
+
+	reviewResponses := make([]ReviewResponse, 0, len(reviews))
+	for _, review := range reviews {
+		// Start with base response (original review)
+		resp := convertReviewToResponse(review)
+
+		if locale != "" {
+			// Try to get a translation for this review and locale
+			if translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale); err == nil && translation != nil {
+				// Replace the review text with the translated review
+				resp.Reviews = translation.TranslatedReview
+
+				// If the translation has additional details, prefer those
+				var additional interface{}
+				if len(translation.AdditionalDetails) > 0 {
+					if err := json.Unmarshal(translation.AdditionalDetails, &additional); err != nil {
+						additional = string(translation.AdditionalDetails)
+					}
+					resp.AdditionalDetails = additional
+				}
+			}
+		}
+
+		reviewResponses = append(reviewResponses, resp)
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -464,6 +558,52 @@ func UploadImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 		"success": true,
 		"message": fmt.Sprintf("%d image(s) uploaded successfully", len(uploadedImages)),
 		"images":  uploadedImages,
+	})
+}
+
+// RegisterS3ImagesHandler accepts a JSON payload with S3 keys for files that were
+// uploaded directly from the client and returns a placeholder success response.
+// This endpoint should be extended to persist image metadata in the DB.
+func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	log.Printf("[handler] RegisterS3ImagesHandler called: %s %s", r.Method, r.URL.Path)
+
+	var payload struct {
+		ProductID uint `json:"product_id"`
+		Files     []struct {
+			Key  string `json:"key"`
+			Name string `json:"name"`
+			URL  string `json:"url"`
+			Size int64  `json:"size"`
+		} `json:"files"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{"success": false, "error": "invalid payload"})
+		return
+	}
+
+	// TODO: Persist files to DB using reviewRepo when repository supports it.
+	images := make([]ImageResponse, 0, len(payload.Files))
+	for i, f := range payload.Files {
+		images = append(images, ImageResponse{
+			ID:           uint(i + 1),
+			Name:         f.Name,
+			Path:         f.Key,
+			ProductID:    payload.ProductID,
+			DefaultPhoto: i == 0,
+			CreatedAt:    time.Now().Format(time.RFC3339),
+			UpdatedAt:    time.Now().Format(time.RFC3339),
+		})
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"message": "S3 images registered",
+		"images":  images,
 	})
 }
 

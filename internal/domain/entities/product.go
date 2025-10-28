@@ -2,6 +2,7 @@
 package entities
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -24,14 +25,16 @@ type Product struct {
 
 // ProductReview represents a product review
 type ProductReview struct {
-	ID        uint
-	ProductID uint
-	UserID    uint
-	Rating    int
-	Review    *string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt *time.Time
+	ID                uint
+	ProductID         uint
+	UserID            uint
+	Rating            int
+	Review            *string
+	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
+	SourceURL         *string         `json:"source_url,omitempty"`
+	CreatedAt         time.Time
+	UpdatedAt         time.Time
+	DeletedAt         *time.Time
 }
 
 // Category represents a category

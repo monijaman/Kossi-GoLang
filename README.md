@@ -2,6 +2,8 @@
 
 Welcome! This guide is designed to help you present and explain your Go authentication project using Clean Architecture to students.
 
+Short description: This repository contains the Go backend for the Kossti product/review system. It follows Clean Architecture principles, exposes HTTP handlers for product and review management, uses GORM with PostgreSQL for persistence, and includes migration and seeding tools used during development and presentation.
+
 ---
 
 ## 📋 Table of Contents

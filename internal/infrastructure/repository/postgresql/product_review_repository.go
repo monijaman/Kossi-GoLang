@@ -63,12 +63,45 @@ func (r *productReviewRepository) Delete(ctx context.Context, id uint) error {
 
 // GetByProductID retrieves all reviews for a specific product
 func (r *productReviewRepository) GetByProductID(ctx context.Context, productID uint) ([]*entities.ProductReview, error) {
-	// Note: This would need a proper relationship mapping in the models
-	// For now, we'll return empty slice as a placeholder
-	return []*entities.ProductReview{}, nil
-}
+	println("===== GetByProductID DEBUG =====")
+	println("Searching for ProductID:", productID)
 
-// GetByUserID retrieves all reviews by a specific user
+	// First check what's actually in the table
+	type TempRow struct {
+		ID        uint
+		ProductID uint
+		UserID    uint
+	}
+	var allRows []TempRow
+	r.db.WithContext(ctx).Table("product_reviews").Select("id, product_id, user_id").Limit(10).Find(&allRows)
+	println("ALL REVIEWS IN TABLE (first 10):")
+	for i, row := range allRows {
+		println("  Row", i+1, "- ID:", row.ID, "ProductID:", row.ProductID, "UserID:", row.UserID)
+	}
+
+	// Now try the specific query
+	var reviewModels []models.ProductReviewModel
+	result := r.db.WithContext(ctx).Where("product_id = ?", productID).Find(&reviewModels)
+
+	if result.Error != nil {
+		println("Query Error:", result.Error.Error())
+		println("================================")
+		return nil, result.Error
+	}
+
+	println("Rows Found for product_id =", productID, ":", result.RowsAffected)
+	println("Models Length:", len(reviewModels))
+	for i, model := range reviewModels {
+		println("  Match", i+1, "- ID:", model.ID, "ProductID:", model.ProductID, "UserID:", model.UserID)
+	}
+	println("================================")
+
+	reviews := make([]*entities.ProductReview, len(reviewModels))
+	for i, model := range reviewModels {
+		reviews[i] = model.ToEntity()
+	}
+	return reviews, nil
+} // GetByUserID retrieves all reviews by a specific user
 func (r *productReviewRepository) GetByUserID(ctx context.Context, userID uint) ([]*entities.ProductReview, error) {
 	var models []models.ProductReviewModel
 	if err := r.db.WithContext(ctx).Where("user_id = ?", userID).Find(&models).Error; err != nil {
@@ -85,13 +118,30 @@ func (r *productReviewRepository) GetByUserID(ctx context.Context, userID uint) 
 // GetByProductAndUser retrieves a review by a specific user for a specific product
 func (r *productReviewRepository) GetByProductAndUser(ctx context.Context, productID, userID uint) (*entities.ProductReview, error) {
 	var model models.ProductReviewModel
-	if err := r.db.WithContext(ctx).Where("user_id = ?", userID).First(&model).Error; err != nil {
-		return nil, err
-	}
-	return model.ToEntity(), nil
-}
 
-// GetAll retrieves all product reviews with pagination
+	println("===== REPOSITORY DEBUG =====")
+	println("Querying with ProductID:", productID)
+	println("Querying with UserID:", userID)
+
+	// TEST: Search ONLY by product_id first
+	result := r.db.WithContext(ctx).Where("product_id = ?", productID).First(&model)
+
+	println("Query executed (PRODUCT_ID ONLY)")
+	println("Rows affected:", result.RowsAffected)
+
+	if result.Error != nil {
+		println("Query Error:", result.Error.Error())
+		println("============================")
+		return nil, result.Error
+	}
+
+	println("Found Review ID:", model.ID)
+	println("Found Product ID:", model.ProductID)
+	println("Found User ID:", model.UserID)
+	println("============================")
+
+	return model.ToEntity(), nil
+} // GetAll retrieves all product reviews with pagination
 func (r *productReviewRepository) GetAll(ctx context.Context, page, limit int, sortOrder string) ([]*entities.ProductReview, int, error) {
 	var models []models.ProductReviewModel
 	var total int64

@@ -229,6 +229,36 @@ func (r *PostgresSpecificationRepo) CreateTranslation(ctx context.Context, trans
 	return translationModel.ToEntity(), nil
 }
 
+// UpsertTranslation creates or updates a translation
+func (r *PostgresSpecificationRepo) UpsertTranslation(ctx context.Context, translation *entities.SpecificationTranslation) (*entities.SpecificationTranslation, error) {
+	var translationModel models.SpecificationTranslationModel
+
+	// Try to find existing translation
+	err := r.db.WithContext(ctx).
+		Where("specification_id = ? AND locale = ?", translation.SpecificationID, translation.Locale).
+		First(&translationModel).Error
+
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		// Create new translation
+		translationModel.FromEntity(translation)
+		translationModel.ID = 0 // Ensure it's treated as new record
+	} else {
+		// Update existing translation
+		translationModel.Value = translation.TranslatedValue
+		translationModel.UpdatedAt = time.Now()
+	}
+
+	if err := r.db.WithContext(ctx).Save(&translationModel).Error; err != nil {
+		return nil, err
+	}
+
+	return translationModel.ToEntity(), nil
+}
+
 func (r *PostgresSpecificationRepo) GetTranslations(ctx context.Context, specID uint) ([]*entities.SpecificationTranslation, error) {
 	var translationModels []models.SpecificationTranslationModel
 

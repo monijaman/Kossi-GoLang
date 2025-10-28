@@ -1,3008 +1,3724 @@
 {
-  "info": {
-    "_postman_id": "2a17b67f-79f3-4593-84b1-03f8856793b1",
-    "name": "GO CRIT API",
-    "description": "Go CRIT API Collection - Product management system with specifications, categories, and user management. Base URL: http://localhost:8080\n\nKey Endpoints:\n- Product Specifications: /get-specifications/{id}, /specifications/bulk\n- Specification Keys: /speckey (with limit parameter)\n- User Management: /register, /login, /refresh\n- Products: /products/{id}\n\nEnvironment Variables:\n- BASEURL: http://localhost:8080 (Go server)\n- LARAVEL_URL: http://localhost:8000 (Laravel fallback)\n- TOKEN: Bearer token from login\n\nUpdated: December 2024 - Added enhanced specification management endpoints",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "31468968"
-  },
-  "item": [
-    {
-      "name": "Users",
-      "item": [
-        {
-          "name": "Register",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/register",
-              "host": ["{{BASEURL}}"],
-              "path": ["register"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "let jsonData = pm.response.json();\r",
-                  "\r",
-                  "// ✅ Save access token if present\r",
-                  "if (jsonData.token) {\r",
-                  "    pm.environment.set(\"access_token\", jsonData.token);\r",
-                  "    pm.environment.set(\"refresh_token\", jsonData.refresh_token);\r",
-                  "    pm.globals.set(\"TOKEN\", jsonData.token);  // use jsonData.token directly\r",
-                  "    console.log(\"✅ Access token stored:\", jsonData.token);\r",
-                  "} else {\r",
-                  "    console.warn(\"⚠️ No token found in response!\", jsonData);\r",
-                  "}\r",
-                  "\r",
-                  "// ✅ Test: Status code is 200\r",
-                  "pm.test(\"Response status code is 200\", function () {\r",
-                  "    pm.expect(pm.response.code).to.equal(200);\r",
-                  "});\r",
-                  "\r",
-                  "// ✅ Test: Response has required fields\r",
-                  "pm.test(\"Response has required fields\", function () {\r",
-                  "    pm.expect(jsonData).to.be.an('object');\r",
-                  "    pm.expect(jsonData).to.have.all.keys('email', 'message', 'refresh_token', 'token');\r",
-                  "});\r",
-                  "\r",
-                  "// ✅ Test: Token is non-empty string\r",
-                  "pm.test(\"Token must be a non-empty string\", function () {\r",
-                  "    pm.expect(jsonData.token).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");\r",
-                  "});\r",
-                  "\r",
-                  "// ✅ Test: Response time < 200ms\r",
-                  "pm.test(\"Response time is less than 200ms\", function () {\r",
-                  "    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-                  "});\r",
-                  "\r",
-                  "// ✅ Test: Response schema and field format\r",
-                  "pm.test(\"Validate the response schema against the expected structure\", function () {\r",
-                  "    pm.expect(jsonData).to.be.an('object').that.includes.all.keys('email', 'message', 'refresh_token', 'token');\r",
-                  "\r",
-                  "    pm.expect(jsonData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");\r",
-                  "    pm.expect(jsonData.message).to.be.a('string');\r",
-                  "    pm.expect(jsonData.refresh_token).to.be.a('string');\r",
-                  "    pm.expect(jsonData.token).to.be.a('string');\r",
-                  "});\r",
-                  "\r",
-                  "// ✅ (Redundant) Test: Request authorized — already covered by 200 check\r",
-                  "pm.test(\"Request was authorized\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [""],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/login",
-              "host": ["{{BASEURL}}"],
-              "path": ["login"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "V1 Registration",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"bob\",\n  \"email\": \"bob@example.com\",\n  \"password\": \"password123\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/registration",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "registration"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "V1 Login",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/login",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "login"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Refresh Token",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/refresh-token",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "refresh-token"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Forgot Password",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"alice@example.com\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/forgot-password",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "forgot-password"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Reset Password",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"token\": \"reset-token-here\",\n  \"password\": \"newpassword123\",\n  \"password_confirmation\": \"newpassword123\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/reset-password",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "reset-password"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Logout",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/logout",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "logout"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Check Token",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/v1/check-token",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "check-token"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search Users",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/v1/search_users?q=alice&limit=10&offset=0",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "search_users"],
-              "query": [
-                {
-                  "key": "q",
-                  "value": "alice",
-                  "description": "Search query"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of results to return"
-                },
-                {
-                  "key": "offset",
-                  "value": "0",
-                  "description": "Number of results to skip"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Profile",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/v1/profile",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "profile"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Profile",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Alice Updated\",\n  \"email\": \"alice.updated@example.com\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/v1/profile",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "profile"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Check Role",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/v1/checkrole",
-              "host": ["{{BASEURL}}"],
-              "path": ["v1", "checkrole"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Users",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{TOKEN}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "description": "JWT token from login"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/users/all?limit=50",
-              "host": ["{{BASEURL}}"],
-              "path": ["users", "all"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "50",
-                  "description": "Number of users to fetch (default: 50, max: 1000)"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "List Users",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{TOKEN}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "description": "JWT token from login"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/users?limit=10&offset=0",
-              "host": ["{{BASEURL}}"],
-              "path": ["users"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of users to fetch (default: 50, max: 1000)"
-                },
-                {
-                  "key": "offset",
-                  "value": "0"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search Users",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "description": "JWT token from login"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/users/search?q=alice&limit=10&offset=0",
-              "host": ["{{BASEURL}}"],
-              "path": ["users", "search"],
-              "query": [
-                {
-                  "key": "q",
-                  "value": "alice",
-                  "description": "Search query (username, email, first name, or last name)"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of users to fetch"
-                },
-                {
-                  "key": "offset",
-                  "value": "0",
-                  "description": "Number of users to skip"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get User Count",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "description": "JWT token from login"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/users/count",
-              "host": ["{{BASEURL}}"],
-              "path": ["users", "count"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get User by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "description": "JWT token from login"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/users/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["users", "1"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Products",
-      "item": [
-        {
-          "name": "Product Translations",
-          "item": [
-            {
-              "name": "Get All Product Translations",
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{BASEURL}}/products/1/translations",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["products", "1", "translations"]
-                },
-                "description": "Get all translations for a specific product"
-              },
-              "response": []
-            },
-            {
-              "name": "Get Product Translation by Locale",
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{BASEURL}}/products/1/translations?locale=bn",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["products", "1", "translations"],
-                  "query": [
-                    {
-                      "key": "locale",
-                      "value": "bn",
-                      "description": "Language locale code"
-                    }
-                  ]
-                },
-                "description": "Get a specific translation for a product by locale"
-              },
-              "response": []
-            },
-            {
-              "name": "Create Product Translation",
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Producto de Ejemplo\",\n  \"price\": \"€99.99\",\n  \"locale\": \"es\"\n}"
-                },
-                "url": {
-                  "raw": "{{BASEURL}}/products/1/translations",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["products", "1", "translations"]
-                },
-                "description": "Create a new translation for a product"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Product Translation",
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Producto Actualizado\",\n  \"price\": \"€129.99\",\n  \"locale\": \"es\"\n}"
-                },
-                "url": {
-                  "raw": "{{LARAVEL_URL}}/products/1/translations",
-                  "host": ["{{LARAVEL_URL}}"],
-                  "path": ["products", "1", "translations"]
-                },
-                "description": "Update an existing translation for a product"
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Product Translation",
-              "request": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{BASEURL}}/products/1/translations?locale=es",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["products", "1", "translations"],
-                  "query": [
-                    {
-                      "key": "locale",
-                      "value": "es",
-                      "description": "Language locale code to delete"
-                    }
-                  ]
-                },
-                "description": "Delete a specific translation for a product"
-              },
-              "response": []
-            },
-            {
-              "name": "Legacy - Create/Update Translation",
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Nom du Produit\",\n  \"price\": \"99,99 €\",\n  \"locale\": \"fr\"\n}"
-                },
-                "url": {
-                  "raw": "{{BASEURL}}/product-trans/1",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["product-trans", "1"]
-                },
-                "description": "Legacy endpoint for backward compatibility"
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Create Product",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"iPhone 15 Pro 2\",\n  \"description\": \"Latest iPhone with advanced features\",\n  \"price\": 999.99,\n  \"category_id\": 1,\n  \"brand_id\": 2\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/products",
-              "host": ["{{BASEURL}}"],
-              "path": ["products"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product By ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["products", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product By Slug",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products-by-slug/iphone-15-pro",
-              "host": ["{{BASEURL}}"],
-              "path": ["products-by-slug", "iphone-15-pro"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Product",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"iPhone 15 Pro Max\",\n  \"description\": \"Updated iPhone with larger screen\",\n  \"price\": 1199.99\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/products/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["products", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "List All Products",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products?limit=10&offset=0",
-              "host": ["{{BASEURL}}"],
-              "path": ["products"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of products to return"
-                },
-                {
-                  "key": "offset",
-                  "value": "0",
-                  "description": "Number of products to skip"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search Products",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products?search=iphone&limit=10",
-              "host": ["{{BASEURL}}"],
-              "path": ["products"],
-              "query": [
-                {
-                  "key": "search",
-                  "value": "iphone",
-                  "description": "Search term for product name or description"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of products to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Laravel Compatible Products (Filtered)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products?locale=en&page=1&limit=10&category=&brand=&priceRange=&searchterm=&sortby=",
-              "host": ["{{BASEURL}}"],
-              "path": ["products"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "en",
-                  "description": "Language locale (en, tr, etc.)"
-                },
-                {
-                  "key": "page",
-                  "value": "1",
-                  "description": "Page number (Laravel-style pagination)"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of products per page"
-                },
-                {
-                  "key": "category",
-                  "value": "",
-                  "description": "Category slug for filtering"
-                },
-                {
-                  "key": "brand",
-                  "value": "",
-                  "description": "Brand slug(s) for filtering (comma-separated)"
-                },
-                {
-                  "key": "priceRange",
-                  "value": "",
-                  "description": "Price range (e.g., '100-500')"
-                },
-                {
-                  "key": "searchterm",
-                  "value": "",
-                  "description": "Search term for product name/description"
-                },
-                {
-                  "key": "sortby",
-                  "value": "",
-                  "description": "Sort by: popular, price_asc, price_desc"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Products By Category",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products?category_id=1&limit=10",
-              "host": ["{{BASEURL}}"],
-              "path": ["products"],
-              "query": [
-                {
-                  "key": "category_id",
-                  "value": "1",
-                  "description": "Category ID to filter by"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of products to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Products By Brand",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products?brand_id=2&limit=10",
-              "host": ["{{BASEURL}}"],
-              "path": ["products"],
-              "query": [
-                {
-                  "key": "brand_id",
-                  "value": "2",
-                  "description": "Brand ID to filter by"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of products to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Popular Products",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/popular-products?limit=5",
-              "host": ["{{BASEURL}}"],
-              "path": ["popular-products"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "5",
-                  "description": "Number of popular products to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Increment Product Views",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/products/1/increment-views",
-              "host": ["{{BASEURL}}"],
-              "path": ["products", "1", "increment-views"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add Product Image",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "image",
-                  "type": "file",
-                  "src": []
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{BASEURL}}/addproductimage/4",
-              "host": ["{{BASEURL}}"],
-              "path": ["addproductimage", "4"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product Images",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/get-product-image/4",
-              "host": ["{{BASEURL}}"],
-              "path": ["get-product-image", "4"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add Product Image (Alt)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "image",
-                  "type": "file",
-                  "src": []
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{BASEURL}}/products/4/image",
-              "host": ["{{BASEURL}}"],
-              "path": ["products", "4", "image"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product Images (Alt)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/products/4/images",
-              "host": ["{{BASEURL}}"],
-              "path": ["products", "4", "images"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Product Translation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"locale\": \"bn\",\n  \"translated_name\": \"আপডেট আইফোন ১৫ প্রো\",\n  \"price\": \"85000\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/product-trans/4",
-              "host": ["{{BASEURL}}"],
-              "path": ["product-trans", "4"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Categories",
-      "item": [
-        {
-          "name": "Get All Categories",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/categories?limit=10&offset=0",
-              "host": ["{{BASEURL}}"],
-              "path": ["categories"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of categories to return"
-                },
-                {
-                  "key": "offset",
-                  "value": "0",
-                  "description": "Number of categories to skip"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Category by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/categories/159",
-              "host": ["{{BASEURL}}"],
-              "path": ["categories", "159"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Category-Brand Relations",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/category-brands?category_id=1",
-              "host": ["{{BASEURL}}"],
-              "path": ["category-brands"],
-              "query": [
-                {
-                  "key": "category_id",
-                  "value": "1",
-                  "description": "Filter by category ID (optional)"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search Categories",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/categories?search=electronics&limit=10",
-              "host": ["{{BASEURL}}"],
-              "path": ["categories"],
-              "query": [
-                {
-                  "key": "search",
-                  "value": "electronics",
-                  "description": "Search term for category name or slug"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of categories to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Wide Categories",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/wide-categories?per_page=10&search=&paginate=true&locale=&category_id=&status=1&page=1",
-              "host": ["{{BASEURL}}"],
-              "path": ["wide-categories"],
-              "query": [
-                {
-                  "key": "per_page",
-                  "value": "10"
-                },
-                {
-                  "key": "search",
-                  "value": ""
-                },
-                {
-                  "key": "paginate",
-                  "value": "true"
-                },
-                {
-                  "key": "locale",
-                  "value": ""
-                },
-                {
-                  "key": "category_id",
-                  "value": ""
-                },
-                {
-                  "key": "status",
-                  "value": "1"
-                },
-                {
-                  "key": "page",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Category Translation",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/category-translation/170?locale=bn",
-              "host": ["{{BASEURL}}"],
-              "path": ["category-translation", "170"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "bn",
-                  "description": "Language locale for translation"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Category",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Electronics2s ww\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/categories/2",
-              "host": ["{{BASEURL}}"],
-              "path": ["categories", "2"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Category Status",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": 1\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/category-status/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["category-status", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Category Translation Copy",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"locale\": \"bn\",\n  \"translated_name\": \"বেবিবেবিবেবিবেবি 4444পণ্য\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/category-translation/5",
-              "host": ["{{BASEURL}}"],
-              "path": ["category-translation", "5"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Category",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Electronics2s ww\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/categories",
-              "host": ["{{BASEURL}}"],
-              "path": ["categories"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Category Translation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category_id\": 3,\n  \"locale\": \"bn\",\n  \"translated_name\": \"বেবিবেবিবেবিবেবি পণ্য\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/category-translation",
-              "host": ["{{BASEURL}}"],
-              "path": ["category-translation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Category",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/categories/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["categories", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Category-Brand Relation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category_id\": 1,\n  \"brand_id\": 1\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/category-brands",
-              "host": ["{{BASEURL}}"],
-              "path": ["category-brands"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Brands",
-      "item": [
-        {
-          "name": "Get All Brands",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/brands?per_page=10&search=&paginate=true&locale=en&brand_id=&status=&page=1",
-              "host": ["{{BASEURL}}"],
-              "path": ["brands"],
-              "query": [
-                {
-                  "key": "per_page",
-                  "value": "10"
-                },
-                {
-                  "key": "search",
-                  "value": ""
-                },
-                {
-                  "key": "paginate",
-                  "value": "true"
-                },
-                {
-                  "key": "locale",
-                  "value": "en"
-                },
-                {
-                  "key": "brand_id",
-                  "value": ""
-                },
-                {
-                  "key": "status",
-                  "value": ""
-                },
-                {
-                  "key": "page",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Brand by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/brands/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["brands", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Brand",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Apple Inc.\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/brands/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["brands", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Brand",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/brands/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["brands", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search Brands",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/brands?search=apple&limit=10",
-              "host": ["{{BASEURL}}"],
-              "path": ["brands"],
-              "query": [
-                {
-                  "key": "search",
-                  "value": "apple",
-                  "description": "Search term for brand name or slug"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of brands to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Wide Brands",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/wide-brands?limit=20",
-              "host": ["{{BASEURL}}"],
-              "path": ["wide-brands"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "20",
-                  "description": "Number of brands to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Public Brands",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/public-brands?limit=10&offset=0",
-              "host": ["{{BASEURL}}"],
-              "path": ["public-brands"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of brands to return"
-                },
-                {
-                  "key": "offset",
-                  "value": "0",
-                  "description": "Number of brands to skip"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Brand",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Monir\",\n  \"slug\": \"apple\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/brands",
-              "host": ["{{BASEURL}}"],
-              "path": ["brands"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Brand Translation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"brand_id\": 1,\n  \"locale\": \"bn\",\n  \"translated_name\": \"অ্যাপল\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/brand-translation",
-              "host": ["{{BASEURL}}"],
-              "path": ["brand-translation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Brand Status",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": 2\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/brand-status/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["brand-status", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Brand Translation",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n \"locale\": \"bn\",\n \"translated_name\": \"অ্যাপল\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/brand-translation/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["brand-translation", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Brand Translation",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/brand-translation/170?locale=bn",
-              "host": ["{{BASEURL}}"],
-              "path": ["brand-translation", "170"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "bn",
-                  "description": "Language locale for translation"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Brand Translations",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/brand-translation/170",
-              "host": ["{{BASEURL}}"],
-              "path": ["brand-translation", "170"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "FormGenerator",
-      "item": [
-        {
-          "name": "Create Form Generator",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category_id\": 1,\n  \"specification_id\": [1, 2, 3],\n  \"status\": \"active\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/formgenerator",
-              "host": ["{{BASEURL}}"],
-              "path": ["formgenerator"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Form Generator Copy",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category_id\": 1,\n  \"specification_id\": [1, 2, 3],\n  \"status\": \"active\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/formgenerator",
-              "host": ["{{BASEURL}}"],
-              "path": ["formgenerator"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Form Generator by Category ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/formgenerator/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["formgenerator", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Form Generator",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category_id\": 1,\n  \"specification_id\": [1, 2, 3, 4],\n  \"status\": \"inactive\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/formgenerator/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["formgenerator", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Category Specifications",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/catgory-specs/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["catgory-specs", "1"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Feedback",
-      "item": [
-        {
-          "name": "Get All Feedbacks",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/feedbacks",
-              "host": ["{{BASEURL}}"],
-              "path": ["feedbacks"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Feedback",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"product_id\": 1,\n  \"comment\": \"Great product, highly recommended!\",\n  \"rating\": 5,\n  \"is_approved\": true,\n  \"status\": \"published\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/feedbacks",
-              "host": ["{{BASEURL}}"],
-              "path": ["feedbacks"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Feedback by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/feedbacks/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["feedbacks", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Feedback",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"product_id\": 1,\n  \"comment\": \"Updated comment - Excellent product quality!\",\n  \"rating\": 5,\n  \"is_approved\": true,\n  \"status\": \"published\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/feedbacks/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["feedbacks", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Feedback",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/feedbacks/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["feedbacks", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Feedback Translations",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/feedbacks/1/translations",
-              "host": ["{{BASEURL}}"],
-              "path": ["feedbacks", "1", "translations"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Specifications",
-      "description": "Product specification management endpoints. Includes CRUD operations for specifications, specification keys, bulk operations, and form generation.\n\nKey endpoints:\n- GET /get-specifications/{product_id} - Get all specs for a product\n- GET /speckey?limit=1000 - Get all specification keys\n- POST /specifications/bulk - Bulk create/update specifications\n- Individual CRUD operations for specifications and keys\n\nBulk operations support both create (no ID) and update (with ID) in a single request.",
-      "item": [
-        {
-          "name": "FormGenerator",
-          "item": [
-            {
-              "name": "Create Form Generator",
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"specification_id\": [1, 2, 34,5,6],\n  \"status\": \"active\"\n}"
-                },
-                "url": {
-                  "raw": "{{BASEURL}}/formgenerator/1",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["formgenerator", "1"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Get Form Generator by Category ID",
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{TOKEN}}",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{BASEURL}}/formgenerator/1",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["formgenerator", "1"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Get Category Specifications",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BASEURL}}/catgory-specs/9",
-                  "host": ["{{BASEURL}}"],
-                  "path": ["catgory-specs", "9"]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Get Specifications by Product ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/get-specifications/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["get-specifications", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Public Specification",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/get-public-spec/2",
-              "host": ["{{BASEURL}}"],
-              "path": ["get-public-spec", "2"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Specification by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/specifications/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search Specifications",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/specificationsearch?query=storage&limit=10",
-              "host": ["{{BASEURL}}"],
-              "path": ["specificationsearch"],
-              "query": [
-                {
-                  "key": "query",
-                  "value": "storage",
-                  "description": "Search term for specification value or key name"
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "description": "Number of specifications to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Specification Translation",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/spec_translation/1?locale=bn",
-              "host": ["{{BASEURL}}"],
-              "path": ["spec_translation", "1"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "bn",
-                  "description": "Language locale for translation"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Specification with Key Object",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"product_id\": 1,\n  \"value\": \"128GB\",\n  \"specification_key\": {\n    \"name\": \"Storage\",\n    \"is_visible\": true,\n    \"is_filterable\": true\n  }\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/specifications",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Specification",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"product_id\": 1,\n  \"specification_key_id\": 1,\n  \"value\": \"128GB\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/specifications",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Specification Translation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"productId\": 1,\n  \"specifications\": [\n    {\n      \"id\": 8,\n      \"locale\": \"bn\",\n      \"translated_key\": \"প্রসেসর\",\n      \"translated_value\": \"ইন্টেল কোর i৯ (আপডেট)\"\n    },\n    {\n      \"id\": 9,\n      \"locale\": \"bn\", \n      \"translated_key\": \"স্টোরেজ\",\n      \"translated_value\": \"১টিবি এনভিএমই এসএসডি\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json",
-                  "description": "Bulk create/update specification translations. Include specification ID, locale, and translated values."
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BASEURL}}/spec_translation",
-              "host": ["{{BASEURL}}"],
-              "path": ["spec_translation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Bulk Upsert Specifications",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"specifications\": [\n    {\n      \"id\": 8,\n      \"product_id\": 1,\n      \"specification_key_id\": 2,\n      \"value\": \"Intel Core i9 (Updated)\"\n    },\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 3,\n      \"value\": \"32GB DDR4 (New)\"\n    },\n    {\n      \"id\": 15,\n      \"product_id\": 1,\n      \"specification_key_id\": 5,\n      \"value\": \"1TB NVMe SSD (Updated)\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json",
-                  "description": "Bulk create/update specifications. Include 'id' field to update existing specification, omit 'id' to create new one. All specifications must belong to the same product."
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BASEURL}}/specifications/bulk",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications", "bulk"]
-            },
-            "description": "Bulk upsert (create or update) product specifications. When 'id' is provided, the specification will be updated. When 'id' is omitted, a new specification will be created."
-          },
-          "response": []
-        },
-        {
-          "name": "Bulk Upsert Specifications - Frontend Example",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"specifications\": [\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 1,\n      \"value\": \"iPhone 15 Pro\"\n    },\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 2,\n      \"value\": \"A17 Pro chip\"\n    },\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 5,\n      \"value\": \"128GB\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json",
-                  "description": "Example of frontend form submission - all new specifications without IDs"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BASEURL}}/specifications/bulk",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications", "bulk"]
-            },
-            "description": "Example of creating new specifications from frontend form submission. All specifications are new (no IDs provided)."
-          },
-          "response": []
-        },
-        {
-          "name": "Update Form Generator",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \n  \"specification_id\": [1, 2, 3, 4],\n  \"status\": \"inactive\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/formgenerator/2",
-              "host": ["{{BASEURL}}"],
-              "path": ["formgenerator", "2"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Specification",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"value\": \"Intel Core i7 12th Gen (Updated)\",\n  \"specification_key\": {\n    \"name\": \"CPU (Updated)\",\n    \"is_visible\": true,\n    \"is_filterable\": true\n  }\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/specifications/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Specification",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/specifications/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["specifications", "1"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Specification Keys",
-      "item": [
-        {
-          "name": "Create Specification Key",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Screen Size\",\n  \"is_visible\": true,\n  \"is_filterable\": true\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/speckey",
-              "host": ["{{BASEURL}}"],
-              "path": ["speckey"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Specification Keys",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/speckey?limit=1000",
-              "host": ["{{BASEURL}}"],
-              "path": ["speckey"],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "1000",
-                  "description": "Maximum number of specification keys to return"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Specification Key by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/speckey/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["speckey", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Specification Key",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/specremove/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["specremove", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Specification Key Translation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"specification_key_id\": 1,\n  \"locale\": \"bn\",\n  \"translated_name\": \"স্ক্রিনের আকার\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/speckey-translation",
-              "host": ["{{BASEURL}}"],
-              "path": ["speckey-translation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Specification Key Translations",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/speckey-translation?locale=bn",
-              "host": ["{{BASEURL}}"],
-              "path": ["speckey-translation"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "bn",
-                  "description": "Language locale for translations"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Product Reviews",
-      "item": [
-        {
-          "name": "Create Review",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"rating\": 5,\n  \"reviews\": \"Excellent product! Highly recommended.\",\n  \"additional_details\": \"Great quality and fast delivery\",\n  \"priority\": 1\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/reviews/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["reviews", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Reviews",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/reviews?page=1&limit=10&sortOrder=desc",
-              "host": ["{{BASEURL}}"],
-              "path": ["reviews"],
-              "query": [
-                {
-                  "key": "page",
-                  "value": "1"
-                },
-                {
-                  "key": "limit",
-                  "value": "10"
-                },
-                {
-                  "key": "sortOrder",
-                  "value": "desc"
-                },
-                {
-                  "key": "searchterm",
-                  "value": "",
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Review Translation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"product_id\": 1,\n  \"locale\": \"bn\",\n  \"rating\": 5,\n  \"review\": \"চমৎকার পণ্য! অত্যন্ত প্রস্তাবিত।\",\n  \"additional_details\": \"দুর্দান্ত মানের এবং দ্রুত ডেলিভারি\"\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/review/translation",
-              "host": ["{{BASEURL}}"],
-              "path": ["review", "translation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Review",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"rating\": 4,\n  \"reviews\": \"Good product, but could be better\",\n  \"additional_details\": \"Quality is okay\",\n  \"priority\": 2\n}"
-            },
-            "url": {
-              "raw": "{{BASEURL}}/product/1/review/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["product", "1", "review", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product Reviews",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/products/1/reviews",
-              "host": ["{{BASEURL}}"],
-              "path": ["products", "1", "reviews"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Review by ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/reviews/1?locale=bn",
-              "host": ["{{BASEURL}}"],
-              "path": ["reviews", "1"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "bn",
-                  "description": "Optional locale for translations"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Upload Product Images",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "files",
-                  "type": "file",
-                  "src": []
-                },
-                {
-                  "key": "product_id",
-                  "value": "1",
-                  "type": "text"
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{BASEURL}}/productimages",
-              "host": ["{{BASEURL}}"],
-              "path": ["productimages"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product Images",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/productimages/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["productimages", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Set Default Image",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/default-image/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["default-image", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Remove Image",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{BASEURL}}/imageremove/1",
-              "host": ["{{BASEURL}}"],
-              "path": ["imageremove", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Public Reviews",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASEURL}}/public-reviews/4?locale=en",
-              "host": ["{{BASEURL}}"],
-              "path": ["public-reviews", "4"],
-              "query": [
-                {
-                  "key": "locale",
-                  "value": "en",
-                  "description": "Language locale for reviews"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{token}}",
-        "type": "string"
-      }
-    ]
-  },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "exec": [""]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "BASEURL",
-      "value": "http://localhost:8080",
-      "type": "string"
-    },
-    {
-      "key": "refresh_token",
-      "value": "22",
-      "type": "string"
-    },
-    {
-      "key": "access_token",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "LARAVEL_URL",
-      "value": "http://localhost:8000",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "882a6d2d-a02a-4260-ad41-c257bd5a3f90",
+		"name": "GO CRIT API",
+		"description": "Go CRIT API Collection - Product management system with specifications, categories, user management, and product reviews. Base URL: http://localhost:8080\n\n✅ **October 2025 Update:** Fixed product_id storage in reviews - all reviews now properly associate with products.\n\nKey Endpoints:\n- Product Specifications: /get-specifications/{id}, /specifications/bulk\n- Specification Keys: /speckey (with limit parameter)\n- User Management: /register, /login, /refresh\n- Products: /products/{id}\n- Product Reviews: /reviews, /products/{id}/reviews, /review/translation\n- Review Images: /productimages, /imageremove, /default-image\n\nEnvironment Variables:\n- BASEURL: http://localhost:8080 (Go server)\n- LARAVEL_URL: http://localhost:8000 (Laravel fallback)\n- TOKEN: Bearer token from login\n\nUpdated: October 2025 - Fixed product_id field in reviews, migrated all review endpoints from Laravel API with full multi-language support",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31468968"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/register",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// ✅ Save access token if present\r",
+									"if (jsonData.token) {\r",
+									"    pm.environment.set(\"access_token\", jsonData.token);\r",
+									"    pm.environment.set(\"refresh_token\", jsonData.refresh_token);\r",
+									"    pm.globals.set(\"TOKEN\", jsonData.token);  // use jsonData.token directly\r",
+									"    console.log(\"✅ Access token stored:\", jsonData.token);\r",
+									"} else {\r",
+									"    console.warn(\"⚠️ No token found in response!\", jsonData);\r",
+									"}\r",
+									"\r",
+									"// ✅ Test: Status code is 200\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Response has required fields\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"    pm.expect(jsonData).to.have.all.keys('email', 'message', 'refresh_token', 'token');\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Token is non-empty string\r",
+									"pm.test(\"Token must be a non-empty string\", function () {\r",
+									"    pm.expect(jsonData.token).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Response time < 200ms\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"// ✅ Test: Response schema and field format\r",
+									"pm.test(\"Validate the response schema against the expected structure\", function () {\r",
+									"    pm.expect(jsonData).to.be.an('object').that.includes.all.keys('email', 'message', 'refresh_token', 'token');\r",
+									"\r",
+									"    pm.expect(jsonData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");\r",
+									"    pm.expect(jsonData.message).to.be.a('string');\r",
+									"    pm.expect(jsonData.refresh_token).to.be.a('string');\r",
+									"    pm.expect(jsonData.token).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"// ✅ (Redundant) Test: Request authorized — already covered by 200 check\r",
+									"pm.test(\"Request was authorized\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/login",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "V1 Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"bob\",\n  \"email\": \"bob@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/registration",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "V1 Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/login",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/refresh-token",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"alice@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/forgot-password",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"alice@example.com\",\n  \"token\": \"reset-token-here\",\n  \"password\": \"newpassword123\",\n  \"password_confirmation\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/reset-password",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/logout",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/v1/check-token",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"check-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/v1/search_users?q=alice&limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"search_users"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "alice",
+									"description": "Search query"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of results to return"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of results to skip"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/v1/profile",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alice Updated\",\n  \"email\": \"alice.updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/v1/profile",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Role",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/v1/checkrole",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"v1",
+								"checkrole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/users/all?limit=50",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"users",
+								"all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Number of users to fetch (default: 50, max: 1000)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/users?limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of users to fetch (default: 50, max: 1000)"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/users/search?q=alice&limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "alice",
+									"description": "Search query (username, email, first name, or last name)"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of users to fetch"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of users to skip"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/users/count",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"users",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "JWT token from login"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/users/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Product Translations",
+					"item": [
+						{
+							"name": "Get All Product Translations",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{BASEURL}}/products/1/translations",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"products",
+										"1",
+										"translations"
+									]
+								},
+								"description": "Get all translations for a specific product"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product Translation by Locale",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{BASEURL}}/products/1/translations?locale=bn",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"products",
+										"1",
+										"translations"
+									],
+									"query": [
+										{
+											"key": "locale",
+											"value": "bn",
+											"description": "Language locale code"
+										}
+									]
+								},
+								"description": "Get a specific translation for a product by locale"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Product Translation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Producto de Ejemplo\",\n  \"price\": \"€99.99\",\n  \"locale\": \"es\"\n}"
+								},
+								"url": {
+									"raw": "{{BASEURL}}/products/1/translations",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"products",
+										"1",
+										"translations"
+									]
+								},
+								"description": "Create a new translation for a product"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product Translation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Producto Actualizado\",\n  \"price\": \"€129.99\",\n  \"locale\": \"es\"\n}"
+								},
+								"url": {
+									"raw": "{{LARAVEL_URL}}/products/1/translations",
+									"host": [
+										"{{LARAVEL_URL}}"
+									],
+									"path": [
+										"products",
+										"1",
+										"translations"
+									]
+								},
+								"description": "Update an existing translation for a product"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product Translation",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{BASEURL}}/products/1/translations?locale=es",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"products",
+										"1",
+										"translations"
+									],
+									"query": [
+										{
+											"key": "locale",
+											"value": "es",
+											"description": "Language locale code to delete"
+										}
+									]
+								},
+								"description": "Delete a specific translation for a product"
+							},
+							"response": []
+						},
+						{
+							"name": "Legacy - Create/Update Translation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Nom du Produit\",\n  \"price\": \"99,99 €\",\n  \"locale\": \"fr\"\n}"
+								},
+								"url": {
+									"raw": "{{BASEURL}}/product-trans/1",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"product-trans",
+										"1"
+									]
+								},
+								"description": "Legacy endpoint for backward compatibility"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"iPhone 15 Pro 2\",\n  \"description\": \"Latest iPhone with advanced features\",\n  \"price\": 999.99,\n  \"category_id\": 1,\n  \"brand_id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/products",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Slug",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products-by-slug/iphone-15-pro",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products-by-slug",
+								"iphone-15-pro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"iPhone 15 Pro Max\",\n  \"description\": \"Updated iPhone with larger screen\",\n  \"price\": 1199.99\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/products/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products?limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of products to return"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of products to skip"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products?search=iphone&limit=10",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "iphone",
+									"description": "Search term for product name or description"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of products to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Laravel Compatible Products (Filtered)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products?locale=en&page=1&limit=10&category=&brand=&priceRange=&searchterm=&sortby=",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "Language locale (en, tr, etc.)"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (Laravel-style pagination)"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of products per page"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"description": "Category slug for filtering"
+								},
+								{
+									"key": "brand",
+									"value": "",
+									"description": "Brand slug(s) for filtering (comma-separated)"
+								},
+								{
+									"key": "priceRange",
+									"value": "",
+									"description": "Price range (e.g., '100-500')"
+								},
+								{
+									"key": "searchterm",
+									"value": "",
+									"description": "Search term for product name/description"
+								},
+								{
+									"key": "sortby",
+									"value": "",
+									"description": "Sort by: popular, price_asc, price_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products By Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products?category_id=1&limit=10",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "1",
+									"description": "Category ID to filter by"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of products to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products By Brand",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products?brand_id=2&limit=10",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "brand_id",
+									"value": "2",
+									"description": "Brand ID to filter by"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of products to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Popular Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/popular-products?limit=5",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"popular-products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "Number of popular products to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increment Product Views",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/products/1/increment-views",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products",
+								"1",
+								"increment-views"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASEURL}}/addproductimage/4",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"addproductimage",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Images",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/get-product-image/4",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"get-product-image",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product Image (Alt)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASEURL}}/products/4/image",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products",
+								"4",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Images (Alt)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/products/4/images",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products",
+								"4",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product Translation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"locale\": \"bn\",\n  \"translated_name\": \"আপডেট আইফোন ১৫ প্রো\",\n  \"price\": \"85000\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/product-trans/4",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"product-trans",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/categories?limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of categories to return"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of categories to skip"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/categories/159",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"categories",
+								"159"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category-Brand Relations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/category-brands?category_id=1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"category-brands"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "1",
+									"description": "Filter by category ID (optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/categories?search=electronics&limit=10",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "electronics",
+									"description": "Search term for category name or slug"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of categories to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wide Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/wide-categories?per_page=10&search=&paginate=true&locale=&category_id=&status=1&page=1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"wide-categories"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "paginate",
+									"value": "true"
+								},
+								{
+									"key": "locale",
+									"value": ""
+								},
+								{
+									"key": "category_id",
+									"value": ""
+								},
+								{
+									"key": "status",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category Translation",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/category-translation/170?locale=bn",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"category-translation",
+								"170"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "bn",
+									"description": "Language locale for translation"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Electronics2s ww\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/categories/2",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"categories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": 1\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/category-status/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"category-status",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category Translation Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"locale\": \"bn\",\n  \"translated_name\": \"বেবিবেবিবেবিবেবি 4444পণ্য\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/category-translation/5",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"category-translation",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Electronics2s ww\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/categories",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category Translation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": 3,\n  \"locale\": \"bn\",\n  \"translated_name\": \"বেবিবেবিবেবিবেবি পণ্য\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/category-translation",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"category-translation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/categories/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category-Brand Relation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": 1,\n  \"brand_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/category-brands",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"category-brands"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "Get All Brands",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/brands?per_page=10&search=&paginate=true&locale=en&brand_id=&status=&page=1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brands"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "paginate",
+									"value": "true"
+								},
+								{
+									"key": "locale",
+									"value": "en"
+								},
+								{
+									"key": "brand_id",
+									"value": ""
+								},
+								{
+									"key": "status",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Brand by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/brands/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brands",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Brand",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Apple Inc.\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/brands/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brands",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Brand",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/brands/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brands",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Brands",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/brands?search=apple&limit=10",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brands"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "apple",
+									"description": "Search term for brand name or slug"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of brands to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wide Brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/wide-brands?limit=20",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"wide-brands"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Number of brands to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/public-brands?limit=10&offset=0",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"public-brands"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of brands to return"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Number of brands to skip"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Brand",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Monir\",\n  \"slug\": \"apple\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/brands",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Brand Translation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brand_id\": 1,\n  \"locale\": \"bn\",\n  \"translated_name\": \"অ্যাপল\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/brand-translation",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brand-translation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Brand Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": 2\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/brand-status/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brand-status",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Brand Translation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"locale\": \"bn\",\n \"translated_name\": \"অ্যাপল\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/brand-translation/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brand-translation",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Brand Translation",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/brand-translation/170?locale=bn",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brand-translation",
+								"170"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "bn",
+									"description": "Language locale for translation"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Brand Translations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/brand-translation/170",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"brand-translation",
+								"170"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FormGenerator",
+			"item": [
+				{
+					"name": "Create Form Generator",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": 1,\n  \"specification_id\": [1, 2, 3],\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/formgenerator",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"formgenerator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Form Generator Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": 1,\n  \"specification_id\": [1, 2, 3],\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/formgenerator",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"formgenerator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Form Generator by Category ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/formgenerator/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"formgenerator",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Form Generator",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": 1,\n  \"specification_id\": [1, 2, 3, 4],\n  \"status\": \"inactive\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/formgenerator/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"formgenerator",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category Specifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/catgory-specs/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"catgory-specs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Feedback",
+			"item": [
+				{
+					"name": "Get All Feedbacks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/feedbacks",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Feedback",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": 1,\n  \"comment\": \"Great product, highly recommended!\",\n  \"rating\": 5,\n  \"is_approved\": true,\n  \"status\": \"published\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/feedbacks",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feedback by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/feedbacks/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"feedbacks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Feedback",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": 1,\n  \"comment\": \"Updated comment - Excellent product quality!\",\n  \"rating\": 5,\n  \"is_approved\": true,\n  \"status\": \"published\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/feedbacks/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"feedbacks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Feedback",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/feedbacks/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"feedbacks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feedback Translations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/feedbacks/1/translations",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"feedbacks",
+								"1",
+								"translations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Specifications",
+			"item": [
+				{
+					"name": "FormGenerator",
+					"item": [
+						{
+							"name": "Create Form Generator",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"specification_id\": [1, 2, 34,5,6],\n  \"status\": \"active\"\n}"
+								},
+								"url": {
+									"raw": "{{BASEURL}}/formgenerator/1",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"formgenerator",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Form Generator by Category ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASEURL}}/formgenerator/1",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"formgenerator",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Category Specifications",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASEURL}}/catgory-specs/9",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"catgory-specs",
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Specifications by Product ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/get-specifications/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"get-specifications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Specification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/get-public-spec/2",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"get-public-spec",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specification by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/specifications/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Specifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/specificationsearch?query=storage&limit=10",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specificationsearch"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "storage",
+									"description": "Search term for specification value or key name"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of specifications to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specification Translation",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/spec_translation/1?locale=bn",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"spec_translation",
+								"1"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "bn",
+									"description": "Language locale for translation"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Specification with Key Object",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": 1,\n  \"value\": \"128GB\",\n  \"specification_key\": {\n    \"name\": \"Storage\",\n    \"is_visible\": true,\n    \"is_filterable\": true\n  }\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/specifications",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Specification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": 1,\n  \"specification_key_id\": 1,\n  \"value\": \"128GB\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/specifications",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Specification Translation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productId\": 1,\n  \"specifications\": [\n    {\n      \"id\": 8,\n      \"locale\": \"bn\",\n      \"translated_key\": \"প্রসেসর\",\n      \"translated_value\": \"ইন্টেল কোর i৯ (আপডেট)\"\n    },\n    {\n      \"id\": 9,\n      \"locale\": \"bn\", \n      \"translated_key\": \"স্টোরেজ\",\n      \"translated_value\": \"১টিবি এনভিএমই এসএসডি\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json",
+									"description": "Bulk create/update specification translations. Include specification ID, locale, and translated values."
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/spec_translation",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"spec_translation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Upsert Specifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"specifications\": [\n    {\n      \"id\": 8,\n      \"product_id\": 1,\n      \"specification_key_id\": 2,\n      \"value\": \"Intel Core i9 (Updated)\"\n    },\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 3,\n      \"value\": \"32GB DDR4 (New)\"\n    },\n    {\n      \"id\": 15,\n      \"product_id\": 1,\n      \"specification_key_id\": 5,\n      \"value\": \"1TB NVMe SSD (Updated)\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json",
+									"description": "Bulk create/update specifications. Include 'id' field to update existing specification, omit 'id' to create new one. All specifications must belong to the same product."
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/specifications/bulk",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications",
+								"bulk"
+							]
+						},
+						"description": "Bulk upsert (create or update) product specifications. When 'id' is provided, the specification will be updated. When 'id' is omitted, a new specification will be created."
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Upsert Specifications - Frontend Example",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"specifications\": [\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 1,\n      \"value\": \"iPhone 15 Pro\"\n    },\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 2,\n      \"value\": \"A17 Pro chip\"\n    },\n    {\n      \"product_id\": 1,\n      \"specification_key_id\": 5,\n      \"value\": \"128GB\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json",
+									"description": "Example of frontend form submission - all new specifications without IDs"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/specifications/bulk",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications",
+								"bulk"
+							]
+						},
+						"description": "Example of creating new specifications from frontend form submission. All specifications are new (no IDs provided)."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Form Generator",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"specification_id\": [1, 2, 3, 4],\n  \"status\": \"inactive\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/formgenerator/2",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"formgenerator",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Specification",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": \"Intel Core i7 12th Gen (Updated)\",\n  \"specification_key\": {\n    \"name\": \"CPU (Updated)\",\n    \"is_visible\": true,\n    \"is_filterable\": true\n  }\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/specifications/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Specification",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/specifications/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specifications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Product specification management endpoints. Includes CRUD operations for specifications, specification keys, bulk operations, and form generation.\n\nKey endpoints:\n- GET /get-specifications/{product_id} - Get all specs for a product\n- GET /speckey?limit=1000 - Get all specification keys\n- POST /specifications/bulk - Bulk create/update specifications\n- Individual CRUD operations for specifications and keys\n\nBulk operations support both create (no ID) and update (with ID) in a single request."
+		},
+		{
+			"name": "Specification Keys",
+			"item": [
+				{
+					"name": "Create Specification Key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Screen Size\",\n  \"is_visible\": true,\n  \"is_filterable\": true\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/speckey",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"speckey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Specification Keys",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/speckey?limit=1000",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"speckey"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1000",
+									"description": "Maximum number of specification keys to return"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specification Key by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/speckey/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"speckey",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Specification Key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/specremove/1",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"specremove",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Specification Key Translation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"specification_key_id\": 1,\n  \"locale\": \"bn\",\n  \"translated_name\": \"স্ক্রিনের আকার\"\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/speckey-translation",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"speckey-translation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Specification Key Translations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/speckey-translation?locale=bn",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"speckey-translation"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "bn",
+									"description": "Language locale for translations"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Reviews",
+			"item": [
+				{
+					"name": "Images",
+					"item": [
+						{
+							"name": "S3 Presign (Get PUT URL)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"example.jpg\",\n  \"content_type\": \"image/jpeg\"\n}"
+								},
+								"url": {
+									"raw": "{{BASEURL}}/s3/presign",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"s3",
+										"presign"
+									]
+								},
+								"description": "Request a presigned PUT URL from the Go server for direct browser upload. Body should include filename and content_type."
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Image",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"description": "Required for authenticated users",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASEURL}}/imageremove/:id",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"imageremove",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "Image ID to remove"
+										}
+									]
+								},
+								"description": "Delete a product image. Requires authentication. If default image is removed, another image will be automatically set as default.\n\n**Equivalent Laravel endpoint:** POST /api/v1/imageremove/{id}"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product Images",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASEURL}}/productimages/:id",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"productimages",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "Product ID"
+										}
+									]
+								},
+								"description": "Get all images for a specific product. Returns image URLs with default image flag. Public endpoint - no authentication required.\n\n**Equivalent Laravel endpoint:** GET /api/v1/productimages/{id}"
+							},
+							"response": []
+						},
+						{
+							"name": "Register S3 Uploaded Images",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"product_id\": 1,\n  \"files\": [\n    {\n      \"key\": \"product-images/example.jpg\",\n      \"url\": \"https://YOUR_BUCKET_NAME.s3.amazonaws.com/product-images/example.jpg\",\n      \"name\": \"example.jpg\"\n    }\n  ]\n}"
+								},
+								"url": {
+									"raw": "{{BASEURL}}/productimages/s3",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"productimages",
+										"s3"
+									]
+								},
+								"description": "Register one or more S3-uploaded objects with the Go server so they can be stored in the DB. Replace URL/key with the real values returned by the presign + PUT steps."
+							},
+							"response": []
+						},
+						{
+							"name": "Set Default Image",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{TOKEN}}",
+										"description": "Required for authenticated users",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASEURL}}/default-image/:id",
+									"host": [
+										"{{BASEURL}}"
+									],
+									"path": [
+										"default-image",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "Image ID to set as default"
+										}
+									]
+								},
+								"description": "Set a specific image as the default/primary image for a product. Requires authentication.\n\n**Equivalent Laravel endpoint:** POST /api/v1/default-image/{id}"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"description": "Required for authenticated users",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 5,\n  \"reviews\": \"Excellent product! Highly recommended.\",\n  \"source_url\": \"https://example.com/source\",\n  \"additional_details\": [{\"youtubeUrl\": \"https://youtu.be/abc123\"}],\n  \"priority\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/reviews/:id",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "Product ID (not review ID) - The product you're reviewing"
+								}
+							]
+						},
+						"description": "Create a new review for a specific product. The :id parameter is the PRODUCT ID.\n\n**⚠️ IMPORTANT:** The `product_id` comes from the URL path `/reviews/:id`, NOT from the request body!\n- URL: `POST /reviews/2` → product_id will be 2\n- URL: `POST /reviews/5` → product_id will be 5\n\n**Request Body (NO product_id needed):**\n```json\n{\n  \"rating\": 5,\n  \"reviews\": \"Excellent product!\",\n  \"additional_details\": \"Great quality\",\n  \"priority\": 1\n}\n```\n\n**Requirements:**\n- Authentication required (Bearer token)\n- Rating must be between 1-5\n- User can only submit one review per product\n- The product_id is extracted from URL and automatically stored\n\n**Example Response:**\n```json\n{\n  \"message\": \"Review added successfully\",\n  \"review\": {\n    \"id\": 1,\n    \"product_id\": 2,  ← Automatically set from URL!\n    \"user_id\": 1,\n    \"rating\": 5,\n    \"reviews\": \"Excellent product! Highly recommended.\",\n    \"created_at\": \"2025-10-26T10:30:00Z\"\n  }\n}\n```\n\n**How it works:**\n1. You call `POST /reviews/2` with review data in body\n2. Server extracts `2` from URL as product_id\n3. Server stores review with product_id = 2\n4. Response includes the product_id\n\n**Equivalent Laravel endpoint:** POST /api/v1/reviews/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"description": "Required for authenticated access",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEURL}}/reviews?page=1&limit=10&sortOrder=desc",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of reviews per page"
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"description": "Sort order: asc or desc"
+								},
+								{
+									"key": "searchterm",
+									"value": "",
+									"description": "Search term to filter reviews",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all product reviews with pagination and search. Requires authentication. Returns paginated results with total count.\n\n**Response includes product_id for each review:**\n```json\n{\n  \"reviews\": [\n    {\n      \"id\": 1,\n      \"product_id\": 2,\n      \"user_id\": 1,\n      \"rating\": 5,\n      \"reviews\": \"Great product!\",\n      \"created_at\": \"2025-10-26T10:30:00Z\"\n    }\n  ],\n  \"totalReviews\": 25,\n  \"currentPage\": 1,\n  \"perPage\": 10\n}\n```\n\n**Equivalent Laravel endpoint:** GET /api/v1/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review Translation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"description": "Required for authenticated users",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": 1,\n  \"locale\": \"bn\",\n  \"rating\": 5,\n  \"review\": \"চমৎকার পণ্য! অত্যন্ত প্রস্তাবিত।\",\n  \"additional_details\": \"দুর্দান্ত মানের এবং দ্রুত ডেলিভারি\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/review/translation",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"review",
+								"translation"
+							]
+						},
+						"description": "Create or update a review translation for a specific locale. Supports multiple languages (en, bn, es, fr, etc.). Automatically updates if translation already exists.\n\n**Equivalent Laravel endpoint:** POST /api/v1/review/translation"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"description": "Required for authenticated users",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 4,\n  \"reviews\": \"Good product, but could be better\",\n  \"additional_details\": \"Quality is okay\",\n  \"priority\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/product/:productId/review/:reviewId",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"product",
+								":productId",
+								"review",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "1",
+									"description": "Product ID"
+								},
+								{
+									"key": "reviewId",
+									"value": "1",
+									"description": "Review ID to update"
+								}
+							]
+						},
+						"description": "Update an existing review. Only the review owner can update their review. Rating must be between 1-5.\n\n**Equivalent Laravel endpoint:** POST /api/v1/product/{id}/review/{reviewid}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/products/:productId/reviews",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"products",
+								":productId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "2",
+									"description": "Product ID to get reviews for"
+								}
+							]
+						},
+						"description": "Get all reviews for a specific product. Public endpoint - no authentication required. Returns reviews with user information.\n\n✅ **Now properly filters by product_id** - Only returns reviews for the specified product.\n\n**Example Response:**\n```json\n{\n  \"product_id\": 2,\n  \"reviews\": [\n    {\n      \"id\": 1,\n      \"product_id\": 2,\n      \"user_id\": 1,\n      \"rating\": 5,\n      \"reviews\": \"Excellent product!\",\n      \"created_at\": \"2025-10-26T10:30:00Z\"\n    },\n    {\n      \"id\": 2,\n      \"product_id\": 2,\n      \"user_id\": 3,\n      \"rating\": 4,\n      \"reviews\": \"Good quality\",\n      \"created_at\": \"2025-10-26T11:00:00Z\"\n    }\n  ]\n}\n```\n\n**Equivalent Laravel endpoint:** GET /api/v1/products/{productId}/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/reviews/:id?locale=bn",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"reviews",
+								":id"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "bn",
+									"description": "Optional locale for translations (en, bn, es, fr, etc.)"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Review ID (not product ID)"
+								}
+							]
+						},
+						"description": "Get a single review by ID. Optionally include locale parameter to get translated version. Public endpoint - no authentication required.\n\n**Response includes product_id:**\n```json\n{\n  \"review\": {\n    \"id\": 1,\n    \"product_id\": 2,\n    \"user_id\": 1,\n    \"rating\": 5,\n    \"reviews\": \"Excellent product!\",\n    \"created_at\": \"2025-10-26T10:30:00Z\"\n  },\n  \"translation\": {\n    \"id\": 1,\n    \"product_review_id\": 1,\n    \"locale\": \"bn\",\n    \"translated_review\": \"চমৎকার পণ্য!\"\n  }\n}\n```\n\n**Equivalent Laravel endpoint:** GET /api/v1/reviews/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Product Images",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"description": "Required for authenticated users",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"description": "Product images to upload (multiple files supported)",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "product_id",
+									"value": "1",
+									"description": "Product ID",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASEURL}}/productimages",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"productimages"
+							]
+						},
+						"description": "Upload multiple product images. Supports multiple file formats. First uploaded image becomes the default image automatically.\n\n**Equivalent Laravel endpoint:** POST /api/v1/productimages"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/public-reviews/:id?locale=en",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"public-reviews",
+								":id"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "Language locale for reviews (en, bn, es, fr, etc.)"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "Product ID (not review ID) - Get public reviews for this product"
+								}
+							]
+						},
+						"description": "Get public reviews for a specific product with optional locale for translated content. Public endpoint - no authentication required. Returns approved reviews only.\n\n✅ **Properly filters by product_id** - Returns only reviews for the specified product.\n\n**Note:** The :id parameter is the PRODUCT ID, not review ID.\n\n**Example Response:**\n```json\n{\n  \"product_id\": 2,\n  \"reviews\": [\n    {\n      \"id\": 1,\n      \"product_id\": 2,\n      \"user_id\": 1,\n      \"rating\": 5,\n      \"reviews\": \"Excellent product!\",\n      \"status\": true,\n      \"created_at\": \"2025-10-26T10:30:00Z\"\n    }\n  ],\n  \"total\": 1\n}\n```\n\n**Equivalent Laravel endpoint:** GET /api/v1/public-reviews/{id}"
+					},
+					"response": []
+				}
+			],
+			"description": "Product review management endpoints - Create, read, update reviews with multi-language support and image uploads. Migrated from Laravel API to Go server.\n\n✅ **Fixed:** product_id is now properly stored in the database for all reviews.\n\n**Note:** The :id in the URL path represents the Product ID, not the review ID."
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASEURL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "LARAVEL_URL",
+			"value": "http://localhost:8080",
+			"type": "string",
+			"description": "Legacy fallback - set to Go BASEURL to avoid accidental Laravel calls"
+		},
+		{
+			"key": "refresh_token",
+			"value": "22",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string",
+			"description": "Lowercase token used by collection auth scripts"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string",
+			"description": "Uppercase TOKEN used in many request headers"
+		}
+	]
 }

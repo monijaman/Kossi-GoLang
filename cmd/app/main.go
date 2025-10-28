@@ -178,11 +178,11 @@ func main() {
 	// Register grouped routes
 	handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
 	handleruser.RegisterUserRoutes(mux, userRepo)
-	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo)
+	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo, productReviewRepo)
 	handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
 	handlerbrand.RegisterBrandRoutes(mux, brandRepo)
 	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo)
-	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo)
+	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo)
 	handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
 	handlerfeedback.RegisterRoutes(mux, feedbackRepo)
 

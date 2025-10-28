@@ -63,9 +63,16 @@ func (r *productReviewRepository) Delete(ctx context.Context, id uint) error {
 
 // GetByProductID retrieves all reviews for a specific product
 func (r *productReviewRepository) GetByProductID(ctx context.Context, productID uint) ([]*entities.ProductReview, error) {
-	// Note: This would need a proper relationship mapping in the models
-	// For now, we'll return empty slice as a placeholder
-	return []*entities.ProductReview{}, nil
+	var modelsList []models.ProductReviewModel
+	if err := r.db.WithContext(ctx).Where("product_id = ?", productID).Find(&modelsList).Error; err != nil {
+		return nil, err
+	}
+
+	reviews := make([]*entities.ProductReview, len(modelsList))
+	for i, m := range modelsList {
+		reviews[i] = m.ToEntity()
+	}
+	return reviews, nil
 }
 
 // GetByUserID retrieves all reviews by a specific user
@@ -85,7 +92,7 @@ func (r *productReviewRepository) GetByUserID(ctx context.Context, userID uint) 
 // GetByProductAndUser retrieves a review by a specific user for a specific product
 func (r *productReviewRepository) GetByProductAndUser(ctx context.Context, productID, userID uint) (*entities.ProductReview, error) {
 	var model models.ProductReviewModel
-	if err := r.db.WithContext(ctx).Where("user_id = ?", userID).First(&model).Error; err != nil {
+	if err := r.db.WithContext(ctx).Where("product_id = ? AND user_id = ?", productID, userID).First(&model).Error; err != nil {
 		return nil, err
 	}
 	return model.ToEntity(), nil

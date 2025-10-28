@@ -27,6 +27,17 @@ func (m *Migrator) RunMigrations() error {
 		&models.ProductModel{},
 		&models.ImageModel{},
 		&models.ProductTranslationModel{},
+		&models.ProductReviewModel{},            // Added for product reviews
+		&models.ProductReviewTranslationModel{}, // Added for review translations
+		&models.CategoryModel{},                 // Added for categories
+		&models.BrandModel{},                    // Added for brands
+		&models.BrandCategoryModel{},            // Added for brand-category relations
+		&models.SpecificationModel{},            // Added for specifications
+		&models.SpecificationKeyModel{},         // Added for specification keys
+		&models.FormGeneratorModel{},            // Added for form generator
+		&models.FeedbackModel{},                 // Added for feedback
+		&models.RefreshTokenModel{},             // Added for refresh tokens
+		&models.PasswordResetTokenModel{},       // Added for password resets
 		// Add other models here as you create them
 	)
 
@@ -47,6 +58,17 @@ func (m *Migrator) DropTables() error {
 		&models.ProductModel{},
 		&models.ImageModel{},
 		&models.ProductTranslationModel{},
+		&models.ProductReviewModel{},
+		&models.ProductReviewTranslationModel{},
+		&models.CategoryModel{},
+		&models.BrandModel{},
+		&models.BrandCategoryModel{},
+		&models.SpecificationModel{},
+		&models.SpecificationKeyModel{},
+		&models.FormGeneratorModel{},
+		&models.FeedbackModel{},
+		&models.RefreshTokenModel{},
+		&models.PasswordResetTokenModel{},
 	)
 
 	if err != nil {

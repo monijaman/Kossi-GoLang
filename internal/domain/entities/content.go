@@ -2,6 +2,7 @@
 package entities
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -75,8 +76,10 @@ type ProductReviewTranslation struct {
 	ProductReviewID  uint
 	Locale           string
 	TranslatedReview string
-	CreatedAt        time.Time
-	UpdatedAt        time.Time
+	// AdditionalDetails holds any extra structured metadata for the translation
+	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
+	CreatedAt         time.Time
+	UpdatedAt         time.Time
 }
 
 // CommentTranslation represents comment translations
