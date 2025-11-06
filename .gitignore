@@ -30,6 +30,37 @@ go.work.sum
 # Database data directories
 postgres-data/
 
+# Build artifacts
+bin/
+build/
+dist/
+*.o
+*.a
+
+# Logs
+*.log
+server.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads directory (should be in S3, not committed)
+uploads/
+
+# Test scripts (keep in docs if needed)
+test-*.sh
+test_*.sh
+
+# Debug files
+debug_*.go
+
 # Editor/IDE
 # .idea/
 # .vscode/
