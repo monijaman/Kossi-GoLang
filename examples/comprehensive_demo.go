@@ -127,25 +127,8 @@ func main() {
 	convertedFeedback := feedbackModel.ToEntity()
 	fmt.Printf("   ✅ Feedback: %s -> GORM -> %s\n", feedback.Content, convertedFeedback.Content)
 
-	// 4. Testing Job System Models
-	fmt.Println("\n4. Testing Job System Models:")
-
-	// --- Job Entity ---
-	job := &entities.Job{
-		ID:          1,
-		Queue:       "default",
-		Payload:     "job_payload",
-		Attempts:    1,
-		AvailableAt: uint(time.Now().Unix()),
-		CreatedAt:   uint(time.Now().Unix()),
-	}
-	jobModel := &models.JobModel{}
-	jobModel.FromEntity(job)
-	convertedJob := jobModel.ToEntity()
-	fmt.Printf("   ✅ Job: %s -> GORM -> %s\n", job.Queue, convertedJob.Queue)
-
-	// 5. Testing Authentication Models
-	fmt.Println("\n5. Testing Authentication Models:")
+	// 4. Testing Authentication Models
+	fmt.Println("\n4. Testing Authentication Models:")
 
 	// --- Personal Access Token Entity ---
 	token := &entities.PersonalAccessToken{

@@ -8,14 +8,14 @@ import (
 
 // User represents a user in the domain
 type User struct {
-	ID                uint
-	Name              string
-	Email             string
-	EmailVerifiedAt   *time.Time
-	Password          string
-	RememberToken     *string
-	CreatedAt         time.Time
-	UpdatedAt         time.Time
+	ID              uint
+	Name            string
+	Email           string
+	EmailVerifiedAt *time.Time
+	Password        string
+	RememberToken   *string
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
 }
 
 // PasswordResetToken represents a password reset token
@@ -27,12 +27,12 @@ type PasswordResetToken struct {
 
 // Session represents a user session
 type Session struct {
-	ID            string
-	UserID        *uint
-	IPAddress     *string
-	UserAgent     *string
-	Payload       string
-	LastActivity  int
+	ID           string
+	UserID       *uint
+	IPAddress    *string
+	UserAgent    *string
+	Payload      string
+	LastActivity int
 }
 
 // Cache represents a cache entry
@@ -49,54 +49,18 @@ type CacheLock struct {
 	Expiration int
 }
 
-// Job represents a queued job
-type Job struct {
-	ID           uint
-	Queue        string
-	Payload      string
-	Attempts     uint
-	ReservedAt   *uint
-	AvailableAt  uint
-	CreatedAt    uint
-}
-
-// JobBatch represents a job batch
-type JobBatch struct {
-	ID             string
-	Name           string
-	TotalJobs      int
-	PendingJobs    int
-	FailedJobs     int
-	FailedJobIDs   string
-	Options        *string
-	CancelledAt    *int
-	CreatedAt      int
-	FinishedAt     *int
-}
-
-// FailedJob represents a failed job
-type FailedJob struct {
-	ID         uint
-	UUID       string
-	Connection string
-	Queue      string
-	Payload    string
-	Exception  string
-	FailedAt   time.Time
-}
-
 // PersonalAccessToken represents a personal access token
 type PersonalAccessToken struct {
-	ID             uint
-	TokenableType  string
-	TokenableID    uint
-	Name           string
-	Token          string
-	Abilities      *string
-	LastUsedAt     *time.Time
-	ExpiresAt      *time.Time
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
+	ID            uint
+	TokenableType string
+	TokenableID   uint
+	Name          string
+	Token         string
+	Abilities     *string
+	LastUsedAt    *time.Time
+	ExpiresAt     *time.Time
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
 }
 
 // HistoryLog represents a history log entry

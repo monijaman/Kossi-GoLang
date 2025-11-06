@@ -79,18 +79,8 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		&models.SessionModel{},
 		&models.CacheModel{},
 		&models.CacheLockModel{},
-		&models.JobModel{},
-		&models.JobBatchModel{},
-		&models.FailedJobModel{},
 		&models.PersonalAccessTokenModel{},
 		&models.HistoryLogModel{},
-
-		// Permission system
-		&models.PermissionModel{},
-		&models.RoleModel{},
-		&models.ModelHasPermissionModel{},
-		&models.ModelHasRoleModel{},
-		&models.RoleHasPermissionModel{},
 
 		// Product system
 		&models.ProductModel{},
@@ -180,10 +170,6 @@ func (m *MigrationManager) AddForeignKeys() error {
 		{&models.ProductReviewModel{}, "user_id", "users(id)", "CASCADE"},
 		{&models.BrandCategoryModel{}, "brand_id", "brands(id)", "CASCADE"},
 		{&models.BrandCategoryModel{}, "category_id", "categories(id)", "CASCADE"},
-		{&models.ModelHasPermissionModel{}, "permission_id", "permissions(id)", "CASCADE"},
-		{&models.ModelHasRoleModel{}, "role_id", "roles(id)", "CASCADE"},
-		{&models.RoleHasPermissionModel{}, "permission_id", "permissions(id)", "CASCADE"},
-		{&models.RoleHasPermissionModel{}, "role_id", "roles(id)", "CASCADE"},
 
 		// Translation foreign keys
 		{&models.ProductTranslationModel{}, "product_id", "products(id)", "CASCADE"},
@@ -232,8 +218,6 @@ func (m *MigrationManager) CreateIndexes() error {
 		{&models.ProductModel{}, []string{"category_id", "brand_id"}, "idx_products_category_brand", false},
 		{&models.CategoryModel{}, []string{"slug"}, "idx_categories_slug", true},
 		{&models.BrandModel{}, []string{"slug"}, "idx_brands_slug", true},
-		{&models.PermissionModel{}, []string{"name", "guard_name"}, "idx_permissions_name_guard", true},
-		{&models.RoleModel{}, []string{"name", "guard_name"}, "idx_roles_name_guard", true},
 	}
 
 	for _, idx := range indexes {
