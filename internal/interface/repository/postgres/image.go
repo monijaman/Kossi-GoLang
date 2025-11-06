@@ -60,7 +60,8 @@ func (r *PostgresImageRepo) GetByID(ctx context.Context, id uint) (*entities.Ima
 }
 
 func (r *PostgresImageRepo) Delete(ctx context.Context, id uint) error {
-	result := r.db.WithContext(ctx).Delete(&models.ImageModel{}, id)
+	// Use Unscoped() to perform a hard delete (not soft delete)
+	result := r.db.WithContext(ctx).Unscoped().Delete(&models.ImageModel{}, id)
 	if result.Error != nil {
 		return result.Error
 	}

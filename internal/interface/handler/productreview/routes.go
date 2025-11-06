@@ -8,7 +8,7 @@ import (
 )
 
 // RegisterProductReviewRoutes registers all product review related routes
-func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.ProductReviewRepository, productRepo repository.ProductRepository) {
+func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.ProductReviewRepository, productRepo repository.ProductRepository, imageRepo repository.ImageRepository) {
 	// Protected routes - require authentication
 
 	// Create review -> POST /reviews/{id}
@@ -54,6 +54,15 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 		http.NotFound(w, r)
 	})
 
+	// Presign S3 GET URL -> POST /s3/presign-get
+	mux.HandleFunc("/s3/presign-get", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost {
+			PresignGetHandler(w, r)
+			return
+		}
+		http.NotFound(w, r)
+	})
+
 	// Update review -> POST /product/{id}/review/{reviewid}
 	mux.HandleFunc("/product/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost && strings.Contains(r.URL.Path, "/review/") {
@@ -68,7 +77,7 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 	// Remove image -> POST /imageremove/{id}
 	mux.HandleFunc("/imageremove/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
-			RemoveImageHandler(w, r, reviewRepo)
+			RemoveImageHandler(w, r, reviewRepo, imageRepo)
 			return
 		}
 		http.NotFound(w, r)
@@ -87,7 +96,7 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 	mux.HandleFunc("/productimages/s3", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[route] /productimages/s3 -> %s %s", r.Method, r.URL.Path)
 		if r.Method == http.MethodPost {
-			RegisterS3ImagesHandler(w, r, reviewRepo)
+			RegisterS3ImagesHandler(w, r, reviewRepo, imageRepo)
 			return
 		}
 		http.NotFound(w, r)
@@ -97,7 +106,7 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 	mux.HandleFunc("/productimages/s3/", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[route] /productimages/s3/ -> %s %s", r.Method, r.URL.Path)
 		if r.Method == http.MethodPost {
-			RegisterS3ImagesHandler(w, r, reviewRepo)
+			RegisterS3ImagesHandler(w, r, reviewRepo, imageRepo)
 			return
 		}
 		http.NotFound(w, r)
@@ -118,7 +127,7 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 	// Get product images -> GET /productimages/{id}
 	mux.HandleFunc("/productimages/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			GetProductImagesHandler(w, r, reviewRepo)
+			GetProductImagesHandler(w, r, reviewRepo, imageRepo)
 			return
 		}
 		http.NotFound(w, r)

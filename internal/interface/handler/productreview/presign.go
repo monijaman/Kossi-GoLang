@@ -3,14 +3,15 @@ package productreview
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	"github.com/aws/aws-sdk-go-v2/service/s3/presign"
 	"github.com/google/uuid"
 )
 
@@ -39,14 +40,17 @@ func PresignS3Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bucket := os.Getenv("S3_BUCKET")
-	if bucket == "" {
+	region := os.Getenv("AWS_REGION")
+	if bucket == "" || region == "" {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "S3_BUCKET is not configured"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "S3_BUCKET or AWS_REGION is not configured"})
 		return
 	}
 
-	// Load AWS config
-	cfg, err := config.LoadDefaultConfig(context.Background())
+	// Load AWS config with explicit region
+	cfg, err := config.LoadDefaultConfig(context.Background(),
+		config.WithRegion(region),
+	)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "failed to load AWS config"})
@@ -54,29 +58,32 @@ func PresignS3Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s3Client := s3.NewFromConfig(cfg)
-	presigner := presign.NewPresigner(s3Client)
+	presignClient := s3.NewPresignClient(s3Client)
 
 	// Generate a unique key. Keep original extension if present.
 	ext := filepath.Ext(req.Filename)
 	uid := uuid.New().String()
 	key := "product-images/"
 	if req.ProductID != 0 {
-		key = key + "p-" + string(rune(req.ProductID)) + "/"
+		// Use fmt to format numeric product ID correctly
+		key = key + fmt.Sprintf("p-%d/", req.ProductID)
 	}
 	key = key + uid + ext
 
 	// Build PutObject input
 	input := &s3.PutObjectInput{
-		Bucket:      &bucket,
-		Key:         &key,
-		ContentType: &req.ContentType,
+		Bucket:      aws.String(bucket),
+		Key:         aws.String(key),
+		ContentType: aws.String(req.ContentType),
 	}
 
 	// Presign for 15 minutes
 	presignCtx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
 
-	presigned, err := presigner.PresignPutObject(presignCtx, input, presign.WithPresignExpires(15*time.Minute))
+	presigned, err := presignClient.PresignPutObject(presignCtx, input, func(opts *s3.PresignOptions) {
+		opts.Expires = 15 * time.Minute
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "failed to presign url"})
@@ -84,7 +91,7 @@ func PresignS3Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Optional public object URL (depends on bucket region and settings)
-	region := os.Getenv("AWS_REGION")
+	// Use the configured region
 	objectURL := "https://" + bucket + ".s3." + region + ".amazonaws.com/" + key
 
 	resp := PresignResponse{

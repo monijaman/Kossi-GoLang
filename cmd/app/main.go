@@ -182,7 +182,7 @@ func main() {
 	handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
 	handlerbrand.RegisterBrandRoutes(mux, brandRepo)
 	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo)
-	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo)
+	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo, imageRepo)
 	handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
 	handlerfeedback.RegisterRoutes(mux, feedbackRepo)
 

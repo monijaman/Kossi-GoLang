@@ -9,9 +9,14 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
 // Request/Response structures
@@ -501,6 +506,18 @@ func UploadImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 		return
 	}
 
+	// Parse product ID to uint
+	productID64, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": false,
+			"error":   "invalid product_id",
+		})
+		return
+	}
+	productID := uint(productID64)
+
 	// Get the uploaded files
 	form := r.MultipartForm
 	var files []*multipart.FileHeader
@@ -532,11 +549,8 @@ func UploadImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 
 	// Process each uploaded file
 	for i, fileHeader := range files {
-		file, err := fileHeader.Open()
-		if err != nil {
-			continue // Skip this file and continue with others
-		}
-		defer file.Close()
+		// We don't need to open the file here because storage isn't implemented yet.
+		// Open would be required if we were saving the file to disk or forwarding it to S3.
 
 		// For now, create a placeholder response
 		// TODO: Implement actual file storage (save to disk/cloud storage)
@@ -545,8 +559,8 @@ func UploadImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 			ID:           uint(i + 1), // Placeholder ID
 			Name:         fileHeader.Filename,
 			Path:         "/uploads/" + fileHeader.Filename, // Placeholder path
-			ProductID:    1,                                 // TODO: Convert productIDStr to uint
-			DefaultPhoto: i == 0,                            // Make first image default
+			ProductID:    productID,
+			DefaultPhoto: i == 0, // Make first image default
 			CreatedAt:    time.Now().Format(time.RFC3339),
 			UpdatedAt:    time.Now().Format(time.RFC3339),
 		}
@@ -562,9 +576,8 @@ func UploadImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 }
 
 // RegisterS3ImagesHandler accepts a JSON payload with S3 keys for files that were
-// uploaded directly from the client and returns a placeholder success response.
-// This endpoint should be extended to persist image metadata in the DB.
-func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
+// uploaded directly from the client and persists image metadata in the DB.
+func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	log.Printf("[handler] RegisterS3ImagesHandler called: %s %s", r.Method, r.URL.Path)
@@ -585,17 +598,34 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 		return
 	}
 
-	// TODO: Persist files to DB using reviewRepo when repository supports it.
+	// Persist files to DB
 	images := make([]ImageResponse, 0, len(payload.Files))
 	for i, f := range payload.Files {
+		image := &entities.Image{
+			ImageableType: "Product",
+			ImageableID:   payload.ProductID,
+			ImagePath:     f.Key,
+			Status:        1, // Active
+			CreatedAt:     time.Now(),
+			UpdatedAt:     time.Now(),
+		}
+
+		createdImage, err := imageRepo.Create(r.Context(), image)
+		if err != nil {
+			log.Printf("[error] Failed to save image: %v", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]interface{}{"success": false, "error": "failed to save image"})
+			return
+		}
+
 		images = append(images, ImageResponse{
-			ID:           uint(i + 1),
+			ID:           createdImage.ID,
 			Name:         f.Name,
-			Path:         f.Key,
+			Path:         createdImage.ImagePath,
 			ProductID:    payload.ProductID,
 			DefaultPhoto: i == 0,
-			CreatedAt:    time.Now().Format(time.RFC3339),
-			UpdatedAt:    time.Now().Format(time.RFC3339),
+			CreatedAt:    createdImage.CreatedAt.Format(time.RFC3339),
+			UpdatedAt:    createdImage.UpdatedAt.Format(time.RFC3339),
 		})
 	}
 
@@ -608,7 +638,7 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 }
 
 // GetProductImagesHandler handles GET /productimages/{id}
-func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
+func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
@@ -622,12 +652,74 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 		return
 	}
 
-	// TODO: Implement get product images logic
-	// For now, return placeholder response
+	// Get images from database
+	images, err := imageRepo.GetByImageableID(r.Context(), "Product", uint(productID))
+	if err != nil {
+		log.Printf("[error] Failed to get images: %v", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to retrieve images"})
+		return
+	}
+
+	// Load AWS config for presigning
+	bucket := os.Getenv("S3_BUCKET")
+	region := os.Getenv("AWS_REGION")
+	accessKey := os.Getenv("AWS_ACCESS_KEY_ID")
+	secretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
+
+	cfg, err := config.LoadDefaultConfig(r.Context(),
+		config.WithRegion(region),
+	)
+	if err != nil {
+		log.Printf("[error] Failed to load AWS config: %v", err)
+	}
+
+	var s3Client *s3.Client
+	var presignClient *s3.PresignClient
+	if err == nil && bucket != "" && accessKey != "" && secretKey != "" {
+		s3Client = s3.NewFromConfig(cfg)
+		presignClient = s3.NewPresignClient(s3Client)
+	}
+
+	// Convert to response format with presigned URLs
+	imageResponses := make([]map[string]interface{}, 0, len(images))
+	for _, img := range images {
+		imageResp := map[string]interface{}{
+			"id":         img.ID,
+			"path":       img.ImagePath,
+			"product_id": productID,
+			"created_at": img.CreatedAt.Format(time.RFC3339),
+			"updated_at": img.UpdatedAt.Format(time.RFC3339),
+		}
+
+		// Generate presigned URL for viewing
+		if presignClient != nil {
+			input := &s3.GetObjectInput{
+				Bucket: aws.String(bucket),
+				Key:    aws.String(img.ImagePath),
+			}
+
+			presigned, err := presignClient.PresignGetObject(r.Context(), input, func(opts *s3.PresignOptions) {
+				opts.Expires = 1 * time.Hour
+			})
+
+			if err == nil {
+				imageResp["url"] = presigned.URL
+			} else {
+				// Fallback to direct URL
+				imageResp["url"] = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + img.ImagePath
+			}
+		} else {
+			imageResp["url"] = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + img.ImagePath
+		}
+
+		imageResponses = append(imageResponses, imageResp)
+	}
+
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"product_id": productID,
-		"images":     []ImageResponse{},
+		"images":     imageResponses,
 	})
 }
 
@@ -662,24 +754,80 @@ func MakeDefaultImageHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 }
 
 // RemoveImageHandler handles POST /imageremove/{id}
-func RemoveImageHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
+func RemoveImageHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract image ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/imageremove/")
 	imageIDStr := strings.Trim(path, "/")
 
+	log.Printf("[RemoveImage] Processing request for path: %s, imageIDStr: %s", r.URL.Path, imageIDStr)
+
 	imageID, err := strconv.ParseUint(imageIDStr, 10, 32)
 	if err != nil {
+		log.Printf("[RemoveImage] Failed to parse image ID: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid image ID"})
 		return
 	}
 
-	// TODO: Implement remove image logic
-	// For now, return placeholder response
+	log.Printf("[RemoveImage] Attempting to delete image ID: %d", imageID)
+
+	// Get image from database to get the S3 key
+	image, err := imageRepo.GetByID(r.Context(), uint(imageID))
+	if err != nil {
+		log.Printf("[error] Failed to get image: %v", err)
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Image not found"})
+		return
+	}
+
+	log.Printf("[RemoveImage] Found image: ID=%d, Path=%s", image.ID, image.ImagePath)
+
+	// Delete from S3
+	bucket := os.Getenv("S3_BUCKET")
+	region := os.Getenv("AWS_REGION")
+
+	if bucket != "" && region != "" && image.ImagePath != "" {
+		cfg, err := config.LoadDefaultConfig(r.Context(),
+			config.WithRegion(region),
+		)
+		if err != nil {
+			log.Printf("[error] Failed to load AWS config: %v", err)
+		} else {
+			s3Client := s3.NewFromConfig(cfg)
+
+			// Delete object from S3
+			deleteInput := &s3.DeleteObjectInput{
+				Bucket: aws.String(bucket),
+				Key:    aws.String(image.ImagePath),
+			}
+
+			_, err = s3Client.DeleteObject(r.Context(), deleteInput)
+			if err != nil {
+				log.Printf("[error] Failed to delete from S3: %v", err)
+				// Continue to delete from DB even if S3 delete fails
+			} else {
+				log.Printf("[info] Successfully deleted from S3: %s", image.ImagePath)
+			}
+		}
+	}
+
+	// Delete from database
+	log.Printf("[RemoveImage] Calling imageRepo.Delete for ID: %d", imageID)
+	err = imageRepo.Delete(r.Context(), uint(imageID))
+	if err != nil {
+		log.Printf("[error] Failed to delete image from DB: %v", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to delete image"})
+		return
+	}
+
+	log.Printf("[RemoveImage] Successfully deleted image ID: %d from database", imageID)
+
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success":  true,
 		"message":  "Image removed successfully",
 		"image_id": imageID,
 	})
