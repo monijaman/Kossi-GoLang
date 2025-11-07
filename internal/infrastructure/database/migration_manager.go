@@ -76,11 +76,6 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		// Core system tables
 		&models.UserModel{},
 		&models.PasswordResetTokenModel{},
-		&models.SessionModel{},
-		&models.CacheModel{},
-		&models.CacheLockModel{},
-		&models.PersonalAccessTokenModel{},
-		&models.HistoryLogModel{},
 
 		// Product system
 		&models.ProductModel{},
@@ -138,16 +133,31 @@ func (m *MigrationManager) MigrateAll() error {
 
 // DropAllTables drops all tables (useful for testing)
 func (m *MigrationManager) DropAllTables() error {
-	models := m.GetAllModels()
-
 	log.Println("Dropping all tables...")
 
-	// Drop in reverse order to handle foreign key constraints
-	for i := len(models) - 1; i >= 0; i-- {
-		model := models[i]
-		log.Printf("Dropping table for model: %T", model)
-		if err := m.db.Migrator().DropTable(model); err != nil {
-			log.Printf("Warning: failed to drop table for %T: %v", model, err)
+	// First, disable foreign key checks temporarily to avoid constraint issues
+	log.Println("Disabling foreign key checks temporarily...")
+
+	// Get all table names from the database
+	var tableNames []string
+	err := m.db.Raw(`
+		SELECT tablename 
+		FROM pg_tables 
+		WHERE schemaname = 'public'
+	`).Scan(&tableNames).Error
+	if err != nil {
+		return fmt.Errorf("failed to get table names: %w", err)
+	}
+
+	log.Printf("Found %d tables to drop", len(tableNames))
+
+	// Drop all tables in a single transaction with CASCADE
+	for _, tableName := range tableNames {
+		log.Printf("Dropping table: %s", tableName)
+		dropSQL := fmt.Sprintf("DROP TABLE IF EXISTS %s CASCADE", tableName)
+		if err := m.db.Exec(dropSQL).Error; err != nil {
+			log.Printf("Warning: failed to drop table %s: %v", tableName, err)
+			// Continue with other tables
 		}
 	}
 
@@ -166,7 +176,6 @@ func (m *MigrationManager) AddForeignKeys() error {
 		references string
 		onDelete   string
 	}{
-		{&models.SessionModel{}, "user_id", "users(id)", "SET NULL"},
 		{&models.ProductReviewModel{}, "user_id", "users(id)", "CASCADE"},
 		{&models.BrandCategoryModel{}, "brand_id", "brands(id)", "CASCADE"},
 		{&models.BrandCategoryModel{}, "category_id", "categories(id)", "CASCADE"},

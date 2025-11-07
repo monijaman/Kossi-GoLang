@@ -34,9 +34,10 @@ type CategoryTranslationResponse struct {
 
 // BrandCategoryResponse represents the response format for brand-category relations
 type BrandCategoryResponse struct {
-	ID         uint `json:"id"`
-	BrandID    uint `json:"brand_id"`
-	CategoryID uint `json:"category_id"`
+	ID         uint   `json:"id"`
+	BrandID    uint   `json:"brand_id"`
+	CategoryID uint   `json:"category_id"`
+	BrandName  string `json:"name,omitempty"`
 }
 
 // convertCategoryToResponse converts entity to response format
@@ -701,9 +702,13 @@ func GetCategoryTranslationHandler(w http.ResponseWriter, r *http.Request, categ
 func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
+	// Support both single relation and bulk creation:
+	// - Single: { "category_id": 79, "brand_id": 5 }
+	// - Bulk:   { "category_id": 79, "brands": [5,10,13] }
 	var request struct {
-		CategoryID uint `json:"category_id"`
-		BrandID    uint `json:"brand_id"`
+		CategoryID uint   `json:"category_id"`
+		BrandID    uint   `json:"brand_id"`
+		Brands     []uint `json:"brands,omitempty"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -712,9 +717,44 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
-	if request.CategoryID == 0 || request.BrandID == 0 {
+	if request.CategoryID == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "category_id and brand_id are required"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "category_id is required"})
+		return
+	}
+
+	// Handle bulk create when Brands array is provided
+	if len(request.Brands) > 0 {
+		created := make([]BrandCategoryResponse, 0, len(request.Brands))
+		for _, bid := range request.Brands {
+			if bid == 0 {
+				continue
+			}
+			relation := &entities.BrandCategory{
+				CategoryID: request.CategoryID,
+				BrandID:    bid,
+			}
+			savedRelation, err := categoryRepo.CreateBrandRelation(r.Context(), relation)
+			if err != nil {
+				// If one fails, return error. Could be enhanced to continue and report partial success.
+				w.WriteHeader(http.StatusInternalServerError)
+				json.NewEncoder(w).Encode(map[string]interface{}{"error": "Failed to create one or more brand-category relations", "detail": err.Error()})
+				return
+			}
+			created = append(created, convertBrandCategoryToResponse(savedRelation))
+		}
+
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"created": created,
+			"count":   len(created),
+		})
+		return
+	}
+
+	// Fallback to single create when brand_id is provided
+	if request.BrandID == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "brand_id is required when brands array is not provided"})
 		return
 	}
 
@@ -760,14 +800,55 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 			return
 		}
 
+		// Get brand names by querying the brands directly
+		brandIDs := make([]uint, len(relations))
+		for i, relation := range relations {
+			brandIDs[i] = relation.BrandID
+		}
+
+		// Fetch brand names
+		brandNames := make(map[uint]string)
+		if len(brandIDs) > 0 {
+			brands, err := categoryRepo.GetBrandsByIDs(r.Context(), brandIDs)
+			if err == nil {
+				for _, brand := range brands {
+					brandNames[brand.ID] = brand.Name
+				}
+			}
+		}
+
 		responses := make([]BrandCategoryResponse, len(relations))
 		for i, relation := range relations {
-			responses[i] = convertBrandCategoryToResponse(relation)
+			responses[i] = BrandCategoryResponse{
+				ID:         relation.ID,
+				BrandID:    relation.BrandID,
+				CategoryID: relation.CategoryID,
+				BrandName:  brandNames[relation.BrandID],
+			}
+		}
+
+		// Build full brands response for the provided brand IDs so client can display full brand objects
+		var brandsResp []map[string]interface{}
+		if len(brandIDs) > 0 {
+			if fetchedBrands, err := categoryRepo.GetBrandsByIDs(r.Context(), brandIDs); err == nil {
+				brandsResp = make([]map[string]interface{}, len(fetchedBrands))
+				for i, b := range fetchedBrands {
+					brandsResp[i] = map[string]interface{}{
+						"id":         b.ID,
+						"name":       b.Name,
+						"slug":       b.Slug,
+						"status":     b.Status,
+						"created_at": b.CreatedAt.Format(time.RFC3339),
+						"updated_at": b.UpdatedAt.Format(time.RFC3339),
+					}
+				}
+			}
 		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"category_id": categoryID,
 			"relations":   responses,
+			"brands":      brandsResp,
 			"count":       len(responses),
 		})
 	} else {

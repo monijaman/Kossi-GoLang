@@ -29,29 +29,6 @@ func main() {
 	convertedUser := userModel.ToEntity()
 	fmt.Printf("   ✅ User: %s -> GORM -> %s\n", user.Name, convertedUser.Name)
 
-	// --- Session Entity ---
-	session := &entities.Session{
-		ID:           "session123",
-		UserID:       &user.ID,
-		Payload:      "session_data",
-		LastActivity: int(time.Now().Unix()),
-	}
-	sessionModel := &models.SessionModel{}
-	sessionModel.FromEntity(session)
-	convertedSession := sessionModel.ToEntity()
-	fmt.Printf("   ✅ Session: %s -> GORM -> %s\n", session.ID, convertedSession.ID)
-
-	// --- Cache Entity ---
-	cache := &entities.Cache{
-		Key:        "cache_key",
-		Value:      "cache_value",
-		Expiration: 3600,
-	}
-	cacheModel := &models.CacheModel{}
-	cacheModel.FromEntity(cache)
-	convertedCache := cacheModel.ToEntity()
-	fmt.Printf("   ✅ Cache: %s -> GORM -> %s\n", cache.Key, convertedCache.Key)
-
 	// 2. Testing Product System Models
 	fmt.Println("\n2. Testing Product System Models:")
 
@@ -129,19 +106,6 @@ func main() {
 
 	// 4. Testing Authentication Models
 	fmt.Println("\n4. Testing Authentication Models:")
-
-	// --- Personal Access Token Entity ---
-	token := &entities.PersonalAccessToken{
-		ID:            1,
-		TokenableType: "User",
-		TokenableID:   user.ID,
-		Name:          "API Token",
-		Token:         "abc123token",
-	}
-	tokenModel := &models.PersonalAccessTokenModel{}
-	tokenModel.FromEntity(token)
-	convertedToken := tokenModel.ToEntity()
-	fmt.Printf("   ✅ Token: %s -> GORM -> %s\n", token.Name, convertedToken.Name)
 
 	// --- Password Reset Token Entity ---
 	now := time.Now()

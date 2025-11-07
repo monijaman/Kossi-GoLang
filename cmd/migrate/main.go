@@ -198,7 +198,7 @@ func confirmDangerous() bool {
 	fmt.Print("This is DANGEROUS! Type 'YES' to continue: ")
 	var confirm string
 	fmt.Scanln(&confirm)
-	return confirm == "YES"
+	return confirm == "YES" || confirm == "yes" || confirm == "y"
 }
 
 func printUsage() {

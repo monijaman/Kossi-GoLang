@@ -26,7 +26,19 @@ Short description: This repository contains the Go backend for the Kossti produc
   - [5.5. Run the Applications](#5-run-the-applications)
   - [5.6. Test the API](#6-test-the-api)
 
-### 🛠️ **Development Tools**
+### � **API Reference**
+
+- [6.5. API Endpoints Reference](#65-api-endpoints-reference)
+  - [Authentication & User Management](#-authentication--user-management)
+  - [Product Management](#-product-management)
+  - [Reviews & Feedback](#-reviews--feedback)
+  - [Categories](#-categories)
+  - [Brands](#-brands)
+  - [Specifications](#-specifications)
+  - [Form Generator](#-form-generator)
+  - [Example API Requests](#-example-api-requests)
+
+### �🛠️ **Development Tools**
 
 - [6. Development Tools & Troubleshooting](#6-development-tools--troubleshooting)
   - [6.1. Air Hot Reloading Issues](#61-air-hot-reloading-issues)
@@ -150,7 +162,7 @@ go run ./cmd/seedtest/main.go
 ```
 
 **What's working:**
-✅ Database migration system (60+ models)  
+✅ Database migration system (24 models)  
 ✅ Comprehensive seeding system (400+ records)  
 ✅ Data verification tools  
 ✅ Clean Architecture structure  
@@ -346,6 +358,298 @@ go run ./cmd/migrate/main.go -h
       "password": "password123"
     }
     ```
+
+---
+
+## 6.5. API Endpoints Reference
+
+This section provides a comprehensive list of all available API endpoints in the system.
+
+### 📝 Authentication & User Management
+
+#### Authentication Endpoints
+
+| Method | Endpoint              | Description                       | Auth Required |
+| ------ | --------------------- | --------------------------------- | ------------- |
+| POST   | `/register`           | User registration                 | No            |
+| POST   | `/login`              | User login                        | No            |
+| POST   | `/v1/registration`    | Alternative registration endpoint | No            |
+| POST   | `/v1/login`           | V1 login endpoint                 | No            |
+| POST   | `/v1/refresh-token`   | Refresh access token              | No            |
+| POST   | `/v1/forgot-password` | Password reset request            | No            |
+| POST   | `/v1/reset-password`  | Password reset                    | No            |
+| POST   | `/v1/logout`          | User logout                       | Yes           |
+| GET    | `/v1/check-token`     | Check token validity              | Yes           |
+| GET    | `/v1/profile`         | Get user profile                  | Yes           |
+| POST   | `/v1/profile`         | Update user profile               | Yes           |
+| GET    | `/v1/checkrole`       | Check user role                   | Yes           |
+| GET    | `/v1/search_users`    | Search users                      | Yes           |
+
+#### User Endpoints
+
+| Method | Endpoint        | Description                | Auth Required |
+| ------ | --------------- | -------------------------- | ------------- |
+| GET    | `/users/all`    | Get all users (public)     | No            |
+| GET    | `/users`        | List users with pagination | Yes           |
+| GET    | `/users/{id}`   | Get user by ID             | Yes           |
+| GET    | `/users/search` | Search users               | Yes           |
+| GET    | `/users/count`  | Get user count             | Yes           |
+
+### 🛍️ Product Management
+
+#### Product Endpoints
+
+| Method | Endpoint                          | Description                  | Auth Required |
+| ------ | --------------------------------- | ---------------------------- | ------------- |
+| GET    | `/products`                       | List products (basic)        | No            |
+| GET    | `/products?locale=&page=&sortby=` | List products with filtering | No            |
+| POST   | `/products`                       | Create new product           | Yes           |
+| GET    | `/products/{id}`                  | Get product by ID or slug    | No            |
+| PATCH  | `/products/{id}`                  | Update product               | Yes           |
+| GET    | `/products-by-slug/{slug}`        | Get product by slug          | No            |
+| GET    | `/popular-products`               | Get popular products         | No            |
+| POST   | `/products/{id}/increment-views`  | Increment product views      | No            |
+
+#### Product Translation Endpoints
+
+| Method | Endpoint                      | Description                      | Auth Required |
+| ------ | ----------------------------- | -------------------------------- | ------------- |
+| GET    | `/products/{id}/translations` | Get product translations         | No            |
+| POST   | `/products/{id}/translations` | Create product translation       | Yes           |
+| DELETE | `/products/{id}/translations` | Delete product translation       | Yes           |
+| POST   | `/product-trans/{id}`         | Alternative translation endpoint | Yes           |
+
+#### Product Image Endpoints
+
+| Method | Endpoint                         | Description             | Auth Required |
+| ------ | -------------------------------- | ----------------------- | ------------- |
+| POST   | `/products/{id}/image`           | Add product image       | Yes           |
+| GET    | `/products/{id}/images`          | Get product images      | No            |
+| POST   | `/addproductimage/{productId}`   | Add product image (alt) | Yes           |
+| GET    | `/get-product-image/{productId}` | Get product image       | No            |
+
+### ⭐ Reviews & Feedback
+
+#### Product Review Endpoints
+
+| Method | Endpoint                          | Description               | Auth Required |
+| ------ | --------------------------------- | ------------------------- | ------------- |
+| GET    | `/products/{id}/reviews`          | Get product reviews       | No            |
+| GET    | `/public-reviews/{id}`            | Get public reviews        | No            |
+| GET    | `/reviews`                        | List all reviews          | No            |
+| POST   | `/reviews/{id}`                   | Create review             | Yes           |
+| GET    | `/reviews/{id}`                   | Get review by ID          | No            |
+| POST   | `/product/{id}/review/{reviewid}` | Update review             | Yes           |
+| POST   | `/review/translation`             | Create review translation | Yes           |
+
+#### Review Image Endpoints
+
+| Method | Endpoint              | Description                 | Auth Required |
+| ------ | --------------------- | --------------------------- | ------------- |
+| POST   | `/productimages`      | Upload review images        | Yes           |
+| POST   | `/productimages/s3`   | Register S3 uploaded images | Yes           |
+| GET    | `/productimages/{id}` | Get product images          | No            |
+| POST   | `/imageremove/{id}`   | Remove image                | Yes           |
+| POST   | `/default-image/{id}` | Make default image          | Yes           |
+| POST   | `/s3/presign`         | Presign S3 PUT URL          | Yes           |
+| POST   | `/s3/presign-get`     | Presign S3 GET URL          | Yes           |
+
+#### Feedback Endpoints
+
+| Method | Endpoint            | Description             | Auth Required |
+| ------ | ------------------- | ----------------------- | ------------- |
+| GET    | `/feedback`         | Get all feedback        | No            |
+| POST   | `/feedback/`        | Create feedback         | Yes           |
+| GET    | `/feedback/{id}`    | Get feedback by ID      | Yes           |
+| PUT    | `/feedback/{id}`    | Update feedback         | Yes           |
+| DELETE | `/feedback/{id}`    | Delete feedback         | Yes           |
+| GET    | `/v1/feedback`      | Get all feedback (V1)   | No            |
+| POST   | `/v1/feedback/`     | Create feedback (V1)    | Yes           |
+| GET    | `/v1/feedback/{id}` | Get feedback by ID (V1) | Yes           |
+| PUT    | `/v1/feedback/{id}` | Update feedback (V1)    | Yes           |
+| DELETE | `/v1/feedback/{id}` | Delete feedback (V1)    | Yes           |
+
+### 📂 Categories
+
+#### Category Endpoints
+
+| Method | Endpoint                | Description            | Auth Required |
+| ------ | ----------------------- | ---------------------- | ------------- |
+| GET    | `/categories`           | List all categories    | No            |
+| POST   | `/categories`           | Create new category    | Yes           |
+| GET    | `/categories/{id}`      | Get category by ID     | No            |
+| PUT    | `/categories/{id}`      | Update category        | Yes           |
+| DELETE | `/categories/{id}`      | Delete category        | Yes           |
+| GET    | `/wide-categories`      | Get wide categories    | No            |
+| PUT    | `/category-status/{id}` | Update category status | Yes           |
+
+#### Category Translation Endpoints
+
+| Method | Endpoint                     | Description                 | Auth Required |
+| ------ | ---------------------------- | --------------------------- | ------------- |
+| POST   | `/category-translation`      | Create category translation | Yes           |
+| GET    | `/category-translation/{id}` | Get category translations   | No            |
+| PUT    | `/category-translation/{id}` | Update category translation | Yes           |
+
+#### Category-Brand Relations
+
+| Method | Endpoint           | Description                    | Auth Required |
+| ------ | ------------------ | ------------------------------ | ------------- |
+| GET    | `/category-brands` | Get category-brand relations   | No            |
+| POST   | `/category-brands` | Create category-brand relation | Yes           |
+
+### 🏷️ Brands
+
+#### Brand Endpoints
+
+| Method | Endpoint             | Description         | Auth Required |
+| ------ | -------------------- | ------------------- | ------------- |
+| GET    | `/brands`            | List all brands     | No            |
+| POST   | `/brands`            | Create new brand    | Yes           |
+| GET    | `/brands/{id}`       | Get brand by ID     | No            |
+| PUT    | `/brands/{id}`       | Update brand        | Yes           |
+| DELETE | `/brands/{id}`       | Delete brand        | Yes           |
+| GET    | `/wide-brands`       | Get wide brands     | No            |
+| GET    | `/public-brands`     | Get public brands   | No            |
+| POST   | `/brand-status/{id}` | Update brand status | Yes           |
+
+#### Brand Translation Endpoints
+
+| Method | Endpoint                  | Description              | Auth Required |
+| ------ | ------------------------- | ------------------------ | ------------- |
+| POST   | `/brand-translation`      | Create brand translation | Yes           |
+| GET    | `/brand-translation/{id}` | Get brand translations   | No            |
+| PUT    | `/brand-translation/{id}` | Update brand translation | Yes           |
+
+### 📋 Specifications
+
+#### Specification Endpoints
+
+| Method | Endpoint                   | Description                      | Auth Required |
+| ------ | -------------------------- | -------------------------------- | ------------- |
+| POST   | `/specifications`          | Create specification             | Yes           |
+| POST   | `/specifications/bulk`     | Bulk upsert specifications       | Yes           |
+| GET    | `/specifications/{id}`     | Get specification by ID          | No            |
+| PUT    | `/specifications/{id}`     | Update specification             | Yes           |
+| DELETE | `/specifications/{id}`     | Delete specification             | Yes           |
+| GET    | `/get-specifications/{id}` | Get specifications by product ID | No            |
+| GET    | `/get-public-spec/{id}`    | Get public specification         | No            |
+| GET    | `/specificationsearch`     | Search specifications            | No            |
+
+#### Specification Translation Endpoints
+
+| Method | Endpoint                   | Description                      | Auth Required |
+| ------ | -------------------------- | -------------------------------- | ------------- |
+| POST   | `/spec_translation`        | Create specification translation | Yes           |
+| GET    | `/spec_translation/{id}`   | Get specification translations   | No            |
+| PUT    | `/spec_translation/values` | Update translation values        | Yes           |
+| POST   | `/spec_translation/values` | Update translation values (alt)  | Yes           |
+
+#### Specification Key Endpoints
+
+| Method | Endpoint           | Description                        | Auth Required |
+| ------ | ------------------ | ---------------------------------- | ------------- |
+| GET    | `/speckey`         | Get all specification keys         | No            |
+| POST   | `/speckey`         | Create or update specification key | Yes           |
+| GET    | `/speckey/{id}`    | Get specification key by ID        | No            |
+| POST   | `/specremove/{id}` | Delete specification key           | Yes           |
+
+#### Specification Key Translation Endpoints
+
+| Method | Endpoint               | Description                   | Auth Required |
+| ------ | ---------------------- | ----------------------------- | ------------- |
+| GET    | `/speckey-translation` | Get all spec key translations | No            |
+| POST   | `/speckey-translation` | Create spec key translation   | Yes           |
+
+### 🔧 Form Generator
+
+#### Form Generator Endpoints
+
+| Method | Endpoint               | Description                 | Auth Required |
+| ------ | ---------------------- | --------------------------- | ------------- |
+| POST   | `/formgenerator/`      | Create form generator       | Yes           |
+| GET    | `/formgenerator/{id}`  | Get form generator by ID    | No            |
+| PUT    | `/formgenerator/{id}`  | Update form generator       | Yes           |
+| GET    | `/category-specs/{id}` | Get category specifications | No            |
+
+### 📊 Example API Requests
+
+#### Register a New User
+
+```bash
+curl -X POST http://localhost:8080/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "alice",
+    "email": "alice@example.com",
+    "password": "password123"
+  }'
+```
+
+#### Login
+
+```bash
+curl -X POST http://localhost:8080/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "alice@example.com",
+    "password": "password123"
+  }'
+```
+
+#### Get All Products
+
+```bash
+curl -X GET http://localhost:8080/products
+```
+
+#### Get Product by ID
+
+```bash
+curl -X GET http://localhost:8080/products/1
+```
+
+#### Create a Product (Authenticated)
+
+```bash
+curl -X POST http://localhost:8080/products \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "name": "iPhone 15",
+    "description": "Latest iPhone model",
+    "category_id": 1,
+    "brand_id": 1
+  }'
+```
+
+#### Get Product Reviews
+
+```bash
+curl -X GET http://localhost:8080/products/1/reviews
+```
+
+#### Get Categories
+
+```bash
+curl -X GET http://localhost:8080/categories
+```
+
+#### Get Brands
+
+```bash
+curl -X GET http://localhost:8080/brands
+```
+
+### 📌 Notes
+
+- **Base URL**: All endpoints are relative to `http://localhost:8080` (default)
+- **Authentication**: Endpoints marked "Yes" require a valid JWT token in the `Authorization` header
+- **Content-Type**: Most POST/PUT requests require `Content-Type: application/json`
+- **Response Format**: All responses are in JSON format
+- **Pagination**: Many list endpoints support `limit`, `offset`, or `page` query parameters
+- **Search**: Search endpoints typically accept a `q` or `search` query parameter
+- **Localization**: Many endpoints support a `locale` query parameter (e.g., `en`, `de`, `fr`)
 
 ---
 
@@ -737,7 +1041,7 @@ For larger projects with multiple models, we have a comprehensive migration syst
 
 ### 10.1. Migration Manager Features
 
-- ✅ **Batch Migration**: Migrates all 60+ models at once
+- ✅ **Batch Migration**: Migrates all 24 models at once
 - ✅ **Progress Logging**: See which model is being migrated
 - ✅ **Foreign Key Management**: Automatically handles relationships
 - ✅ **Index Creation**: Creates database indexes for performance
@@ -763,17 +1067,19 @@ go run cmd/migrate/main.go -create-db
 #### 3. Fresh Setup (Development Only)
 
 ```bash
-# ⚠️ DANGEROUS: Drops all tables and recreates them
+# ⚠️ DANGEROUS: Drops ALL tables (including orphaned tables) and recreates them
 go run cmd/migrate/main.go -fresh
 
 # ⚠️ DANGEROUS: Fresh setup with sample data
 go run cmd/migrate/main.go -fresh-seed
 ```
 
+**Note:** The `-fresh` command now uses PostgreSQL's system catalog to find and drop ALL tables in the public schema, including any orphaned tables not in the model list (e.g., legacy Laravel tables like `jobs`, `permissions`, `roles`, etc.). This ensures a completely clean slate.
+
 #### 4. Individual Operations
 
 ```bash
-# Drop all tables (testing/cleanup)
+# Drop all tables (testing/cleanup) - IMPROVED: Drops ALL tables including orphaned ones
 go run cmd/migrate/main.go -drop
 
 # Add foreign keys only
@@ -785,6 +1091,15 @@ go run cmd/migrate/main.go -indexes
 # Run seeders only (add sample data)
 go run cmd/migrate/main.go -seed
 ```
+
+**Important Note on -drop and -fresh flags:**  
+These commands now query PostgreSQL's system catalog (`pg_tables`) to find and drop ALL tables in the public schema, not just the ones defined in your Go models. This ensures complete cleanup of:
+
+- All current model tables (24 tables)
+- Legacy/orphaned tables (e.g., `jobs`, `permissions`, `roles`, `model_has_permissions`, etc. from other frameworks)
+- Any other tables you may have created manually
+
+This is particularly useful when migrating from other frameworks or cleaning up after testing different schemas.
 
 #### 5. Custom Database Connection
 
@@ -854,18 +1169,11 @@ func setupDatabase() {
 
 ### 10.5. What Gets Migrated
 
-The migration system handles **60+ database models** organized into:
+The migration system handles **24 database models** organized into:
 
-#### Core System Tables (15 models)
+#### Core System Tables (2 models)
 
-- `users`, `sessions`, `password_reset_tokens`
-- `cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`
-- `personal_access_tokens`, `history_logs`
-
-#### Permission System (5 models)
-
-- `permissions`, `roles`
-- `model_has_permissions`, `model_has_roles`, `role_has_permissions`
+- `users`, `password_reset_tokens`
 
 #### Product System (10 models)
 
@@ -915,14 +1223,14 @@ go run cmd/migrate/main.go -migrate
 
 ### Migration vs AutoMigrate Comparison
 
-| Feature           | AutoMigrate         | Migration Manager      |
-| ----------------- | ------------------- | ---------------------- |
-| Model Count       | Manual (1-5 models) | Automatic (60+ models) |
-| Progress Tracking | ❌ No               | ✅ Yes                 |
-| Foreign Keys      | ❌ Manual           | ✅ Automatic           |
-| Indexes           | ❌ Manual           | ✅ Automatic           |
-| Error Handling    | ❌ Basic            | ✅ Advanced            |
-| Production Ready  | ⚠️ Limited          | ✅ Yes                 |
+| Feature           | AutoMigrate         | Migration Manager     |
+| ----------------- | ------------------- | --------------------- |
+| Model Count       | Manual (1-5 models) | Automatic (24 models) |
+| Progress Tracking | ❌ No               | ✅ Yes                |
+| Foreign Keys      | ❌ Manual           | ✅ Automatic          |
+| Indexes           | ❌ Manual           | ✅ Automatic          |
+| Error Handling    | ❌ Basic            | ✅ Advanced           |
+| Production Ready  | ⚠️ Limited          | ✅ Yes                |
 
 ### 10.7. Troubleshooting Migrations
 
@@ -955,6 +1263,23 @@ GRANT CREATE ON DATABASE gocrit_db TO your_user;
 # Check your database is running and connection string is correct
 go run cmd/migrate/main.go -migrate -dsn "your_connection_string"
 ```
+
+**Orphaned or legacy tables not being dropped:**
+
+```bash
+# The -fresh and -drop commands now handle ALL tables automatically
+# They query pg_tables to find every table in the public schema
+
+# If you still have issues, you can manually check what tables exist:
+PGPASSWORD=root psql -h localhost -p 5428 -U root -d kossti -c "\dt"
+
+# Then use -fresh to drop everything:
+go run cmd/migrate/main.go -fresh
+```
+
+**Tables from previous Laravel migration:**
+
+If you have legacy tables from a Laravel application (like `jobs`, `failed_jobs`, `permissions`, `roles`, `model_has_permissions`, `model_has_roles`, `role_has_permissions`), the improved `-fresh` and `-drop` commands will now automatically detect and remove them using PostgreSQL's system catalog.
 
 ### Migration Output Example
 

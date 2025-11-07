@@ -242,17 +242,32 @@ func (r *PostgresCategoryRepo) CreateBrandRelation(ctx context.Context, relation
 }
 
 func (r *PostgresCategoryRepo) GetBrandRelations(ctx context.Context, categoryID uint) ([]*entities.BrandCategory, error) {
-	var relationModels []models.BrandCategoryModel
+	// Custom struct to hold joined data
+	type BrandCategoryWithName struct {
+		ID         uint
+		BrandID    uint
+		CategoryID uint
+		BrandName  string
+	}
+
+	var results []BrandCategoryWithName
 
 	if err := r.db.WithContext(ctx).
-		Where("category_id = ?", categoryID).
-		Find(&relationModels).Error; err != nil {
+		Table("brand_category").
+		Select("brand_category.id, brand_category.brand_id, brand_category.category_id, brands.name as brand_name").
+		Joins("LEFT JOIN brands ON brands.id = brand_category.brand_id").
+		Where("brand_category.category_id = ?", categoryID).
+		Scan(&results).Error; err != nil {
 		return nil, err
 	}
 
-	relations := make([]*entities.BrandCategory, len(relationModels))
-	for i, model := range relationModels {
-		relations[i] = model.ToEntity()
+	relations := make([]*entities.BrandCategory, len(results))
+	for i, result := range results {
+		relations[i] = &entities.BrandCategory{
+			ID:         result.ID,
+			BrandID:    result.BrandID,
+			CategoryID: result.CategoryID,
+		}
 	}
 
 	return relations, nil
@@ -287,6 +302,23 @@ func (r *PostgresCategoryRepo) DeleteBrandRelation(ctx context.Context, category
 	}
 
 	return nil
+}
+
+func (r *PostgresCategoryRepo) GetBrandsByIDs(ctx context.Context, brandIDs []uint) ([]*entities.Brand, error) {
+	var brandModels []models.BrandModel
+
+	if err := r.db.WithContext(ctx).
+		Where("id IN ?", brandIDs).
+		Find(&brandModels).Error; err != nil {
+		return nil, err
+	}
+
+	brands := make([]*entities.Brand, len(brandModels))
+	for i, model := range brandModels {
+		brands[i] = model.ToEntity()
+	}
+
+	return brands, nil
 }
 
 // Status operations (assuming we add a status field to Category)
