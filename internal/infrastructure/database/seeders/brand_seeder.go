@@ -46,6 +46,7 @@ func (bs *BrandSeeder) Seed(db *gorm.DB) error {
 
 		// B Brands
 		{"Baidu", "baidu", 1},
+		{"Benelli", "benelli", 1},
 		{"Bajaj", "bajaj", 1},
 		{"Balenciaga", "balenciaga", 1},
 		{"Barclays", "barclays", 1},
@@ -158,6 +159,7 @@ func (bs *BrandSeeder) Seed(db *gorm.DB) error {
 		// H Brands
 		{"H&M", "h-m", 1},
 		{"Haier", "haier", 1},
+		{"Hero", "hero", 1},
 		{"Harley-Davidson", "harley-davidson", 1},
 		{"Havaianas", "havaianas", 1},
 		{"Heineken", "heineken", 1},
@@ -195,6 +197,7 @@ func (bs *BrandSeeder) Seed(db *gorm.DB) error {
 
 		// K Brands
 		{"Kawasaki", "kawasaki", 1},
+		{"KTM", "ktm", 1},
 		{"Kellogg's", "kellogg-s", 1},
 		{"Kenwood", "kenwood", 1},
 		{"Kering", "kering", 1},
@@ -318,6 +321,7 @@ func (bs *BrandSeeder) Seed(db *gorm.DB) error {
 		{"Rolex", "rolex", 1},
 		{"Rolls-Royce", "rolls-royce", 1},
 		{"Royal Enfield", "royal-enfield", 1},
+		{"Road Prince", "road-prince", 1},
 		{"Ryanair", "ryanair", 1},
 
 		// S Brands
@@ -346,6 +350,7 @@ func (bs *BrandSeeder) Seed(db *gorm.DB) error {
 		{"Subway", "subway", 1},
 		{"Sunglass Hut", "sunglass-hut", 1},
 		{"Suzuki", "suzuki", 1},
+		{"SYM", "sym", 1},
 		{"Swarovski", "swarovski", 1},
 
 		// T Brands

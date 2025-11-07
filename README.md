@@ -159,6 +159,44 @@ go run ./cmd/migrate/main.go -seed
 
 # 5. Verify setup
 go run ./cmd/seedtest/main.go
+
+### ✅ Seeding custom motorbikes dataset
+
+This project supports custom seeders. A motorbikes dataset is provided in JSON and the product seeder reads it automatically when you run the seeder tool.
+
+- Dataset path (relative to the `gocrit_server` root): `init-db/seeders/motorbikes.json`
+- What it contains: name_en, name_bn, brand, model, price, images (array of URLs).
+
+How to seed the motorbikes dataset:
+
+1. Make sure your `DATABASE_URL` env var is set (or a `.env` is present in `gocrit_server`).
+2. Run the seed command (this will run all seeders including the motorbikes seeder):
+
+```bash
+cd /d/GO/gocrit/gocrit_server
+go run ./cmd/migrate/main.go -seed
+```
+
+3. To perform a fresh setup (drop tables, migrate, then seed — DANGEROUS on production):
+
+```bash
+go run ./cmd/migrate/main.go -fresh-seed
+```
+
+4. Verify motorbikes were inserted (quick check using the verification tool or direct DB queries):
+
+```bash
+go run ./cmd/seedtest/main.go
+# SQL quick checks (psql / any DB client):
+# SELECT count(*) FROM products WHERE slug LIKE '%';
+# SELECT * FROM product_translations WHERE locale = 'bn' LIMIT 20;
+```
+
+Notes:
+- The seeder will skip creating a product if a product with the same slug already exists.
+- Images in the dataset use placeholder URLs by default; replace them with real S3 or hosted URLs if you have them.
+- To expand or edit the motorbikes list, modify `init-db/seeders/motorbikes.json` and re-run `-seed` (or `-fresh-seed` for a full refresh).
+
 ```
 
 **What's working:**

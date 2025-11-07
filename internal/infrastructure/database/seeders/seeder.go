@@ -203,11 +203,14 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Add all seeders in the correct order
 	manager.AddSeeder(NewCategorySeeder())
 	manager.AddSeeder(NewBrandSeeder())
+	manager.AddSeeder(NewUserSeeder())
 	manager.AddSeeder(NewSpecificationKeySeeder())
 	manager.AddSeeder(NewCategoryTranslationSeeder())
 	manager.AddSeeder(NewBrandTranslationSeeder())
 	manager.AddSeeder(NewSpecificationKeyTranslationSeeder())
 	manager.AddSeeder(NewBrandCategorySeeder())
+	// Products depend on categories and brands, so seed them after brand-category relations
+	manager.AddSeeder(NewProductSeeder())
 
 	return manager
 }

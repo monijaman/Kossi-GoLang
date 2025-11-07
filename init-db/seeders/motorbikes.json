@@ -1,0 +1,1898 @@
+[
+  {
+    "name_en": "Honda CD 70",
+    "name_bn": "হন্ডা সিডি ৭০",
+    "brand": "Honda",
+    "model": "CD 70",
+    "price": 85000,
+    "price_bn": "৮৫০০০"
+  },
+  {
+    "name_en": "Honda Livo",
+    "name_bn": "হন্ডা লাইভো",
+    "brand": "Honda",
+    "model": "Livo",
+    "price": 150000,
+    "price_bn": "১৫০০০০"
+  },
+  {
+    "name_en": "Honda CB125F",
+    "name_bn": "হন্ডা সিবি১২৫এফ",
+    "brand": "Honda",
+    "model": "CB125F",
+    "price": 155000,
+    "price_bn": "১৫৫০০০"
+  },
+  {
+    "name_en": "Honda CB Shine",
+    "name_bn": "হন্ডা সিবি শাইন",
+    "brand": "Honda",
+    "model": "CB Shine",
+    "price": 165000,
+    "price_bn": "১৬৫০০০"
+  },
+  {
+    "name_en": "Honda Dio",
+    "name_bn": "হন্ডা ডায়ো",
+    "brand": "Honda",
+    "model": "Dio",
+    "price": 140000,
+    "price_bn": "১৪০০০০"
+  },
+  {
+    "name_en": "Yamaha Saluto RX",
+    "name_bn": "ইয়ামাহা সালুটো আরএক্স",
+    "brand": "Yamaha",
+    "model": "Saluto RX",
+    "price": 125000,
+    "price_bn": "১২৫০০০"
+  },
+  {
+    "name_en": "Yamaha FZS",
+    "name_bn": "ইয়ামাহা এফজেডএস",
+    "brand": "Yamaha",
+    "model": "FZS",
+    "price": 285000,
+    "price_bn": "২৮৫০০০"
+  },
+  {
+    "name_en": "Yamaha Fazer",
+    "name_bn": "ইয়ামাহা ফেইজার",
+    "brand": "Yamaha",
+    "model": "Fazer",
+    "price": 270000,
+    "price_bn": "২৭০০০০"
+  },
+  {
+    "name_en": "Yamaha YBR 125",
+    "name_bn": "ইয়ামাহা ওয়াইবিআর ১২৫",
+    "brand": "Yamaha",
+    "model": "YBR 125",
+    "price": 135000,
+    "price_bn": "১৩৫০০০"
+  },
+  {
+    "name_en": "Suzuki Gixxer",
+    "name_bn": "সুজুকি গিক্সার",
+    "brand": "Suzuki",
+    "model": "Gixxer",
+    "price": 285000,
+    "price_bn": "২৮৫০০০"
+  },
+  {
+    "name_en": "Suzuki Gixxer SF",
+    "name_bn": "সুজুকি গিক্সার এসএফ",
+    "brand": "Suzuki",
+    "model": "Gixxer SF",
+    "price": 295000,
+    "price_bn": "২৯৫০০০"
+  },
+  {
+    "name_en": "Suzuki Hayate",
+    "name_bn": "সুজুকি হায়াটে",
+    "brand": "Suzuki",
+    "model": "Hayate",
+    "price": 120000,
+    "price_bn": "১২০০০০"
+  },
+  {
+    "name_en": "Suzuki Access 125",
+    "name_bn": "সুজুকি অ্যাক্সেস ১২৫",
+    "brand": "Suzuki",
+    "model": "Access 125",
+    "price": 180000,
+    "price_bn": "১৮০০০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar 150",
+    "name_bn": "বাজাজ পালসার ১৫০",
+    "brand": "Bajaj",
+    "model": "Pulsar 150",
+    "price": 220000,
+    "price_bn": "২২০০০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar 125",
+    "name_bn": "বাজাজ পালসার ১২৫",
+    "brand": "Bajaj",
+    "model": "Pulsar 125",
+    "price": 170000,
+    "price_bn": "১৭০০০০"
+  },
+  {
+    "name_en": "Bajaj Discover",
+    "name_bn": "বাজাজ ডিসকভার",
+    "brand": "Bajaj",
+    "model": "Discover",
+    "price": 155000,
+    "price_bn": "১৫৫০০০"
+  },
+  {
+    "name_en": "TVS Apache RTR 160",
+    "name_bn": "টিভিএস আপাচে আরটিআর ১৬০",
+    "brand": "TVS",
+    "model": "Apache RTR 160",
+    "price": 210000,
+    "price_bn": "২১০০০০"
+  },
+  {
+    "name_en": "TVS Apache RTR 180",
+    "name_bn": "টিভিএস আপাচে আরটিআর ১৮০",
+    "brand": "TVS",
+    "model": "Apache RTR 180",
+    "price": 235000,
+    "price_bn": "২৩৫০০০"
+  },
+  {
+    "name_en": "TVS Metro",
+    "name_bn": "টিভিএস মেট্রো",
+    "brand": "TVS",
+    "model": "Metro",
+    "price": 90000,
+    "price_bn": "৯০০০০"
+  },
+  {
+    "name_en": "TVS Jupiter",
+    "name_bn": "টিভিএস জুপিটার",
+    "brand": "TVS",
+    "model": "Jupiter",
+    "price": 185000,
+    "price_bn": "১৮৫০০০"
+  },
+  {
+    "name_en": "Hero Splendor Plus",
+    "name_bn": "হিরো স্প্লেন্ডার প্লাস",
+    "brand": "Hero",
+    "model": "Splendor Plus",
+    "price": 140000,
+    "price_bn": "১৪০০০০"
+  },
+  {
+    "name_en": "Hero Passion Pro",
+    "name_bn": "হিরো প্যাশন প্রো",
+    "brand": "Hero",
+    "model": "Passion Pro",
+    "price": 150000,
+    "price_bn": "১৫০০০০"
+  },
+  {
+    "name_en": "Hero HF Deluxe",
+    "name_bn": "হিরো এইচএফ ডিলাক্স",
+    "brand": "Hero",
+    "model": "HF Deluxe",
+    "price": 130000,
+    "price_bn": "১৩০০০০"
+  },
+  {
+    "name_en": "Royal Enfield Classic 350",
+    "name_bn": "রয়াল এনফিল্ড ক্লাসিক ৩৫০",
+    "brand": "Royal Enfield",
+    "model": "Classic 350",
+    "price": 650000,
+    "price_bn": "৬৫০০০০"
+  },
+  {
+    "name_en": "Royal Enfield Meteor 350",
+    "name_bn": "রয়াল এনফিল্ড মিটিওর ৩৫০",
+    "brand": "Royal Enfield",
+    "model": "Meteor 350",
+    "price": 680000,
+    "price_bn": "৬৮০০০০"
+  },
+  {
+    "name_en": "Runner Hunter",
+    "name_bn": "রানার হান্টার",
+    "brand": "Runner",
+    "model": "Hunter",
+    "price": 95000,
+    "price_bn": "৯৫০০০"
+  },
+  {
+    "name_en": "Runner Boxer",
+    "name_bn": "রানার বক্সার",
+    "brand": "Runner",
+    "model": "Boxer",
+    "price": 88000,
+    "price_bn": "৮৮০০০"
+  },
+  {
+    "name_en": "Walton Primo",
+    "name_bn": "ওয়ালটন প্রিমো",
+    "brand": "Walton",
+    "model": "Primo",
+    "price": 98000,
+    "price_bn": "৯৮০০০"
+  },
+  {
+    "name_en": "Honda Activa",
+    "name_bn": "হন্ডা অ্যাকটিভা",
+    "brand": "Honda",
+    "model": "Activa",
+    "price": 165000,
+    "price_bn": "১৬৫০০০"
+  },
+  {
+    "name_en": "Yamaha Fascino",
+    "name_bn": "ইয়ামাহা ফ্যাসিনো",
+    "brand": "Yamaha",
+    "model": "Fascino",
+    "price": 170000,
+    "price_bn": "১৭০০০০"
+  },
+  {
+    "name_en": "Suzuki Burgman Street",
+    "name_bn": "সুজুকি বার্গম্যান স্ট্রিট",
+    "brand": "Suzuki",
+    "model": "Burgman Street",
+    "price": 200000,
+    "price_bn": "২০০০০০"
+  },
+  {
+    "name_en": "KTM Duke 200",
+    "name_bn": "কেটিএম ডিউক ২০০",
+    "brand": "KTM",
+    "model": "Duke 200",
+    "price": 850000,
+    "price_bn": "৮৫০০০০"
+  },
+  {
+    "name_en": "Kawasaki Ninja 300",
+    "name_bn": "কাওয়াসাকি নিনজা ৩০০",
+    "brand": "Kawasaki",
+    "model": "Ninja 300",
+    "price": 1200000,
+    "price_bn": "১২০০০০০"
+  },
+  {
+    "name_en": "Honda XBlade",
+    "name_bn": "হন্ডা এক্সব্লেড",
+    "brand": "Honda",
+    "model": "XBlade",
+    "price": 220000,
+    "price_bn": "২২০০০০"
+  },
+  {
+    "name_en": "Honda SP 125",
+    "name_bn": "হন্ডা এসপি ১২৫",
+    "brand": "Honda",
+    "model": "SP 125",
+    "price": 160000,
+    "price_bn": "১৬০০০০"
+  },
+  {
+    "name_en": "Bajaj CT 100",
+    "name_bn": "বাজাজ সিটি ১০০",
+    "brand": "Bajaj",
+    "model": "CT 100",
+    "price": 75000,
+    "price_bn": "৭৫০০০"
+  },
+  {
+    "name_en": "Bajaj Platina 100",
+    "name_bn": "বাজাজ প্লাটিনা ১০০",
+    "brand": "Bajaj",
+    "model": "Platina 100",
+    "price": 82000,
+    "price_bn": "৮২০০০"
+  },
+  {
+    "name_en": "Yamaha R15",
+    "name_bn": "ইয়ামাহা আর১৫",
+    "brand": "Yamaha",
+    "model": "R15",
+    "price": 550000,
+    "price_bn": "৫৫০০০০"
+  },
+  {
+    "name_en": "Suzuki GS150R",
+    "name_bn": "সুজুকি জিএস১৫০আর",
+    "brand": "Suzuki",
+    "model": "GS150R",
+    "price": 210000,
+    "price_bn": "২১০০০০"
+  },
+  {
+    "name_en": "Road Prince Wego",
+    "name_bn": "Road Prince Wego",
+    "brand": "Road Prince",
+    "model": "Wego",
+    "price": 90000,
+    "price_bn": "৯০০০০"
+  },
+  {
+    "name_en": "Road Prince Classic",
+    "name_bn": "রোড প্রিন্স ক্লাসিক",
+    "brand": "Road Prince",
+    "model": "Classic",
+    "price": 115000,
+    "price_bn": "১১৫০০০"
+  },
+  {
+    "name_en": "SYM Symphony ST",
+    "name_bn": "এসওয়াইএম সিম্ফনি এসটি",
+    "brand": "SYM",
+    "model": "Symphony ST",
+    "price": 95000,
+    "price_bn": "৯৫০০০"
+  },
+  {
+    "name_en": "Benelli TNT 25",
+    "name_bn": "বেনেলি টিএনটি ২৫",
+    "brand": "Benelli",
+    "model": "TNT 25",
+    "price": 480000,
+    "price_bn": "৪৮০০০০"
+  },
+  {
+    "name_en": "Suzuki GSX-R150 ABS",
+    "name_bn": "সুজুকি জিএসএক্স-আর১৫০ এবিএস",
+    "brand": "Suzuki",
+    "model": "GSX-R150 ABS",
+    "price": 524950,
+    "price_bn": "৫২৪৯৫০"
+  },
+  {
+    "name_en": "Suzuki Gixxer SF 250 (Special Edition)",
+    "name_bn": "সুজুকি গিক্সার এসএফ ২৫০ (স্পেশাল এডিশন)",
+    "brand": "Suzuki",
+    "model": "Gixxer SF 250 Special Edition",
+    "price": 429950,
+    "price_bn": "৪২৯৯৫০"
+  },
+  {
+    "name_en": "Suzuki Gixxer SF 250",
+    "name_bn": "সুজুকি গিক্সার এসএফ ২৫০",
+    "brand": "Suzuki",
+    "model": "Gixxer SF 250",
+    "price": 429950,
+    "price_bn": "৪২৯৯৫০"
+  },
+  {
+    "name_en": "Suzuki Gixxer 250",
+    "name_bn": "সুজুকি গিক্সার ২৫০",
+    "brand": "Suzuki",
+    "model": "Gixxer 250",
+    "price": 379950,
+    "price_bn": "৩৭৯৯৫০"
+  },
+  {
+    "name_en": "New Suzuki Gixxer SF Fi ABS",
+    "name_bn": "নিউ সুজুকি গিক্সার এসএফ এফআই এবিএস",
+    "brand": "Suzuki",
+    "model": "Gixxer SF Fi ABS",
+    "price": 349950,
+    "price_bn": "৩৪৯৯৫০"
+  },
+  {
+    "name_en": "Suzuki Gixxer SF FI Disc",
+    "name_bn": "সুজুকি গিক্সার এসএফ এফআই Disc",
+    "brand": "Suzuki",
+    "model": "Gixxer SF FI Disc",
+    "price": 319950,
+    "price_bn": "৩১৯৯৫০"
+  },
+  {
+    "name_en": "Suzuki Intruder FI ABS",
+    "name_bn": "সুজুকি Intruder এফআই এবিএস",
+    "brand": "Suzuki",
+    "model": "Intruder FI ABS",
+    "price": 319950,
+    "price_bn": "৩১৯৯৫০"
+  },
+  {
+    "name_en": "New Suzuki Gixxer Fi ABS",
+    "name_bn": "নিউ সুজুকি গিক্সার এফআই এবিএস",
+    "brand": "Suzuki",
+    "model": "Gixxer Fi ABS",
+    "price": 279950,
+    "price_bn": "২৭৯৯৫০"
+  },
+  {
+    "name_en": "Suzuki Gixxer FI Disc",
+    "name_bn": "সুজুকি গিক্সার এফআই Disc",
+    "brand": "Suzuki",
+    "model": "Gixxer FI Disc",
+    "price": 249950,
+    "price_bn": "২৪৯৯৫০"
+  },
+  {
+    "name_en": "Suzuki Burgman 125 FI Ride Connect",
+    "name_bn": "সুজুকি Burgman ১২৫ এফআই Ride Connect",
+    "brand": "Suzuki",
+    "model": "Burgman 125 FI Ride Connect",
+    "price": 240000,
+    "price_bn": "২৪০০০০"
+  },
+  {
+    "name_en": "Suzuki Gixxer Carb Disc",
+    "name_bn": "সুজুকি গিক্সার Carb Disc",
+    "brand": "Suzuki",
+    "model": "Gixxer Carb Disc",
+    "price": 237950,
+    "price_bn": "২৩৭৯৫০"
+  },
+  {
+    "name_en": "Suzuki Gixxer Monotone",
+    "name_bn": "সুজুকি গিক্সার Monotone",
+    "brand": "Suzuki",
+    "model": "Gixxer Monotone",
+    "price": 205950,
+    "price_bn": "২০৫৯৫০"
+  },
+  {
+    "name_en": "Yamaha R15M BS7",
+    "name_bn": "ইয়ামাহা আর১৫এম বিএস৭",
+    "brand": "Yamaha",
+    "model": "R15M BS7",
+    "price": 678000,
+    "price_bn": "৬৭৮০০০"
+  },
+  {
+    "name_en": "Yamaha R15 V4 BS7",
+    "name_bn": "ইয়ামাহা আর১৫ ভি৪ বিএস৭",
+    "brand": "Yamaha",
+    "model": "R15 V4 BS7",
+    "price": 660000,
+    "price_bn": "৬৬০০০০"
+  },
+  {
+    "name_en": "Yamaha R15M",
+    "name_bn": "ইয়ামাহা আর১৫এম",
+    "brand": "Yamaha",
+    "model": "R15M",
+    "price": 625000,
+    "price_bn": "৬২৫০০০"
+  },
+  {
+    "name_en": "Yamaha R15 V4",
+    "name_bn": "ইয়ামাহা আর১৫ ভি৪",
+    "brand": "Yamaha",
+    "model": "R15 V4",
+    "price": 610000,
+    "price_bn": "৬১০০০০"
+  },
+  {
+    "name_en": "Yamaha R15 V3 Indonesia",
+    "name_bn": "ইয়ামাহা আর১৫ ভি৩ Indonesia",
+    "brand": "Yamaha",
+    "model": "R15 V3 Indonesia",
+    "price": 550000,
+    "price_bn": "৫৫০০০০"
+  },
+  {
+    "name_en": "Yamaha XSR 155",
+    "name_bn": "ইয়ামাহা এক্সএসআর ১৫৫",
+    "brand": "Yamaha",
+    "model": "XSR 155",
+    "price": 545000,
+    "price_bn": "৫৪৫০০০"
+  },
+  {
+    "name_en": "Yamaha MT-15 V2 (Cyan Storm & Ice Fluo Vermillion)",
+    "name_bn": "ইয়ামাহা এমটি-১৫ ভি২ (Cyan Storm & Ice Fluo Vermillion)",
+    "brand": "Yamaha",
+    "model": "MT-15 V2",
+    "price": 533000,
+    "price_bn": "৫৩৩০০০"
+  },
+  {
+    "name_en": "Yamaha Aerox 155",
+    "name_bn": "ইয়ামাহা Aerox ১৫৫",
+    "brand": "Yamaha",
+    "model": "Aerox 155",
+    "price": 525000,
+    "price_bn": "৫২৫০০০"
+  },
+  {
+    "name_en": "R15 V3 Indian Version Dual ABS",
+    "name_bn": "আর১৫ ভি৩ Indian Version Dual এবিএস",
+    "brand": "Yamaha",
+    "model": "R15 V3 Indian Version Dual ABS",
+    "price": 525000,
+    "price_bn": "৫২৫০০০"
+  },
+  {
+    "name_en": "Yamaha MT 15",
+    "name_bn": "ইয়ামাহা এমটি ১৫",
+    "brand": "Yamaha",
+    "model": "MT 15",
+    "price": 460000,
+    "price_bn": "৪৬০০০০"
+  },
+  {
+    "name_en": "Yamaha FZ 25",
+    "name_bn": "ইয়ামাহা এফজেড ২৫",
+    "brand": "Yamaha",
+    "model": "FZ 25",
+    "price": 399000,
+    "price_bn": "৩৯৯০০০"
+  },
+  {
+    "name_en": "Yamaha FZ25",
+    "name_bn": "ইয়ামাহা এফজেড২৫",
+    "brand": "Yamaha",
+    "model": "FZ25",
+    "price": 399000,
+    "price_bn": "৩৯৯০০০"
+  },
+  {
+    "name_en": "Yamaha FZ-X",
+    "name_bn": "ইয়ামাহা এফজেড-এক্স",
+    "brand": "Yamaha",
+    "model": "FZ-X",
+    "price": 302500,
+    "price_bn": "৩০২৫০০"
+  },
+  {
+    "name_en": "Yamaha Fzs V4",
+    "name_bn": "ইয়ামাহা Fzs ভি৪",
+    "brand": "Yamaha",
+    "model": "Fzs V4",
+    "price": 298000,
+    "price_bn": "২৯৮০০০"
+  },
+  {
+    "name_en": "Yamaha FZs Fi Deluxe",
+    "name_bn": "ইয়ামাহা FZs এফআই Deluxe",
+    "brand": "Yamaha",
+    "model": "FZs Fi Deluxe",
+    "price": 271000,
+    "price_bn": "২৭১০০০"
+  },
+  {
+    "name_en": "Yamaha Fazer FI V2",
+    "name_bn": "ইয়ামাহা Fazer এফআই ভি২",
+    "brand": "Yamaha",
+    "model": "Fazer FI V2",
+    "price": 270000,
+    "price_bn": "২৭০০০০"
+  },
+  {
+    "name_en": "Yamaha Ray ZR 125 Fi",
+    "name_bn": "ইয়ামাহা Ray জেডআর ১২৫ এফআই",
+    "brand": "Yamaha",
+    "model": "Ray ZR 125 Fi",
+    "price": 270000,
+    "price_bn": "২৭০০০০"
+  },
+  {
+    "name_en": "Yamaha Fzs V3 Bs6",
+    "name_bn": "ইয়ামাহা Fzs ভি৩ Bs৬",
+    "brand": "Yamaha",
+    "model": "Fzs V3 Bs6",
+    "price": 268000,
+    "price_bn": "২৬৮০০০"
+  },
+  {
+    "name_en": "Yamaha FZS V3 ABS BS4",
+    "name_bn": "ইয়ামাহা এফজেডএস ভি৩ এবিএস বিএস৪",
+    "brand": "Yamaha",
+    "model": "FZS V3 ABS BS4",
+    "price": 258500,
+    "price_bn": "২৫৮৫০০"
+  },
+  {
+    "name_en": "Yamaha FZS V3 ABS Vintage Edition",
+    "name_bn": "ইয়ামাহা এফজেডএস ভি৩ এবিএস Vintage এডিশন",
+    "brand": "Yamaha",
+    "model": "FZS V3 ABS Vintage Edition",
+    "price": 252500,
+    "price_bn": "২৫২৫০০"
+  },
+  {
+    "name_en": "Yamaha FZS FI Double Disc",
+    "name_bn": "ইয়ামাহা এফজেডএস এফআই Double Disc",
+    "brand": "Yamaha",
+    "model": "FZS FI Double Disc",
+    "price": 236500,
+    "price_bn": "২৩৬৫০০"
+  },
+  {
+    "name_en": "Yamaha Ray ZR Street Rally",
+    "name_bn": "ইয়ামাহা Ray জেডআর স্ট্রিট Rally",
+    "brand": "Yamaha",
+    "model": "Ray ZR Street Rally",
+    "price": 225000,
+    "price_bn": "২২৫০০০"
+  },
+  {
+    "name_en": "Yamaha Saluto 125",
+    "name_bn": "ইয়ামাহা Saluto ১২৫",
+    "brand": "Yamaha",
+    "model": "Saluto 125",
+    "price": 163500,
+    "price_bn": "১৬৩৫০০"
+  },
+  {
+    "name_en": "Honda CB150R Exmotion",
+    "name_bn": "হন্ডা সিবি১৫০R Exmotion",
+    "brand": "Honda",
+    "model": "CB150R Exmotion",
+    "price": 755000,
+    "price_bn": "৭৫৫০০০"
+  },
+  {
+    "name_en": "New Honda CBR 150R Victoy Red Black",
+    "name_bn": "নিউ হন্ডা সিবিR ১৫০R Victoy রেড Black",
+    "brand": "Honda",
+    "model": "CBR 150R Victoy Red Black",
+    "price": 600000,
+    "price_bn": "৬০০০০০"
+  },
+  {
+    "name_en": "Honda CB150X",
+    "name_bn": "হন্ডা সিবি১৫০এক্স",
+    "brand": "Honda",
+    "model": "CB150X",
+    "price": 520000,
+    "price_bn": "৫২০০০০"
+  },
+  {
+    "name_en": "Honda PCX 150",
+    "name_bn": "হন্ডা পিসিএক্স ১৫০",
+    "brand": "Honda",
+    "model": "PCX 150",
+    "price": 510000,
+    "price_bn": "৫১০০০০"
+  },
+  {
+    "name_en": "Honda CRF 150L",
+    "name_bn": "হন্ডা সিআরএফ ১৫০এল",
+    "brand": "Honda",
+    "model": "CRF 150L",
+    "price": 495000,
+    "price_bn": "৪৯৫০০০"
+  },
+  {
+    "name_en": "Honda ADV 150 2021",
+    "name_bn": "হন্ডা এডিভি ১৫০ ২০২১",
+    "brand": "Honda",
+    "model": "ADV 150 2021",
+    "price": 475000,
+    "price_bn": "৪৭৫০০০"
+  },
+  {
+    "name_en": "Honda Super Cub C125 ABS",
+    "name_bn": "হন্ডা Super Cub সি১২৫ এবিএস",
+    "brand": "Honda",
+    "model": "Super Cub C125 ABS",
+    "price": 450000,
+    "price_bn": "৪৫০০০০"
+  },
+  {
+    "name_en": "Honda Vario 160 ABS",
+    "name_bn": "হন্ডা Vario ১৬০ এবিএস",
+    "brand": "Honda",
+    "model": "Vario 160 ABS",
+    "price": 445000,
+    "price_bn": "৪৪৫০০০"
+  },
+  {
+    "name_en": "Honda CB150R Streetfire",
+    "name_bn": "হন্ডা সিবি১৫০R স্ট্রিটfire",
+    "brand": "Honda",
+    "model": "CB150R Streetfire",
+    "price": 380000,
+    "price_bn": "৩৮০০০০"
+  },
+  {
+    "name_en": "Honda Hornet 2.0",
+    "name_bn": "হন্ডা Hornet ২.০",
+    "brand": "Honda",
+    "model": "Hornet 2.0",
+    "price": 289000,
+    "price_bn": "২৮৯০০০"
+  },
+  {
+    "name_en": "Honda X-Blade 160 Fi ABS",
+    "name_bn": "হন্ডা এক্সব্লেড ১৬০ এফআই এবিএস",
+    "brand": "Honda",
+    "model": "X-Blade 160 Fi ABS",
+    "price": 240000,
+    "price_bn": "২৪০০০০"
+  },
+  {
+    "name_en": "Honda X-Blade 160 ABS",
+    "name_bn": "হন্ডা এক্সব্লেড ১৬০ এবিএস",
+    "brand": "Honda",
+    "model": "X-Blade 160 ABS",
+    "price": 232000,
+    "price_bn": "২৩২০০০"
+  },
+  {
+    "name_en": "Honda SP160 (Double Disc)",
+    "name_bn": "হন্ডা এসপি১৬০ (Double Disc)",
+    "brand": "Honda",
+    "model": "SP160 (Double Disc)",
+    "price": 225000,
+    "price_bn": "২২৫০০০"
+  },
+  {
+    "name_en": "Honda Activa 125 Fi BS6",
+    "name_bn": "হন্ডা Activa ১২৫ এফআই BS৬",
+    "brand": "Honda",
+    "model": "Activa 125 Fi BS6",
+    "price": 225000,
+    "price_bn": "২২৫০০০"
+  },
+  {
+    "name_en": "Honda Dio",
+    "name_bn": "হন্ডা Dio",
+    "brand": "Honda",
+    "model": "Dio",
+    "price": 199000,
+    "price_bn": "১৯৯০০০"
+  },
+  {
+    "name_en": "Honda SP160 (Single Disc)",
+    "name_bn": "হন্ডা এসপি১৬০ (Single Disc)",
+    "brand": "Honda",
+    "model": "SP160 (Single Disc)",
+    "price": 199000,
+    "price_bn": "১৯৯০০০"
+  },
+  {
+    "name_en": "New Honda XBlade 160 2024",
+    "name_bn": "নিউ হন্ডা এক্সব্লেড ১৬০ ২০২৪",
+    "brand": "Honda",
+    "model": "XBlade 160 2024",
+    "price": 195000,
+    "price_bn": "১৯৫০০০"
+  },
+  {
+    "name_en": "Honda X-Blade 160",
+    "name_bn": "হন্ডা এক্সব্লেড ১৬০",
+    "brand": "Honda",
+    "model": "X-Blade 160",
+    "price": 192500,
+    "price_bn": "১৯২৫০০"
+  },
+  {
+    "name_en": "Honda SP125",
+    "name_bn": "হন্ডা এসপি১২৫",
+    "brand": "Honda",
+    "model": "SP125",
+    "price": 165000,
+    "price_bn": "১৬৫০০০"
+  },
+  {
+    "name_en": "Honda CB Shine SP",
+    "name_bn": "হন্ডা সিবি Shine এসপি",
+    "brand": "Honda",
+    "model": "CB Shine SP",
+    "price": 151000,
+    "price_bn": "১৫১০০০"
+  },
+  {
+    "name_en": "Honda Livo 110 Disc CBS",
+    "name_bn": "হন্ডা Livo ১১০ Disc সিবিS",
+    "brand": "Honda",
+    "model": "Livo 110 Disc CBS",
+    "price": 145000,
+    "price_bn": "১৪৫০০০"
+  },
+  {
+    "name_en": "Honda Dream 110",
+    "name_bn": "হন্ডা Dream ১১০",
+    "brand": "Honda",
+    "model": "Dream 110",
+    "price": 121000,
+    "price_bn": "১২১০০০"
+  },
+  {
+    "name_en": "Honda Shine 100",
+    "name_bn": "হন্ডা Shine ১০০",
+    "brand": "Honda",
+    "model": "Shine 100",
+    "price": 109000,
+    "price_bn": "১০৯০০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar F250",
+    "name_bn": "বাজাজ Pulsar এফ২৫০",
+    "brand": "Bajaj",
+    "model": "Pulsar F250",
+    "price": 365100,
+    "price_bn": "৩৬৫১০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar F250 (Red)",
+    "name_bn": "বাজাজ Pulsar এফ২৫০ (রেড)",
+    "brand": "Bajaj",
+    "model": "Pulsar F250 (Red)",
+    "price": 365100,
+    "price_bn": "৩৬৫১০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar N250",
+    "name_bn": "বাজাজ Pulsar এন২৫০",
+    "brand": "Bajaj",
+    "model": "Pulsar N250",
+    "price": 330100,
+    "price_bn": "৩৩০১০০"
+  },
+  {
+    "name_en": "Bajaj Avenger 160 ABS",
+    "name_bn": "বাজাজ Avenger ১৬০ এবিএস",
+    "brand": "Bajaj",
+    "model": "Avenger 160 ABS",
+    "price": 274000,
+    "price_bn": "২৭৪০০০"
+  },
+  {
+    "name_en": "New Bajaj Pulsar N160",
+    "name_bn": "নিউ বাজাজ Pulsar এন১৬০",
+    "brand": "Bajaj",
+    "model": "Pulsar N160",
+    "price": 273600,
+    "price_bn": "২৭৩৬০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar N160 Twin Disc Carburetor",
+    "name_bn": "বাজাজ Pulsar এন১৬০ Twin Disc Carburetor",
+    "brand": "Bajaj",
+    "model": "Pulsar N160 Twin Disc Carburetor",
+    "price": 237000,
+    "price_bn": "২৩৭০০০"
+  },
+  {
+    "name_en": "Pulsar 150 Twin Disc ABS",
+    "name_bn": "Pulsar ১৫০ Twin Disc এবিএস",
+    "brand": "Bajaj",
+    "model": "Pulsar 150 Twin Disc ABS",
+    "price": 227000,
+    "price_bn": "২২৭০০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar 150 Twin Disc",
+    "name_bn": "বাজাজ Pulsar ১৫০ Twin Disc",
+    "brand": "Bajaj",
+    "model": "Pulsar 150 Twin Disc",
+    "price": 217000,
+    "price_bn": "২১৭০০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar 150 Single Disc ABS",
+    "name_bn": "বাজাজ Pulsar ১৫০ Single Disc এবিএস",
+    "brand": "Bajaj",
+    "model": "Pulsar 150 Single Disc ABS",
+    "price": 210000,
+    "price_bn": "২১০০০০"
+  },
+  {
+    "name_en": "Bajaj Pulsar 150",
+    "name_bn": "বাজাজ Pulsar ১৫০",
+    "brand": "Bajaj",
+    "model": "Pulsar 150",
+    "price": 199850,
+    "price_bn": "১৯৯৮৫০"
+  },
+  {
+    "name_en": "Bajaj Pulsar NS125",
+    "name_bn": "বাজাজ Pulsar NS১২৫",
+    "brand": "Bajaj",
+    "model": "Pulsar NS125",
+    "price": 179850,
+    "price_bn": "১৭৯৮৫০"
+  },
+  {
+    "name_en": "Bajaj Discover 125 Disc",
+    "name_bn": "বাজাজ Discover ১২৫ Disc",
+    "brand": "Bajaj",
+    "model": "Discover 125 Disc",
+    "price": 160600,
+    "price_bn": "১৬০৬০০"
+  },
+  {
+    "name_en": "Bajaj Discover 110 Disc",
+    "name_bn": "বাজাজ Discover ১১০ Disc",
+    "brand": "Bajaj",
+    "model": "Discover 110 Disc",
+    "price": 154100,
+    "price_bn": "১৫৪১০০"
+  },
+  {
+    "name_en": "Bajaj Platina 110 ES",
+    "name_bn": "বাজাজ Platina ১১০ ইএস",
+    "brand": "Bajaj",
+    "model": "Platina 110 ES",
+    "price": 140100,
+    "price_bn": "১৪০১০০"
+  },
+  {
+    "name_en": "Bajaj Platina 110 H Gear",
+    "name_bn": "বাজাজ Platina ১১০ H Gear",
+    "brand": "Bajaj",
+    "model": "Platina 110 H Gear",
+    "price": 140000,
+    "price_bn": "১৪০০০০"
+  },
+  {
+    "name_en": "Bajaj Platina ES",
+    "name_bn": "বাজাজ Platina ইএস",
+    "brand": "Bajaj",
+    "model": "Platina ES",
+    "price": 134350,
+    "price_bn": "১৩৪৩৫০"
+  },
+  {
+    "name_en": "Bajaj CT 100 ES",
+    "name_bn": "বাজাজ সিটি ১০০ ইএস",
+    "brand": "Bajaj",
+    "model": "CT 100 ES",
+    "price": 120100,
+    "price_bn": "১২০১০০"
+  },
+  {
+    "name_en": "Royal Enfield Meteor 350 (Supernova)",
+    "name_bn": "রয়াল এনফিল্ড Meteor ৩৫০ (সুপারনোভা)",
+    "brand": "Royal Enfield",
+    "model": "Meteor 350 (Supernova)",
+    "price": 508000,
+    "price_bn": "৫০৮০০০"
+  },
+  {
+    "name_en": "Royal Enfield Classic 350 (Chrome Red/Bronze)",
+    "name_bn": "রয়াল এনফিল্ড ক্লাসিক ৩৫০ (Chrome রেড/Bronze)",
+    "brand": "Royal Enfield",
+    "model": "Classic 350 (Chrome Red/Bronze)",
+    "price": 483000,
+    "price_bn": "৪৮৩০০০"
+  },
+  {
+    "name_en": "Royal Enfield Meteor 350 (Stellar)",
+    "name_bn": "রয়াল এনফিল্ড Meteor ৩৫০ (Stellar)",
+    "brand": "Royal Enfield",
+    "model": "Meteor 350 (Stellar)",
+    "price": 483000,
+    "price_bn": "৪৮৩০০০"
+  },
+  {
+    "name_en": "Royal Enfield Classic 350 Dark (Gun Metal Grey/Stealth Black)",
+    "name_bn": "রয়াল এনফিল্ড ক্লাসিক ৩৫০ Dark (Gun Metal Grey/Stealth Black)",
+    "brand": "Royal Enfield",
+    "model": "Classic 350 Dark (Gun Metal Grey/Stealth Black)",
+    "price": 447700,
+    "price_bn": "৪৪৭৭০০"
+  },
+  {
+    "name_en": "Royal Enfield Classic 350 (Halcyon Green/Black)",
+    "name_bn": "রয়াল এনফিল্ড ক্লাসিক ৩৫০ (Halcyon Green/Black)",
+    "brand": "Royal Enfield",
+    "model": "Classic 350 (Halcyon Green/Black)",
+    "price": 432500,
+    "price_bn": "৪৩২৫০০"
+  },
+  {
+    "name_en": "Royal Enfield Bullet 350",
+    "name_bn": "রয়াল এনফিল্ড বুলেট ৩৫০",
+    "brand": "Royal Enfield",
+    "model": "Bullet 350",
+    "price": 417500,
+    "price_bn": "৪১৭৫০০"
+  },
+  {
+    "name_en": "Royal Enfield Hunter 350 (Rebel Blue/Rebel Red/Black)",
+    "name_bn": "রয়াল এনফিল্ড হান্টার ৩৫০ (Rebel Blue/Rebel রেড/Black)",
+    "brand": "Royal Enfield",
+    "model": "Hunter 350 (Rebel Blue/Rebel Red/Black)",
+    "price": 371500,
+    "price_bn": "৩৭১৫০০"
+  },
+  {
+    "name_en": "KTM RC 125 2022",
+    "name_bn": "কেটিএম আরসি ১২৫ ২০২২",
+    "brand": "KTM",
+    "model": "RC 125 2022",
+    "price": 443000,
+    "price_bn": "৪৪৩০০০"
+  },
+  {
+    "name_en": "KTM Duke 125 European Edition",
+    "name_bn": "কেটিএম Duke ১২৫ European এডিশন",
+    "brand": "KTM",
+    "model": "Duke 125 European Edition",
+    "price": 370000,
+    "price_bn": "৩৭০০০০"
+  },
+  {
+    "name_en": "KTM Duke 125 Indian",
+    "name_bn": "কেটিএম Duke ১২৫ Indian",
+    "brand": "KTM",
+    "model": "Duke 125 Indian",
+    "price": 300000,
+    "price_bn": "৩০০০০০"
+  },
+  {
+    "name_en": "TVS Apache RTR 160 4V Fi",
+    "name_bn": "টিভিএস Apache আরটিআর ১৬০ ৪V এফআই",
+    "brand": "TVS",
+    "model": "Apache RTR 160 4V Fi",
+    "price": 274900,
+    "price_bn": "২৭৪৯০০"
+  },
+  {
+    "name_en": "New TVS Apache RTR 160 4V (Single Channel ABS)",
+    "name_bn": "নিউ টিভিএস Apache আরটিআর ১৬০ ৪V (Single Channel এবিএস)",
+    "brand": "TVS",
+    "model": "Apache RTR 160 4V (Single Channel ABS)",
+    "price": 247900,
+    "price_bn": "২৪৭৯০০"
+  },
+  {
+    "name_en": "New TVS Apache RTR 160 4V",
+    "name_bn": "নিউ টিভিএস Apache আরটিআর ১৬০ ৪V",
+    "brand": "TVS",
+    "model": "Apache RTR 160 4V",
+    "price": 219900,
+    "price_bn": "২১৯৯০০"
+  },
+  {
+    "name_en": "TVS Ntorq 125",
+    "name_bn": "টিভিএস Ntorq ১২৫",
+    "brand": "TVS",
+    "model": "Ntorq 125",
+    "price": 204900,
+    "price_bn": "২০৪৯০০"
+  },
+  {
+    "name_en": "TVS Apache RTR 160 2v Refresh (X-connect)",
+    "name_bn": "টিভিএস Apache আরটিআর ১৬০ ২v Refresh (X-connect)",
+    "brand": "TVS",
+    "model": "Apache RTR 160 2v Refresh (X-connect)",
+    "price": 199900,
+    "price_bn": "১৯৯৯০০"
+  },
+  {
+    "name_en": "TVS Apache RTR 160 2V ABS",
+    "name_bn": "টিভিএস Apache আরটিআর ১৬০ ২V এবিএস",
+    "brand": "TVS",
+    "model": "Apache RTR 160 2V ABS",
+    "price": 194999,
+    "price_bn": "১৯৪৯৯৯"
+  },
+  {
+    "name_en": "TVS Apache RTR 160 2V Single Disc",
+    "name_bn": "টিভিএস Apache আরটিআর ১৬০ ২V Single Disc",
+    "brand": "TVS",
+    "model": "Apache RTR 160 2V Single Disc",
+    "price": 189999,
+    "price_bn": "১৮৯৯৯৯"
+  },
+  {
+    "name_en": "TVS Raider 125",
+    "name_bn": "টিভিএস Raider ১২৫",
+    "brand": "TVS",
+    "model": "Raider 125",
+    "price": 169900,
+    "price_bn": "১৬৯৯০০"
+  },
+  {
+    "name_en": "TVS Wego",
+    "name_bn": "টিভিএস Wego",
+    "brand": "TVS",
+    "model": "Wego",
+    "price": 164999,
+    "price_bn": "১৬৪৯৯৯"
+  },
+  {
+    "name_en": "TVS Rockz 125",
+    "name_bn": "টিভিএস Rockz ১২৫",
+    "brand": "TVS",
+    "model": "Rockz 125",
+    "price": 153900,
+    "price_bn": "১৫৩৯০০"
+  },
+  {
+    "name_en": "TVS Stryker 125",
+    "name_bn": "টিভিএস Stryker ১২৫",
+    "brand": "TVS",
+    "model": "Stryker 125",
+    "price": 144999,
+    "price_bn": "১৪৪৯৯৯"
+  },
+  {
+    "name_en": "TVS Max 125",
+    "name_bn": "টিভিএস Max ১২৫",
+    "brand": "TVS",
+    "model": "Max 125",
+    "price": 144900,
+    "price_bn": "১৪৪৯০০"
+  },
+  {
+    "name_en": "TVS Max Semi Trail 125",
+    "name_bn": "টিভিএস Max Semi Trail ১২৫",
+    "brand": "TVS",
+    "model": "Max Semi Trail 125",
+    "price": 127990,
+    "price_bn": "১২৭৯৯০"
+  },
+  {
+    "name_en": "TVS Metro Plus",
+    "name_bn": "টিভিএস Metro Plus",
+    "brand": "TVS",
+    "model": "Metro Plus",
+    "price": 124999,
+    "price_bn": "১২৪৯৯৯"
+  },
+  {
+    "name_en": "TVS Radeon",
+    "name_bn": "টিভিএস Radeon",
+    "brand": "TVS",
+    "model": "Radeon",
+    "price": 120999,
+    "price_bn": "১২০৯৯৯"
+  },
+  {
+    "name_en": "TVS Metro",
+    "name_bn": "টিভিএস Metro",
+    "brand": "TVS",
+    "model": "Metro",
+    "price": 114900,
+    "price_bn": "১১৪৯০০"
+  },
+  {
+    "name_en": "TVS XL 100 Comfort",
+    "name_bn": "টিভিএস এক্সএল ১০০ Comfort",
+    "brand": "TVS",
+    "model": "XL 100 Comfort",
+    "price": 103900,
+    "price_bn": "১০৩৯০০"
+  },
+  {
+    "name_en": "TVS XL 100 i-Touch",
+    "name_bn": "টিভিএস এক্সএল ১০০ i-টিouch",
+    "brand": "TVS",
+    "model": "XL 100 i-Touch",
+    "price": 95999,
+    "price_bn": "৯৫৯৯৯"
+  },
+  {
+    "name_en": "Runner Bolt 165R",
+    "name_bn": "রানার Bolt ১৬৫R",
+    "brand": "Runner",
+    "model": "Bolt 165R",
+    "price": 189000,
+    "price_bn": "১৮৯০০০"
+  },
+  {
+    "name_en": "Runner Skooty 125",
+    "name_bn": "রানার Skooty ১২৫",
+    "brand": "Runner",
+    "model": "Skooty 125",
+    "price": 169000,
+    "price_bn": "১৬৯০০০"
+  },
+  {
+    "name_en": "Runner Knight Rider V2",
+    "name_bn": "রানার Knight রাইডার ভি২",
+    "brand": "Runner",
+    "model": "Knight Rider V2",
+    "price": 167000,
+    "price_bn": "১৬৭০০০"
+  },
+  {
+    "name_en": "Runner Knight Rider",
+    "name_bn": "রানার Knight রাইডার",
+    "brand": "Runner",
+    "model": "Knight Rider",
+    "price": 159000,
+    "price_bn": "১৫৯০০০"
+  },
+  {
+    "name_en": "Runner Turbo 125 Matt",
+    "name_bn": "রানার Turbo ১২৫ Matt",
+    "brand": "Runner",
+    "model": "Turbo 125 Matt",
+    "price": 155000,
+    "price_bn": "১৫৫০০০"
+  },
+  {
+    "name_en": "Runner Skooty 110",
+    "name_bn": "রানার Skooty ১১০",
+    "brand": "Runner",
+    "model": "Skooty 110",
+    "price": 149000,
+    "price_bn": "১৪৯০০০"
+  },
+  {
+    "name_en": "Runner Turbo 125 V2 Matt",
+    "name_bn": "রানার Turbo ১২৫ ভি২ Matt",
+    "brand": "Runner",
+    "model": "Turbo 125 V2 Matt",
+    "price": 132000,
+    "price_bn": "১৩২০০০"
+  },
+  {
+    "name_en": "Runner Kite Plus",
+    "name_bn": "রানার Kite Plus",
+    "brand": "Runner",
+    "model": "Kite Plus",
+    "price": 120000,
+    "price_bn": "১২০০০০"
+  },
+  {
+    "name_en": "Runner Bullet 100 V2 Matt",
+    "name_bn": "রানার বুলেট ১০০ ভি২ Matt",
+    "brand": "Runner",
+    "model": "Bullet 100 V2 Matt",
+    "price": 109000,
+    "price_bn": "১০৯০০০"
+  },
+  {
+    "name_en": "Runner Royal Plus",
+    "name_bn": "রানার Royal Plus",
+    "brand": "Runner",
+    "model": "Royal Plus",
+    "price": 108000,
+    "price_bn": "১০৮০০০"
+  },
+  {
+    "name_en": "Runner Bullet 100",
+    "name_bn": "রানার বুলেট ১০০",
+    "brand": "Runner",
+    "model": "Bullet 100",
+    "price": 106000,
+    "price_bn": "১০৬০০০"
+  },
+  {
+    "name_en": "Runner F100-6A",
+    "name_bn": "রানার এফ১০০-৬এ",
+    "brand": "Runner",
+    "model": "F100-6A",
+    "price": 95000,
+    "price_bn": "৯৫০০০"
+  },
+  {
+    "name_en": "Runner Cheeta",
+    "name_bn": "রানার Cheeta",
+    "brand": "Runner",
+    "model": "Cheeta",
+    "price": 95000,
+    "price_bn": "৯৫০০০"
+  },
+  {
+    "name_en": "Runner Royal Plus V2",
+    "name_bn": "রানার Royal Plus ভি২",
+    "brand": "Runner",
+    "model": "Royal Plus V2",
+    "price": 92000,
+    "price_bn": "৯২০০০"
+  },
+  {
+    "name_en": "Runner AD 80s Deluxe Red",
+    "name_bn": "রানার এডি ৮০s Deluxe রেড",
+    "brand": "Runner",
+    "model": "AD 80s Deluxe Red",
+    "price": 85000,
+    "price_bn": "৮৫০০০"
+  },
+  {
+    "name_en": "Runner AD-80S Alloy",
+    "name_bn": "রানার এডি-৮০S Alloy",
+    "brand": "Runner",
+    "model": "AD-80S Alloy",
+    "price": 84000,
+    "price_bn": "৮৪০০০"
+  },
+  {
+    "name_en": "Zongshen Spark ZS125-70",
+    "name_bn": "Zongshen এসপিark ZS১২৫-৭০",
+    "brand": "Zongshen",
+    "model": "Spark ZS125-70",
+    "price": 122000,
+    "price_bn": "১২২০০০"
+  },
+  {
+    "name_en": "ZONGSHEN CG 125-4",
+    "name_bn": "জেডওএনজিএসএইচইএন সিজি ১২৫-৪",
+    "brand": "Zongshen",
+    "model": "CG 125-4",
+    "price": 110000,
+    "price_bn": "১১০০০০"
+  },
+  {
+    "name_en": "Zongshen Street Bike CG 125",
+    "name_bn": "Zongshen স্ট্রিট Bike সিজি ১২৫",
+    "brand": "Zongshen",
+    "model": "Street Bike CG 125",
+    "price": 110000,
+    "price_bn": "১১০০০০"
+  },
+  {
+    "name_en": "Zongshen ZS-100-4",
+    "name_bn": "Zongshen জেডএস-১০০-৪",
+    "brand": "Zongshen",
+    "model": "ZS-100-4",
+    "price": 96000,
+    "price_bn": "৯৬০০০"
+  },
+  {
+    "name_en": "ZONGSHEN ED 80",
+    "name_bn": "জেডওএনজিএসএইচইএন ইডি ৮০",
+    "brand": "Zongshen",
+    "model": "ED 80",
+    "price": 80000,
+    "price_bn": "৮০০০০"
+  },
+  {
+    "name_en": "Lifan KPV 150 Race Edition",
+    "name_bn": "লিফান কেপিভি ১৫০ Race এডিশন",
+    "brand": "Lifan",
+    "model": "KPV 150 Race Edition",
+    "price": 380000,
+    "price_bn": "৩৮০০০০"
+  },
+  {
+    "name_en": "LIFAN X-PECT 150 V2",
+    "name_bn": "লিফান এক্স-পিইসিটি ১৫০ ভি২",
+    "brand": "Lifan",
+    "model": "X-PECT 150 V2",
+    "price": 320000,
+    "price_bn": "৩২০০০০"
+  },
+  {
+    "name_en": "Lifan K19",
+    "name_bn": "লিফান কে১৯",
+    "brand": "Lifan",
+    "model": "K19",
+    "price": 295000,
+    "price_bn": "২৯৫০০০"
+  },
+  {
+    "name_en": "Lifan KPV 150",
+    "name_bn": "লিফান কেপিভি ১৫০",
+    "brand": "Lifan",
+    "model": "KPV 150",
+    "price": 295000,
+    "price_bn": "২৯৫০০০"
+  },
+  {
+    "name_en": "Lifan KPT150 4V",
+    "name_bn": "লিফান কেপিটি১৫০ ৪ভি",
+    "brand": "Lifan",
+    "model": "KPT150 4V",
+    "price": 285000,
+    "price_bn": "২৮৫০০০"
+  },
+  {
+    "name_en": "LIFAN KP165 4V",
+    "name_bn": "লিফান কেপি১৬৫ ৪ভি",
+    "brand": "Lifan",
+    "model": "KP165 4V",
+    "price": 275000,
+    "price_bn": "২৭৫০০০"
+  },
+  {
+    "name_en": "Lifan KPR 165R EFI",
+    "name_bn": "লিফান কেপিআর ১৬৫আর ইএফআই",
+    "brand": "Lifan",
+    "model": "KPR 165R EFI",
+    "price": 228000,
+    "price_bn": "২২৮০০০"
+  },
+  {
+    "name_en": "Lifan KPR 165R Carburetor",
+    "name_bn": "লিফান কেপিআর ১৬৫R Carburetor",
+    "brand": "Lifan",
+    "model": "KPR 165R Carburetor",
+    "price": 214000,
+    "price_bn": "২১৪০০০"
+  },
+  {
+    "name_en": "Lifan KPR 150",
+    "name_bn": "লিফান কেপিআর ১৫০",
+    "brand": "Lifan",
+    "model": "KPR 150",
+    "price": 199000,
+    "price_bn": "১৯৯০০০"
+  },
+  {
+    "name_en": "Lifan KP 165",
+    "name_bn": "লিফান কেপি ১৬৫",
+    "brand": "Lifan",
+    "model": "KP 165",
+    "price": 190000,
+    "price_bn": "১৯০০০০"
+  },
+  {
+    "name_en": "Lifan 150T 13",
+    "name_bn": "লিফান ১৫০টি ১৩",
+    "brand": "Lifan",
+    "model": "150T 13",
+    "price": 184000,
+    "price_bn": "১৮৪০০০"
+  },
+  {
+    "name_en": "Lifan Blink 125",
+    "name_bn": "লিফান Blink ১২৫",
+    "brand": "Lifan",
+    "model": "Blink 125",
+    "price": 135000,
+    "price_bn": "১৩৫০০০"
+  },
+  {
+    "name_en": "Victor-R Cafe Racer 125",
+    "name_bn": "ভিক্টর-আর Cafe Racer ১২৫",
+    "brand": "Victor-R",
+    "model": "Cafe Racer 125",
+    "price": 125000,
+    "price_bn": "১২৫০০০"
+  },
+  {
+    "name_en": "Lifan Razor 100",
+    "name_bn": "লিফান Razor ১০০",
+    "brand": "Lifan",
+    "model": "Razor 100",
+    "price": 115000,
+    "price_bn": "১১৫০০০"
+  },
+  {
+    "name_en": "Lifan Glint 100",
+    "name_bn": "লিফান Glint ১০০",
+    "brand": "Lifan",
+    "model": "Glint 100",
+    "price": 86000,
+    "price_bn": "৮৬০০০"
+  },
+  {
+    "name_en": "Victor-R Classic 100",
+    "name_bn": "ভিক্টর-আর ক্লাসিক ১০০",
+    "brand": "Victor-R",
+    "model": "Classic 100",
+    "price": 85000,
+    "price_bn": "৮৫০০০"
+  },
+  {
+    "name_en": "Victor R V80 Xpress",
+    "name_bn": "ভিক্টর R ভি৮০ Xpress",
+    "brand": "Victor-R",
+    "model": "V80 Xpress",
+    "price": 0,
+    "price_bn": "০"
+  },
+  {
+    "name_en": "WALTON TAKYON FUSION 25FZ",
+    "name_bn": "ওয়ালটন টিএকেওয়াইওএন এফইউএসআইওএন ২৫এফজেড",
+    "brand": "Walton",
+    "model": "TAKYON FUSION 25FZ",
+    "price": 187500,
+    "price_bn": "১৮৭৫০০"
+  },
+  {
+    "name_en": "Walton Takyon 1.00",
+    "name_bn": "ওয়ালটন Takyon ১.০০",
+    "brand": "Walton",
+    "model": "Takyon 1.00",
+    "price": 137500,
+    "price_bn": "১৩৭৫০০"
+  },
+  {
+    "name_en": "Walton Takyon 1.20",
+    "name_bn": "ওয়ালটন Takyon ১.২০",
+    "brand": "Walton",
+    "model": "Takyon 1.20",
+    "price": 104900,
+    "price_bn": "১০৪৯০০"
+  },
+  {
+    "name_en": "Walton Takyon LEO 25T1",
+    "name_bn": "ওয়ালটন Takyon এলইও ২৫T১",
+    "brand": "Walton",
+    "model": "Takyon LEO 25T1",
+    "price": 86850,
+    "price_bn": "৮৬৮৫০"
+  },
+  {
+    "name_en": "Walton Takyon Leo (12 AH)",
+    "name_bn": "ওয়ালটন Takyon Leo (১২ এএইচ)",
+    "brand": "Walton",
+    "model": "Takyon Leo (12 AH)",
+    "price": 0,
+    "price_bn": "০"
+  },
+  {
+    "name_en": "Roadmaster Rapido 165",
+    "name_bn": "Roadmaster Rapido ১৬৫",
+    "brand": "Roadmaster",
+    "model": "Rapido 165",
+    "price": 189500,
+    "price_bn": "১৮৯৫০০"
+  },
+  {
+    "name_en": "Roadmaster Rapido",
+    "name_bn": "Roadmaster Rapido",
+    "brand": "Roadmaster",
+    "model": "Rapido",
+    "price": 135900,
+    "price_bn": "১৩৫৯০০"
+  },
+  {
+    "name_en": "Roadmaster Velocity 125",
+    "name_bn": "Roadmaster Velocity ১২৫",
+    "brand": "Roadmaster",
+    "model": "Velocity 125",
+    "price": 107900,
+    "price_bn": "১০৭৯০০"
+  },
+  {
+    "name_en": "Roadmaster Velocity",
+    "name_bn": "Roadmaster Velocity",
+    "brand": "Roadmaster",
+    "model": "Velocity",
+    "price": 94900,
+    "price_bn": "৯৪৯০০"
+  },
+  {
+    "name_en": "Roadmaster Delight",
+    "name_bn": "Roadmaster Delight",
+    "brand": "Roadmaster",
+    "model": "Delight",
+    "price": 84900,
+    "price_bn": "৮৪৯০০"
+  },
+  {
+    "name_en": "Roadmaster Prime 100",
+    "name_bn": "Roadmaster Prime ১০০",
+    "brand": "Roadmaster",
+    "model": "Prime 100",
+    "price": 76900,
+    "price_bn": "৭৬৯০০"
+  },
+  {
+    "name_en": "Roadmaster Rex",
+    "name_bn": "Roadmaster Rex",
+    "brand": "Roadmaster",
+    "model": "Rex",
+    "price": 70900,
+    "price_bn": "৭০৯০০"
+  },
+  {
+    "name_en": "Roadmaster Prime 80",
+    "name_bn": "Roadmaster Prime ৮০",
+    "brand": "Roadmaster",
+    "model": "Prime 80",
+    "price": 60900,
+    "price_bn": "৬০৯০০"
+  },
+  {
+    "name_en": "Vespa VXL 150 (Yellow)",
+    "name_bn": "ভেস্পা ভিএক্সএল ১৫০ (ইয়েলো)",
+    "brand": "Vespa",
+    "model": "VXL 150 (Yellow)",
+    "price": 361500,
+    "price_bn": "৩৬১৫০০"
+  },
+  {
+    "name_en": "Vespa VXL 125 (CBS)",
+    "name_bn": "ভেস্পা ভিএক্সএল ১২৫ (সিবিএস)",
+    "brand": "Vespa",
+    "model": "VXL 125 (CBS)",
+    "price": 351000,
+    "price_bn": "৩৫১০০০"
+  },
+  {
+    "name_en": "Vespa VXL 125",
+    "name_bn": "ভেস্পা ভিএক্সএল ১২৫",
+    "brand": "Vespa",
+    "model": "VXL 125",
+    "price": 341000,
+    "price_bn": "৩৪১০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen Z One T",
+    "name_bn": "Atlas Zongshen Z One T",
+    "brand": "Atlas Zongshen",
+    "model": "Z One T",
+    "price": 135000,
+    "price_bn": "১৩৫০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen ZS 150-58",
+    "name_bn": "Atlas Zongshen জেডএস ১৫০-৫৮",
+    "brand": "Atlas Zongshen",
+    "model": "ZS 150-58",
+    "price": 135000,
+    "price_bn": "১৩৫০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen Z One",
+    "name_bn": "Atlas Zongshen Z One",
+    "brand": "Atlas Zongshen",
+    "model": "Z One",
+    "price": 109000,
+    "price_bn": "১০৯০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen ZS125-68",
+    "name_bn": "Atlas Zongshen ZS১২৫-৬৮",
+    "brand": "Atlas Zongshen",
+    "model": "ZS125-68",
+    "price": 105000,
+    "price_bn": "১০৫০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen ZS 110-56",
+    "name_bn": "Atlas Zongshen জেডএস ১১০-৫৬",
+    "brand": "Atlas Zongshen",
+    "model": "ZS 110-56",
+    "price": 89000,
+    "price_bn": "৮৯০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen ZS 110-72",
+    "name_bn": "Atlas Zongshen জেডএস ১১০-৭২",
+    "brand": "Atlas Zongshen",
+    "model": "ZS 110-72",
+    "price": 75000,
+    "price_bn": "৭৫০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen ZS 100-27",
+    "name_bn": "Atlas Zongshen জেডএস ১০০-২৭",
+    "brand": "Atlas Zongshen",
+    "model": "ZS 100-27",
+    "price": 65000,
+    "price_bn": "৬৫০০০"
+  },
+  {
+    "name_en": "Atlas Zongshen ZS 80",
+    "name_bn": "Atlas Zongshen জেডএস ৮০",
+    "brand": "Atlas Zongshen",
+    "model": "ZS 80",
+    "price": 49000,
+    "price_bn": "৪৯০০০"
+  },
+  {
+    "name_en": "Akij Durdanto V6",
+    "name_bn": "Akij Durdanto ভি৬",
+    "brand": "Akij",
+    "model": "Durdanto V6",
+    "price": 182500,
+    "price_bn": "১৮২৫০০"
+  },
+  {
+    "name_en": "Akij Bondhu",
+    "name_bn": "Akij Bondhu",
+    "brand": "Akij",
+    "model": "Bondhu",
+    "price": 148000,
+    "price_bn": "১৪৮০০০"
+  },
+  {
+    "name_en": "Akij Durbar",
+    "name_bn": "Akij Durbar",
+    "brand": "Akij",
+    "model": "Durbar",
+    "price": 145000,
+    "price_bn": "১৪৫০০০"
+  },
+  {
+    "name_en": "Akij Romeo",
+    "name_bn": "Akij Romeo",
+    "brand": "Akij",
+    "model": "Romeo",
+    "price": 125000,
+    "price_bn": "১২৫০০০"
+  },
+  {
+    "name_en": "Akij Sathi",
+    "name_bn": "Akij Sathi",
+    "brand": "Akij",
+    "model": "Sathi",
+    "price": 115000,
+    "price_bn": "১১৫০০০"
+  },
+  {
+    "name_en": "Akij Duronto",
+    "name_bn": "Akij Duronto",
+    "brand": "Akij",
+    "model": "Duronto",
+    "price": 107500,
+    "price_bn": "১০৭৫০০"
+  },
+  {
+    "name_en": "Akij Durjoy",
+    "name_bn": "Akij Durjoy",
+    "brand": "Akij",
+    "model": "Durjoy",
+    "price": 97500,
+    "price_bn": "৯৭৫০০"
+  },
+  {
+    "name_en": "Akij Samrat",
+    "name_bn": "Akij Samrat",
+    "brand": "Akij",
+    "model": "Samrat",
+    "price": 92000,
+    "price_bn": "৯২০০০"
+  },
+  {
+    "name_en": "Akij Ponkhiraj",
+    "name_bn": "Akij Ponkhiraj",
+    "brand": "Akij",
+    "model": "Ponkhiraj",
+    "price": 87500,
+    "price_bn": "৮৭৫০০"
+  },
+  {
+    "name_en": "Haojue DR 160",
+    "name_bn": "হাওজু ডি আর ১৬০",
+    "brand": "Haojue",
+    "model": "DR 160",
+    "price": 199500,
+    "price_bn": "১৯৯৫০০"
+  },
+  {
+    "name_en": "Haojue TR",
+    "name_bn": "হাওজু টি আর",
+    "brand": "Haojue",
+    "model": "TR",
+    "price": 144000,
+    "price_bn": "১৪৪০০০"
+  },
+  {
+    "name_en": "Haojue TZ",
+    "name_bn": "হাওজু টি জেড",
+    "brand": "Haojue",
+    "model": "TZ",
+    "price": 130000,
+    "price_bn": "১৩০০০০"
+  },
+  {
+    "name_en": "Haojue KA",
+    "name_bn": "হাওজু কে এ",
+    "brand": "Haojue",
+    "model": "KA",
+    "price": 122000,
+    "price_bn": "১২২০০০"
+  },
+  {
+    "name_en": "PHP Merkaba Plus 150",
+    "name_bn": "পিএইচপি মার্কাবা প্লাস ১৫০",
+    "brand": "PHP",
+    "model": "Merkaba Plus 150",
+    "price": 175000,
+    "price_bn": "১৭৫০০০"
+  },
+  {
+    "name_en": "Php Commando 150",
+    "name_bn": "পিএইচপি Commando ১৫০",
+    "brand": "PHP",
+    "model": "Commando 150",
+    "price": 165000,
+    "price_bn": "১৬৫০০০"
+  },
+  {
+    "name_en": "PHP Merkaba 150",
+    "name_bn": "পিএইচপি Merkaba ১৫০",
+    "brand": "PHP",
+    "model": "Merkaba 150",
+    "price": 140000,
+    "price_bn": "১৪০০০০"
+  },
+  {
+    "name_en": "PHP Pride 125",
+    "name_bn": "পিএইচপি Pride ১২৫",
+    "brand": "PHP",
+    "model": "Pride 125",
+    "price": 130000,
+    "price_bn": "১৩০০০০"
+  },
+  {
+    "name_en": "PHP Super 125",
+    "name_bn": "পিএইচপি Super ১২৫",
+    "brand": "PHP",
+    "model": "Super 125",
+    "price": 99900,
+    "price_bn": "৯৯৯০০"
+  },
+  {
+    "name_en": "Revoo E52",
+    "name_bn": "রেভু ই৫২",
+    "brand": "Revoo",
+    "model": "E52",
+    "price": 225900,
+    "price_bn": "২২৫৯০০"
+  },
+  {
+    "name_en": "Revoo C03",
+    "name_bn": "রেভু সি০৩",
+    "brand": "Revoo",
+    "model": "C03",
+    "price": 199900,
+    "price_bn": "১৯৯৯০০"
+  },
+  {
+    "name_en": "Revoo C32",
+    "name_bn": "রেভু সি৩২",
+    "brand": "Revoo",
+    "model": "C32",
+    "price": 139900,
+    "price_bn": "১৩৯৯০০"
+  },
+  {
+    "name_en": "Revoo C00",
+    "name_bn": "রেভু সি০০",
+    "brand": "Revoo",
+    "model": "C00",
+    "price": 139900,
+    "price_bn": "১৩৯৯০০"
+  },
+  {
+    "name_en": "Revoo C32-Y",
+    "name_bn": "রেভু সি৩২-ওয়াই",
+    "brand": "Revoo",
+    "model": "C32-Y",
+    "price": 129900,
+    "price_bn": "১২৯৯০০"
+  },
+  {
+    "name_en": "Revoo A12-S",
+    "name_bn": "রেভু এ১২-এস",
+    "brand": "Revoo",
+    "model": "A12-S",
+    "price": 105900,
+    "price_bn": "১০৫৯০০"
+  },
+  {
+    "name_en": "Revoo A12",
+    "name_bn": "রেভু এ১২",
+    "brand": "Revoo",
+    "model": "A12",
+    "price": 99900,
+    "price_bn": "৯৯৯০০"
+  },
+  {
+    "name_en": "Revoo A01",
+    "name_bn": "রেভু এ০১",
+    "brand": "Revoo",
+    "model": "A01",
+    "price": 99900,
+    "price_bn": "৯৯৯০০"
+  },
+  {
+    "name_en": "Revoo A11",
+    "name_bn": "রেভু এ১১",
+    "brand": "Revoo",
+    "model": "A11",
+    "price": 89900,
+    "price_bn": "৮৯৯০০"
+  },
+  {
+    "name_en": "Revoo A10",
+    "name_bn": "রেভু এ১০",
+    "brand": "Revoo",
+    "model": "A10",
+    "price": 79900,
+    "price_bn": "৭৯৯০০"
+  },
+  {
+    "name_en": "Revoo A04",
+    "name_bn": "রেভু এ০৪",
+    "brand": "Revoo",
+    "model": "A04",
+    "price": 55900,
+    "price_bn": "৫৫৯০০"
+  }
+]
