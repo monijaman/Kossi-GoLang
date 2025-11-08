@@ -211,6 +211,10 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager.AddSeeder(NewBrandCategorySeeder())
 	// Products depend on categories and brands, so seed them after brand-category relations
 	manager.AddSeeder(NewProductSeeder())
+	// Motorcycle/product-specific specifications (e.g., product id 81)
+	manager.AddSeeder(NewSpecificationSeederMotorcycle81())
+	// Form generator setup for motorcycles (category-level config)
+	manager.AddSeeder(NewFormGeneratorSeederMotorcycle81())
 
 	return manager
 }

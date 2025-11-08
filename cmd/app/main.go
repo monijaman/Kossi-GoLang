@@ -28,7 +28,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"kossti/internal/infrastructure/database"
+	// "kossti/internal/infrastructure/database" // Not used since migrations are managed separately
 	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
@@ -41,6 +41,44 @@ import (
 	handleruser "kossti/internal/interface/handler/user"
 	pgRepo "kossti/internal/interface/repository/postgres"
 )
+
+// connectWithRetry attempts to open a GORM DB connection with retries and
+// exponential backoff. This helps when the remote database is starting up
+// or a proxy transiently closes connections (common on managed providers).
+func connectWithRetry(dsn string, maxAttempts int, baseWait time.Duration) (*gorm.DB, error) {
+	var lastErr error
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		if err == nil {
+			// verify with a ping
+			sqlDB, err := db.DB()
+			if err != nil {
+				lastErr = err
+				_ = sqlDB // just to keep linter happy if nil
+			} else {
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				defer cancel()
+				if err := sqlDB.PingContext(ctx); err == nil {
+					return db, nil
+				} else {
+					lastErr = err
+					// Close the underlying DB to avoid leaking connections
+					_ = sqlDB.Close()
+				}
+			}
+		} else {
+			lastErr = err
+		}
+
+		wait := baseWait * time.Duration(1<<uint(attempt-1))
+		if wait > 30*time.Second {
+			wait = 30 * time.Second
+		}
+		log.Printf("Database connect attempt %d/%d failed: %v. Retrying in %s...", attempt, maxAttempts, lastErr, wait)
+		time.Sleep(wait)
+	}
+	return nil, fmt.Errorf("failed to connect to database after %d attempts: %w", maxAttempts, lastErr)
+}
 
 // findAvailablePort finds an available port starting from the given port
 func findAvailablePort(startPort int) int {
@@ -85,23 +123,50 @@ func killProcessOnPort(port int) {
 }
 
 func main() {
-	// Load the appropriate .env file based on GO_ENV
-	env := os.Getenv("GO_ENV")
-	if env == "production" {
-		err := godotenv.Load(".env.production")
-		if err != nil {
-			log.Println("No .env.production file found or error loading .env.production file")
+	// Load environment files. Priority:
+	// 1) If GO_ENV=production -> load .env.production
+	// 2) Else if .env.production exists -> load it and set GO_ENV=production
+	// 3) Else load .env (development)
+	if os.Getenv("GO_ENV") == "production" {
+		if err := godotenv.Load(".env.production"); err != nil {
+			log.Println("warning: failed loading .env.production:", err)
 		}
 	} else {
-		err := godotenv.Load(".env")
-		if err != nil {
-			log.Println("No .env file found or error loading .env file")
+		if _, err := os.Stat(".env.production"); err == nil {
+			// .env.production exists - prefer it for local production-like runs
+			if err := godotenv.Load(".env.production"); err != nil {
+				log.Println("warning: failed loading .env.production:", err)
+			} else {
+				// mark runtime as production when loading .env.production
+				os.Setenv("GO_ENV", "production")
+			}
+		} else {
+			if err := godotenv.Load(".env"); err != nil {
+				log.Println("warning: no .env file found or error loading .env file")
+			}
 		}
 	}
 
+	// Compose DB connection string: prefer DATABASE_URL, otherwise build from DB_* variables
 	dbURL := os.Getenv("DATABASE_URL")
 	jwtSecret := os.Getenv("JWT_SECRET")
 	kafkaBroker := os.Getenv("KAFKA_BROKER")
+
+	if dbURL == "" {
+		host := os.Getenv("DB_HOST")
+		port := os.Getenv("DB_PORT")
+		user := os.Getenv("DB_USER")
+		pass := os.Getenv("DB_PASSWORD")
+		name := os.Getenv("DB_NAME")
+		ssl := os.Getenv("DB_SSLMODE")
+		if ssl == "" {
+			ssl = "disable"
+		}
+		if host != "" && port != "" && user != "" && name != "" {
+			dbURL = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=UTC", host, user, pass, name, port, ssl)
+			log.Println("info: built DB DSN from DB_* environment variables")
+		}
+	}
 
 	fmt.Println("Auth microservice starting...")
 	fmt.Println("Database URL:", dbURL)
@@ -110,36 +175,40 @@ func main() {
 
 	// Validate required environment variables
 	if dbURL == "" {
-		log.Fatal("DATABASE_URL environment variable is required")
+		log.Fatal("DATABASE_URL environment variable is required (or provide DB_HOST/DB_USER/DB_NAME etc.)")
 	}
 	if jwtSecret == "" {
 		log.Fatal("JWT_SECRET environment variable is required")
 	}
 
 	fmt.Println("Attempting to connect to the database and migrate schema...")
-	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+
+	// Try to connect with retries/backoff to tolerate transient DB startup or proxy hiccups
+	db, err := connectWithRetry(dbURL, 12, 2*time.Second)
 	if err != nil {
 		log.Fatalf("GORM database connection failed: %v", err)
 	}
 
-	// Test database connection
+	// Test database connection and configure pool
 	sqlDB, err := db.DB()
 	if err != nil {
 		log.Fatalf("Failed to get underlying sql.DB: %v", err)
 	}
-	if err := sqlDB.Ping(); err != nil {
-		log.Fatalf("Database ping failed: %v", err)
-	}
+
+	// Production connection pool settings
+	sqlDB.SetMaxOpenConns(50)                  // max open connections (adjust based on DB plan limits)
+	sqlDB.SetMaxIdleConns(10)                  // max idle connections
+	sqlDB.SetConnMaxLifetime(30 * time.Minute) // recycle connections every 30 minutes
+
 	fmt.Println("Database connection successful!")
 
-	// Initialize migration manager and run all migrations
-	migrationManager := database.NewMigrationManager(db)
-
-	// Run complete database setup
-	fmt.Println("Running database migrations...")
-	if err := migrationManager.Setup(); err != nil {
-		log.Fatalf("Database migration failed: %v", err)
-	}
+	// NOTE: Migrations are managed separately via `go run ./cmd/migrate/main.go`
+	// Commenting out auto-migration to avoid conflicts. Run migrations manually before starting the app.
+	//
+	// migrationManager := database.NewMigrationManager(db)
+	// if err := migrationManager.Setup(); err != nil {
+	//     log.Fatalf("Database migration failed: %v", err)
+	// }
 
 	// --- Seed data only if not already seeded ---
 	var userCount int64

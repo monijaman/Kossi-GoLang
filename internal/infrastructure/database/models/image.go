@@ -14,7 +14,7 @@ type ImageModel struct {
 	ImageableType string     `gorm:"type:varchar(255);not null"`
 	ImageableID   uint       `gorm:"not null"`
 	ImagePath     string     `gorm:"type:varchar(255);not null"`
-	Status        int        `gorm:"default:1"`
+	Status        int        `gorm:"type:integer;default:1"`
 	CreatedAt     time.Time  `gorm:"autoCreateTime"`
 	UpdatedAt     time.Time  `gorm:"autoUpdateTime"`
 	DeletedAt     *time.Time `gorm:"index"`

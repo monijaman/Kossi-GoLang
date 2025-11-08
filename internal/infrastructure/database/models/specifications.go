@@ -119,7 +119,7 @@ type SpecificationModel struct {
 	ProductID          uint      `gorm:"not null"`
 	SpecificationKeyID uint      `gorm:"not null"`
 	Value              string    `gorm:"type:varchar(500);not null"`
-	Status             int       `gorm:"default:1"`
+	Status             int       `gorm:"type:integer;default:1"`
 	CreatedAt          time.Time `gorm:"autoCreateTime"`
 	UpdatedAt          time.Time `gorm:"autoUpdateTime"`
 }

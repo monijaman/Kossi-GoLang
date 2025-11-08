@@ -19,17 +19,57 @@ import (
 )
 
 func main() {
-	// Load .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No .env file found, using default values")
+	// Load environment variables with production support
+	goEnv := os.Getenv("GO_ENV")
+
+	// Load .env.production if GO_ENV=production or if the file exists
+	if goEnv == "production" {
+		if err := godotenv.Load(".env.production"); err != nil {
+			log.Println("Warning: .env.production not found, trying .env")
+			godotenv.Load() // Fallback to .env
+		} else {
+			log.Println("✅ Loaded .env.production")
+		}
+	} else if _, err := os.Stat(".env.production"); err == nil {
+		// .env.production exists, load it and set GO_ENV
+		if err := godotenv.Load(".env.production"); err == nil {
+			os.Setenv("GO_ENV", "production")
+			log.Println("✅ Loaded .env.production (file exists)")
+		}
+	} else {
+		// Load regular .env
+		err := godotenv.Load()
+		if err != nil {
+			log.Println("No .env file found, using default values")
+		}
 	}
 
 	// Get database URL from environment or use default
 	defaultDSN := os.Getenv("DATABASE_URL")
 	if defaultDSN == "" {
-		defaultDSN = "host=localhost user=root password=root dbname=kossti port=5428 sslmode=disable TimeZone=UTC"
+		// Build from components if DATABASE_URL not set
+		dbHost := os.Getenv("DB_HOST")
+		dbPort := os.Getenv("DB_PORT")
+		dbUser := os.Getenv("DB_USER")
+		dbPassword := os.Getenv("DB_PASSWORD")
+		dbName := os.Getenv("DB_NAME")
+		dbSSLMode := os.Getenv("DB_SSLMODE")
+
+		if dbHost != "" && dbUser != "" && dbName != "" {
+			if dbPort == "" {
+				dbPort = "5432"
+			}
+			if dbSSLMode == "" {
+				dbSSLMode = "disable"
+			}
+			defaultDSN = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=UTC",
+				dbHost, dbUser, dbPassword, dbName, dbPort, dbSSLMode)
+		} else {
+			defaultDSN = "host=localhost user=root password=root dbname=kossti port=5428 sslmode=disable TimeZone=UTC"
+		}
 	}
+
+	log.Printf("🔗 Using database: %s\n", maskPassword(defaultDSN))
 
 	// Define flags
 	var (
@@ -192,6 +232,19 @@ func extractDatabaseName(dsn string) string {
 
 	// Default fallback
 	return "kossti"
+}
+
+// maskPassword masks the password in a DSN string for safe logging
+func maskPassword(dsn string) string {
+	// For PostgreSQL URL format: postgresql://user:password@host:port/db
+	if strings.Contains(dsn, "://") {
+		re := regexp.MustCompile(`(://[^:]+:)([^@]+)(@)`)
+		return re.ReplaceAllString(dsn, "${1}****${3}")
+	}
+
+	// For key=value format: password=secret
+	re := regexp.MustCompile(`(password=)([^\s]+)`)
+	return re.ReplaceAllString(dsn, "${1}****")
 }
 
 func confirmDangerous() bool {

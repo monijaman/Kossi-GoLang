@@ -18,7 +18,7 @@ type ProductModel struct {
 	BrandID     *uint      `gorm:""`
 	Model       *string    `gorm:"type:varchar(255)"`
 	Price       *float64   `gorm:"type:decimal(10,2)"`
-	Status      int        `gorm:"default:1"`
+	Status      int        `gorm:"type:integer;default:1"`
 	Priority    int        `gorm:"default:1"`
 	CreatedBy   *string    `gorm:"type:varchar(255)"`
 	ViewsCount  int64      `gorm:"default:0"`

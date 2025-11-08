@@ -13,7 +13,7 @@ type CategoryModel struct {
 	ID        uint       `gorm:"primaryKey;autoIncrement"`
 	Name      string     `gorm:"type:varchar(255);not null"`
 	Slug      string     `gorm:"type:varchar(255);unique;not null"`
-	Status    int        `gorm:"default:1"`
+	Status    int        `gorm:"type:integer;default:1"`
 	CreatedAt time.Time  `gorm:"autoCreateTime"`
 	UpdatedAt time.Time  `gorm:"autoUpdateTime"`
 	DeletedAt *time.Time `gorm:"index"`

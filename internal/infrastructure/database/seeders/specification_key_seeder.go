@@ -161,6 +161,16 @@ func (sks *SpecificationKeySeeder) Seed(db *gorm.DB) error {
 		"Valve Per Cylinder",
 		"Wheelbase",
 		"Width",
+		"Front Brake Type",
+		"Rear Brake Type",
+		"Rim Type",
+		"Rim Size",
+		"Seat Height",
+		"Compression Ratio",
+		"Instrument Cluster",
+		"DRL (Daytime Running Light)",
+		"Spark Plug Type",
+		"Electrical System",
 
 		// Home Appliances
 		"Annual Energy Consumption",
