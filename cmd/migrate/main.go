@@ -80,6 +80,7 @@ func main() {
 		fk        = flag.Bool("fk", false, "Add foreign keys only")
 		indexes   = flag.Bool("indexes", false, "Create indexes only")
 		seed      = flag.Bool("seed", false, "Run all seeders")
+		seeder    = flag.String("seeder", "", "Run one or more seeders by name (comma-separated)")
 		freshSeed = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
 		dsn       = flag.String("dsn", defaultDSN, "Database DSN")
 	)
@@ -156,6 +157,22 @@ func main() {
 			log.Fatal("Failed to setup:", err)
 		}
 		fmt.Println("✅ Fresh setup completed!")
+
+	case *seeder != "":
+		// Run only specified seeder(s) by name (comma-separated)
+		fmt.Println("🌱 Running specified seeder(s)...")
+		seederManager := seeders.SetupAllSeeders(db)
+		names := strings.Split(*seeder, ",")
+		for _, n := range names {
+			n = strings.TrimSpace(n)
+			if n == "" {
+				continue
+			}
+			if err := seederManager.RunSpecific(n); err != nil {
+				log.Fatalf("Failed to run seeder '%s': %v", n, err)
+			}
+		}
+		fmt.Println("✅ Specified seeder(s) completed!")
 
 	case *seed:
 		fmt.Println("🌱 Running seeders...")

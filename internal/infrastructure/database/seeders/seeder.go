@@ -201,7 +201,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager := NewSeederManager(db)
 
 	// Add all seeders in the correct order
-	manager.AddSeeder(NewCategorySeeder())
+	/*manager.AddSeeder(NewCategorySeeder())
 	manager.AddSeeder(NewBrandSeeder())
 	manager.AddSeeder(NewUserSeeder())
 	manager.AddSeeder(NewSpecificationKeySeeder())
@@ -211,10 +211,28 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager.AddSeeder(NewBrandCategorySeeder())
 	// Products depend on categories and brands, so seed them after brand-category relations
 	manager.AddSeeder(NewProductSeeder())
-	// Motorcycle/product-specific specifications (e.g., product id 81)
+	// Keep existing specific seeder (product 81) if present
 	manager.AddSeeder(NewSpecificationSeederMotorcycle81())
 	// Form generator setup for motorcycles (category-level config)
-	manager.AddSeeder(NewFormGeneratorSeederMotorcycle81())
+	manager.AddSeeder(NewFormGeneratorSeederMotorcycle81()) */
+	// Motorcycle/product-specific specifications for selected products
+	manager.AddSeeder(NewSpecificationSeederMotorcycleHondaCD70())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleHondaLivo())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleHondaCB125F())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleHondaCBShine())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleHondaDio())
+
+	// Next 10 motorcycle seeders
+	manager.AddSeeder(NewSpecificationSeederMotorcycleYamahaSalutoRX())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleYamahaFZS())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleYamahaFazer())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleYamahaYBR125())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleSuzukiGixxer())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleSuzukiGixxerSF())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleSuzukiHayate())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleSuzukiAccess125())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleBajajPulsar150())
+	manager.AddSeeder(NewSpecificationSeederMotorcycleBajajPulsar125())
 
 	return manager
 }

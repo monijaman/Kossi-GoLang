@@ -371,7 +371,9 @@ func UpdateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 }
 
 // GetSpecificationsByProductHandler handles GET /get-specifications/{id}
-func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
+// This handler will return all specification keys for the product's category (via form generator)
+// merged with any existing specification values for the product.
+func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, productRepo repository.ProductRepository, formGenRepo repository.FormGeneratorRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract product ID from URL path
@@ -388,15 +390,63 @@ func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, s
 		return
 	}
 
-	specifications, err := specRepo.GetByProductID(r.Context(), uint(productID))
+	// Fetch existing specifications for this product
+	existingSpecs, err := specRepo.GetByProductID(r.Context(), uint(productID))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get specifications"})
 		return
 	}
 
-	responses := make([]SpecificationResponse, len(specifications))
-	for i, spec := range specifications {
+	// Build map from specification_key_id to existing spec
+	existingMap := make(map[uint]*entities.Specification)
+	for _, s := range existingSpecs {
+		existingMap[s.SpecificationKeyID] = s
+	}
+
+	// Try to fetch product to get its category
+	var categoryID *uint = nil
+	if productRepo != nil {
+		prod, err := productRepo.GetByID(r.Context(), uint(productID))
+		if err == nil && prod != nil && prod.CategoryID != nil {
+			categoryID = prod.CategoryID
+		}
+	}
+
+	var finalResponses []SpecificationResponse
+
+	// If categoryID is present, get category form generator keys and merge
+	if categoryID != nil && formGenRepo != nil {
+		catSpecs, err := formGenRepo.GetCategorySpecifications(r.Context(), *categoryID)
+		if err == nil && len(catSpecs) > 0 {
+			for _, ks := range catSpecs {
+				if es, ok := existingMap[ks.SpecificationKeyID]; ok {
+					finalResponses = append(finalResponses, convertSpecificationToResponse(es))
+				} else {
+					// Build empty response for the key
+					finalResponses = append(finalResponses, SpecificationResponse{
+						ID:                 0,
+						ProductID:          uint(productID),
+						SpecificationKeyID: ks.SpecificationKeyID,
+						SpecificationKey:   ks.SpecificationKey,
+						Value:              "",
+						CreatedAt:          "",
+						UpdatedAt:          "",
+					})
+				}
+			}
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"product_id":     productID,
+				"specifications": finalResponses,
+				"count":          len(finalResponses),
+			})
+			return
+		}
+	}
+
+	// Fallback: if no category form generator found, return only existing specs
+	responses := make([]SpecificationResponse, len(existingSpecs))
+	for i, spec := range existingSpecs {
 		responses[i] = convertSpecificationToResponse(spec)
 	}
 

@@ -97,7 +97,15 @@ func findAvailablePort(startPort int) int {
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Set CORS headers
-		w.Header().Set("Access-Control-Allow-Origin", "*")
+		// Allow specific origin when present so credentials can be used safely in browsers
+		origin := r.Header.Get("Origin")
+		if origin != "" {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			// Ensure caches vary by Origin
+			w.Header().Add("Vary", "Origin")
+		} else {
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+		}
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
@@ -250,7 +258,7 @@ func main() {
 	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo, productReviewRepo)
 	handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
 	handlerbrand.RegisterBrandRoutes(mux, brandRepo)
-	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo)
+	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo, formGeneratorRepo)
 	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo, imageRepo)
 	handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
 	handlerfeedback.RegisterRoutes(mux, feedbackRepo)
