@@ -1,0 +1,275 @@
+[
+  {
+    "name_en": "Sonali Bank Limited",
+    "name_bn": "সোনালী ব্যাংক লিমিটেড",
+    "brand": "Sonali Bank",
+    "type": "state-owned"
+  },
+  {
+    "name_en": "Janata Bank Limited",
+    "name_bn": "জনতা ব্যাংক লিমিটেড",
+    "brand": "Janata Bank",
+    "type": "state-owned"
+  },
+  {
+    "name_en": "Agrani Bank Limited",
+    "name_bn": "অগ্রণী ব্যাংক লিমিটেড",
+    "brand": "Agrani Bank",
+    "type": "state-owned"
+  },
+  {
+    "name_en": "Rupali Bank Limited",
+    "name_bn": "রূপালী ব্যাংক লিমিটেড",
+    "brand": "Rupali Bank",
+    "type": "state-owned"
+  },
+
+  {
+    "name_en": "Bangladesh Krishi Bank",
+    "name_bn": "বাংলাদেশ কৃষি ব্যাংক",
+    "brand": "Bangladesh Krishi Bank",
+    "type": "specialized"
+  },
+  {
+    "name_en": "Rajshahi Krishi Unnayan Bank",
+    "name_bn": "রাজশাহী কৃষি উন্নয়ন ব্যাংক",
+    "brand": "RAKUB",
+    "type": "specialized"
+  },
+  {
+    "name_en": "Bangladesh Development Bank Limited",
+    "name_bn": "বাংলাদেশ ডেভেলপমেন্ট ব্যাংক লিমিটেড",
+    "brand": "BDBL",
+    "type": "specialized"
+  },
+  {
+    "name_en": "Ansar-VDP Unnayan Bank",
+    "name_bn": "আনসার-ভিডিপি উন্নয়ন ব্যাংক",
+    "brand": "Ansar-VDP Bank",
+    "type": "specialized"
+  },
+  {
+    "name_en": "Palli Sanchay Bank",
+    "name_bn": "পল্লী সঞ্চয় ব্যাংক",
+    "brand": "Palli Sanchay Bank",
+    "type": "specialized"
+  },
+  {
+    "name_en": "Karmasangsthan Bank",
+    "name_bn": "কর্মসংস্থান ব্যাংক",
+    "brand": "Karmasangsthan Bank",
+    "type": "specialized"
+  },
+  {
+    "name_en": "Probashi Kallyan Bank",
+    "name_bn": "প্রবাসী কল্যাণ ব্যাংক",
+    "brand": "Probashi Kallyan Bank",
+    "type": "specialized"
+  },
+
+  {
+    "name_en": "BRAC Bank Limited",
+    "name_bn": "ব্র্যাক ব্যাংক লিমিটেড",
+    "brand": "BRAC Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Dutch-Bangla Bank Limited",
+    "name_bn": "ডাচ্-বাংলা ব্যাংক লিমিটেড",
+    "brand": "DBBL",
+    "type": "private"
+  },
+  {
+    "name_en": "Eastern Bank Limited",
+    "name_bn": "ইস্টার্ন ব্যাংক লিমিটেড",
+    "brand": "EBL",
+    "type": "private"
+  },
+  {
+    "name_en": "The City Bank Limited",
+    "name_bn": "দ্য সিটি ব্যাংক লিমিটেড",
+    "brand": "City Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "United Commercial Bank Limited",
+    "name_bn": "ইউনাইটেড কমার্শিয়াল ব্যাংক লিমিটেড",
+    "brand": "UCB",
+    "type": "private"
+  },
+  {
+    "name_en": "Prime Bank Limited",
+    "name_bn": "প্রাইম ব্যাংক লিমিটেড",
+    "brand": "Prime Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Bank Asia Limited",
+    "name_bn": "ব্যাংক এশিয়া লিমিটেড",
+    "brand": "Bank Asia",
+    "type": "private"
+  },
+  {
+    "name_en": "Mercantile Bank Limited",
+    "name_bn": "মার্কেন্টাইল ব্যাংক লিমিটেড",
+    "brand": "Mercantile Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Mutual Trust Bank Limited",
+    "name_bn": "মিউচুয়াল ট্রাস্ট ব্যাংক লিমিটেড",
+    "brand": "MTB",
+    "type": "private"
+  },
+  {
+    "name_en": "IFIC Bank Limited",
+    "name_bn": "আইএফআইসি ব্যাংক লিমিটেড",
+    "brand": "IFIC Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "National Bank Limited",
+    "name_bn": "ন্যাশনাল ব্যাংক লিমিটেড",
+    "brand": "National Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "NCC Bank Limited",
+    "name_bn": "এনসিসি ব্যাংক লিমিটেড",
+    "brand": "NCC Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "One Bank Limited",
+    "name_bn": "ওয়ান ব্যাংক লিমিটেড",
+    "brand": "One Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Premier Bank Limited",
+    "name_bn": "প্রিমিয়ার ব্যাংক লিমিটেড",
+    "brand": "Premier Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Pubali Bank Limited",
+    "name_bn": "পূবালী ব্যাংক লিমিটেড",
+    "brand": "Pubali Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "South East Bank Limited",
+    "name_bn": "সাউথ ইস্ট ব্যাংক লিমিটেড",
+    "brand": "South East Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Dhaka Bank Limited",
+    "name_bn": "ঢাকা ব্যাংক লিমিটেড",
+    "brand": "Dhaka Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Trust Bank Limited",
+    "name_bn": "ট্রাস্ট ব্যাংক লিমিটেড",
+    "brand": "Trust Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Jamuna Bank Limited",
+    "name_bn": "যমুনা ব্যাংক লিমিটেড",
+    "brand": "Jamuna Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Meghna Bank Limited",
+    "name_bn": "মেঘনা ব্যাংক লিমিটেড",
+    "brand": "Meghna Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Midland Bank Limited",
+    "name_bn": "মিডল্যান্ড ব্যাংক লিমিটেড",
+    "brand": "Midland Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "NRB Commercial Bank Limited",
+    "name_bn": "এনআরবি কমার্শিয়াল ব্যাংক লিমিটেড",
+    "brand": "NRBC Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Modhumoti Bank Limited",
+    "name_bn": "মধুমতি ব্যাংক লিমিটেড",
+    "brand": "Modhumoti Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Community Bank Bangladesh Limited",
+    "name_bn": "কমিউনিটি ব্যাংক বাংলাদেশ লিমিটেড",
+    "brand": "Community Bank",
+    "type": "private"
+  },
+  {
+    "name_en": "Shimanto Bank Limited",
+    "name_bn": "শিমান্ত ব্যাংক লিমিটেড",
+    "brand": "Shimanto Bank",
+    "type": "private"
+  },
+
+  {
+    "name_en": "Islami Bank Bangladesh Limited",
+    "name_bn": "ইসলামী ব্যাংক বাংলাদেশ লিমিটেড",
+    "brand": "Islami Bank",
+    "type": "islamic"
+  },
+  {
+    "name_en": "Exim Bank Limited",
+    "name_bn": "এক্সিম ব্যাংক লিমিটেড",
+    "brand": "Exim Bank",
+    "type": "islamic"
+  },
+  {
+    "name_en": "Social Islami Bank Limited",
+    "name_bn": "সোশ্যাল ইসলামী ব্যাংক লিমিটেড",
+    "brand": "SIBL",
+    "type": "islamic"
+  },
+  {
+    "name_en": "First Security Islami Bank Limited",
+    "name_bn": "ফার্স্ট সিকিউরিটি ইসলামী ব্যাংক লিমিটেড",
+    "brand": "FSIBL",
+    "type": "islamic"
+  },
+  {
+    "name_en": "Shahjalal Islami Bank Limited",
+    "name_bn": "শাহজালাল ইসলামী ব্যাংক লিমিটেড",
+    "brand": "Shahjalal Bank",
+    "type": "islamic"
+  },
+  {
+    "name_en": "Union Bank Limited",
+    "name_bn": "ইউনিয়ন ব্যাংক লিমিটেড",
+    "brand": "Union Bank",
+    "type": "islamic"
+  },
+  {
+    "name_en": "Al-Arafah Islami Bank Limited",
+    "name_bn": "আল-আরাফাহ ইসলামী ব্যাংক লিমিটেড",
+    "brand": "Al-Arafah Bank",
+    "type": "islamic"
+  },
+  {
+    "name_en": "ICB Islamic Bank Limited",
+    "name_bn": "আইসিবি ইসলামী ব্যাংক লিমিটেড",
+    "brand": "ICB Islamic Bank",
+    "type": "islamic"
+  },
+  {
+    "name_en": "Global Islami Bank Limited",
+    "name_bn": "গ্লোবাল ইসলামী ব্যাংক লিমিটেড",
+    "brand": "Global Islami Bank",
+    "type": "islamic"
+  }
+]

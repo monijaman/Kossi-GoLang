@@ -127,7 +127,7 @@ func convertProductToResponseSimple(product *entities.Product) ProductResponse {
 func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	fmt.Println("========== DEBUG: GetProductByIDHandler called ==========")
+	// fmt.Println("========== DEBUG: GetProductByIDHandler called ==========")
 
 	// Extract ID from URL path - handle both /products/{id} and /products/{id}/
 	path := strings.TrimPrefix(r.URL.Path, "/products/")
@@ -163,12 +163,12 @@ func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo reposito
 	}
 
 	// DEBUG: Log the product entity before conversion
-	fmt.Printf("DEBUG: Product entity - ID: %d, Status: %v, Priority: %d\n", product.ID, product.Status, product.Priority)
+	// fmt.Printf("DEBUG: Product entity - ID: %d, Status: %v, Priority: %d\n", product.ID, product.Status, product.Priority)
 
 	response := convertProductToResponse(product, categoryRepo, brandRepo)
 
 	// DEBUG: Log the response before JSON encoding
-	fmt.Printf("DEBUG: Response struct - ID: %d, Status: %v, Priority: %d\n", response.ID, response.Status, response.Priority)
+	// fmt.Printf("DEBUG: Response struct - ID: %d, Status: %v, Priority: %d\n", response.ID, response.Status, response.Priority)
 
 	json.NewEncoder(w).Encode(response)
 }
@@ -316,15 +316,15 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		// DEBUG: Read body for debugging
 		r.Body.Close()
-		fmt.Printf("DEBUG: Failed to decode request body: %v\n", err)
+		// fmt.Printf("DEBUG: Failed to decode request body: %v\n", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid request body"})
 		return
 	}
 
 	// DEBUG: Log received product data
-	fmt.Printf("DEBUG: Received product update - ID: %d, Name: %s, Status: %v, Priority: %d\n",
-		req.ID, req.Name, req.Status, req.Priority)
+	// fmt.Printf("DEBUG: Received product update - ID: %d, Name: %s, Status: %v, Priority: %d\n",
+	// 	req.ID, req.Name, req.Status, req.Priority)
 
 	product, err := repo.Update(r.Context(), uint(productID), &req)
 	if err != nil {
@@ -469,7 +469,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		PriceRange: priceRange,
 		SortBy:     sortby,
 	}
-	fmt.Println(filters)
+	// fmt.Println(filters)
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
 	if err != nil {
@@ -794,7 +794,7 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 	w.Header().Set("Content-Type", "application/json")
 
 	// Debug log
-	fmt.Printf("CreateProductTranslationHandler called with URL: %s\n", r.URL.Path)
+	// fmt.Printf("CreateProductTranslationHandler called with URL: %s\n", r.URL.Path)
 
 	// Extract product ID from URL path - handle both /products/{id}/translation and /product-trans/{id}
 	var productIDStr string
@@ -827,11 +827,11 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 		return
 	}
 
-	fmt.Printf("Extracted product ID string: %s\n", productIDStr)
+	// fmt.Printf("Extracted product ID string: %s\n", productIDStr)
 
 	productID, err := strconv.ParseUint(productIDStr, 10, 32)
 
-	fmt.Printf("============================== Product ID: %d\n", productID)
+	// fmt.Printf("============================== Product ID: %d\n", productID)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{
@@ -848,19 +848,19 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		fmt.Printf("JSON decode error: %v\n", err)
+		// fmt.Printf("JSON decode error: %v\n", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
 		return
 	}
 
 	// Debug: Log the decoded request
-	fmt.Printf("Decoded request: Locale='%s', TranslatedName='%s'\n", request.Locale, request.TranslatedName)
-	fmt.Printf("Raw TranslatedName bytes: %v\n", []byte(request.TranslatedName))
+	// fmt.Printf("Decoded request: Locale='%s', TranslatedName='%s'\n", request.Locale, request.TranslatedName)
+	// fmt.Printf("Raw TranslatedName bytes: %v\n", []byte(request.TranslatedName))
 
 	if request.Locale == "" || request.TranslatedName == "" {
-		fmt.Printf("Validation failed: Locale='%s' (len=%d), TranslatedName='%s' (len=%d)\n",
-			request.Locale, len(request.Locale), request.TranslatedName, len(request.TranslatedName))
+		// fmt.Printf("Validation failed: Locale='%s' (len=%d), TranslatedName='%s' (len=%d)\n",
+		// 	request.Locale, len(request.Locale), request.TranslatedName, len(request.TranslatedName))
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Locale and translated_name are required"})
 		return

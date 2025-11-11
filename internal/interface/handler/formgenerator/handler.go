@@ -2,7 +2,6 @@ package formgenerator
 
 import (
 	"encoding/json"
-	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/usecase/formgenerator"
@@ -210,7 +209,7 @@ func (h *FormGeneratorHandler) GetCategorySpec(w http.ResponseWriter, r *http.Re
 	}
 
 	specifications, err := formgenerator.GetCategorySpecifications(r.Context(), h.repo, uint(categoryID))
-	fmt.Println("-----------------specifications", specifications)
+	// fmt.Println("-----------------specifications", specifications)
 
 	if err != nil {
 		// Return empty array if not found

@@ -445,32 +445,47 @@ func GetProductReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo
 func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Extract review ID from URL path
+	// Extract ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/reviews/")
-	reviewIDStr := strings.Trim(path, "/")
+	idStr := strings.Trim(path, "/")
 
-	reviewID, err := strconv.ParseUint(reviewIDStr, 10, 32)
+	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid review ID"})
-		return
-	}
-
-	review, err := reviewRepo.GetByID(r.Context(), uint(reviewID))
-	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Review not found"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid ID"})
 		return
 	}
 
 	locale := r.URL.Query().Get("locale")
+
+	// Check if this should be treated as product_id (for public reviews)
+	// If locale is specified, assume it's a product_id for public review lookup
+	var review *entities.ProductReview
+	if locale != "" {
+		// Treat as product_id and get public review (English version)
+		review, err = reviewRepo.GetPublicReviewsByProduct(r.Context(), uint(id), "")
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Review not found for this product"})
+			return
+		}
+	} else {
+		// Treat as review_id (backward compatibility)
+		review, err = reviewRepo.GetByID(r.Context(), uint(id))
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Review not found"})
+			return
+		}
+	}
+
 	response := map[string]interface{}{
 		"review": convertReviewToResponse(review),
 	}
 
-	// If locale is specified, get translation
-	if locale != "" {
-		translation, err := reviewRepo.GetTranslation(r.Context(), uint(reviewID), locale)
+	// If locale is specified and it's not English, get the translation
+	if locale != "" && locale != "en" {
+		translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale)
 		if err == nil {
 			response["translation"] = convertTranslationToResponse(translation)
 		}

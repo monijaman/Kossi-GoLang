@@ -166,9 +166,31 @@ func (r *productReviewRepository) SearchReviews(ctx context.Context, searchTerm 
 
 // GetPublicReviewsByProduct retrieves public reviews for a product with optional locale
 func (r *productReviewRepository) GetPublicReviewsByProduct(ctx context.Context, productID uint, locale string) (*entities.ProductReview, error) {
-	// This would need proper implementation based on product-review relationships
-	// For now, return nil as placeholder
-	return nil, nil
+	var model models.ProductReviewModel
+
+	// Find the review for this product with status = true (published)
+	if err := r.db.WithContext(ctx).
+		Where("product_id = ? AND status = ?", productID, true).
+		First(&model).Error; err != nil {
+		return nil, err
+	}
+
+	review := model.ToEntity()
+
+	// If locale is specified and not default, try to get translation
+	if locale != "" && locale != "en" {
+		var translationModel models.ProductReviewTranslationModel
+		if err := r.db.WithContext(ctx).
+			Where("product_review_id = ? AND locale = ?", model.ID, locale).
+			First(&translationModel).Error; err == nil {
+			// Merge translation into review
+			translation := translationModel.ToEntity()
+			review.Review = &translation.TranslatedReview
+			review.AdditionalDetails = translation.AdditionalDetails
+		}
+	}
+
+	return review, nil
 }
 
 // GetAverageRating calculates average rating for a product

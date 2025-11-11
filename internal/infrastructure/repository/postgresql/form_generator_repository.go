@@ -114,13 +114,13 @@ func (r *formGeneratorRepository) GetCategorySpecifications(ctx context.Context,
 	err := r.db.WithContext(ctx).Where("category_id = ?", categoryID).First(&formGenerator).Error
 
 	if err == gorm.ErrRecordNotFound {
-		fmt.Printf("DEBUG: No FormGenerator found for category_id: %d\n", categoryID)
+		// fmt.Printf("DEBUG: No FormGenerator found for category_id: %d\n", categoryID)
 		return []*entities.Specification{}, nil
 	} else if err != nil {
 		return nil, err
 	}
 
-	fmt.Printf("DEBUG: Found FormGenerator for category_id: %d, specification_id: %s\n", categoryID, formGenerator.SpecificationID)
+	// fmt.Printf("DEBUG: Found FormGenerator for category_id: %d, specification_id: %s\n", categoryID, formGenerator.SpecificationID)
 
 	// Check if specification_id is empty (equivalent to !empty($formItems->specification_id))
 	if formGenerator.SpecificationID == "" || formGenerator.SpecificationID == "[]" || formGenerator.SpecificationID == "null" {

@@ -144,7 +144,7 @@ kossti/
 
 If you want to get started immediately with the working components:
 
-```bash
+````bash
 # 1. Install dependencies
 go mod download
 
@@ -175,7 +175,7 @@ How to seed the motorbikes dataset:
 ```bash
 cd /d/GO/gocrit/gocrit_server
 go run ./cmd/migrate/main.go -seed
-```
+````
 
 3. To perform a fresh setup (drop tables, migrate, then seed — DANGEROUS on production):
 
@@ -193,21 +193,22 @@ go run ./cmd/seedtest/main.go
 ```
 
 Notes:
+
 - The seeder will skip creating a product if a product with the same slug already exists.
 - Images in the dataset use placeholder URLs by default; replace them with real S3 or hosted URLs if you have them.
 - To expand or edit the motorbikes list, modify `init-db/seeders/motorbikes.json` and re-run `-seed` (or `-fresh-seed` for a full refresh).
 
-```
+````
 
 **What's working:**
-✅ Database migration system (24 models)  
-✅ Comprehensive seeding system (400+ records)  
-✅ Data verification tools  
-✅ Clean Architecture structure  
+✅ Database migration system (24 models)
+✅ Comprehensive seeding system (400+ records)
+✅ Data verification tools
+✅ Clean Architecture structure
 ✅ Air hot reloading (with working migration tools)
 
 **What needs attention:**
-⚠️ Main API server has entity import conflicts  
+⚠️ Main API server has entity import conflicts
 ⚠️ Use case layer needs entity reconciliation
 
 ### 🔥 Quick Fix for Air Issues
@@ -225,7 +226,7 @@ go run ./cmd/migrate/main.go -seed
 # Option 3: Manual build test to see specific errors
 mkdir tmp
 go build -o ./tmp/main.exe ./cmd/app/main.go
-```
+````
 
 ### 🚨 Entity Import Conflict Issue
 
@@ -1377,13 +1378,13 @@ Our Clean Architecture includes a comprehensive database seeding system that pop
 
 ```bash
 # Run fresh setup with seeding (development only)
-go run cmd/migrate/main.go -fresh-seed
+go run ./cmd/migrate/main.go -fresh-seed
 
 # Run seeders only (existing database)
-go run cmd/migrate/main.go -seed
+go run ./cmd/migrate/main.go -seed
 
 # Verify seeded data
-go run cmd/seedtest/main.go
+go run ./cmd/seedtest/main.go
 ```
 
 ### 11.2. What Gets Seeded
