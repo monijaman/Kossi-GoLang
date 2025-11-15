@@ -1,0 +1,40 @@
+name: Download Motorbike Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *' # Run daily at 3:00 AM UTC
+
+jobs:
+  download-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run image downloader
+        run: |
+          python init-db/seeders/download_motorbike_images.py --num 3
+
+      - name: Upload images as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: motorbike-images
+          path: crit_client/public/images/motorbikes/
+
+      - name: Upload attributions CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: attributions
+          path: crit_client/public/images/motorbikes/attributions.csv
