@@ -29,6 +29,7 @@ import (
 	"gorm.io/gorm"
 
 	// "kossti/internal/infrastructure/database" // Not used since migrations are managed separately
+	database_migrations "kossti/internal/infrastructure/database/migrations"
 	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
@@ -209,6 +210,18 @@ func main() {
 	sqlDB.SetConnMaxLifetime(30 * time.Minute) // recycle connections every 30 minutes
 
 	fmt.Println("Database connection successful!")
+
+	// Run translation migration to ensure all specification values are in Bengali
+	fmt.Println("\nRunning specification translation verification...")
+	if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
+		log.Printf("Warning: Specification translation verification failed (non-critical): %v", err)
+	}
+
+	// Convert specifications after ID 9833 to Bengali (excluding URLs)
+	fmt.Println("\nConverting specifications after ID 9833 to Bengali...")
+	if err := database_migrations.ConvertSpecificationsAfter9833ToBengali(db); err != nil {
+		log.Printf("Warning: Specifications conversion failed (non-critical): %v", err)
+	}
 
 	// NOTE: Migrations are managed separately via `go run ./cmd/migrate/main.go`
 	// Commenting out auto-migration to avoid conflicts. Run migrations manually before starting the app.

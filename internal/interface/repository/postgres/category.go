@@ -304,6 +304,18 @@ func (r *PostgresCategoryRepo) DeleteBrandRelation(ctx context.Context, category
 	return nil
 }
 
+func (r *PostgresCategoryRepo) DeleteBrandRelationsByCategory(ctx context.Context, categoryID uint) error {
+	result := r.db.WithContext(ctx).
+		Where("category_id = ?", categoryID).
+		Delete(&models.BrandCategoryModel{})
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
 func (r *PostgresCategoryRepo) GetBrandsByIDs(ctx context.Context, brandIDs []uint) ([]*entities.Brand, error) {
 	var brandModels []models.BrandModel
 

@@ -725,6 +725,12 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 
 	// Handle bulk create when Brands array is provided
 	if len(request.Brands) > 0 {
+		// Delete existing brand relations for this category first (replace mode)
+		if err := categoryRepo.DeleteBrandRelationsByCategory(r.Context(), request.CategoryID); err != nil {
+			// Log but don't fail if deletion fails (could be no existing relations)
+			fmt.Println("Warning: Failed to delete existing brand relations:", err)
+		}
+
 		created := make([]BrandCategoryResponse, 0, len(request.Brands))
 		for _, bid := range request.Brands {
 			if bid == 0 {
@@ -745,8 +751,11 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"created": created,
-			"count":   len(created),
+			"success":     true,
+			"message":     "Brand-category relations created successfully",
+			"created":     created,
+			"category_id": request.CategoryID,
+			"count":       len(created),
 		})
 		return
 	}
@@ -771,7 +780,11 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 	}
 
 	response := convertBrandCategoryToResponse(savedRelation)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"success": true,
+		"message": "Brand-category relation created successfully",
+		"data":    response,
+	})
 }
 
 // GetCategoryBrandRelationsHandler handles GET /category-brands

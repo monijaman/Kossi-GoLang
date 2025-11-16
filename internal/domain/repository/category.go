@@ -29,6 +29,7 @@ type CategoryRepository interface {
 	GetBrandRelations(ctx context.Context, categoryID uint) ([]*entities.BrandCategory, error)
 	GetCategoryBrandRelations(ctx context.Context) ([]*entities.BrandCategory, error)
 	DeleteBrandRelation(ctx context.Context, categoryID, brandID uint) error
+	DeleteBrandRelationsByCategory(ctx context.Context, categoryID uint) error
 	GetBrandsByIDs(ctx context.Context, brandIDs []uint) ([]*entities.Brand, error)
 
 	// Status operations
