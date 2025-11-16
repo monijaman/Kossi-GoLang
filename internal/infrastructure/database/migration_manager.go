@@ -4,6 +4,7 @@ package database
 
 import (
 	"fmt"
+	"kossti/internal/infrastructure/database/migrations"
 	"kossti/internal/infrastructure/database/models"
 	"log"
 	"strings"
@@ -260,6 +261,16 @@ func (m *MigrationManager) Setup() error {
 	}
 
 	return nil
+}
+
+// UpdateBanglalinkReviews runs the Banglalink review update migration
+func (m *MigrationManager) UpdateBanglalinkReviews() error {
+	if m.db == nil {
+		return fmt.Errorf("database connection not initialized")
+	}
+
+	// Call the migration function that updates Banglalink reviews with HTML content
+	return migrations.UpdateBanglalinkReviewsWithComparison(m.db)
 }
 
 // SetupWithDatabaseCreation runs complete database setup including database creation

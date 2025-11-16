@@ -73,16 +73,17 @@ func main() {
 
 	// Define flags
 	var (
-		fresh     = flag.Bool("fresh", false, "Drop all tables and recreate (DANGEROUS)")
-		migrate   = flag.Bool("migrate", false, "Run migrations (safe)")
-		createDB  = flag.Bool("create-db", false, "Create database if not exists, then migrate")
-		drop      = flag.Bool("drop", false, "Drop all tables (DANGEROUS)")
-		fk        = flag.Bool("fk", false, "Add foreign keys only")
-		indexes   = flag.Bool("indexes", false, "Create indexes only")
-		seed      = flag.Bool("seed", false, "Run all seeders")
-		seeder    = flag.String("seeder", "", "Run one or more seeders by name (comma-separated)")
-		freshSeed = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
-		dsn       = flag.String("dsn", defaultDSN, "Database DSN")
+		fresh              = flag.Bool("fresh", false, "Drop all tables and recreate (DANGEROUS)")
+		migrate            = flag.Bool("migrate", false, "Run migrations (safe)")
+		createDB           = flag.Bool("create-db", false, "Create database if not exists, then migrate")
+		drop               = flag.Bool("drop", false, "Drop all tables (DANGEROUS)")
+		fk                 = flag.Bool("fk", false, "Add foreign keys only")
+		indexes            = flag.Bool("indexes", false, "Create indexes only")
+		seed               = flag.Bool("seed", false, "Run all seeders")
+		seeder             = flag.String("seeder", "", "Run one or more seeders by name (comma-separated)")
+		freshSeed          = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
+		updateBanglakink   = flag.Bool("update-banglalink", false, "Update Banglalink reviews with HTML content")
+		dsn                = flag.String("dsn", defaultDSN, "Database DSN")
 	)
 	flag.Parse()
 
@@ -219,6 +220,13 @@ func main() {
 		}
 		fmt.Println("✅ Indexes created!")
 
+	case *updateBanglakink:
+		fmt.Println("📝 Updating Banglalink reviews with HTML content...")
+		if err := manager.UpdateBanglalinkReviews(); err != nil {
+			log.Fatal("Failed to update Banglalink reviews:", err)
+		}
+		fmt.Println("✅ Banglalink reviews updated with HTML content!")
+
 	default:
 		printUsage()
 	}
@@ -279,15 +287,16 @@ func printUsage() {
 	fmt.Println("  DATABASE_URL    Database connection string (reads from .env file)")
 	fmt.Println("")
 	fmt.Println("Flags:")
-	fmt.Println("  -migrate      Run safe migration (recommended for production)")
-	fmt.Println("  -create-db    Create database if not exists, then migrate (safe)")
-	fmt.Println("  -fresh        Drop all tables and recreate (DANGEROUS - dev only)")
-	fmt.Println("  -fresh-seed   Drop, migrate, and seed database (DANGEROUS - dev only)")
-	fmt.Println("  -seed         Run all database seeders")
-	fmt.Println("  -drop         Drop all tables (DANGEROUS)")
-	fmt.Println("  -fk           Add foreign keys only")
-	fmt.Println("  -indexes      Create indexes only")
-	fmt.Println("  -dsn          Database connection string (overrides DATABASE_URL)")
+	fmt.Println("  -migrate           Run safe migration (recommended for production)")
+	fmt.Println("  -create-db         Create database if not exists, then migrate (safe)")
+	fmt.Println("  -fresh             Drop all tables and recreate (DANGEROUS - dev only)")
+	fmt.Println("  -fresh-seed        Drop, migrate, and seed database (DANGEROUS - dev only)")
+	fmt.Println("  -seed              Run all database seeders")
+	fmt.Println("  -drop              Drop all tables (DANGEROUS)")
+	fmt.Println("  -fk                Add foreign keys only")
+	fmt.Println("  -indexes           Create indexes only")
+	fmt.Println("  -update-banglalink Update Banglalink reviews with HTML content")
+	fmt.Println("  -dsn               Database connection string (overrides DATABASE_URL)")
 	fmt.Println("")
 	fmt.Println("Examples:")
 	fmt.Println("  go run cmd/migrate/main.go -migrate")
@@ -295,6 +304,7 @@ func printUsage() {
 	fmt.Println("  go run cmd/migrate/main.go -fresh")
 	fmt.Println("  go run cmd/migrate/main.go -fresh-seed")
 	fmt.Println("  go run cmd/migrate/main.go -seed")
+	fmt.Println("  go run cmd/migrate/main.go -update-banglalink")
 	fmt.Println("  go run cmd/migrate/main.go -dsn 'host=prod-db user=prod password=secret dbname=production'")
 	fmt.Println("")
 	fmt.Println("Note: The tool automatically reads DATABASE_URL from .env file if present")
