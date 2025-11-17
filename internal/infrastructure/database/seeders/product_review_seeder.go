@@ -365,7 +365,7 @@ func (prs *ProductReviewSeeder) Seed(db *gorm.DB) error {
 		review := &models.ProductReviewModel{
 			ProductID:         product.ID,
 			UserID:            adminUser.ID,
-			Rating:            reviewData.Rating,
+			Rating:            fmt.Sprintf("%.2f", reviewData.Rating),
 			Reviews:           &reviewData.Review,
 			AdditionalDetails: additionalDetailsJSON,
 			Priority:          1,

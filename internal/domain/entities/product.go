@@ -28,7 +28,7 @@ type ProductReview struct {
 	ID                uint
 	ProductID         uint
 	UserID            uint
-	Rating            int
+	Rating            string
 	Review            *string
 	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
 	SourceURL         *string         `json:"source_url,omitempty"`

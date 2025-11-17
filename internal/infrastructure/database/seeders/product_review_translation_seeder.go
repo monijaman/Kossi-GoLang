@@ -344,6 +344,7 @@ func (prts *ProductReviewTranslationSeeder) Seed(db *gorm.DB) error {
 		translation := &models.ProductReviewTranslationModel{
 			ProductReviewID:   review.ID,
 			Locale:            "bn",
+			Rating:            fmt.Sprintf("%.2f", review.Rating), // Convert float32 rating to string
 			Reviews:           transData.BanglaReview,
 			AdditionalDetails: additionalDetailsJSON,
 		}

@@ -309,6 +309,7 @@ func (s *{{.StructName}}) Seed(db *gorm.DB) error {
 	translation := &models.ProductReviewTranslationModel{
 		ProductReviewID: review.ID,
 		Locale:          "bn",
+		Rating:          float32(review.Rating), // Use the rating from the product review
 		Reviews:         banglaReview,
 	}
 

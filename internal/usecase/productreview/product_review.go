@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"time"
@@ -46,7 +47,7 @@ func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 	newReview := &entities.ProductReview{
 		ProductID: productID,
 		UserID:    userID,
-		Rating:    int(rating),
+		Rating:    fmt.Sprintf("%.2f", rating),
 		Review:    &review,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
@@ -86,7 +87,7 @@ func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 		return nil, errors.New("unauthorized to update this review")
 	}
 
-	existingReview.Rating = int(rating)
+	existingReview.Rating = fmt.Sprintf("%.2f", rating)
 	existingReview.Review = &review
 	existingReview.UpdatedAt = time.Now()
 
@@ -130,7 +131,7 @@ func GetReviewsByUser(ctx context.Context, repo repository.ProductReviewReposito
 }
 
 // CreateTranslation creates a new translation for a product review
-func CreateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, review string, additionalDetails json.RawMessage) (*entities.ProductReviewTranslation, error) {
+func CreateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, rating string, review string, additionalDetails json.RawMessage) (*entities.ProductReviewTranslation, error) {
 	if locale == "" {
 		return nil, errors.New("locale is required")
 	}
@@ -148,6 +149,7 @@ func CreateTranslation(ctx context.Context, repo repository.ProductReviewReposit
 	translation := &entities.ProductReviewTranslation{
 		ProductReviewID:   reviewID,
 		Locale:            locale,
+		Rating:            rating,
 		TranslatedReview:  review,
 		AdditionalDetails: additionalDetails,
 		CreatedAt:         time.Now(),
@@ -162,7 +164,7 @@ func CreateTranslation(ctx context.Context, repo repository.ProductReviewReposit
 }
 
 // UpdateTranslation updates an existing translation
-func UpdateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, review string, additionalDetails json.RawMessage) (*entities.ProductReviewTranslation, error) {
+func UpdateTranslation(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, locale string, rating string, review string, additionalDetails json.RawMessage) (*entities.ProductReviewTranslation, error) {
 	if locale == "" {
 		return nil, errors.New("locale is required")
 	}
@@ -176,6 +178,7 @@ func UpdateTranslation(ctx context.Context, repo repository.ProductReviewReposit
 		return nil, errors.New("translation not found")
 	}
 
+	existingTranslation.Rating = rating
 	existingTranslation.TranslatedReview = review
 	existingTranslation.UpdatedAt = time.Now()
 

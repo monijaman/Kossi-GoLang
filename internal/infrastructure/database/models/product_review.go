@@ -14,7 +14,7 @@ type ProductReviewModel struct {
 	ID                uint       `gorm:"primaryKey;autoIncrement"`
 	ProductID         uint       `gorm:"not null;index"`
 	UserID            uint       `gorm:"not null;index"`
-	Rating            float32    `gorm:"not null"`
+	Rating            string     `gorm:"type:varchar(50);default:''"`
 	Reviews           *string    `gorm:"type:text"`
 	SourceURL         *string    `gorm:"type:text"`
 	AdditionalDetails []byte     `gorm:"type:json"`
@@ -36,7 +36,7 @@ func (pr *ProductReviewModel) ToEntity() *entities.ProductReview {
 		ID:                pr.ID,
 		ProductID:         pr.ProductID,
 		UserID:            pr.UserID,
-		Rating:            int(pr.Rating),
+		Rating:            pr.Rating,
 		Review:            pr.Reviews,
 		AdditionalDetails: json.RawMessage(pr.AdditionalDetails),
 		SourceURL:         pr.SourceURL,
@@ -51,7 +51,7 @@ func (pr *ProductReviewModel) FromEntity(entity *entities.ProductReview) {
 	pr.ID = entity.ID
 	pr.ProductID = entity.ProductID
 	pr.UserID = entity.UserID
-	pr.Rating = float32(entity.Rating)
+	pr.Rating = entity.Rating
 	pr.Reviews = entity.Review
 	pr.SourceURL = entity.SourceURL
 	if len(entity.AdditionalDetails) > 0 {

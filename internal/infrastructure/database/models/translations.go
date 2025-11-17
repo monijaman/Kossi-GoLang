@@ -173,6 +173,7 @@ type ProductReviewTranslationModel struct {
 	ID              uint   `gorm:"primaryKey;autoIncrement"`
 	ProductReviewID uint   `gorm:"not null"`
 	Locale          string `gorm:"type:varchar(255);not null"`
+	Rating          string `gorm:"type:varchar(50);default:''"`
 	Reviews         string `gorm:"type:text;not null"`
 	// Store any structured additional details as JSON bytes
 	AdditionalDetails []byte    `gorm:"type:json"`
@@ -186,6 +187,7 @@ func (prt *ProductReviewTranslationModel) ToEntity() *entities.ProductReviewTran
 		ID:                prt.ID,
 		ProductReviewID:   prt.ProductReviewID,
 		Locale:            prt.Locale,
+		Rating:            prt.Rating,
 		TranslatedReview:  prt.Reviews,
 		AdditionalDetails: json.RawMessage(prt.AdditionalDetails),
 		CreatedAt:         prt.CreatedAt,
@@ -198,6 +200,7 @@ func (prt *ProductReviewTranslationModel) FromEntity(entity *entities.ProductRev
 	prt.ID = entity.ID
 	prt.ProductReviewID = entity.ProductReviewID
 	prt.Locale = entity.Locale
+	prt.Rating = entity.Rating
 	prt.Reviews = entity.TranslatedReview
 	if len(entity.AdditionalDetails) > 0 {
 		prt.AdditionalDetails = []byte(entity.AdditionalDetails)

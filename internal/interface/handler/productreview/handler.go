@@ -39,7 +39,7 @@ type UpdateReviewRequest struct {
 type ReviewTranslationRequest struct {
 	ProductID         uint            `json:"product_id"`
 	Locale            string          `json:"locale"`
-	Rating            int             `json:"rating"`
+	Rating            string          `json:"rating"`
 	Review            string          `json:"review"`
 	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
 }
@@ -53,7 +53,7 @@ type ReviewResponse struct {
 	ID                uint        `json:"id"`
 	ProductID         uint        `json:"product_id"`
 	UserID            uint        `json:"user_id"`
-	Rating            int         `json:"rating"`
+	Rating            string      `json:"rating"`
 	Reviews           string      `json:"reviews"`
 	AdditionalDetails interface{} `json:"additional_details,omitempty"`
 	SourceURL         *string     `json:"source_url,omitempty"`
@@ -67,6 +67,7 @@ type TranslationResponse struct {
 	ID                uint        `json:"id"`
 	ProductReviewID   uint        `json:"product_review_id"`
 	Locale            string      `json:"locale"`
+	Rating            string      `json:"rating"`
 	TranslatedReview  string      `json:"translated_review"`
 	AdditionalDetails interface{} `json:"additional_details,omitempty"`
 	CreatedAt         string      `json:"created_at"`
@@ -124,11 +125,48 @@ func convertTranslationToResponse(translation *entities.ProductReviewTranslation
 		ID:                translation.ID,
 		ProductReviewID:   translation.ProductReviewID,
 		Locale:            translation.Locale,
+		Rating:            translation.Rating,
 		TranslatedReview:  translation.TranslatedReview,
 		AdditionalDetails: additional,
 		CreatedAt:         translation.CreatedAt.Format(time.RFC3339),
 		UpdatedAt:         translation.UpdatedAt.Format(time.RFC3339),
 	}
+}
+
+// toBanglaNumber converts a numeric rating to Bengali digits string (e.g., 4.15 -> "৪.১৫")
+func toBanglaNumber(f float32) string {
+	// format with up to 2 decimal places but trim trailing zeros
+	s := fmt.Sprintf("%.2f", f)
+	// remove trailing .00 -> show integer if whole number? keep as is per request
+	// Replace ASCII digits with Bengali digits
+	var b []rune
+	for _, r := range s {
+		switch r {
+		case '0':
+			b = append(b, '০')
+		case '1':
+			b = append(b, '১')
+		case '2':
+			b = append(b, '২')
+		case '3':
+			b = append(b, '৩')
+		case '4':
+			b = append(b, '৪')
+		case '5':
+			b = append(b, '৫')
+		case '6':
+			b = append(b, '৬')
+		case '7':
+			b = append(b, '৭')
+		case '8':
+			b = append(b, '৮')
+		case '9':
+			b = append(b, '৯')
+		default:
+			b = append(b, r)
+		}
+	}
+	return string(b)
 }
 
 // CreateReviewHandler handles POST /reviews/{id}
@@ -259,7 +297,10 @@ func CreateReviewTranslationHandler(w http.ResponseWriter, r *http.Request, revi
 	var req ReviewTranslationRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid request body"})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"error":   "Invalid request body",
+			"details": err.Error(),
+		})
 		return
 	}
 
@@ -290,7 +331,7 @@ func CreateReviewTranslationHandler(w http.ResponseWriter, r *http.Request, revi
 	existingTranslation, err := reviewRepo.GetTranslation(r.Context(), reviewID, req.Locale)
 	if err == nil && existingTranslation != nil {
 		// Update existing translation
-		translation, err := productreview.UpdateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Review, req.AdditionalDetails)
+		translation, err := productreview.UpdateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Rating, req.Review, req.AdditionalDetails)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -304,7 +345,7 @@ func CreateReviewTranslationHandler(w http.ResponseWriter, r *http.Request, revi
 		})
 	} else {
 		// Create new translation
-		translation, err := productreview.CreateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Review, req.AdditionalDetails)
+		translation, err := productreview.CreateTranslation(r.Context(), reviewRepo, reviewID, req.Locale, req.Rating, req.Review, req.AdditionalDetails)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})

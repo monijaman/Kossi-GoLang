@@ -135,36 +135,36 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
         <section class="pros">
             <h2>Pros (11 Major Advantages)</h2>
             <ul>
-                <li>✅ <strong>Affordable call rates</strong> - Competitive pricing for local and international calls</li>
-                <li>✅ <strong>Attractive data bundles</strong> - Regular promotions with bonus offers</li>
-                <li>✅ <strong>Good 4G coverage</strong> - 99% urban and 60% rural coverage</li>
-                <li>✅ <strong>User-friendly app</strong> - Intuitive account management interface</li>
-                <li>✅ <strong>Digital payment support</strong> - Integrated with multiple payment platforms</li>
-                <li>✅ <strong>Emergency balance</strong> - Feature for urgent calls when balance low</li>
-                <li>✅ <strong>Flexible plans</strong> - Prepaid and postpaid options available</li>
-                <li>✅ <strong>Frequent promotions</strong> - Regular special offers and bonuses</li>
-                <li>✅ <strong>Social media bundles</strong> - Unlimited access to popular platforms</li>
-                <li>✅ <strong>Money services</strong> - Comprehensive digital payment ecosystem</li>
-                <li>✅ <strong>Multiple support channels</strong> - Phone, app, USSD, and social media</li>
+                <li> <strong>Affordable call rates</strong> - Competitive pricing for local and international calls</li>
+                <li> <strong>Attractive data bundles</strong> - Regular promotions with bonus offers</li>
+                <li> <strong>Good 4G coverage</strong> - 99% urban and 60% rural coverage</li>
+                <li> <strong>User-friendly app</strong> - Intuitive account management interface</li>
+                <li> <strong>Digital payment support</strong> - Integrated with multiple payment platforms</li>
+                <li> <strong>Emergency balance</strong> - Feature for urgent calls when balance low</li>
+                <li> <strong>Flexible plans</strong> - Prepaid and postpaid options available</li>
+                <li> <strong>Frequent promotions</strong> - Regular special offers and bonuses</li>
+                <li> <strong>Social media bundles</strong> - Unlimited access to popular platforms</li>
+                <li> <strong>Money services</strong> - Comprehensive digital payment ecosystem</li>
+                <li> <strong>Multiple support channels</strong> - Phone, app, USSD, and social media</li>
             </ul>
         </section>
 
         <section class="cons">
             <h2>Cons (7 Main Limitations)</h2>
             <ul>
-                <li>⚠️ <strong>Peak hour congestion</strong> - Network slowdowns during 6-10 PM</li>
-                <li>⚠️ <strong>Limited rural coverage</strong> - Only 60% coverage in villages</li>
-                <li>⚠️ <strong>Long customer wait times</strong> - Support queues during peak periods</li>
-                <li>⚠️ <strong>Higher roaming rates</strong> - More expensive than competitors internationally</li>
-                <li>⚠️ <strong>Speed throttling</strong> - Occasional limitations on some packages</li>
-                <li>⚠️ <strong>Complex SIM activation</strong> - KYC process could be simplified</li>
-                <li>⚠️ <strong>Restrictive validity</strong> - Some packages have strict expiry periods</li>
+                <li> <strong>Peak hour congestion</strong> - Network slowdowns during 6-10 PM</li>
+                <li> <strong>Limited rural coverage</strong> - Only 60% coverage in villages</li>
+                <li> <strong>Long customer wait times</strong> - Support queues during peak periods</li>
+                <li> <strong>Higher roaming rates</strong> - More expensive than competitors internationally</li>
+                <li> <strong>Speed throttling</strong> - Occasional limitations on some packages</li>
+                <li> <strong>Complex SIM activation</strong> - KYC process could be simplified</li>
+                <li> <strong>Restrictive validity</strong> - Some packages have strict expiry periods</li>
             </ul>
         </section>
 
         <section class="verdict">
             <h2>Verdict</h2>
-            <p><strong>✅ HIGHLY RECOMMENDED - Best Value for Money</strong></p>
+            <p><strong> HIGHLY RECOMMENDED - Best Value for Money</strong></p>
             <p>Banglalink offers the best value-to-quality ratio in Bangladesh's mobile market. As the #2 operator with 35+ million subscribers, it provides reliable 4G coverage in urban areas, competitive pricing that undercuts Grameenphone by 14%, and a growing digital services ecosystem.</p>
         </section>
     </article>
@@ -283,36 +283,36 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
         <section class="pros">
             <h2>সুবিধাসমূহ (১১টি প্রধান সুবিধা)</h2>
             <ul>
-                <li>✅ <strong>সাশ্রয়ী কল রেট</strong> - স্থানীয় এবং আন্তর্জাতিক কলের প্রতিযোগিতামূলক মূল্য</li>
-                <li>✅ <strong>আকর্ষণীয় ডেটা প্যাকেজ</strong> - নিয়মিত প্রচার এবং বোনাস অফার</li>
-                <li>✅ <strong>ভাল ৪জি কভারেজ</strong> - ৯৯% শহুরে এবং ৬০% গ্রামীণ কভারেজ</li>
-                <li>✅ <strong>ব্যবহারকারী-বান্ধব অ্যাপ</strong> - সহজ অ্যাকাউন্ট ব্যবস্থাপনা ইন্টারফেস</li>
-                <li>✅ <strong>ডিজিটাল পেমেন্ট সমর্থন</strong> - একাধিক পেমেন্ট প্ল্যাটফর্মের সাথে সমন্বয়</li>
-                <li>✅ <strong>জরুরি ব্যালেন্স</strong> - ব্যালেন্স কম থাকলে জরুরি কলের সুবিধা</li>
-                <li>✅ <strong>নমনীয় পরিকল্পনা</strong> - প্রিপেইড এবং পোস্টপেইড বিকল্প উপলব্ধ</li>
-                <li>✅ <strong>ঘন ঘন প্রচার</strong> - নিয়মিত বিশেষ অফার এবং বোনাস</li>
-                <li>✅ <strong>সোশ্যাল মিডিয়া প্যাকেজ</strong> - জনপ্রিয় প্ল্যাটফর্মে সীমাহীন অ্যাক্সেস</li>
-                <li>✅ <strong>মানি সেবা</strong> - ব্যাপক ডিজিটাল পেমেন্ট ইকোসিস্টেম</li>
-                <li>✅ <strong>একাধিক সহায়তা চ্যানেল</strong> - ফোন, অ্যাপ, ইউএসএসডি এবং সোশ্যাল মিডিয়া</li>
+                <li> <strong>সাশ্রয়ী কল রেট</strong> - স্থানীয় এবং আন্তর্জাতিক কলের প্রতিযোগিতামূলক মূল্য</li>
+                <li> <strong>আকর্ষণীয় ডেটা প্যাকেজ</strong> - নিয়মিত প্রচার এবং বোনাস অফার</li>
+                <li> <strong>ভাল ৪জি কভারেজ</strong> - ৯৯% শহুরে এবং ৬০% গ্রামীণ কভারেজ</li>
+                <li> <strong>ব্যবহারকারী-বান্ধব অ্যাপ</strong> - সহজ অ্যাকাউন্ট ব্যবস্থাপনা ইন্টারফেস</li>
+                <li> <strong>ডিজিটাল পেমেন্ট সমর্থন</strong> - একাধিক পেমেন্ট প্ল্যাটফর্মের সাথে সমন্বয়</li>
+                <li> <strong>জরুরি ব্যালেন্স</strong> - ব্যালেন্স কম থাকলে জরুরি কলের সুবিধা</li>
+                <li> <strong>নমনীয় পরিকল্পনা</strong> - প্রিপেইড এবং পোস্টপেইড বিকল্প উপলব্ধ</li>
+                <li> <strong>ঘন ঘন প্রচার</strong> - নিয়মিত বিশেষ অফার এবং বোনাস</li>
+                <li> <strong>সোশ্যাল মিডিয়া প্যাকেজ</strong> - জনপ্রিয় প্ল্যাটফর্মে সীমাহীন অ্যাক্সেস</li>
+                <li> <strong>মানি সেবা</strong> - ব্যাপক ডিজিটাল পেমেন্ট ইকোসিস্টেম</li>
+                <li> <strong>একাধিক সহায়তা চ্যানেল</strong> - ফোন, অ্যাপ, ইউএসএসডি এবং সোশ্যাল মিডিয়া</li>
             </ul>
         </section>
 
         <section class="cons">
             <h2>অসুবিধাসমূহ (৭টি প্রধান সীমাবদ্ধতা)</h2>
             <ul>
-                <li>⚠️ <strong>পিক আওয়ার ভিড়</strong> - সন্ধ্যা ৬-১০টায় নেটওয়ার্ক মন্থরতা</li>
-                <li>⚠️ <strong>সীমিত গ্রামীণ কভারেজ</strong> - গ্রামে মাত্র ৬০% কভারেজ</li>
-                <li>⚠️ <strong>দীর্ঘ গ্রাহক অপেক্ষা সময়</strong> - পিক সময়ে সহায়তা সারি</li>
-                <li>⚠️ <strong>উচ্চতর রোমিং হার</strong> - আন্তর্জাতিকভাবে প্রতিযোগীদের চেয়ে বেশি ব্যয়বহুল</li>
-                <li>⚠️ <strong>গতি থ্রটলিং</strong> - কিছু প্যাকেজে সাময়িক সীমাবদ্ধতা</li>
-                <li>⚠️ <strong>জটিল সিম অ্যাক্টিভেশন</strong> - কেওয়াইসি প্রক্রিয়া আরও সহজ করা যেতে পারে</li>
-                <li>⚠️ <strong>সীমাবদ্ধ বৈধতা</strong> - কিছু প্যাকেজের কঠোর মেয়াদ শেষ সময়</li>
+                <li> <strong>পিক আওয়ার ভিড়</strong> - সন্ধ্যা ৬-১০টায় নেটওয়ার্ক মন্থরতা</li>
+                <li> <strong>সীমিত গ্রামীণ কভারেজ</strong> - গ্রামে মাত্র ৬০% কভারেজ</li>
+                <li> <strong>দীর্ঘ গ্রাহক অপেক্ষা সময়</strong> - পিক সময়ে সহায়তা সারি</li>
+                <li> <strong>উচ্চতর রোমিং হার</strong> - আন্তর্জাতিকভাবে প্রতিযোগীদের চেয়ে বেশি ব্যয়বহুল</li>
+                <li> <strong>গতি থ্রটলিং</strong> - কিছু প্যাকেজে সাময়িক সীমাবদ্ধতা</li>
+                <li> <strong>জটিল সিম অ্যাক্টিভেশন</strong> - কেওয়াইসি প্রক্রিয়া আরও সহজ করা যেতে পারে</li>
+                <li> <strong>সীমাবদ্ধ বৈধতা</strong> - কিছু প্যাকেজের কঠোর মেয়াদ শেষ সময়</li>
             </ul>
         </section>
 
         <section class="verdict">
             <h2>চূড়ান্ত মূল্যায়ন</h2>
-            <p><strong>✅ অত্যন্ত সুপারিশকৃত - সেরা মূল্য-গুণমান অনুপাত</strong></p>
+            <p><strong> অত্যন্ত সুপারিশকৃত - সেরা মূল্য-গুণমান অনুপাত</strong></p>
             <p>বাংলালিংক বাংলাদেশের মোবাইল বাজারে সেরা মূল্য-গুণমান অনুপাত প্রদান করে। ৩৫+ মিলিয়ন গ্রাহক সহ দ্বিতীয় বৃহত্তম অপারেটর হিসেবে, এটি শহুরে এলাকায় নির্ভরযোগ্য ৪জি কভারেজ, গ্রামীণফোনের চেয়ে ১৪% কম মূল্য এবং ক্রমবর্ধমান ডিজিটাল সেবা ইকোসিস্টেম প্রদান করে।</p>
         </section>
     </article>
@@ -396,7 +396,7 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
 
 	log.Printf("Updated Bangla translation: %d rows affected", result.RowsAffected)
 
-	fmt.Println("✅ Banglalink reviews updated successfully!")
+	fmt.Println(" Banglalink reviews updated successfully!")
 	fmt.Printf("English review: %d rows affected\n", result.RowsAffected)
 
 	return nil

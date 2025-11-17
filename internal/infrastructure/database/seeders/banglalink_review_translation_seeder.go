@@ -194,6 +194,7 @@ func (brts *BanglalinkReviewTranslationSeeder) Seed(db *gorm.DB) error {
 		translation := models.ProductReviewTranslationModel{
 			ProductReviewID:   banglalinkReview.ID,
 			Locale:            "bn",
+			Rating:            fmt.Sprintf("%.2f", banglalinkReview.Rating), // Convert float32 rating to string
 			Reviews:           banglalinkReviewBN,
 			AdditionalDetails: additionalDetailsJSON,
 		}

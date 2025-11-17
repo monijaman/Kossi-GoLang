@@ -193,7 +193,7 @@ func (brs *BanglalinkReviewSeeder) Seed(db *gorm.DB) error {
 		review := models.ProductReviewModel{
 			ProductID:         banglalinkProduct.ID,
 			UserID:            adminUser.ID,
-			Rating:            4.1,
+			Rating:            "4.1",
 			Reviews:           &reviewText,
 			AdditionalDetails: additionalDetailsJSON,
 			Priority:          1,

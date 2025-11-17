@@ -75,6 +75,7 @@ type ProductReviewTranslation struct {
 	ID               uint
 	ProductReviewID  uint
 	Locale           string
+	Rating           string
 	TranslatedReview string
 	// AdditionalDetails holds any extra structured metadata for the translation
 	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`

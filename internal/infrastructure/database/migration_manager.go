@@ -247,7 +247,15 @@ func (m *MigrationManager) CreateIndexes() error {
 
 // Setup runs the complete database setup
 func (m *MigrationManager) Setup() error {
-	// First create all tables
+	// Convert rating columns BEFORE AutoMigrate (if they exist and are numeric)
+	if err := migrations.ConvertProductReviewRatingToString(m.db); err != nil {
+		return err
+	}
+	if err := migrations.ConvertRatingToString(m.db); err != nil {
+		return err
+	}
+
+	// First create all tables (AutoMigrate will now see string type in the model)
 	if err := m.MigrateAll(); err != nil {
 		return err
 	}
@@ -257,6 +265,16 @@ func (m *MigrationManager) Setup() error {
 	}
 
 	if err := m.CreateIndexes(); err != nil {
+		return err
+	}
+
+	// Run custom migrations (these are now for historical compatibility)
+	if err := migrations.AddRatingToProductReviewTranslations(m.db); err != nil {
+		return err
+	}
+
+	// Ensure rating column is numeric (double precision) so decimals like 4.15 are stored
+	if err := migrations.ConvertRatingToFloat(m.db); err != nil {
 		return err
 	}
 
