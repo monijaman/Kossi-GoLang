@@ -458,17 +458,20 @@ func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo reposit
 
 	locale := r.URL.Query().Get("locale")
 
-	// Check if this should be treated as product_id (for public reviews)
-	// If locale is specified, assume it's a product_id for public review lookup
+	// Check if this should be treated as product_id (for both public and admin reviews)
+	// If locale is specified, assume it's a product_id lookup
 	var review *entities.ProductReview
 	if locale != "" {
-		// Treat as product_id and get public review (English version)
-		review, err = reviewRepo.GetPublicReviewsByProduct(r.Context(), uint(id), "")
-		if err != nil {
+		// Treat as product_id - get all reviews for this product (no status filter)
+		// This allows admin to access unpublished reviews too
+		reviews, err := reviewRepo.GetByProductID(r.Context(), uint(id))
+		if err != nil || len(reviews) == 0 {
 			w.WriteHeader(http.StatusNotFound)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Review not found for this product"})
 			return
 		}
+		// Take the first review
+		review = reviews[0]
 	} else {
 		// Treat as review_id (backward compatibility)
 		review, err = reviewRepo.GetByID(r.Context(), uint(id))

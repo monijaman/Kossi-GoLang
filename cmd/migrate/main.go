@@ -73,17 +73,17 @@ func main() {
 
 	// Define flags
 	var (
-		fresh              = flag.Bool("fresh", false, "Drop all tables and recreate (DANGEROUS)")
-		migrate            = flag.Bool("migrate", false, "Run migrations (safe)")
-		createDB           = flag.Bool("create-db", false, "Create database if not exists, then migrate")
-		drop               = flag.Bool("drop", false, "Drop all tables (DANGEROUS)")
-		fk                 = flag.Bool("fk", false, "Add foreign keys only")
-		indexes            = flag.Bool("indexes", false, "Create indexes only")
-		seed               = flag.Bool("seed", false, "Run all seeders")
-		seeder             = flag.String("seeder", "", "Run one or more seeders by name (comma-separated)")
-		freshSeed          = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
-		updateBanglakink   = flag.Bool("update-banglalink", false, "Update Banglalink reviews with HTML content")
-		dsn                = flag.String("dsn", defaultDSN, "Database DSN")
+		fresh            = flag.Bool("fresh", false, "Drop all tables and recreate (DANGEROUS)")
+		migrate          = flag.Bool("migrate", false, "Run migrations (safe)")
+		createDB         = flag.Bool("create-db", false, "Create database if not exists, then migrate")
+		drop             = flag.Bool("drop", false, "Drop all tables (DANGEROUS)")
+		fk               = flag.Bool("fk", false, "Add foreign keys only")
+		indexes          = flag.Bool("indexes", false, "Create indexes only")
+		seed             = flag.Bool("seed", false, "Run all seeders")
+		seeder           = flag.String("seeder", "", "Run one or more seeders by name (comma-separated)")
+		freshSeed        = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
+		updateBanglakink = flag.Bool("update-banglalink", false, "Update Banglalink reviews with HTML content")
+		dsn              = flag.String("dsn", defaultDSN, "Database DSN")
 	)
 	flag.Parse()
 

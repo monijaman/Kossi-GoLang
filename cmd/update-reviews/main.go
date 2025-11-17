@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 
 	"gocrit/internal/infrastructure/database"
-	"gorm.io/gorm"
 )
 
 func main() {

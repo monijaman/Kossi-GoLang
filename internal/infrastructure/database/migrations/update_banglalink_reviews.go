@@ -171,7 +171,7 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
 </body>
 </html>`
 
-	// Bangla review HTML content
+	// Bangla (Bengali) review - PURE BENGALI SCRIPT
 	bengaliReview := `<!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -197,9 +197,9 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
             <ul>
                 <li>শহরের কভারেজ: ৯৯% ধারাবাহিক ৪জি উপলব্ধতা</li>
                 <li>গ্রামীণ কভারেজ: ৬০% এবং ক্রমাগত সম্প্রসারণ</li>
-                <li>গড় গতি: ১४ এমবিপিএস ডাউনলোড, ८ এমবিপিএস পিক আওয়ার্স</li>
-                <li>নেটওয়ার্ক আপটাইম: ९७.५% নির্ভরযোগ্যতা</li>
-                <li>লেটেন্সি: २५এমএস গড় (গেমিংয়ের জন্য ভাল)</li>
+                <li>গড় গতি: ১৪ এমবিপিএস ডাউনলোড, ৮ এমবিপিএস পিক আওয়ার্স</li>
+                <li>নেটওয়ার্ক আপটাইম: ৯৭.৫% নির্ভরযোগ্যতা</li>
+                <li>লেটেন্সি: ২৫ এমএস গড় (গেমিংয়ের জন্য ভাল)</li>
             </ul>
         </section>
 
@@ -218,26 +218,102 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
                 <tbody>
                     <tr>
                         <td style="padding: 10px; border: 1px solid #ddd;"><strong>গ্রামীণফোন</strong></td>
-                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">नम्बर १</td>
-                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">४.६५/५ ⭐</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">১ম</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৪.৬৫/৫ ⭐</td>
                         <td style="padding: 10px; border: 1px solid #ddd;">সেরা মান</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">প্রিমিয়াম নেটওয়ার্ক, १४% বেশি ব्যয়บহুल</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">প্রিমিয়াম নেটওয়ার্ক, ১৪% বেশি দামী</td>
                     </tr>
                     <tr style="background-color: #fff3cd;">
                         <td style="padding: 10px; border: 1px solid #ddd;"><strong>বাংলালিংক</strong></td>
-                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">नम्बर २</td>
-                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;"><strong>४.१/५ ⭐</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>সেরা মূল्य</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>বর্তমান - সেরা मूल्य-थॉ-मान अनुपat</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">২য়</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;"><strong>৪.১/৫ ⭐</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>সেরা মূল্য</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>বর্তমান - সেরা মূল্য-গুণমান অনুপাত</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>রোবি</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৩য়</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৪.০৫/৫ ⭐</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">ভাল বিকল্প</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">অনুরূপ মান, সামান্য সস্তা ডেটা</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>এয়ারটেল</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৪র্থ</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৩.০৫/৫ ⭐</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">আঞ্চলিক বিকল্প</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">ক্রমবর্ধমান নেটওয়ার্ক, সীমিত কভারেজ</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
+        <section class="pricing">
+            <h2>মূল্য তুলনা</h2>
+            <p><strong>রেটিং: ৪.৫/৫ (সবচেয়ে প্রতিযোগিতামূলক)</strong></p>
+            <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f5f5f5;">
+                        <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">সেবা</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">বাংলালিংক</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">গ্রামীণফোন</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">রোবি</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">এয়ারটেল</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>১০০ এমবি দৈনিক</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd; background-color: #d4edda;">৫০ টাকা ⭐</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৮০ টাকা</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৬০ টাকা</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">৫০ টাকা</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>১ গিগাবাইট সাপ্তাহিক</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd; background-color: #d4edda;">১২০ টাকা ⭐</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">১৮০ টাকা</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">১৪০ টাকা</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">১৩০ টাকা</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="pros">
+            <h2>সুবিধাসমূহ (১১টি প্রধান সুবিধা)</h2>
+            <ul>
+                <li>✅ <strong>সাশ্রয়ী কল রেট</strong> - স্থানীয় এবং আন্তর্জাতিক কলের প্রতিযোগিতামূলক মূল্য</li>
+                <li>✅ <strong>আকর্ষণীয় ডেটা প্যাকেজ</strong> - নিয়মিত প্রচার এবং বোনাস অফার</li>
+                <li>✅ <strong>ভাল ৪জি কভারেজ</strong> - ৯৯% শহুরে এবং ৬০% গ্রামীণ কভারেজ</li>
+                <li>✅ <strong>ব্যবহারকারী-বান্ধব অ্যাপ</strong> - সহজ অ্যাকাউন্ট ব্যবস্থাপনা ইন্টারফেস</li>
+                <li>✅ <strong>ডিজিটাল পেমেন্ট সমর্থন</strong> - একাধিক পেমেন্ট প্ল্যাটফর্মের সাথে সমন্বয়</li>
+                <li>✅ <strong>জরুরি ব্যালেন্স</strong> - ব্যালেন্স কম থাকলে জরুরি কলের সুবিধা</li>
+                <li>✅ <strong>নমনীয় পরিকল্পনা</strong> - প্রিপেইড এবং পোস্টপেইড বিকল্প উপলব্ধ</li>
+                <li>✅ <strong>ঘন ঘন প্রচার</strong> - নিয়মিত বিশেষ অফার এবং বোনাস</li>
+                <li>✅ <strong>সোশ্যাল মিডিয়া প্যাকেজ</strong> - জনপ্রিয় প্ল্যাটফর্মে সীমাহীন অ্যাক্সেস</li>
+                <li>✅ <strong>মানি সেবা</strong> - ব্যাপক ডিজিটাল পেমেন্ট ইকোসিস্টেম</li>
+                <li>✅ <strong>একাধিক সহায়তা চ্যানেল</strong> - ফোন, অ্যাপ, ইউএসএসডি এবং সোশ্যাল মিডিয়া</li>
+            </ul>
+        </section>
+
+        <section class="cons">
+            <h2>অসুবিধাসমূহ (৭টি প্রধান সীমাবদ্ধতা)</h2>
+            <ul>
+                <li>⚠️ <strong>পিক আওয়ার ভিড়</strong> - সন্ধ্যা ৬-১০টায় নেটওয়ার্ক মন্থরতা</li>
+                <li>⚠️ <strong>সীমিত গ্রামীণ কভারেজ</strong> - গ্রামে মাত্র ৬০% কভারেজ</li>
+                <li>⚠️ <strong>দীর্ঘ গ্রাহক অপেক্ষা সময়</strong> - পিক সময়ে সহায়তা সারি</li>
+                <li>⚠️ <strong>উচ্চতর রোমিং হার</strong> - আন্তর্জাতিকভাবে প্রতিযোগীদের চেয়ে বেশি ব্যয়বহুল</li>
+                <li>⚠️ <strong>গতি থ্রটলিং</strong> - কিছু প্যাকেজে সাময়িক সীমাবদ্ধতা</li>
+                <li>⚠️ <strong>জটিল সিম অ্যাক্টিভেশন</strong> - কেওয়াইসি প্রক্রিয়া আরও সহজ করা যেতে পারে</li>
+                <li>⚠️ <strong>সীমাবদ্ধ বৈধতা</strong> - কিছু প্যাকেজের কঠোর মেয়াদ শেষ সময়</li>
+            </ul>
+        </section>
+
         <section class="verdict">
-            <h2>সিদ্ধান্ত</h2>
-            <p><strong>✅ অत्यंत सुपारिशकृत - সেरে मूল्यের मূल्य</strong></p>
-            <p>बाংলालिंक बाংলादेशीर मोबाइल बाजारे सेरे मूल्य-थॉ-मान अनुपात प्रदान करে। ३५+ मिलिјन ग्राहक साथ द्वितीय बृहत्तम अपरेटोर हिसाबे, एटा शहुरे एलाकार मेँ निर्भरयोग्य ४जि कभरेज, ग्रामीणफोनेर चेये १४% कम मূल्य प्रदान करे।</p>
+            <h2>চূড়ান্ত মূল্যায়ন</h2>
+            <p><strong>✅ অত্যন্ত সুপারিশকৃত - সেরা মূল্য-গুণমান অনুপাত</strong></p>
+            <p>বাংলালিংক বাংলাদেশের মোবাইল বাজারে সেরা মূল্য-গুণমান অনুপাত প্রদান করে। ৩৫+ মিলিয়ন গ্রাহক সহ দ্বিতীয় বৃহত্তম অপারেটর হিসেবে, এটি শহুরে এলাকায় নির্ভরযোগ্য ৪জি কভারেজ, গ্রামীণফোনের চেয়ে ১৪% কম মূল্য এবং ক্রমবর্ধমান ডিজিটাল সেবা ইকোসিস্টেম প্রদান করে।</p>
         </section>
     </article>
 </body>
@@ -245,26 +321,26 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
 
 	// Additional details JSON
 	additionalDetails := datatypes.JSONMap{
-		"market_rank":               2,
-		"subscribers_millions":      35,
-		"overall_rating":            4.1,
-		"network_quality_rating":    4.0,
-		"coverage_rating":           4.0,
-		"data_speed_rating":         4.0,
-		"pricing_rating":            4.5,
-		"package_variety_rating":    4.0,
-		"customer_support_rating":   3.5,
-		"value_for_money_rating":    4.25,
-		"avg_data_speed_mbps":       14,
-		"peak_hour_speed_mbps":      8,
-		"network_uptime_percent":    97.5,
-		"latency_ms":                25,
-		"urban_coverage_percent":    99.0,
-		"rural_coverage_percent":    60.0,
-		"hotline_number":            "111",
-		"website_url":               "https://www.banglalink.com.bd",
-		"verdict":                   "Highly Recommended - Best Value for Money",
-		"recommendation_score":      8,
+		"market_rank":             2,
+		"subscribers_millions":    35,
+		"overall_rating":          4.1,
+		"network_quality_rating":  4.0,
+		"coverage_rating":         4.0,
+		"data_speed_rating":       4.0,
+		"pricing_rating":          4.5,
+		"package_variety_rating":  4.0,
+		"customer_support_rating": 3.5,
+		"value_for_money_rating":  4.25,
+		"avg_data_speed_mbps":     14,
+		"peak_hour_speed_mbps":    8,
+		"network_uptime_percent":  97.5,
+		"latency_ms":              25,
+		"urban_coverage_percent":  99.0,
+		"rural_coverage_percent":  60.0,
+		"hotline_number":          "111",
+		"website_url":             "https://www.banglalink.com.bd",
+		"verdict":                 "Highly Recommended - Best Value for Money",
+		"recommendation_score":    8,
 	}
 
 	detailsJSON, err := json.Marshal(additionalDetails)
@@ -277,9 +353,9 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
 		Table("product_reviews").
 		Where("id = ? AND product_id = (SELECT id FROM products WHERE slug = ?)", 240, "banglalink").
 		Updates(map[string]interface{}{
-			"reviews":               englishReview,
-			"additional_details":    string(detailsJSON),
-			"updated_at":            gorm.Expr("CURRENT_TIMESTAMP"),
+			"reviews":            englishReview,
+			"additional_details": string(detailsJSON),
+			"updated_at":         gorm.Expr("CURRENT_TIMESTAMP"),
 		})
 
 	if result.Error != nil {
@@ -295,7 +371,7 @@ func UpdateBanglalinkReviewsWithComparison(db *gorm.DB) error {
 		"market_rank":          2,
 		"subscribers_millions": 35,
 		"overall_rating":       4.1,
-		"verdict":              "অত्यंत सुपারिशकृत - সेरे मूल्यের मूल्य",
+		"verdict":              "অত্যন্ত সুপারিশকৃত - সেরা মূল্য-গুণমান অনুপাত",
 		"recommendation_score": 8,
 	}
 
