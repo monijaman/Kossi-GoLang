@@ -172,7 +172,7 @@ func UpdateGrameenphoneReviewsWithComparison(db *gorm.DB) error {
 
         <section class="executive-summary">
             <h2>সংক্ষিপ্ত পর্যালোচনা</h2>
-            <p>গ্রামীণফোন বাংলাদেশের বৃহত্তম মোবাইল অপারেটর ৫০+ মিলিয়ন গ্রাহক সেবা প্রদান করে প্রিমিয়াম মানের নেটওয়ার্ক কভারেজ সহ। বাজারে ১নম্বর স্থানে ৪.৬৫/৫ রেটিং সহ, গ্রামীণফোন সর্বোত্তম নেটওয়ার্ক মান এবং ব্যাপক সেবা খোঁজেন এমন ব্যবহারকারীদের জন্য আদর্শ।</p>
+            <p>গ্রামীণফোন বাংলাদেশের বৃহত্তম মোবাইল অপারেটর ৫০+ মিলিয়ন গ্রাহকদের সেবা প্রদান করে প্রিমিয়াম মানের নেটওয়ার্ক কভারেজ সহ। বাজারে ১নম্বর স্থানে ৪.৬৫/৫ সামগ্রিক রেটিং সহ, গ্রামীণফোন সর্বোত্তম নেটওয়ার্ক মান এবং ব্যাপক সেবা খোঁজেন এমন ব্যবহারকারীদের জন্য আদর্শ পছন্দ, যদিও প্রিমিয়াম মূল্যে।</p>
         </section>
 
         <section class="network-quality">
@@ -187,37 +187,111 @@ func UpdateGrameenphoneReviewsWithComparison(db *gorm.DB) error {
             </ul>
         </section>
 
+        <section class="market-comparison">
+            <h2>বাজার তুলনা</h2>
+            <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f5f5f5;">
+                        <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">অপারেটর</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">র‍্যাঙ্ক</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">রেটিং</th>
+                        <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">সেরা জন্য</th>
+                        <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">গ্রামীণফোনের তুলনায় অবস্থান</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #fff3cd;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>গ্রামীণফোন</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;"><strong>#১</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;"><strong>৪.৬৫/৫ ⭐</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>সেরা মান</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>বর্তমান - প্রিমিয়াম নেটওয়ার্ক নেতা</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>ব্যাংলালিংক</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">#२</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">४.१/५ ⭐</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">সেরা মূল্য</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">ভালো বাজেট বিকল্প, १४% সস্তা</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>রবি</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">#३</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">४.०५/५ ⭐</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">ভালো বিকল্প</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">কম মান, ভালো মূল্য নির্ধারণ</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>এয়ারটেল</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">#४</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">३.०५/५ ⭐</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">আঞ্চলিক বিকল্প</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">সীমিত কভারেজ এবং সেবা</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="pricing">
+            <h2>মূল্য নির্ধারণ তুলনা</h2>
+            <p><strong>রেটিং: ३.८/५ (প্রিমিয়াম মূল্য নির্ধারণ)</strong></p>
+            <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f5f5f5;">
+                        <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">সেবা</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">গ্রামীণফোন</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">ব্যাংলালিংক</th>
+                        <th style="text-align: center; padding: 10px; border: 1px solid #ddd;">রবি</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>१००एमबी দৈনিক</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">८० টাকা</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd; background-color: #d4edda;">५० টাকা ⭐</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">६० টাকা</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>१जीबी সাপ্তাহিক</strong></td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">१८० টাকা</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd; background-color: #d4edda;">१२० টাকা ⭐</td>
+                        <td style="text-align: center; padding: 10px; border: 1px solid #ddd;">१४० টাকা</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
         <section class="pros">
-            <h2>সুবিধাসমূহ (১০টি প্রধান সুবিধা)</h2>
+            <h2>সুবিধাসমূহ (१० প্রধান সুবিধা)</h2>
             <ul>
-                <li> <strong>সেরা নেটওয়ার্ক মান</strong> - সবচেয়ে দ্রুত গতি এবং নির্ভরযোগ্য কভারেজ</li>
-                <li> <strong>সবচেয়ে বিস্তৃত কভারেজ</strong> - ৯৯.৫% শহুরে এবং ৭৫% গ্রামীণ</li>
-                <li> <strong>চমৎকার গ্রাহক সেবা</strong> - ২৪/৭ সহায়তা একাধিক চ্যানেল জুড়ে</li>
-                <li> <strong>উন্নত মোবাইল ব্যাংকিং</strong> - বিকাশ একীকরণ এবং ডিজিটাল সেবা</li>
-                <li> <strong>উদার ডেটা প্ল্যান</strong> - উদার এফইউপি এবং রোলওভার ডেটা</li>
-                <li> <strong>প্রিমিয়াম রোমিং</strong> - আন্তর্জাতিক রোমিং এ ভাল হার</li>
-                <li> <strong>বিনোদন সামগ্রী</strong> - সঙ্গীত, ভিডিও এবং গেমিং বান্ডেল</li>
-                <li> <strong>ব্যবসায়িক সমাধান</strong> - কর্পোরেট প্যাকেজ উপলব্ধ</li>
-                <li> <strong>লয়্যালটি পুরস্কার</strong> - জিপি পয়েন্ট এবং এক্সক্লুসিভ সুবিধা</li>
-                <li> <strong>অত্যাধুনিক প্রযুক্তি</strong> - ৫জি প্রস্তুতি এবং আধুনিক অবকাঠামো</li>
+                <li><strong>সেরা নেটওয়ার্ক মান</strong> - সবচেয়ে দ্রুত গতি এবং নির্ভরযোগ্য কভারেজ</li>
+                <li><strong>সবচেয়ে বিস্তৃত কভারেজ</strong> - ९९.५% শহুরে এবং७५% গ্রামীণ</li>
+                <li><strong>চমৎকার গ্রাহক সেবা</strong> - २४/७ সহায়তা একাধিক চ্যানেল জুড়ে</li>
+                <li><strong>উন্নত মোবাইল ব্যাংকিং</strong> - বিকাশ একীকরণ এবং ডিজিটাল সেবা</li>
+                <li><strong>উদার ডেটা প্ল্যান</strong> - উদার এফইউপি এবং রোলওভার ডেটা</li>
+                <li><strong>প্রিমিয়াম রোমিং</strong> - আন্তর্জাতিক রোমিং এ ভাল হার</li>
+                <li><strong>বিনোদন সামগ্রী</strong> - সঙ্গীত, ভিডিও এবং গেমিং বান্ডেল</li>
+                <li><strong>ব্যবসায়িক সমাধান</strong> - কর্পোরেট প্যাকেজ উপলব্ধ</li>
+                <li><strong>লয়্যালটি পুরস্কার</strong> - জিপি পয়েন্ট এবং এক্সক্লুসিভ সুবিধা</li>
+                <li><strong>অত্যাধুনিক প্রযুক্তি</strong> - ५जी প্রস্তুতি এবং আধুনিক অবকাঠামো</li>
             </ul>
         </section>
 
         <section class="cons">
-            <h2>অসুবিধাসমূহ (৫টি প্রধান সীমাবদ্ধতা)</h2>
+            <h2>অসুবিধাসমূহ (५ প্রধান সীমাবদ্ধতা)</h2>
             <ul>
-                <li> <strong>প্রিমিয়াম মূল্য</strong> - প্রতিযোগীদের চেয়ে ১৪-২৫% বেশি ব্যয়বহুল</li>
-                <li> <strong>জটিল মূল্য নির্ধারণ</strong> - একাধিক পরিকল্পনা বিভ্রান্তিকর হতে পারে</li>
-                <li> <strong>পিক আওয়ার ভিড়</strong> - ব্যস্ত সময়ে নেটওয়ার্ক মন্থরতা</li>
-                <li> <strong>উচ্চ সক্রিয়করণ খরচ</strong> - সিম কার্ড এবং সেটআপ ফি প্রিমিয়াম</li>
-                <li> <strong>সীমিত বাজেট বিকল্প</strong> - কয়েকটি প্রবেশ-স্তরের পরিকল্পনা উপলব্ধ</li>
+                <li><strong>প্রিমিয়াম মূল্য</strong> - প্রতিযোগীদের চেয়ে १४-२५% বেশি ব্যয়বহুল</li>
+                <li><strong>জটিল মূল্য নির্ধারণ</strong> - একাধিক পরিকল্পনা বিভ্রান্তিকর হতে পারে</li>
+                <li><strong>পিক আওয়ার ভিড়</strong> - ব্যস্ত সময়ে নেটওয়ার্ক মন্থরতা</li>
+                <li><strong>উচ্চ সক্রিয়করণ খরচ</strong> - সিম কার্ড এবং সেটআপ ফি প্রিমিয়াম</li>
+                <li><strong>সীমিত বাজেট বিকল্প</strong> - কয়েকটি প্রবেশ-স্তরের পরিকল্পনা উপলব্ধ</li>
             </ul>
         </section>
 
         <section class="verdict">
             <h2>চূড়ান্ত মূল্যায়ন</h2>
             <p><strong>অত্যন্ত সুপারিশকৃত - সেরা মানের নেটওয়ার্ক</strong></p>
-            <p>গ্রামীণফোন বাংলাদেশের প্রিমিয়াম মোবাইল অপারেটর যা সেরা নেটওয়ার্ক মান, দ্রুততম গতি এবং সবচেয়ে ব্যাপক সেবা প্রদান করে।</p>
+            <p>গ্রামীণফোন বাংলাদেশের প্রিমিয়াম মোবাইল অপারেটর যা সেরা নেটওয়ার্ক মান, দ্রুততম গতি এবং সবচেয়ে ব্যাপক সেবা প্রদান করে। যদিও মূল্য প্রতিযোগীদের চেয়ে বেশি, উন্নত নেটওয়ার্ক মান এবং সেবা উৎকর্ষতা এটি বিনিয়োগের যোগ্য করে তোলে যারা নির্ভরযোগ্যতা এবং কর্মক্ষমতা অগ্রাধিকার দেন।</p>
         </section>
     </article>
 </body>

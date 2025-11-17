@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"kossti/internal/infrastructure/database/models"
+	"kossti/internal/infrastructure/database/seeders"
 	"log"
 	"os"
 
@@ -33,52 +34,58 @@ func main() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	fmt.Println("🌱 SEEDING VERIFICATION DEMO")
-	fmt.Println("================================")
+	fmt.Println("🌱 RUNNING TV PRODUCT REVIEW SEEDER")
+	fmt.Println("====================================\n")
 
-	// Test categories
-	var categoryCount int64
-	db.Model(&models.CategoryModel{}).Count(&categoryCount)
-	fmt.Printf("📂 Categories seeded: %d\n", categoryCount)
-
-	// Test brands
-	var brandCount int64
-	db.Model(&models.BrandModel{}).Count(&brandCount)
-	fmt.Printf("🏷️  Brands seeded: %d\n", brandCount)
-
-	// Test brand-category relationships
-	var bcCount int64
-	db.Table("brand_category").Count(&bcCount)
-	fmt.Printf("🔗 Brand-Category relationships: %d\n", bcCount)
-
-	// Show some sample data
-	fmt.Println("\n📋 Sample Categories:")
-	var categories []models.CategoryModel
-	db.Limit(5).Find(&categories)
-	for _, cat := range categories {
-		fmt.Printf("   - %s (slug: %s)\n", cat.Name, cat.Slug)
+	// Run the TV Product Review Seeder
+	seeder := seeders.NewTVProductReviewSeeder()
+	if err := seeder.Seed(db); err != nil {
+		log.Printf("❌ Error running seeder: %v\n", err)
+	} else {
+		fmt.Println("✅ TV Product Review Seeder completed!\n")
 	}
 
-	fmt.Println("\n🏢 Sample Brands:")
-	var brands []models.BrandModel
-	db.Limit(5).Find(&brands)
-	for _, brand := range brands {
-		fmt.Printf("   - %s (slug: %s)\n", brand.Name, brand.Slug)
-	}
+	// Verify reviews were created
+	fmt.Println("📊 VERIFICATION")
+	fmt.Println("================\n")
 
-	// Show brand-category relationships for one brand
-	fmt.Println("\n🎯 Apple's Categories:")
-	var apple models.BrandModel
-	if err := db.Where("name = ?", "Apple").First(&apple).Error; err == nil {
-		var appleCategories []models.CategoryModel
-		db.Table("categories").
-			Joins("JOIN brand_category ON categories.id = brand_category.category_id").
-			Where("brand_category.brand_id = ?", apple.ID).
-			Find(&appleCategories)
-		
-		for _, cat := range appleCategories {
-			fmt.Printf("   - %s\n", cat.Name)
+	// Count total reviews
+	var reviewCount int64
+	db.Model(&models.ProductReviewModel{}).Count(&reviewCount)
+	fmt.Printf("📝 Total product reviews: %d\n", reviewCount)
+
+	// Count TV reviews specifically
+	var tvReviewCount int64
+	db.Model(&models.ProductReviewModel{}).
+		Joins("JOIN products ON products.id = product_reviews.product_id").
+		Where("products.category_id = ?", 124).
+		Count(&tvReviewCount)
+	fmt.Printf("📺 TV product reviews: %d\n", tvReviewCount)
+
+	// Count translations
+	var translationCount int64
+	db.Model(&models.ProductReviewTranslationModel{}).Count(&translationCount)
+	fmt.Printf("🌐 Review translations: %d\n", translationCount)
+
+	// Show sample TV reviews
+	fmt.Println("\n📋 Sample TV Reviews:")
+	var reviews []models.ProductReviewModel
+	db.Joins("JOIN products ON products.id = product_reviews.product_id").
+		Where("products.category_id = ?", 124).
+		Limit(5).
+		Find(&reviews)
+
+	for i, review := range reviews {
+		fmt.Printf("\n%d. Review ID: %d\n", i+1, review.ID)
+		if review.Reviews != nil {
+			// Show first 100 characters
+			previewLen := 100
+			if len(*review.Reviews) < previewLen {
+				previewLen = len(*review.Reviews)
+			}
+			fmt.Printf("   Preview: %s...\n", (*review.Reviews)[:previewLen])
 		}
+		fmt.Printf("   Rating: %s\n", review.Rating)
 	}
 
 	fmt.Println("\n✅ Seeding verification completed successfully!")

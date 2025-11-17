@@ -22,7 +22,7 @@ func UpdateTeletalkReviewsWithComparison(db *gorm.DB) error {
     <title>Teletalk Review</title>
 </head>
 <body>
-    <article class="teletalk-review">
+    <article class="teletalk-review review-section">
         <header>
             <h1>Teletalk: Cheapest Option with Outdated Infrastructure</h1>
             <p class="rating"><strong>Overall Rating: 2.85/5 ⭐⭐⭐</strong></p>
@@ -88,7 +88,7 @@ func UpdateTeletalkReviewsWithComparison(db *gorm.DB) error {
     <title>টেলিটক রিভিউ</title>
 </head>
 <body>
-    <article class="teletalk-review-bn">
+    <article class="teletalk-review-bn review-section">
         <header>
             <h1>টেলিটক: সবচেয়ে সস্তা বিকল্প কিন্তু পুরানো অবকাঠামো</h1>
             <p class="rating"><strong>সামগ্রিক রেটিং: ২.৮৫/৫ ⭐⭐⭐</strong></p>
@@ -96,28 +96,50 @@ func UpdateTeletalkReviewsWithComparison(db *gorm.DB) error {
 
         <section class="executive-summary">
             <h2>সংক্ষিপ্ত পর্যালোচনা</h2>
-            <p>টেলিটক বাংলাদেশের সরকারী মালিকানাধীন অপারেটর ৫+ মিলিয়ন গ্রাহক সেবা প্রদান করে সবচেয়ে সস্তা হার সহ কিন্তু পুরানো অবকাঠামো সহ। শুধুমাত্র চরম সীমিত বাজেটের ব্যবহারকারীদের জন্য উপযুক্ত।</p>
+            <p>টেলিটক বাংলাদেশের সরকারী মালিকানাধীন অপারেটর, যা ৫+ মিলিয়ন গ্রাহক সেবা প্রদান করে। সবচেয়ে সস্তা হার প্রদান করলেও অবকাঠামো বেশ পুরানো। বাজারে #৫ নম্বরে অবস্থান এবং ২.৮৫/৫ সামগ্রিক রেটিং সহ, টেলিটক শুধুমাত্র সেই ব্যবহারকারীদের জন্য গ্রহণযোগ্য যারা অত্যন্ত সীমিত বাজেট গ্রহণ করতে ইচ্ছুক এবং খারাপ পরিষেবা মেনে নিতে পারেন।</p>
+        </section>
+
+        <section class="network-quality">
+            <h2>নেটওয়ার্ক গুণমান ও কভারেজ</h2>
+            <p><strong>রেটিং: ২.৫/৫</strong></p>
+            <ul>
+                <li>শহরের কভারেজ: ৮৫% সীমিত আধুনিককরণ সহ</li>
+                <li>গ্রামীণ কভারেজ: ৩০% সীমিত সম্প্রসারণ</li>
+                <li>গড় গতি: ৫ এমবিপিএস ডাউনলোড, ২ এমবিপিএস পিক আওয়ার্স</li>
+                <li>নেটওয়ার্ক আপটাইম: ৯৫% নির্ভরযোগ্যতা</li>
+                <li>লেটেন্সি: ৬০ এমএস গড়</li>
+            </ul>
+        </section>
+
+        <section class="pros">
+            <h2>সুবিধাসমূহ (৪ প্রধান সুবিধা)</h2>
+            <ul>
+                <li><strong>অত্যন্ত কিফায়তী</strong> - বাজারের মধ্যে সবচেয়ে সস্তা রেট</li>
+                <li><strong>সরকারি সহায়তা</strong> - রাষ্ট্রীয় ব্যাকিংয়ের কারণে নির্দিষ্ট স্থায়িত্ব</li>
+                <li><strong>প্রচুর কভারেজ (সরকারি এলাকা)</strong> - সরকারি স্থাপনায় সহজে উপলব্ধ</li>
+                <li><strong>বেসিক কল ও এসএমএস</strong> - মৌলিক সংযোগ সুবিধা উপস্থিত</li>
+            </ul>
         </section>
 
         <section class="cons">
             <h2>অসুবিধাসমূহ (৯টি প্রধান সীমাবদ্ধতা)</h2>
             <ul>
-                <li> <strong>অত্যন্ত ধীর গতি</strong> - অত্যন্ত দুর্বল ডেটা কর্মক্ষমতা</li>
-                <li> <strong>পুরানো প্রযুক্তি</strong> - লিগ্যাসি অবকাঠামো</li>
-                <li> <strong>দুর্বল কভারেজ</strong> - সীমিত গ্রামীণ উপলব্ধতা</li>
-                <li> <strong>অনির্ভরযোগ্য সেবা</strong> - ঘন ঘন সংযোগ সমস্যা</li>
-                <li> <strong>কোন ৪জি/৫জি নেই</strong> - শুধুমাত্র ২জি/৩জি উপলব্ধ</li>
-                <li> <strong>দুর্বল গ্রাহক সেবা</strong> - সীমিত সহায়তা বিকল্প</li>
-                <li> <strong>কোন ডিজিটাল সেবা নেই</strong> - ন্যূনতম অ্যাপ ইকোসিস্টেম</li>
-                <li> <strong>উচ্চ লেটেন্সি</strong> - আধুনিক ব্যবহারের জন্য অনুপযুক্ত</li>
-                <li> <strong>ধীর আপগ্রেড চক্র</strong> - ন্যূনতম অবকাঠামো বিনিয়োগ</li>
+                <li><strong>অত্যন্ত ধীর গতি</strong> - ডেটা কর্মক্ষমতা খারাপ</li>
+                <li><strong>পুরানো প্রযুক্তি</strong> - লিগ্যাসি অবকাঠামো</li>
+                <li><strong>দুর্বল কভারেজ</strong> - অনেক অঞ্চলে সীমিত গ্রামীণ কভারেজ</li>
+                <li><strong>অনির্ভরযোগ্য সেবা</strong> - ঘন ঘন সংযোগ বিঘ্ন</li>
+                <li><strong>কোন ৪জি/৫জি নেই</strong> - শুধুমাত্র ২জি/৩জি উপলব্ধ</li>
+                <li><strong>দুর্বল গ্রাহক সেবা</strong> - সীমিত সহায়তা বিকল্প</li>
+                <li><strong>কোন ডিজিটাল সেবা নেই</strong> - অ্যাপ বা অনলাইন সেবায় সীমাবদ্ধতা</li>
+                <li><strong>উচ্চ লেটেন্সি</strong> - আধুনিক ব্যবহার অনুপযুক্ত</li>
+                <li><strong>ধীর আপগ্রেড চক্র</strong> - অবকাঠামো বিনিয়োগ কম</li>
             </ul>
         </section>
 
         <section class="verdict">
             <h2>চূড়ান্ত মূল্যায়ন</h2>
-            <p><strong>সুপারিশ করা হয় না - শেষ অবলম্বন হিসাবে শুধুমাত্র বাজেট</strong></p>
-            <p>টেলিটক শুধুমাত্র চরম সীমিত বাজেটের ব্যবহারকারীদের জন্য বিবেচনা করা উচিত।</p>
+            <p><strong>NOT RECOMMENDED - শুধুমাত্র চরম বাজেটের জন্য</strong></p>
+            <p>টেলিটক কেবলমাত্র সেই ব্যবহারকারীদের জন্য বিবেচনা করা উচিত যারা অন্যান্য বিকল্প গ্রহণ করতে অক্ষম এবং শুধুমাত্র সবচেয়ে কম খরচে মৌলিক কল/মেসেজ পরিষেবা চান।</p>
         </section>
     </article>
 </body>
