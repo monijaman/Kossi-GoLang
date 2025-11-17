@@ -36,6 +36,15 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 		http.NotFound(w, r)
 	})
 
+	// Get reviews by product ID -> GET /product-reviews/{product_id}
+	mux.HandleFunc("/product-reviews/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			GetReviewsByProductHandler(w, r, reviewRepo)
+			return
+		}
+		http.NotFound(w, r)
+	})
+
 	// Create translation -> POST /review/translation
 	mux.HandleFunc("/review/translation", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {

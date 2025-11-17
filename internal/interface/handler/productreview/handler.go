@@ -441,7 +441,7 @@ func GetProductReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo
 	})
 }
 
-// GetReviewHandler handles GET /reviews/{id}
+// GetReviewHandler handles GET /reviews/{id} and GET /reviews/{id}?locale=bn
 func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -458,28 +458,12 @@ func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo reposit
 
 	locale := r.URL.Query().Get("locale")
 
-	// Check if this should be treated as product_id (for both public and admin reviews)
-	// If locale is specified, assume it's a product_id lookup
-	var review *entities.ProductReview
-	if locale != "" {
-		// Treat as product_id - get all reviews for this product (no status filter)
-		// This allows admin to access unpublished reviews too
-		reviews, err := reviewRepo.GetByProductID(r.Context(), uint(id))
-		if err != nil || len(reviews) == 0 {
-			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Review not found for this product"})
-			return
-		}
-		// Take the first review
-		review = reviews[0]
-	} else {
-		// Treat as review_id (backward compatibility)
-		review, err = reviewRepo.GetByID(r.Context(), uint(id))
-		if err != nil {
-			w.WriteHeader(http.StatusNotFound)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Review not found"})
-			return
-		}
+	// Always treat ID as review_id and fetch the review by ID
+	review, err := reviewRepo.GetByID(r.Context(), uint(id))
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Review not found"})
+		return
 	}
 
 	response := map[string]interface{}{
@@ -492,6 +476,59 @@ func GetReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo reposit
 		if err == nil {
 			response["translation"] = convertTranslationToResponse(translation)
 		}
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
+}
+
+// GetReviewsByProductHandler handles GET /product-reviews/{product_id}
+func GetReviewsByProductHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract product ID from URL path: /product-reviews/{product_id}
+	path := strings.TrimPrefix(r.URL.Path, "/product-reviews/")
+	productIDStr := strings.Trim(path, "/")
+
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid product ID"})
+		return
+	}
+
+	locale := r.URL.Query().Get("locale")
+
+	// Get all reviews for this product (no status filter for admin access)
+	reviews, err := reviewRepo.GetByProductID(r.Context(), uint(productID))
+	if err != nil || len(reviews) == 0 {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "No reviews found for this product"})
+		return
+	}
+
+	// Build response with all reviews and their translations if locale specified
+	reviewsData := make([]map[string]interface{}, 0)
+	for _, review := range reviews {
+		reviewData := map[string]interface{}{
+			"review": convertReviewToResponse(review),
+		}
+
+		// If locale is specified and it's not English, get the translation
+		if locale != "" && locale != "en" {
+			translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale)
+			if err == nil {
+				reviewData["translation"] = convertTranslationToResponse(translation)
+			}
+		}
+
+		reviewsData = append(reviewsData, reviewData)
+	}
+
+	response := map[string]interface{}{
+		"product_id": productID,
+		"count":      len(reviewsData),
+		"reviews":    reviewsData,
 	}
 
 	w.WriteHeader(http.StatusOK)
