@@ -13,7 +13,7 @@ import (
 )
 
 // CreateReview creates a new product review
-func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, userID uint, productID uint, rating int, review string, sourceURL *string, additionalDetails json.RawMessage) (*entities.ProductReview, error) {
+func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, userID uint, productID uint, rating float64, review string, sourceURL *string, additionalDetails json.RawMessage) (*entities.ProductReview, error) {
 	if rating < 1 || rating > 5 {
 		return nil, errors.New("rating must be between 1 and 5")
 	}
@@ -46,7 +46,7 @@ func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 	newReview := &entities.ProductReview{
 		ProductID: productID,
 		UserID:    userID,
-		Rating:    rating,
+		Rating:    int(rating),
 		Review:    &review,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
@@ -68,7 +68,7 @@ func CreateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 }
 
 // UpdateReview updates an existing product review
-func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, userID uint, rating int, review string, sourceURL *string, additionalDetails json.RawMessage) (*entities.ProductReview, error) {
+func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, reviewID uint, userID uint, rating float64, review string, sourceURL *string, additionalDetails json.RawMessage) (*entities.ProductReview, error) {
 	if rating < 1 || rating > 5 {
 		return nil, errors.New("rating must be between 1 and 5")
 	}
@@ -86,7 +86,7 @@ func UpdateReview(ctx context.Context, repo repository.ProductReviewRepository, 
 		return nil, errors.New("unauthorized to update this review")
 	}
 
-	existingReview.Rating = rating
+	existingReview.Rating = int(rating)
 	existingReview.Review = &review
 	existingReview.UpdatedAt = time.Now()
 

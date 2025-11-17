@@ -21,7 +21,7 @@ import (
 
 // Request/Response structures
 type CreateReviewRequest struct {
-	Rating            int             `json:"rating"`
+	Rating            float64         `json:"rating"`
 	Reviews           string          `json:"reviews"`
 	SourceURL         *string         `json:"source_url,omitempty"`
 	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
@@ -29,7 +29,7 @@ type CreateReviewRequest struct {
 }
 
 type UpdateReviewRequest struct {
-	Rating            int             `json:"rating"`
+	Rating            float64         `json:"rating"`
 	Reviews           string          `json:"reviews"`
 	SourceURL         *string         `json:"source_url,omitempty"`
 	AdditionalDetails json.RawMessage `json:"additional_details,omitempty"`
