@@ -1,0 +1,197 @@
+{
+  "footwear_in_bd": {
+    "companies": [
+      {
+        "company_name": "Bata Shoe Co. (BD) Ltd.",
+        "type": "Multinational/Major Retailer",
+        "notes": "The oldest and most widespread brand in Bangladesh. Operates manufacturing facilities in Tongi and Dhamrai.",
+        "brands": [
+          {
+            "brand_name": "Bata",
+            "product_lines": [
+              "Power",
+              "North Star",
+              "Comfit",
+              "Weinbrenner",
+              "Bubblegummers",
+              "Bata Classic"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "Apex Footwear Ltd.",
+        "type": "Major Manufacturer/Retailer (Export-Oriented)",
+        "notes": "One of the largest footwear exporters in Bangladesh.",
+        "brands": [
+          {
+            "brand_name": "Apex",
+            "product_lines": [
+              "Venturini",
+              "Moochie",
+              "Nino Rossi",
+              "Apex",
+              "Twinkler",
+              "SchoolSmart"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "Bay Emporium Ltd. (Bay Group)",
+        "type": "Manufacturer/Retailer",
+        "notes": "Family footwear including leather products for formal and casual wear.",
+        "brands": [
+          {
+            "brand_name": "Bay",
+            "product_lines": [
+              "Bay Classic Leather",
+              "Bay Formal",
+              "Bay Casual",
+              "Bay Sandals"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "Walker Footwear (PRAN-RFL Group)",
+        "type": "National Retailer/Manufacturer",
+        "brands": [
+          {
+            "brand_name": "Walkar",
+            "product_lines": ["Walkar Casual", "Walkar Formal", "Walkar Kids"]
+          }
+        ]
+      },
+      {
+        "company_name": "Lotto Bangladesh (Express Leather Products Ltd.)",
+        "type": "International Sportswear Franchise",
+        "brands": [
+          {
+            "brand_name": "Lotto",
+            "product_lines": [
+              "Sports Shoes",
+              "Lifestyle Shoes",
+              "Running Shoes"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "Orion Footwear Limited (Orion Group)",
+        "type": "Manufacturer/Retailer",
+        "brands": [
+          {
+            "brand_name": "Orion",
+            "product_lines": ["Orion Casual", "Orion Formal", "Orion Sandals"]
+          }
+        ]
+      },
+      {
+        "company_name": "Akij Footwear Ltd. (Akij Group)",
+        "type": "Manufacturer/Export-Oriented",
+        "brands": [
+          {
+            "brand_name": "Akij Shoes",
+            "product_lines": ["Akij Casual", "Akij Formal", "Akij Sports"]
+          }
+        ]
+      },
+      {
+        "company_name": "Jenny's Shoes Ltd.",
+        "type": "Manufacturer/Retailer",
+        "brands": [
+          {
+            "brand_name": "Jenny's",
+            "product_lines": [
+              "Jenny Leather Shoes",
+              "Jenny Casual",
+              "Jenny Formal"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "Step Footwear (Step Group)",
+        "type": "Manufacturer/Retailer",
+        "brands": [
+          {
+            "brand_name": "Step",
+            "product_lines": [
+              "Step Casual",
+              "Step Formal",
+              "Step Flip-flops",
+              "Step Sandals"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "Fortune Shoes Ltd.",
+        "type": "Export-Oriented Manufacturer",
+        "brands": [
+          {
+            "brand_name": "Fortune",
+            "product_lines": [
+              "Fortune Casual",
+              "Fortune Formal",
+              "Fortune Sandals"
+            ]
+          }
+        ]
+      },
+      {
+        "company_name": "ABC Footwear Industries Ltd.",
+        "type": "Manufacturer/Exporter",
+        "brands": []
+      },
+      {
+        "company_name": "Bengal Shoe Industries Ltd.",
+        "type": "Manufacturer/Exporter",
+        "brands": []
+      },
+      {
+        "company_name": "Bay Sports Wear Limited",
+        "type": "Manufacturer/Exporter",
+        "brands": []
+      },
+      {
+        "company_name": "PICARD Bangladesh Ltd.",
+        "type": "Manufacturer/Exporter",
+        "brands": []
+      },
+      {
+        "company_name": "Blue Ocean Footwear Ltd.",
+        "type": "Manufacturer/Exporter",
+        "brands": []
+      },
+      {
+        "company_name": "DBL Lifestyle",
+        "type": "Franchise Partner",
+        "brands": [
+          {
+            "brand_name": "Nike",
+            "product_lines": [
+              "Running Shoes",
+              "Lifestyle Shoes",
+              "Training Shoes"
+            ]
+          },
+          {
+            "brand_name": "PUMA",
+            "product_lines": [
+              "Running Shoes",
+              "Lifestyle Shoes",
+              "Football Shoes"
+            ]
+          }
+        ]
+      }
+    ],
+    "industry_context": {
+      "total_firms_estimate": "Over 3,600 MSMEs and 90 large-scale firms",
+      "production_volume": "Approx. 378 million pairs annually (all types of footwear)",
+      "association": "Leathergoods and Footwear Manufacturers & Exporters Association of Bangladesh (LFMEAB)"
+    }
+  }
+}

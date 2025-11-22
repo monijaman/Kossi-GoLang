@@ -1,0 +1,132 @@
+{
+  "soft_drinks_and_energy_drinks_in_bd": {
+    "soft_drinks": [
+      {
+        "brand": "Coca-Cola",
+        "parent_company": "Coca-Cola Bangladesh Beverages Ltd./International",
+        "products": [
+          "Coca-Cola Classic",
+          "Coca-Cola Zero Sugar",
+          "Diet Coke",
+          "Fanta (Orange, Strawberry, Grape)",
+          "Sprite",
+          "Kinley Club Soda",
+          "Mountain Dew"
+        ]
+      },
+      {
+        "brand": "PepsiCo",
+        "parent_company": "PepsiCo International",
+        "products": [
+          "Pepsi",
+          "7 Up",
+          "Mirinda (Orange)",
+          "RC Q Lemon",
+          "RC Q Orange",
+          "RC Cola",
+          "RC Jeera Pani",
+          "RC Club Soda"
+        ]
+      },
+      {
+        "brand": "Akij Food & Beverage Ltd.",
+        "parent_company": "Akij Food & Beverage Ltd.",
+        "products": [
+          "Mojo (Cola)",
+          "Clemon (Lemon-Lime)",
+          "Fresh Cola",
+          "Fresh Mojito",
+          "Fresh Googly (Cola/Orange)",
+          "Speed"
+        ]
+      },
+      {
+        "brand": "Partex Beverage Ltd.",
+        "parent_company": "Partex Group",
+        "products": [
+          "Maxx Cola",
+          "Maxx-up (Lemon)",
+          "Royal Crown Club Soda",
+          "RC"
+        ]
+      },
+      {
+        "brand": "PRAN-RFL Group Ltd.",
+        "parent_company": "PRAN-RFL Group Ltd.",
+        "products": [
+          "PRAN Up",
+          "Tango (Various Flavors)",
+          "Cheer Up",
+          "Lemu",
+          "Pran Up Power",
+          "PRAN Power"
+        ]
+      },
+      {
+        "brand": "Globe Soft Drinks & AST Beverage Ltd.",
+        "parent_company": "Globe Soft Drinks & AST Beverage Ltd.",
+        "products": [
+          "Houston (Carbonated Drink)",
+          "Royal Tiger",
+          "Bruvana Sports Electrolyte Drinks"
+        ]
+      },
+      {
+        "brand": "Deshbandhu Group",
+        "parent_company": "Deshbandhu Group",
+        "products": ["BIG BOSS"]
+      },
+      {
+        "brand": "Imported/Specialty Soft Drinks",
+        "parent_company": "Various",
+        "products": [
+          "Schweppes (Tonic Water, Dry Ginger Ale, Soda Water, Bitter Lemon)",
+          "Chupa Chups Strawberry Milk Soda"
+        ]
+      }
+    ],
+    "energy_drinks": [
+      {
+        "brand": "Red Bull GMBH",
+        "parent_company": "Red Bull GMBH / International",
+        "products": ["Red Bull Energy Drink", "Red Bull Gold Energy Drink"]
+      },
+      {
+        "brand": "Osotspa Co. Ltd.",
+        "parent_company": "Osotspa Co. Ltd. / International",
+        "products": ["Shark", "Krating Daeng"]
+      },
+      {
+        "brand": "PepsiCo International",
+        "parent_company": "PepsiCo International",
+        "products": ["Sting Energy Drink", "Tiger Energy Drink"]
+      },
+      {
+        "brand": "Coca-Cola Bangladesh Beverages Ltd.",
+        "parent_company": "Coca-Cola Bangladesh Beverages Ltd.",
+        "products": ["Power Play"]
+      },
+      {
+        "brand": "Imported/Specialty Energy Drinks",
+        "parent_company": "Various",
+        "products": [
+          "Prime Hydration/Energy Drink (Various Flavors)",
+          "Monster Energy Drink (Original, Ultra Black, Pipeline Punch)",
+          "NOS Energy Drink (Original, Citrus, Mang)",
+          "Gatorade Sports Drink",
+          "Power Ade Sport Drink",
+          "POCARI SWEAT",
+          "Extra Joss Active Energy Drink"
+        ]
+      },
+      {
+        "brand": "Malt/Non-Alcoholic Drinks",
+        "parent_company": "Various",
+        "products": [
+          "Moussy Classic Non-Alcoholic Malt Drink",
+          "Bavaria Non-Alcoholic Malt Drink"
+        ]
+      }
+    ]
+  }
+}
