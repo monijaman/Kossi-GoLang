@@ -1,0 +1,588 @@
+{
+  "laptops_in_bangladesh": {
+    "market_info": {
+      "note": "All brands listed are available in Bangladesh through authorized dealers, official stores, or reputable retailers",
+      "authorized_dealers": [
+        "Ryans Computers",
+        "Star Tech",
+        "Tech Land",
+        "Computer Village",
+        "Ultra Technology",
+        "Global Brand Pvt Ltd",
+        "Smart Technologies",
+        "Asus Store Bangladesh",
+        "Apple Gadgets BD",
+        "Samanta Computer"
+      ]
+    },
+    "brands": [
+      {
+        "brand": "Acer",
+        "origin": "Taiwan",
+        "category": "Multiple Categories",
+        "availability": "Available - Star Tech, Ryans Computers",
+        "popular_models": [
+          "Aspire 5",
+          "Aspire 3",
+          "Aspire 7",
+          "Aspire Vero",
+          "Aspire Lite",
+          "Swift 3",
+          "Swift 5",
+          "Swift X",
+          "Swift Edge",
+          "Swift Go 14",
+          "Predator Helios 18",
+          "Predator Helios 16",
+          "Predator Triton 17",
+          "Predator Helios Neo 16",
+          "Chromebook 314",
+          "Chromebook Spin 714",
+          "Chromebook 515"
+        ]
+      },
+      {
+        "brand": "Alienware",
+        "origin": "USA",
+        "category": "Premium Gaming",
+        "availability": "Available - Computer Village, Star Tech",
+        "popular_models": [
+          "Alienware M18",
+          "Alienware X16",
+          "Alienware X14",
+          "Alienware M15 R7"
+        ]
+      },
+      {
+        "brand": "Apple",
+        "origin": "USA",
+        "category": "Premium",
+        "availability": "Available - Apple Gadgets BD, Ryans Computers",
+        "popular_models": [
+          "MacBook Air M3 13-inch",
+          "MacBook Air M3 15-inch",
+          "MacBook Air M2 13-inch",
+          "MacBook Air M2 15-inch",
+          "MacBook Pro 14-inch M3",
+          "MacBook Pro 14-inch M3 Pro",
+          "MacBook Pro 16-inch M3 Pro",
+          "MacBook Pro 16-inch M3 Max",
+          "MacBook Pro 13-inch M2"
+        ]
+      },
+      {
+        "brand": "Asus",
+        "origin": "Taiwan",
+        "category": "Multiple Categories",
+        "availability": "Available - Asus Store BD, Star Tech, Ryans Computers",
+        "popular_models": [
+          "ROG Zephyrus G14 2024",
+          "ROG Zephyrus G16 2024",
+          "ROG Zephyrus M16",
+          "ROG Strix Scar 16",
+          "ROG Strix Scar 18",
+          "ROG Strix G15",
+          "ROG Strix G16",
+          "ROG Flow X13",
+          "ROG Flow X16",
+          "ROG Zephyrus Duo 16",
+          "ROG Strix G17",
+          "VivoBook 15",
+          "VivoBook 14",
+          "VivoBook S15",
+          "VivoBook Pro 15",
+          "VivoBook Go 15",
+          "ZenBook 14 OLED",
+          "ZenBook 15 OLED",
+          "ZenBook Pro 14 Duo",
+          "ZenBook Flip 13",
+          "E410",
+          "E510",
+          "E210",
+          "Chromebook Flip C434",
+          "Chromebook CX1",
+          "Chromebook Detachable CM3"
+        ]
+      },
+      {
+        "brand": "Avita",
+        "origin": "USA/Hong Kong",
+        "category": "Budget",
+        "availability": "Available - Star Tech, Ryans Computers",
+        "popular_models": [
+          "Liber V14",
+          "Pura E14",
+          "Essential 14"
+        ]
+      },
+      {
+        "brand": "Chuwi",
+        "origin": "China",
+        "category": "Budget",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "HeroBook Pro",
+          "CoreBook X",
+          "LarkBook",
+          "GemiBook Pro"
+        ]
+      },
+      {
+        "brand": "Clevo",
+        "origin": "Taiwan",
+        "category": "Gaming/Workstation (ODM)",
+        "availability": "Available through resellers",
+        "popular_models": [
+          "PA71",
+          "PD50",
+          "NH55",
+          "NV41"
+        ]
+      },
+      {
+        "brand": "Dell",
+        "origin": "USA",
+        "category": "Multiple Categories",
+        "availability": "Available - Computer Village, Star Tech, Ryans Computers",
+        "popular_models": [
+          "XPS 13 Plus 9320",
+          "XPS 13 9315",
+          "XPS 15 9530",
+          "XPS 17 9730",
+          "XPS 14 9440",
+          "XPS 16 9640",
+          "Inspiron 15 3000",
+          "Inspiron 15 5000",
+          "Inspiron 14 Plus",
+          "Inspiron 16 Plus",
+          "Inspiron 2-in-1",
+          "Latitude 9440",
+          "Latitude 7440",
+          "Latitude 5540",
+          "Latitude 3540",
+          "Precision 5680",
+          "Precision 5480",
+          "Precision 7780",
+          "Precision 3581"
+        ]
+      },
+      {
+        "brand": "Framework",
+        "origin": "USA",
+        "category": "Premium Modular",
+        "availability": "Limited - Online order only",
+        "popular_models": [
+          "Framework Laptop 13 (Intel 13th Gen)",
+          "Framework Laptop 13 (AMD Ryzen 7040)",
+          "Framework Laptop 16"
+        ]
+      },
+      {
+        "brand": "Fujitsu",
+        "origin": "Japan",
+        "category": "Business",
+        "availability": "Limited availability",
+        "popular_models": [
+          "LifeBook U9311",
+          "LifeBook E5511",
+          "LifeBook A3510"
+        ]
+      },
+      {
+        "brand": "Getac",
+        "origin": "Taiwan",
+        "category": "Rugged",
+        "availability": "Limited - Enterprise only",
+        "popular_models": [
+          "S410",
+          "B360",
+          "V110",
+          "X500"
+        ]
+      },
+      {
+        "brand": "Gigabyte",
+        "origin": "Taiwan",
+        "category": "Gaming",
+        "availability": "Available - Star Tech, Ryans Computers",
+        "popular_models": [
+          "Aorus 17X",
+          "Aorus 15",
+          "Aero 16"
+        ]
+      },
+      {
+        "brand": "GPD",
+        "origin": "China",
+        "category": "Ultra-Portable",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "GPD Win Max 2",
+          "GPD Pocket 3",
+          "GPD Win 4",
+          "GPD P2 Max"
+        ]
+      },
+      {
+        "brand": "Haier",
+        "origin": "China",
+        "category": "Budget",
+        "availability": "Limited - Online retailers",
+        "popular_models": [
+          "S510",
+          "Y11C",
+          "U1520SD"
+        ]
+      },
+      {
+        "brand": "Hasee",
+        "origin": "China",
+        "category": "Gaming/Mainstream",
+        "availability": "Limited - Online retailers",
+        "popular_models": [
+          "Z7-KP7SC",
+          "G8-CU7NT",
+          "Z8-DA7NP"
+        ]
+      },
+      {
+        "brand": "Honor",
+        "origin": "China",
+        "category": "Mid-Range",
+        "availability": "Available - Star Tech",
+        "popular_models": [
+          "MagicBook X16 Pro",
+          "MagicBook X16",
+          "MagicBook X14",
+          "MagicBook 14 2023",
+          "MagicBook Pro 16",
+          "MagicBook V14",
+          "MagicBook 15"
+        ]
+      },
+      {
+        "brand": "HP",
+        "origin": "USA",
+        "category": "Multiple Categories",
+        "availability": "Available - Ryans Computers, Star Tech, Tech Land",
+        "popular_models": [
+          "Spectre x360 14",
+          "Spectre x360 16",
+          "Spectre Foldable",
+          "Pavilion 15",
+          "Pavilion 14",
+          "Pavilion x360 14",
+          "Pavilion Aero 13",
+          "Pavilion Plus 14",
+          "Envy 17",
+          "Envy 16",
+          "Envy x360 15",
+          "Envy x360 13",
+          "Omen 17",
+          "Omen 16",
+          "Omen Transcend 16",
+          "Omen Transcend 14",
+          "EliteBook 840 G10",
+          "EliteBook 860 G10",
+          "EliteBook 1040 G10",
+          "EliteBook 650 G10",
+          "ProBook 440 G10",
+          "ProBook 450 G10",
+          "ProBook 460 G10",
+          "15s-fq5000",
+          "14s-dq5000",
+          "14s-fq1000",
+          "Chromebook 14",
+          "Chromebook x360 14c",
+          "Chromebook 11"
+        ]
+      },
+      {
+        "brand": "Huawei",
+        "origin": "China",
+        "category": "Premium",
+        "availability": "Available - Star Tech, Ryans Computers",
+        "popular_models": [
+          "MateBook X Pro",
+          "MateBook 14 2023",
+          "MateBook 16",
+          "MateBook D16",
+          "MateBook D15",
+          "MateBook 16s",
+          "MateBook 13s",
+          "MateBook E"
+        ]
+      },
+      {
+        "brand": "iBall",
+        "origin": "India",
+        "category": "Budget",
+        "availability": "Limited",
+        "popular_models": [
+          "CompBook Premio v2.0",
+          "CompBook Excelance",
+          "CompBook Marvel 6"
+        ]
+      },
+      {
+        "brand": "Infinity",
+        "origin": "China",
+        "category": "Budget",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "S14",
+          "N3350",
+          "N4000"
+        ]
+      },
+      {
+        "brand": "Jumper",
+        "origin": "China",
+        "category": "Budget",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "EZbook X3",
+          "EZbook S5",
+          "EZbook A5"
+        ]
+      },
+      {
+        "brand": "Lenovo",
+        "origin": "China",
+        "category": "Multiple Categories",
+        "availability": "Available - Star Tech, Computer Village, Ryans Computers",
+        "popular_models": [
+          "ThinkPad X1 Carbon Gen 11",
+          "ThinkPad X1 Yoga Gen 8",
+          "ThinkPad X1 Extreme Gen 5",
+          "ThinkPad X1 Nano Gen 3",
+          "ThinkPad T14 Gen 4",
+          "ThinkPad T16 Gen 2",
+          "ThinkPad E14 Gen 5",
+          "ThinkPad E16 Gen 1",
+          "ThinkPad L14 Gen 4",
+          "ThinkPad P16s Gen 2",
+          "ThinkBook 14 Gen 6",
+          "ThinkBook 16 Gen 6",
+          "ThinkBook 15 Gen 5",
+          "IdeaPad Slim 5",
+          "IdeaPad Slim 3",
+          "IdeaPad Flex 5",
+          "IdeaPad Gaming 3",
+          "IdeaPad 1",
+          "Legion Pro 7i",
+          "Legion Pro 5i",
+          "Legion Slim 7i",
+          "Legion 5 Pro",
+          "Legion 5i",
+          "IdeaPad Duet 5 Chromebook",
+          "Flex 5 Chromebook",
+          "Chromebook 3"
+        ]
+      },
+      {
+        "brand": "LG",
+        "origin": "South Korea",
+        "category": "Premium Ultraportable",
+        "availability": "Available - Star Tech, Ryans Computers",
+        "popular_models": [
+          "Gram 17",
+          "Gram 16",
+          "Gram 15",
+          "Gram 14"
+        ]
+      },
+      {
+        "brand": "Mechrevo",
+        "origin": "China",
+        "category": "Gaming",
+        "availability": "Limited - Online retailers",
+        "popular_models": [
+          "Code 01",
+          "Z3 Pro",
+          "X3"
+        ]
+      },
+      {
+        "brand": "Microsoft",
+        "origin": "USA",
+        "category": "Premium",
+        "availability": "Available - Star Tech, Ryans Computers",
+        "popular_models": [
+          "Surface Laptop 5",
+          "Surface Laptop Studio 2",
+          "Surface Pro 9",
+          "Surface Go 3"
+        ]
+      },
+      {
+        "brand": "MSI",
+        "origin": "Taiwan",
+        "category": "Gaming",
+        "availability": "Available - Star Tech, Ryans Computers, Tech Land",
+        "popular_models": [
+          "MSI Titan GT77 HX",
+          "MSI Raider GE78 HX",
+          "MSI Raider GE68 HX",
+          "MSI Stealth 16 Studio",
+          "MSI Stealth 14 Studio",
+          "MSI Vector GP78",
+          "MSI Cyborg 15",
+          "MSI Katana 15",
+          "MSI Katana 17",
+          "MSI Pulse 15",
+          "MSI Pulse 17",
+          "MSI Crosshair 15"
+        ]
+      },
+      {
+        "brand": "One-Netbook",
+        "origin": "China",
+        "category": "Ultra-Portable",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "OneXPlayer 2",
+          "OneMix 4",
+          "OneGx1 Pro"
+        ]
+      },
+      {
+        "brand": "Panasonic",
+        "origin": "Japan",
+        "category": "Rugged",
+        "availability": "Limited - Enterprise only",
+        "popular_models": [
+          "Toughbook 55",
+          "Toughbook 40",
+          "Toughbook 33",
+          "Toughbook G2"
+        ]
+      },
+      {
+        "brand": "Razer",
+        "origin": "USA/Singapore",
+        "category": "Premium Gaming",
+        "availability": "Limited - Ryans Computers, Tech Land",
+        "popular_models": [
+          "Razer Blade 14",
+          "Razer Blade 15",
+          "Razer Blade 16",
+          "Razer Blade 18"
+        ]
+      },
+      {
+        "brand": "Samsung",
+        "origin": "South Korea",
+        "category": "Premium",
+        "availability": "Available - Samsung stores, Star Tech",
+        "popular_models": [
+          "Galaxy Book4 Ultra",
+          "Galaxy Book3 Ultra",
+          "Galaxy Book3 Pro 360",
+          "Galaxy Book3 Pro",
+          "Galaxy Book3",
+          "Galaxy Book2 Pro",
+          "Galaxy Book2 360",
+          "Galaxy Book Go"
+        ]
+      },
+      {
+        "brand": "Smartron",
+        "origin": "India",
+        "category": "Mid-Range",
+        "availability": "Limited",
+        "popular_models": [
+          "t.book flex",
+          "t.book"
+        ]
+      },
+      {
+        "brand": "System76",
+        "origin": "USA",
+        "category": "Linux Laptops",
+        "availability": "Limited - Online order only",
+        "popular_models": [
+          "Oryx Pro",
+          "Lemur Pro",
+          "Gazelle",
+          "Adder WS"
+        ]
+      },
+      {
+        "brand": "Teclast",
+        "origin": "China",
+        "category": "Budget",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "F15 Plus",
+          "F7 Plus",
+          "F6 Plus"
+        ]
+      },
+      {
+        "brand": "Tongfang",
+        "origin": "China",
+        "category": "Mid-Range",
+        "availability": "Limited",
+        "popular_models": [
+          "GK5CN6Z",
+          "GM5ZG7W",
+          "GI5CN54",
+          "GX4HRXL"
+        ]
+      },
+      {
+        "brand": "Toshiba",
+        "origin": "Japan",
+        "category": "Mainstream",
+        "availability": "Limited availability",
+        "popular_models": [
+          "Satellite Pro",
+          "Dynabook Tecra",
+          "Portégé"
+        ]
+      },
+      {
+        "brand": "Vaio",
+        "origin": "Japan",
+        "category": "Premium",
+        "availability": "Limited availability",
+        "popular_models": [
+          "VAIO SX14",
+          "VAIO SX12",
+          "VAIO Z",
+          "VAIO FE14",
+          "VAIO SE14"
+        ]
+      },
+      {
+        "brand": "Walton",
+        "origin": "Bangladesh",
+        "category": "Budget",
+        "availability": "Available - Walton Plaza, Star Tech",
+        "popular_models": [
+          "Passion WP156U8S",
+          "Tamarind WPTL14N48SL",
+          "Prelude N3450",
+          "Symphony WPS156U8S"
+        ]
+      },
+      {
+        "brand": "Xiaomi",
+        "origin": "China",
+        "category": "Mid-Range",
+        "availability": "Available - Star Tech, Tech Land",
+        "popular_models": [
+          "Mi Notebook Pro X 14",
+          "Mi Notebook Pro X 15",
+          "Mi Notebook Air 13",
+          "Redmi Book Pro 15",
+          "Redmi Book Pro 14",
+          "Redmi Book 16",
+          "Redmi Book 15",
+          "Redmi Book 14"
+        ]
+      }
+    ]
+  }
+}

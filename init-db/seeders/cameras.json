@@ -1,0 +1,662 @@
+{
+  "cameras_in_bangladesh": {
+    "market_info": {
+      "note": "All brands listed are available in Bangladesh through authorized dealers, official stores, or reputable retailers",
+      "authorized_dealers": [
+        "Camera World Bangladesh",
+        "Foto Deals",
+        "Digital Camera Bangladesh",
+        "Jadroo",
+        "Star Tech",
+        "Ryans Computers",
+        "Pickaboo",
+        "Daraz Bangladesh",
+        "Canon Image Square",
+        "Nikon Bangladesh",
+        "Sony Center Bangladesh"
+      ]
+    },
+    "brands": [
+      {
+        "brand": "Canon",
+        "origin": "Japan",
+        "category": "Multiple Categories",
+        "availability": "Available - Canon Image Square, Camera World, Foto Deals",
+        "popular_models": [
+          "EOS R5",
+          "EOS R6 Mark II",
+          "EOS R8",
+          "EOS R7",
+          "EOS R10",
+          "EOS R50",
+          "EOS 5D Mark IV",
+          "EOS 90D",
+          "EOS Rebel T7",
+          "EOS M50 Mark II",
+          "PowerShot G7 X Mark III",
+          "PowerShot SX740 HS",
+          "PowerShot ELPH 180"
+        ]
+      },
+      {
+        "brand": "Nikon",
+        "origin": "Japan",
+        "category": "Multiple Categories",
+        "availability": "Available - Nikon Bangladesh, Camera World, Foto Deals",
+        "popular_models": [
+          "Z9",
+          "Z8",
+          "Z7 II",
+          "Z6 II",
+          "Z5",
+          "Z fc",
+          "Z30",
+          "D850",
+          "D780",
+          "D7500",
+          "D5600",
+          "D3500",
+          "Coolpix P1000",
+          "Coolpix B600"
+        ]
+      },
+      {
+        "brand": "Sony",
+        "origin": "Japan",
+        "category": "Multiple Categories",
+        "availability": "Available - Sony Center BD, Camera World, Star Tech",
+        "popular_models": [
+          "Alpha A7R V",
+          "Alpha A7 IV",
+          "Alpha A7C",
+          "Alpha A6700",
+          "Alpha A6400",
+          "Alpha ZV-E10",
+          "Alpha ZV-1",
+          "RX100 VII",
+          "RX10 IV",
+          "FX3",
+          "FX30"
+        ]
+      },
+      {
+        "brand": "Fujifilm",
+        "origin": "Japan",
+        "category": "Mirrorless/Instant",
+        "availability": "Available - Camera World, Foto Deals, Pickaboo",
+        "popular_models": [
+          "X-T5",
+          "X-T4",
+          "X-S20",
+          "X-H2S",
+          "X-H2",
+          "X-T30 II",
+          "X-E4",
+          "X-Pro3",
+          "X100V",
+          "GFX 100S",
+          "Instax Mini 11",
+          "Instax Mini 12",
+          "Instax Mini Evo"
+        ]
+      },
+      {
+        "brand": "Panasonic",
+        "origin": "Japan",
+        "category": "Mirrorless/Video",
+        "availability": "Available - Camera World, Star Tech",
+        "popular_models": [
+          "Lumix GH6",
+          "Lumix GH5 II",
+          "Lumix S5 II",
+          "Lumix S5 IIX",
+          "Lumix G9 II",
+          "Lumix G100",
+          "Lumix FZ80"
+        ]
+      },
+      {
+        "brand": "Olympus",
+        "origin": "Japan",
+        "category": "Mirrorless",
+        "availability": "Available - Camera World, Foto Deals",
+        "popular_models": [
+          "OM-1",
+          "OM-5",
+          "E-M1 Mark III",
+          "E-M5 Mark III",
+          "E-M10 Mark IV",
+          "PEN E-P7",
+          "Tough TG-6"
+        ]
+      },
+      {
+        "brand": "Leica",
+        "origin": "Germany",
+        "category": "Premium",
+        "availability": "Limited - High-end camera stores",
+        "popular_models": [
+          "M11",
+          "Q2",
+          "Q3",
+          "SL2-S",
+          "SL3",
+          "D-Lux 7"
+        ]
+      },
+      {
+        "brand": "Pentax",
+        "origin": "Japan",
+        "category": "DSLR",
+        "availability": "Limited - Camera World",
+        "popular_models": [
+          "K-3 Mark III",
+          "K-1 Mark II",
+          "K-70",
+          "KP"
+        ]
+      },
+      {
+        "brand": "GoPro",
+        "origin": "USA",
+        "category": "Action Camera",
+        "availability": "Available - Star Tech, Pickaboo, Ryans Computers",
+        "popular_models": [
+          "HERO12 Black",
+          "HERO11 Black",
+          "HERO11 Black Mini",
+          "HERO10 Black",
+          "HERO9 Black"
+        ]
+      },
+      {
+        "brand": "DJI",
+        "origin": "China",
+        "category": "Drones/Action Cameras",
+        "availability": "Available - Star Tech, Pickaboo, Ryans Computers, Camera World",
+        "popular_models": [
+          "Mavic 3 Pro",
+          "Mavic 3 Classic",
+          "Mavic 3",
+          "Air 3",
+          "Air 2S",
+          "Mini 4 Pro",
+          "Mini 3 Pro",
+          "Mini 2 SE",
+          "Avata 2",
+          "FPV",
+          "Inspire 3",
+          "Phantom 4 Pro V2.0",
+          "Osmo Action 4",
+          "Osmo Action 3",
+          "Osmo Pocket 3",
+          "Osmo Mobile 6"
+        ]
+      },
+      {
+        "brand": "Insta360",
+        "origin": "China",
+        "category": "360/Action Camera",
+        "availability": "Available - Star Tech, Pickaboo, Camera World",
+        "popular_models": [
+          "X3",
+          "X4",
+          "ONE RS",
+          "ONE X2",
+          "GO 3",
+          "Ace Pro",
+          "Flow"
+        ]
+      },
+      {
+        "brand": "AKASO",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "Brave 7 LE",
+          "Brave 8",
+          "V50 Elite",
+          "EK7000"
+        ]
+      },
+      {
+        "brand": "YI",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "4K+ Action Camera",
+          "4K Action Camera",
+          "Lite Action Camera",
+          "Discovery"
+        ]
+      },
+      {
+        "brand": "SJCAM",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "SJ10 Pro",
+          "SJ8 Pro",
+          "SJ4000",
+          "C200"
+        ]
+      },
+      {
+        "brand": "Autel Robotics",
+        "origin": "USA/China",
+        "category": "Drones",
+        "availability": "Limited - Specialized drone stores",
+        "popular_models": [
+          "EVO II Pro V3",
+          "EVO Nano+",
+          "EVO Lite+",
+          "EVO Max 4T"
+        ]
+      },
+      {
+        "brand": "Parrot",
+        "origin": "France",
+        "category": "Drones",
+        "availability": "Limited - Online retailers",
+        "popular_models": [
+          "Anafi",
+          "Anafi USA",
+          "Bebop 2"
+        ]
+      },
+      {
+        "brand": "Holy Stone",
+        "origin": "China",
+        "category": "Budget Drones",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "HS720E",
+          "HS720G",
+          "HS175D",
+          "HS110D"
+        ]
+      },
+      {
+        "brand": "Potensic",
+        "origin": "China",
+        "category": "Budget Drones",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "ATOM SE",
+          "A20W",
+          "T25",
+          "D58"
+        ]
+      },
+      {
+        "brand": "Ruko",
+        "origin": "China",
+        "category": "Budget Drones",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "F11 Pro",
+          "F11GIM2",
+          "U11 Pro"
+        ]
+      },
+      {
+        "brand": "Hubsan",
+        "origin": "China",
+        "category": "Drones",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "Zino 2+",
+          "Zino Mini Pro",
+          "H117S Zino"
+        ]
+      },
+      {
+        "brand": "Kodak",
+        "origin": "USA",
+        "category": "Point and Shoot/Action",
+        "availability": "Available - Camera World, Star Tech",
+        "popular_models": [
+          "PIXPRO AZ421",
+          "PIXPRO FZ43",
+          "PIXPRO WPZ2",
+          "PIXPRO SP360 4K"
+        ]
+      },
+      {
+        "brand": "Ricoh",
+        "origin": "Japan",
+        "category": "360 Camera",
+        "availability": "Limited - Camera World",
+        "popular_models": [
+          "Theta Z1",
+          "Theta X",
+          "Theta SC2"
+        ]
+      },
+      {
+        "brand": "Blackmagic Design",
+        "origin": "Australia",
+        "category": "Cinema Camera",
+        "availability": "Limited - Professional camera stores",
+        "popular_models": [
+          "Pocket Cinema Camera 6K Pro",
+          "Pocket Cinema Camera 6K G2",
+          "Pocket Cinema Camera 4K",
+          "URSA Mini Pro 12K"
+        ]
+      },
+      {
+        "brand": "RED",
+        "origin": "USA",
+        "category": "Cinema Camera",
+        "availability": "Very Limited - Professional shops only",
+        "popular_models": [
+          "V-RAPTOR 8K VV",
+          "KOMODO 6K",
+          "DSMC2 BRAIN"
+        ]
+      },
+      {
+        "brand": "ARRI",
+        "origin": "Germany",
+        "category": "Cinema Camera",
+        "availability": "Very Limited - Professional rental houses",
+        "popular_models": [
+          "ALEXA Mini LF",
+          "ALEXA 35",
+          "AMIRA"
+        ]
+      },
+      {
+        "brand": "Z CAM",
+        "origin": "China",
+        "category": "Cinema Camera",
+        "availability": "Limited - Professional stores",
+        "popular_models": [
+          "E2-M4",
+          "E2-S6",
+          "E2-F6"
+        ]
+      },
+      {
+        "brand": "Polaroid",
+        "origin": "USA",
+        "category": "Instant Camera",
+        "availability": "Available - Camera World, Pickaboo",
+        "popular_models": [
+          "Now+",
+          "Go Generation 2",
+          "I-2"
+        ]
+      },
+      {
+        "brand": "Canon PowerShot",
+        "origin": "Japan",
+        "category": "Point and Shoot",
+        "availability": "Available - Canon stores, Camera World",
+        "popular_models": [
+          "V10",
+          "G5 X Mark II",
+          "SX70 HS"
+        ]
+      },
+      {
+        "brand": "XMINI",
+        "origin": "China",
+        "category": "Budget Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "Digital Camera 44MP",
+          "Kids Camera"
+        ]
+      },
+      {
+        "brand": "Dragon Touch",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "Vision 3 Pro",
+          "Vision 4 Lite",
+          "Vision 5"
+        ]
+      },
+      {
+        "brand": "Hasselblad",
+        "origin": "Sweden",
+        "category": "Premium Medium Format",
+        "availability": "Very Limited - High-end camera stores",
+        "popular_models": [
+          "X2D 100C",
+          "907X 50C",
+          "X1D II 50C",
+          "H6D-100c"
+        ]
+      },
+      {
+        "brand": "Phase One",
+        "origin": "Denmark",
+        "category": "Premium Medium Format",
+        "availability": "Very Limited - Professional studios",
+        "popular_models": [
+          "XF IQ4 150MP",
+          "XT",
+          "IQ4 100MP Trichromatic"
+        ]
+      },
+      {
+        "brand": "Sigma",
+        "origin": "Japan",
+        "category": "Mirrorless",
+        "availability": "Limited - Camera World",
+        "popular_models": [
+          "fp L",
+          "fp",
+          "sd Quattro H"
+        ]
+      },
+      {
+        "brand": "FIMI",
+        "origin": "China",
+        "category": "Drones",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "X8 Mini",
+          "X8 SE 2022",
+          "FIMI Mini 3"
+        ]
+      },
+      {
+        "brand": "Skydio",
+        "origin": "USA",
+        "category": "Drones",
+        "availability": "Very Limited - Online order",
+        "popular_models": [
+          "Skydio 2+",
+          "Skydio X2"
+        ]
+      },
+      {
+        "brand": "Eachine",
+        "origin": "China",
+        "category": "Budget Drones/FPV",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "E520S",
+          "E58",
+          "E511S",
+          "Wizard X220"
+        ]
+      },
+      {
+        "brand": "Syma",
+        "origin": "China",
+        "category": "Budget Drones",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "X500",
+          "X5UW",
+          "X20",
+          "X8PRO"
+        ]
+      },
+      {
+        "brand": "Simrex",
+        "origin": "China",
+        "category": "Budget Drones",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "X900",
+          "X700",
+          "X500"
+        ]
+      },
+      {
+        "brand": "Garmin",
+        "origin": "USA",
+        "category": "Action Camera",
+        "availability": "Limited - Tech stores",
+        "popular_models": [
+          "VIRB Ultra 30",
+          "VIRB 360"
+        ]
+      },
+      {
+        "brand": "EKEN",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "H9R",
+          "V8s",
+          "H6s",
+          "V50 Pro"
+        ]
+      },
+      {
+        "brand": "Apeman",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "A87",
+          "A80",
+          "A79",
+          "A100"
+        ]
+      },
+      {
+        "brand": "Crosstour",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "CT9500",
+          "CT9000",
+          "CT8500"
+        ]
+      },
+      {
+        "brand": "Campark",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers, Daraz",
+        "popular_models": [
+          "X30",
+          "V40",
+          "ACT76",
+          "X20"
+        ]
+      },
+      {
+        "brand": "Victure",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "AC700",
+          "AC800",
+          "AC900"
+        ]
+      },
+      {
+        "brand": "WOLFANG",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "GA200",
+          "GA400"
+        ]
+      },
+      {
+        "brand": "MGCOOL",
+        "origin": "China",
+        "category": "Action Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "Explorer Pro 2",
+          "Explorer 1S"
+        ]
+      },
+      {
+        "brand": "Zhiyun",
+        "origin": "China",
+        "category": "Gimbal/Action Camera",
+        "availability": "Available - Star Tech, Camera World",
+        "popular_models": [
+          "Smooth 5",
+          "Weebill 3S",
+          "Crane M3",
+          "Molus"
+        ]
+      },
+      {
+        "brand": "FeiyuTech",
+        "origin": "China",
+        "category": "Gimbal/Action Camera",
+        "availability": "Available - Camera World",
+        "popular_models": [
+          "SCORP-C",
+          "AK2000S",
+          "G6 Max"
+        ]
+      },
+      {
+        "brand": "Contour",
+        "origin": "USA",
+        "category": "Action Camera",
+        "availability": "Very Limited",
+        "popular_models": [
+          "ROAM3",
+          "ROAM2"
+        ]
+      },
+      {
+        "brand": "RunCam",
+        "origin": "China",
+        "category": "FPV Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "5 Orange",
+          "Phoenix 2",
+          "Thumb Pro"
+        ]
+      },
+      {
+        "brand": "Caddx",
+        "origin": "China",
+        "category": "FPV Camera",
+        "availability": "Available - Online retailers",
+        "popular_models": [
+          "Nebula Pro",
+          "Ratel 2",
+          "Ant Lite"
+        ]
+      }
+    ]
+  }
+}

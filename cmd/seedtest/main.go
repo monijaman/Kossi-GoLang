@@ -34,58 +34,62 @@ func main() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	fmt.Println("🌱 RUNNING TV PRODUCT REVIEW SEEDER")
-	fmt.Println("====================================\n")
+	fmt.Println("🚗 RUNNING CAR SEEDER")
+	fmt.Println("=====================\n")
 
-	// Run the TV Product Review Seeder
-	seeder := seeders.NewTVProductReviewSeeder()
+	// Run the Car Seeder
+	seeder := seeders.NewCarSeeder()
 	if err := seeder.Seed(db); err != nil {
-		log.Printf("❌ Error running seeder: %v\n", err)
+		log.Printf("❌ Error running car seeder: %v\n", err)
 	} else {
-		fmt.Println("✅ TV Product Review Seeder completed!\n")
+		fmt.Println("✅ Car Seeder completed!\n")
+	}
+
+	// Run the Car Brand Translation Seeder
+	transSeeder := seeders.NewCarBrandTranslationSeeder()
+	if err := transSeeder.Seed(db); err != nil {
+		log.Printf("❌ Error running translation seeder: %v\n", err)
+	} else {
+		fmt.Println("✅ Car Brand Translation Seeder completed!\n")
 	}
 
 	// Verify reviews were created
 	fmt.Println("📊 VERIFICATION")
 	fmt.Println("================\n")
 
-	// Count total reviews
-	var reviewCount int64
-	db.Model(&models.ProductReviewModel{}).Count(&reviewCount)
-	fmt.Printf("📝 Total product reviews: %d\n", reviewCount)
+	// Count total products
+	var productCount int64
+	db.Model(&models.ProductModel{}).Count(&productCount)
+	fmt.Printf("📝 Total products: %d\n", productCount)
 
-	// Count TV reviews specifically
-	var tvReviewCount int64
-	db.Model(&models.ProductReviewModel{}).
-		Joins("JOIN products ON products.id = product_reviews.product_id").
-		Where("products.category_id = ?", 124).
-		Count(&tvReviewCount)
-	fmt.Printf("📺 TV product reviews: %d\n", tvReviewCount)
+	// Count Car products specifically
+	var carCount int64
+	db.Model(&models.ProductModel{}).
+		Where("category_id = ?", 18).
+		Count(&carCount)
+	fmt.Printf("🚗 Car products: %d\n", carCount)
 
-	// Count translations
-	var translationCount int64
-	db.Model(&models.ProductReviewTranslationModel{}).Count(&translationCount)
-	fmt.Printf("🌐 Review translations: %d\n", translationCount)
+	// Count Brands
+	var brandCount int64
+	db.Model(&models.BrandModel{}).Count(&brandCount)
+	fmt.Printf("🏷️ Total Brands: %d\n", brandCount)
 
-	// Show sample TV reviews
-	fmt.Println("\n📋 Sample TV Reviews:")
-	var reviews []models.ProductReviewModel
-	db.Joins("JOIN products ON products.id = product_reviews.product_id").
-		Where("products.category_id = ?", 124).
+	// Count Brand Translations
+	var brandTransCount int64
+	db.Model(&models.BrandTranslationModel{}).Where("locale = ?", "bn").Count(&brandTransCount)
+	fmt.Printf("🗣️ Bangla Brand Translations: %d\n", brandTransCount)
+
+	// Show sample Car products
+	fmt.Println("\n📋 Sample Car Products:")
+	var cars []models.ProductModel
+	db.Where("category_id = ?", 18).
 		Limit(5).
-		Find(&reviews)
+		Find(&cars)
 
-	for i, review := range reviews {
-		fmt.Printf("\n%d. Review ID: %d\n", i+1, review.ID)
-		if review.Reviews != nil {
-			// Show first 100 characters
-			previewLen := 100
-			if len(*review.Reviews) < previewLen {
-				previewLen = len(*review.Reviews)
-			}
-			fmt.Printf("   Preview: %s...\n", (*review.Reviews)[:previewLen])
-		}
-		fmt.Printf("   Rating: %s\n", review.Rating)
+	for i, car := range cars {
+		fmt.Printf("\n%d. Car ID: %d\n", i+1, car.ID)
+		fmt.Printf("   Name: %s\n", car.Name)
+		fmt.Printf("   Slug: %s\n", car.Slug)
 	}
 
 	fmt.Println("\n✅ Seeding verification completed successfully!")

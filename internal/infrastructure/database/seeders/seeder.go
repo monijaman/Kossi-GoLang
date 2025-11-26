@@ -240,7 +240,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// manager.AddSeeder(NewTVFormGeneratorSeeder())
 	// manager.AddSeeder(NewTVBrandCategorySeeder())
 	// manager.AddSeeder(NewTVProductSpecificationSeeder())
-	manager.AddSeeder(NewTVProductReviewSeeder())
+	// manager.AddSeeder(NewTVProductReviewSeeder())
 	// manager.AddSeeder(NewTVDetailedSpecificationSeeder())
 	// manager.AddSeeder(NewTVReviewTranslationSeeder())
 	// manager.AddSeeder(NewTVComprehensiveReviewSeeder())
@@ -251,6 +251,14 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Motorcycle-specific seeders currently implemented in this workspace
 	// (only register seeders that have corresponding files/constructors)
 	// Bajaj example template
+
+	// Car category seeders (Category ID: 18)
+	// manager.AddSeeder(CarBrandTranslationSeeder())
+	// manager.AddSeeder(NewBrandTranslationInclusionSeeder())
+
+	// Register the Car Specification Seeder
+	// manager.AddSeeder(NewCarSpecificationSeeder())
+	manager.AddSeeder(NewMissingSpecificationsSeeder())
 
 	return manager
 }

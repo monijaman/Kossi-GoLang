@@ -1,0 +1,664 @@
+{
+  "watches_in_bangladesh": {
+    "market_info": {
+      "note": "All brands listed are available in Bangladesh through authorized dealers, official stores, or reputable retailers",
+      "authorized_dealers": [
+        "Mohammad and Sons (Luxury watches)",
+        "Watch Shop BD (Swiss & Japanese brands)",
+        "Saco Watch Co. (Omega authorized dealer)",
+        "Gadget & Gear (Fossil, smartwatches)",
+        "Time Access Store",
+        "Watch Zone BD",
+        "Time Zone BD",
+        "Star Tech (Casio, smartwatches)"
+      ]
+    },
+    "luxury_watches": [
+      {
+        "brand": "Rolex",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Limited - No official authorized dealer, available through grey market",
+        "popular_models": [
+          "Submariner",
+          "Datejust",
+          "Day-Date",
+          "GMT-Master II",
+          "Cosmograph Daytona"
+        ]
+      },
+      {
+        "brand": "Omega",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Saco Watch Co. (authorized dealer since 1959)",
+        "popular_models": [
+          "Seamaster",
+          "Speedmaster",
+          "Constellation",
+          "De Ville"
+        ]
+      },
+      {
+        "brand": "TAG Heuer",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons (authorized dealer)",
+        "popular_models": [
+          "Carrera",
+          "Monaco",
+          "Aquaracer",
+          "Formula 1"
+        ]
+      },
+      {
+        "brand": "Rado",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Watch Shop BD (authorized dealer)",
+        "popular_models": [
+          "Captain Cook",
+          "Centrix",
+          "True",
+          "HyperChrome"
+        ]
+      },
+      {
+        "brand": "Tissot",
+        "origin": "Switzerland",
+        "category": "Affordable Luxury",
+        "availability": "Available - Watch Shop BD (authorized dealer)",
+        "popular_models": [
+          "PRX",
+          "Gentleman",
+          "Seastar",
+          "Le Locle",
+          "Carson"
+        ]
+      },
+      {
+        "brand": "Hamilton",
+        "origin": "Switzerland/USA",
+        "category": "Luxury",
+        "availability": "Available - Watch Shop BD (authorized dealer)",
+        "popular_models": [
+          "Khaki Field",
+          "Ventura",
+          "Jazzmaster",
+          "American Classic"
+        ]
+      },
+      {
+        "brand": "Frederique Constant",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons (authorized dealer)",
+        "popular_models": [
+          "Classics",
+          "Slimline",
+          "Highlife",
+          "Yacht Timer"
+        ]
+      },
+      {
+        "brand": "Zenith",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons (authorized dealer)",
+        "popular_models": [
+          "Chronomaster",
+          "Defy",
+          "Elite",
+          "Pilot"
+        ]
+      },
+      {
+        "brand": "Montblanc",
+        "origin": "Switzerland/Germany",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons (authorized dealer)",
+        "popular_models": [
+          "1858",
+          "Heritage",
+          "Star Legacy",
+          "TimeWalker"
+        ]
+      },
+      {
+        "brand": "Movado",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons (authorized dealer)",
+        "popular_models": [
+          "Museum Classic",
+          "Bold",
+          "Heritage",
+          "Ultra Slim"
+        ]
+      },
+      {
+        "brand": "Oris",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons, Watch Shop BD (authorized dealers)",
+        "popular_models": [
+          "Aquis",
+          "Divers Sixty-Five",
+          "Big Crown",
+          "Artelier"
+        ]
+      },
+      {
+        "brand": "Alpina",
+        "origin": "Switzerland",
+        "category": "Luxury",
+        "availability": "Available - Mohammad and Sons",
+        "popular_models": [
+          "Alpiner",
+          "Startimer",
+          "Seastrong",
+          "Comtesse"
+        ]
+      },
+      {
+        "brand": "Victorinox",
+        "origin": "Switzerland",
+        "category": "Mid-Range",
+        "availability": "Available - Mohammad and Sons",
+        "popular_models": [
+          "I.N.O.X.",
+          "Fieldforce",
+          "Maverick",
+          "Alliance"
+        ]
+      },
+      {
+        "brand": "Nordgreen",
+        "origin": "Denmark",
+        "category": "Affordable Luxury",
+        "availability": "Available - Mohammad and Sons",
+        "popular_models": [
+          "Philosopher",
+          "Pioneer",
+          "Native",
+          "Unika"
+        ]
+      },
+      {
+        "brand": "Aviator",
+        "origin": "Switzerland",
+        "category": "Mid-Range",
+        "availability": "Available - Mohammad and Sons",
+        "popular_models": [
+          "Airacobra",
+          "MIG",
+          "Douglas"
+        ]
+      },
+      {
+        "brand": "Zeppelin",
+        "origin": "Germany",
+        "category": "Mid-Range",
+        "availability": "Available - Mohammad and Sons",
+        "popular_models": [
+          "100 Years Zeppelin",
+          "Hindenburg",
+          "LZ127"
+        ]
+      }
+    ],
+    "affordable_watches": [
+      {
+        "brand": "Casio",
+        "origin": "Japan",
+        "category": "Affordable",
+        "popular_models": [
+          "G-Shock",
+          "Edifice",
+          "A168",
+          "MTP Series",
+          "Youth Series",
+          "Vintage Series"
+        ]
+      },
+      {
+        "brand": "Seiko",
+        "origin": "Japan",
+        "category": "Affordable",
+        "popular_models": [
+          "5 Sports",
+          "Presage",
+          "Prospex",
+          "Premier",
+          "Astron"
+        ]
+      },
+      {
+        "brand": "Citizen",
+        "origin": "Japan",
+        "category": "Affordable",
+        "popular_models": [
+          "Eco-Drive",
+          "Promaster",
+          "Corso",
+          "Chandler",
+          "Tsuyosa"
+        ]
+      },
+      {
+        "brand": "Fossil",
+        "origin": "USA",
+        "category": "Affordable",
+        "popular_models": [
+          "Grant",
+          "Neutra",
+          "Townsman",
+          "Machine",
+          "Minimalist"
+        ]
+      },
+      {
+        "brand": "Naviforce",
+        "origin": "China/International",
+        "category": "Budget-Friendly",
+        "popular_models": [
+          "NF9024",
+          "NF9095",
+          "NF9110",
+          "NF9117",
+          "NF9153",
+          "NF9093",
+          "NF9068",
+          "NF9157",
+          "NF9204",
+          "NF8022"
+        ]
+      },
+      {
+        "brand": "Titan",
+        "origin": "India",
+        "category": "Affordable",
+        "popular_models": [
+          "Edge",
+          "Raga",
+          "Octane",
+          "Neo",
+          "Workwear"
+        ]
+      },
+      {
+        "brand": "Fastrack",
+        "origin": "India",
+        "category": "Budget-Friendly",
+        "popular_models": [
+          "Reflex",
+          "Analog",
+          "Digital",
+          "Chronograph",
+          "Sports"
+        ]
+      },
+      {
+        "brand": "OLEVS",
+        "origin": "China",
+        "category": "Budget-Friendly",
+        "popular_models": [
+          "OLEVS 2869",
+          "OLEVS 6898",
+          "OLEVS 5868",
+          "OLEVS 9946",
+          "OLEVS 2872",
+          "OLEVS 6899",
+          "OLEVS 9931",
+          "OLEVS 6633"
+        ]
+      },
+      {
+        "brand": "CRRJU",
+        "origin": "China",
+        "category": "Budget-Friendly",
+        "popular_models": [
+          "CRRJU 2150",
+          "CRRJU 2268",
+          "CRRJU 2167",
+          "CRRJU Sport Series",
+          "CRRJU 2258",
+          "CRRJU 2215",
+          "CRRJU 2289",
+          "CRRJU Luxury"
+        ]
+      },
+      {
+        "brand": "SKMEI",
+        "origin": "China",
+        "category": "Budget-Friendly",
+        "popular_models": [
+          "SKMEI 1688",
+          "SKMEI 1251",
+          "SKMEI 1155",
+          "SKMEI Sport Digital",
+          "SKMEI 1335",
+          "SKMEI 1589",
+          "SKMEI 1628",
+          "SKMEI 9106"
+        ]
+      },
+      {
+        "brand": "Timex",
+        "origin": "USA",
+        "category": "Affordable",
+        "popular_models": [
+          "Weekender",
+          "Expedition",
+          "Easy Reader",
+          "Waterbury"
+        ]
+      },
+      {
+        "brand": "Orient",
+        "origin": "Japan",
+        "category": "Affordable",
+        "popular_models": [
+          "Bambino",
+          "Mako",
+          "Ray",
+          "Kamasu",
+          "Sun and Moon"
+        ]
+      },
+      {
+        "brand": "Sea-Gull",
+        "origin": "China",
+        "category": "Affordable Luxury",
+        "popular_models": [
+          "1963",
+          "Ocean Star",
+          "Master Series",
+          "Tourbillon",
+          "Dual Time",
+          "M182SK",
+          "ST1901",
+          "819.368",
+          "D304"
+        ]
+      },
+      {
+        "brand": "Beijing Watch Factory",
+        "origin": "China",
+        "category": "Luxury",
+        "popular_models": [
+          "Bei Hai",
+          "Silk Road",
+          "Tiananmen Square",
+          "Forbidden City"
+        ]
+      },
+      {
+        "brand": "Fiyta",
+        "origin": "China",
+        "category": "Mid-Range",
+        "popular_models": [
+          "Photographer",
+          "Mach",
+          "Extreme",
+          "Aerospace Series",
+          "Clover Series",
+          "Heartstring",
+          "Four Leaf Clover"
+        ]
+      },
+      {
+        "brand": "Ebohr",
+        "origin": "China",
+        "category": "Mid-Range",
+        "popular_models": [
+          "Classic Series",
+          "Elegant Series",
+          "Fashion Series",
+          "Ultra-thin Series",
+          "Romantic Series",
+          "Business Series"
+        ]
+      },
+      {
+        "brand": "TIAN WANG",
+        "origin": "China",
+        "category": "Affordable",
+        "popular_models": [
+          "Elegant Series",
+          "Business Series",
+          "Fashion Series",
+          "Classic Series",
+          "Sport Series",
+          "Ladies Collection"
+        ]
+      },
+      {
+        "brand": "Starking",
+        "origin": "China",
+        "category": "Budget-Friendly",
+        "popular_models": [
+          "Automatic Series",
+          "Mechanical Series",
+          "Tourbillon Homage",
+          "BK3290",
+          "AM0185",
+          "Skeleton Series"
+        ]
+      },
+      {
+        "brand": "ATOP",
+        "origin": "China",
+        "category": "Mid-Range",
+        "popular_models": [
+          "Worldtime Series",
+          "Digital Display",
+          "Classic Worldtime",
+          "VXL Series"
+        ]
+      },
+      {
+        "brand": "Rarone",
+        "origin": "China",
+        "category": "Mid-Range",
+        "popular_models": [
+          "Automatic Series",
+          "Classic Series",
+          "Business Collection",
+          "Sport Collection"
+        ]
+      }
+    ],
+    "smartwatches": [
+      {
+        "brand": "Apple",
+        "origin": "USA",
+        "category": "Premium Smartwatch",
+        "popular_models": [
+          "Apple Watch Series 9",
+          "Apple Watch Ultra 2",
+          "Apple Watch SE"
+        ]
+      },
+      {
+        "brand": "Samsung",
+        "origin": "South Korea",
+        "category": "Premium Smartwatch",
+        "popular_models": [
+          "Galaxy Watch 6",
+          "Galaxy Watch 6 Classic",
+          "Galaxy Watch 5",
+          "Galaxy Fit"
+        ]
+      },
+      {
+        "brand": "Amazfit",
+        "origin": "China",
+        "category": "Affordable Smartwatch",
+        "popular_models": [
+          "GTR 4",
+          "GTS 4",
+          "T-Rex 2",
+          "Bip 3",
+          "Balance",
+          "GTR 3 Pro",
+          "GTS 3",
+          "T-Rex Ultra",
+          "Falcon"
+        ]
+      },
+      {
+        "brand": "Xiaomi",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Mi Band 8",
+          "Mi Watch",
+          "Redmi Watch 3",
+          "Smart Band 7",
+          "Mi Band 7",
+          "Redmi Watch 2",
+          "Mi Watch Lite",
+          "Smart Band 8"
+        ]
+      },
+      {
+        "brand": "Huawei",
+        "origin": "China",
+        "category": "Premium Smartwatch",
+        "popular_models": [
+          "Watch GT 4",
+          "Watch Fit 2",
+          "Band 8",
+          "Watch GT 3",
+          "Watch Fit",
+          "Band 7",
+          "Watch GT Runner"
+        ]
+      },
+      {
+        "brand": "Fitbit",
+        "origin": "USA",
+        "category": "Fitness Smartwatch",
+        "popular_models": [
+          "Versa 4",
+          "Sense 2",
+          "Charge 6",
+          "Inspire 3"
+        ]
+      },
+      {
+        "brand": "COLMI",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "P28 Plus",
+          "C60",
+          "C61",
+          "P71"
+        ]
+      },
+      {
+        "brand": "Kieslect",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Kr Pro",
+          "Ks Pro",
+          "Lora 2"
+        ]
+      },
+      {
+        "brand": "OnePlus",
+        "origin": "China",
+        "category": "Affordable Smartwatch",
+        "popular_models": [
+          "OnePlus Watch 2",
+          "Nord Watch",
+          "OnePlus Watch",
+          "Nord Watch SE"
+        ]
+      },
+      {
+        "brand": "Oraimo",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Tempo W",
+          "Watch Pro",
+          "Smart Watch"
+        ]
+      },
+      {
+        "brand": "Yison",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Smart Watch Series"
+        ]
+      },
+      {
+        "brand": "Mibro",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Lite 2",
+          "Air",
+          "Color"
+        ]
+      },
+      {
+        "brand": "Havit",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Smart Watch Series"
+        ]
+      },
+      {
+        "brand": "XTRA",
+        "origin": "China",
+        "category": "Budget Smartwatch",
+        "popular_models": [
+          "Smart Watch Series"
+        ]
+      }
+    ],
+    "other_brands": [
+      {
+        "brand": "Credence",
+        "origin": "International",
+        "category": "Mid-Range",
+        "popular_models": []
+      },
+      {
+        "brand": "Cairnhill",
+        "origin": "International",
+        "category": "Mid-Range",
+        "popular_models": []
+      },
+      {
+        "brand": "Montrex",
+        "origin": "International",
+        "category": "Mid-Range",
+        "popular_models": []
+      },
+      {
+        "brand": "Rossini",
+        "origin": "China",
+        "category": "Mid-Range",
+        "popular_models": []
+      },
+      {
+        "brand": "Sonata",
+        "origin": "India",
+        "category": "Affordable",
+        "popular_models": [
+          "Analog",
+          "Digital",
+          "Chronograph"
+        ]
+      }
+    ]
+  }
+}
