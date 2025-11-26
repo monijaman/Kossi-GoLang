@@ -258,6 +258,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 
 	// Register the Car Specification Seeder
 	// manager.AddSeeder(NewCarSpecificationSeeder())
+	// manager.AddSeeder(NewMissingSpecificationsSeeder())
 	manager.AddSeeder(NewMissingSpecificationsSeeder())
 
 	return manager
