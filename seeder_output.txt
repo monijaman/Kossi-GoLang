@@ -1,0 +1,316 @@
+2025/11/20 15:58:47 ✅ Loaded .env.production (file exists)
+2025/11/20 15:58:47 🔗 Using database: postgresql://postgres:****@switchyard.proxy.rlwy.net:58014/railway
+🌱 Running specified seeder(s)...
+🔄 Running Mobile Products seeder...
+
+🔄 Seeding Mobile Products (Category 79)...
+
+2025/11/20 15:58:49 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
+[0m[31;1m[331.420ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Samsung' ORDER BY "brands"."id" LIMIT 1[0m
+
+2025/11/20 15:58:51 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
+[0m[31;1m[313.279ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Vivo' ORDER BY "brands"."id" LIMIT 1[0m
+
+2025/11/20 15:58:52 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
+[0m[31;1m[303.296ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Oppo' ORDER BY "brands"."id" LIMIT 1[0m
+
+2025/11/20 15:58:59 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
+[0m[31;1m[311.528ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Oppo' ORDER BY "brands"."id" LIMIT 1[0m
+2025/11/20 15:59:03 Skipping existing product with slug: iphone-17-pro-max
+2025/11/20 15:59:03 Skipping existing product with slug: iphone-17-pro
+2025/11/20 15:59:03 Skipping existing product with slug: iphone-17-plus
+2025/11/20 15:59:03 Skipping existing product with slug: iphone-17
+2025/11/20 15:59:03 Skipping existing product with slug: iphone-16
+2025/11/20 15:59:04 Skipping existing product with slug: iphone-15
+2025/11/20 15:59:04 Skipping existing product with slug: iphone-se-3rd-gen
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s25-ultra
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s25-plus
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s25
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24-ultra
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24-plus
+
+2025/11/20 15:59:04 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
+[0m[31;1m[332.500ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-s24' ORDER BY "products"."id" LIMIT 1[0m
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24-fe
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s23-ultra
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s23-plus
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s23
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-z-fold-7
+2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-z-flip-7
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-z-flip-7-fe
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-z-fold-6
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-z-flip-6
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a56-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a55-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a54-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a25-5g
+
+2025/11/20 15:59:05 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
+[0m[31;1m[334.722ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-a15-5g' ORDER BY "products"."id" LIMIT 1[0m
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a15-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-m56-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-m36-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-f56-5g
+2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-f36-5g
+2025/11/20 15:59:05 Skipping existing product with slug: xiaomi-15-ultra
+2025/11/20 15:59:05 Skipping existing product with slug: xiaomi-15
+2025/11/20 15:59:06 Skipping existing product with slug: xiaomi-15-pro
+2025/11/20 15:59:06 Skipping existing product with slug: xiaomi-14-ultra
+2025/11/20 15:59:06 Skipping existing product with slug: xiaomi-14-pro
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-15
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-15-pro-5g
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-14
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-14-pro-plus-5g
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-13
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-12
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-15
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-14
+2025/11/20 15:59:06 Skipping existing product with slug: redmi-13c
+2025/11/20 15:59:06 Skipping existing product with slug: poco-f7
+2025/11/20 15:59:06 Skipping existing product with slug: poco-f7-ultra
+2025/11/20 15:59:06 Skipping existing product with slug: poco-f6-5g
+2025/11/20 15:59:06 Skipping existing product with slug: poco-x7-pro-5g
+2025/11/20 15:59:06 Skipping existing product with slug: poco-x7-5g
+2025/11/20 15:59:06 Skipping existing product with slug: poco-x6-pro-5g
+2025/11/20 15:59:06 Skipping existing product with slug: poco-m7-pro-5g
+2025/11/20 15:59:07 Skipping existing product with slug: poco-m6-pro-5g
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-x300-pro
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-x300
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-x200-pro
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-v60-5g
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-v60-lite-5g
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-v50
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-v40
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-y29
+2025/11/20 15:59:07 Skipping existing product with slug: vivo-y28
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-find-n4-fold
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-find-n4-flip
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-14-5g
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-14-f-5g
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-13-5g
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-13-pro-5g
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-15
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-15-pro
+2025/11/20 15:59:07 Skipping existing product with slug: oppo-a5-pro
+2025/11/20 15:59:08 Skipping existing product with slug: oppo-a5
+2025/11/20 15:59:08 Skipping existing product with slug: oppo-a60
+2025/11/20 15:59:08 Skipping existing product with slug: realme-15-pro-5g
+2025/11/20 15:59:08 Skipping existing product with slug: realme-15-5g
+2025/11/20 15:59:08 Skipping existing product with slug: realme-14-5g
+2025/11/20 15:59:08 Skipping existing product with slug: realme-13
+2025/11/20 15:59:08 Skipping existing product with slug: realme-c75x
+2025/11/20 15:59:08 Skipping existing product with slug: realme-c71
+2025/11/20 15:59:08 Skipping existing product with slug: realme-c65
+2025/11/20 15:59:08 Skipping existing product with slug: realme-gt-neo-3
+2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17-pro-max
+2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17-pro
+2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17-plus
+2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17
+2025/11/20 15:59:08 Skipping existing product with slug: iphone-16-pro-max
+2025/11/20 15:59:08 Skipping existing product with slug: iphone-16-pro
+2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-16
+2025/11/20 15:59:08 Skipping existing product with slug: iphone-se
+2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9-pro-xl
+2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9-pro
+2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9
+2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9-pro-fold
+2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-8-pro
+2025/11/20 15:59:08 Skipping existing product with slug: oneplus-13
+2025/11/20 15:59:08 Skipping existing product with slug: oneplus-13r
+2025/11/20 15:59:09 Skipping existing product with slug: oneplus-12
+2025/11/20 15:59:09 Skipping existing product with slug: oneplus-12r
+2025/11/20 15:59:09 Skipping existing product with slug: oneplus-nord-5
+2025/11/20 15:59:09 Skipping existing product with slug: oneplus-nord-4
+2025/11/20 15:59:09 Skipping existing product with slug: oneplus-nord-ce5
+2025/11/20 15:59:09 Skipping existing product with slug: oneplus-open
+2025/11/20 15:59:09 Skipping existing product with slug: walton-xanon-x1-ultra
+2025/11/20 15:59:09 Skipping existing product with slug: walton-xanon-x91
+2025/11/20 15:59:09 Skipping existing product with slug: walton-nexg-n75
+2025/11/20 15:59:09 Skipping existing product with slug: walton-nexg-n27
+2025/11/20 15:59:09 Skipping existing product with slug: walton-orbit-y13
+2025/11/20 15:59:09 Skipping existing product with slug: walton-zenx-2
+2025/11/20 15:59:09 Skipping existing product with slug: infinix-note-50-pro-plus-5g
+2025/11/20 15:59:09 Skipping existing product with slug: infinix-note-50-pro
+2025/11/20 15:59:09 Skipping existing product with slug: infinix-note-40-pro
+2025/11/20 15:59:09 Skipping existing product with slug: infinix-hot-50
+2025/11/20 15:59:09 Skipping existing product with slug: infinix-smart-10
+2025/11/20 15:59:09 Skipping existing product with slug: tecno-camon-40-pro-5g
+2025/11/20 15:59:09 Skipping existing product with slug: tecno-camon-40-pro
+2025/11/20 15:59:10 Skipping existing product with slug: tecno-camon-40
+2025/11/20 15:59:10 Skipping existing product with slug: tecno-spark-40-5g
+2025/11/20 15:59:10 Skipping existing product with slug: tecno-spark-40
+2025/11/20 15:59:10 Skipping existing product with slug: tecno-pova-slim-5g
+2025/11/20 15:59:10 Skipping existing product with slug: symphony-g27
+2025/11/20 15:59:10 Skipping existing product with slug: symphony-atom-5
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s23-fe
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s22-ultra
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s22-plus
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s22
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-z-fold-5
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-z-flip-5
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a36-5g
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a26-5g
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a17-5g
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a07
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a06
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a06-5g
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a34-5g
+2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a24
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-a23
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-a14
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m34-5g
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m15-5g
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m14-5g
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m53-5g
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m33-5g
+2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m16-5g
+
+2025/11/20 15:59:16 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
+[0m[31;1m[4963.681ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-m06-5g' ORDER BY "products"."id" LIMIT 1[0m
+2025/11/20 15:59:16 Skipping existing product with slug: samsung-galaxy-m06-5g
+
+2025/11/20 15:59:17 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
+[0m[31;1m[1261.818ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-f16-5g' ORDER BY "products"."id" LIMIT 1[0m
+2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f16-5g
+2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f55-5g
+2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f54-5g
+2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f34-5g
+2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f23
+2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f15
+2025/11/20 15:59:17 Skipping existing product with slug: xiaomi-15s-pro
+2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-14
+2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-14t-pro
+2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13-ultra
+2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13-pro
+2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13t-pro
+2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13t
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-15-pro-plus
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-14-pro
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-13-pro
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-13-pro-plus-5g
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-12-pro
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-12-pro-plus
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-12-4g
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-15c
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-14c
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-12c
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-12
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-a5
+2025/11/20 15:59:18 Skipping existing product with slug: redmi-a3
+2025/11/20 15:59:19 Skipping existing product with slug: redmi-a2-plus
+2025/11/20 15:59:19 Skipping existing product with slug: poco-x6-neo-5g
+2025/11/20 15:59:19 Skipping existing product with slug: poco-m6-plus-5g
+2025/11/20 15:59:19 Skipping existing product with slug: poco-m6-plus
+2025/11/20 15:59:19 Skipping existing product with slug: poco-m5
+2025/11/20 15:59:19 Skipping existing product with slug: poco-c65
+2025/11/20 15:59:19 Skipping existing product with slug: poco-c71
+2025/11/20 15:59:19 Skipping existing product with slug: poco-c75
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-x200-pro-mini
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-v60-lite-4g
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-v50-lite-5g
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-v50-lite
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-v40-lite
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-y400
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-y21d
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-y19s-pro
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-y04
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-y19s
+2025/11/20 15:59:19 Skipping existing product with slug: vivo-y03t
+2025/11/20 15:59:19 Skipping existing product with slug: oppo-reno-13-f-5g
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-reno-12-5g
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-reno-12-f-5g
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-reno-12-pro-5g
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a5x
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a3x
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a78
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a38
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a18
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a57
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a55-5g
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a74-5g
+2025/11/20 15:59:20 Skipping existing product with slug: oppo-a12
+2025/11/20 15:59:20 Skipping existing product with slug: realme-15t-5g
+2025/11/20 15:59:20 Skipping existing product with slug: realme-14t-5g
+2025/11/20 15:59:20 Skipping existing product with slug: realme-12
+2025/11/20 15:59:20 Skipping existing product with slug: realme-13-pro
+2025/11/20 15:59:20 Skipping existing product with slug: realme-c63
+2025/11/20 15:59:20 Skipping existing product with slug: realme-c61
+2025/11/20 15:59:20 Skipping existing product with slug: realme-note-70
+2025/11/20 15:59:21 Skipping existing product with slug: realme-note-60x
+2025/11/20 15:59:21 Skipping existing product with slug: realme-note-60
+2025/11/20 15:59:21 Skipping existing product with slug: realme-gt-neo2
+2025/11/20 15:59:21 Skipping existing product with slug: realme-gt-master-edition
+2025/11/20 15:59:21 Skipping duplicate slug in seeder list: iphone-16-pro-max
+2025/11/20 15:59:21 Skipping duplicate slug in seeder list: iphone-16-pro
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-15-pro-max
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-15-pro
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-15-plus
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-14-pro-max
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-14-pro
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-14-plus
+2025/11/20 15:59:21 Skipping existing product with slug: iphone-14
+2025/11/20 15:59:21 Skipping existing product with slug: google-pixel-8
+2025/11/20 15:59:21 Skipping existing product with slug: google-pixel-8a
+2025/11/20 15:59:21 Skipping existing product with slug: oneplus-11
+2025/11/20 15:59:21 Skipping existing product with slug: oneplus-nord-ce4-lite-5g
+2025/11/20 15:59:21 Skipping existing product with slug: oneplus-nord-n30-se-5g
+2025/11/20 15:59:21 Skipping existing product with slug: oneplus-n20-se
+
+2025/11/20 15:59:22 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
+[0m[31;1m[334.340ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'walton-xanon-x21' ORDER BY "products"."id" LIMIT 1[0m
+2025/11/20 15:59:22 Skipping existing product with slug: walton-xanon-x21
+2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n10-ultra
+2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n26
+2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n74
+2025/11/20 15:59:22 Skipping existing product with slug: walton-orbit-y70c
+2025/11/20 15:59:22 Skipping existing product with slug: walton-zenx-1
+2025/11/20 15:59:22 Skipping existing product with slug: walton-zenx-1t
+2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n71-plus
+2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n9
+2025/11/20 15:59:22 Skipping existing product with slug: walton-orbit-y12
+2025/11/20 15:59:22 Skipping existing product with slug: walton-orbit-y11
+2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-s8
+2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-gh11
+2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-h10
+2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-zx4
+2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-r8
+2025/11/20 15:59:23 Skipping existing product with slug: walton-primo-f10
+2025/11/20 15:59:23 Skipping existing product with slug: infinix-zero-30-5g
+2025/11/20 15:59:23 Skipping existing product with slug: infinix-note-50
+2025/11/20 15:59:23 Skipping existing product with slug: infinix-smart-10-plus
+2025/11/20 15:59:23 Skipping existing product with slug: infinix-hot-60i-4g
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-40c
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-40-pro-plus
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-40-pro
+2025/11/20 15:59:23 Skipping duplicate slug in seeder list: tecno-spark-40
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-go-2
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-30-pro
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-30
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-30c
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-go-1
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-pova-7-pro-5g
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-pova-curve-5g
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-phantom-v-fold2-5g
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-camon-30s
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-camon-30
+2025/11/20 15:59:23 Skipping existing product with slug: tecno-camon-30-premier-5g
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-innova-30
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-helio-90
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-helio-50
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-helio-40
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-max-60
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-innova-40
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-z72
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-z70
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-s72
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-s75
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-zv
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-v55
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-w20
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-w68
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-w92
+2025/11/20 15:59:24 Skipping existing product with slug: symphony-i10
+✅ No new mobile products to seed (skipped 272 existing, 8 duplicates in list)
+✅ Mobile Products seeder completed successfully
+✅ Specified seeder(s) completed!

@@ -1,0 +1,128 @@
+		"iPhone 17 Pro Max": {
+		"iPhone 17 Pro": {
+		"Samsung Galaxy S25 Ultra": {
+		"Samsung Galaxy S25": {
+		"Xiaomi 15 Ultra": {
+		"Google Pixel 9 Pro XL": {
+		"OnePlus 13": {
+		"Walton XANON X1 Ultra": {
+		"Samsung Galaxy S25+": {
+		"Samsung Galaxy A56 5G": {
+		"Samsung Galaxy A36 5G": {
+		"Samsung Galaxy A26 5G": {
+		"Samsung Galaxy A17 5G": {
+		"Samsung Galaxy A07": {
+		"Samsung Galaxy A06": {
+		"Samsung Galaxy A25 5G": {
+		"Samsung Galaxy A34 5G": {
+		"Samsung Galaxy A54 5G": {
+		"Samsung Galaxy A24": {
+		"Samsung Galaxy A23": {
+			"Samsung Galaxy A14": {
+			 "Samsung Galaxy M56 5G": {
+  "Samsung Galaxy M36 5G": {
+  "Samsung Galaxy M34 5G": {
+  "Samsung Galaxy M15 5G": {
+  "Samsung Galaxy M14 5G": {
+  "Samsung Galaxy M53 5G": {
+  "Samsung Galaxy M33 5G": {
+  "Samsung Galaxy M16 5G": {
+  "Samsung Galaxy M06 5G": {
+  "Samsung Galaxy F36 5G": {
+  "Samsung Galaxy F16 5G": {
+  "Samsung Galaxy F56 5G": {
+  "Samsung Galaxy F55 5G": {
+  "Samsung Galaxy F54 5G": {
+  "Samsung Galaxy F34 5G": {
+  "Samsung Galaxy F23": {
+  "Samsung Galaxy F15": {
+  "Redmi 15C": {
+  "Redmi 14C": {
+  "Redmi 13C": {
+  "Redmi 12C": {
+  "Redmi 12": {
+  "Redmi 15": {
+  "Redmi 15C": {
+  "Poco X7 Pro 5G": {
+  "POCO M7 Pro 5G": {
+  "POCO M6 Pro 5G": {
+  "POCO M6 Plus 5G": {
+  "POCO M6 Plus": {
+  "POCO M5": {
+  "POCO F6 5G": {
+  "POCO F7": {
+  "POCO F7 Ultra": {
+  "POCO C65": {
+  "POCO C71": {
+  "POCO C75": {
+  "Vivo X300 Pro": {
+  "Vivo X300": {
+  "Vivo X200 Pro": {
+  "Vivo X200 Pro Mini": {
+  "Vivo V60 5G": {
+  "Vivo V60 Lite 5G": {
+  "Vivo V60 Lite 4G": {
+  "Vivo V50 Lite 5G": {
+  "Vivo V50 Lite": {
+  "Vivo V50": {
+  "Vivo V40": {
+  "Vivo V40 Lite": {
+  "Vivo X300 Pro": {
+  "Vivo X300": {
+  "Vivo X200 Pro": {
+  "Vivo X200 Pro Mini": {
+  "Vivo V60 5G": {
+  "Vivo V60 Lite 5G": {
+  "Vivo V60 Lite 4G": {
+  "Vivo V50 Lite 5G": {
+  "Vivo V50 Lite": {
+  "Vivo V50": {
+  "Vivo V40": {
+  "Vivo V40 Lite": {
+  "Vivo X300 Pro": {
+  "Vivo X300": {
+  "Vivo X200 Pro": {
+  "Vivo X200 Pro Mini": {
+  "Oppo Find N4 Flip": {
+  "Oppo Find N4 Fold": {
+  "Oppo Reno 14 5G": {
+  "Oppo Reno 14 F 5G": {
+  "Oppo Reno 13 5G": {
+  "Oppo Reno 13 F 5G": {
+  "Oppo Reno 13 Pro 5G": {
+  "Oppo Reno 12 5G": {
+  "Oppo Reno 12 F 5G": {
+  "Oppo Reno 12 Pro 5G": {
+  "Oppo Reno 15": {
+  "Oppo Reno 15 Pro": {
+  "Oppo A5 Pro": {
+  "Oppo A5x": {
+  "Oppo A5": {
+  "Oppo A3x": {
+  "Oppo A60": {
+  "Oppo A78": {
+  "Oppo A38": {
+  "Oppo A18": {
+  "Oppo A57": {
+  "Oppo A55 5G": {
+  "Oppo A74 5G": {
+  "Oppo A12": {
+  "Oppo A55 5G": {
+  "Oppo A74 5G": {
+  "Oppo A12": {
+  "Realme 15 Pro 5G": {
+  "Realme 15 5G": {
+  "Realme 15T 5G": {
+  "Realme 14 5G": {
+  "Realme 14T 5G": {
+  "Realme C75x": {
+  "Realme C71": {
+  "Realme C63": {
+  "Realme C61": {
+  "Realme C65": {
+  "Realme Note 70": {
+  "Realme Note 60x": {
+  "Realme Note 60": {
+  "Realme GT Neo 3": {
+  "Realme GT Neo2": {
+  "Realme GT Master Edition": {

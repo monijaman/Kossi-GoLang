@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gocrit/internal/infrastructure/database"
+	"kossti/internal/infrastructure/database"
 )
 
 func main() {

@@ -1,0 +1,12 @@
+2025/11/20 16:15:00 ✅ Loaded .env.production (file exists)
+2025/11/20 16:15:00 🔗 Using database: postgresql://postgres:****@switchyard.proxy.rlwy.net:58014/railway
+🌱 Running specified seeder(s)...
+🔄 Running Mobile Product Translations seeder...
+
+🔄 Seeding Mobile Product Translations (Bangla)...
+
+2025/11/20 16:15:01 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_product_translations.go:17 [33mSLOW SQL >= 200ms
+[0m[31;1m[291.665ms] [33m[rows:272][35m SELECT * FROM "products" WHERE category_id = 79[0m
+✅ Successfully seeded 272 product translations (Bangla)
+✅ Mobile Product Translations seeder completed successfully
+✅ Specified seeder(s) completed!
