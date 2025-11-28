@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileSymphonyHelio50 seeds specifications/options for product 'symphony-helio-50'
@@ -50,7 +51,7 @@ func (s *SpecificationSeederMobileSymphonyHelio50) getBanglaTranslations() map[s
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'symphony-helio-50'
+// Seed inserts specification_translations for existing specifications for product 'symphony-helio-50'
 func (s *SpecificationSeederMobileSymphonyHelio50) Seed(db *gorm.DB) error {
 	productSlug := "symphony-helio-50"
 
@@ -61,114 +62,28 @@ func (s *SpecificationSeederMobileSymphonyHelio50) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Symphony Helio 50
-	specs["Display Size"] = "6.72 inches"
-	specs["Processor"] = "MediaTek Helio G88"
-	specs["Chipset"] = "MediaTek Helio G88 (12 nm)"
-	specs["Cpu Type"] = "Octa-core, up to 2.0 GHz"
-	specs["Gpu Type"] = "Mali-G52"
-	specs["Ram"] = "6 GB"
-	specs["Storage"] = "128 GB + microSD"
-	specs["Display Type"] = "IPS LCD"
-	specs["Resolution"] = "1080 × 2400 pixels"
-	specs["Refresh Rate"] = "90Hz"
-	specs["Build Material"] = "Glass front, plastic back"
-	specs["Weight"] = "215 g"
-	specs["Dimensions"] = "167 x 77.6 x 8.79 mm"
-	specs["Water Resistance"] = "No"
-	specs["Network Technology"] = "GSM / HSPA / LTE"
-	specs["Wifi Support"] = "Wi-Fi 802.11 b/g/n"
-	specs["Bluetooth Version"] = "5.x"
-	specs["Nfc Support"] = "No"
-	specs["Usb Type"] = "USB Type-C 2.0"
-	specs["Rear Camera"] = "108 MP + 2 MP + 0.8 MP"
-	specs["Camera Features"] = "AI, RAW, Slow motion, Portrait, HDR"
-	specs["Camera Video Resolution"] = "2K@30fps, 1080p@30fps"
-	specs["Optical Zoom"] = "None"
-	specs["Front Camera"] = "32 MP"
-	specs["Front Camera Video Resolution"] = "1080p@30fps"
-	specs["Operating System"] = "Android 13"
-	specs["Battery"] = "5000 mAh"
-	specs["Battery Type"] = "Li-Po (non-removable)"
-	specs["Fast Charging"] = "33 W wired"
-	specs["Wireless Charging"] = "No"
-	specs["5G Support"] = "No"
-	specs["Positioning System"] = "GPS, A-GPS"
-	specs["Sensors"] = "Side fingerprint, proximity, light, gyroscope"
-	specs["Special Features"] = "Dual speakers"
-	specs["Sim Card Type"] = "Dual Nano-SIM / Hybrid"
-	specs["Loudspeaker Quality"] = "Stereo"
-	specs["Audio Quality"] = "Standard"
-	specs["Audio Jack"] = "Yes, 3.5 mm"
-	specs["Available Colors"] = "Radium Green, Cosmic Gold, Honey Dew Green"
-	specs["Announcement Date"] = "June 2024"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

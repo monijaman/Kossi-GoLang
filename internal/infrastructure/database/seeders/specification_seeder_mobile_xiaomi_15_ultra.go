@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileXiaomi15Ultra seeds specifications/options for product 'xiaomi-15-ultra'
@@ -65,7 +66,7 @@ func (s *SpecificationSeederMobileXiaomi15Ultra) getBanglaTranslations() map[str
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'xiaomi-15-ultra'
+// Seed inserts specification_translations for existing specifications for product 'xiaomi-15-ultra'
 func (s *SpecificationSeederMobileXiaomi15Ultra) Seed(db *gorm.DB) error {
 	productSlug := "xiaomi-15-ultra"
 
@@ -76,125 +77,28 @@ func (s *SpecificationSeederMobileXiaomi15Ultra) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Xiaomi 15 Ultra
-	specs["Display Size"] = "6.8 inches"
-	specs["Processor"] = "Snapdragon 8 Elite"
-	specs["Chipset"] = "Qualcomm SM8750 Snapdragon 8 Elite (3 nm)"
-	specs["Cpu Type"] = "Octa-core (2x4.32 GHz Oryon V2 + 6x3.53 GHz Oryon V2)"
-	specs["Gpu Type"] = "Adreno 830"
-	specs["Processor Speed"] = "2x4.32 GHz + 6x3.53 GHz"
-	specs["Ram"] = "16 GB"
-	specs["Storage"] = "512 GB / 1 TB"
-	specs["Internal Memory Capacity"] = "UFS 4.0"
-	specs["Card Slot Type"] = "No microSD card slot"
-	specs["Display Type"] = "LTPO AMOLED, 1B colors, 120Hz, Dolby Vision, HDR10+, 3200 nits (peak)"
-	specs["Resolution"] = "1440 x 3200 pixels (~522 ppi density)"
-	specs["Screen Protection"] = "Xiaomi Dragon Crystal Glass"
-	specs["Refresh Rate"] = "120Hz"
-	specs["Build Material"] = "Glass front and back, Aluminum frame"
-	specs["Weight"] = "220 g (7.76 oz)"
-	specs["Dimensions"] = "162.8 x 74.5 x 8.3 mm (6.41 x 2.93 x 0.33 in)"
-	specs["Water Resistance"] = "IP68 dust tight and water resistant (up to 1.5m for 30 min)"
-	specs["Network Technology"] = "GSM / CDMA / HSPA / LTE / 5G"
-	specs["2G Bands"] = "GSM 850 / 900 / 1800 / 1900 MHz"
-	specs["3G Bands"] = "HSDPA 850 / 900 / 1700(AWS) / 1900 / 2100 MHz"
-	specs["4G Bands"] = "LTE Band 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 26, 28, 32, 38, 40, 41, 42, 66"
-	specs["5G Bands"] = "n1, n3, n5, n7, n8, n20, n28, n38, n40, n41, n77, n78"
-	specs["Wifi Support"] = "Wi-Fi 802.11 a/b/g/n/ac/6e/7, tri-band, Wi-Fi Direct"
-	specs["Bluetooth Version"] = "5.4, A2DP, LE, aptX HD"
-	specs["Nfc Support"] = "Yes"
-	specs["Usb Type"] = "USB Type-C 3.2, DisplayPort 1.4, OTG"
-	specs["Rear Camera"] = "50 MP + 50 MP + 50 MP + 50 MP"
-	specs["Quad Camera Setup"] = "50MP (wide, f/1.6) + 50MP (periscope telephoto 5x, f/2.5) + 50MP (telephoto 3.2x, f/2.0) + 50MP (ultrawide, f/1.8)"
-	specs["Camera Features"] = "Leica optics, Dual-LED dual-tone flash, HDR, panorama"
-	specs["Camera Video Resolution"] = "8K@24fps, 4K@30/60fps, 1080p@30/60/120/240fps, gyro-EIS, HDR10+, Dolby Vision"
-	specs["Optical Zoom"] = "3.2x + 5x Optical Zoom"
-	specs["Front Camera"] = "32 MP, f/2.0, 25mm (wide), HDR"
-	specs["Front Camera Video Resolution"] = "4K@30/60fps, 1080p@30/60fps"
-	specs["Operating System"] = "Android 15, HyperOS"
-	specs["Battery"] = "5,300 mAh"
-	specs["Battery Type"] = "Li-Po (non-removable)"
-	specs["Fast Charging"] = "90W wired, 80W wireless, 10W reverse wireless"
-	specs["Charging Speed"] = "90W wired (100% in 32 min), 80W wireless (100% in 38 min), 10W reverse wireless"
-	specs["Wireless Charging"] = "Yes - 80W wireless"
-	specs["5G Support"] = "Yes"
-	specs["Positioning System"] = "GPS (L1+L5), GLONASS (G1), BDS (B1I+B1c+B2a+B2b), GALILEO (E1+E5a+E5b), QZSS (L1+L5), NavIC"
-	specs["Sensors"] = "Fingerprint (under display, optical), accelerometer, gyro, proximity, compass, barometer, color spectrum"
-	specs["Special Features"] = "Xiaomi HyperOS, AI image processing, Leica camera mode"
-	specs["Sim Card Type"] = "Dual Nano-SIM"
-	specs["Loudspeaker Quality"] = "Stereo speakers, Dolby Atmos"
-	specs["Audio Quality"] = "24-bit/192kHz audio, Hi-Res Audio certification"
-	specs["Audio Jack"] = "No"
-	specs["Available Colors"] = "Black, Titanium, White"
-	specs["Model Variants"] = "24116PN76C"
-	specs["Announcement Date"] = "February 2025"
-	specs["Device Status"] = "Available. Released February 2025"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileSamsungGalaxyM145g seeds specifications/options for product 'samsung-galaxy-m14-5g'
@@ -49,7 +50,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM145g) getBanglaTranslations() ma
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'samsung-galaxy-m14-5g'
+// Seed inserts specification_translations for existing specifications for product 'samsung-galaxy-m14-5g'
 func (s *SpecificationSeederMobileSamsungGalaxyM145g) Seed(db *gorm.DB) error {
 	productSlug := "samsung-galaxy-m14-5g"
 
@@ -60,108 +61,28 @@ func (s *SpecificationSeederMobileSamsungGalaxyM145g) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Samsung Galaxy M14 5G
-	specs["Display Size"] = "6.6 inches"
-	specs["Processor"] = "Exynos 1330"
-	specs["Chipset"] = "Exynos 1330 (5 nm)"
-	specs["Cpu Type"] = "Octa-core (2×2.4 GHz Cortex-A78 + 6×2.0 GHz Cortex-A55)"
-	specs["Gpu Type"] = "Mali-G68 MP2"
-	specs["Ram"] = "4 / 6 GB"
-	specs["Storage"] = "64 / 128 GB + microSD"
-	specs["Display Type"] = "PLS LCD"
-	specs["Resolution"] = "2408 × 1080 px"
-	specs["Refresh Rate"] = "90 Hz"
-	specs["Build Material"] = "Glass front, plastic back/frame"
-	specs["Weight"] = "206 g"
-	specs["Dimensions"] = "166.8 × 77.2 × 9.4 mm"
-	specs["Network Technology"] = "GSM / HSPA / LTE / 5G"
-	specs["Wifi Support"] = "Wi-Fi 802.11 a/b/g/n/ac"
-	specs["Usb Type"] = "USB-C 2.0"
-	specs["Rear Camera"] = "50 MP + 2 MP + 2 MP"
-	specs["Camera Features"] = "LED flash, Depth"
-	specs["Camera Video Resolution"] = "1080p @ 30fps"
-	specs["Optical Zoom"] = "None"
-	specs["Front Camera"] = "13 MP"
-	specs["Front Camera Video Resolution"] = "1080p @ 30fps"
-	specs["Operating System"] = "Android 13, One UI 5.1"
-	specs["Battery"] = "6000 mAh"
-	specs["Battery Type"] = "Li-Ion (non-removable)"
-	specs["Fast Charging"] = "15 W / 25 W (region dependent)"
-	specs["Wireless Charging"] = "No"
-	specs["5G Support"] = "Yes"
-	specs["Sensors"] = "Side fingerprint, Accelerometer, Gyro, Proximity, Compass"
-	specs["Sim Card Type"] = "Nano-SIM or Dual SIM (hybrid)"
-	specs["Loudspeaker Quality"] = "Mono"
-	specs["Audio Jack"] = "3.5 mm"
-	specs["Available Colors"] = "Navy Blue, Light Blue, Silver"
-	specs["Announcement Date"] = "March 2023"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

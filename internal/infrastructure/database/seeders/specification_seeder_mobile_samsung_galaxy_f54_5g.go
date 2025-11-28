@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileSamsungGalaxyF545g seeds specifications/options for product 'samsung-galaxy-f54-5g'
@@ -50,7 +51,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyF545g) getBanglaTranslations() ma
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'samsung-galaxy-f54-5g'
+// Seed inserts specification_translations for existing specifications for product 'samsung-galaxy-f54-5g'
 func (s *SpecificationSeederMobileSamsungGalaxyF545g) Seed(db *gorm.DB) error {
 	productSlug := "samsung-galaxy-f54-5g"
 
@@ -61,112 +62,28 @@ func (s *SpecificationSeederMobileSamsungGalaxyF545g) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Samsung Galaxy F54 5G
-	specs["Display Size"] = "6.7 inches"
-	specs["Processor"] = "Exynos 1380"
-	specs["Chipset"] = "Exynos 1380"
-	specs["Cpu Type"] = "Octa-core"
-	specs["Gpu Type"] = "Mali-G68 MP5"
-	specs["Ram"] = "6 / 8 GB"
-	specs["Storage"] = "128 / 256 GB"
-	specs["Display Type"] = "Super AMOLED+, 120 Hz"
-	specs["Resolution"] = "1080 × 2400 px"
-	specs["Refresh Rate"] = "120 Hz"
-	specs["Build Material"] = "Glass front & back"
-	specs["Weight"] = "202 g"
-	specs["Dimensions"] = "165 × 77 × 8.2 mm"
-	specs["Water Resistance"] = "IP67"
-	specs["Network Technology"] = "GSM / HSPA / LTE / 5G"
-	specs["Wifi Support"] = "Wi-Fi 802.11 a/b/g/n/ac"
-	specs["Bluetooth Version"] = "5.3"
-	specs["Nfc Support"] = "Yes"
-	specs["Usb Type"] = "USB-C"
-	specs["Rear Camera"] = "108 MP + 12 MP + 5 MP"
-	specs["Camera Features"] = "OIS, LED flash"
-	specs["Camera Video Resolution"] = "4K @ 30fps; 1080p @ 30/60fps"
-	specs["Optical Zoom"] = "2x"
-	specs["Front Camera"] = "32 MP"
-	specs["Front Camera Video Resolution"] = "1080p @ 30fps"
-	specs["Operating System"] = "Android 14, One UI 6"
-	specs["Battery"] = "5000 mAh"
-	specs["Battery Type"] = "Li-Ion (non-removable)"
-	specs["Fast Charging"] = "25 W wired"
-	specs["Wireless Charging"] = "No"
-	specs["5G Support"] = "Yes"
-	specs["Positioning System"] = "GPS, GLONASS, GALILEO, BDS"
-	specs["Sensors"] = "Side fingerprint, Accelerometer, Gyro, Compass"
-	specs["Sim Card Type"] = "Nano-SIM + Nano-SIM"
-	specs["Loudspeaker Quality"] = "Yes"
-	specs["Audio Jack"] = "No"
-	specs["Available Colors"] = "Graphite, Blue, Violet"
-	specs["Announcement Date"] = "2025"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

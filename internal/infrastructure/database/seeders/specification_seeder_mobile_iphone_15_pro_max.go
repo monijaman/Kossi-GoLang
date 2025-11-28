@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileIphone15ProMax seeds specifications/options for product 'iphone-15-pro-max'
@@ -42,7 +43,7 @@ func (s *SpecificationSeederMobileIphone15ProMax) getBanglaTranslations() map[st
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'iphone-15-pro-max'
+// Seed inserts specification_translations for existing specifications for product 'iphone-15-pro-max'
 func (s *SpecificationSeederMobileIphone15ProMax) Seed(db *gorm.DB) error {
 	productSlug := "iphone-15-pro-max"
 
@@ -53,96 +54,28 @@ func (s *SpecificationSeederMobileIphone15ProMax) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for iPhone 15 Pro Max
-	specs["Display Size"] = "6.7 inches"
-	specs["Processor"] = "Apple A17 Pro"
-	specs["Chipset"] = "Apple A17 Pro (3 nm)"
-	specs["Cpu Type"] = "Hexa-core"
-	specs["Gpu Type"] = "6-core Apple GPU"
-	specs["Ram"] = "8 GB"
-	specs["Storage"] = "256 GB / 512 GB / 1 TB"
-	specs["Display Type"] = "LTPO Super Retina XDR OLED, 120Hz"
-	specs["Resolution"] = "1290 x 2796 pixels"
-	specs["Screen Protection"] = "Ceramic Shield"
-	specs["Refresh Rate"] = "120Hz"
-	specs["Build Material"] = "Titanium frame, glass front/back"
-	specs["Weight"] = "221 g"
-	specs["Dimensions"] = "159.9 x 76.7 x 8.3 mm"
-	specs["Water Resistance"] = "IP68"
-	specs["Network Technology"] = "5G"
-	specs["Rear Camera"] = "48 MP + 12 MP + 12 MP"
-	specs["Front Camera"] = "12 MP"
-	specs["Battery"] = "4,441 mAh"
-	specs["Operating System"] = "iOS 17, upgradable"
-	specs["Available Colors"] = "Black Titanium, White Titanium, Blue Titanium, Natural Titanium"
-	specs["Announcement Date"] = "September 2023"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

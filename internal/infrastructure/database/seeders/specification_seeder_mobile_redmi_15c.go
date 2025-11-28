@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileRedmi15c seeds specifications/options for product 'redmi-15c'
@@ -47,7 +48,7 @@ func (s *SpecificationSeederMobileRedmi15c) getBanglaTranslations() map[string]s
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'redmi-15c'
+// Seed inserts specification_translations for existing specifications for product 'redmi-15c'
 func (s *SpecificationSeederMobileRedmi15c) Seed(db *gorm.DB) error {
 	productSlug := "redmi-15c"
 
@@ -58,110 +59,28 @@ func (s *SpecificationSeederMobileRedmi15c) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Redmi 15C
-	specs["Display Size"] = "6.9 inches"
-	specs["Processor"] = "MediaTek Helio G81 Ultra"
-	specs["Chipset"] = "Helio G81 Ultra"
-	specs["Cpu Type"] = "Octa-core"
-	specs["Gpu Type"] = "Mali‑G52 MC2"
-	specs["Ram"] = "4 / 6 / 8 GB"
-	specs["Storage"] = "128 / 256 GB + microSD"
-	specs["Display Type"] = "IPS LCD"
-	specs["Resolution"] = "1600 × 720 px"
-	specs["Refresh Rate"] = "120 Hz"
-	specs["Build Material"] = "Glass front, plastic back"
-	specs["Weight"] = "205 g"
-	specs["Dimensions"] = "171.6 × 79.5 × ~8 mm"
-	specs["Network Technology"] = "GSM / HSPA / LTE (4G)"
-	specs["Wifi Support"] = "802.11 a/b/g/n"
-	specs["Bluetooth Version"] = "5.4"
-	specs["Nfc Support"] = "Yes"
-	specs["Usb Type"] = "USB-C"
-	specs["Rear Camera"] = "50 MP + secondary lens"
-	specs["Camera Features"] = "LED flash"
-	specs["Camera Video Resolution"] = "1080p @ 30fps"
-	specs["Optical Zoom"] = "None"
-	specs["Front Camera"] = "8 MP"
-	specs["Front Camera Video Resolution"] = "1080p @ 30fps"
-	specs["Operating System"] = "HyperOS / MIUI"
-	specs["Battery"] = "6000 mAh (typ)"
-	specs["Battery Type"] = "Li-Ion (non-removable)"
-	specs["Fast Charging"] = "33 W wired"
-	specs["Wireless Charging"] = "No"
-	specs["5G Support"] = "No"
-	specs["Sensors"] = "Side fingerprint, Accelerometer"
-	specs["Sim Card Type"] = "Nano-SIM + Nano-SIM"
-	specs["Loudspeaker Quality"] = "Single speaker"
-	specs["Audio Jack"] = "Yes, 3.5 mm"
-	specs["Available Colors"] = "Moonlight Blue, Mint Green, Midnight Gray, Twilight Orange"
-	specs["Announcement Date"] = "2025"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

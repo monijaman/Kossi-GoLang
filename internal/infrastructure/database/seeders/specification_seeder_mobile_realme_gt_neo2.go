@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileRealmeGtNeo2 seeds specifications/options for product 'realme-gt-neo2'
@@ -50,7 +51,7 @@ func (s *SpecificationSeederMobileRealmeGtNeo2) getBanglaTranslations() map[stri
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'realme-gt-neo2'
+// Seed inserts specification_translations for existing specifications for product 'realme-gt-neo2'
 func (s *SpecificationSeederMobileRealmeGtNeo2) Seed(db *gorm.DB) error {
 	productSlug := "realme-gt-neo2"
 
@@ -61,110 +62,28 @@ func (s *SpecificationSeederMobileRealmeGtNeo2) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Realme GT Neo2
-	specs["Display Size"] = "6.6 inches"
-	specs["Processor"] = "Qualcomm Snapdragon 870"
-	specs["Chipset"] = "Snapdragon 870 (7 nm)"
-	specs["Cpu Type"] = "Octa-core (1×3.2 GHz Cortex-A78 + 3×2.42 GHz Cortex-A78 + 4×1.8 GHz Cortex-A55)"
-	specs["Gpu Type"] = "Adreno 650"
-	specs["Ram"] = "8 / 12 GB"
-	specs["Storage"] = "128 / 256 GB"
-	specs["Display Type"] = "AMOLED, 120 Hz"
-	specs["Resolution"] = "2400 × 1080 px (~402 ppi)"
-	specs["Refresh Rate"] = "120 Hz"
-	specs["Build Material"] = "Glass front, plastic frame/back"
-	specs["Weight"] = "200 g"
-	specs["Network Technology"] = "GSM / HSPA / LTE / 5G"
-	specs["Wifi Support"] = "Wi-Fi 802.11 a/b/g/n/ac/6"
-	specs["Bluetooth Version"] = "5.1"
-	specs["Nfc Support"] = "Yes"
-	specs["Usb Type"] = "USB-C 2.0"
-	specs["Rear Camera"] = "64 MP + 8 MP + 2 MP"
-	specs["Camera Features"] = "OIS (main), LED flash, HDR"
-	specs["Camera Video Resolution"] = "4K @ 30/60fps, 1080p @ 30/60/120fps"
-	specs["Optical Zoom"] = "None"
-	specs["Front Camera"] = "16 MP"
-	specs["Front Camera Video Resolution"] = "1080p @ 30fps"
-	specs["Operating System"] = "Android 11, Realme UI 2.0"
-	specs["Battery"] = "5000 mAh"
-	specs["Battery Type"] = "Li-Ion (non-removable)"
-	specs["Fast Charging"] = "65 W wired"
-	specs["Wireless Charging"] = "No"
-	specs["5G Support"] = "Yes"
-	specs["Positioning System"] = "GPS, GLONASS, GALILEO, BDS"
-	specs["Sensors"] = "Fingerprint (under display), Accelerometer, Gyro, Proximity, Compass"
-	specs["Sim Card Type"] = "Dual SIM (Nano-SIM)"
-	specs["Loudspeaker Quality"] = "Stereo"
-	specs["Audio Jack"] = "No"
-	specs["Available Colors"] = "Neo Green, Neo Blue, Neo Black"
-	specs["Announcement Date"] = "2021"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

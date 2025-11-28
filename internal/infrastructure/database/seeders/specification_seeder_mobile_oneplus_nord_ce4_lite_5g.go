@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileOneplusNordCe4Lite5g seeds specifications/options for product 'oneplus-nord-ce4-lite-5g'
@@ -42,7 +43,7 @@ func (s *SpecificationSeederMobileOneplusNordCe4Lite5g) getBanglaTranslations() 
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'oneplus-nord-ce4-lite-5g'
+// Seed inserts specification_translations for existing specifications for product 'oneplus-nord-ce4-lite-5g'
 func (s *SpecificationSeederMobileOneplusNordCe4Lite5g) Seed(db *gorm.DB) error {
 	productSlug := "oneplus-nord-ce4-lite-5g"
 
@@ -53,96 +54,28 @@ func (s *SpecificationSeederMobileOneplusNordCe4Lite5g) Seed(db *gorm.DB) error 
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for OnePlus Nord CE4 Lite 5G
-	specs["Display Size"] = "6.67 inches"
-	specs["Processor"] = "Snapdragon 695 5G"
-	specs["Chipset"] = "Qualcomm SM6375 Snapdragon 695 5G (6 nm)"
-	specs["Cpu Type"] = "Octa-core"
-	specs["Gpu Type"] = "Adreno 619"
-	specs["Ram"] = "8 GB"
-	specs["Storage"] = "128 GB / 256 GB"
-	specs["Display Type"] = "AMOLED, 120Hz, 2100 nits"
-	specs["Resolution"] = "1080 x 2400 pixels"
-	specs["Screen Protection"] = "Asahi Glass"
-	specs["Refresh Rate"] = "120Hz"
-	specs["Build Material"] = "Glass front, plastic frame, plastic back"
-	specs["Weight"] = "191 g"
-	specs["Dimensions"] = "162.9 x 75.6 x 8.1 mm"
-	specs["Water Resistance"] = "IP54"
-	specs["Network Technology"] = "5G"
-	specs["Rear Camera"] = "50 MP + 2 MP"
-	specs["Front Camera"] = "16 MP"
-	specs["Battery"] = "5,110 mAh"
-	specs["Operating System"] = "Android 14, OxygenOS 14"
-	specs["Available Colors"] = "Super Silver, Mega Blue, Ultra Orange"
-	specs["Announcement Date"] = "June 2024"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

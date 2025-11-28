@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileSamsungGalaxyS22Ultra seeds specifications/options for product 'samsung-galaxy-s22-ultra'
@@ -42,7 +43,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS22Ultra) getBanglaTranslations()
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'samsung-galaxy-s22-ultra'
+// Seed inserts specification_translations for existing specifications for product 'samsung-galaxy-s22-ultra'
 func (s *SpecificationSeederMobileSamsungGalaxyS22Ultra) Seed(db *gorm.DB) error {
 	productSlug := "samsung-galaxy-s22-ultra"
 
@@ -53,96 +54,28 @@ func (s *SpecificationSeederMobileSamsungGalaxyS22Ultra) Seed(db *gorm.DB) error
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Samsung Galaxy S22 Ultra
-	specs["Display Size"] = "6.8 inches"
-	specs["Processor"] = "Exynos 2200 / Snapdragon 8 Gen 1"
-	specs["Chipset"] = "Exynos 2200 (4 nm)"
-	specs["Cpu Type"] = "Octa-core"
-	specs["Gpu Type"] = "Xclipse 920"
-	specs["Ram"] = "8 GB / 12 GB"
-	specs["Storage"] = "128 GB / 256 GB / 512 GB / 1 TB"
-	specs["Display Type"] = "Dynamic AMOLED 2X, 120Hz, HDR10+"
-	specs["Resolution"] = "1440 x 3088 pixels"
-	specs["Screen Protection"] = "Corning Gorilla Glass Victus+"
-	specs["Refresh Rate"] = "120Hz"
-	specs["Build Material"] = "Aluminum frame, glass front/back"
-	specs["Weight"] = "228 g"
-	specs["Dimensions"] = "163.3 x 77.9 x 8.9 mm"
-	specs["Water Resistance"] = "IP68"
-	specs["Network Technology"] = "5G"
-	specs["Rear Camera"] = "108 MP + 10 MP + 10 MP + 12 MP"
-	specs["Front Camera"] = "40 MP"
-	specs["Battery"] = "5,000 mAh"
-	specs["Operating System"] = "Android 12, upgradable"
-	specs["Available Colors"] = "Phantom Black, White, Burgundy, Green"
-	specs["Announcement Date"] = "February 2022"
-	specs["Device Status"] = "Available"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}

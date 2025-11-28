@@ -4,6 +4,7 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileGooglePixel9ProXl seeds specifications/options for product 'google-pixel-9-pro-xl'
@@ -67,7 +68,7 @@ func (s *SpecificationSeederMobileGooglePixel9ProXl) getBanglaTranslations() map
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'google-pixel-9-pro-xl'
+// Seed inserts specification_translations for existing specifications for product 'google-pixel-9-pro-xl'
 func (s *SpecificationSeederMobileGooglePixel9ProXl) Seed(db *gorm.DB) error {
 	productSlug := "google-pixel-9-pro-xl"
 
@@ -78,126 +79,28 @@ func (s *SpecificationSeederMobileGooglePixel9ProXl) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-	productID := prod.ID
 
-	specs := DefaultMobileSpecs()
+	productID := prod.ID
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Override model-specific values for Google Pixel 9 Pro XL
-	specs["Display Size"] = "6.8 inches"
-	specs["Processor"] = "Google Tensor G4"
-	specs["Chipset"] = "Google Tensor G4 (4 nm)"
-	specs["Cpu Type"] = "Octa-core (1x3.1 GHz Cortex-X4 & 3x2.6 GHz Cortex-A720 & 4x1.92 GHz Cortex-A520)"
-	specs["Gpu Type"] = "Mali-G715 MC7"
-	specs["Processor Speed"] = "1x3.1 GHz + 3x2.6 GHz + 4x1.92 GHz"
-	specs["Ram"] = "16 GB"
-	specs["Storage"] = "256 GB / 512 GB / 1 TB"
-	specs["Internal Memory Capacity"] = "UFS 3.1"
-	specs["Card Slot Type"] = "No microSD card slot"
-	specs["Display Type"] = "LTPO OLED, 120Hz, HDR10+, 3000 nits (peak)"
-	specs["Resolution"] = "1344 x 2992 pixels (~486 ppi density)"
-	specs["Screen Protection"] = "Corning Gorilla Glass Victus 2"
-	specs["Refresh Rate"] = "1-120Hz (LTPO)"
-	specs["Build Material"] = "Glass front (Gorilla Glass Victus 2), glass back, aluminum frame"
-	specs["Weight"] = "221 g (7.80 oz)"
-	specs["Dimensions"] = "162.8 x 76.6 x 8.5 mm (6.41 x 3.02 x 0.33 in)"
-	specs["Water Resistance"] = "IP68 dust tight and water resistant (up to 1.5m for 30 min)"
-	specs["Network Technology"] = "GSM / CDMA / HSPA / EVDO / LTE / 5G"
-	specs["2G Bands"] = "GSM 850 / 900 / 1800 / 1900 MHz"
-	specs["3G Bands"] = "HSDPA 800 / 850 / 900 / 1700(AWS) / 1900 / 2100 MHz"
-	specs["4G Bands"] = "LTE Band 1, 2, 3, 4, 5, 7, 8, 12, 13, 14, 17, 18, 19, 20, 25, 26, 28, 29, 30, 32, 38, 39, 40, 41, 42, 46, 48, 66, 71"
-	specs["5G Bands"] = "n1, n2, n3, n5, n7, n8, n12, n14, n20, n25, n26, n28, n30, n38, n40, n41, n48, n66, n71, n75, n76, n77, n78"
-	specs["Wifi Support"] = "Wi-Fi 802.11 a/b/g/n/ac/6e/7, tri-band, Wi-Fi Direct"
-	specs["Bluetooth Version"] = "5.3, A2DP, LE, aptX HD"
-	specs["Nfc Support"] = "Yes"
-	specs["Usb Type"] = "USB Type-C 3.2, DisplayPort 1.4, OTG"
-	specs["Rear Camera"] = "50 MP + 48 MP + 48 MP"
-	specs["Camera Features"] = "Dual-LED flash, Pixel Shift, Ultra-HDR, panorama, Best Take"
-	specs["Camera Video Resolution"] = "4K@24/30/60fps, 1080p@24/30/60/120/240fps, gyro-EIS, OIS, 10-bit HDR"
-	specs["Optical Zoom"] = "5x Optical Zoom"
-	specs["Front Camera"] = "42 MP, f/2.2, 17mm (ultrawide), PDAF"
-	specs["Front Camera Video Resolution"] = "4K@24/30/60fps, 1080p@30/60fps"
-	specs["Operating System"] = "Android 15, upgradable to Android 22"
-	specs["Battery"] = "5,060 mAh"
-	specs["Battery Type"] = "Li-Ion (non-removable)"
-	specs["Fast Charging"] = "37W wired, 23W wireless, 5W reverse wireless"
-	specs["Charging Speed"] = "37W wired (50% in 28 min), 23W wireless, 5W reverse wireless"
-	specs["Wireless Charging"] = "Yes - 23W wireless"
-	specs["5G Support"] = "Yes"
-	specs["Positioning System"] = "GPS (L1+L5), GLONASS (G1), GALILEO (E1+E5a), BDS (B1I+B1c+B2a+B2b), QZSS (L1+L5)"
-	specs["Sensors"] = "Fingerprint (under display, ultrasonic), accelerometer, gyro, proximity, compass, barometer, thermometer (skin temperature)"
-	specs["Special Features"] = "Gemini AI assistant, Circle to Search, Magic Eraser, Best Take, Audio Magic Eraser, Call Screen, Hold for Me"
-	specs["Sim Card Type"] = "Nano-SIM and eSIM"
-	specs["Loudspeaker Quality"] = "Stereo speakers"
-	specs["Audio Quality"] = "24-bit/192kHz audio"
-	specs["Audio Jack"] = "No"
-	specs["Sar Rating"] = "1.15 W/kg (head), 1.36 W/kg (body)"
-	specs["Sar Rating Eu"] = "1.17 W/kg (head), 1.24 W/kg (body)"
-	specs["Available Colors"] = "Obsidian, Porcelain, Hazel, Rose Quartz"
-	specs["Model Variants"] = "GA05844-US, GA05845-US, GA05846-US"
-	specs["Announcement Date"] = "August 13, 2024"
-	specs["Device Status"] = "Available. Released August 22, 2024"
+	// Get all existing specifications for this product
+	var existingSpecs []models.SpecificationModel
+	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
+		return err
+	}
 
-	for key, value := range specs {
-		sk, err := CreateOrFindSpecificationKey(db, key)
-		if err != nil {
-			return err
-		}
-
-		var existing models.SpecificationModel
-		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
-			if err == gorm.ErrRecordNotFound {
-				sModel := &models.SpecificationModel{
-					ProductID:          productID,
-					SpecificationKeyID: sk.ID,
-					Value:              value,
-					Status:             1,
-				}
-				if err := db.Create(sModel).Error; err != nil {
-					return err
-				}
-
-				// Create Bangla translation for the specification
-				banglaValue, exists := banglaTranslations[value]
-				if exists && banglaValue != "" {
-					var existingTranslation models.SpecificationTranslationModel
-					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
-						if err == gorm.ErrRecordNotFound {
-							translation := &models.SpecificationTranslationModel{
-								SpecificationID: sModel.ID,
-								Locale:          "bn",
-								Value:           banglaValue,
-							}
-							if err := db.Create(translation).Error; err != nil {
-								return err
-							}
-						} else {
-							return err
-						}
-					}
-				}
-			} else {
-				return err
+	// Insert translations for all existing specifications
+	for _, spec := range existingSpecs {
+		banglaValue, exists := banglaTranslations[spec.Value]
+		if exists && banglaValue != "" {
+			translation := &models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
 			}
-		} else {
-			// If specification already exists, check and create Bangla translation if missing
-			banglaValue, exists := banglaTranslations[value]
-			if exists && banglaValue != "" {
-				var existingTranslation models.SpecificationTranslationModel
-				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
-					if err == gorm.ErrRecordNotFound {
-						translation := &models.SpecificationTranslationModel{
-							SpecificationID: existing.ID,
-							Locale:          "bn",
-							Value:           banglaValue,
-						}
-						if err := db.Create(translation).Error; err != nil {
-							return err
-						}
-					} else {
-						return err
-					}
-				}
+			// Use OnConflict to ignore if translation already exists
+			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+				return err
 			}
 		}
 	}
