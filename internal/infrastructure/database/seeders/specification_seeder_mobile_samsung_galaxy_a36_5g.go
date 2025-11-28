@@ -41,7 +41,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA365g) getBanglaTranslations() ma
 		"Qualcomm SM7450-AB Snapdragon 7 Gen 1 (4 nm)": "Qualcomm SM৭৪৫০-AB Snapdragon ৭ Gen ১ (৪ nm)",
 		"September 2025": "September ২০২৫",
 		"Snapdragon 7 Gen 1": "Snapdragon ৭ Gen ১",
-		"Super AMOLED, 120Hz": "Super AMOLED, ১২০Hz",
+		"সুপার AMOLED, 120Hz": "সুপার AMOLED, ১২০Hz",
 	}
 }
 

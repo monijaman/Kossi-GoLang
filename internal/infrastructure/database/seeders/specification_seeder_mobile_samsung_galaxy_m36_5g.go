@@ -46,8 +46,8 @@ func (s *SpecificationSeederMobileSamsungGalaxyM365g) getBanglaTranslations() ma
 		"Nano-SIM + Nano-SIM": "ন্যানো-সিম + ন্যানো-সিম",
 		"Octa-core (4×2.4 GHz Cortex-A78 + 4×2.0 GHz Cortex-A55)": "Octa-core (৪×২.৪ GHz Cortex-A৭৮ + ৪×২.০ GHz Cortex-A৫৫)",
 		"Side fingerprint, Accelerometer, Gyro, Proximity, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",
-		"Super AMOLED, 120 Hz": "Super AMOLED, ১২০ Hz",
-		"Thunder Grey, DayBreak Blue, Moonlight Blue": "Thunder ধূসর, DayBreak নীল, Moonlight নীল",
+		"সুপার AMOLED, 120 Hz": "সুপার AMOLED, ১২০ Hz",
+		"Thunder Grey, DayBreak Blue, মুনলাইট Blue": "Thunder ধূসর, DayBreak নীল, মুনলাইট নীল",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
 	}

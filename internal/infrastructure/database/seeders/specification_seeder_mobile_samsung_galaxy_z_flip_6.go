@@ -38,7 +38,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyZFlip6) getBanglaTranslations() m
 		"July 2024": "July ২০২৪",
 		"Plastic front (open), glass back (Gorilla Glass Victus 2), aluminum frame": "Plastic front (open), গ্লাস পেছনে (Gorilla Glass Victus ২), অ্যালুমিনিয়াম ফ্রেম",
 		"Qualcomm SM8650-AC Snapdragon 8 Gen 3 (4 nm)": "Qualcomm SM৮৬৫০-AC Snapdragon ৮ Gen ৩ (৪ nm)",
-		"Silver Shadow, Yellow, Blue, Mint, Crafted Black, White, Peach": "রূপালী Shadow, হলুদ, নীল, Mint, Crafted কালো, সাদা, Peach",
+		"Silver Shadow, Yellow, Blue, মিন্ট, Crafted Black, White, Peach": "রূপালী Shadow, হলুদ, নীল, মিন্ট, Crafted কালো, সাদা, Peach",
 		"Snapdragon 8 Gen 3": "Snapdragon ৮ Gen ৩",
 		"Unfolded: 165.1 x 71.9 x 6.9 mm / Folded: 85.1 x 71.9 x 14.9 mm": "Unfolded: ১৬৫.১ x ৭১.৯ x ৬.৯ মিমি / Folded: ৮৫.১ x ৭১.৯ x ১৪.৯ মিমি",
 	}

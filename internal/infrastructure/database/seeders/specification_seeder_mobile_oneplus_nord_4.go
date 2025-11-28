@@ -37,7 +37,7 @@ func (s *SpecificationSeederMobileOneplusNord4) getBanglaTranslations() map[stri
 		"Glass front, aluminum unibody": "গ্লাস সামনে, aluminum unibody",
 		"IP65": "IP৬৫",
 		"July 2024": "July ২০২৪",
-		"Mercurial Silver, Oasis Green, Obsidian Midnight": "Mercurial রূপালী, Oasis সবুজ, Obsidian Midnight",
+		"Mercurial Silver, Oasis Green, Obsidian মিডনাইট": "Mercurial রূপালী, Oasis সবুজ, Obsidian মিডনাইট",
 		"Qualcomm Snapdragon 7+ Gen 3 (4 nm)": "Qualcomm Snapdragon ৭+ Gen ৩ (৪ nm)",
 		"Snapdragon 7+ Gen 3": "Snapdragon ৭+ Gen ৩",
 	}

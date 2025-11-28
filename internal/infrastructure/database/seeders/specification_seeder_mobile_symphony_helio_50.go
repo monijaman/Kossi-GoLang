@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileSymphonyHelio50) getBanglaTranslations() map[s
 		"6.72 inches": "৬.৭২ ইঞ্চি",
 		"90Hz": "৯০Hz",
 		"Android 13": "Android ১৩",
-		"Dual Nano-SIM / Hybrid": "Dual ন্যানো-সিম / Hybrid",
+		"Dual Nano-SIM / হাইব্রিড": "Dual ন্যানো-সিম / হাইব্রিড",
 		"Glass front, plastic back": "গ্লাস সামনে, প্লাস্টিক পেছনে",
 		"June 2024": "June ২০২৪",
 		"Li-Po (non-removable)": "লি-পো (অপসারণযোগ্য নয়)",

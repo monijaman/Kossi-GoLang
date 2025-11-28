@@ -33,7 +33,7 @@ func (s *SpecificationSeederMobileRedmiNote12) getBanglaTranslations() map[strin
 		"6.67 inches": "৬.৬৭ ইঞ্চি",
 		"AMOLED, 120Hz, 1200 nits": "AMOLED, ১২০Hz, ১২০০ nits",
 		"Adreno 619": "Adreno ৬১৯",
-		"Android 12, upgradable": "Android ১২, upgradable",
+		"Android 12, আপগ্রেডযোগ্য": "Android ১২, আপগ্রেডযোগ্য",
 		"Corning Gorilla Glass 3": "Corning Gorilla Glass ৩",
 		"Frosted Green, Matte Black, Mystique Blue": "Frosted সবুজ, Matte কালো, Mystique নীল",
 		"Glass front, plastic frame, plastic back": "গ্লাস সামনে, plastic frame, প্লাস্টিক পেছনে",

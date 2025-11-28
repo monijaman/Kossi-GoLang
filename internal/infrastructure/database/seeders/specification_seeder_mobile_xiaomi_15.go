@@ -25,7 +25,7 @@ func (s *SpecificationSeederMobileXiaomi15) getBanglaTranslations() map[string]s
 		"120Hz": "১২০Hz",
 		"152.8 x 71.5 x 8.2 mm": "১৫২.৮ x ৭১.৫ x ৮.২ মিমি",
 		"191 g": "১৯১ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"32 MP": "৩২ MP",
 		"5,400 mAh": "৫,৪০০ এমএএইচ",
 		"50 MP + 50 MP + 50 MP": "৫০ MP + ৫০ MP + ৫০ MP",

@@ -40,7 +40,7 @@ func (s *SpecificationSeederMobileRedmiNote14Pro5g) getBanglaTranslations() map[
 		"Qualcomm Snapdragon 7s Gen 3 (4 nm)": "Qualcomm Snapdragon ৭s Gen ৩ (৪ nm)",
 		"September 2024": "September ২০২৪",
 		"Snapdragon 7s Gen 3": "Snapdragon ৭s Gen ৩",
-		"Starry White, Midnight Black, Mirror Porcelain White": "Starry সাদা, Midnight কালো, Mirror Porcelain সাদা",
+		"Starry White, মিডনাইট Black, Mirror Porcelain White": "Starry সাদা, মিডনাইট কালো, Mirror Porcelain সাদা",
 	}
 }
 

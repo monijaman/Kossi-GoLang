@@ -33,7 +33,7 @@ func (s *SpecificationSeederMobileVivoV60Lite5g) getBanglaTranslations() map[str
 		"64 MP + 2 MP": "৬৪ MP + ২ MP",
 		"90 Hz": "৯০ Hz",
 		"AMOLED, 90 Hz": "AMOLED, ৯০ Hz",
-		"Android 12, Funtouch OS 12": "Android ১২, Funtouch OS ১২",
+		"Android 12, ফানটাচ OS 12": "Android ১২, ফানটাচ OS ১২",
 		"Black, Blue": "কালো, নীল",
 		"Dimensity 900 (6 nm)": "Dimensity ৯০০ (৬ nm)",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",

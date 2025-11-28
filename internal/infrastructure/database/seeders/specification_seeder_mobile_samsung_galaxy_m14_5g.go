@@ -22,7 +22,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM145g) getBanglaTranslations() ma
 	return map[string]string{
 		"1080p @ 30fps": "১০৮০p @ ৩০fps",
 		"13 MP": "১৩ MP",
-		"15 W / 25 W (region dependent)": "১৫ W / ২৫ W (region dependent)",
+		"15 W / 25 W (region নির্ভরশীল)": "১৫ W / ২৫ W (region নির্ভরশীল)",
 		"166.8 × 77.2 × 9.4 mm": "১৬৬.৮ × ৭৭.২ × ৯.৪ মিমি",
 		"206 g": "২০৬ g",
 		"2408 × 1080 px": "২৪০৮ × ১০৮০ px",
@@ -41,7 +41,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM145g) getBanglaTranslations() ma
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
 		"Mali-G68 MP2": "Mali-G৬৮ MP২",
 		"March 2023": "March ২০২৩",
-		"Nano-SIM or Dual SIM (hybrid)": "ন্যানো-সিম or ডুয়াল সিম (hybrid)",
+		"Nano-SIM বা Dual SIM (হাইব্রিড)": "ন্যানো-সিম বা ডুয়াল সিম (হাইব্রিড)",
 		"Navy Blue, Light Blue, Silver": "Navy নীল, Light নীল, রূপালী",
 		"Octa-core (2×2.4 GHz Cortex-A78 + 6×2.0 GHz Cortex-A55)": "Octa-core (২×২.৪ GHz Cortex-A৭৮ + ৬×২.০ GHz Cortex-A৫৫)",
 		"Side fingerprint, Accelerometer, Gyro, Proximity, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",

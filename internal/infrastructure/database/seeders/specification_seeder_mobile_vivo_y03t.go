@@ -30,7 +30,7 @@ func (s *SpecificationSeederMobileVivoY03t) getBanglaTranslations() map[string]s
 		"64 GB / 128 GB": "৬৪ GB / ১২৮ GB",
 		"720 x 1612 pixels": "৭২০ x ১৬১২ pixels",
 		"90Hz": "৯০Hz",
-		"Android 14, Funtouch 14": "Android ১৪, Funtouch ১৪",
+		"Android 14, ফানটাচ 14": "Android ১৪, ফানটাচ ১৪",
 		"August 2024": "August ২০২৪",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"IP54": "IP৫৪",

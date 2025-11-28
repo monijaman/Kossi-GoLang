@@ -47,9 +47,9 @@ func (s *SpecificationSeederMobileSamsungGalaxyA345g) getBanglaTranslations() ma
 		"March 2023": "March ২০২৩",
 		"MediaTek Dimensity 1080": "MediaTek Dimensity ১০৮০",
 		"Octa-core (2×2.6 GHz Cortex-A78 + 6×2.0 GHz Cortex-A55)": "Octa-core (২×২.৬ GHz Cortex-A৭৮ + ৬×২.০ GHz Cortex-A৫৫)",
-		"Super AMOLED, 120 Hz": "Super AMOLED, ১২০ Hz",
+		"সুপার AMOLED, 120 Hz": "সুপার AMOLED, ১২০ Hz",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
-		"Yes (market dependent)": "হ্যাঁ (market dependent)",
+		"Yes (বাজার নির্ভরশীল)": "হ্যাঁ (বাজার নির্ভরশীল)",
 	}
 }
 

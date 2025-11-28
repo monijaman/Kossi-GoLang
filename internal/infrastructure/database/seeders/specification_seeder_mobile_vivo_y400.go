@@ -31,7 +31,7 @@ func (s *SpecificationSeederMobileVivoY400) getBanglaTranslations() map[string]s
 		"8 GB": "৮ GB",
 		"8 MP": "৮ MP",
 		"Adreno 613": "Adreno ৬১৩",
-		"Android 14, Funtouch 14": "Android ১৪, Funtouch ১৪",
+		"Android 14, ফানটাচ 14": "Android ১৪, ফানটাচ ১৪",
 		"GSM / HSPA / LTE / 5G": "GSM / HSPA / LTE / ৫G",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"IP54": "IP৫৪",

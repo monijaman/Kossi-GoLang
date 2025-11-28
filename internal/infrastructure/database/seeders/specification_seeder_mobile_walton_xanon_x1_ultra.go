@@ -53,7 +53,7 @@ func (s *SpecificationSeederMobileWaltonXanonX1Ultra) getBanglaTranslations() ma
 		"Mali-G720 Immortalis MC12": "Mali-G৭২০ Immortalis MC১২",
 		"MediaTek Dimensity 9300": "MediaTek Dimensity ৯৩০০",
 		"MediaTek Dimensity 9300 (4 nm)": "MediaTek Dimensity ৯৩০০ (৪ nm)",
-		"Midnight Black, Pearl White, Ocean Blue": "Midnight কালো, Pearl সাদা, Ocean নীল",
+		"মিডনাইট Black, Pearl White, Ocean Blue": "মিডনাইট কালো, Pearl সাদা, Ocean নীল",
 		"Octa-core (1x3.25 GHz Cortex-X4 & 3x2.85 GHz Cortex-X4 & 4x2.0 GHz Cortex-A720)": "Octa-core (১x৩.২৫ GHz Cortex-X৪ & ৩x২.৮৫ GHz Cortex-X৪ & ৪x২.০ GHz Cortex-A৭২০)",
 		"UFS 4.0": "UFS ৪.০",
 		"USB Type-C 3.1, OTG": "USB Type-C ৩.১, OTG",

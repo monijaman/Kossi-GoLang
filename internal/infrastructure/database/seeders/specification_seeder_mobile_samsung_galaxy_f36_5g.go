@@ -46,7 +46,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyF365g) getBanglaTranslations() ma
 		"Nano-SIM + Nano-SIM": "ন্যানো-সিম + ন্যানো-সিম",
 		"Octa-core (4×2.4 GHz + 4×2.0 GHz)": "Octa-core (৪×২.৪ GHz + ৪×২.০ GHz)",
 		"Side fingerprint, Accelerometer, Gyro, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, কম্পাস",
-		"Super AMOLED, 120 Hz": "Super AMOLED, ১২০ Hz",
+		"সুপার AMOLED, 120 Hz": "সুপার AMOLED, ১২০ Hz",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac/6": "Wi-Fi ৮০২.১১ a/b/g/n/ac/৬",
 	}

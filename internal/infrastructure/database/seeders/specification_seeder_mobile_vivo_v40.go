@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileVivoV40) getBanglaTranslations() map[string]st
 		"8 / 12 GB": "৮ / ১২ GB",
 		"AMOLED display, 120 Hz refresh rate": "AMOLED display, ১২০ Hz refresh rate",
 		"AMOLED, 120 Hz": "AMOLED, ১২০ Hz",
-		"Android 12, Funtouch OS 12": "Android ১২, Funtouch OS ১২",
+		"Android 12, ফানটাচ OS 12": "Android ১২, ফানটাচ OS ১২",
 		"Black, Blue, Silver": "কালো, নীল, রূপালী",
 		"Dimensity 920 (6 nm)": "Dimensity ৯২০ (৬ nm)",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",

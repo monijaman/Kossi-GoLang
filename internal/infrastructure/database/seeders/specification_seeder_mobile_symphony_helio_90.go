@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileSymphonyHelio90) getBanglaTranslations() map[s
 		"64 MP + 2 MP + 0.8 MP": "৬৪ MP + ২ MP + ০.৮ MP",
 		"8 GB": "৮ GB",
 		"Android 14": "Android ১৪",
-		"Dual Nano-SIM / Hybrid": "Dual ন্যানো-সিম / Hybrid",
+		"Dual Nano-SIM / হাইব্রিড": "Dual ন্যানো-সিম / হাইব্রিড",
 		"Glass front, plastic back": "গ্লাস সামনে, প্লাস্টিক পেছনে",
 		"In-display fingerprint, proximity, light, gyroscope": "In-display ফিঙ্গারপ্রিন্ট, প্রক্সিমিটি, light, gyroscope",
 		"Li-Po (non-removable)": "লি-পো (অপসারণযোগ্য নয়)",

@@ -30,13 +30,13 @@ func (s *SpecificationSeederMobileRedmiA3) getBanglaTranslations() map[string]st
 		"720 x 1650 pixels": "৭২০ x ১৬৫০ pixels",
 		"8 MP + 0.08 MP": "৮ MP + ০.০৮ MP",
 		"90Hz": "৯০Hz",
-		"Android 14 (Go edition), MIUI": "Android ১৪ (Go edition), MIUI",
+		"Android 14 (Go এডিশন), MIUI": "Android ১৪ (Go এডিশন), MIUI",
 		"February 2024": "February ২০২৪",
-		"Glass front (Gorilla Glass 3), glass back or silicone polymer back, plastic frame": "গ্লাস সামনে (Gorilla Glass ৩), গ্লাস পেছনে or silicone polymer back, plastic frame",
+		"Glass front (Gorilla Glass 3), glass back বা সিলিকন পলিমার back, plastic frame": "গ্লাস সামনে (Gorilla Glass ৩), গ্লাস পেছনে বা সিলিকন পলিমার back, plastic frame",
 		"Helio G36": "Helio G৩৬",
 		"IPS LCD, 90Hz": "IPS LCD, ৯০Hz",
 		"Mediatek Helio G36 (12 nm)": "Mediatek Helio G৩৬ (১২ nm)",
-		"Midnight Black, Olive Green, Lake Blue": "Midnight কালো, Olive সবুজ, Lake নীল",
+		"মিডনাইট Black, Olive Green, Lake Blue": "মিডনাইট কালো, Olive সবুজ, Lake নীল",
 		"PowerVR GE8320": "PowerVR GE৮৩২০",
 	}
 }

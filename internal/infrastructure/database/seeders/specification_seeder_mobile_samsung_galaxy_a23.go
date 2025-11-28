@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA23) getBanglaTranslations() map[
 		"8 MP": "৮ MP",
 		"90 Hz": "৯০ Hz",
 		"Adreno 610": "Adreno ৬১০",
-		"Android 12, One UI 4.1 (upgradable)": "Android ১২, One UI ৪.১ (upgradable)",
+		"Android 12, One UI 4.1 (আপগ্রেডযোগ্য)": "Android ১২, One UI ৪.১ (আপগ্রেডযোগ্য)",
 		"Black, White, Peach, Blue": "কালো, সাদা, Peach, নীল",
 		"GSM / HSPA / LTE (4G)": "GSM / HSPA / LTE (৪G)",
 		"Glass front (Gorilla Glass 5), plastic frame/back": "গ্লাস সামনে (Gorilla Glass ৫), plastic frame/back",
@@ -49,7 +49,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA23) getBanglaTranslations() map[
 		"Some variants (A23 5G), base A23 is 4G": "Some variants (A২৩ ৫G), base A২৩ is ৪G",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
-		"Yes (market dependent)": "হ্যাঁ (market dependent)",
+		"Yes (বাজার নির্ভরশীল)": "হ্যাঁ (বাজার নির্ভরশীল)",
 	}
 }
 

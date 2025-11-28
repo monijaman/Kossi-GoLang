@@ -34,7 +34,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA14) getBanglaTranslations() map[
 		"6.6 inches": "৬.৬ ইঞ্চি",
 		"60 Hz": "৬০ Hz",
 		"64 / 128 GB + microSD support": "৬৪ / ১২৮ GB + microSD support",
-		"Android 13 (upgradable to Android 14)": "Android ১৩ (upgradable to Android ১৪)",
+		"Android 13 (আপগ্রেডযোগ্য Android 14)": "Android ১৩ (আপগ্রেডযোগ্য Android ১৪)",
 		"Black, Silver, Green, Red": "কালো, রূপালী, সবুজ, লাল",
 		"GSM / HSPA / LTE (4G) / 5G (A14 5G variant)": "GSM / HSPA / LTE (৪G) / ৫G (A১৪ ৫G variant)",
 		"Glass front, plastic back & frame": "গ্লাস সামনে, প্লাস্টিক পেছনে & frame",
@@ -46,7 +46,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA14) getBanglaTranslations() map[
 		"Side fingerprint, Accelerometer, Gyro, Proximity, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
-		"Yes (market dependent)": "হ্যাঁ (market dependent)",
+		"Yes (বাজার নির্ভরশীল)": "হ্যাঁ (বাজার নির্ভরশীল)",
 		"Yes (only A14 5G variant)": "হ্যাঁ (only A১৪ ৫G variant)",
 	}
 }

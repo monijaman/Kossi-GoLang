@@ -32,13 +32,13 @@ func (s *SpecificationSeederMobileRedmiNote15Pro) getBanglaTranslations() map[st
 		"6.67 inches": "৬.৬৭ ইঞ্চি",
 		"AMOLED, 120Hz, Dolby Vision, HDR10+": "AMOLED, ১২০Hz, Dolby Vision, HDR১০+",
 		"Android 15, HyperOS": "Android ১৫, HyperOS",
-		"Dimensity 8300 Ultra": "Dimensity ৮৩০০ Ultra",
+		"Dimensity 8300 আল্ট্রা": "Dimensity ৮৩০০ আল্ট্রা",
 		"GSM / HSPA / LTE / 5G": "GSM / HSPA / LTE / ৫G",
 		"Glass front (Gorilla Glass Victus), glass back, aluminum frame": "গ্লাস সামনে (Gorilla Glass Victus), গ্লাস পেছনে, অ্যালুমিনিয়াম ফ্রেম",
 		"IP68": "IP৬৮",
 		"Mali-G615-MC6": "Mali-G৬১৫-MC৬",
-		"Mediatek Dimensity 8300 Ultra (4 nm)": "Mediatek Dimensity ৮৩০০ Ultra (৪ nm)",
-		"Midnight Black, Moonlight White, Aurora Purple": "Midnight কালো, Moonlight সাদা, Aurora বেগুনি",
+		"Mediatek Dimensity 8300 আল্ট্রা (4 nm)": "Mediatek Dimensity ৮৩০০ আল্ট্রা (৪ nm)",
+		"মিডনাইট Black, মুনলাইট White, Aurora Purple": "মিডনাইট কালো, মুনলাইট সাদা, Aurora বেগুনি",
 		"September 2025": "September ২০২৫",
 	}
 }

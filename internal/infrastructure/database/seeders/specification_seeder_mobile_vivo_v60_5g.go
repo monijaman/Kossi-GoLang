@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileVivoV605g) getBanglaTranslations() map[string]
 		"6.56 inches": "৬.৫৬ ইঞ্চি",
 		"64 MP + 8 MP + 2 MP": "৬৪ MP + ৮ MP + ২ MP",
 		"AMOLED, 120 Hz": "AMOLED, ১২০ Hz",
-		"Android 11, Funtouch OS 11": "Android ১১, Funtouch OS ১১",
+		"Android 11, ফানটাচ OS 11": "Android ১১, ফানটাচ OS ১১",
 		"April 2021": "April ২০২১",
 		"Black, Blue": "কালো, নীল",
 		"Dimensity 800U (7 nm)": "Dimensity ৮০০U (৭ nm)",

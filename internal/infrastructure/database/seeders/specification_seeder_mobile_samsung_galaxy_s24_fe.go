@@ -33,7 +33,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS24Fe) getBanglaTranslations() ma
 		"8 GB": "৮ GB",
 		"Aluminum frame, glass front/back": "অ্যালুমিনিয়াম ফ্রেম, গ্লাস সামনে/back",
 		"Android 14, One UI 6.1": "Android ১৪, One UI ৬.১",
-		"Blue, Graphite, Gray, Mint, Yellow": "নীল, Graphite, ধূসর, Mint, হলুদ",
+		"Blue, Graphite, Gray, মিন্ট, Yellow": "নীল, Graphite, ধূসর, মিন্ট, হলুদ",
 		"Dynamic AMOLED 2X, 120Hz, HDR10+": "Dynamic AMOLED ২X, ১২০Hz, HDR১০+",
 		"Exynos 2400e": "Exynos ২৪০০e",
 		"Exynos 2400e (4 nm)": "Exynos ২৪০০e (৪ nm)",

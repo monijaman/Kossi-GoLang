@@ -36,7 +36,7 @@ func (s *SpecificationSeederMobileVivoX300Pro) getBanglaTranslations() map[strin
 		"8 / 12 GB": "৮ / ১২ GB",
 		"AMOLED, 120 Hz": "AMOLED, ১২০ Hz",
 		"Adreno 660": "Adreno ৬৬০",
-		"Android 12, Funtouch OS 12": "Android ১২, Funtouch OS ১২",
+		"Android 12, ফানটাচ OS 12": "Android ১২, ফানটাচ OS ১২",
 		"Black, Blue, Silver": "কালো, নীল, রূপালী",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",
 		"Fingerprint (under display), Accelerometer, Gyro, Proximity, Compass": "ফিঙ্গারপ্রিন্ট (ডিসপ্লের নিচে), অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",

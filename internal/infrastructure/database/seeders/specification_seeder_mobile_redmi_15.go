@@ -40,7 +40,7 @@ func (s *SpecificationSeederMobileRedmi15) getBanglaTranslations() map[string]st
 		"IP64": "IP৬৪",
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
 		"Nano-SIM + Nano-SIM": "ন্যানো-সিম + ন্যানো-সিম",
-		"Sandy Purple, Midnight Black, Titan Gray": "Sandy বেগুনি, Midnight কালো, Titan ধূসর",
+		"Sandy Purple, মিডনাইট Black, Titan Gray": "Sandy বেগুনি, মিডনাইট কালো, Titan ধূসর",
 		"Side fingerprint, Accelerometer, etc.": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, etc.",
 		"Snapdragon 685": "Snapdragon ৬৮৫",
 		"Snapdragon 685 (6 nm)": "Snapdragon ৬৮৫ (৬ nm)",

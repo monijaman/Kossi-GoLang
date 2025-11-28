@@ -30,7 +30,7 @@ func (s *SpecificationSeederMobileVivoY19s) getBanglaTranslations() map[string]s
 		"6.68 inches": "৬.৬৮ ইঞ্চি",
 		"720 x 1608 pixels": "৭২০ x ১৬০৮ pixels",
 		"90Hz": "৯০Hz",
-		"Android 14, Funtouch 14": "Android ১৪, Funtouch ১৪",
+		"Android 14, ফানটাচ 14": "Android ১৪, ফানটাচ ১৪",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"IP64": "IP৬৪",
 		"IPS LCD, 90Hz": "IPS LCD, ৯০Hz",

@@ -38,7 +38,7 @@ func (s *SpecificationSeederMobileGooglePixel8) getBanglaTranslations() map[stri
 		"IP68":                             "IP৬৮",
 		"Immortalis-G715s MC10":            "Immortalis-G৭১৫s MC১০",
 		"OLED, 120Hz, HDR10+, 2000 nits":   "OLED, ১২০Hz, HDR১০+, ২০০০ nits",
-		"October 2023":                     "October २०२३",
+		"October 2023":                     "October ২০২৩",
 		"Nona-core":                        "নোনা-কোর",
 		"Corning Gorilla Glass Victus":     "কর্নিং গরিলা গ্লাস ভিক্টাস",
 		"Obsidian, Hazel, Rose, Mint":      "অবসিডিয়ান, হ্যাজেল, রোজ, মিন্ট",

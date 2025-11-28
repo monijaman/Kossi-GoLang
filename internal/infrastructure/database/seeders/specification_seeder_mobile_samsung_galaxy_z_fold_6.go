@@ -24,7 +24,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyZFold6) getBanglaTranslations() m
 		"120Hz": "১২০Hz",
 		"1856 x 2160 pixels": "১৮৫৬ x ২১৬০ pixels",
 		"239 g": "২৩৯ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"4 MP (Under Display) + 10 MP (Cover)": "৪ MP (ডিসপ্লের নিচে) + ১০ MP (Cover)",
 		"4,400 mAh": "৪,৪০০ এমএএইচ",
 		"50 MP + 10 MP + 12 MP": "৫০ MP + ১০ MP + ১২ MP",

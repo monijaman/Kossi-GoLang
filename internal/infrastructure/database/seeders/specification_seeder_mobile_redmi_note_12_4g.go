@@ -36,7 +36,7 @@ func (s *SpecificationSeederMobileRedmiNote124g) getBanglaTranslations() map[str
 		"Glass front (Gorilla Glass 3), plastic back, plastic frame": "গ্লাস সামনে (Gorilla Glass ৩), প্লাস্টিক পেছনে, plastic frame",
 		"IP53": "IP৫৩",
 		"March 2023": "March ২০২৩",
-		"Onyx Gray, Mint Green, Ice Blue": "Onyx ধূসর, Mint সবুজ, Ice নীল",
+		"Onyx Gray, মিন্ট Green, Ice Blue": "Onyx ধূসর, মিন্ট সবুজ, Ice নীল",
 		"Qualcomm Snapdragon 685 (6 nm)": "Qualcomm Snapdragon ৬৮৫ (৬ nm)",
 		"Snapdragon 685": "Snapdragon ৬৮৫",
 	}

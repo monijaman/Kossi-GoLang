@@ -25,7 +25,7 @@ func (s *SpecificationSeederMobileXiaomi14tPro) getBanglaTranslations() map[stri
 		"1220 x 2712 pixels": "১২২০ x ২৭১২ pixels",
 		"144Hz": "১৪৪Hz",
 		"209 g": "২০৯ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"32 MP": "৩২ MP",
 		"50 MP + 50 MP + 12 MP": "৫০ MP + ৫০ MP + ১২ MP",
 		"5000 mAh": "৫০০০ এমএএইচ",

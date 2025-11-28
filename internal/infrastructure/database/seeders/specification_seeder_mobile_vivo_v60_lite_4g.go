@@ -33,7 +33,7 @@ func (s *SpecificationSeederMobileVivoV60Lite4g) getBanglaTranslations() map[str
 		"60 Hz": "৬০ Hz",
 		"64 MP + 2 MP": "৬৪ MP + ২ MP",
 		"AMOLED, 60 Hz": "AMOLED, ৬০ Hz",
-		"Android 11, Funtouch OS 11": "Android ১১, Funtouch OS ১১",
+		"Android 11, ফানটাচ OS 11": "Android ১১, ফানটাচ OS ১১",
 		"Black, Blue": "কালো, নীল",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",
 		"Fingerprint (under display), Accelerometer, Gyro, Proximity, Compass": "ফিঙ্গারপ্রিন্ট (ডিসপ্লের নিচে), অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",

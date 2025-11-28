@@ -45,7 +45,7 @@ func (s *SpecificationSeederMobileIphone17Plus) getBanglaTranslations() map[stri
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
 		"No 3.5mm jack": "না ৩.৫mm jack",
 		"September 2024": "September ২০২৪",
-		"Super Retina XDR OLED, HDR10, Dolby Vision, 2000 nits (HBM)": "Super Retina XDR OLED, HDR১০, Dolby Vision, ২০০০ nits (HBM)",
+		"সুপার Retina XDR OLED, HDR10, Dolby Vision, 2000 nits (HBM)": "সুপার Retina XDR OLED, HDR১০, Dolby Vision, ২০০০ nits (HBM)",
 		"USB Type-C 2.0": "USB Type-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac/6": "Wi-Fi ৮০২.১১ a/b/g/n/ac/৬",
 		"iOS 18": "iOS ১৮",

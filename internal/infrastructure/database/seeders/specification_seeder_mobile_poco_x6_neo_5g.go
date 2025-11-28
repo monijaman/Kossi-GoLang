@@ -32,7 +32,7 @@ func (s *SpecificationSeederMobilePocoX6Neo5g) getBanglaTranslations() map[strin
 		"8 GB / 12 GB": "৮ GB / ১২ GB",
 		"AMOLED, 120Hz": "AMOLED, ১২০Hz",
 		"Android 13, MIUI 14": "Android ১৩, MIUI ১৪",
-		"Astral Black, Horizon Blue, Martian Orange": "Astral কালো, Horizon নীল, Martian Orange",
+		"অ্যাস্ট্রাল Black, হরাইজন Blue, মার্শিয়ান কমলা": "অ্যাস্ট্রাল কালো, হরাইজন নীল, মার্শিয়ান কমলা",
 		"Dimensity 6080": "Dimensity ৬০৮০",
 		"GSM / HSPA / LTE / 5G": "GSM / HSPA / LTE / ৫G",
 		"Glass front (Gorilla Glass 5), plastic back, plastic frame": "গ্লাস সামনে (Gorilla Glass ৫), প্লাস্টিক পেছনে, plastic frame",

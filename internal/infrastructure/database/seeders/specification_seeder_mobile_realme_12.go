@@ -39,7 +39,7 @@ func (s *SpecificationSeederMobileRealme12) getBanglaTranslations() map[string]s
 		"Mali-G57 MC2": "Mali-G৫৭ MC২",
 		"March 2024": "March ২০২৪",
 		"Mediatek Dimensity 6100+ (6 nm)": "Mediatek Dimensity ৬১০০+ (৬ nm)",
-		"Twilight Purple, Woodland Green": "Twilight বেগুনি, Woodland সবুজ",
+		"টোয়াইলাইট Purple, Woodland Green": "টোয়াইলাইট বেগুনি, Woodland সবুজ",
 	}
 }
 

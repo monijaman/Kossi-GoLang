@@ -21,7 +21,7 @@ func NewSpecificationSeederMobileGooglePixel9Pro() *SpecificationSeederMobileGoo
 func (s *SpecificationSeederMobileGooglePixel9Pro) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"1-120Hz": "১-১২০Hz",
-		"128 GB / 256 GB / 512 GB / 1 TB": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ TB",
+		"128 GB / 256 GB / 512 GB / 1 টিবি": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"1280 x 2856 pixels": "১২৮০ x ২৮৫৬ pixels",
 		"152.8 x 72 x 8.5 mm": "১৫২.৮ x ৭২ x ৮.৫ মিমি",
 		"16 GB": "১৬ GB",

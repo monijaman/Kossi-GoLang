@@ -34,7 +34,7 @@ func (s *SpecificationSeederMobileOneplusOpen) getBanglaTranslations() map[strin
 		"Android 13, OxygenOS 13.2": "Android ১৩, OxygenOS ১৩.২",
 		"Emerald Dusk, Voyager Black": "Emerald Dusk, Voyager কালো",
 		"Foldable LTPO3 Flexi-fluid AMOLED, 120Hz, Dolby Vision, 2800 nits": "Foldable LTPO৩ Flexi-fluid AMOLED, ১২০Hz, Dolby Vision, ২৮০০ nits",
-		"Glass front (Ceramic Guard), glass back, aluminum frame": "গ্লাস সামনে (Ceramic Guard), গ্লাস পেছনে, অ্যালুমিনিয়াম ফ্রেম",
+		"Glass front (Ceramic গার্ড), glass back, aluminum frame": "গ্লাস সামনে (Ceramic গার্ড), গ্লাস পেছনে, অ্যালুমিনিয়াম ফ্রেম",
 		"IPX4": "IPX৪",
 		"October 2023": "October ২০২৩",
 		"Qualcomm SM8550-AB Snapdragon 8 Gen 2 (4 nm)": "Qualcomm SM৮৫৫০-AB Snapdragon ৮ Gen ২ (৪ nm)",

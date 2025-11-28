@@ -46,7 +46,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyF15) getBanglaTranslations() map[
 		"Nano-SIM + Nano-SIM": "ন্যানো-সিম + ন্যানো-সিম",
 		"Plastic frame & back, glass front": "Plastic frame & back, গ্লাস সামনে",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
-		"Yes (market dependent)": "হ্যাঁ (market dependent)",
+		"Yes (বাজার নির্ভরশীল)": "হ্যাঁ (বাজার নির্ভরশীল)",
 		"Yes, 3.5 mm": "হ্যাঁ, ৩.৫ মিমি",
 	}
 }

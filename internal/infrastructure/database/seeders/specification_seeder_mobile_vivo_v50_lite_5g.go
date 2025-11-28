@@ -32,7 +32,7 @@ func (s *SpecificationSeederMobileVivoV50Lite5g) getBanglaTranslations() map[str
 		"6 GB": "৬ GB",
 		"6.58 inches": "৬.৫৮ ইঞ্চি",
 		"60 Hz": "৬০ Hz",
-		"Android 11, Funtouch OS 11": "Android ১১, Funtouch OS ১১",
+		"Android 11, ফানটাচ OS 11": "Android ১১, ফানটাচ OS ১১",
 		"Black, Blue": "কালো, নীল",
 		"Dimensity 720 (7 nm)": "Dimensity ৭২০ (৭ nm)",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",

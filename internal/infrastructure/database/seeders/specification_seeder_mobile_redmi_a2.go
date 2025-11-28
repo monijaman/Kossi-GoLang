@@ -30,7 +30,7 @@ func (s *SpecificationSeederMobileRedmiA2) getBanglaTranslations() map[string]st
 		"60Hz": "৬০Hz",
 		"720 x 1600 pixels": "৭২০ x ১৬০০ pixels",
 		"8 MP + 0.08 MP": "৮ MP + ০.০৮ MP",
-		"Android 12 or 13 (Go edition), MIUI": "Android ১২ or ১৩ (Go edition), MIUI",
+		"Android 12 বা 13 (Go এডিশন), MIUI": "Android ১২ বা ১৩ (Go এডিশন), MIUI",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"Helio G36": "Helio G৩৬",
 		"Light Blue, Light Green, Black": "Light নীল, Light সবুজ, কালো",

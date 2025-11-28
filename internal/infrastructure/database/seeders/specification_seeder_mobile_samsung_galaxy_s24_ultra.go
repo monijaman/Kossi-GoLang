@@ -27,7 +27,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS24Ultra) getBanglaTranslations()
 		"162.3 x 79 x 8.6 mm": "১৬২.৩ x ৭৯ x ৮.৬ মিমি",
 		"200 MP + 50 MP + 10 MP + 12 MP": "২০০ MP + ৫০ MP + ১০ MP + ১২ MP",
 		"232 g": "২৩২ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"5,000 mAh": "৫,০০০ এমএএইচ",
 		"5G": "৫G",
 		"6.8 inches": "৬.৮ ইঞ্চি",

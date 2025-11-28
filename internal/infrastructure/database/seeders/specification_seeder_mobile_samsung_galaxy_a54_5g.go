@@ -46,12 +46,12 @@ func (s *SpecificationSeederMobileSamsungGalaxyA545g) getBanglaTranslations() ma
 		"Lime, Graphite, Violet, White": "Lime, Graphite, Violet, সাদা",
 		"Mali-G68 (MP5)": "Mali-G৬৮ (MP৫)",
 		"March 2023": "March ২০২৩",
-		"Nano-SIM or Hybrid Dual SIM (market dependent)": "ন্যানো-সিম or Hybrid ডুয়াল সিম (market dependent)",
+		"Nano-SIM বা হাইব্রিড Dual SIM (বাজার নির্ভরশীল)": "ন্যানো-সিম বা হাইব্রিড ডুয়াল সিম (বাজার নির্ভরশীল)",
 		"Octa-core (4×2.4 GHz Cortex-A78 + 4×2.0 GHz Cortex-A55)": "Octa-core (৪×২.৪ GHz Cortex-A৭৮ + ৪×২.০ GHz Cortex-A৫৫)",
-		"Super AMOLED, 120 Hz": "Super AMOLED, ১২০ Hz",
+		"সুপার AMOLED, 120 Hz": "সুপার AMOLED, ১২০ Hz",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac, dual-band": "Wi-Fi ৮০২.১১ a/b/g/n/ac, dual-band",
-		"Yes (region dependent)": "হ্যাঁ (region dependent)",
+		"Yes (region নির্ভরশীল)": "হ্যাঁ (region নির্ভরশীল)",
 	}
 }
 

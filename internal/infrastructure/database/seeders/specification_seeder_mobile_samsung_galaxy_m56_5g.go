@@ -45,7 +45,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM565g) getBanglaTranslations() ma
 		"Li-Po (non-removable)": "লি-পো (অপসারণযোগ্য নয়)",
 		"Nano-SIM + Nano-SIM": "ন্যানো-সিম + ন্যানো-সিম",
 		"Octa-core (4×2.75 GHz + 4×2.0 GHz)": "Octa-core (৪×২.৭৫ GHz + ৪×২.০ GHz)",
-		"Super AMOLED+ 120 Hz": "Super AMOLED+ ১২০ Hz",
+		"সুপার AMOLED+ 120 Hz": "সুপার AMOLED+ ১২০ Hz",
 		"Wi-Fi 802.11 a/b/g/n/ac/6": "Wi-Fi ৮০২.১১ a/b/g/n/ac/৬",
 		"Xclipse 530": "Xclipse ৫৩০",
 	}

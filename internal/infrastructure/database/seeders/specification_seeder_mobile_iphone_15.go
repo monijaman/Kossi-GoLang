@@ -38,7 +38,7 @@ func (s *SpecificationSeederMobileIphone15) getBanglaTranslations() map[string]s
 		"Black, Blue, Green, Yellow, Pink": "কালো, নীল, সবুজ, হলুদ, গোলাপী",
 		"IP68": "IP৬৮",
 		"September 2023": "September ২০২৩",
-		"iOS 17, upgradable": "iOS ১৭, upgradable",
+		"iOS 17, আপগ্রেডযোগ্য": "iOS ১৭, আপগ্রেডযোগ্য",
 	}
 }
 

@@ -33,13 +33,13 @@ func (s *SpecificationSeederMobilePocoX6Pro5g) getBanglaTranslations() map[strin
 		"AMOLED, 120Hz, Dolby Vision, HDR10+": "AMOLED, ১২০Hz, Dolby Vision, HDR১০+",
 		"Android 14, HyperOS": "Android ১৪, HyperOS",
 		"Black, Yellow, Gray": "কালো, হলুদ, ধূসর",
-		"Dimensity 8300 Ultra": "Dimensity ৮৩০০ Ultra",
+		"Dimensity 8300 আল্ট্রা": "Dimensity ৮৩০০ আল্ট্রা",
 		"GSM / HSPA / LTE / 5G": "GSM / HSPA / LTE / ৫G",
-		"Glass front (Gorilla Glass 5), plastic back or silicone polymer back, plastic frame": "গ্লাস সামনে (Gorilla Glass ৫), প্লাস্টিক পেছনে or silicone polymer back, plastic frame",
+		"Glass front (Gorilla Glass 5), plastic back বা সিলিকন পলিমার back, plastic frame": "গ্লাস সামনে (Gorilla Glass ৫), প্লাস্টিক পেছনে বা সিলিকন পলিমার back, plastic frame",
 		"IP54": "IP৫৪",
 		"January 2024": "January ২০২৪",
 		"Mali-G615-MC6": "Mali-G৬১৫-MC৬",
-		"Mediatek Dimensity 8300 Ultra (4 nm)": "Mediatek Dimensity ৮৩০০ Ultra (৪ nm)",
+		"Mediatek Dimensity 8300 আল্ট্রা (4 nm)": "Mediatek Dimensity ৮৩০০ আল্ট্রা (৪ nm)",
 	}
 }
 

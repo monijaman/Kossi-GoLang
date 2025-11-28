@@ -33,7 +33,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS23) getBanglaTranslations() map[
 		"8 GB": "৮ GB",
 		"Adreno 740": "Adreno ৭৪০",
 		"Aluminum frame, glass front/back": "অ্যালুমিনিয়াম ফ্রেম, গ্লাস সামনে/back",
-		"Android 13, upgradable": "Android ১৩, upgradable",
+		"Android 13, আপগ্রেডযোগ্য": "Android ১৩, আপগ্রেডযোগ্য",
 		"Corning Gorilla Glass Victus 2": "Corning Gorilla Glass Victus ২",
 		"Dynamic AMOLED 2X, 120Hz, HDR10+": "Dynamic AMOLED ২X, ১২০Hz, HDR১০+",
 		"February 2023": "February ২০২৩",

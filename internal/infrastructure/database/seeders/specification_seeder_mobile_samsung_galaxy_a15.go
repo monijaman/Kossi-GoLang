@@ -38,7 +38,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA15) getBanglaTranslations() map[
 		"Mali-G57 MC2": "Mali-G৫৭ MC২",
 		"Mediatek Helio G99": "Mediatek Helio G৯৯",
 		"Mediatek Helio G99 (6nm)": "Mediatek Helio G৯৯ (৬nm)",
-		"Super AMOLED, 90Hz, 800 nits": "Super AMOLED, ৯০Hz, ৮০০ nits",
+		"সুপার AMOLED, 90Hz, 800 nits": "সুপার AMOLED, ৯০Hz, ৮০০ nits",
 	}
 }
 

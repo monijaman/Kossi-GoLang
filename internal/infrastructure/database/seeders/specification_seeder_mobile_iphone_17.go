@@ -38,7 +38,7 @@ func (s *SpecificationSeederMobileIphone17) getBanglaTranslations() map[string]s
 		"Glass front/back, aluminum frame": "গ্লাস সামনে/back, অ্যালুমিনিয়াম ফ্রেম",
 		"IP68": "IP৬৮",
 		"September 2024": "September ২০২৪",
-		"Super Retina XDR OLED, HDR10, Dolby Vision": "Super Retina XDR OLED, HDR১০, Dolby Vision",
+		"সুপার Retina XDR OLED, HDR10, Dolby Vision": "সুপার Retina XDR OLED, HDR১০, Dolby Vision",
 		"iOS 18": "iOS ১৮",
 	}
 }

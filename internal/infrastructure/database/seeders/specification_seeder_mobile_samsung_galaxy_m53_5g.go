@@ -34,7 +34,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM535g) getBanglaTranslations() ma
 		"5000 mAh": "৫০০০ এমএএইচ",
 		"6 / 8 GB": "৬ / ৮ GB",
 		"6.7 inches": "৬.৭ ইঞ্চি",
-		"Android 12, One UI 4.1 (or newer)": "Android ১২, One UI ৪.১ (or newer)",
+		"Android 12, One UI 4.1 (or নতুন)": "Android ১২, One UI ৪.১ (or নতুন)",
 		"April 2022": "April ২০২২",
 		"Dimensity 900 (6 nm)": "Dimensity ৯০০ (৬ nm)",
 		"Dual SIM (Nano + Nano)": "ডুয়াল সিম (Nano + Nano)",
@@ -46,7 +46,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM535g) getBanglaTranslations() ma
 		"MediaTek Dimensity 900": "MediaTek Dimensity ৯০০",
 		"Octa-core (2×2.4 GHz Cortex-A78 + 6×2.0 GHz Cortex-A55)": "Octa-core (২×২.৪ GHz Cortex-A৭৮ + ৬×২.০ GHz Cortex-A৫৫)",
 		"Side fingerprint, Accelerometer, Gyro, Proximity, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",
-		"Super AMOLED Plus, 120 Hz": "Super AMOLED Plus, ১২০ Hz",
+		"সুপার AMOLED Plus, 120 Hz": "সুপার AMOLED Plus, ১২০ Hz",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac, dual-band": "Wi-Fi ৮০২.১১ a/b/g/n/ac, dual-band",
 	}

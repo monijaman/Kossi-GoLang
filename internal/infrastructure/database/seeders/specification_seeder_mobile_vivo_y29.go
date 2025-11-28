@@ -30,7 +30,7 @@ func (s *SpecificationSeederMobileVivoY29) getBanglaTranslations() map[string]st
 		"720 x 1608 pixels": "৭২০ x ১৬০৮ pixels",
 		"8 MP": "৮ MP",
 		"90Hz": "৯০Hz",
-		"Android 14, Funtouch 14": "Android ১৪, Funtouch ১৪",
+		"Android 14, ফানটাচ 14": "Android ১৪, ফানটাচ ১৪",
 		"Deep Sea Blue, Pearl White": "Deep Sea নীল, Pearl সাদা",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"Helio G85": "Helio G৮৫",

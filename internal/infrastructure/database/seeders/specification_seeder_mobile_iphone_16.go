@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileIphone16) getBanglaTranslations() map[string]s
 		"Aluminum frame, glass front/back": "অ্যালুমিনিয়াম ফ্রেম, গ্লাস সামনে/back",
 		"Apple A18": "Apple A১৮",
 		"Apple A18 (3 nm)": "Apple A১৮ (৩ nm)",
-		"Black, White, Pink, Teal, Ultramarine": "কালো, সাদা, গোলাপী, টিল, আল্ট্রামেরিন",
+		"Black, White, Pink, Teal, আল্ট্রাmarine": "কালো, সাদা, গোলাপী, টিল, আল্ট্রামেরিন",
 		"IP68": "IP৬৮",
 		"September 2024": "September ২০২৪",
 		"iOS 18": "iOS ১৮",

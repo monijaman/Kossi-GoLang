@@ -22,7 +22,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS22Ultra) getBanglaTranslations()
 	return map[string]string{
 		"108 MP + 10 MP + 10 MP + 12 MP": "১০৮ MP + ১০ MP + ১০ MP + ১২ MP",
 		"120Hz": "১২০Hz",
-		"128 GB / 256 GB / 512 GB / 1 TB": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ TB",
+		"128 GB / 256 GB / 512 GB / 1 টিবি": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"1440 x 3088 pixels": "১৪৪০ x ৩০৮৮ pixels",
 		"163.3 x 77.9 x 8.9 mm": "১৬৩.৩ x ৭৭.৯ x ৮.৯ মিমি",
 		"228 g": "২২৮ g",
@@ -32,7 +32,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS22Ultra) getBanglaTranslations()
 		"6.8 inches": "৬.৮ ইঞ্চি",
 		"8 GB / 12 GB": "৮ GB / ১২ GB",
 		"Aluminum frame, glass front/back": "অ্যালুমিনিয়াম ফ্রেম, গ্লাস সামনে/back",
-		"Android 12, upgradable": "Android ১২, upgradable",
+		"Android 12, আপগ্রেডযোগ্য": "Android ১২, আপগ্রেডযোগ্য",
 		"Dynamic AMOLED 2X, 120Hz, HDR10+": "Dynamic AMOLED ২X, ১২০Hz, HDR১০+",
 		"Exynos 2200 (4 nm)": "Exynos ২২০০ (৪ nm)",
 		"Exynos 2200 / Snapdragon 8 Gen 1": "Exynos ২২০০ / Snapdragon ৮ Gen ১",

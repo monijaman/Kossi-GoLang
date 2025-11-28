@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileXiaomi15Ultra) getBanglaTranslations() map[str
 		"5.4, A2DP, LE, aptX HD": "৫.৪, A২DP, LE, aptX HD",
 		"50 MP + 50 MP + 50 MP + 50 MP": "৫০ MP + ৫০ MP + ৫০ MP + ৫০ MP",
 		"50MP (wide, f/1.6) + 50MP (periscope telephoto 5x, f/2.5) + 50MP (telephoto 3.2x, f/2.0) + 50MP (ultrawide, f/1.8)": "৫০MP (wide, f/১.৬) + ৫০MP (periscope telephoto ৫x, f/২.৫) + ৫০MP (telephoto ৩.২x, f/২.০) + ৫০MP (ultrawide, f/১.৮)",
-		"512 GB / 1 TB": "৫১২ GB / ১ TB",
+		"512 GB / 1 টিবি": "৫১২ GB / ১ টিবি",
 		"6.8 inches": "৬.৮ ইঞ্চি",
 		"8K@24fps, 4K@30/60fps, 1080p@30/60/120/240fps, gyro-EIS, HDR10+, Dolby Vision": "৮K@২৪fps, ৪K@৩০/৬০fps, ১০৮০p@৩০/৬০/১২০/২৪০fps, gyro-EIS, HDR১০+, Dolby Vision",
 		"90W wired (100% in 32 min), 80W wireless (100% in 38 min), 10W reverse wireless": "৯০W তারযুক্ত (১০০% in ৩২ মিনিট), ৮০W বেতার (১০০% in ৩৮ মিনিট), ১০W reverse বেতার",

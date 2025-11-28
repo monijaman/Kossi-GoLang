@@ -41,7 +41,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA565g) getBanglaTranslations() ma
 		"Octa-core (4x2.4 GHz Cortex-A78 & 4x2.0 GHz Cortex-A55)": "Octa-core (৪x২.৪ GHz Cortex-A৭৮ & ৪x২.০ GHz Cortex-A৫৫)",
 		"October 2025": "October ২০২৫",
 		"Samsung Exynos 1380 (5 nm)": "Samsung Exynos ১৩৮০ (৫ nm)",
-		"Super AMOLED, 120Hz": "Super AMOLED, ১২০Hz",
+		"সুপার AMOLED, 120Hz": "সুপার AMOLED, ১২০Hz",
 	}
 }
 

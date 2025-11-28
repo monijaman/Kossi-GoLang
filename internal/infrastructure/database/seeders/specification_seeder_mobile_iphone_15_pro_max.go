@@ -25,7 +25,7 @@ func (s *SpecificationSeederMobileIphone15ProMax) getBanglaTranslations() map[st
 		"1290 x 2796 pixels": "১২৯০ x ২৭৯৬ pixels",
 		"159.9 x 76.7 x 8.3 mm": "১৫৯.৯ x ৭৬.৭ x ৮.৩ মিমি",
 		"221 g": "২২১ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"4,441 mAh": "৪,৪৪১ এমএএইচ",
 		"48 MP + 12 MP + 12 MP": "৪৮ MP + ১২ MP + ১২ MP",
 		"5G": "৫G",
@@ -36,10 +36,10 @@ func (s *SpecificationSeederMobileIphone15ProMax) getBanglaTranslations() map[st
 		"Apple A17 Pro (3 nm)": "Apple A১৭ Pro (৩ nm)",
 		"Black Titanium, White Titanium, Blue Titanium, Natural Titanium": "কালো Titanium, সাদা Titanium, নীল Titanium, ন্যাচারাল Titanium",
 		"IP68": "IP৬৮",
-		"LTPO Super Retina XDR OLED, 120Hz": "LTPO Super Retina XDR OLED, ১২০Hz",
+		"LTPO সুপার Retina XDR OLED, 120Hz": "LTPO সুপার Retina XDR OLED, ১২০Hz",
 		"September 2023": "September ২০২৩",
 		"Titanium frame, glass front/back": "টাইটানিয়াম ফ্রেম, গ্লাস সামনে/back",
-		"iOS 17, upgradable": "iOS ১৭, upgradable",
+		"iOS 17, আপগ্রেডযোগ্য": "iOS ১৭, আপগ্রেডযোগ্য",
 	}
 }
 

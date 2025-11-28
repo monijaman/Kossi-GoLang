@@ -25,7 +25,7 @@ func (s *SpecificationSeederMobileOneplus12) getBanglaTranslations() map[string]
 		"1440 x 3168 pixels": "১৪৪০ x ৩১৬৮ pixels",
 		"164.3 x 75.8 x 9.2 mm": "১৬৪.৩ x ৭৫.৮ x ৯.২ মিমি",
 		"220 g": "২২০ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"32 MP": "৩২ MP",
 		"5,400 mAh": "৫,৪০০ এমএএইচ",
 		"50 MP + 64 MP + 48 MP": "৫০ MP + ৬৪ MP + ৪৮ MP",

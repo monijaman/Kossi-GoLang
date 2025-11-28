@@ -37,8 +37,8 @@ func (s *SpecificationSeederMobileIphoneSe3rdGen) getBanglaTranslations() map[st
 		"Apple A15 Bionic (5 nm)": "Apple A১৫ Bionic (৫ nm)",
 		"IP67": "IP৬৭",
 		"March 2022": "March ২০২২",
-		"Midnight, Starlight, Red": "Midnight, Starlight, লাল",
-		"iOS 15.4, upgradable": "iOS ১৫.৪, upgradable",
+		"মিডনাইট, Starlight, Red": "মিডনাইট, Starlight, লাল",
+		"iOS 15.4, আপগ্রেডযোগ্য": "iOS ১৫.৪, আপগ্রেডযোগ্য",
 	}
 }
 

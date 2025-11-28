@@ -36,7 +36,7 @@ func (s *SpecificationSeederMobileVivoX200Pro) getBanglaTranslations() map[strin
 		"8 / 12 GB": "৮ / ১২ GB",
 		"AMOLED HDR10+": "AMOLED HDR১০+",
 		"AMOLED, 120 Hz": "AMOLED, ১২০ Hz",
-		"Android 11, Funtouch OS 11": "Android ১১, Funtouch OS ১১",
+		"Android 11, ফানটাচ OS 11": "Android ১১, ফানটাচ OS ১১",
 		"Black, Silver": "কালো, রূপালী",
 		"December 2022": "December ২০২২",
 		"Dimensity 1200 (6 nm)": "Dimensity ১২০০ (৬ nm)",

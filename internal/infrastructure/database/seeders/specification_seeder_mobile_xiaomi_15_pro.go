@@ -25,7 +25,7 @@ func (s *SpecificationSeederMobileXiaomi15Pro) getBanglaTranslations() map[strin
 		"1440 x 3200 pixels": "১৪৪০ x ৩২০০ pixels",
 		"161.3 x 75.3 x 8.4 mm": "১৬১.৩ x ৭৫.৩ x ৮.৪ মিমি",
 		"213 g": "২১৩ g",
-		"256 GB / 512 GB / 1 TB": "২৫৬ GB / ৫১২ GB / ১ TB",
+		"256 GB / 512 GB / 1 টিবি": "২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"32 MP": "৩২ MP",
 		"50 MP + 50 MP + 50 MP": "৫০ MP + ৫০ MP + ৫০ MP",
 		"5G": "৫G",

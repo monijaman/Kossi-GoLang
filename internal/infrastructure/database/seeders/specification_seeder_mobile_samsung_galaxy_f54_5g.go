@@ -46,7 +46,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyF545g) getBanglaTranslations() ma
 		"Mali-G68 MP5": "Mali-G৬৮ MP৫",
 		"Nano-SIM + Nano-SIM": "ন্যানো-সিম + ন্যানো-সিম",
 		"Side fingerprint, Accelerometer, Gyro, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, কম্পাস",
-		"Super AMOLED+, 120 Hz": "Super AMOLED+, ১২০ Hz",
+		"সুপার AMOLED+, 120 Hz": "সুপার AMOLED+, ১২০ Hz",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
 	}
 }

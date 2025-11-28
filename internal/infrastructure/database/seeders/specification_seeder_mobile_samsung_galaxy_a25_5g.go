@@ -22,7 +22,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA255g) getBanglaTranslations() ma
 	return map[string]string{
 		"1080p @ 30fps": "১০৮০p @ ৩০fps",
 		"120 Hz": "১২০ Hz",
-		"128 / 256 GB + microSD (up to 1 TB)": "১২৮ / ২৫৬ GB + microSD (পর্যন্ত ১ TB)",
+		"128 / 256 GB + microSD (up to 1 টিবি)": "১২৮ / ২৫৬ GB + microSD (পর্যন্ত ১ টিবি)",
 		"13 MP": "১৩ MP",
 		"161 × 76.5 × 8.3 mm": "১৬১ × ৭৬.৫ × ৮.৩ মিমি",
 		"197 g": "১৯৭ g",
@@ -44,9 +44,9 @@ func (s *SpecificationSeederMobileSamsungGalaxyA255g) getBanglaTranslations() ma
 		"Glass front, plastic frame / back": "গ্লাস সামনে, plastic frame / back",
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
 		"Mali-G68": "Mali-G৬৮",
-		"Nano-SIM (or hybrid)": "ন্যানো-সিম (or hybrid)",
+		"Nano-SIM (or হাইব্রিড)": "ন্যানো-সিম (or হাইব্রিড)",
 		"Octa-core (2×2.4 GHz Cortex-A78 + 6×2.0 GHz Cortex-A55)": "Octa-core (২×২.৪ GHz Cortex-A৭৮ + ৬×২.০ GHz Cortex-A৫৫)",
-		"Super AMOLED, 120 Hz": "Super AMOLED, ১২০ Hz",
+		"সুপার AMOLED, 120 Hz": "সুপার AMOLED, ১২০ Hz",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
 	}

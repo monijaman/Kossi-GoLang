@@ -33,7 +33,7 @@ func (s *SpecificationSeederMobileVivoV40Lite) getBanglaTranslations() map[strin
 		"6.38 inches": "৬.৩৮ ইঞ্চি",
 		"60 Hz": "৬০ Hz",
 		"AMOLED, 60 Hz": "AMOLED, ৬০ Hz",
-		"Android 12, Funtouch OS 12": "Android ১২, Funtouch OS ১২",
+		"Android 12, ফানটাচ OS 12": "Android ১২, ফানটাচ OS ১২",
 		"Black, Blue, Pink": "কালো, নীল, গোলাপী",
 		"Dimensity 810 (6 nm)": "Dimensity ৮১০ (৬ nm)",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",

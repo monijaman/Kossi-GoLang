@@ -39,7 +39,7 @@ func (s *SpecificationSeederMobileOneplusNordCe4Lite5g) getBanglaTranslations() 
 		"June 2024": "June ২০২৪",
 		"Qualcomm SM6375 Snapdragon 695 5G (6 nm)": "Qualcomm SM৬৩৭৫ Snapdragon ৬৯৫ ৫G (৬ nm)",
 		"Snapdragon 695 5G": "Snapdragon ৬৯৫ ৫G",
-		"Super Silver, Mega Blue, Ultra Orange": "Super রূপালী, Mega নীল, Ultra Orange",
+		"সুপার Silver, মেগা Blue, আল্ট্রা কমলা": "সুপার রূপালী, মেগা নীল, আল্ট্রা কমলা",
 	}
 }
 

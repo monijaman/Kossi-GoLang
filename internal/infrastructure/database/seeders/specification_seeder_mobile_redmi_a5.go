@@ -30,13 +30,13 @@ func (s *SpecificationSeederMobileRedmiA5) getBanglaTranslations() map[string]st
 		"720 x 1650 pixels": "৭২০ x ১৬৫০ pixels",
 		"8 MP + 0.08 MP": "৮ MP + ০.০৮ MP",
 		"90Hz": "৯০Hz",
-		"Android 14 (Go edition)": "Android ১৪ (Go edition)",
+		"Android 14 (Go এডিশন)": "Android ১৪ (Go এডিশন)",
 		"February 2025": "February ২০২৫",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"Helio G36": "Helio G৩৬",
 		"IPS LCD, 90Hz": "IPS LCD, ৯০Hz",
 		"Mediatek Helio G36 (12 nm)": "Mediatek Helio G৩৬ (১২ nm)",
-		"Midnight Black, Lake Blue, Olive Green": "Midnight কালো, Lake নীল, Olive সবুজ",
+		"মিডনাইট Black, Lake Blue, Olive Green": "মিডনাইট কালো, Lake নীল, Olive সবুজ",
 		"PowerVR GE8320": "PowerVR GE৮৩২০",
 	}
 }

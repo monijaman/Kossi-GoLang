@@ -40,7 +40,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyM065g) getBanglaTranslations() ma
 		"Glass front, plastic back": "গ্লাস সামনে, প্লাস্টিক পেছনে",
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
 		"MediaTek Dimensity 6300": "MediaTek Dimensity ৬৩০০",
-		"Nano-SIM + Nano-SIM or hybrid": "ন্যানো-সিম + ন্যানো-সিম or hybrid",
+		"Nano-SIM + Nano-SIM বা হাইব্রিড": "ন্যানো-সিম + ন্যানো-সিম বা হাইব্রিড",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
 	}
 }

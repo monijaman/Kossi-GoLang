@@ -39,7 +39,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA155g) getBanglaTranslations() ma
 		"Mali-G57 MC2": "Mali-G৫৭ MC২",
 		"Mediatek Dimensity 6100+": "Mediatek Dimensity ৬১০০+",
 		"Mediatek Dimensity 6100+ (6 nm)": "Mediatek Dimensity ৬১০০+ (৬ nm)",
-		"Super AMOLED, 90Hz, 800 nits": "Super AMOLED, ৯০Hz, ৮০০ nits",
+		"সুপার AMOLED, 90Hz, 800 nits": "সুপার AMOLED, ৯০Hz, ৮০০ nits",
 	}
 }
 

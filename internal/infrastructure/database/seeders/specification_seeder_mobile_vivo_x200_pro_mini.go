@@ -35,7 +35,7 @@ func (s *SpecificationSeederMobileVivoX200ProMini) getBanglaTranslations() map[s
 		"6.44 inches": "৬.৪৪ ইঞ্চি",
 		"90 Hz": "৯০ Hz",
 		"AMOLED, 90 Hz": "AMOLED, ৯০ Hz",
-		"Android 11, Funtouch OS 11": "Android ১১, Funtouch OS ১১",
+		"Android 11, ফানটাচ OS 11": "Android ১১, ফানটাচ OS ১১",
 		"Black, Blue": "কালো, নীল",
 		"Dimensity 1100 (6 nm)": "Dimensity ১১০০ (৬ nm)",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",

@@ -30,12 +30,12 @@ func (s *SpecificationSeederMobileVivoY21d) getBanglaTranslations() map[string]s
 		"64 GB": "৬৪ GB",
 		"720 x 1600 pixels": "৭২০ x ১৬০০ pixels",
 		"8 MP": "৮ MP",
-		"Android 11, Funtouch 11.1": "Android ১১, Funtouch ১১.১",
+		"Android 11, ফানটাচ 11.1": "Android ১১, ফানটাচ ১১.১",
 		"August 2021": "August ২০২১",
 		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
 		"Helio P35": "Helio P৩৫",
 		"Mediatek Helio P35 (12nm)": "Mediatek Helio P৩৫ (১২nm)",
-		"Midnight Blue, Diamond Glow": "Midnight নীল, Diamond Glow",
+		"মিডনাইট Blue, Diamond Glow": "মিডনাইট নীল, Diamond Glow",
 		"PowerVR GE8320": "PowerVR GE৮৩২০",
 	}
 }

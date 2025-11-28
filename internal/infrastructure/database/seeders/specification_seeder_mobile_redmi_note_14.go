@@ -33,14 +33,14 @@ func (s *SpecificationSeederMobileRedmiNote14) getBanglaTranslations() map[strin
 		"6.67 inches": "৬.৬৭ ইঞ্চি",
 		"Android 14, HyperOS": "Android ১৪, HyperOS",
 		"Corning Gorilla Glass 5": "Corning Gorilla Glass ৫",
-		"Dimensity 7025 Ultra": "Dimensity ৭০২৫ Ultra",
+		"Dimensity 7025 আল্ট্রা": "Dimensity ৭০২৫ আল্ট্রা",
 		"Glass front, plastic frame, plastic back": "গ্লাস সামনে, plastic frame, প্লাস্টিক পেছনে",
 		"IMG BXM-8-256": "IMG BXM-৮-২৫৬",
 		"IP64": "IP৬৪",
-		"Mediatek Dimensity 7025 Ultra (6 nm)": "Mediatek Dimensity ৭০২৫ Ultra (৬ nm)",
+		"Mediatek Dimensity 7025 আল্ট্রা (6 nm)": "Mediatek Dimensity ৭০২৫ আল্ট্রা (৬ nm)",
 		"OLED, 120Hz, 2100 nits": "OLED, ১২০Hz, ২১০০ nits",
 		"September 2024": "September ২০২৪",
-		"Starry White, Midnight Black, Phantom Blue": "Starry সাদা, Midnight কালো, Phantom নীল",
+		"Starry White, মিডনাইট Black, Phantom Blue": "Starry সাদা, মিডনাইট কালো, Phantom নীল",
 	}
 }
 

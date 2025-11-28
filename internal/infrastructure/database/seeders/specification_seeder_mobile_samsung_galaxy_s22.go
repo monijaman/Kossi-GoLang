@@ -32,7 +32,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyS22) getBanglaTranslations() map[
 		"6.1 inches": "৬.১ ইঞ্চি",
 		"8 GB": "৮ GB",
 		"Aluminum frame, glass front/back": "অ্যালুমিনিয়াম ফ্রেম, গ্লাস সামনে/back",
-		"Android 12, upgradable": "Android ১২, upgradable",
+		"Android 12, আপগ্রেডযোগ্য": "Android ১২, আপগ্রেডযোগ্য",
 		"Dynamic AMOLED 2X, 120Hz, HDR10+": "Dynamic AMOLED ২X, ১২০Hz, HDR১০+",
 		"Exynos 2200 (4 nm)": "Exynos ২২০০ (৪ nm)",
 		"Exynos 2200 / Snapdragon 8 Gen 1": "Exynos ২২০০ / Snapdragon ৮ Gen ১",

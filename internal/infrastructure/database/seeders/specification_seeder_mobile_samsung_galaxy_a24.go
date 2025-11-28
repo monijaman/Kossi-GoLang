@@ -47,7 +47,7 @@ func (s *SpecificationSeederMobileSamsungGalaxyA24) getBanglaTranslations() map[
 		"Side-mounted fingerprint, Accelerometer, Gyro, Proximity, Compass": "পাশে মাউন্ট ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",
 		"USB-C 2.0": "USB-C ২.০",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
-		"Yes (market dependent)": "হ্যাঁ (market dependent)",
+		"Yes (বাজার নির্ভরশীল)": "হ্যাঁ (বাজার নির্ভরশীল)",
 		"Yes, 3.5 mm": "হ্যাঁ, ৩.৫ মিমি",
 	}
 }

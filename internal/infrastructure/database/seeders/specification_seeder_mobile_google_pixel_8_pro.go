@@ -23,7 +23,7 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) getBanglaTranslations() map[s
 		"1-120Hz": "১-১২০Hz",
 		"10.5 MP": "১০.৫ MP",
 		"12 GB": "১২ GB",
-		"128 GB / 256 GB / 512 GB / 1 TB": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ TB",
+		"128 GB / 256 GB / 512 GB / 1 টিবি": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ টিবি",
 		"1344 x 2992 pixels": "১৩৪৪ x ২৯৯২ pixels",
 		"162.6 x 76.5 x 8.8 mm": "১৬২.৬ x ৭৬.৫ x ৮.৮ মিমি",
 		"213 g": "২১৩ g",

@@ -42,10 +42,10 @@ func (s *SpecificationSeederMobileSamsungGalaxyM165g) getBanglaTranslations() ma
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
 		"Mali-G57 MC2": "Mali-G৫৭ MC২",
 		"MediaTek Dimensity 6300": "MediaTek Dimensity ৬৩০০",
-		"Nano-SIM + Nano-SIM (hybrid)": "ন্যানো-সিম + ন্যানো-সিম (hybrid)",
+		"Nano-SIM + Nano-SIM (হাইব্রিড)": "ন্যানো-সিম + ন্যানো-সিম (হাইব্রিড)",
 		"Octa-core (2×2.4 GHz Cortex-A76 + 6×2.0 GHz Cortex-A55)": "Octa-core (২×২.৪ GHz Cortex-A৭৬ + ৬×২.০ GHz Cortex-A৫৫)",
 		"Side fingerprint, Accelerometer, Gyro, Proximity, Compass": "Side ফিঙ্গারপ্রিন্ট, অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",
-		"Thunder Black, Mint Green, Blush Pink": "Thunder কালো, Mint সবুজ, Blush গোলাপী",
+		"Thunder Black, মিন্ট Green, Blush Pink": "Thunder কালো, মিন্ট সবুজ, Blush গোলাপী",
 		"USB-C (no 3.5mm)": "USB-C (no ৩.৫mm)",
 		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
 	}

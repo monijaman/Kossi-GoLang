@@ -36,7 +36,7 @@ func (s *SpecificationSeederMobileVivoV50) getBanglaTranslations() map[string]st
 		"AMOLED display, 5G support": "AMOLED display, ৫G support",
 		"AMOLED, 60 Hz": "AMOLED, ৬০ Hz",
 		"Adreno 620": "Adreno ৬২০",
-		"Android 11, Funtouch OS 11": "Android ১১, Funtouch OS ১১",
+		"Android 11, ফানটাচ OS 11": "Android ১১, ফানটাচ OS ১১",
 		"Black, Blue": "কালো, নীল",
 		"December 2020": "December ২০২০",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",

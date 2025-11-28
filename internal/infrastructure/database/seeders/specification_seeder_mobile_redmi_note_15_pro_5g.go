@@ -36,7 +36,7 @@ func (s *SpecificationSeederMobileRedmiNote15Pro5g) getBanglaTranslations() map[
 		"Android 15, HyperOS": "Android ১৫, HyperOS",
 		"Glass front/back, plastic frame": "গ্লাস সামনে/back, plastic frame",
 		"IP68": "IP৬৮",
-		"Midnight Black, Aurora Purple, Ocean Teal": "Midnight কালো, Aurora বেগুনি, Ocean টিল",
+		"মিডনাইট Black, Aurora Purple, Ocean Teal": "মিডনাইট কালো, Aurora বেগুনি, Ocean টিল",
 		"Qualcomm Snapdragon 7s Gen 3 (4 nm)": "Qualcomm Snapdragon ৭s Gen ৩ (৪ nm)",
 		"September 2025": "September ২০২৫",
 		"Snapdragon 7s Gen 3": "Snapdragon ৭s Gen ৩",

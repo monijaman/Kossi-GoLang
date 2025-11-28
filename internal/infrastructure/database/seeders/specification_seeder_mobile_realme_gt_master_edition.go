@@ -44,7 +44,7 @@ func (s *SpecificationSeederMobileRealmeGtMasterEdition) getBanglaTranslations()
 		"Octa-core (4×2.4 GHz Cortex-A78 + 4×1.8 GHz Cortex-A55)": "Octa-core (৪×২.৪ GHz Cortex-A৭৮ + ৪×১.৮ GHz Cortex-A৫৫)",
 		"Qualcomm Snapdragon 778G": "Qualcomm Snapdragon ৭৭৮G",
 		"Snapdragon 778G (6 nm)": "Snapdragon ৭৭৮G (৬ nm)",
-		"Super AMOLED, 120 Hz": "Super AMOLED, ১২০ Hz",
+		"সুপার AMOLED, 120 Hz": "সুপার AMOLED, ১২০ Hz",
 		"USB-C 2.0": "USB-C ২.০",
 		"Voyager Grey, Daybreak Blue": "Voyager ধূসর, Daybreak নীল",
 		"Wi-Fi 802.11 a/b/g/n/ac/6": "Wi-Fi ৮০২.১১ a/b/g/n/ac/৬",
