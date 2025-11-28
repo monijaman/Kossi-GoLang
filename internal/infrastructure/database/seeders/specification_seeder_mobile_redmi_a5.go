@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileRedmiA5 seeds specifications/options for product 'redmi-a5'
@@ -22,26 +21,26 @@ func (s *SpecificationSeederMobileRedmiA5) getBanglaTranslations() map[string]st
 	return map[string]string{
 		"10W wired": "১০W তারযুক্ত",
 		"199 g": "১৯৯ g",
-		"3 GB / 4 GB": "৩ GB / ৪ GB",
-		"5 MP": "৫ MP",
+		"3 GB / 4 GB": "৩ জিবি / ৪ GB",
+		"5 MP": "৫ মেগাপিক্সেল",
 		"5000 mAh": "৫০০০ এমএএইচ",
 		"6.7 inches": "৬.৭ ইঞ্চি",
-		"64 GB / 128 GB": "৬৪ GB / ১২৮ GB",
-		"720 x 1650 pixels": "৭২০ x ১৬৫০ pixels",
-		"8 MP + 0.08 MP": "৮ MP + ০.০৮ MP",
+		"64 GB / 128 GB": "৬৪ জিবি / ১২৮ GB",
+		"720 x 1650 pixels": "৭২০ x ১৬৫০ পিক্সেল",
+		"8 MP + 0.08 MP": "৮ মেগাপিক্সেল + ০.০৮ মেগাপিক্সেল",
 		"90Hz": "৯০Hz",
-		"Android 14 (Go এডিশন)": "Android ১৪ (Go এডিশন)",
-		"February 2025": "February ২০২৫",
-		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
-		"Helio G36": "Helio G৩৬",
-		"IPS LCD, 90Hz": "IPS LCD, ৯০Hz",
-		"Mediatek Helio G36 (12 nm)": "Mediatek Helio G৩৬ (১২ nm)",
-		"মিডনাইট Black, Lake Blue, Olive Green": "মিডনাইট কালো, Lake নীল, Olive সবুজ",
-		"PowerVR GE8320": "PowerVR GE৮৩২০",
+		"Android 14 (Go edition)": "অ্যান্ড্রয়েড ১৪ (Go edition)",
+		"February 2025": "ফেব্রুয়ারি ২০২৫",
+		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, প্লাস্টিক ফ্রেম",
+		"Helio G36": "হেলিও G৩৬",
+		"IPS LCD, 90Hz": "আইপিএস এলসিডি, ৯০Hz",
+		"Mediatek Helio G36 (12 nm)": "মিডিয়াটেক হেলিও G৩৬ (১২ ন্যানোমিটার)",
+		"Midnight Black, Lake Blue, Olive Green": "মিডনাইট কালো, লেক নীল, অলিভ সবুজ",
+		"PowerVR GE8320": "পাওয়ারভিআর GE৮৩২০",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'redmi-a5'
+// Seed inserts specification records for the product identified by slug 'redmi-a5'
 func (s *SpecificationSeederMobileRedmiA5) Seed(db *gorm.DB) error {
 	productSlug := "redmi-a5"
 
@@ -52,28 +51,95 @@ func (s *SpecificationSeederMobileRedmiA5) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Redmi A5
+	specs["Display Size"] = "6.7 inches"
+	specs["Processor"] = "Helio G36"
+	specs["Chipset"] = "Mediatek Helio G36 (12 nm)"
+	specs["Cpu Type"] = "Octa-core"
+	specs["Gpu Type"] = "PowerVR GE8320"
+	specs["Ram"] = "3 GB / 4 GB"
+	specs["Storage"] = "64 GB / 128 GB"
+	specs["Display Type"] = "IPS LCD, 90Hz"
+	specs["Resolution"] = "720 x 1650 pixels"
+	specs["Refresh Rate"] = "90Hz"
+	specs["Build Material"] = "Glass front, plastic back, plastic frame"
+	specs["Weight"] = "199 g"
+	specs["Water Resistance"] = "No"
+	specs["Network Technology"] = "GSM / HSPA / LTE"
+	specs["Rear Camera"] = "8 MP + 0.08 MP"
+	specs["Front Camera"] = "5 MP"
+	specs["Battery"] = "5000 mAh"
+	specs["Fast Charging"] = "10W wired"
+	specs["Operating System"] = "Android 14 (Go edition)"
+	specs["Available Colors"] = "Midnight Black, Lake Blue, Olive Green"
+	specs["Announcement Date"] = "February 2025"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}

@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileWaltonOrbitY70c seeds specifications/options for product 'walton-orbit-y70c'
@@ -26,21 +25,21 @@ func (s *SpecificationSeederMobileWaltonOrbitY70c) getBanglaTranslations() map[s
 		"32 GB": "৩২ GB",
 		"4,000 mAh": "৪,০০০ এমএএইচ",
 		"4G": "৪G",
-		"5 MP": "৫ MP",
+		"5 MP": "৫ মেগাপিক্সেল",
 		"6.5 inches": "৬.৫ ইঞ্চি",
 		"60Hz": "৬০Hz",
-		"720 x 1600 pixels": "৭২০ x ১৬০০ pixels",
-		"8 MP + 0.3 MP": "৮ MP + ০.৩ MP",
-		"Android 12 Go Edition": "Android ১২ Go Edition",
+		"720 x 1600 pixels": "৭২০ x ১৬০০ পিক্সেল",
+		"8 MP + 0.3 MP": "৮ মেগাপিক্সেল + ০.৩ মেগাপিক্সেল",
+		"Android 12 Go Edition": "অ্যান্ড্রয়েড ১২ Go Edition",
 		"Blue, Green": "নীল, সবুজ",
-		"Helio A22": "Helio A২২",
-		"June 2023": "June ২০২৩",
-		"Mediatek Helio A22 (12 nm)": "Mediatek Helio A২২ (১২ nm)",
-		"PowerVR GE8320": "PowerVR GE৮৩২০",
+		"Helio A22": "হেলিও A২২",
+		"June 2023": "জুন ২০২৩",
+		"Mediatek Helio A22 (12 nm)": "মিডিয়াটেক হেলিও A২২ (১২ ন্যানোমিটার)",
+		"PowerVR GE8320": "পাওয়ারভিআর GE৮৩২০",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'walton-orbit-y70c'
+// Seed inserts specification records for the product identified by slug 'walton-orbit-y70c'
 func (s *SpecificationSeederMobileWaltonOrbitY70c) Seed(db *gorm.DB) error {
 	productSlug := "walton-orbit-y70c"
 
@@ -51,28 +50,96 @@ func (s *SpecificationSeederMobileWaltonOrbitY70c) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Walton ORBIT Y70C
+	specs["Display Size"] = "6.5 inches"
+	specs["Processor"] = "Helio A22"
+	specs["Chipset"] = "Mediatek Helio A22 (12 nm)"
+	specs["Cpu Type"] = "Quad-core"
+	specs["Gpu Type"] = "PowerVR GE8320"
+	specs["Ram"] = "3 GB"
+	specs["Storage"] = "32 GB"
+	specs["Display Type"] = "IPS LCD"
+	specs["Resolution"] = "720 x 1600 pixels"
+	specs["Screen Protection"] = "Glass front"
+	specs["Refresh Rate"] = "60Hz"
+	specs["Build Material"] = "Plastic body"
+	specs["Weight"] = "188 g"
+	specs["Dimensions"] = "164.5 x 76 x 9 mm"
+	specs["Water Resistance"] = "No"
+	specs["Network Technology"] = "4G"
+	specs["Rear Camera"] = "8 MP + 0.3 MP"
+	specs["Front Camera"] = "5 MP"
+	specs["Battery"] = "4,000 mAh"
+	specs["Operating System"] = "Android 12 Go Edition"
+	specs["Available Colors"] = "Blue, Green"
+	specs["Announcement Date"] = "June 2023"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}

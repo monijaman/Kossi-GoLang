@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileTecnoSpark40 seeds specifications/options for product 'tecno-spark-40'
@@ -23,25 +22,25 @@ func (s *SpecificationSeederMobileTecnoSpark40) getBanglaTranslations() map[stri
 		"128 GB": "১২৮ GB",
 		"163.7 x 75.6 x 8.5 mm": "১৬৩.৭ x ৭৫.৬ x ৮.৫ মিমি",
 		"185 g": "১৮৫ g",
-		"32 MP": "৩২ MP",
+		"32 MP": "৩২ মেগাপিক্সেল",
 		"4G": "৪G",
 		"5,000 mAh": "৫,০০০ এমএএইচ",
-		"50 MP + AI": "৫০ MP + AI",
+		"50 MP + AI": "৫০ মেগাপিক্সেল + এআই",
 		"6.6 inches": "৬.৬ ইঞ্চি",
-		"720 x 1612 pixels": "৭২০ x ১৬১২ pixels",
+		"720 x 1612 pixels": "৭২০ x ১৬১২ পিক্সেল",
 		"8 GB": "৮ GB",
 		"90Hz": "৯০Hz",
-		"Android 13, HIOS 13": "Android ১৩, HIOS ১৩",
-		"December 2023": "December ২০২৩",
-		"Gravity Black, Cyber White": "Gravity কালো, Cyber সাদা",
-		"Helio G85": "Helio G৮৫",
-		"IPS LCD, 90Hz": "IPS LCD, ৯০Hz",
-		"Mali-G52 MC2": "Mali-G৫২ MC২",
-		"Mediatek Helio G85 (12 nm)": "Mediatek Helio G৮৫ (১২ nm)",
+		"Android 13, HIOS 13": "অ্যান্ড্রয়েড ১৩, HIOS ১৩",
+		"December 2023": "ডিসেম্বর ২০২৩",
+		"Gravity Black, Cyber White": "গ্র্যাভিটি কালো, সাইবার সাদা",
+		"Helio G85": "হেলিও G৮৫",
+		"IPS LCD, 90Hz": "আইপিএস এলসিডি, ৯০Hz",
+		"Mali-G52 MC2": "মালি-G৫২ MC২",
+		"Mediatek Helio G85 (12 nm)": "মিডিয়াটেক হেলিও G৮৫ (১২ ন্যানোমিটার)",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'tecno-spark-40'
+// Seed inserts specification records for the product identified by slug 'tecno-spark-40'
 func (s *SpecificationSeederMobileTecnoSpark40) Seed(db *gorm.DB) error {
 	productSlug := "tecno-spark-40"
 
@@ -52,28 +51,96 @@ func (s *SpecificationSeederMobileTecnoSpark40) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Tecno SPARK 40
+	specs["Display Size"] = "6.6 inches"
+	specs["Processor"] = "Helio G85"
+	specs["Chipset"] = "Mediatek Helio G85 (12 nm)"
+	specs["Cpu Type"] = "Octa-core"
+	specs["Gpu Type"] = "Mali-G52 MC2"
+	specs["Ram"] = "8 GB"
+	specs["Storage"] = "128 GB"
+	specs["Display Type"] = "IPS LCD, 90Hz"
+	specs["Resolution"] = "720 x 1612 pixels"
+	specs["Screen Protection"] = "Glass front"
+	specs["Refresh Rate"] = "90Hz"
+	specs["Build Material"] = "Plastic body"
+	specs["Weight"] = "185 g"
+	specs["Dimensions"] = "163.7 x 75.6 x 8.5 mm"
+	specs["Water Resistance"] = "No"
+	specs["Network Technology"] = "4G"
+	specs["Rear Camera"] = "50 MP + AI"
+	specs["Front Camera"] = "32 MP"
+	specs["Battery"] = "5,000 mAh"
+	specs["Operating System"] = "Android 13, HIOS 13"
+	specs["Available Colors"] = "Gravity Black, Cyber White"
+	specs["Announcement Date"] = "December 2023"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}

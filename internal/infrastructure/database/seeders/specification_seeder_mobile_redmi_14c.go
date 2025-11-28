@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileRedmi14c seeds specifications/options for product 'redmi-14c'
@@ -22,9 +21,9 @@ func (s *SpecificationSeederMobileRedmi14c) getBanglaTranslations() map[string]s
 	return map[string]string{
 		"1080p @ 30fps": "১০৮০p @ ৩০fps",
 		"120 Hz": "১২০ Hz",
-		"128 / 256 GB + microSD": "১২৮ / ২৫৬ GB + microSD",
-		"13 MP": "১৩ MP",
-		"1640 × 720 px": "১৬৪০ × ৭২০ px",
+		"128 / 256 GB + microSD": "১২৮ / ২৫৬ জিবি + মাইক্রোএসডি",
+		"13 MP": "১৩ মেগাপিক্সেল",
+		"1640 × 720 px": "১৬৪০ × ৭২০ পিক্সেল",
 		"171.88 × 77.8 × 8.22 mm": "১৭১.৮৮ × ৭৭.৮ × ৮.২২ মিমি",
 		"18 W wired": "১৮ W তারযুক্ত",
 		"2024": "২০২৪",
@@ -32,22 +31,22 @@ func (s *SpecificationSeederMobileRedmi14c) getBanglaTranslations() map[string]s
 		"3.5 mm": "৩.৫ মিমি",
 		"4 / 6 GB": "৪ / ৬ GB",
 		"5.4": "৫.৪",
-		"50 MP + second lens": "৫০ MP + second lens",
+		"50 MP + second lens": "৫০ মেগাপিক্সেল + second lens",
 		"5160 mAh": "৫১৬০ এমএএইচ",
 		"6.88 inches": "৬.৮৮ ইঞ্চি",
-		"Android 14 + HyperOS": "Android ১৪ + HyperOS",
-		"Helio G81‑আল্ট্রা": "Helio G৮১‑আল্ট্রা",
+		"Android 14 + HyperOS": "অ্যান্ড্রয়েড ১৪ + হাইপার ওএস",
+		"Helio G81‑Ultra": "হেলিও G৮১‑আল্ট্রা",
 		"Li‑Ion (non-removable)": "Li‑Ion (অপসারণযোগ্য নয়)",
-		"Mali‑G52 MC2": "Mali‑G৫২ MC২",
-		"MediaTek Helio G81‑আল্ট্রা": "MediaTek Helio G৮১‑আল্ট্রা",
-		"মিডনাইট Black, Sage Green, Dreamy Purple, Starry Blue": "মিডনাইট কালো, Sage সবুজ, Dreamy বেগুনি, Starry নীল",
+		"Mali‑G52 MC2": "মালি‑G৫২ MC২",
+		"MediaTek Helio G81‑Ultra": "মিডিয়াটেক হেলিও G৮১‑আল্ট্রা",
+		"Midnight Black, Sage Green, Dreamy Purple, Starry Blue": "মিডনাইট কালো, Sage সবুজ, Dreamy বেগুনি, স্টারি নীল",
 		"Plastic back, glass front": "প্লাস্টিক পেছনে, গ্লাস সামনে",
-		"Side fingerprint, Ambient, Accelerometer, Compass": "Side ফিঙ্গারপ্রিন্ট, Ambient, অ্যাক্সিলেরোমিটার, কম্পাস",
+		"Side fingerprint, Ambient, Accelerometer, Compass": "সাইড ফিঙ্গারপ্রিন্ট, Ambient, অ্যাক্সিলেরোমিটার, কম্পাস",
 		"Wi‑Fi 802.11 a/b/g/n/ac": "Wi‑Fi ৮০২.১১ a/b/g/n/ac",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'redmi-14c'
+// Seed inserts specification records for the product identified by slug 'redmi-14c'
 func (s *SpecificationSeederMobileRedmi14c) Seed(db *gorm.DB) error {
 	productSlug := "redmi-14c"
 
@@ -58,28 +57,112 @@ func (s *SpecificationSeederMobileRedmi14c) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Redmi 14C
+	specs["Display Size"] = "6.88 inches"
+	specs["Processor"] = "MediaTek Helio G81‑Ultra"
+	specs["Chipset"] = "Helio G81‑Ultra"
+	specs["Cpu Type"] = "Octa-core"
+	specs["Gpu Type"] = "Mali‑G52 MC2"
+	specs["Ram"] = "4 / 6 GB"
+	specs["Storage"] = "128 / 256 GB + microSD"
+	specs["Display Type"] = "IPS LCD"
+	specs["Resolution"] = "1640 × 720 px"
+	specs["Refresh Rate"] = "120 Hz"
+	specs["Build Material"] = "Plastic back, glass front"
+	specs["Weight"] = "204–211 g"
+	specs["Dimensions"] = "171.88 × 77.8 × 8.22 mm"
+	specs["Network Technology"] = "GSM / HSPA / LTE"
+	specs["Wifi Support"] = "Wi‑Fi 802.11 a/b/g/n/ac"
+	specs["Bluetooth Version"] = "5.4"
+	specs["Nfc Support"] = "No"
+	specs["Usb Type"] = "USB‑C"
+	specs["Rear Camera"] = "50 MP + second lens"
+	specs["Camera Features"] = "LED flash, HDR, Time-lapse"
+	specs["Camera Video Resolution"] = "1080p @ 30fps"
+	specs["Optical Zoom"] = "None"
+	specs["Front Camera"] = "13 MP"
+	specs["Front Camera Video Resolution"] = "1080p @ 30fps"
+	specs["Operating System"] = "Android 14 + HyperOS"
+	specs["Battery"] = "5160 mAh"
+	specs["Battery Type"] = "Li‑Ion (non-removable)"
+	specs["Fast Charging"] = "18 W wired"
+	specs["Wireless Charging"] = "No"
+	specs["5G Support"] = "No"
+	specs["Positioning System"] = "GPS, GLONASS, etc."
+	specs["Sensors"] = "Side fingerprint, Ambient, Accelerometer, Compass"
+	specs["Special Features"] = "Memory extension"
+	specs["Sim Card Type"] = "Dual Nano SIM"
+	specs["Loudspeaker Quality"] = "Single speaker"
+	specs["Audio Jack"] = "3.5 mm"
+	specs["Available Colors"] = "Midnight Black, Sage Green, Dreamy Purple, Starry Blue"
+	specs["Announcement Date"] = "2024"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}

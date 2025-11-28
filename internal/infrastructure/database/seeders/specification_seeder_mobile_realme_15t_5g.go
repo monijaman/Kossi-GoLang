@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileRealme15t5g seeds specifications/options for product 'realme-15t-5g'
@@ -25,30 +24,30 @@ func (s *SpecificationSeederMobileRealme15t5g) getBanglaTranslations() map[strin
 		"128 / 256 GB": "১২৮ / ২৫৬ GB",
 		"187 g": "১৮৭ g",
 		"2023": "২০২৩",
-		"2412 × 1080 px (~400 ppi)": "২৪১২ × ১০৮০ px (~৪০০ ppi)",
-		"3.5 mm headphone jack": "৩.৫ মিমি headphone jack",
+		"2412 × 1080 px (~400 ppi)": "২৪১২ × ১০৮০ পিক্সেল (~৪০০ পিপিআই)",
+		"3.5 mm headphone jack": "৩.৫ মিমি হেডফোন জ্যাক",
 		"33 W wired": "৩৩ W তারযুক্ত",
 		"4 / 6 GB": "৪ / ৬ GB",
-		"48 MP + 2 MP": "৪৮ MP + ২ MP",
+		"48 MP + 2 MP": "৪৮ মেগাপিক্সেল + ২ মেগাপিক্সেল",
 		"5.1": "৫.১",
 		"5000 mAh": "৫০০০ এমএএইচ",
 		"6.6 inches": "৬.৬ ইঞ্চি",
-		"8 MP": "৮ MP",
-		"Android 13, Realme UI 4.0": "Android ১৩, Realme UI ৪.০",
+		"8 MP": "৮ মেগাপিক্সেল",
+		"Android 13, Realme UI 4.0": "অ্যান্ড্রয়েড ১৩, Realme UI ৪.০",
 		"Black, Blue": "কালো, নীল",
-		"Dimensity 6080+ (6 nm)": "Dimensity ৬০৮০+ (৬ nm)",
+		"Dimensity 6080+ (6 nm)": "ডাইমেনসিটি ৬০৮০+ (৬ ন্যানোমিটার)",
 		"Dual SIM (Nano-SIM)": "ডুয়াল সিম (ন্যানো-সিম)",
 		"Fingerprint (side), Accelerometer, Gyro, Proximity, Compass": "ফিঙ্গারপ্রিন্ট (side), অ্যাক্সিলেরোমিটার, জাইরো, প্রক্সিমিটি, কম্পাস",
-		"GSM / HSPA / LTE / 5G": "GSM / HSPA / LTE / ৫G",
+		"GSM / HSPA / LTE / 5G": "জিএসএম / এইচএসপিএ / এলটিই / ৫G",
 		"Li-Ion (non-removable)": "লি-আয়ন (অপসারণযোগ্য নয়)",
-		"Mali-G57 MC2": "Mali-G৫৭ MC২",
-		"MediaTek Dimensity 6080+": "MediaTek Dimensity ৬০৮০+",
-		"Octa-core (2×2.6 GHz Cortex-A76 + 6×2.0 GHz Cortex-A55)": "Octa-core (২×২.৬ GHz Cortex-A৭৬ + ৬×২.০ GHz Cortex-A৫৫)",
-		"Wi-Fi 802.11 a/b/g/n/ac": "Wi-Fi ৮০২.১১ a/b/g/n/ac",
+		"Mali-G57 MC2": "মালি-G৫৭ MC২",
+		"MediaTek Dimensity 6080+": "মিডিয়াটেক ডাইমেনসিটি ৬০৮০+",
+		"Octa-core (2×2.6 GHz Cortex-A76 + 6×2.0 GHz Cortex-A55)": "অক্টা-কোর (২×২.৬ গিগাহার্টজ Cবাtex-A৭৬ + ৬×২.০ গিগাহার্টজ Cবাtex-A৫৫)",
+		"Wi-Fi 802.11 a/b/g/n/ac": "ওয়াই-ফাই ৮০২.১১ a/b/g/n/ac",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'realme-15t-5g'
+// Seed inserts specification records for the product identified by slug 'realme-15t-5g'
 func (s *SpecificationSeederMobileRealme15t5g) Seed(db *gorm.DB) error {
 	productSlug := "realme-15t-5g"
 
@@ -59,28 +58,110 @@ func (s *SpecificationSeederMobileRealme15t5g) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Realme 15T 5G
+	specs["Display Size"] = "6.6 inches"
+	specs["Processor"] = "MediaTek Dimensity 6080+"
+	specs["Chipset"] = "Dimensity 6080+ (6 nm)"
+	specs["Cpu Type"] = "Octa-core (2×2.6 GHz Cortex-A76 + 6×2.0 GHz Cortex-A55)"
+	specs["Gpu Type"] = "Mali-G57 MC2"
+	specs["Ram"] = "4 / 6 GB"
+	specs["Storage"] = "128 / 256 GB"
+	specs["Display Type"] = "IPS LCD"
+	specs["Resolution"] = "2412 × 1080 px (~400 ppi)"
+	specs["Refresh Rate"] = "120 Hz"
+	specs["Build Material"] = "Plastic frame/back"
+	specs["Weight"] = "187 g"
+	specs["Network Technology"] = "GSM / HSPA / LTE / 5G"
+	specs["Wifi Support"] = "Wi-Fi 802.11 a/b/g/n/ac"
+	specs["Bluetooth Version"] = "5.1"
+	specs["Nfc Support"] = "Yes"
+	specs["Usb Type"] = "USB-C"
+	specs["Rear Camera"] = "48 MP + 2 MP"
+	specs["Camera Features"] = "LED flash, HDR"
+	specs["Camera Video Resolution"] = "1080p @ 30fps"
+	specs["Optical Zoom"] = "None"
+	specs["Front Camera"] = "8 MP"
+	specs["Front Camera Video Resolution"] = "1080p @ 30fps"
+	specs["Operating System"] = "Android 13, Realme UI 4.0"
+	specs["Battery"] = "5000 mAh"
+	specs["Battery Type"] = "Li-Ion (non-removable)"
+	specs["Fast Charging"] = "33 W wired"
+	specs["Wireless Charging"] = "No"
+	specs["5G Support"] = "Yes"
+	specs["Positioning System"] = "GPS, GLONASS, GALILEO, BDS"
+	specs["Sensors"] = "Fingerprint (side), Accelerometer, Gyro, Proximity, Compass"
+	specs["Sim Card Type"] = "Dual SIM (Nano-SIM)"
+	specs["Loudspeaker Quality"] = "Mono"
+	specs["Audio Jack"] = "3.5 mm headphone jack"
+	specs["Available Colors"] = "Black, Blue"
+	specs["Announcement Date"] = "2023"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}

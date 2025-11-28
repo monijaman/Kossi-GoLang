@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileRedmiA2 seeds specifications/options for product 'redmi-a2'
@@ -22,25 +21,25 @@ func (s *SpecificationSeederMobileRedmiA2) getBanglaTranslations() map[string]st
 	return map[string]string{
 		"10W wired": "১০W তারযুক্ত",
 		"192 g": "১৯২ g",
-		"2 GB / 3 GB / 4 GB": "২ GB / ৩ GB / ৪ GB",
-		"32 GB / 64 GB": "৩২ GB / ৬৪ GB",
-		"5 MP": "৫ MP",
+		"2 GB / 3 GB / 4 GB": "২ জিবি / ৩ জিবি / ৪ GB",
+		"32 GB / 64 GB": "৩২ জিবি / ৬৪ GB",
+		"5 MP": "৫ মেগাপিক্সেল",
 		"5000 mAh": "৫০০০ এমএএইচ",
 		"6.52 inches": "৬.৫২ ইঞ্চি",
 		"60Hz": "৬০Hz",
-		"720 x 1600 pixels": "৭২০ x ১৬০০ pixels",
-		"8 MP + 0.08 MP": "৮ MP + ০.০৮ MP",
-		"Android 12 বা 13 (Go এডিশন), MIUI": "Android ১২ বা ১৩ (Go এডিশন), MIUI",
-		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, plastic frame",
-		"Helio G36": "Helio G৩৬",
+		"720 x 1600 pixels": "৭২০ x ১৬০০ পিক্সেল",
+		"8 MP + 0.08 MP": "৮ মেগাপিক্সেল + ০.০৮ মেগাপিক্সেল",
+		"Android 12 or 13 (Go edition), MIUI": "অ্যান্ড্রয়েড ১২ বা ১৩ (Go edition), এমআইইউআই",
+		"Glass front, plastic back, plastic frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, প্লাস্টিক ফ্রেম",
+		"Helio G36": "হেলিও G৩৬",
 		"Light Blue, Light Green, Black": "Light নীল, Light সবুজ, কালো",
-		"March 2023": "March ২০২৩",
-		"Mediatek Helio G36 (12 nm)": "Mediatek Helio G৩৬ (১২ nm)",
-		"PowerVR GE8320": "PowerVR GE৮৩২০",
+		"March 2023": "মার্চ ২০২৩",
+		"Mediatek Helio G36 (12 nm)": "মিডিয়াটেক হেলিও G৩৬ (১২ ন্যানোমিটার)",
+		"PowerVR GE8320": "পাওয়ারভিআর GE৮৩২০",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'redmi-a2'
+// Seed inserts specification records for the product identified by slug 'redmi-a2'
 func (s *SpecificationSeederMobileRedmiA2) Seed(db *gorm.DB) error {
 	productSlug := "redmi-a2"
 
@@ -51,28 +50,95 @@ func (s *SpecificationSeederMobileRedmiA2) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Redmi A2+
+	specs["Display Size"] = "6.52 inches"
+	specs["Processor"] = "Helio G36"
+	specs["Chipset"] = "Mediatek Helio G36 (12 nm)"
+	specs["Cpu Type"] = "Octa-core"
+	specs["Gpu Type"] = "PowerVR GE8320"
+	specs["Ram"] = "2 GB / 3 GB / 4 GB"
+	specs["Storage"] = "32 GB / 64 GB"
+	specs["Display Type"] = "IPS LCD"
+	specs["Resolution"] = "720 x 1600 pixels"
+	specs["Refresh Rate"] = "60Hz"
+	specs["Build Material"] = "Glass front, plastic back, plastic frame"
+	specs["Weight"] = "192 g"
+	specs["Water Resistance"] = "No"
+	specs["Network Technology"] = "GSM / HSPA / LTE"
+	specs["Rear Camera"] = "8 MP + 0.08 MP"
+	specs["Front Camera"] = "5 MP"
+	specs["Battery"] = "5000 mAh"
+	specs["Fast Charging"] = "10W wired"
+	specs["Operating System"] = "Android 12 or 13 (Go edition), MIUI"
+	specs["Available Colors"] = "Light Blue, Light Green, Black"
+	specs["Announcement Date"] = "March 2023"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}

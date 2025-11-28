@@ -4,7 +4,6 @@ import (
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 // SpecificationSeederMobileXiaomi13Pro seeds specifications/options for product 'xiaomi-13-pro'
@@ -21,29 +20,29 @@ func NewSpecificationSeederMobileXiaomi13Pro() *SpecificationSeederMobileXiaomi1
 func (s *SpecificationSeederMobileXiaomi13Pro) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"120Hz": "১২০Hz",
-		"128 GB / 256 GB / 512 GB": "১২৮ GB / ২৫৬ GB / ৫১২ GB",
-		"1440 x 3200 pixels": "১৪৪০ x ৩২০০ pixels",
+		"128 GB / 256 GB / 512 GB": "১২৮ জিবি / ২৫৬ জিবি / ৫১২ GB",
+		"1440 x 3200 pixels": "১৪৪০ x ৩২০০ পিক্সেল",
 		"162.9 x 74.6 x 8.4 mm": "১৬২.৯ x ৭৪.৬ x ৮.৪ মিমি",
 		"210 g": "২১০ g",
-		"32 MP": "৩২ MP",
+		"32 MP": "৩২ মেগাপিক্সেল",
 		"4,820 mAh": "৪,৮২০ এমএএইচ",
-		"50 MP + 50 MP + 50 MP": "৫০ MP + ৫০ MP + ৫০ MP",
+		"50 MP + 50 MP + 50 MP": "৫০ মেগাপিক্সেল + ৫০ মেগাপিক্সেল + ৫০ মেগাপিক্সেল",
 		"5G": "৫G",
 		"6.73 inches": "৬.৭৩ ইঞ্চি",
-		"8 GB / 12 GB": "৮ GB / ১২ GB",
-		"Adreno 740": "Adreno ৭৪০",
-		"Android 13, আপগ্রেডযোগ্য": "Android ১৩, আপগ্রেডযোগ্য",
-		"Ceramic White, Ceramic Black, Ceramic Flora Green, Mountain Blue": "Ceramic সাদা, Ceramic কালো, Ceramic Flora সবুজ, Mountain নীল",
-		"December 2022": "December ২০২২",
-		"Glass front, সিরামিক/পলিমার back, aluminum frame": "গ্লাস সামনে, সিরামিক/পলিমার back, অ্যালুমিনিয়াম ফ্রেম",
+		"8 GB / 12 GB": "৮ জিবি / ১২ GB",
+		"Adreno 740": "অ্যাড্রেনো ৭৪০",
+		"Android 13, upgradable": "অ্যান্ড্রয়েড ১৩, আপগ্রেডযোগ্য",
+		"Ceramic White, Ceramic Black, Ceramic Flora Green, Mountain Blue": "Ceramic সাদা, Ceramic কালো, Ceramic Flবাa সবুজ, Mountain নীল",
+		"December 2022": "ডিসেম্বর ২০২২",
+		"Glass front, ceramic/polymer back, aluminum frame": "গ্লাস সামনে, সিরামিক/পলিমার পেছনে, অ্যালুমিনিয়াম ফ্রেম",
 		"IP68": "IP৬৮",
-		"LTPO AMOLED, 120Hz, Dolby Vision, HDR10+, 1900 nits": "LTPO AMOLED, ১২০Hz, Dolby Vision, HDR১০+, ১৯০০ nits",
-		"Qualcomm SM8550-AB Snapdragon 8 Gen 2 (4 nm)": "Qualcomm SM৮৫৫০-AB Snapdragon ৮ Gen ২ (৪ nm)",
-		"Snapdragon 8 Gen 2": "Snapdragon ৮ Gen ২",
+		"LTPO AMOLED, 120Hz, Dolby Vision, HDR10+, 1900 nits": "এলটিপিও অ্যামোলেড, ১২০Hz, ডলবি ভিশন, এইচডিআর১০+, ১৯০০ nits",
+		"Qualcomm SM8550-AB Snapdragon 8 Gen 2 (4 nm)": "কোয়ালকম SM৮৫৫০-AB স্ন্যাপড্রাগন ৮ জেন ২ (৪ ন্যানোমিটার)",
+		"Snapdragon 8 Gen 2": "স্ন্যাপড্রাগন ৮ জেন ২",
 	}
 }
 
-// Seed inserts specification_translations for existing specifications for product 'xiaomi-13-pro'
+// Seed inserts specification records for the product identified by slug 'xiaomi-13-pro'
 func (s *SpecificationSeederMobileXiaomi13Pro) Seed(db *gorm.DB) error {
 	productSlug := "xiaomi-13-pro"
 
@@ -54,28 +53,96 @@ func (s *SpecificationSeederMobileXiaomi13Pro) Seed(db *gorm.DB) error {
 		}
 		return err
 	}
-
 	productID := prod.ID
+
+	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
 
-	// Get all existing specifications for this product
-	var existingSpecs []models.SpecificationModel
-	if err := db.Where("product_id = ?", productID).Find(&existingSpecs).Error; err != nil {
-		return err
-	}
+	// Override model-specific values for Xiaomi 13 Pro
+	specs["Display Size"] = "6.73 inches"
+	specs["Processor"] = "Snapdragon 8 Gen 2"
+	specs["Chipset"] = "Qualcomm SM8550-AB Snapdragon 8 Gen 2 (4 nm)"
+	specs["Cpu Type"] = "Octa-core"
+	specs["Gpu Type"] = "Adreno 740"
+	specs["Ram"] = "8 GB / 12 GB"
+	specs["Storage"] = "128 GB / 256 GB / 512 GB"
+	specs["Display Type"] = "LTPO AMOLED, 120Hz, Dolby Vision, HDR10+, 1900 nits"
+	specs["Resolution"] = "1440 x 3200 pixels"
+	specs["Screen Protection"] = "Corning Gorilla Glass Victus"
+	specs["Refresh Rate"] = "120Hz"
+	specs["Build Material"] = "Glass front, ceramic/polymer back, aluminum frame"
+	specs["Weight"] = "210 g"
+	specs["Dimensions"] = "162.9 x 74.6 x 8.4 mm"
+	specs["Water Resistance"] = "IP68"
+	specs["Network Technology"] = "5G"
+	specs["Rear Camera"] = "50 MP + 50 MP + 50 MP"
+	specs["Front Camera"] = "32 MP"
+	specs["Battery"] = "4,820 mAh"
+	specs["Operating System"] = "Android 13, upgradable"
+	specs["Available Colors"] = "Ceramic White, Ceramic Black, Ceramic Flora Green, Mountain Blue"
+	specs["Announcement Date"] = "December 2022"
+	specs["Device Status"] = "Available"
 
-	// Insert translations for all existing specifications
-	for _, spec := range existingSpecs {
-		banglaValue, exists := banglaTranslations[spec.Value]
-		if exists && banglaValue != "" {
-			translation := &models.SpecificationTranslationModel{
-				SpecificationID: spec.ID,
-				Locale:          "bn",
-				Value:           banglaValue,
-			}
-			// Use OnConflict to ignore if translation already exists
-			if err := db.Clauses(clause.OnConflict{DoNothing: true}).Create(translation).Error; err != nil {
+	for key, value := range specs {
+		sk, err := CreateOrFindSpecificationKey(db, key)
+		if err != nil {
+			return err
+		}
+
+		var existing models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				sModel := &models.SpecificationModel{
+					ProductID:          productID,
+					SpecificationKeyID: sk.ID,
+					Value:              value,
+					Status:             1,
+				}
+				if err := db.Create(sModel).Error; err != nil {
+					return err
+				}
+
+				// Create Bangla translation for the specification
+				banglaValue, exists := banglaTranslations[value]
+				if exists && banglaValue != "" {
+					var existingTranslation models.SpecificationTranslationModel
+					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
+						if err == gorm.ErrRecordNotFound {
+							translation := &models.SpecificationTranslationModel{
+								SpecificationID: sModel.ID,
+								Locale:          "bn",
+								Value:           banglaValue,
+							}
+							if err := db.Create(translation).Error; err != nil {
+								return err
+							}
+						} else {
+							return err
+						}
+					}
+				}
+			} else {
 				return err
+			}
+		} else {
+			// If specification already exists, check and create Bangla translation if missing
+			banglaValue, exists := banglaTranslations[value]
+			if exists && banglaValue != "" {
+				var existingTranslation models.SpecificationTranslationModel
+				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
+					if err == gorm.ErrRecordNotFound {
+						translation := &models.SpecificationTranslationModel{
+							SpecificationID: existing.ID,
+							Locale:          "bn",
+							Value:           banglaValue,
+						}
+						if err := db.Create(translation).Error; err != nil {
+							return err
+						}
+					} else {
+						return err
+					}
+				}
 			}
 		}
 	}
