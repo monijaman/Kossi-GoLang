@@ -3,6 +3,7 @@ package seeders
 import (
 	"fmt"
 	"kossti/internal/infrastructure/database/models"
+	"os"
 
 	"gorm.io/gorm"
 )
@@ -56,7 +57,7 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 		return err
 	}
 	productID := prod.ID
-	fmt.Printf("[DEBUG] Found product: %s (ID: %d)\n", productSlug, productID)
+	fmt.Printf("uuuuuuuuuuuuuuuuuu [DEBUG] Found product: %s (ID: %d)\n", productSlug, productID)
 
 	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
@@ -87,15 +88,16 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 	specs["Device Status"] = "Available"
 
 	for key, value := range specs {
-		fmt.Printf("[DEBUG] Processing spec key: %s = %s\n", key, value)
 		sk, err := CreateOrFindSpecificationKey(db, key)
 		if err != nil {
 			return err
 		}
-		fmt.Printf("[DEBUG] Specification key ID: %d\n", sk.ID)
+
+		fmt.Printf(key)
 
 		var existing models.SpecificationModel
 		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+
 			if err == gorm.ErrRecordNotFound {
 				sModel := &models.SpecificationModel{
 					ProductID:          productID,
@@ -106,14 +108,13 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 				if err := db.Create(sModel).Error; err != nil {
 					return err
 				}
-				fmt.Printf("[DEBUG] Created specification ID: %d (ProductID: %d, KeyID: %d, Value: %s)\n", sModel.ID, productID, sk.ID, value)
+
+				fmt.Printf("+++++++++++++++++++++++++++++++")
+				return nil
 
 				// Create Bangla translation for the specification
 				banglaValue, exists := banglaTranslations[value]
-				fmt.Printf("[DEBUG] Checking translation for '%s': exists=%v, banglaValue='%s'\n", value, exists, banglaValue)
 				if exists && banglaValue != "" {
-
-					fmt.Printf("Inside: %d (ProductID: %d, KeyID: %d, Value: %s)\n", sModel.ID, productID, sk.ID, value)
 
 					var existingTranslation models.SpecificationTranslationModel
 					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
@@ -126,8 +127,6 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 							if err := db.Create(translation).Error; err != nil {
 								return err
 							}
-							fmt.Println(translation)
-							fmt.Printf("[DEBUG] Created translation for SpecID: %d, Locale: bn, Value: %s\n", sModel.ID, banglaValue)
 						} else {
 							return err
 						}
@@ -136,21 +135,25 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 			} else {
 				return err
 			}
+			fmt.Printf(" ------------------------------------------- ")
+			fmt.Println(existing)
+			return nil
 		} else {
-			fmt.Printf("[DEBUG] Specification already exists ID: %d (ProductID: %d, KeyID: %d, Value: %s)\n", existing.ID, productID, sk.ID, value)
 
+			fmt.Printf(" existing  ----------------- ")
+			fmt.Println(existing)
+			return nil
+			os.Exit(1)
 			// Update the specification value if it's different
 			if existing.Value != value {
 				existing.Value = value
 				if err := db.Save(&existing).Error; err != nil {
 					return err
 				}
-				fmt.Printf("[DEBUG] Updated specification ID: %d with new value: %s\n", existing.ID, value)
 			}
 
 			// If specification already exists, check and update/create Bangla translation
 			banglaValue, exists := banglaTranslations[value]
-			fmt.Printf("[DEBUG] Checking existing spec translation for '%s': exists=%v, banglaValue='%s'\n", value, exists, banglaValue)
 			if exists && banglaValue != "" {
 				var existingTranslation models.SpecificationTranslationModel
 				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
