@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
@@ -19,26 +20,26 @@ func NewSpecificationSeederMobileGooglePixel8a() *SpecificationSeederMobileGoogl
 // getBanglaTranslations returns a map of English specification values to their Bangla translations
 func (s *SpecificationSeederMobileGooglePixel8a) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"1080 x 2400 pixels": "১০৮০ x ২৪০০ পিক্সেল",
-		"120Hz": "১২০Hz",
-		"128 GB / 256 GB": "১২৮ জিবি / ২৫৬ GB",
-		"13 MP": "১৩ মেগাপিক্সেল",
-		"152.1 x 72.7 x 8.9 mm": "১৫২.১ x ৭২.৭ x ৮.৯ মিমি",
-		"188 g": "১৮৮ g",
-		"4,492 mAh": "৪,৪৯২ এমএএইচ",
-		"5G": "৫G",
-		"6.1 inches": "৬.১ ইঞ্চি",
-		"64 MP + 13 MP": "৬৪ মেগাপিক্সেল + ১৩ মেগাপিক্সেল",
-		"8 GB": "৮ GB",
-		"Android 14": "অ্যান্ড্রয়েড ১৪",
+		"1080 x 2400 pixels":      "১০৮০ x ২৪০০ পিক্সেল",
+		"120Hz":                   "১২০Hz",
+		"128 GB / 256 GB":         "১২৮ জিবি / ২৫৬ GB",
+		"13 MP":                   "১৩ মেগাপিক্সেল",
+		"152.1 x 72.7 x 8.9 mm":   "১৫২.১ x ৭২.৭ x ৮.৯ মিমি",
+		"188 g":                   "১৮৮ g",
+		"4,492 mAh":               "৪,৪৯২ এমএএইচ",
+		"5G":                      "৫G",
+		"6.1 inches":              "৬.১ ইঞ্চি",
+		"64 MP + 13 MP":           "৬৪ মেগাপিক্সেল + ১৩ মেগাপিক্সেল",
+		"8 GB":                    "৮ GB",
+		"Android 14":              "অ্যান্ড্রয়েড ১৪",
 		"Corning Gorilla Glass 3": "কর্নিং গরিলা গ্লাস ৩",
 		"Glass front, plastic back, aluminum frame": "গ্লাস সামনে, প্লাস্টিক পেছনে, অ্যালুমিনিয়াম ফ্রেম",
-		"Google Tensor G3": "গুগল টেনসর G৩",
-		"Google Tensor G3 (4 nm)": "গুগল টেনসর G৩ (৪ ন্যানোমিটার)",
-		"IP67": "IP৬৭",
-		"Immortalis-G715s MC10": "Immবাtalis-G৭১৫s MC১০",
-		"May 2024": "মে ২০২৪",
-		"OLED, 120Hz, HDR": "ওএলইডি, ১২০Hz, এইচডিআর",
+		"Google Tensor G3":                          "গুগল টেনসর G৩",
+		"Google Tensor G3 (4 nm)":                   "গুগল টেনসর G৩ (৪ ন্যানোমিটার)",
+		"IP67":                                      "IP৬৭",
+		"Immortalis-G715s MC10":                     "Immবাtalis-G৭১৫s MC১০",
+		"May 2024":                                  "মে ২০২৪",
+		"OLED, 120Hz, HDR":                          "ওএলইডি, ১২০Hz, এইচডিআর",
 	}
 }
 
@@ -49,11 +50,13 @@ func (s *SpecificationSeederMobileGooglePixel8a) Seed(db *gorm.DB) error {
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
+			fmt.Printf("[DEBUG] Product not found: %s\n", productSlug)
 			return nil
 		}
 		return err
 	}
 	productID := prod.ID
+	fmt.Printf("[DEBUG] Found product: %s (ID: %d)\n", productSlug, productID)
 
 	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
@@ -125,7 +128,16 @@ func (s *SpecificationSeederMobileGooglePixel8a) Seed(db *gorm.DB) error {
 				return err
 			}
 		} else {
-			// If specification already exists, check and create Bangla translation if missing
+			// Update the specification value if it's different
+			if existing.Value != value {
+				existing.Value = value
+				if err := db.Save(&existing).Error; err != nil {
+					return err
+				}
+				fmt.Printf("[DEBUG] Updated specification ID: %d with new value: %s\n", existing.ID, value)
+			}
+
+			// If specification already exists, check and update/create Bangla translation
 			banglaValue, exists := banglaTranslations[value]
 			if exists && banglaValue != "" {
 				var existingTranslation models.SpecificationTranslationModel
@@ -139,8 +151,18 @@ func (s *SpecificationSeederMobileGooglePixel8a) Seed(db *gorm.DB) error {
 						if err := db.Create(translation).Error; err != nil {
 							return err
 						}
+						fmt.Printf("[DEBUG] Created translation for EXISTING SpecID: %d, Locale: bn, Value: %s\n", existing.ID, banglaValue)
 					} else {
 						return err
+					}
+				} else {
+					// Update translation if it's different
+					if existingTranslation.Value != banglaValue {
+						existingTranslation.Value = banglaValue
+						if err := db.Save(&existingTranslation).Error; err != nil {
+							return err
+						}
+						fmt.Printf("[DEBUG] Updated translation for SpecID: %d with new value: %s\n", existing.ID, banglaValue)
 					}
 				}
 			}

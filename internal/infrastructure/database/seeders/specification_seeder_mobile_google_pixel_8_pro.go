@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
@@ -19,26 +20,26 @@ func NewSpecificationSeederMobileGooglePixel8Pro() *SpecificationSeederMobileGoo
 // getBanglaTranslations returns a map of English specification values to their Bangla translations
 func (s *SpecificationSeederMobileGooglePixel8Pro) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"1-120Hz": "১-১২০Hz",
-		"10.5 MP": "১০.৫ মেগাপিক্সেল",
-		"12 GB": "১২ GB",
-		"128 GB / 256 GB / 512 GB / 1 TB": "১২৮ জিবি / ২৫৬ জিবি / ৫১২ জিবি / ১ টিবি",
-		"1344 x 2992 pixels": "১৩৪৪ x ২৯৯২ পিক্সেল",
-		"162.6 x 76.5 x 8.8 mm": "১৬২.৬ x ৭৬.৫ x ৮.৮ মিমি",
-		"213 g": "২১৩ g",
-		"5,050 mAh": "৫,০৫০ এমএএইচ",
-		"50 MP + 48 MP + 48 MP": "৫০ মেগাপিক্সেল + ৪৮ মেগাপিক্সেল + ৪৮ মেগাপিক্সেল",
-		"5G": "৫G",
-		"6.7 inches": "৬.৭ ইঞ্চি",
-		"Android 14": "অ্যান্ড্রয়েড ১৪",
-		"Corning Gorilla Glass Victus 2": "কর্নিং গরিলা গ্লাস ভিক্টাস ২",
-		"Glass front/back, aluminum frame": "গ্লাস সামনে/পেছনে, অ্যালুমিনিয়াম ফ্রেম",
-		"Google Tensor G3": "গুগল টেনসর G৩",
-		"Google Tensor G3 (4 nm)": "গুগল টেনসর G৩ (৪ ন্যানোমিটার)",
-		"IP68": "IP৬৮",
-		"Immortalis-G715s MC10": "Immবাtalis-G৭১৫s MC১০",
+		"1-120Hz":                             "১-১২০Hz",
+		"10.5 MP":                             "১০.৫ মেগাপিক্সেল",
+		"12 GB":                               "১২ GB",
+		"128 GB / 256 GB / 512 GB / 1 TB":     "১২৮ জিবি / ২৫৬ জিবি / ৫১২ জিবি / ১ টিবি",
+		"1344 x 2992 pixels":                  "১৩৪৪ x ২৯৯২ পিক্সেল",
+		"162.6 x 76.5 x 8.8 mm":               "১৬২.৬ x ৭৬.৫ x ৮.৮ মিমি",
+		"213 g":                               "২১৩ g",
+		"5,050 mAh":                           "৫,০৫০ এমএএইচ",
+		"50 MP + 48 MP + 48 MP":               "৫০ মেগাপিক্সেল + ৪৮ মেগাপিক্সেল + ৪৮ মেগাপিক্সেল",
+		"5G":                                  "৫G",
+		"6.7 inches":                          "৬.৭ ইঞ্চি",
+		"Android 14":                          "অ্যান্ড্রয়েড ১৪",
+		"Corning Gorilla Glass Victus 2":      "কর্নিং গরিলা গ্লাস ভিক্টাস ২",
+		"Glass front/back, aluminum frame":    "গ্লাস সামনে/পেছনে, অ্যালুমিনিয়াম ফ্রেম",
+		"Google Tensor G3":                    "গুগল টেনসর G৩",
+		"Google Tensor G3 (4 nm)":             "গুগল টেনসর G৩ (৪ ন্যানোমিটার)",
+		"IP68":                                "IP৬৮",
+		"Immortalis-G715s MC10":               "Immবাtalis-G৭১৫s MC১০",
 		"LTPO OLED, 120Hz, HDR10+, 2400 nits": "এলটিপিও ওএলইডি, ১২০Hz, এইচডিআর১০+, ২৪০০ nits",
-		"October 2023": "অক্টোবর ২০২৩",
+		"October 2023":                        "অক্টোবর ২০২৩",
 	}
 }
 
@@ -49,11 +50,13 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
+			fmt.Printf("[DEBUG] Product not found: %s\n", productSlug)
 			return nil
 		}
 		return err
 	}
 	productID := prod.ID
+	fmt.Printf("[DEBUG] Found product: %s (ID: %d)\n", productSlug, productID)
 
 	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
@@ -84,10 +87,12 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 	specs["Device Status"] = "Available"
 
 	for key, value := range specs {
+		fmt.Printf("[DEBUG] Processing spec key: %s = %s\n", key, value)
 		sk, err := CreateOrFindSpecificationKey(db, key)
 		if err != nil {
 			return err
 		}
+		fmt.Printf("[DEBUG] Specification key ID: %d\n", sk.ID)
 
 		var existing models.SpecificationModel
 		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
@@ -101,10 +106,15 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 				if err := db.Create(sModel).Error; err != nil {
 					return err
 				}
+				fmt.Printf("[DEBUG] Created specification ID: %d (ProductID: %d, KeyID: %d, Value: %s)\n", sModel.ID, productID, sk.ID, value)
 
 				// Create Bangla translation for the specification
 				banglaValue, exists := banglaTranslations[value]
+				fmt.Printf("[DEBUG] Checking translation for '%s': exists=%v, banglaValue='%s'\n", value, exists, banglaValue)
 				if exists && banglaValue != "" {
+
+					fmt.Printf("Inside: %d (ProductID: %d, KeyID: %d, Value: %s)\n", sModel.ID, productID, sk.ID, value)
+
 					var existingTranslation models.SpecificationTranslationModel
 					if err := db.Where("specification_id = ? AND locale = ?", sModel.ID, "bn").First(&existingTranslation).Error; err != nil {
 						if err == gorm.ErrRecordNotFound {
@@ -116,6 +126,8 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 							if err := db.Create(translation).Error; err != nil {
 								return err
 							}
+							fmt.Println(translation)
+							fmt.Printf("[DEBUG] Created translation for SpecID: %d, Locale: bn, Value: %s\n", sModel.ID, banglaValue)
 						} else {
 							return err
 						}
@@ -125,8 +137,20 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 				return err
 			}
 		} else {
-			// If specification already exists, check and create Bangla translation if missing
+			fmt.Printf("[DEBUG] Specification already exists ID: %d (ProductID: %d, KeyID: %d, Value: %s)\n", existing.ID, productID, sk.ID, value)
+
+			// Update the specification value if it's different
+			if existing.Value != value {
+				existing.Value = value
+				if err := db.Save(&existing).Error; err != nil {
+					return err
+				}
+				fmt.Printf("[DEBUG] Updated specification ID: %d with new value: %s\n", existing.ID, value)
+			}
+
+			// If specification already exists, check and update/create Bangla translation
 			banglaValue, exists := banglaTranslations[value]
+			fmt.Printf("[DEBUG] Checking existing spec translation for '%s': exists=%v, banglaValue='%s'\n", value, exists, banglaValue)
 			if exists && banglaValue != "" {
 				var existingTranslation models.SpecificationTranslationModel
 				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
@@ -139,8 +163,20 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 						if err := db.Create(translation).Error; err != nil {
 							return err
 						}
+						fmt.Printf("[DEBUG] Created translation for EXISTING SpecID: %d, Locale: bn, Value: %s\n", existing.ID, banglaValue)
 					} else {
 						return err
+					}
+				} else {
+					// Update translation if it's different
+					if existingTranslation.Value != banglaValue {
+						existingTranslation.Value = banglaValue
+						if err := db.Save(&existingTranslation).Error; err != nil {
+							return err
+						}
+						fmt.Printf("[DEBUG] Updated translation for SpecID: %d with new value: %s\n", existing.ID, banglaValue)
+					} else {
+						fmt.Printf("[DEBUG] Translation already exists and is up-to-date for existing SpecID: %d\n", existing.ID)
 					}
 				}
 			}

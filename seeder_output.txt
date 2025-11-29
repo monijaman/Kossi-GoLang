@@ -1,316 +1,245 @@
-2025/11/20 15:58:47 ✅ Loaded .env.production (file exists)
-2025/11/20 15:58:47 🔗 Using database: postgresql://postgres:****@switchyard.proxy.rlwy.net:58014/railway
-🌱 Running specified seeder(s)...
-🔄 Running Mobile Products seeder...
-
-🔄 Seeding Mobile Products (Category 79)...
-
-2025/11/20 15:58:49 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
-[0m[31;1m[331.420ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Samsung' ORDER BY "brands"."id" LIMIT 1[0m
-
-2025/11/20 15:58:51 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
-[0m[31;1m[313.279ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Vivo' ORDER BY "brands"."id" LIMIT 1[0m
-
-2025/11/20 15:58:52 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
-[0m[31;1m[303.296ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Oppo' ORDER BY "brands"."id" LIMIT 1[0m
-
-2025/11/20 15:58:59 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:459 [33mSLOW SQL >= 200ms
-[0m[31;1m[311.528ms] [33m[rows:1][35m SELECT * FROM "brands" WHERE name = 'Oppo' ORDER BY "brands"."id" LIMIT 1[0m
-2025/11/20 15:59:03 Skipping existing product with slug: iphone-17-pro-max
-2025/11/20 15:59:03 Skipping existing product with slug: iphone-17-pro
-2025/11/20 15:59:03 Skipping existing product with slug: iphone-17-plus
-2025/11/20 15:59:03 Skipping existing product with slug: iphone-17
-2025/11/20 15:59:03 Skipping existing product with slug: iphone-16
-2025/11/20 15:59:04 Skipping existing product with slug: iphone-15
-2025/11/20 15:59:04 Skipping existing product with slug: iphone-se-3rd-gen
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s25-ultra
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s25-plus
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s25
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24-ultra
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24-plus
-
-2025/11/20 15:59:04 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
-[0m[31;1m[332.500ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-s24' ORDER BY "products"."id" LIMIT 1[0m
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s24-fe
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s23-ultra
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s23-plus
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-s23
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-z-fold-7
-2025/11/20 15:59:04 Skipping existing product with slug: samsung-galaxy-z-flip-7
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-z-flip-7-fe
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-z-fold-6
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-z-flip-6
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a56-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a55-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a54-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a25-5g
-
-2025/11/20 15:59:05 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
-[0m[31;1m[334.722ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-a15-5g' ORDER BY "products"."id" LIMIT 1[0m
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-a15-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-m56-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-m36-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-f56-5g
-2025/11/20 15:59:05 Skipping existing product with slug: samsung-galaxy-f36-5g
-2025/11/20 15:59:05 Skipping existing product with slug: xiaomi-15-ultra
-2025/11/20 15:59:05 Skipping existing product with slug: xiaomi-15
-2025/11/20 15:59:06 Skipping existing product with slug: xiaomi-15-pro
-2025/11/20 15:59:06 Skipping existing product with slug: xiaomi-14-ultra
-2025/11/20 15:59:06 Skipping existing product with slug: xiaomi-14-pro
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-15
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-15-pro-5g
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-14
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-14-pro-plus-5g
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-13
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-note-12
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-15
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-14
-2025/11/20 15:59:06 Skipping existing product with slug: redmi-13c
-2025/11/20 15:59:06 Skipping existing product with slug: poco-f7
-2025/11/20 15:59:06 Skipping existing product with slug: poco-f7-ultra
-2025/11/20 15:59:06 Skipping existing product with slug: poco-f6-5g
-2025/11/20 15:59:06 Skipping existing product with slug: poco-x7-pro-5g
-2025/11/20 15:59:06 Skipping existing product with slug: poco-x7-5g
-2025/11/20 15:59:06 Skipping existing product with slug: poco-x6-pro-5g
-2025/11/20 15:59:06 Skipping existing product with slug: poco-m7-pro-5g
-2025/11/20 15:59:07 Skipping existing product with slug: poco-m6-pro-5g
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-x300-pro
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-x300
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-x200-pro
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-v60-5g
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-v60-lite-5g
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-v50
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-v40
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-y29
-2025/11/20 15:59:07 Skipping existing product with slug: vivo-y28
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-find-n4-fold
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-find-n4-flip
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-14-5g
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-14-f-5g
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-13-5g
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-13-pro-5g
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-15
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-reno-15-pro
-2025/11/20 15:59:07 Skipping existing product with slug: oppo-a5-pro
-2025/11/20 15:59:08 Skipping existing product with slug: oppo-a5
-2025/11/20 15:59:08 Skipping existing product with slug: oppo-a60
-2025/11/20 15:59:08 Skipping existing product with slug: realme-15-pro-5g
-2025/11/20 15:59:08 Skipping existing product with slug: realme-15-5g
-2025/11/20 15:59:08 Skipping existing product with slug: realme-14-5g
-2025/11/20 15:59:08 Skipping existing product with slug: realme-13
-2025/11/20 15:59:08 Skipping existing product with slug: realme-c75x
-2025/11/20 15:59:08 Skipping existing product with slug: realme-c71
-2025/11/20 15:59:08 Skipping existing product with slug: realme-c65
-2025/11/20 15:59:08 Skipping existing product with slug: realme-gt-neo-3
-2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17-pro-max
-2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17-pro
-2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17-plus
-2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-17
-2025/11/20 15:59:08 Skipping existing product with slug: iphone-16-pro-max
-2025/11/20 15:59:08 Skipping existing product with slug: iphone-16-pro
-2025/11/20 15:59:08 Skipping duplicate slug in seeder list: iphone-16
-2025/11/20 15:59:08 Skipping existing product with slug: iphone-se
-2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9-pro-xl
-2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9-pro
-2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9
-2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-9-pro-fold
-2025/11/20 15:59:08 Skipping existing product with slug: google-pixel-8-pro
-2025/11/20 15:59:08 Skipping existing product with slug: oneplus-13
-2025/11/20 15:59:08 Skipping existing product with slug: oneplus-13r
-2025/11/20 15:59:09 Skipping existing product with slug: oneplus-12
-2025/11/20 15:59:09 Skipping existing product with slug: oneplus-12r
-2025/11/20 15:59:09 Skipping existing product with slug: oneplus-nord-5
-2025/11/20 15:59:09 Skipping existing product with slug: oneplus-nord-4
-2025/11/20 15:59:09 Skipping existing product with slug: oneplus-nord-ce5
-2025/11/20 15:59:09 Skipping existing product with slug: oneplus-open
-2025/11/20 15:59:09 Skipping existing product with slug: walton-xanon-x1-ultra
-2025/11/20 15:59:09 Skipping existing product with slug: walton-xanon-x91
-2025/11/20 15:59:09 Skipping existing product with slug: walton-nexg-n75
-2025/11/20 15:59:09 Skipping existing product with slug: walton-nexg-n27
-2025/11/20 15:59:09 Skipping existing product with slug: walton-orbit-y13
-2025/11/20 15:59:09 Skipping existing product with slug: walton-zenx-2
-2025/11/20 15:59:09 Skipping existing product with slug: infinix-note-50-pro-plus-5g
-2025/11/20 15:59:09 Skipping existing product with slug: infinix-note-50-pro
-2025/11/20 15:59:09 Skipping existing product with slug: infinix-note-40-pro
-2025/11/20 15:59:09 Skipping existing product with slug: infinix-hot-50
-2025/11/20 15:59:09 Skipping existing product with slug: infinix-smart-10
-2025/11/20 15:59:09 Skipping existing product with slug: tecno-camon-40-pro-5g
-2025/11/20 15:59:09 Skipping existing product with slug: tecno-camon-40-pro
-2025/11/20 15:59:10 Skipping existing product with slug: tecno-camon-40
-2025/11/20 15:59:10 Skipping existing product with slug: tecno-spark-40-5g
-2025/11/20 15:59:10 Skipping existing product with slug: tecno-spark-40
-2025/11/20 15:59:10 Skipping existing product with slug: tecno-pova-slim-5g
-2025/11/20 15:59:10 Skipping existing product with slug: symphony-g27
-2025/11/20 15:59:10 Skipping existing product with slug: symphony-atom-5
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s23-fe
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s22-ultra
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s22-plus
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-s22
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-z-fold-5
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-z-flip-5
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a36-5g
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a26-5g
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a17-5g
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a07
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a06
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a06-5g
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a34-5g
-2025/11/20 15:59:10 Skipping existing product with slug: samsung-galaxy-a24
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-a23
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-a14
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m34-5g
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m15-5g
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m14-5g
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m53-5g
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m33-5g
-2025/11/20 15:59:11 Skipping existing product with slug: samsung-galaxy-m16-5g
-
-2025/11/20 15:59:16 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
-[0m[31;1m[4963.681ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-m06-5g' ORDER BY "products"."id" LIMIT 1[0m
-2025/11/20 15:59:16 Skipping existing product with slug: samsung-galaxy-m06-5g
-
-2025/11/20 15:59:17 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
-[0m[31;1m[1261.818ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'samsung-galaxy-f16-5g' ORDER BY "products"."id" LIMIT 1[0m
-2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f16-5g
-2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f55-5g
-2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f54-5g
-2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f34-5g
-2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f23
-2025/11/20 15:59:17 Skipping existing product with slug: samsung-galaxy-f15
-2025/11/20 15:59:17 Skipping existing product with slug: xiaomi-15s-pro
-2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-14
-2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-14t-pro
-2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13-ultra
-2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13-pro
-2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13t-pro
-2025/11/20 15:59:18 Skipping existing product with slug: xiaomi-13t
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-15-pro-plus
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-14-pro
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-13-pro
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-13-pro-plus-5g
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-12-pro
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-12-pro-plus
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-note-12-4g
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-15c
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-14c
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-12c
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-12
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-a5
-2025/11/20 15:59:18 Skipping existing product with slug: redmi-a3
-2025/11/20 15:59:19 Skipping existing product with slug: redmi-a2-plus
-2025/11/20 15:59:19 Skipping existing product with slug: poco-x6-neo-5g
-2025/11/20 15:59:19 Skipping existing product with slug: poco-m6-plus-5g
-2025/11/20 15:59:19 Skipping existing product with slug: poco-m6-plus
-2025/11/20 15:59:19 Skipping existing product with slug: poco-m5
-2025/11/20 15:59:19 Skipping existing product with slug: poco-c65
-2025/11/20 15:59:19 Skipping existing product with slug: poco-c71
-2025/11/20 15:59:19 Skipping existing product with slug: poco-c75
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-x200-pro-mini
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-v60-lite-4g
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-v50-lite-5g
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-v50-lite
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-v40-lite
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-y400
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-y21d
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-y19s-pro
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-y04
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-y19s
-2025/11/20 15:59:19 Skipping existing product with slug: vivo-y03t
-2025/11/20 15:59:19 Skipping existing product with slug: oppo-reno-13-f-5g
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-reno-12-5g
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-reno-12-f-5g
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-reno-12-pro-5g
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a5x
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a3x
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a78
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a38
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a18
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a57
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a55-5g
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a74-5g
-2025/11/20 15:59:20 Skipping existing product with slug: oppo-a12
-2025/11/20 15:59:20 Skipping existing product with slug: realme-15t-5g
-2025/11/20 15:59:20 Skipping existing product with slug: realme-14t-5g
-2025/11/20 15:59:20 Skipping existing product with slug: realme-12
-2025/11/20 15:59:20 Skipping existing product with slug: realme-13-pro
-2025/11/20 15:59:20 Skipping existing product with slug: realme-c63
-2025/11/20 15:59:20 Skipping existing product with slug: realme-c61
-2025/11/20 15:59:20 Skipping existing product with slug: realme-note-70
-2025/11/20 15:59:21 Skipping existing product with slug: realme-note-60x
-2025/11/20 15:59:21 Skipping existing product with slug: realme-note-60
-2025/11/20 15:59:21 Skipping existing product with slug: realme-gt-neo2
-2025/11/20 15:59:21 Skipping existing product with slug: realme-gt-master-edition
-2025/11/20 15:59:21 Skipping duplicate slug in seeder list: iphone-16-pro-max
-2025/11/20 15:59:21 Skipping duplicate slug in seeder list: iphone-16-pro
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-15-pro-max
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-15-pro
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-15-plus
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-14-pro-max
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-14-pro
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-14-plus
-2025/11/20 15:59:21 Skipping existing product with slug: iphone-14
-2025/11/20 15:59:21 Skipping existing product with slug: google-pixel-8
-2025/11/20 15:59:21 Skipping existing product with slug: google-pixel-8a
-2025/11/20 15:59:21 Skipping existing product with slug: oneplus-11
-2025/11/20 15:59:21 Skipping existing product with slug: oneplus-nord-ce4-lite-5g
-2025/11/20 15:59:21 Skipping existing product with slug: oneplus-nord-n30-se-5g
-2025/11/20 15:59:21 Skipping existing product with slug: oneplus-n20-se
-
-2025/11/20 15:59:22 [32mI:/GO/kossti/gocrit_server/internal/infrastructure/database/seeders/seeders_mobile_products.go:425 [33mSLOW SQL >= 200ms
-[0m[31;1m[334.340ms] [33m[rows:1][35m SELECT * FROM "products" WHERE slug = 'walton-xanon-x21' ORDER BY "products"."id" LIMIT 1[0m
-2025/11/20 15:59:22 Skipping existing product with slug: walton-xanon-x21
-2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n10-ultra
-2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n26
-2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n74
-2025/11/20 15:59:22 Skipping existing product with slug: walton-orbit-y70c
-2025/11/20 15:59:22 Skipping existing product with slug: walton-zenx-1
-2025/11/20 15:59:22 Skipping existing product with slug: walton-zenx-1t
-2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n71-plus
-2025/11/20 15:59:22 Skipping existing product with slug: walton-nexg-n9
-2025/11/20 15:59:22 Skipping existing product with slug: walton-orbit-y12
-2025/11/20 15:59:22 Skipping existing product with slug: walton-orbit-y11
-2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-s8
-2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-gh11
-2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-h10
-2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-zx4
-2025/11/20 15:59:22 Skipping existing product with slug: walton-primo-r8
-2025/11/20 15:59:23 Skipping existing product with slug: walton-primo-f10
-2025/11/20 15:59:23 Skipping existing product with slug: infinix-zero-30-5g
-2025/11/20 15:59:23 Skipping existing product with slug: infinix-note-50
-2025/11/20 15:59:23 Skipping existing product with slug: infinix-smart-10-plus
-2025/11/20 15:59:23 Skipping existing product with slug: infinix-hot-60i-4g
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-40c
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-40-pro-plus
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-40-pro
-2025/11/20 15:59:23 Skipping duplicate slug in seeder list: tecno-spark-40
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-go-2
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-30-pro
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-30
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-30c
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-spark-go-1
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-pova-7-pro-5g
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-pova-curve-5g
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-phantom-v-fold2-5g
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-camon-30s
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-camon-30
-2025/11/20 15:59:23 Skipping existing product with slug: tecno-camon-30-premier-5g
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-innova-30
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-helio-90
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-helio-50
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-helio-40
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-max-60
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-innova-40
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-z72
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-z70
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-s72
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-s75
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-zv
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-v55
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-w20
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-w68
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-xplorer-w92
-2025/11/20 15:59:24 Skipping existing product with slug: symphony-i10
-✅ No new mobile products to seed (skipped 272 existing, 8 duplicates in list)
-✅ Mobile Products seeder completed successfully
-✅ Specified seeder(s) completed!
+2025/11/29 22:01:07 ✅ Loaded .env.production (file exists)
+2025/11/29 22:01:07 🔗 Using database: postgresql://postgres:****@switchyard.proxy.rlwy.net:58014/railway
+🌱 Running seeders...
+🌱 Starting database seeding...
+   🔄 Running Specifications for Google Pixel 8 Pro seeder...
+[DEBUG] Found product: google-pixel-8-pro (ID: 586)
+[DEBUG] Processing spec key: Operating System = Android 14
+[DEBUG] Specification key ID: 49
+[DEBUG] Specification already exists ID: 26844 (ProductID: 586, KeyID: 49, Value: Android 14)
+[DEBUG] Checking existing spec translation for 'Android 14': exists=true, banglaValue='অ্যান্ড্রয়েড ১৪'
+[DEBUG] Translation already exists for existing SpecID: 26844
+[DEBUG] Processing spec key: Resolution = 1344 x 2992 pixels
+[DEBUG] Specification key ID: 62
+[DEBUG] Specification already exists ID: 26830 (ProductID: 586, KeyID: 62, Value: 1344 x 2992 pixels)
+[DEBUG] Checking existing spec translation for '1344 x 2992 pixels': exists=true, banglaValue='১৩৪৪ x ২৯৯২ পিক্সেল'
+[DEBUG] Translation already exists for existing SpecID: 26830
+[DEBUG] Processing spec key: Screen Protection = Corning Gorilla Glass Victus 2
+[DEBUG] Specification key ID: 65
+[DEBUG] Specification already exists ID: 26853 (ProductID: 586, KeyID: 65, Value: Corning Gorilla Glass Victus 2)
+[DEBUG] Checking existing spec translation for 'Corning Gorilla Glass Victus 2': exists=true, banglaValue='কর্নিং গরিলা গ্লাস ভিক্টাস ২'
+[DEBUG] Translation already exists for existing SpecID: 26853
+[DEBUG] Processing spec key: Network Technology = 5G
+[DEBUG] Specification key ID: 617
+[DEBUG] Specification already exists ID: 26854 (ProductID: 586, KeyID: 617, Value: 5G)
+[DEBUG] Checking existing spec translation for '5G': exists=true, banglaValue='৫G'
+[DEBUG] Translation already exists for existing SpecID: 26854
+[DEBUG] Processing spec key: Usb Type = 
+[DEBUG] Specification key ID: 623
+[DEBUG] Specification already exists ID: 26863 (ProductID: 586, KeyID: 623, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Quad Camera Setup = 
+[DEBUG] Specification key ID: 58
+[DEBUG] Specification already exists ID: 26826 (ProductID: 586, KeyID: 58, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Fast Charging = 
+[DEBUG] Specification key ID: 634
+[DEBUG] Specification already exists ID: 26813 (ProductID: 586, KeyID: 634, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Charging Speed = 
+[DEBUG] Specification key ID: 18
+[DEBUG] Specification already exists ID: 26834 (ProductID: 586, KeyID: 18, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Sim Card Type = 
+[DEBUG] Specification key ID: 616
+[DEBUG] Specification already exists ID: 26814 (ProductID: 586, KeyID: 616, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Chipset = Google Tensor G3 (4 nm)
+[DEBUG] Specification key ID: 19
+[DEBUG] Specification already exists ID: 26866 (ProductID: 586, KeyID: 19, Value: Google Tensor G3 (4 nm))
+[DEBUG] Checking existing spec translation for 'Google Tensor G3 (4 nm)': exists=true, banglaValue='গুগল টেনসর G৩ (৪ ন্যানোমিটার)'
+[DEBUG] Translation already exists for existing SpecID: 26866
+[DEBUG] Processing spec key: Cpu Type = Nona-core
+[DEBUG] Specification key ID: 631
+[DEBUG] Specification already exists ID: 26850 (ProductID: 586, KeyID: 631, Value: Nona-core)
+[DEBUG] Checking existing spec translation for 'Nona-core': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Refresh Rate = 1-120Hz
+[DEBUG] Specification key ID: 61
+[DEBUG] Specification already exists ID: 26846 (ProductID: 586, KeyID: 61, Value: 1-120Hz)
+[DEBUG] Checking existing spec translation for '1-120Hz': exists=true, banglaValue='১-১২০Hz'
+[DEBUG] Translation already exists for existing SpecID: 26846
+[DEBUG] Processing spec key: Dimensions = 162.6 x 76.5 x 8.8 mm
+[DEBUG] Specification key ID: 25
+[DEBUG] Specification already exists ID: 26818 (ProductID: 586, KeyID: 25, Value: 162.6 x 76.5 x 8.8 mm)
+[DEBUG] Checking existing spec translation for '162.6 x 76.5 x 8.8 mm': exists=true, banglaValue='১৬২.৬ x ৭৬.৫ x ৮.৮ মিমি'
+[DEBUG] Translation already exists for existing SpecID: 26818
+[DEBUG] Processing spec key: 3g Bands = 
+[DEBUG] Specification key ID: 628
+[DEBUG] Specification already exists ID: 26860 (ProductID: 586, KeyID: 628, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Wifi Support = 
+[DEBUG] Specification key ID: 630
+[DEBUG] Specification already exists ID: 26862 (ProductID: 586, KeyID: 630, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Nfc Support = 
+[DEBUG] Specification key ID: 618
+[DEBUG] Specification already exists ID: 26841 (ProductID: 586, KeyID: 618, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Optical Zoom = 
+[DEBUG] Specification key ID: 193
+[DEBUG] Specification already exists ID: 26864 (ProductID: 586, KeyID: 193, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Processor = Google Tensor G3
+[DEBUG] Specification key ID: 636
+[DEBUG] Specification already exists ID: 26858 (ProductID: 586, KeyID: 636, Value: Google Tensor G3)
+[DEBUG] Checking existing spec translation for 'Google Tensor G3': exists=true, banglaValue='গুগল টেনসর G৩'
+[DEBUG] Translation already exists for existing SpecID: 26858
+[DEBUG] Processing spec key: Build Material = Glass front/back, aluminum frame
+[DEBUG] Specification key ID: 14
+[DEBUG] Specification already exists ID: 26831 (ProductID: 586, KeyID: 14, Value: Glass front/back, aluminum frame)
+[DEBUG] Checking existing spec translation for 'Glass front/back, aluminum frame': exists=true, banglaValue='গ্লাস সামনে/পেছনে, অ্যালুমিনিয়াম ফ্রেম'
+[DEBUG] Translation already exists for existing SpecID: 26831
+[DEBUG] Processing spec key: Battery = 5,050 mAh
+[DEBUG] Specification key ID: 619
+[DEBUG] Specification already exists ID: 26833 (ProductID: 586, KeyID: 619, Value: 5,050 mAh)
+[DEBUG] Checking existing spec translation for '5,050 mAh': exists=true, banglaValue='৫,০৫০ এমএএইচ'
+[DEBUG] Translation already exists for existing SpecID: 26833
+[DEBUG] Processing spec key: Wireless Charging = 
+[DEBUG] Specification key ID: 82
+[DEBUG] Specification already exists ID: 26865 (ProductID: 586, KeyID: 82, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Positioning System = 
+[DEBUG] Specification key ID: 54
+[DEBUG] Specification already exists ID: 26827 (ProductID: 586, KeyID: 54, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Special Features = 
+[DEBUG] Specification key ID: 69
+[DEBUG] Specification already exists ID: 26828 (ProductID: 586, KeyID: 69, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Loudspeaker Quality = 
+[DEBUG] Specification key ID: 38
+[DEBUG] Specification already exists ID: 26835 (ProductID: 586, KeyID: 38, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Internal Memory Capacity = 
+[DEBUG] Specification key ID: 36
+[DEBUG] Specification already exists ID: 26836 (ProductID: 586, KeyID: 36, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Display Size = 6.7 inches
+[DEBUG] Specification key ID: 621
+[DEBUG] Specification already exists ID: 26838 (ProductID: 586, KeyID: 621, Value: 6.7 inches)
+[DEBUG] Checking existing spec translation for '6.7 inches': exists=true, banglaValue='৬.৭ ইঞ্চি'
+[DEBUG] Translation already exists for existing SpecID: 26838
+[DEBUG] Processing spec key: Ram = 12 GB
+[DEBUG] Specification key ID: 614
+[DEBUG] Specification already exists ID: 26839 (ProductID: 586, KeyID: 614, Value: 12 GB)
+[DEBUG] Checking existing spec translation for '12 GB': exists=true, banglaValue='১২ GB'
+[DEBUG] Translation already exists for existing SpecID: 26839
+[DEBUG] Processing spec key: Audio Quality = 
+[DEBUG] Specification key ID: 9
+[DEBUG] Specification already exists ID: 26845 (ProductID: 586, KeyID: 9, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Available Colors = Obsidian, Porcelain, Bay, Mint
+[DEBUG] Specification key ID: 10
+[DEBUG] Specification already exists ID: 26816 (ProductID: 586, KeyID: 10, Value: Obsidian, Porcelain, Bay, Mint)
+[DEBUG] Checking existing spec translation for 'Obsidian, Porcelain, Bay, Mint': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Processor Speed = 
+[DEBUG] Specification key ID: 57
+[DEBUG] Specification already exists ID: 26823 (ProductID: 586, KeyID: 57, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Display Type = LTPO OLED, 120Hz, HDR10+, 2400 nits
+[DEBUG] Specification key ID: 27
+[DEBUG] Specification already exists ID: 26852 (ProductID: 586, KeyID: 27, Value: LTPO OLED, 120Hz, HDR10+, 2400 nits)
+[DEBUG] Checking existing spec translation for 'LTPO OLED, 120Hz, HDR10+, 2400 nits': exists=true, banglaValue='এলটিপিও ওএলইডি, ১২০Hz, এইচডিআর১০+, ২৪০০ nits'
+[DEBUG] Translation already exists for existing SpecID: 26852
+[DEBUG] Processing spec key: Rear Camera = 50 MP + 48 MP + 48 MP
+[DEBUG] Specification key ID: 122
+[DEBUG] Specification already exists ID: 26825 (ProductID: 586, KeyID: 122, Value: 50 MP + 48 MP + 48 MP)
+[DEBUG] Checking existing spec translation for '50 MP + 48 MP + 48 MP': exists=true, banglaValue='৫০ মেগাপিক্সেল + ৪৮ মেগাপিক্সেল + ৪৮ মেগাপিক্সেল'
+[DEBUG] Translation already exists for existing SpecID: 26825
+[DEBUG] Processing spec key: Announcement Date = October 2023
+[DEBUG] Specification key ID: 8
+[DEBUG] Specification already exists ID: 26817 (ProductID: 586, KeyID: 8, Value: October 2023)
+[DEBUG] Checking existing spec translation for 'October 2023': exists=true, banglaValue='অক্টোবর ২০২৩'
+[DEBUG] Translation already exists for existing SpecID: 26817
+[DEBUG] Processing spec key: Card Slot Type = 
+[DEBUG] Specification key ID: 17
+[DEBUG] Specification already exists ID: 26837 (ProductID: 586, KeyID: 17, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Gpu Type = Immortalis-G715s MC10
+[DEBUG] Specification key ID: 632
+[DEBUG] Specification already exists ID: 26859 (ProductID: 586, KeyID: 632, Value: Immortalis-G715s MC10)
+[DEBUG] Checking existing spec translation for 'Immortalis-G715s MC10': exists=true, banglaValue='Immবাtalis-G৭১৫s MC১০'
+[DEBUG] Translation already exists for existing SpecID: 26859
+[DEBUG] Processing spec key: Water Resistance = IP68
+[DEBUG] Specification key ID: 78
+[DEBUG] Specification already exists ID: 26819 (ProductID: 586, KeyID: 78, Value: IP68)
+[DEBUG] Checking existing spec translation for 'IP68': exists=true, banglaValue='IP৬৮'
+[DEBUG] Translation already exists for existing SpecID: 26819
+[DEBUG] Processing spec key: Front Camera = 10.5 MP
+[DEBUG] Specification key ID: 615
+[DEBUG] Specification already exists ID: 26821 (ProductID: 586, KeyID: 615, Value: 10.5 MP)
+[DEBUG] Checking existing spec translation for '10.5 MP': exists=true, banglaValue='১০.৫ মেগাপিক্সেল'
+[DEBUG] Translation already exists for existing SpecID: 26821
+[DEBUG] Processing spec key: Sensors = 
+[DEBUG] Specification key ID: 67
+[DEBUG] Specification already exists ID: 26848 (ProductID: 586, KeyID: 67, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Audio Jack = 
+[DEBUG] Specification key ID: 624
+[DEBUG] Specification already exists ID: 26815 (ProductID: 586, KeyID: 624, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Sar Rating = 
+[DEBUG] Specification key ID: 620
+[DEBUG] Specification already exists ID: 26849 (ProductID: 586, KeyID: 620, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Sar Rating Eu = 
+[DEBUG] Specification key ID: 627
+[DEBUG] Specification already exists ID: 26857 (ProductID: 586, KeyID: 627, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Storage = 128 GB / 256 GB / 512 GB / 1 TB
+[DEBUG] Specification key ID: 625
+[DEBUG] Specification already exists ID: 26851 (ProductID: 586, KeyID: 625, Value: 128 GB / 256 GB / 512 GB / 1 TB)
+[DEBUG] Checking existing spec translation for '128 GB / 256 GB / 512 GB / 1 TB': exists=true, banglaValue='১২৮ জিবি / ২৫৬ জিবি / ৫১২ জিবি / ১ টিবি'
+[DEBUG] Translation already exists for existing SpecID: 26851
+[DEBUG] Processing spec key: Camera Features = 
+[DEBUG] Specification key ID: 16
+[DEBUG] Specification already exists ID: 26820 (ProductID: 586, KeyID: 16, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Battery Type = 
+[DEBUG] Specification key ID: 12
+[DEBUG] Specification already exists ID: 26856 (ProductID: 586, KeyID: 12, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: 5g Support = 
+[DEBUG] Specification key ID: 635
+[DEBUG] Specification already exists ID: 26847 (ProductID: 586, KeyID: 635, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Device Status = Available
+[DEBUG] Specification key ID: 23
+[DEBUG] Specification already exists ID: 26829 (ProductID: 586, KeyID: 23, Value: Available)
+[DEBUG] Checking existing spec translation for 'Available': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Model Variants = 
+[DEBUG] Specification key ID: 42
+[DEBUG] Specification already exists ID: 26822 (ProductID: 586, KeyID: 42, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Weight = 213 g
+[DEBUG] Specification key ID: 80
+[DEBUG] Specification already exists ID: 26824 (ProductID: 586, KeyID: 80, Value: 213 g)
+[DEBUG] Checking existing spec translation for '213 g': exists=true, banglaValue='২১৩ g'
+[DEBUG] Translation already exists for existing SpecID: 26824
+[DEBUG] Processing spec key: 2g Bands = 
+[DEBUG] Specification key ID: 622
+[DEBUG] Specification already exists ID: 26855 (ProductID: 586, KeyID: 622, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: 4g Bands = 
+[DEBUG] Specification key ID: 633
+[DEBUG] Specification already exists ID: 26832 (ProductID: 586, KeyID: 633, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: 5g Bands = 
+[DEBUG] Specification key ID: 629
+[DEBUG] Specification already exists ID: 26861 (ProductID: 586, KeyID: 629, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Bluetooth Version = 
+[DEBUG] Specification key ID: 13
+[DEBUG] Specification already exists ID: 26840 (ProductID: 586, KeyID: 13, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Camera Video Resolution = 
+[DEBUG] Specification key ID: 626
+[DEBUG] Specification already exists ID: 26842 (ProductID: 586, KeyID: 626, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+[DEBUG] Processing spec key: Front Camera Video Resolution = 
+[DEBUG] Specification key ID: 32
+[DEBUG] Specification already exists ID: 26843 (ProductID: 586, KeyID: 32, Value: )
+[DEBUG] Checking existing spec translation for '': exists=false, banglaValue=''
+   ✅ Specifications for Google Pixel 8 Pro seeder completed successfully
+🎉 All seeders completed successfully!
+✅ Seeding completed!
