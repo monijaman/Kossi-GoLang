@@ -1,0 +1,3821 @@
+{
+  "table": "specification_keys",
+  "rows": [
+    {
+      "id": 562,
+      "specification_key": "2g_bands",
+      "created_at": "2025-11-20 10:15:19.17438+00",
+      "updated_at": "2025-11-20 10:15:19.17438+00"
+    },
+    {
+      "id": 622,
+      "specification_key": "2g Bands",
+      "created_at": "2025-11-27 17:15:58.059123+00",
+      "updated_at": "2025-11-27 17:15:58.059123+00"
+    },
+    {
+      "id": 1,
+      "specification_key": "2G Bands",
+      "created_at": "2025-11-08 05:08:39.088297+00",
+      "updated_at": "2025-11-08 05:08:39.088297+00"
+    },
+    {
+      "id": 453,
+      "specification_key": "2G Service Available",
+      "created_at": "2025-11-16 16:38:32.384141+00",
+      "updated_at": "2025-11-16 16:38:32.384141+00"
+    },
+    {
+      "id": 2,
+      "specification_key": "3.5mm Audio Jack",
+      "created_at": "2025-11-08 05:08:39.351708+00",
+      "updated_at": "2025-11-08 05:08:39.351708+00"
+    },
+    {
+      "id": 563,
+      "specification_key": "3g_bands",
+      "created_at": "2025-11-20 10:15:19.388342+00",
+      "updated_at": "2025-11-20 10:15:19.388342+00"
+    },
+    {
+      "id": 628,
+      "specification_key": "3g Bands",
+      "created_at": "2025-11-27 17:16:04.439251+00",
+      "updated_at": "2025-11-27 17:16:04.439251+00"
+    },
+    {
+      "id": 3,
+      "specification_key": "3G Bands",
+      "created_at": "2025-11-08 05:08:39.568497+00",
+      "updated_at": "2025-11-08 05:08:39.568497+00"
+    },
+    {
+      "id": 454,
+      "specification_key": "3G Service Available",
+      "created_at": "2025-11-16 16:38:32.620519+00",
+      "updated_at": "2025-11-16 16:38:32.620519+00"
+    },
+    {
+      "id": 564,
+      "specification_key": "4g_bands",
+      "created_at": "2025-11-20 10:15:19.625488+00",
+      "updated_at": "2025-11-20 10:15:19.625488+00"
+    },
+    {
+      "id": 633,
+      "specification_key": "4g Bands",
+      "created_at": "2025-11-27 17:16:08.070327+00",
+      "updated_at": "2025-11-27 17:16:08.070327+00"
+    },
+    {
+      "id": 4,
+      "specification_key": "4G Bands",
+      "created_at": "2025-11-08 05:08:39.783504+00",
+      "updated_at": "2025-11-08 05:08:39.783504+00"
+    },
+    {
+      "id": 455,
+      "specification_key": "4G/LTE Service Available",
+      "created_at": "2025-11-16 16:38:32.859689+00",
+      "updated_at": "2025-11-16 16:38:32.859689+00"
+    },
+    {
+      "id": 565,
+      "specification_key": "5g_bands",
+      "created_at": "2025-11-20 10:15:19.836752+00",
+      "updated_at": "2025-11-20 10:15:19.836752+00"
+    },
+    {
+      "id": 629,
+      "specification_key": "5g Bands",
+      "created_at": "2025-11-27 17:16:04.877301+00",
+      "updated_at": "2025-11-27 17:16:04.877301+00"
+    },
+    {
+      "id": 5,
+      "specification_key": "5G Bands",
+      "created_at": "2025-11-08 05:08:39.997863+00",
+      "updated_at": "2025-11-08 05:08:39.997863+00"
+    },
+    {
+      "id": 456,
+      "specification_key": "5G Service Available",
+      "created_at": "2025-11-16 16:38:33.109647+00",
+      "updated_at": "2025-11-16 16:38:33.109647+00"
+    },
+    {
+      "id": 581,
+      "specification_key": "5g_support",
+      "created_at": "2025-11-20 10:18:21.416257+00",
+      "updated_at": "2025-11-20 10:18:21.416257+00"
+    },
+    {
+      "id": 635,
+      "specification_key": "5g Support",
+      "created_at": "2025-11-27 17:16:10.489823+00",
+      "updated_at": "2025-11-27 17:16:10.489823+00"
+    },
+    {
+      "id": 637,
+      "specification_key": "5G Support",
+      "created_at": "2025-11-27 17:18:11.618973+00",
+      "updated_at": "2025-11-27 17:18:11.618973+00"
+    },
+    {
+      "id": 84,
+      "specification_key": "ABS (Anti-lock Braking System)",
+      "created_at": "2025-11-08 05:08:56.954055+00",
+      "updated_at": "2025-11-08 05:08:56.954055+00"
+    },
+    {
+      "id": 361,
+      "specification_key": "ABS Type",
+      "created_at": "2025-11-10 12:09:26.037548+00",
+      "updated_at": "2025-11-10 12:09:26.037548+00"
+    },
+    {
+      "id": 83,
+      "specification_key": "Acceleration 0-100 km/h",
+      "created_at": "2025-11-08 05:08:56.738305+00",
+      "updated_at": "2025-11-08 05:08:56.738305+00"
+    },
+    {
+      "id": 595,
+      "specification_key": "AC Type",
+      "created_at": "2025-11-26 10:37:56.155246+00",
+      "updated_at": "2025-11-26 10:37:56.155246+00"
+    },
+    {
+      "id": 528,
+      "specification_key": "After-Sales Service",
+      "created_at": "2025-11-17 12:47:20.195042+00",
+      "updated_at": "2025-11-17 12:47:20.195042+00"
+    },
+    {
+      "id": 302,
+      "specification_key": "Age Group",
+      "created_at": "2025-11-08 05:09:44.082402+00",
+      "updated_at": "2025-11-08 05:09:44.082402+00"
+    },
+    {
+      "id": 426,
+      "specification_key": "Agent Banking Service",
+      "created_at": "2025-11-16 12:27:33.202268+00",
+      "updated_at": "2025-11-16 12:27:33.202268+00"
+    },
+    {
+      "id": 423,
+      "specification_key": "Agricultural Loan Schemes",
+      "created_at": "2025-11-16 12:27:32.31661+00",
+      "updated_at": "2025-11-16 12:27:32.31661+00"
+    },
+    {
+      "id": 85,
+      "specification_key": "Airbags",
+      "created_at": "2025-11-08 05:08:57.168611+00",
+      "updated_at": "2025-11-08 05:08:57.168611+00"
+    },
+    {
+      "id": 86,
+      "specification_key": "Air Conditioning",
+      "created_at": "2025-11-08 05:08:57.399765+00",
+      "updated_at": "2025-11-08 05:08:57.399765+00"
+    },
+    {
+      "id": 6,
+      "specification_key": "Alarm Feature",
+      "created_at": "2025-11-08 05:08:40.210959+00",
+      "updated_at": "2025-11-08 05:08:40.210959+00"
+    },
+    {
+      "id": 7,
+      "specification_key": "Alert Types",
+      "created_at": "2025-11-08 05:08:40.420878+00",
+      "updated_at": "2025-11-08 05:08:40.420878+00"
+    },
+    {
+      "id": 257,
+      "specification_key": "Allergen Information",
+      "created_at": "2025-11-08 05:09:34.406884+00",
+      "updated_at": "2025-11-08 05:09:34.406884+00"
+    },
+    {
+      "id": 498,
+      "specification_key": "ALLM Support",
+      "created_at": "2025-11-17 12:47:13.03921+00",
+      "updated_at": "2025-11-17 12:47:13.03921+00"
+    },
+    {
+      "id": 87,
+      "specification_key": "All-Wheel Drive",
+      "created_at": "2025-11-08 05:08:57.617589+00",
+      "updated_at": "2025-11-08 05:08:57.617589+00"
+    },
+    {
+      "id": 472,
+      "specification_key": "Android App Available",
+      "created_at": "2025-11-16 16:38:37.238142+00",
+      "updated_at": "2025-11-16 16:38:37.238142+00"
+    },
+    {
+      "id": 578,
+      "specification_key": "announcement_date",
+      "created_at": "2025-11-20 10:15:22.65658+00",
+      "updated_at": "2025-11-20 10:15:22.65658+00"
+    },
+    {
+      "id": 8,
+      "specification_key": "Announcement Date",
+      "created_at": "2025-11-08 05:08:40.629988+00",
+      "updated_at": "2025-11-08 05:08:40.629988+00"
+    },
+    {
+      "id": 137,
+      "specification_key": "Annual Energy Consumption",
+      "created_at": "2025-11-08 05:09:08.452898+00",
+      "updated_at": "2025-11-08 05:09:08.452898+00"
+    },
+    {
+      "id": 184,
+      "specification_key": "Aperture",
+      "created_at": "2025-11-08 05:09:18.642066+00",
+      "updated_at": "2025-11-08 05:09:18.642066+00"
+    },
+    {
+      "id": 278,
+      "specification_key": "Application Area",
+      "created_at": "2025-11-08 05:09:38.920475+00",
+      "updated_at": "2025-11-08 05:09:38.920475+00"
+    },
+    {
+      "id": 164,
+      "specification_key": "Aspect Ratio",
+      "created_at": "2025-11-08 05:09:14.263996+00",
+      "updated_at": "2025-11-08 05:09:14.263996+00"
+    },
+    {
+      "id": 250,
+      "specification_key": "Assembly Required",
+      "created_at": "2025-11-08 05:09:32.900824+00",
+      "updated_at": "2025-11-08 05:09:32.900824+00"
+    },
+    {
+      "id": 429,
+      "specification_key": "ATM Network Partnership",
+      "created_at": "2025-11-16 12:27:33.908704+00",
+      "updated_at": "2025-11-16 12:27:33.908704+00"
+    },
+    {
+      "id": 175,
+      "specification_key": "Audio Formats",
+      "created_at": "2025-11-08 05:09:16.652396+00",
+      "updated_at": "2025-11-08 05:09:16.652396+00"
+    },
+    {
+      "id": 584,
+      "specification_key": "audio_jack",
+      "created_at": "2025-11-20 10:18:21.416257+00",
+      "updated_at": "2025-11-20 10:18:21.416257+00"
+    },
+    {
+      "id": 624,
+      "specification_key": "Audio Jack",
+      "created_at": "2025-11-27 17:15:59.47199+00",
+      "updated_at": "2025-11-27 17:15:59.47199+00"
+    },
+    {
+      "id": 583,
+      "specification_key": "audio_quality",
+      "created_at": "2025-11-20 10:18:21.416257+00",
+      "updated_at": "2025-11-20 10:18:21.416257+00"
+    },
+    {
+      "id": 9,
+      "specification_key": "Audio Quality",
+      "created_at": "2025-11-08 05:08:40.844426+00",
+      "updated_at": "2025-11-08 05:08:40.844426+00"
+    },
+    {
+      "id": 288,
+      "specification_key": "Author",
+      "created_at": "2025-11-08 05:09:41.079452+00",
+      "updated_at": "2025-11-08 05:09:41.079452+00"
+    },
+    {
+      "id": 522,
+      "specification_key": "Auto Brightness",
+      "created_at": "2025-11-17 12:47:18.758332+00",
+      "updated_at": "2025-11-17 12:47:18.758332+00"
+    },
+    {
+      "id": 185,
+      "specification_key": "Auto Focus",
+      "created_at": "2025-11-08 05:09:18.860346+00",
+      "updated_at": "2025-11-08 05:09:18.860346+00"
+    },
+    {
+      "id": 527,
+      "specification_key": "Availability in Bangladesh",
+      "created_at": "2025-11-17 12:47:19.957552+00",
+      "updated_at": "2025-11-17 12:47:19.957552+00"
+    },
+    {
+      "id": 576,
+      "specification_key": "available_colors",
+      "created_at": "2025-11-20 10:15:22.19204+00",
+      "updated_at": "2025-11-20 10:15:22.19204+00"
+    },
+    {
+      "id": 10,
+      "specification_key": "Available Colors",
+      "created_at": "2025-11-08 05:08:41.059671+00",
+      "updated_at": "2025-11-08 05:08:41.059671+00"
+    },
+    {
+      "id": 382,
+      "specification_key": "Backlight Type",
+      "created_at": "2025-11-16 12:27:13.052171+00",
+      "updated_at": "2025-11-16 12:27:13.052171+00"
+    },
+    {
+      "id": 199,
+      "specification_key": "Backlit Keyboard",
+      "created_at": "2025-11-08 05:09:21.860771+00",
+      "updated_at": "2025-11-08 05:09:21.860771+00"
+    },
+    {
+      "id": 219,
+      "specification_key": "Band Material",
+      "created_at": "2025-11-08 05:09:26.192781+00",
+      "updated_at": "2025-11-08 05:09:26.192781+00"
+    },
+    {
+      "id": 220,
+      "specification_key": "Band Width",
+      "created_at": "2025-11-08 05:09:26.407409+00",
+      "updated_at": "2025-11-08 05:09:26.407409+00"
+    },
+    {
+      "id": 394,
+      "specification_key": "Bank Name",
+      "created_at": "2025-11-16 12:27:25.191986+00",
+      "updated_at": "2025-11-16 12:27:25.191986+00"
+    },
+    {
+      "id": 395,
+      "specification_key": "Bank Name (Bangla)",
+      "created_at": "2025-11-16 12:27:25.536812+00",
+      "updated_at": "2025-11-16 12:27:25.536812+00"
+    },
+    {
+      "id": 444,
+      "specification_key": "Bank Type",
+      "created_at": "2025-11-16 13:23:28.010784+00",
+      "updated_at": "2025-11-16 13:23:28.010784+00"
+    },
+    {
+      "id": 551,
+      "specification_key": "battery",
+      "created_at": "2025-11-20 10:15:16.813391+00",
+      "updated_at": "2025-11-20 10:15:16.813391+00"
+    },
+    {
+      "id": 619,
+      "specification_key": "Battery",
+      "created_at": "2025-11-27 17:15:54.525493+00",
+      "updated_at": "2025-11-27 17:15:54.525493+00"
+    },
+    {
+      "id": 11,
+      "specification_key": "Battery Capacity",
+      "created_at": "2025-11-08 05:08:41.268643+00",
+      "updated_at": "2025-11-08 05:08:41.268643+00"
+    },
+    {
+      "id": 303,
+      "specification_key": "Battery Required",
+      "created_at": "2025-11-08 05:09:44.301566+00",
+      "updated_at": "2025-11-08 05:09:44.301566+00"
+    },
+    {
+      "id": 552,
+      "specification_key": "battery_type",
+      "created_at": "2025-11-20 10:15:17.028631+00",
+      "updated_at": "2025-11-20 10:15:17.028631+00"
+    },
+    {
+      "id": 12,
+      "specification_key": "Battery Type",
+      "created_at": "2025-11-08 05:08:41.484068+00",
+      "updated_at": "2025-11-08 05:08:41.484068+00"
+    },
+    {
+      "id": 374,
+      "specification_key": "Battery Voltage",
+      "created_at": "2025-11-10 12:53:39.647624+00",
+      "updated_at": "2025-11-10 12:53:39.647624+00"
+    },
+    {
+      "id": 279,
+      "specification_key": "Benefits",
+      "created_at": "2025-11-08 05:09:39.143459+00",
+      "updated_at": "2025-11-08 05:09:39.143459+00"
+    },
+    {
+      "id": 513,
+      "specification_key": "Bezel Width",
+      "created_at": "2025-11-17 12:47:16.585902+00",
+      "updated_at": "2025-11-17 12:47:16.585902+00"
+    },
+    {
+      "id": 289,
+      "specification_key": "Binding",
+      "created_at": "2025-11-08 05:09:41.297802+00",
+      "updated_at": "2025-11-08 05:09:41.297802+00"
+    },
+    {
+      "id": 520,
+      "specification_key": "Blue Light Filter",
+      "created_at": "2025-11-17 12:47:18.30522+00",
+      "updated_at": "2025-11-17 12:47:18.30522+00"
+    },
+    {
+      "id": 88,
+      "specification_key": "Bluetooth Connectivity",
+      "created_at": "2025-11-08 05:08:57.834892+00",
+      "updated_at": "2025-11-08 05:08:57.834892+00"
+    },
+    {
+      "id": 567,
+      "specification_key": "bluetooth_version",
+      "created_at": "2025-11-20 10:15:20.265729+00",
+      "updated_at": "2025-11-20 10:15:20.265729+00"
+    },
+    {
+      "id": 13,
+      "specification_key": "Bluetooth Version",
+      "created_at": "2025-11-08 05:08:41.697632+00",
+      "updated_at": "2025-11-08 05:08:41.697632+00"
+    },
+    {
+      "id": 89,
+      "specification_key": "Body Type",
+      "created_at": "2025-11-08 05:08:58.0597+00",
+      "updated_at": "2025-11-08 05:08:58.0597+00"
+    },
+    {
+      "id": 90,
+      "specification_key": "Boot Space",
+      "created_at": "2025-11-08 05:08:58.287064+00",
+      "updated_at": "2025-11-08 05:08:58.287064+00"
+    },
+    {
+      "id": 336,
+      "specification_key": "Bore",
+      "created_at": "2025-11-09 18:02:32.691365+00",
+      "updated_at": "2025-11-09 18:02:32.691365+00"
+    },
+    {
+      "id": 210,
+      "specification_key": "Bowl Capacity",
+      "created_at": "2025-11-08 05:09:24.262356+00",
+      "updated_at": "2025-11-08 05:09:24.262356+00"
+    },
+    {
+      "id": 341,
+      "specification_key": "Brake Diameter",
+      "created_at": "2025-11-09 18:02:40.733719+00",
+      "updated_at": "2025-11-09 18:02:40.733719+00"
+    },
+    {
+      "id": 363,
+      "specification_key": "Brake System",
+      "created_at": "2025-11-10 12:17:34.164861+00",
+      "updated_at": "2025-11-10 12:17:34.164861+00"
+    },
+    {
+      "id": 91,
+      "specification_key": "Brake Type",
+      "created_at": "2025-11-08 05:08:58.507994+00",
+      "updated_at": "2025-11-08 05:08:58.507994+00"
+    },
+    {
+      "id": 354,
+      "specification_key": "Braking Features",
+      "created_at": "2025-11-09 18:15:29.038457+00",
+      "updated_at": "2025-11-09 18:15:29.038457+00"
+    },
+    {
+      "id": 369,
+      "specification_key": "Braking System",
+      "created_at": "2025-11-10 12:40:20.630445+00",
+      "updated_at": "2025-11-10 12:40:20.630445+00"
+    },
+    {
+      "id": 310,
+      "specification_key": "Brand",
+      "created_at": "2025-11-08 05:09:45.807671+00",
+      "updated_at": "2025-11-08 05:09:45.807671+00"
+    },
+    {
+      "id": 258,
+      "specification_key": "Brand Origin",
+      "created_at": "2025-11-08 05:09:34.628354+00",
+      "updated_at": "2025-11-08 05:09:34.628354+00"
+    },
+    {
+      "id": 379,
+      "specification_key": "Brightness (nits)",
+      "created_at": "2025-11-16 12:27:12.078551+00",
+      "updated_at": "2025-11-16 12:27:12.078551+00"
+    },
+    {
+      "id": 557,
+      "specification_key": "build_material",
+      "created_at": "2025-11-20 10:15:18.117759+00",
+      "updated_at": "2025-11-20 10:15:18.117759+00"
+    },
+    {
+      "id": 14,
+      "specification_key": "Build Material",
+      "created_at": "2025-11-08 05:08:41.912041+00",
+      "updated_at": "2025-11-08 05:08:41.912041+00"
+    },
+    {
+      "id": 493,
+      "specification_key": "Built-in Apps",
+      "created_at": "2025-11-17 12:47:11.872135+00",
+      "updated_at": "2025-11-17 12:47:11.872135+00"
+    },
+    {
+      "id": 494,
+      "specification_key": "Built-in Tuner",
+      "created_at": "2025-11-17 12:47:12.108364+00",
+      "updated_at": "2025-11-17 12:47:12.108364+00"
+    },
+    {
+      "id": 486,
+      "specification_key": "Call Drop Rate",
+      "created_at": "2025-11-16 16:38:41.3571+00",
+      "updated_at": "2025-11-16 16:38:41.3571+00"
+    },
+    {
+      "id": 15,
+      "specification_key": "Call Records",
+      "created_at": "2025-11-08 05:08:42.129484+00",
+      "updated_at": "2025-11-08 05:08:42.129484+00"
+    },
+    {
+      "id": 259,
+      "specification_key": "Calories",
+      "created_at": "2025-11-08 05:09:34.840284+00",
+      "updated_at": "2025-11-08 05:09:34.840284+00"
+    },
+    {
+      "id": 601,
+      "specification_key": "Camera",
+      "created_at": "2025-11-26 10:37:57.65819+00",
+      "updated_at": "2025-11-26 10:37:57.65819+00"
+    },
+    {
+      "id": 545,
+      "specification_key": "camera_features",
+      "created_at": "2025-11-20 10:15:15.541494+00",
+      "updated_at": "2025-11-20 10:15:15.541494+00"
+    },
+    {
+      "id": 16,
+      "specification_key": "Camera Features",
+      "created_at": "2025-11-08 05:08:42.338059+00",
+      "updated_at": "2025-11-08 05:08:42.338059+00"
+    },
+    {
+      "id": 547,
+      "specification_key": "camera_video_resolution",
+      "created_at": "2025-11-20 10:15:15.952392+00",
+      "updated_at": "2025-11-20 10:15:15.952392+00"
+    },
+    {
+      "id": 626,
+      "specification_key": "Camera Video Resolution",
+      "created_at": "2025-11-27 17:16:01.531634+00",
+      "updated_at": "2025-11-27 17:16:01.531634+00"
+    },
+    {
+      "id": 138,
+      "specification_key": "Capacity",
+      "created_at": "2025-11-08 05:09:08.667251+00",
+      "updated_at": "2025-11-08 05:09:08.667251+00"
+    },
+    {
+      "id": 260,
+      "specification_key": "Carbohydrates",
+      "created_at": "2025-11-08 05:09:35.051875+00",
+      "updated_at": "2025-11-08 05:09:35.051875+00"
+    },
+    {
+      "id": 543,
+      "specification_key": "card_slot_type",
+      "created_at": "2025-11-20 10:15:15.12043+00",
+      "updated_at": "2025-11-20 10:15:15.12043+00"
+    },
+    {
+      "id": 17,
+      "specification_key": "Card Slot Type",
+      "created_at": "2025-11-08 05:08:42.557724+00",
+      "updated_at": "2025-11-08 05:08:42.557724+00"
+    },
+    {
+      "id": 232,
+      "specification_key": "Care Instructions",
+      "created_at": "2025-11-08 05:09:29.012167+00",
+      "updated_at": "2025-11-08 05:09:29.012167+00"
+    },
+    {
+      "id": 221,
+      "specification_key": "Case Diameter",
+      "created_at": "2025-11-08 05:09:26.622874+00",
+      "updated_at": "2025-11-08 05:09:26.622874+00"
+    },
+    {
+      "id": 222,
+      "specification_key": "Case Material",
+      "created_at": "2025-11-08 05:09:26.838291+00",
+      "updated_at": "2025-11-08 05:09:26.838291+00"
+    },
+    {
+      "id": 223,
+      "specification_key": "Case Thickness",
+      "created_at": "2025-11-08 05:09:27.053678+00",
+      "updated_at": "2025-11-08 05:09:27.053678+00"
+    },
+    {
+      "id": 355,
+      "specification_key": "Category",
+      "created_at": "2025-11-09 18:17:59.309972+00",
+      "updated_at": "2025-11-09 18:17:59.309972+00"
+    },
+    {
+      "id": 92,
+      "specification_key": "CC (Cubic Capacity)",
+      "created_at": "2025-11-08 05:08:58.719449+00",
+      "updated_at": "2025-11-08 05:08:58.719449+00"
+    },
+    {
+      "id": 446,
+      "specification_key": "CEO",
+      "created_at": "2025-11-16 13:55:04.536342+00",
+      "updated_at": "2025-11-16 13:55:04.536342+00"
+    },
+    {
+      "id": 478,
+      "specification_key": "CEO / MD Name",
+      "created_at": "2025-11-16 16:38:39.081446+00",
+      "updated_at": "2025-11-16 16:38:39.081446+00"
+    },
+    {
+      "id": 402,
+      "specification_key": "Chairman",
+      "created_at": "2025-11-16 12:27:27.291681+00",
+      "updated_at": "2025-11-16 12:27:27.291681+00"
+    },
+    {
+      "id": 479,
+      "specification_key": "Chairman Name",
+      "created_at": "2025-11-16 16:38:39.334561+00",
+      "updated_at": "2025-11-16 16:38:39.334561+00"
+    },
+    {
+      "id": 554,
+      "specification_key": "charging_speed",
+      "created_at": "2025-11-20 10:15:17.486605+00",
+      "updated_at": "2025-11-20 10:15:17.486605+00"
+    },
+    {
+      "id": 18,
+      "specification_key": "Charging Speed",
+      "created_at": "2025-11-08 05:08:42.772007+00",
+      "updated_at": "2025-11-08 05:08:42.772007+00"
+    },
+    {
+      "id": 375,
+      "specification_key": "Charging Time",
+      "created_at": "2025-11-10 12:53:42.06213+00",
+      "updated_at": "2025-11-10 12:53:42.06213+00"
+    },
+    {
+      "id": 593,
+      "specification_key": "Child Safety Lock",
+      "created_at": "2025-11-26 10:37:55.658743+00",
+      "updated_at": "2025-11-26 10:37:55.658743+00"
+    },
+    {
+      "id": 536,
+      "specification_key": "chipset",
+      "created_at": "2025-11-20 10:15:13.636076+00",
+      "updated_at": "2025-11-20 10:15:13.636076+00"
+    },
+    {
+      "id": 19,
+      "specification_key": "Chipset",
+      "created_at": "2025-11-08 05:08:42.983942+00",
+      "updated_at": "2025-11-08 05:08:42.983942+00"
+    },
+    {
+      "id": 386,
+      "specification_key": "Chromecast / AirPlay Support",
+      "created_at": "2025-11-16 12:27:14.135491+00",
+      "updated_at": "2025-11-16 12:27:14.135491+00"
+    },
+    {
+      "id": 600,
+      "specification_key": "City Fuel Economy (km/l)",
+      "created_at": "2025-11-26 10:37:57.400539+00",
+      "updated_at": "2025-11-26 10:37:57.400539+00"
+    },
+    {
+      "id": 224,
+      "specification_key": "Clasp Type",
+      "created_at": "2025-11-08 05:09:27.272665+00",
+      "updated_at": "2025-11-08 05:09:27.272665+00"
+    },
+    {
+      "id": 93,
+      "specification_key": "Climate Control",
+      "created_at": "2025-11-08 05:08:58.925523+00",
+      "updated_at": "2025-11-08 05:08:58.925523+00"
+    },
+    {
+      "id": 20,
+      "specification_key": "Clock Feature",
+      "created_at": "2025-11-08 05:08:43.205686+00",
+      "updated_at": "2025-11-08 05:08:43.205686+00"
+    },
+    {
+      "id": 296,
+      "specification_key": "Closure",
+      "created_at": "2025-11-08 05:09:42.800436+00",
+      "updated_at": "2025-11-08 05:09:42.800436+00"
+    },
+    {
+      "id": 233,
+      "specification_key": "Closure Type",
+      "created_at": "2025-11-08 05:09:29.233934+00",
+      "updated_at": "2025-11-08 05:09:29.233934+00"
+    },
+    {
+      "id": 94,
+      "specification_key": "Clutch Type",
+      "created_at": "2025-11-08 05:08:59.141133+00",
+      "updated_at": "2025-11-08 05:08:59.141133+00"
+    },
+    {
+      "id": 234,
+      "specification_key": "Collar Style",
+      "created_at": "2025-11-08 05:09:29.454581+00",
+      "updated_at": "2025-11-08 05:09:29.454581+00"
+    },
+    {
+      "id": 311,
+      "specification_key": "Color",
+      "created_at": "2025-11-08 05:09:46.016135+00",
+      "updated_at": "2025-11-08 05:09:46.016135+00"
+    },
+    {
+      "id": 525,
+      "specification_key": "Color Enhancement",
+      "created_at": "2025-11-17 12:47:19.476995+00",
+      "updated_at": "2025-11-17 12:47:19.476995+00"
+    },
+    {
+      "id": 380,
+      "specification_key": "Color Gamut",
+      "created_at": "2025-11-16 12:27:12.361607+00",
+      "updated_at": "2025-11-16 12:27:12.361607+00"
+    },
+    {
+      "id": 340,
+      "specification_key": "Color Options",
+      "created_at": "2025-11-09 18:02:38.169153+00",
+      "updated_at": "2025-11-09 18:02:38.169153+00"
+    },
+    {
+      "id": 607,
+      "specification_key": "Combined Fuel Economy (km/l)",
+      "created_at": "2025-11-26 10:37:59.187792+00",
+      "updated_at": "2025-11-26 10:37:59.187792+00"
+    },
+    {
+      "id": 297,
+      "specification_key": "Compartments",
+      "created_at": "2025-11-08 05:09:43.01322+00",
+      "updated_at": "2025-11-08 05:09:43.01322+00"
+    },
+    {
+      "id": 475,
+      "specification_key": "Complaint Resolution Time",
+      "created_at": "2025-11-16 16:38:38.032823+00",
+      "updated_at": "2025-11-16 16:38:38.032823+00"
+    },
+    {
+      "id": 329,
+      "specification_key": "Compression Ratio",
+      "created_at": "2025-11-08 13:03:57.01267+00",
+      "updated_at": "2025-11-08 13:03:57.01267+00"
+    },
+    {
+      "id": 139,
+      "specification_key": "Compressor Type",
+      "created_at": "2025-11-08 05:09:08.879919+00",
+      "updated_at": "2025-11-08 05:09:08.879919+00"
+    },
+    {
+      "id": 312,
+      "specification_key": "Condition",
+      "created_at": "2025-11-08 05:09:46.252231+00",
+      "updated_at": "2025-11-08 05:09:46.252231+00"
+    },
+    {
+      "id": 357,
+      "specification_key": "Connectivity",
+      "created_at": "2025-11-10 12:07:32.145174+00",
+      "updated_at": "2025-11-10 12:07:32.145174+00"
+    },
+    {
+      "id": 165,
+      "specification_key": "Contrast Ratio",
+      "created_at": "2025-11-08 05:09:14.485572+00",
+      "updated_at": "2025-11-08 05:09:14.485572+00"
+    },
+    {
+      "id": 140,
+      "specification_key": "Control Type",
+      "created_at": "2025-11-08 05:09:09.091129+00",
+      "updated_at": "2025-11-08 05:09:09.091129+00"
+    },
+    {
+      "id": 95,
+      "specification_key": "Cooling System",
+      "created_at": "2025-11-08 05:08:59.349635+00",
+      "updated_at": "2025-11-08 05:08:59.349635+00"
+    },
+    {
+      "id": 351,
+      "specification_key": "Cooling Type",
+      "created_at": "2025-11-09 18:03:03.579058+00",
+      "updated_at": "2025-11-09 18:03:03.579058+00"
+    },
+    {
+      "id": 407,
+      "specification_key": "Core Banking System",
+      "created_at": "2025-11-16 12:27:28.43033+00",
+      "updated_at": "2025-11-16 12:27:28.43033+00"
+    },
+    {
+      "id": 421,
+      "specification_key": "Corporate Banking",
+      "created_at": "2025-11-16 12:27:31.751266+00",
+      "updated_at": "2025-11-16 12:27:31.751266+00"
+    },
+    {
+      "id": 484,
+      "specification_key": "Corporate Social Responsibility Programs",
+      "created_at": "2025-11-16 16:38:40.570096+00",
+      "updated_at": "2025-11-16 16:38:40.570096+00"
+    },
+    {
+      "id": 313,
+      "specification_key": "Country of Manufacture",
+      "created_at": "2025-11-08 05:09:46.46709+00",
+      "updated_at": "2025-11-08 05:09:46.46709+00"
+    },
+    {
+      "id": 261,
+      "specification_key": "Country of Origin",
+      "created_at": "2025-11-08 05:09:35.266642+00",
+      "updated_at": "2025-11-08 05:09:35.266642+00"
+    },
+    {
+      "id": 450,
+      "specification_key": "Coverage Area",
+      "created_at": "2025-11-16 16:38:31.668674+00",
+      "updated_at": "2025-11-16 16:38:31.668674+00"
+    },
+    {
+      "id": 537,
+      "specification_key": "cpu_type",
+      "created_at": "2025-11-20 10:15:13.864623+00",
+      "updated_at": "2025-11-20 10:15:13.864623+00"
+    },
+    {
+      "id": 631,
+      "specification_key": "Cpu Type",
+      "created_at": "2025-11-27 17:16:06.986819+00",
+      "updated_at": "2025-11-27 17:16:06.986819+00"
+    },
+    {
+      "id": 21,
+      "specification_key": "CPU Type",
+      "created_at": "2025-11-08 05:08:43.420053+00",
+      "updated_at": "2025-11-08 05:08:43.420053+00"
+    },
+    {
+      "id": 414,
+      "specification_key": "Credit Card",
+      "created_at": "2025-11-16 12:27:30.0217+00",
+      "updated_at": "2025-11-16 12:27:30.0217+00"
+    },
+    {
+      "id": 96,
+      "specification_key": "Cruise Control",
+      "created_at": "2025-11-08 05:08:59.564895+00",
+      "updated_at": "2025-11-08 05:08:59.564895+00"
+    },
+    {
+      "id": 225,
+      "specification_key": "Crystal Type",
+      "created_at": "2025-11-08 05:09:27.485255+00",
+      "updated_at": "2025-11-08 05:09:27.485255+00"
+    },
+    {
+      "id": 588,
+      "specification_key": "Curtain Airbags",
+      "created_at": "2025-11-26 10:37:54.414404+00",
+      "updated_at": "2025-11-26 10:37:54.414404+00"
+    },
+    {
+      "id": 434,
+      "specification_key": "Customer Care Email",
+      "created_at": "2025-11-16 12:27:35.458506+00",
+      "updated_at": "2025-11-16 12:27:35.458506+00"
+    },
+    {
+      "id": 433,
+      "specification_key": "Customer Care Phone",
+      "created_at": "2025-11-16 12:27:35.127419+00",
+      "updated_at": "2025-11-16 12:27:35.127419+00"
+    },
+    {
+      "id": 477,
+      "specification_key": "Customer Satisfaction Rating",
+      "created_at": "2025-11-16 16:38:38.841299+00",
+      "updated_at": "2025-11-16 16:38:38.841299+00"
+    },
+    {
+      "id": 445,
+      "specification_key": "Customer Service Phone",
+      "created_at": "2025-11-16 13:23:29.698732+00",
+      "updated_at": "2025-11-16 13:23:29.698732+00"
+    },
+    {
+      "id": 97,
+      "specification_key": "Cylinder Configuration",
+      "created_at": "2025-11-08 05:08:59.779499+00",
+      "updated_at": "2025-11-08 05:08:59.779499+00"
+    },
+    {
+      "id": 605,
+      "specification_key": "Cylinders",
+      "created_at": "2025-11-26 10:37:58.683081+00",
+      "updated_at": "2025-11-26 10:37:58.683081+00"
+    },
+    {
+      "id": 459,
+      "specification_key": "Data Service",
+      "created_at": "2025-11-16 16:38:33.831797+00",
+      "updated_at": "2025-11-16 16:38:33.831797+00"
+    },
+    {
+      "id": 488,
+      "specification_key": "Data Speed Rating",
+      "created_at": "2025-11-16 16:38:41.857758+00",
+      "updated_at": "2025-11-16 16:38:41.857758+00"
+    },
+    {
+      "id": 413,
+      "specification_key": "Debit Card",
+      "created_at": "2025-11-16 12:27:29.791205+00",
+      "updated_at": "2025-11-16 12:27:29.791205+00"
+    },
+    {
+      "id": 141,
+      "specification_key": "Defrost Type",
+      "created_at": "2025-11-08 05:09:09.308298+00",
+      "updated_at": "2025-11-08 05:09:09.308298+00"
+    },
+    {
+      "id": 416,
+      "specification_key": "Deposit Schemes",
+      "created_at": "2025-11-16 12:27:30.577468+00",
+      "updated_at": "2025-11-16 12:27:30.577468+00"
+    },
+    {
+      "id": 356,
+      "specification_key": "Design Style",
+      "created_at": "2025-11-09 18:19:16.825586+00",
+      "updated_at": "2025-11-09 18:19:16.825586+00"
+    },
+    {
+      "id": 22,
+      "specification_key": "Device Size",
+      "created_at": "2025-11-08 05:08:43.634165+00",
+      "updated_at": "2025-11-08 05:08:43.634165+00"
+    },
+    {
+      "id": 579,
+      "specification_key": "device_status",
+      "created_at": "2025-11-20 10:15:22.860488+00",
+      "updated_at": "2025-11-20 10:15:22.860488+00"
+    },
+    {
+      "id": 23,
+      "specification_key": "Device Status",
+      "created_at": "2025-11-08 05:08:43.857035+00",
+      "updated_at": "2025-11-08 05:08:43.857035+00"
+    },
+    {
+      "id": 24,
+      "specification_key": "Device Type",
+      "created_at": "2025-11-08 05:08:44.068051+00",
+      "updated_at": "2025-11-08 05:08:44.068051+00"
+    },
+    {
+      "id": 226,
+      "specification_key": "Dial Color",
+      "created_at": "2025-11-08 05:09:27.698149+00",
+      "updated_at": "2025-11-08 05:09:27.698149+00"
+    },
+    {
+      "id": 262,
+      "specification_key": "Dietary Type",
+      "created_at": "2025-11-08 05:09:35.475945+00",
+      "updated_at": "2025-11-08 05:09:35.475945+00"
+    },
+    {
+      "id": 427,
+      "specification_key": "Digital Wallet",
+      "created_at": "2025-11-16 12:27:33.428578+00",
+      "updated_at": "2025-11-16 12:27:33.428578+00"
+    },
+    {
+      "id": 186,
+      "specification_key": "Digital Zoom",
+      "created_at": "2025-11-08 05:09:19.068391+00",
+      "updated_at": "2025-11-08 05:09:19.068391+00"
+    },
+    {
+      "id": 559,
+      "specification_key": "dimensions",
+      "created_at": "2025-11-20 10:15:18.525631+00",
+      "updated_at": "2025-11-20 10:15:18.525631+00"
+    },
+    {
+      "id": 25,
+      "specification_key": "Dimensions",
+      "created_at": "2025-11-08 05:08:44.281276+00",
+      "updated_at": "2025-11-08 05:08:44.281276+00"
+    },
+    {
+      "id": 505,
+      "specification_key": "Dimensions (W x H x D)",
+      "created_at": "2025-11-17 12:47:14.736652+00",
+      "updated_at": "2025-11-17 12:47:14.736652+00"
+    },
+    {
+      "id": 491,
+      "specification_key": "Disaster Recovery Support",
+      "created_at": "2025-11-16 16:38:42.587147+00",
+      "updated_at": "2025-11-16 16:38:42.587147+00"
+    },
+    {
+      "id": 370,
+      "specification_key": "Disc Type",
+      "created_at": "2025-11-10 12:45:51.872827+00",
+      "updated_at": "2025-11-10 12:45:51.872827+00"
+    },
+    {
+      "id": 98,
+      "specification_key": "Displacement",
+      "created_at": "2025-11-08 05:08:59.988308+00",
+      "updated_at": "2025-11-08 05:08:59.988308+00"
+    },
+    {
+      "id": 26,
+      "specification_key": "Display Characteristics",
+      "created_at": "2025-11-08 05:08:44.491034+00",
+      "updated_at": "2025-11-08 05:08:44.491034+00"
+    },
+    {
+      "id": 530,
+      "specification_key": "display_size",
+      "created_at": "2025-11-20 10:15:12.232463+00",
+      "updated_at": "2025-11-20 10:15:12.232463+00"
+    },
+    {
+      "id": 621,
+      "specification_key": "Display Size",
+      "created_at": "2025-11-27 17:15:56.454883+00",
+      "updated_at": "2025-11-27 17:15:56.454883+00"
+    },
+    {
+      "id": 227,
+      "specification_key": "Display Style",
+      "created_at": "2025-11-08 05:09:27.908133+00",
+      "updated_at": "2025-11-08 05:09:27.908133+00"
+    },
+    {
+      "id": 531,
+      "specification_key": "display_type",
+      "created_at": "2025-11-20 10:15:12.511115+00",
+      "updated_at": "2025-11-20 10:15:12.511115+00"
+    },
+    {
+      "id": 27,
+      "specification_key": "Display Type",
+      "created_at": "2025-11-08 05:08:44.704643+00",
+      "updated_at": "2025-11-08 05:08:44.704643+00"
+    },
+    {
+      "id": 388,
+      "specification_key": "Dolby Atmos Support",
+      "created_at": "2025-11-16 12:27:14.868707+00",
+      "updated_at": "2025-11-16 12:27:14.868707+00"
+    },
+    {
+      "id": 142,
+      "specification_key": "Door Type",
+      "created_at": "2025-11-08 05:09:09.521055+00",
+      "updated_at": "2025-11-08 05:09:09.521055+00"
+    },
+    {
+      "id": 609,
+      "specification_key": "Driver Airbag",
+      "created_at": "2025-11-26 10:37:59.703289+00",
+      "updated_at": "2025-11-26 10:37:59.703289+00"
+    },
+    {
+      "id": 176,
+      "specification_key": "Driver Size",
+      "created_at": "2025-11-08 05:09:16.867065+00",
+      "updated_at": "2025-11-08 05:09:16.867065+00"
+    },
+    {
+      "id": 99,
+      "specification_key": "Drive Type",
+      "created_at": "2025-11-08 05:09:00.206539+00",
+      "updated_at": "2025-11-08 05:09:00.206539+00"
+    },
+    {
+      "id": 331,
+      "specification_key": "DRL (Daytime Running Light)",
+      "created_at": "2025-11-08 13:03:57.462907+00",
+      "updated_at": "2025-11-08 13:03:57.462907+00"
+    },
+    {
+      "id": 28,
+      "specification_key": "Dual or Triple Camera Setup",
+      "created_at": "2025-11-08 05:08:44.914041+00",
+      "updated_at": "2025-11-08 05:08:44.914041+00"
+    },
+    {
+      "id": 29,
+      "specification_key": "Dual SIM",
+      "created_at": "2025-11-08 05:08:45.126103+00",
+      "updated_at": "2025-11-08 05:08:45.126103+00"
+    },
+    {
+      "id": 521,
+      "specification_key": "Eco Mode",
+      "created_at": "2025-11-17 12:47:18.529121+00",
+      "updated_at": "2025-11-17 12:47:18.529121+00"
+    },
+    {
+      "id": 30,
+      "specification_key": "EDGE (Enhanced Data Rates for GSM Evolution)",
+      "created_at": "2025-11-08 05:08:45.337156+00",
+      "updated_at": "2025-11-08 05:08:45.337156+00"
+    },
+    {
+      "id": 290,
+      "specification_key": "Edition",
+      "created_at": "2025-11-08 05:09:41.509941+00",
+      "updated_at": "2025-11-08 05:09:41.509941+00"
+    },
+    {
+      "id": 304,
+      "specification_key": "Educational Value",
+      "created_at": "2025-11-08 05:09:44.516301+00",
+      "updated_at": "2025-11-08 05:09:44.516301+00"
+    },
+    {
+      "id": 333,
+      "specification_key": "Electrical System",
+      "created_at": "2025-11-08 13:03:57.885043+00",
+      "updated_at": "2025-11-08 13:03:57.885043+00"
+    },
+    {
+      "id": 490,
+      "specification_key": "Emergency Services Support",
+      "created_at": "2025-11-16 16:38:42.334112+00",
+      "updated_at": "2025-11-16 16:38:42.334112+00"
+    },
+    {
+      "id": 100,
+      "specification_key": "Emission Standard",
+      "created_at": "2025-11-08 05:09:00.418527+00",
+      "updated_at": "2025-11-08 05:09:00.418527+00"
+    },
+    {
+      "id": 503,
+      "specification_key": "Energy Consumption (Watts)",
+      "created_at": "2025-11-17 12:47:14.267265+00",
+      "updated_at": "2025-11-17 12:47:14.267265+00"
+    },
+    {
+      "id": 143,
+      "specification_key": "Energy Efficiency Rating",
+      "created_at": "2025-11-08 05:09:09.732893+00",
+      "updated_at": "2025-11-08 05:09:09.732893+00"
+    },
+    {
+      "id": 389,
+      "specification_key": "Energy Rating",
+      "created_at": "2025-11-16 12:27:15.141366+00",
+      "updated_at": "2025-11-16 12:27:15.141366+00"
+    },
+    {
+      "id": 144,
+      "specification_key": "Energy Star Rating",
+      "created_at": "2025-11-08 05:09:09.945159+00",
+      "updated_at": "2025-11-08 05:09:09.945159+00"
+    },
+    {
+      "id": 604,
+      "specification_key": "Engine Displacement (cc)",
+      "created_at": "2025-11-26 10:37:58.437565+00",
+      "updated_at": "2025-11-26 10:37:58.437565+00"
+    },
+    {
+      "id": 101,
+      "specification_key": "Engine Type",
+      "created_at": "2025-11-08 05:09:00.628777+00",
+      "updated_at": "2025-11-08 05:09:00.628777+00"
+    },
+    {
+      "id": 396,
+      "specification_key": "Established Year",
+      "created_at": "2025-11-16 12:27:25.768244+00",
+      "updated_at": "2025-11-16 12:27:25.768244+00"
+    },
+    {
+      "id": 613,
+      "specification_key": "Estimated Annual Maintenance Cost (BDT)",
+      "created_at": "2025-11-26 10:38:00.724641+00",
+      "updated_at": "2025-11-26 10:38:00.724641+00"
+    },
+    {
+      "id": 263,
+      "specification_key": "Expiry Date",
+      "created_at": "2025-11-08 05:09:35.692677+00",
+      "updated_at": "2025-11-08 05:09:35.692677+00"
+    },
+    {
+      "id": 518,
+      "specification_key": "Eye Comfort",
+      "created_at": "2025-11-17 12:47:17.814196+00",
+      "updated_at": "2025-11-17 12:47:17.814196+00"
+    },
+    {
+      "id": 235,
+      "specification_key": "Fabric",
+      "created_at": "2025-11-08 05:09:29.66643+00",
+      "updated_at": "2025-11-08 05:09:29.66643+00"
+    },
+    {
+      "id": 436,
+      "specification_key": "Facebook Page",
+      "created_at": "2025-11-16 12:27:36.060229+00",
+      "updated_at": "2025-11-16 12:27:36.060229+00"
+    },
+    {
+      "id": 553,
+      "specification_key": "fast_charging",
+      "created_at": "2025-11-20 10:15:17.267197+00",
+      "updated_at": "2025-11-20 10:15:17.267197+00"
+    },
+    {
+      "id": 634,
+      "specification_key": "Fast Charging",
+      "created_at": "2025-11-27 17:16:09.254243+00",
+      "updated_at": "2025-11-27 17:16:09.254243+00"
+    },
+    {
+      "id": 264,
+      "specification_key": "Fat Content",
+      "created_at": "2025-11-08 05:09:35.899743+00",
+      "updated_at": "2025-11-08 05:09:35.899743+00"
+    },
+    {
+      "id": 145,
+      "specification_key": "Filter Type",
+      "created_at": "2025-11-08 05:09:10.160392+00",
+      "updated_at": "2025-11-08 05:09:10.160392+00"
+    },
+    {
+      "id": 251,
+      "specification_key": "Finish Type",
+      "created_at": "2025-11-08 05:09:33.114286+00",
+      "updated_at": "2025-11-08 05:09:33.114286+00"
+    },
+    {
+      "id": 236,
+      "specification_key": "Fit Type",
+      "created_at": "2025-11-08 05:09:29.886112+00",
+      "updated_at": "2025-11-08 05:09:29.886112+00"
+    },
+    {
+      "id": 187,
+      "specification_key": "Flash Type",
+      "created_at": "2025-11-08 05:09:19.284087+00",
+      "updated_at": "2025-11-08 05:09:19.284087+00"
+    },
+    {
+      "id": 265,
+      "specification_key": "Flavor",
+      "created_at": "2025-11-08 05:09:36.115554+00",
+      "updated_at": "2025-11-08 05:09:36.115554+00"
+    },
+    {
+      "id": 519,
+      "specification_key": "Flicker-Free",
+      "created_at": "2025-11-17 12:47:18.046691+00",
+      "updated_at": "2025-11-17 12:47:18.046691+00"
+    },
+    {
+      "id": 442,
+      "specification_key": "Foreign Currency Account Support",
+      "created_at": "2025-11-16 12:27:38.364117+00",
+      "updated_at": "2025-11-16 12:27:38.364117+00"
+    },
+    {
+      "id": 419,
+      "specification_key": "Foreign Exchange Service",
+      "created_at": "2025-11-16 12:27:31.293346+00",
+      "updated_at": "2025-11-16 12:27:31.293346+00"
+    },
+    {
+      "id": 280,
+      "specification_key": "Formulation",
+      "created_at": "2025-11-08 05:09:39.357179+00",
+      "updated_at": "2025-11-08 05:09:39.357179+00"
+    },
+    {
+      "id": 252,
+      "specification_key": "Frame Material",
+      "created_at": "2025-11-08 05:09:33.330129+00",
+      "updated_at": "2025-11-08 05:09:33.330129+00"
+    },
+    {
+      "id": 497,
+      "specification_key": "Frame Rate Support",
+      "created_at": "2025-11-17 12:47:12.807779+00",
+      "updated_at": "2025-11-17 12:47:12.807779+00"
+    },
+    {
+      "id": 307,
+      "specification_key": "Frame Size",
+      "created_at": "2025-11-08 05:09:45.162062+00",
+      "updated_at": "2025-11-08 05:09:45.162062+00"
+    },
+    {
+      "id": 334,
+      "specification_key": "Frame Type",
+      "created_at": "2025-11-09 18:02:30.177593+00",
+      "updated_at": "2025-11-09 18:02:30.177593+00"
+    },
+    {
+      "id": 146,
+      "specification_key": "Freezer Capacity",
+      "created_at": "2025-11-08 05:09:10.375525+00",
+      "updated_at": "2025-11-08 05:09:10.375525+00"
+    },
+    {
+      "id": 177,
+      "specification_key": "Frequency Response",
+      "created_at": "2025-11-08 05:09:17.081938+00",
+      "updated_at": "2025-11-08 05:09:17.081938+00"
+    },
+    {
+      "id": 377,
+      "specification_key": "Front Brake Diameter",
+      "created_at": "2025-11-10 12:56:25.801519+00",
+      "updated_at": "2025-11-10 12:56:25.801519+00"
+    },
+    {
+      "id": 365,
+      "specification_key": "Front Brake Disc Type",
+      "created_at": "2025-11-10 12:21:07.920049+00",
+      "updated_at": "2025-11-10 12:21:07.920049+00"
+    },
+    {
+      "id": 324,
+      "specification_key": "Front Brake Type",
+      "created_at": "2025-11-08 13:03:55.89118+00",
+      "updated_at": "2025-11-08 13:03:55.89118+00"
+    },
+    {
+      "id": 549,
+      "specification_key": "front_camera",
+      "created_at": "2025-11-20 10:15:16.38596+00",
+      "updated_at": "2025-11-20 10:15:16.38596+00"
+    },
+    {
+      "id": 615,
+      "specification_key": "Front Camera",
+      "created_at": "2025-11-27 17:15:51.835479+00",
+      "updated_at": "2025-11-27 17:15:51.835479+00"
+    },
+    {
+      "id": 31,
+      "specification_key": "Front Camera Resolution",
+      "created_at": "2025-11-08 05:08:45.55408+00",
+      "updated_at": "2025-11-08 05:08:45.55408+00"
+    },
+    {
+      "id": 550,
+      "specification_key": "front_camera_video_resolution",
+      "created_at": "2025-11-20 10:15:16.602856+00",
+      "updated_at": "2025-11-20 10:15:16.602856+00"
+    },
+    {
+      "id": 32,
+      "specification_key": "Front Camera Video Resolution",
+      "created_at": "2025-11-08 05:08:45.766892+00",
+      "updated_at": "2025-11-08 05:08:45.766892+00"
+    },
+    {
+      "id": 347,
+      "specification_key": "Front Suspension Travel",
+      "created_at": "2025-11-09 18:02:51.959157+00",
+      "updated_at": "2025-11-09 18:02:51.959157+00"
+    },
+    {
+      "id": 368,
+      "specification_key": "Front Suspension Type",
+      "created_at": "2025-11-10 12:29:03.411979+00",
+      "updated_at": "2025-11-10 12:29:03.411979+00"
+    },
+    {
+      "id": 343,
+      "specification_key": "Front Tyre Size",
+      "created_at": "2025-11-09 18:02:44.463671+00",
+      "updated_at": "2025-11-09 18:02:44.463671+00"
+    },
+    {
+      "id": 102,
+      "specification_key": "Fuel Capacity",
+      "created_at": "2025-11-08 05:09:00.845339+00",
+      "updated_at": "2025-11-08 05:09:00.845339+00"
+    },
+    {
+      "id": 597,
+      "specification_key": "Fuel Efficiency (km/l)",
+      "created_at": "2025-11-26 10:37:56.653796+00",
+      "updated_at": "2025-11-26 10:37:56.653796+00"
+    },
+    {
+      "id": 352,
+      "specification_key": "Fuel Injection Type",
+      "created_at": "2025-11-09 18:15:13.725409+00",
+      "updated_at": "2025-11-09 18:15:13.725409+00"
+    },
+    {
+      "id": 103,
+      "specification_key": "Fuel System",
+      "created_at": "2025-11-08 05:09:01.05777+00",
+      "updated_at": "2025-11-08 05:09:01.05777+00"
+    },
+    {
+      "id": 104,
+      "specification_key": "Fuel Tank Capacity",
+      "created_at": "2025-11-08 05:09:01.270426+00",
+      "updated_at": "2025-11-08 05:09:01.270426+00"
+    },
+    {
+      "id": 590,
+      "specification_key": "Fuel Tank Capacity (l)",
+      "created_at": "2025-11-26 10:37:54.905848+00",
+      "updated_at": "2025-11-26 10:37:54.905848+00"
+    },
+    {
+      "id": 105,
+      "specification_key": "Fuel Type",
+      "created_at": "2025-11-08 05:09:01.480869+00",
+      "updated_at": "2025-11-08 05:09:01.480869+00"
+    },
+    {
+      "id": 500,
+      "specification_key": "Game Mode",
+      "created_at": "2025-11-17 12:47:13.50737+00",
+      "updated_at": "2025-11-17 12:47:13.50737+00"
+    },
+    {
+      "id": 515,
+      "specification_key": "Gaming Features",
+      "created_at": "2025-11-17 12:47:17.114738+00",
+      "updated_at": "2025-11-17 12:47:17.114738+00"
+    },
+    {
+      "id": 106,
+      "specification_key": "Gearbox",
+      "created_at": "2025-11-08 05:09:01.690597+00",
+      "updated_at": "2025-11-08 05:09:01.690597+00"
+    },
+    {
+      "id": 281,
+      "specification_key": "Gender",
+      "created_at": "2025-11-08 05:09:39.572597+00",
+      "updated_at": "2025-11-08 05:09:39.572597+00"
+    },
+    {
+      "id": 431,
+      "specification_key": "Government Payment Support",
+      "created_at": "2025-11-16 12:27:34.55661+00",
+      "updated_at": "2025-11-16 12:27:34.55661+00"
+    },
+    {
+      "id": 34,
+      "specification_key": "GPRS (General Packet Radio Service)",
+      "created_at": "2025-11-08 05:08:46.190177+00",
+      "updated_at": "2025-11-08 05:08:46.190177+00"
+    },
+    {
+      "id": 538,
+      "specification_key": "gpu_type",
+      "created_at": "2025-11-20 10:15:14.074617+00",
+      "updated_at": "2025-11-20 10:15:14.074617+00"
+    },
+    {
+      "id": 632,
+      "specification_key": "Gpu Type",
+      "created_at": "2025-11-27 17:16:07.425949+00",
+      "updated_at": "2025-11-27 17:16:07.425949+00"
+    },
+    {
+      "id": 33,
+      "specification_key": "GPU Type",
+      "created_at": "2025-11-08 05:08:45.979856+00",
+      "updated_at": "2025-11-08 05:08:45.979856+00"
+    },
+    {
+      "id": 200,
+      "specification_key": "Graphics Card",
+      "created_at": "2025-11-08 05:09:22.081251+00",
+      "updated_at": "2025-11-08 05:09:22.081251+00"
+    },
+    {
+      "id": 211,
+      "specification_key": "Grinder Jars",
+      "created_at": "2025-11-08 05:09:24.477617+00",
+      "updated_at": "2025-11-08 05:09:24.477617+00"
+    },
+    {
+      "id": 308,
+      "specification_key": "Grip Size",
+      "created_at": "2025-11-08 05:09:45.377227+00",
+      "updated_at": "2025-11-08 05:09:45.377227+00"
+    },
+    {
+      "id": 107,
+      "specification_key": "Ground Clearance",
+      "created_at": "2025-11-08 05:09:01.904051+00",
+      "updated_at": "2025-11-08 05:09:01.904051+00"
+    },
+    {
+      "id": 282,
+      "specification_key": "Hair Type",
+      "created_at": "2025-11-08 05:09:39.787524+00",
+      "updated_at": "2025-11-08 05:09:39.787524+00"
+    },
+    {
+      "id": 298,
+      "specification_key": "Handle Type",
+      "created_at": "2025-11-08 05:09:43.224818+00",
+      "updated_at": "2025-11-08 05:09:43.224818+00"
+    },
+    {
+      "id": 201,
+      "specification_key": "Hard Drive Type",
+      "created_at": "2025-11-08 05:09:22.318253+00",
+      "updated_at": "2025-11-08 05:09:22.318253+00"
+    },
+    {
+      "id": 167,
+      "specification_key": "HDMI Ports",
+      "created_at": "2025-11-08 05:09:14.916573+00",
+      "updated_at": "2025-11-08 05:09:14.916573+00"
+    },
+    {
+      "id": 381,
+      "specification_key": "HDR Formats (HDR10 / HDR10+ / HLG / Dolby Vision)",
+      "created_at": "2025-11-16 12:27:12.653781+00",
+      "updated_at": "2025-11-16 12:27:12.653781+00"
+    },
+    {
+      "id": 166,
+      "specification_key": "HDR Support",
+      "created_at": "2025-11-08 05:09:14.701282+00",
+      "updated_at": "2025-11-08 05:09:14.701282+00"
+    },
+    {
+      "id": 108,
+      "specification_key": "Headlight Type",
+      "created_at": "2025-11-08 05:09:02.115018+00",
+      "updated_at": "2025-11-08 05:09:02.115018+00"
+    },
+    {
+      "id": 437,
+      "specification_key": "Head Office Address",
+      "created_at": "2025-11-16 12:27:36.366301+00",
+      "updated_at": "2025-11-16 12:27:36.366301+00"
+    },
+    {
+      "id": 397,
+      "specification_key": "Headquarters",
+      "created_at": "2025-11-16 12:27:26.03698+00",
+      "updated_at": "2025-11-16 12:27:26.03698+00"
+    },
+    {
+      "id": 448,
+      "specification_key": "Headquarters Location",
+      "created_at": "2025-11-16 16:38:31.182852+00",
+      "updated_at": "2025-11-16 16:38:31.182852+00"
+    },
+    {
+      "id": 212,
+      "specification_key": "Heating Element",
+      "created_at": "2025-11-08 05:09:24.693318+00",
+      "updated_at": "2025-11-08 05:09:24.693318+00"
+    },
+    {
+      "id": 237,
+      "specification_key": "Heel Height",
+      "created_at": "2025-11-08 05:09:30.101461+00",
+      "updated_at": "2025-11-08 05:09:30.101461+00"
+    },
+    {
+      "id": 238,
+      "specification_key": "Heel Type",
+      "created_at": "2025-11-08 05:09:30.327411+00",
+      "updated_at": "2025-11-08 05:09:30.327411+00"
+    },
+    {
+      "id": 587,
+      "specification_key": "Height (mm)",
+      "created_at": "2025-11-26 10:37:54.167032+00",
+      "updated_at": "2025-11-26 10:37:54.167032+00"
+    },
+    {
+      "id": 438,
+      "specification_key": "Helpline Availability",
+      "created_at": "2025-11-16 12:27:37.011967+00",
+      "updated_at": "2025-11-16 12:27:37.011967+00"
+    },
+    {
+      "id": 474,
+      "specification_key": "Helpline Hours",
+      "created_at": "2025-11-16 16:38:37.791667+00",
+      "updated_at": "2025-11-16 16:38:37.791667+00"
+    },
+    {
+      "id": 611,
+      "specification_key": "Highway Fuel Economy (km/l)",
+      "created_at": "2025-11-26 10:38:00.229385+00",
+      "updated_at": "2025-11-26 10:38:00.229385+00"
+    },
+    {
+      "id": 109,
+      "specification_key": "Horsepower",
+      "created_at": "2025-11-08 05:09:02.32694+00",
+      "updated_at": "2025-11-08 05:09:02.32694+00"
+    },
+    {
+      "id": 110,
+      "specification_key": "Ignition Type",
+      "created_at": "2025-11-08 05:09:02.554961+00",
+      "updated_at": "2025-11-08 05:09:02.554961+00"
+    },
+    {
+      "id": 188,
+      "specification_key": "Image Stabilization",
+      "created_at": "2025-11-08 05:09:19.506194+00",
+      "updated_at": "2025-11-08 05:09:19.506194+00"
+    },
+    {
+      "id": 178,
+      "specification_key": "Impedance",
+      "created_at": "2025-11-08 05:09:17.29723+00",
+      "updated_at": "2025-11-08 05:09:17.29723+00"
+    },
+    {
+      "id": 314,
+      "specification_key": "Included Components",
+      "created_at": "2025-11-08 05:09:46.689237+00",
+      "updated_at": "2025-11-08 05:09:46.689237+00"
+    },
+    {
+      "id": 111,
+      "specification_key": "Infotainment System",
+      "created_at": "2025-11-08 05:09:02.768158+00",
+      "updated_at": "2025-11-08 05:09:02.768158+00"
+    },
+    {
+      "id": 35,
+      "specification_key": "Infrared Port",
+      "created_at": "2025-11-08 05:08:46.403464+00",
+      "updated_at": "2025-11-08 05:08:46.403464+00"
+    },
+    {
+      "id": 266,
+      "specification_key": "Ingredients",
+      "created_at": "2025-11-08 05:09:36.329289+00",
+      "updated_at": "2025-11-08 05:09:36.329289+00"
+    },
+    {
+      "id": 147,
+      "specification_key": "Installation Type",
+      "created_at": "2025-11-08 05:09:10.583937+00",
+      "updated_at": "2025-11-08 05:09:10.583937+00"
+    },
+    {
+      "id": 330,
+      "specification_key": "Instrument Cluster",
+      "created_at": "2025-11-08 13:03:57.220875+00",
+      "updated_at": "2025-11-08 13:03:57.220875+00"
+    },
+    {
+      "id": 594,
+      "specification_key": "Insurance Cost (BDT)",
+      "created_at": "2025-11-26 10:37:55.909202+00",
+      "updated_at": "2025-11-26 10:37:55.909202+00"
+    },
+    {
+      "id": 542,
+      "specification_key": "internal_memory_capacity",
+      "created_at": "2025-11-20 10:15:14.913257+00",
+      "updated_at": "2025-11-20 10:15:14.913257+00"
+    },
+    {
+      "id": 36,
+      "specification_key": "Internal Memory Capacity",
+      "created_at": "2025-11-08 05:08:46.617536+00",
+      "updated_at": "2025-11-08 05:08:46.617536+00"
+    },
+    {
+      "id": 415,
+      "specification_key": "International Card Support",
+      "created_at": "2025-11-16 12:27:30.254278+00",
+      "updated_at": "2025-11-16 12:27:30.254278+00"
+    },
+    {
+      "id": 464,
+      "specification_key": "International Roaming",
+      "created_at": "2025-11-16 16:38:35.124922+00",
+      "updated_at": "2025-11-16 16:38:35.124922+00"
+    },
+    {
+      "id": 408,
+      "specification_key": "Internet Banking",
+      "created_at": "2025-11-16 12:27:28.652282+00",
+      "updated_at": "2025-11-16 12:27:28.652282+00"
+    },
+    {
+      "id": 461,
+      "specification_key": "Internet Browsing",
+      "created_at": "2025-11-16 16:38:34.316937+00",
+      "updated_at": "2025-11-16 16:38:34.316937+00"
+    },
+    {
+      "id": 148,
+      "specification_key": "Inverter Technology",
+      "created_at": "2025-11-08 05:09:10.798987+00",
+      "updated_at": "2025-11-08 05:09:10.798987+00"
+    },
+    {
+      "id": 473,
+      "specification_key": "iOS App Available",
+      "created_at": "2025-11-16 16:38:37.501137+00",
+      "updated_at": "2025-11-16 16:38:37.501137+00"
+    },
+    {
+      "id": 291,
+      "specification_key": "ISBN",
+      "created_at": "2025-11-08 05:09:41.718142+00",
+      "updated_at": "2025-11-08 05:09:41.718142+00"
+    },
+    {
+      "id": 418,
+      "specification_key": "Islamic Banking Window",
+      "created_at": "2025-11-16 12:27:31.06097+00",
+      "updated_at": "2025-11-16 12:27:31.06097+00"
+    },
+    {
+      "id": 483,
+      "specification_key": "ISO Certifications",
+      "created_at": "2025-11-16 16:38:40.313503+00",
+      "updated_at": "2025-11-16 16:38:40.313503+00"
+    },
+    {
+      "id": 189,
+      "specification_key": "ISO Range",
+      "created_at": "2025-11-08 05:09:19.7209+00",
+      "updated_at": "2025-11-08 05:09:19.7209+00"
+    },
+    {
+      "id": 37,
+      "specification_key": "Java Support",
+      "created_at": "2025-11-08 05:08:46.831145+00",
+      "updated_at": "2025-11-08 05:08:46.831145+00"
+    },
+    {
+      "id": 112,
+      "specification_key": "Kerb Weight",
+      "created_at": "2025-11-08 05:09:03.011073+00",
+      "updated_at": "2025-11-08 05:09:03.011073+00"
+    },
+    {
+      "id": 292,
+      "specification_key": "Language",
+      "created_at": "2025-11-08 05:09:41.94052+00",
+      "updated_at": "2025-11-08 05:09:41.94052+00"
+    },
+    {
+      "id": 113,
+      "specification_key": "Length",
+      "created_at": "2025-11-08 05:09:03.236357+00",
+      "updated_at": "2025-11-08 05:09:03.236357+00"
+    },
+    {
+      "id": 612,
+      "specification_key": "Length (mm)",
+      "created_at": "2025-11-26 10:38:00.478137+00",
+      "updated_at": "2025-11-26 10:38:00.478137+00"
+    },
+    {
+      "id": 190,
+      "specification_key": "Lens Mount",
+      "created_at": "2025-11-08 05:09:19.93672+00",
+      "updated_at": "2025-11-08 05:09:19.93672+00"
+    },
+    {
+      "id": 400,
+      "specification_key": "License Type",
+      "created_at": "2025-11-16 12:27:26.833952+00",
+      "updated_at": "2025-11-16 12:27:26.833952+00"
+    },
+    {
+      "id": 511,
+      "specification_key": "Lifespan (Hours)",
+      "created_at": "2025-11-17 12:47:16.123957+00",
+      "updated_at": "2025-11-17 12:47:16.123957+00"
+    },
+    {
+      "id": 239,
+      "specification_key": "Lining Material",
+      "created_at": "2025-11-08 05:09:30.544318+00",
+      "updated_at": "2025-11-08 05:09:30.544318+00"
+    },
+    {
+      "id": 417,
+      "specification_key": "Loan Schemes",
+      "created_at": "2025-11-16 12:27:30.806921+00",
+      "updated_at": "2025-11-16 12:27:30.806921+00"
+    },
+    {
+      "id": 383,
+      "specification_key": "Local Dimming",
+      "created_at": "2025-11-16 12:27:13.278523+00",
+      "updated_at": "2025-11-16 12:27:13.278523+00"
+    },
+    {
+      "id": 299,
+      "specification_key": "Lock Type",
+      "created_at": "2025-11-08 05:09:43.435637+00",
+      "updated_at": "2025-11-08 05:09:43.435637+00"
+    },
+    {
+      "id": 582,
+      "specification_key": "loudspeaker_quality",
+      "created_at": "2025-11-20 10:18:21.416257+00",
+      "updated_at": "2025-11-20 10:18:21.416257+00"
+    },
+    {
+      "id": 38,
+      "specification_key": "Loudspeaker Quality",
+      "created_at": "2025-11-08 05:08:47.044809+00",
+      "updated_at": "2025-11-08 05:08:47.044809+00"
+    },
+    {
+      "id": 337,
+      "specification_key": "Lubrication System",
+      "created_at": "2025-11-09 18:02:33.333763+00",
+      "updated_at": "2025-11-09 18:02:33.333763+00"
+    },
+    {
+      "id": 39,
+      "specification_key": "Main Camera Resolution",
+      "created_at": "2025-11-08 05:08:47.261116+00",
+      "updated_at": "2025-11-08 05:08:47.261116+00"
+    },
+    {
+      "id": 40,
+      "specification_key": "Main Camera Video Resolution",
+      "created_at": "2025-11-08 05:08:47.539176+00",
+      "updated_at": "2025-11-08 05:08:47.539176+00"
+    },
+    {
+      "id": 403,
+      "specification_key": "Managing Director / CEO",
+      "created_at": "2025-11-16 12:27:27.52465+00",
+      "updated_at": "2025-11-16 12:27:27.52465+00"
+    },
+    {
+      "id": 315,
+      "specification_key": "Manufacturer",
+      "created_at": "2025-11-08 05:09:46.904696+00",
+      "updated_at": "2025-11-08 05:09:46.904696+00"
+    },
+    {
+      "id": 267,
+      "specification_key": "Manufacturing Date",
+      "created_at": "2025-11-08 05:09:36.544883+00",
+      "updated_at": "2025-11-08 05:09:36.544883+00"
+    },
+    {
+      "id": 149,
+      "specification_key": "Material",
+      "created_at": "2025-11-08 05:09:11.013518+00",
+      "updated_at": "2025-11-08 05:09:11.013518+00"
+    },
+    {
+      "id": 191,
+      "specification_key": "Maximum Aperture",
+      "created_at": "2025-11-08 05:09:20.152831+00",
+      "updated_at": "2025-11-08 05:09:20.152831+00"
+    },
+    {
+      "id": 114,
+      "specification_key": "Max Power",
+      "created_at": "2025-11-08 05:09:03.460996+00",
+      "updated_at": "2025-11-08 05:09:03.460996+00"
+    },
+    {
+      "id": 585,
+      "specification_key": "Max Power (hp)",
+      "created_at": "2025-11-26 10:37:53.612573+00",
+      "updated_at": "2025-11-26 10:37:53.612573+00"
+    },
+    {
+      "id": 115,
+      "specification_key": "Max Torque",
+      "created_at": "2025-11-08 05:09:03.695105+00",
+      "updated_at": "2025-11-08 05:09:03.695105+00"
+    },
+    {
+      "id": 598,
+      "specification_key": "Max Torque (Nm)",
+      "created_at": "2025-11-26 10:37:56.901563+00",
+      "updated_at": "2025-11-26 10:37:56.901563+00"
+    },
+    {
+      "id": 192,
+      "specification_key": "Megapixels",
+      "created_at": "2025-11-08 05:09:20.367139+00",
+      "updated_at": "2025-11-08 05:09:20.367139+00"
+    },
+    {
+      "id": 41,
+      "specification_key": "Messaging Features",
+      "created_at": "2025-11-08 05:08:47.754453+00",
+      "updated_at": "2025-11-08 05:08:47.754453+00"
+    },
+    {
+      "id": 116,
+      "specification_key": "Mileage",
+      "created_at": "2025-11-08 05:09:03.917553+00",
+      "updated_at": "2025-11-08 05:09:03.917553+00"
+    },
+    {
+      "id": 460,
+      "specification_key": "MMS Service",
+      "created_at": "2025-11-16 16:38:34.062981+00",
+      "updated_at": "2025-11-16 16:38:34.062981+00"
+    },
+    {
+      "id": 471,
+      "specification_key": "Mobile App Name",
+      "created_at": "2025-11-16 16:38:36.996646+00",
+      "updated_at": "2025-11-16 16:38:36.996646+00"
+    },
+    {
+      "id": 409,
+      "specification_key": "Mobile Banking App",
+      "created_at": "2025-11-16 12:27:28.877545+00",
+      "updated_at": "2025-11-16 12:27:28.877545+00"
+    },
+    {
+      "id": 410,
+      "specification_key": "Mobile Banking App Name",
+      "created_at": "2025-11-16 12:27:29.10329+00",
+      "updated_at": "2025-11-16 12:27:29.10329+00"
+    },
+    {
+      "id": 466,
+      "specification_key": "Mobile Money Partner",
+      "created_at": "2025-11-16 16:38:35.640459+00",
+      "updated_at": "2025-11-16 16:38:35.640459+00"
+    },
+    {
+      "id": 465,
+      "specification_key": "Mobile Money Service",
+      "created_at": "2025-11-16 16:38:35.379643+00",
+      "updated_at": "2025-11-16 16:38:35.379643+00"
+    },
+    {
+      "id": 316,
+      "specification_key": "Model Name",
+      "created_at": "2025-11-08 05:09:47.112654+00",
+      "updated_at": "2025-11-08 05:09:47.112654+00"
+    },
+    {
+      "id": 317,
+      "specification_key": "Model Number",
+      "created_at": "2025-11-08 05:09:47.328259+00",
+      "updated_at": "2025-11-08 05:09:47.328259+00"
+    },
+    {
+      "id": 577,
+      "specification_key": "model_variants",
+      "created_at": "2025-11-20 10:15:22.452511+00",
+      "updated_at": "2025-11-20 10:15:22.452511+00"
+    },
+    {
+      "id": 42,
+      "specification_key": "Model Variants",
+      "created_at": "2025-11-08 05:08:47.983025+00",
+      "updated_at": "2025-11-08 05:08:47.983025+00"
+    },
+    {
+      "id": 523,
+      "specification_key": "Motion Interpolation",
+      "created_at": "2025-11-17 12:47:19.000259+00",
+      "updated_at": "2025-11-17 12:47:19.000259+00"
+    },
+    {
+      "id": 501,
+      "specification_key": "Motion Smoothing",
+      "created_at": "2025-11-17 12:47:13.77349+00",
+      "updated_at": "2025-11-17 12:47:13.77349+00"
+    },
+    {
+      "id": 372,
+      "specification_key": "Motor Power",
+      "created_at": "2025-11-10 12:53:16.073997+00",
+      "updated_at": "2025-11-10 12:53:16.073997+00"
+    },
+    {
+      "id": 376,
+      "specification_key": "Motor Type",
+      "created_at": "2025-11-10 12:53:46.775916+00",
+      "updated_at": "2025-11-10 12:53:46.775916+00"
+    },
+    {
+      "id": 228,
+      "specification_key": "Movement Type",
+      "created_at": "2025-11-08 05:09:28.129805+00",
+      "updated_at": "2025-11-08 05:09:28.129805+00"
+    },
+    {
+      "id": 517,
+      "specification_key": "Movie Mode",
+      "created_at": "2025-11-17 12:47:17.580042+00",
+      "updated_at": "2025-11-17 12:47:17.580042+00"
+    },
+    {
+      "id": 43,
+      "specification_key": "Music Playback Duration",
+      "created_at": "2025-11-08 05:08:48.205261+00",
+      "updated_at": "2025-11-08 05:08:48.205261+00"
+    },
+    {
+      "id": 443,
+      "specification_key": "Nagad / bKash / Rocket / Upay Linked",
+      "created_at": "2025-11-16 12:27:38.650052+00",
+      "updated_at": "2025-11-16 12:27:38.650052+00"
+    },
+    {
+      "id": 366,
+      "specification_key": "Navigation System",
+      "created_at": "2025-11-10 12:27:13.324416+00",
+      "updated_at": "2025-11-10 12:27:13.324416+00"
+    },
+    {
+      "id": 240,
+      "specification_key": "Neck Type",
+      "created_at": "2025-11-08 05:09:30.760407+00",
+      "updated_at": "2025-11-08 05:09:30.760407+00"
+    },
+    {
+      "id": 268,
+      "specification_key": "Net Quantity",
+      "created_at": "2025-11-08 05:09:36.759956+00",
+      "updated_at": "2025-11-08 05:09:36.759956+00"
+    },
+    {
+      "id": 481,
+      "specification_key": "Network Infrastructure Partners",
+      "created_at": "2025-11-16 16:38:39.833775+00",
+      "updated_at": "2025-11-16 16:38:39.833775+00"
+    },
+    {
+      "id": 489,
+      "specification_key": "Network Reliability",
+      "created_at": "2025-11-16 16:38:42.102792+00",
+      "updated_at": "2025-11-16 16:38:42.102792+00"
+    },
+    {
+      "id": 44,
+      "specification_key": "Network Speed",
+      "created_at": "2025-11-08 05:08:48.413707+00",
+      "updated_at": "2025-11-08 05:08:48.413707+00"
+    },
+    {
+      "id": 476,
+      "specification_key": "Network Speed (Average)",
+      "created_at": "2025-11-16 16:38:38.287844+00",
+      "updated_at": "2025-11-16 16:38:38.287844+00"
+    },
+    {
+      "id": 561,
+      "specification_key": "network_technology",
+      "created_at": "2025-11-20 10:15:18.952686+00",
+      "updated_at": "2025-11-20 10:15:18.952686+00"
+    },
+    {
+      "id": 617,
+      "specification_key": "Network Technology",
+      "created_at": "2025-11-27 17:15:53.191414+00",
+      "updated_at": "2025-11-27 17:15:53.191414+00"
+    },
+    {
+      "id": 449,
+      "specification_key": "Network Type",
+      "created_at": "2025-11-16 16:38:31.428344+00",
+      "updated_at": "2025-11-16 16:38:31.428344+00"
+    },
+    {
+      "id": 45,
+      "specification_key": "New Battery Capacity",
+      "created_at": "2025-11-08 05:08:48.628826+00",
+      "updated_at": "2025-11-08 05:08:48.628826+00"
+    },
+    {
+      "id": 568,
+      "specification_key": "nfc_support",
+      "created_at": "2025-11-20 10:15:20.481144+00",
+      "updated_at": "2025-11-20 10:15:20.481144+00"
+    },
+    {
+      "id": 618,
+      "specification_key": "Nfc Support",
+      "created_at": "2025-11-27 17:15:53.817675+00",
+      "updated_at": "2025-11-27 17:15:53.817675+00"
+    },
+    {
+      "id": 46,
+      "specification_key": "NFC Support",
+      "created_at": "2025-11-08 05:08:48.841988+00",
+      "updated_at": "2025-11-08 05:08:48.841988+00"
+    },
+    {
+      "id": 179,
+      "specification_key": "Noise Cancellation",
+      "created_at": "2025-11-08 05:09:17.511612+00",
+      "updated_at": "2025-11-08 05:09:17.511612+00"
+    },
+    {
+      "id": 150,
+      "specification_key": "Noise Level",
+      "created_at": "2025-11-08 05:09:11.22188+00",
+      "updated_at": "2025-11-08 05:09:11.22188+00"
+    },
+    {
+      "id": 47,
+      "specification_key": "No Support",
+      "created_at": "2025-11-08 05:08:49.052347+00",
+      "updated_at": "2025-11-08 05:08:49.052347+00"
+    },
+    {
+      "id": 151,
+      "specification_key": "Number of Burners",
+      "created_at": "2025-11-08 05:09:11.441556+00",
+      "updated_at": "2025-11-08 05:09:11.441556+00"
+    },
+    {
+      "id": 152,
+      "specification_key": "Number of Compartments",
+      "created_at": "2025-11-08 05:09:11.653152+00",
+      "updated_at": "2025-11-08 05:09:11.653152+00"
+    },
+    {
+      "id": 117,
+      "specification_key": "Number of Cylinders",
+      "created_at": "2025-11-08 05:09:04.131795+00",
+      "updated_at": "2025-11-08 05:09:04.131795+00"
+    },
+    {
+      "id": 153,
+      "specification_key": "Number of Doors",
+      "created_at": "2025-11-08 05:09:11.868423+00",
+      "updated_at": "2025-11-08 05:09:11.868423+00"
+    },
+    {
+      "id": 253,
+      "specification_key": "Number of Drawers",
+      "created_at": "2025-11-08 05:09:33.538985+00",
+      "updated_at": "2025-11-08 05:09:33.538985+00"
+    },
+    {
+      "id": 480,
+      "specification_key": "Number of Employees",
+      "created_at": "2025-11-16 16:38:39.588935+00",
+      "updated_at": "2025-11-16 16:38:39.588935+00"
+    },
+    {
+      "id": 118,
+      "specification_key": "Number of Gears",
+      "created_at": "2025-11-08 05:09:04.341653+00",
+      "updated_at": "2025-11-08 05:09:04.341653+00"
+    },
+    {
+      "id": 293,
+      "specification_key": "Number of Pages",
+      "created_at": "2025-11-08 05:09:42.148753+00",
+      "updated_at": "2025-11-08 05:09:42.148753+00"
+    },
+    {
+      "id": 305,
+      "specification_key": "Number of Players",
+      "created_at": "2025-11-08 05:09:44.73236+00",
+      "updated_at": "2025-11-08 05:09:44.73236+00"
+    },
+    {
+      "id": 119,
+      "specification_key": "Number of Seats",
+      "created_at": "2025-11-08 05:09:04.55463+00",
+      "updated_at": "2025-11-08 05:09:04.55463+00"
+    },
+    {
+      "id": 154,
+      "specification_key": "Number of Shelves",
+      "created_at": "2025-11-08 05:09:12.082742+00",
+      "updated_at": "2025-11-08 05:09:12.082742+00"
+    },
+    {
+      "id": 213,
+      "specification_key": "Number of Speed Settings",
+      "created_at": "2025-11-08 05:09:24.901047+00",
+      "updated_at": "2025-11-08 05:09:24.901047+00"
+    },
+    {
+      "id": 300,
+      "specification_key": "Number of Wheels",
+      "created_at": "2025-11-08 05:09:43.651979+00",
+      "updated_at": "2025-11-08 05:09:43.651979+00"
+    },
+    {
+      "id": 269,
+      "specification_key": "Nutritional Information",
+      "created_at": "2025-11-08 05:09:36.971943+00",
+      "updated_at": "2025-11-08 05:09:36.971943+00"
+    },
+    {
+      "id": 241,
+      "specification_key": "Occasion",
+      "created_at": "2025-11-08 05:09:30.969789+00",
+      "updated_at": "2025-11-08 05:09:30.969789+00"
+    },
+    {
+      "id": 470,
+      "specification_key": "Official Website",
+      "created_at": "2025-11-16 16:38:36.766454+00",
+      "updated_at": "2025-11-16 16:38:36.766454+00"
+    },
+    {
+      "id": 342,
+      "specification_key": "Oil Capacity",
+      "created_at": "2025-11-09 18:02:43.826101+00",
+      "updated_at": "2025-11-09 18:02:43.826101+00"
+    },
+    {
+      "id": 338,
+      "specification_key": "Oil Pump Type",
+      "created_at": "2025-11-09 18:02:34.888654+00",
+      "updated_at": "2025-11-09 18:02:34.888654+00"
+    },
+    {
+      "id": 48,
+      "specification_key": "Old Battery Capacity",
+      "created_at": "2025-11-08 05:08:49.26758+00",
+      "updated_at": "2025-11-08 05:08:49.26758+00"
+    },
+    {
+      "id": 556,
+      "specification_key": "operating_system",
+      "created_at": "2025-11-20 10:15:17.907423+00",
+      "updated_at": "2025-11-20 10:15:17.907423+00"
+    },
+    {
+      "id": 49,
+      "specification_key": "Operating System",
+      "created_at": "2025-11-08 05:08:49.482898+00",
+      "updated_at": "2025-11-08 05:08:49.482898+00"
+    },
+    {
+      "id": 447,
+      "specification_key": "Operator Name",
+      "created_at": "2025-11-16 16:38:30.825846+00",
+      "updated_at": "2025-11-16 16:38:30.825846+00"
+    },
+    {
+      "id": 202,
+      "specification_key": "Optical Drive",
+      "created_at": "2025-11-08 05:09:22.533434+00",
+      "updated_at": "2025-11-08 05:09:22.533434+00"
+    },
+    {
+      "id": 548,
+      "specification_key": "optical_zoom",
+      "created_at": "2025-11-20 10:15:16.168475+00",
+      "updated_at": "2025-11-20 10:15:16.168475+00"
+    },
+    {
+      "id": 193,
+      "specification_key": "Optical Zoom",
+      "created_at": "2025-11-08 05:09:20.576167+00",
+      "updated_at": "2025-11-08 05:09:20.576167+00"
+    },
+    {
+      "id": 270,
+      "specification_key": "Organic",
+      "created_at": "2025-11-08 05:09:37.18412+00",
+      "updated_at": "2025-11-08 05:09:37.18412+00"
+    },
+    {
+      "id": 242,
+      "specification_key": "Outer Material",
+      "created_at": "2025-11-08 05:09:31.185286+00",
+      "updated_at": "2025-11-08 05:09:31.185286+00"
+    },
+    {
+      "id": 214,
+      "specification_key": "Oven Capacity",
+      "created_at": "2025-11-08 05:09:25.11644+00",
+      "updated_at": "2025-11-08 05:09:25.11644+00"
+    },
+    {
+      "id": 401,
+      "specification_key": "Ownership",
+      "created_at": "2025-11-16 12:27:27.054903+00",
+      "updated_at": "2025-11-16 12:27:27.054903+00"
+    },
+    {
+      "id": 271,
+      "specification_key": "Package Contents",
+      "created_at": "2025-11-08 05:09:37.399349+00",
+      "updated_at": "2025-11-08 05:09:37.399349+00"
+    },
+    {
+      "id": 272,
+      "specification_key": "Package Type",
+      "created_at": "2025-11-08 05:09:37.614621+00",
+      "updated_at": "2025-11-08 05:09:37.614621+00"
+    },
+    {
+      "id": 168,
+      "specification_key": "Panel Type",
+      "created_at": "2025-11-08 05:09:15.1393+00",
+      "updated_at": "2025-11-08 05:09:15.1393+00"
+    },
+    {
+      "id": 120,
+      "specification_key": "Parking Sensors",
+      "created_at": "2025-11-08 05:09:04.764608+00",
+      "updated_at": "2025-11-08 05:09:04.764608+00"
+    },
+    {
+      "id": 592,
+      "specification_key": "Passenger Airbag",
+      "created_at": "2025-11-26 10:37:55.414315+00",
+      "updated_at": "2025-11-26 10:37:55.414315+00"
+    },
+    {
+      "id": 243,
+      "specification_key": "Pattern",
+      "created_at": "2025-11-08 05:09:31.40455+00",
+      "updated_at": "2025-11-08 05:09:31.40455+00"
+    },
+    {
+      "id": 50,
+      "specification_key": "Penta Camera Setup",
+      "created_at": "2025-11-08 05:08:49.691165+00",
+      "updated_at": "2025-11-08 05:08:49.691165+00"
+    },
+    {
+      "id": 51,
+      "specification_key": "Performance Metrics",
+      "created_at": "2025-11-08 05:08:49.907092+00",
+      "updated_at": "2025-11-08 05:08:49.907092+00"
+    },
+    {
+      "id": 412,
+      "specification_key": "Phone Banking",
+      "created_at": "2025-11-16 12:27:29.548996+00",
+      "updated_at": "2025-11-16 12:27:29.548996+00"
+    },
+    {
+      "id": 52,
+      "specification_key": "Phonebook Capacity",
+      "created_at": "2025-11-08 05:08:50.121789+00",
+      "updated_at": "2025-11-08 05:08:50.121789+00"
+    },
+    {
+      "id": 53,
+      "specification_key": "Physical Keyboard",
+      "created_at": "2025-11-08 05:08:50.333954+00",
+      "updated_at": "2025-11-08 05:08:50.333954+00"
+    },
+    {
+      "id": 384,
+      "specification_key": "Picture Processor / Engine",
+      "created_at": "2025-11-16 12:27:13.560127+00",
+      "updated_at": "2025-11-16 12:27:13.560127+00"
+    },
+    {
+      "id": 502,
+      "specification_key": "Picture Quality Modes",
+      "created_at": "2025-11-17 12:47:14.016912+00",
+      "updated_at": "2025-11-17 12:47:14.016912+00"
+    },
+    {
+      "id": 180,
+      "specification_key": "Playback Time",
+      "created_at": "2025-11-08 05:09:17.721699+00",
+      "updated_at": "2025-11-08 05:09:17.721699+00"
+    },
+    {
+      "id": 203,
+      "specification_key": "Port Types",
+      "created_at": "2025-11-08 05:09:22.748418+00",
+      "updated_at": "2025-11-08 05:09:22.748418+00"
+    },
+    {
+      "id": 570,
+      "specification_key": "positioning_system",
+      "created_at": "2025-11-20 10:15:20.917583+00",
+      "updated_at": "2025-11-20 10:15:20.917583+00"
+    },
+    {
+      "id": 54,
+      "specification_key": "Positioning System",
+      "created_at": "2025-11-08 05:08:50.544662+00",
+      "updated_at": "2025-11-08 05:08:50.544662+00"
+    },
+    {
+      "id": 469,
+      "specification_key": "Postpaid Plans Available",
+      "created_at": "2025-11-16 16:38:36.386347+00",
+      "updated_at": "2025-11-16 16:38:36.386347+00"
+    },
+    {
+      "id": 155,
+      "specification_key": "Power Consumption",
+      "created_at": "2025-11-08 05:09:12.299031+00",
+      "updated_at": "2025-11-08 05:09:12.299031+00"
+    },
+    {
+      "id": 504,
+      "specification_key": "Power Consumption Standby (Watts)",
+      "created_at": "2025-11-17 12:47:14.513967+00",
+      "updated_at": "2025-11-17 12:47:14.513967+00"
+    },
+    {
+      "id": 215,
+      "specification_key": "Power Rating",
+      "created_at": "2025-11-08 05:09:25.331134+00",
+      "updated_at": "2025-11-08 05:09:25.331134+00"
+    },
+    {
+      "id": 121,
+      "specification_key": "Power Steering",
+      "created_at": "2025-11-08 05:09:04.983335+00",
+      "updated_at": "2025-11-08 05:09:04.983335+00"
+    },
+    {
+      "id": 608,
+      "specification_key": "Power Windows",
+      "created_at": "2025-11-26 10:37:59.451283+00",
+      "updated_at": "2025-11-26 10:37:59.451283+00"
+    },
+    {
+      "id": 55,
+      "specification_key": "Preinstalled Games",
+      "created_at": "2025-11-08 05:08:50.7535+00",
+      "updated_at": "2025-11-08 05:08:50.7535+00"
+    },
+    {
+      "id": 468,
+      "specification_key": "Prepaid Plans Available",
+      "created_at": "2025-11-16 16:38:36.130205+00",
+      "updated_at": "2025-11-16 16:38:36.130205+00"
+    },
+    {
+      "id": 216,
+      "specification_key": "Pressure Settings",
+      "created_at": "2025-11-08 05:09:25.547016+00",
+      "updated_at": "2025-11-08 05:09:25.547016+00"
+    },
+    {
+      "id": 56,
+      "specification_key": "Price",
+      "created_at": "2025-11-08 05:08:50.969293+00",
+      "updated_at": "2025-11-08 05:08:50.969293+00"
+    },
+    {
+      "id": 526,
+      "specification_key": "Price (BDT)",
+      "created_at": "2025-11-17 12:47:19.72106+00",
+      "updated_at": "2025-11-17 12:47:19.72106+00"
+    },
+    {
+      "id": 254,
+      "specification_key": "Primary Color",
+      "created_at": "2025-11-08 05:09:33.767031+00",
+      "updated_at": "2025-11-08 05:09:33.767031+00"
+    },
+    {
+      "id": 535,
+      "specification_key": "processor",
+      "created_at": "2025-11-20 10:15:13.420208+00",
+      "updated_at": "2025-11-20 10:15:13.420208+00"
+    },
+    {
+      "id": 636,
+      "specification_key": "Processor",
+      "created_at": "2025-11-27 17:16:11.77741+00",
+      "updated_at": "2025-11-27 17:16:11.77741+00"
+    },
+    {
+      "id": 204,
+      "specification_key": "Processor Brand",
+      "created_at": "2025-11-08 05:09:22.957226+00",
+      "updated_at": "2025-11-08 05:09:22.957226+00"
+    },
+    {
+      "id": 205,
+      "specification_key": "Processor Generation",
+      "created_at": "2025-11-08 05:09:23.179469+00",
+      "updated_at": "2025-11-08 05:09:23.179469+00"
+    },
+    {
+      "id": 206,
+      "specification_key": "Processor Model",
+      "created_at": "2025-11-08 05:09:23.401481+00",
+      "updated_at": "2025-11-08 05:09:23.401481+00"
+    },
+    {
+      "id": 539,
+      "specification_key": "processor_speed",
+      "created_at": "2025-11-20 10:15:14.281348+00",
+      "updated_at": "2025-11-20 10:15:14.281348+00"
+    },
+    {
+      "id": 57,
+      "specification_key": "Processor Speed",
+      "created_at": "2025-11-08 05:08:51.181347+00",
+      "updated_at": "2025-11-08 05:08:51.181347+00"
+    },
+    {
+      "id": 318,
+      "specification_key": "Product Description",
+      "created_at": "2025-11-08 05:09:47.535782+00",
+      "updated_at": "2025-11-08 05:09:47.535782+00"
+    },
+    {
+      "id": 319,
+      "specification_key": "Product Dimensions",
+      "created_at": "2025-11-08 05:09:47.751797+00",
+      "updated_at": "2025-11-08 05:09:47.751797+00"
+    },
+    {
+      "id": 320,
+      "specification_key": "Product Weight",
+      "created_at": "2025-11-08 05:09:47.966398+00",
+      "updated_at": "2025-11-08 05:09:47.966398+00"
+    },
+    {
+      "id": 273,
+      "specification_key": "Protein",
+      "created_at": "2025-11-08 05:09:37.829722+00",
+      "updated_at": "2025-11-08 05:09:37.829722+00"
+    },
+    {
+      "id": 294,
+      "specification_key": "Publication Date",
+      "created_at": "2025-11-08 05:09:42.370718+00",
+      "updated_at": "2025-11-08 05:09:42.370718+00"
+    },
+    {
+      "id": 295,
+      "specification_key": "Publisher",
+      "created_at": "2025-11-08 05:09:42.585629+00",
+      "updated_at": "2025-11-08 05:09:42.585629+00"
+    },
+    {
+      "id": 546,
+      "specification_key": "quad_camera_setup",
+      "created_at": "2025-11-20 10:15:15.750111+00",
+      "updated_at": "2025-11-20 10:15:15.750111+00"
+    },
+    {
+      "id": 58,
+      "specification_key": "Quad Camera Setup",
+      "created_at": "2025-11-08 05:08:51.391296+00",
+      "updated_at": "2025-11-08 05:08:51.391296+00"
+    },
+    {
+      "id": 59,
+      "specification_key": "Radio Support",
+      "created_at": "2025-11-08 05:08:51.60648+00",
+      "updated_at": "2025-11-08 05:08:51.60648+00"
+    },
+    {
+      "id": 540,
+      "specification_key": "ram",
+      "created_at": "2025-11-20 10:15:14.487248+00",
+      "updated_at": "2025-11-20 10:15:14.487248+00"
+    },
+    {
+      "id": 614,
+      "specification_key": "Ram",
+      "created_at": "2025-11-27 17:15:49.39914+00",
+      "updated_at": "2025-11-27 17:15:49.39914+00"
+    },
+    {
+      "id": 60,
+      "specification_key": "RAM",
+      "created_at": "2025-11-08 05:08:51.815967+00",
+      "updated_at": "2025-11-08 05:08:51.815967+00"
+    },
+    {
+      "id": 371,
+      "specification_key": "Range",
+      "created_at": "2025-11-10 12:53:15.438263+00",
+      "updated_at": "2025-11-10 12:53:15.438263+00"
+    },
+    {
+      "id": 378,
+      "specification_key": "Rear Brake Diameter",
+      "created_at": "2025-11-10 12:56:31.224952+00",
+      "updated_at": "2025-11-10 12:56:31.224952+00"
+    },
+    {
+      "id": 364,
+      "specification_key": "Rear Brake Disc Type",
+      "created_at": "2025-11-10 12:20:53.843678+00",
+      "updated_at": "2025-11-10 12:20:53.843678+00"
+    },
+    {
+      "id": 325,
+      "specification_key": "Rear Brake Type",
+      "created_at": "2025-11-08 13:03:56.16104+00",
+      "updated_at": "2025-11-08 13:03:56.16104+00"
+    },
+    {
+      "id": 544,
+      "specification_key": "rear_camera",
+      "created_at": "2025-11-20 10:15:15.330799+00",
+      "updated_at": "2025-11-20 10:15:15.330799+00"
+    },
+    {
+      "id": 122,
+      "specification_key": "Rear Camera",
+      "created_at": "2025-11-08 05:09:05.195637+00",
+      "updated_at": "2025-11-08 05:09:05.195637+00"
+    },
+    {
+      "id": 346,
+      "specification_key": "Rear Suspension Travel",
+      "created_at": "2025-11-09 18:02:48.261679+00",
+      "updated_at": "2025-11-09 18:02:48.261679+00"
+    },
+    {
+      "id": 367,
+      "specification_key": "Rear Suspension Type",
+      "created_at": "2025-11-10 12:28:45.639674+00",
+      "updated_at": "2025-11-10 12:28:45.639674+00"
+    },
+    {
+      "id": 339,
+      "specification_key": "Rear Tyre Size",
+      "created_at": "2025-11-09 18:02:35.511589+00",
+      "updated_at": "2025-11-09 18:02:35.511589+00"
+    },
+    {
+      "id": 533,
+      "specification_key": "refresh_rate",
+      "created_at": "2025-11-20 10:15:12.963035+00",
+      "updated_at": "2025-11-20 10:15:12.963035+00"
+    },
+    {
+      "id": 61,
+      "specification_key": "Refresh Rate",
+      "created_at": "2025-11-08 05:08:52.03119+00",
+      "updated_at": "2025-11-08 05:08:52.03119+00"
+    },
+    {
+      "id": 156,
+      "specification_key": "Refrigerator Capacity",
+      "created_at": "2025-11-08 05:09:12.506243+00",
+      "updated_at": "2025-11-08 05:09:12.506243+00"
+    },
+    {
+      "id": 373,
+      "specification_key": "Regenerative Braking",
+      "created_at": "2025-11-10 12:53:16.725185+00",
+      "updated_at": "2025-11-10 12:53:16.725185+00"
+    },
+    {
+      "id": 603,
+      "specification_key": "Registration Cost (BDT)",
+      "created_at": "2025-11-26 10:37:58.172608+00",
+      "updated_at": "2025-11-26 10:37:58.172608+00"
+    },
+    {
+      "id": 420,
+      "specification_key": "Remittance Service",
+      "created_at": "2025-11-16 12:27:31.521833+00",
+      "updated_at": "2025-11-16 12:27:31.521833+00"
+    },
+    {
+      "id": 393,
+      "specification_key": "Remote Type",
+      "created_at": "2025-11-16 12:27:16.066133+00",
+      "updated_at": "2025-11-16 12:27:16.066133+00"
+    },
+    {
+      "id": 335,
+      "specification_key": "Reserve Fuel Capacity",
+      "created_at": "2025-11-09 18:02:31.081919+00",
+      "updated_at": "2025-11-09 18:02:31.081919+00"
+    },
+    {
+      "id": 532,
+      "specification_key": "resolution",
+      "created_at": "2025-11-20 10:15:12.739073+00",
+      "updated_at": "2025-11-20 10:15:12.739073+00"
+    },
+    {
+      "id": 62,
+      "specification_key": "Resolution",
+      "created_at": "2025-11-08 05:08:52.239573+00",
+      "updated_at": "2025-11-08 05:08:52.239573+00"
+    },
+    {
+      "id": 169,
+      "specification_key": "Response Time",
+      "created_at": "2025-11-08 05:09:15.354002+00",
+      "updated_at": "2025-11-08 05:09:15.354002+00"
+    },
+    {
+      "id": 529,
+      "specification_key": "Return / Exchange Policy",
+      "created_at": "2025-11-17 12:47:20.42068+00",
+      "updated_at": "2025-11-17 12:47:20.42068+00"
+    },
+    {
+      "id": 327,
+      "specification_key": "Rim Size",
+      "created_at": "2025-11-08 13:03:56.588119+00",
+      "updated_at": "2025-11-08 13:03:56.588119+00"
+    },
+    {
+      "id": 326,
+      "specification_key": "Rim Type",
+      "created_at": "2025-11-08 13:03:56.369748+00",
+      "updated_at": "2025-11-08 13:03:56.369748+00"
+    },
+    {
+      "id": 463,
+      "specification_key": "Roaming Service",
+      "created_at": "2025-11-16 16:38:34.870572+00",
+      "updated_at": "2025-11-16 16:38:34.870572+00"
+    },
+    {
+      "id": 399,
+      "specification_key": "Routing Number",
+      "created_at": "2025-11-16 12:27:26.558495+00",
+      "updated_at": "2025-11-16 12:27:26.558495+00"
+    },
+    {
+      "id": 217,
+      "specification_key": "Safety Features",
+      "created_at": "2025-11-08 05:09:25.762345+00",
+      "updated_at": "2025-11-08 05:09:25.762345+00"
+    },
+    {
+      "id": 574,
+      "specification_key": "sar_rating",
+      "created_at": "2025-11-20 10:15:21.751076+00",
+      "updated_at": "2025-11-20 10:15:21.751076+00"
+    },
+    {
+      "id": 620,
+      "specification_key": "Sar Rating",
+      "created_at": "2025-11-27 17:15:56.017945+00",
+      "updated_at": "2025-11-27 17:15:56.017945+00"
+    },
+    {
+      "id": 575,
+      "specification_key": "sar_rating_eu",
+      "created_at": "2025-11-20 10:15:21.959167+00",
+      "updated_at": "2025-11-20 10:15:21.959167+00"
+    },
+    {
+      "id": 627,
+      "specification_key": "Sar Rating Eu",
+      "created_at": "2025-11-27 17:16:02.984452+00",
+      "updated_at": "2025-11-27 17:16:02.984452+00"
+    },
+    {
+      "id": 63,
+      "specification_key": "SAR (Specific Absorption Rate)",
+      "created_at": "2025-11-08 05:08:52.455664+00",
+      "updated_at": "2025-11-08 05:08:52.455664+00"
+    },
+    {
+      "id": 64,
+      "specification_key": "SAR (Specific Absorption Rate) EU",
+      "created_at": "2025-11-08 05:08:52.669069+00",
+      "updated_at": "2025-11-08 05:08:52.669069+00"
+    },
+    {
+      "id": 283,
+      "specification_key": "Scent",
+      "created_at": "2025-11-08 05:09:40.003165+00",
+      "updated_at": "2025-11-08 05:09:40.003165+00"
+    },
+    {
+      "id": 534,
+      "specification_key": "screen_protection",
+      "created_at": "2025-11-20 10:15:13.19152+00",
+      "updated_at": "2025-11-20 10:15:13.19152+00"
+    },
+    {
+      "id": 65,
+      "specification_key": "Screen Protection",
+      "created_at": "2025-11-08 05:08:52.878341+00",
+      "updated_at": "2025-11-08 05:08:52.878341+00"
+    },
+    {
+      "id": 207,
+      "specification_key": "Screen Resolution",
+      "created_at": "2025-11-08 05:09:23.616666+00",
+      "updated_at": "2025-11-08 05:09:23.616666+00"
+    },
+    {
+      "id": 66,
+      "specification_key": "Screen Size",
+      "created_at": "2025-11-08 05:08:53.109576+00",
+      "updated_at": "2025-11-08 05:08:53.109576+00"
+    },
+    {
+      "id": 244,
+      "specification_key": "Season",
+      "created_at": "2025-11-08 05:09:31.617298+00",
+      "updated_at": "2025-11-08 05:09:31.617298+00"
+    },
+    {
+      "id": 328,
+      "specification_key": "Seat Height",
+      "created_at": "2025-11-08 13:03:56.805685+00",
+      "updated_at": "2025-11-08 13:03:56.805685+00"
+    },
+    {
+      "id": 123,
+      "specification_key": "Seating Capacity",
+      "created_at": "2025-11-08 05:09:05.403805+00",
+      "updated_at": "2025-11-08 05:09:05.403805+00"
+    },
+    {
+      "id": 591,
+      "specification_key": "Seat Material",
+      "created_at": "2025-11-26 10:37:55.159681+00",
+      "updated_at": "2025-11-26 10:37:55.159681+00"
+    },
+    {
+      "id": 353,
+      "specification_key": "Seat Type",
+      "created_at": "2025-11-09 18:15:20.264785+00",
+      "updated_at": "2025-11-09 18:15:20.264785+00"
+    },
+    {
+      "id": 181,
+      "specification_key": "Sensitivity",
+      "created_at": "2025-11-08 05:09:17.938808+00",
+      "updated_at": "2025-11-08 05:09:17.938808+00"
+    },
+    {
+      "id": 571,
+      "specification_key": "sensors",
+      "created_at": "2025-11-20 10:15:21.132557+00",
+      "updated_at": "2025-11-20 10:15:21.132557+00"
+    },
+    {
+      "id": 67,
+      "specification_key": "Sensors",
+      "created_at": "2025-11-08 05:08:53.320772+00",
+      "updated_at": "2025-11-08 05:08:53.320772+00"
+    },
+    {
+      "id": 194,
+      "specification_key": "Sensor Size",
+      "created_at": "2025-11-08 05:09:20.789843+00",
+      "updated_at": "2025-11-08 05:09:20.789843+00"
+    },
+    {
+      "id": 195,
+      "specification_key": "Sensor Type",
+      "created_at": "2025-11-08 05:09:20.998953+00",
+      "updated_at": "2025-11-08 05:09:20.998953+00"
+    },
+    {
+      "id": 485,
+      "specification_key": "Service Availability SLA",
+      "created_at": "2025-11-16 16:38:40.81752+00",
+      "updated_at": "2025-11-16 16:38:40.81752+00"
+    },
+    {
+      "id": 610,
+      "specification_key": "Service Interval (km)",
+      "created_at": "2025-11-26 10:37:59.959252+00",
+      "updated_at": "2025-11-26 10:37:59.959252+00"
+    },
+    {
+      "id": 274,
+      "specification_key": "Serving Size",
+      "created_at": "2025-11-08 05:09:38.037836+00",
+      "updated_at": "2025-11-08 05:09:38.037836+00"
+    },
+    {
+      "id": 255,
+      "specification_key": "Shape",
+      "created_at": "2025-11-08 05:09:33.976424+00",
+      "updated_at": "2025-11-08 05:09:33.976424+00"
+    },
+    {
+      "id": 275,
+      "specification_key": "Shelf Life",
+      "created_at": "2025-11-08 05:09:38.246939+00",
+      "updated_at": "2025-11-08 05:09:38.246939+00"
+    },
+    {
+      "id": 196,
+      "specification_key": "Shutter Speed",
+      "created_at": "2025-11-08 05:09:21.214285+00",
+      "updated_at": "2025-11-08 05:09:21.214285+00"
+    },
+    {
+      "id": 596,
+      "specification_key": "Side Airbags",
+      "created_at": "2025-11-26 10:37:56.406226+00",
+      "updated_at": "2025-11-26 10:37:56.406226+00"
+    },
+    {
+      "id": 350,
+      "specification_key": "Side Stand Engine Cutoff",
+      "created_at": "2025-11-09 18:03:00.386348+00",
+      "updated_at": "2025-11-09 18:03:00.386348+00"
+    },
+    {
+      "id": 182,
+      "specification_key": "Signal to Noise Ratio",
+      "created_at": "2025-11-08 05:09:18.159142+00",
+      "updated_at": "2025-11-08 05:09:18.159142+00"
+    },
+    {
+      "id": 573,
+      "specification_key": "sim_card_type",
+      "created_at": "2025-11-20 10:15:21.546936+00",
+      "updated_at": "2025-11-20 10:15:21.546936+00"
+    },
+    {
+      "id": 616,
+      "specification_key": "Sim Card Type",
+      "created_at": "2025-11-27 17:15:52.765488+00",
+      "updated_at": "2025-11-27 17:15:52.765488+00"
+    },
+    {
+      "id": 68,
+      "specification_key": "SIM Card Type",
+      "created_at": "2025-11-08 05:08:53.530828+00",
+      "updated_at": "2025-11-08 05:08:53.530828+00"
+    },
+    {
+      "id": 321,
+      "specification_key": "Size",
+      "created_at": "2025-11-08 05:09:48.177784+00",
+      "updated_at": "2025-11-08 05:09:48.177784+00"
+    },
+    {
+      "id": 306,
+      "specification_key": "Skill Development",
+      "created_at": "2025-11-08 05:09:44.948428+00",
+      "updated_at": "2025-11-08 05:09:44.948428+00"
+    },
+    {
+      "id": 284,
+      "specification_key": "Skin Type",
+      "created_at": "2025-11-08 05:09:40.217865+00",
+      "updated_at": "2025-11-08 05:09:40.217865+00"
+    },
+    {
+      "id": 322,
+      "specification_key": "SKU",
+      "created_at": "2025-11-08 05:09:48.389966+00",
+      "updated_at": "2025-11-08 05:09:48.389966+00"
+    },
+    {
+      "id": 245,
+      "specification_key": "Sleeve Length",
+      "created_at": "2025-11-08 05:09:31.833942+00",
+      "updated_at": "2025-11-08 05:09:31.833942+00"
+    },
+    {
+      "id": 246,
+      "specification_key": "Sleeve Type",
+      "created_at": "2025-11-08 05:09:32.045458+00",
+      "updated_at": "2025-11-08 05:09:32.045458+00"
+    },
+    {
+      "id": 170,
+      "specification_key": "Smart TV",
+      "created_at": "2025-11-08 05:09:15.569277+00",
+      "updated_at": "2025-11-08 05:09:15.569277+00"
+    },
+    {
+      "id": 492,
+      "specification_key": "Smart TV OS",
+      "created_at": "2025-11-17 12:47:11.558285+00",
+      "updated_at": "2025-11-17 12:47:11.558285+00"
+    },
+    {
+      "id": 422,
+      "specification_key": "SME Banking",
+      "created_at": "2025-11-16 12:27:32.03389+00",
+      "updated_at": "2025-11-16 12:27:32.03389+00"
+    },
+    {
+      "id": 411,
+      "specification_key": "SMS Banking",
+      "created_at": "2025-11-16 12:27:29.327181+00",
+      "updated_at": "2025-11-16 12:27:29.327181+00"
+    },
+    {
+      "id": 458,
+      "specification_key": "SMS Service",
+      "created_at": "2025-11-16 16:38:33.590915+00",
+      "updated_at": "2025-11-16 16:38:33.590915+00"
+    },
+    {
+      "id": 247,
+      "specification_key": "Sole Material",
+      "created_at": "2025-11-08 05:09:32.261178+00",
+      "updated_at": "2025-11-08 05:09:32.261178+00"
+    },
+    {
+      "id": 171,
+      "specification_key": "Sound Output",
+      "created_at": "2025-11-08 05:09:15.784249+00",
+      "updated_at": "2025-11-08 05:09:15.784249+00"
+    },
+    {
+      "id": 606,
+      "specification_key": "Spare Parts Availability",
+      "created_at": "2025-11-26 10:37:58.936268+00",
+      "updated_at": "2025-11-26 10:37:58.936268+00"
+    },
+    {
+      "id": 332,
+      "specification_key": "Spark Plug Type",
+      "created_at": "2025-11-08 13:03:57.670694+00",
+      "updated_at": "2025-11-08 13:03:57.670694+00"
+    },
+    {
+      "id": 172,
+      "specification_key": "Speaker Type",
+      "created_at": "2025-11-08 05:09:16.005804+00",
+      "updated_at": "2025-11-08 05:09:16.005804+00"
+    },
+    {
+      "id": 572,
+      "specification_key": "special_features",
+      "created_at": "2025-11-20 10:15:21.343875+00",
+      "updated_at": "2025-11-20 10:15:21.343875+00"
+    },
+    {
+      "id": 69,
+      "specification_key": "Special Features",
+      "created_at": "2025-11-08 05:08:53.739103+00",
+      "updated_at": "2025-11-08 05:08:53.739103+00"
+    },
+    {
+      "id": 344,
+      "specification_key": "Speedometer Type",
+      "created_at": "2025-11-09 18:02:45.16363+00",
+      "updated_at": "2025-11-09 18:02:45.16363+00"
+    },
+    {
+      "id": 285,
+      "specification_key": "SPF",
+      "created_at": "2025-11-08 05:09:40.440611+00",
+      "updated_at": "2025-11-08 05:09:40.440611+00"
+    },
+    {
+      "id": 157,
+      "specification_key": "Spin Speed",
+      "created_at": "2025-11-08 05:09:12.721576+00",
+      "updated_at": "2025-11-08 05:09:12.721576+00"
+    },
+    {
+      "id": 516,
+      "specification_key": "Sports Mode",
+      "created_at": "2025-11-17 12:47:17.348659+00",
+      "updated_at": "2025-11-17 12:47:17.348659+00"
+    },
+    {
+      "id": 208,
+      "specification_key": "SSD Capacity",
+      "created_at": "2025-11-08 05:09:23.832037+00",
+      "updated_at": "2025-11-08 05:09:23.832037+00"
+    },
+    {
+      "id": 602,
+      "specification_key": "Stability Control",
+      "created_at": "2025-11-26 10:37:57.914505+00",
+      "updated_at": "2025-11-26 10:37:57.914505+00"
+    },
+    {
+      "id": 70,
+      "specification_key": "Standby Time",
+      "created_at": "2025-11-08 05:08:53.955285+00",
+      "updated_at": "2025-11-08 05:08:53.955285+00"
+    },
+    {
+      "id": 124,
+      "specification_key": "Starting System",
+      "created_at": "2025-11-08 05:09:05.614922+00",
+      "updated_at": "2025-11-08 05:09:05.614922+00"
+    },
+    {
+      "id": 541,
+      "specification_key": "storage",
+      "created_at": "2025-11-20 10:15:14.704755+00",
+      "updated_at": "2025-11-20 10:15:14.704755+00"
+    },
+    {
+      "id": 625,
+      "specification_key": "Storage",
+      "created_at": "2025-11-27 17:15:59.926988+00",
+      "updated_at": "2025-11-27 17:15:59.926988+00"
+    },
+    {
+      "id": 71,
+      "specification_key": "Storage Capacity",
+      "created_at": "2025-11-08 05:08:54.16634+00",
+      "updated_at": "2025-11-08 05:08:54.16634+00"
+    },
+    {
+      "id": 229,
+      "specification_key": "Strap Color",
+      "created_at": "2025-11-08 05:09:28.345161+00",
+      "updated_at": "2025-11-08 05:09:28.345161+00"
+    },
+    {
+      "id": 301,
+      "specification_key": "Strap Type",
+      "created_at": "2025-11-08 05:09:43.864305+00",
+      "updated_at": "2025-11-08 05:09:43.864305+00"
+    },
+    {
+      "id": 309,
+      "specification_key": "String Tension",
+      "created_at": "2025-11-08 05:09:45.592547+00",
+      "updated_at": "2025-11-08 05:09:45.592547+00"
+    },
+    {
+      "id": 345,
+      "specification_key": "Stroke",
+      "created_at": "2025-11-09 18:02:47.095291+00",
+      "updated_at": "2025-11-09 18:02:47.095291+00"
+    },
+    {
+      "id": 424,
+      "specification_key": "Student Banking",
+      "created_at": "2025-11-16 12:27:32.68003+00",
+      "updated_at": "2025-11-16 12:27:32.68003+00"
+    },
+    {
+      "id": 248,
+      "specification_key": "Style",
+      "created_at": "2025-11-08 05:09:32.469672+00",
+      "updated_at": "2025-11-08 05:09:32.469672+00"
+    },
+    {
+      "id": 276,
+      "specification_key": "Sugar Content",
+      "created_at": "2025-11-08 05:09:38.468092+00",
+      "updated_at": "2025-11-08 05:09:38.468092+00"
+    },
+    {
+      "id": 125,
+      "specification_key": "Sunroof",
+      "created_at": "2025-11-08 05:09:05.836478+00",
+      "updated_at": "2025-11-08 05:09:05.836478+00"
+    },
+    {
+      "id": 496,
+      "specification_key": "Supported Audio Formats",
+      "created_at": "2025-11-17 12:47:12.568671+00",
+      "updated_at": "2025-11-17 12:47:12.568671+00"
+    },
+    {
+      "id": 72,
+      "specification_key": "Supported Languages",
+      "created_at": "2025-11-08 05:08:54.398623+00",
+      "updated_at": "2025-11-08 05:08:54.398623+00"
+    },
+    {
+      "id": 495,
+      "specification_key": "Supported Video Formats",
+      "created_at": "2025-11-17 12:47:12.333986+00",
+      "updated_at": "2025-11-17 12:47:12.333986+00"
+    },
+    {
+      "id": 348,
+      "specification_key": "Suspension Material",
+      "created_at": "2025-11-09 18:02:57.171158+00",
+      "updated_at": "2025-11-09 18:02:57.171158+00"
+    },
+    {
+      "id": 126,
+      "specification_key": "Suspension Type",
+      "created_at": "2025-11-08 05:09:06.048906+00",
+      "updated_at": "2025-11-08 05:09:06.048906+00"
+    },
+    {
+      "id": 398,
+      "specification_key": "SWIFT Code",
+      "created_at": "2025-11-16 12:27:26.265656+00",
+      "updated_at": "2025-11-16 12:27:26.265656+00"
+    },
+    {
+      "id": 359,
+      "specification_key": "Tail Light Type",
+      "created_at": "2025-11-10 12:07:59.129062+00",
+      "updated_at": "2025-11-10 12:07:59.129062+00"
+    },
+    {
+      "id": 73,
+      "specification_key": "Talk Time Duration",
+      "created_at": "2025-11-08 05:08:54.614185+00",
+      "updated_at": "2025-11-08 05:08:54.614185+00"
+    },
+    {
+      "id": 74,
+      "specification_key": "Technology",
+      "created_at": "2025-11-08 05:08:54.835919+00",
+      "updated_at": "2025-11-08 05:08:54.835919+00"
+    },
+    {
+      "id": 482,
+      "specification_key": "Technology Provider",
+      "created_at": "2025-11-16 16:38:40.07206+00",
+      "updated_at": "2025-11-16 16:38:40.07206+00"
+    },
+    {
+      "id": 158,
+      "specification_key": "Temperature Control",
+      "created_at": "2025-11-08 05:09:12.939332+00",
+      "updated_at": "2025-11-08 05:09:12.939332+00"
+    },
+    {
+      "id": 218,
+      "specification_key": "Temperature Range",
+      "created_at": "2025-11-08 05:09:25.977373+00",
+      "updated_at": "2025-11-08 05:09:25.977373+00"
+    },
+    {
+      "id": 512,
+      "specification_key": "Thickness",
+      "created_at": "2025-11-17 12:47:16.354233+00",
+      "updated_at": "2025-11-17 12:47:16.354233+00"
+    },
+    {
+      "id": 159,
+      "specification_key": "Timer",
+      "created_at": "2025-11-08 05:09:13.173955+00",
+      "updated_at": "2025-11-08 05:09:13.173955+00"
+    },
+    {
+      "id": 127,
+      "specification_key": "Top Speed",
+      "created_at": "2025-11-08 05:09:06.257752+00",
+      "updated_at": "2025-11-08 05:09:06.257752+00"
+    },
+    {
+      "id": 128,
+      "specification_key": "Torque",
+      "created_at": "2025-11-08 05:09:06.473352+00",
+      "updated_at": "2025-11-08 05:09:06.473352+00"
+    },
+    {
+      "id": 406,
+      "specification_key": "Total Agents",
+      "created_at": "2025-11-16 12:27:28.199239+00",
+      "updated_at": "2025-11-16 12:27:28.199239+00"
+    },
+    {
+      "id": 405,
+      "specification_key": "Total ATMs",
+      "created_at": "2025-11-16 12:27:27.972584+00",
+      "updated_at": "2025-11-16 12:27:27.972584+00"
+    },
+    {
+      "id": 452,
+      "specification_key": "Total Base Stations",
+      "created_at": "2025-11-16 16:38:32.146754+00",
+      "updated_at": "2025-11-16 16:38:32.146754+00"
+    },
+    {
+      "id": 404,
+      "specification_key": "Total Branches",
+      "created_at": "2025-11-16 12:27:27.748877+00",
+      "updated_at": "2025-11-16 12:27:27.748877+00"
+    },
+    {
+      "id": 451,
+      "specification_key": "Total Subscribers",
+      "created_at": "2025-11-16 16:38:31.901029+00",
+      "updated_at": "2025-11-16 16:38:31.901029+00"
+    },
+    {
+      "id": 129,
+      "specification_key": "Touchscreen",
+      "created_at": "2025-11-08 05:09:06.688666+00",
+      "updated_at": "2025-11-08 05:09:06.688666+00"
+    },
+    {
+      "id": 209,
+      "specification_key": "Touchscreen Display",
+      "created_at": "2025-11-08 05:09:24.047194+00",
+      "updated_at": "2025-11-08 05:09:24.047194+00"
+    },
+    {
+      "id": 362,
+      "specification_key": "Traction Control System",
+      "created_at": "2025-11-10 12:09:44.071297+00",
+      "updated_at": "2025-11-10 12:09:44.071297+00"
+    },
+    {
+      "id": 441,
+      "specification_key": "Transaction Limit (Daily App)",
+      "created_at": "2025-11-16 12:27:37.923169+00",
+      "updated_at": "2025-11-16 12:27:37.923169+00"
+    },
+    {
+      "id": 440,
+      "specification_key": "Transaction Limit (Daily ATM)",
+      "created_at": "2025-11-16 12:27:37.603202+00",
+      "updated_at": "2025-11-16 12:27:37.603202+00"
+    },
+    {
+      "id": 130,
+      "specification_key": "Transmission",
+      "created_at": "2025-11-08 05:09:06.896971+00",
+      "updated_at": "2025-11-08 05:09:06.896971+00"
+    },
+    {
+      "id": 589,
+      "specification_key": "Transmission Type",
+      "created_at": "2025-11-26 10:37:54.662669+00",
+      "updated_at": "2025-11-26 10:37:54.662669+00"
+    },
+    {
+      "id": 75,
+      "specification_key": "Triple Camera Setup",
+      "created_at": "2025-11-08 05:08:55.04484+00",
+      "updated_at": "2025-11-08 05:08:55.04484+00"
+    },
+    {
+      "id": 131,
+      "specification_key": "Tyre Size",
+      "created_at": "2025-11-08 05:09:07.111707+00",
+      "updated_at": "2025-11-08 05:09:07.111707+00"
+    },
+    {
+      "id": 132,
+      "specification_key": "Tyre Type",
+      "created_at": "2025-11-08 05:09:07.326391+00",
+      "updated_at": "2025-11-08 05:09:07.326391+00"
+    },
+    {
+      "id": 358,
+      "specification_key": "Under Seat Storage",
+      "created_at": "2025-11-10 12:07:56.34023+00",
+      "updated_at": "2025-11-10 12:07:56.34023+00"
+    },
+    {
+      "id": 256,
+      "specification_key": "Upholstery Material",
+      "created_at": "2025-11-08 05:09:34.191486+00",
+      "updated_at": "2025-11-08 05:09:34.191486+00"
+    },
+    {
+      "id": 428,
+      "specification_key": "UPI / QR Payment Support",
+      "created_at": "2025-11-16 12:27:33.654453+00",
+      "updated_at": "2025-11-16 12:27:33.654453+00"
+    },
+    {
+      "id": 249,
+      "specification_key": "Upper Material",
+      "created_at": "2025-11-08 05:09:32.692391+00",
+      "updated_at": "2025-11-08 05:09:32.692391+00"
+    },
+    {
+      "id": 524,
+      "specification_key": "Upscaling Technology",
+      "created_at": "2025-11-17 12:47:19.245234+00",
+      "updated_at": "2025-11-17 12:47:19.245234+00"
+    },
+    {
+      "id": 286,
+      "specification_key": "Usage Instructions",
+      "created_at": "2025-11-08 05:09:40.648521+00",
+      "updated_at": "2025-11-08 05:09:40.648521+00"
+    },
+    {
+      "id": 173,
+      "specification_key": "USB Ports",
+      "created_at": "2025-11-08 05:09:16.221974+00",
+      "updated_at": "2025-11-08 05:09:16.221974+00"
+    },
+    {
+      "id": 569,
+      "specification_key": "usb_type",
+      "created_at": "2025-11-20 10:15:20.699815+00",
+      "updated_at": "2025-11-20 10:15:20.699815+00"
+    },
+    {
+      "id": 623,
+      "specification_key": "Usb Type",
+      "created_at": "2025-11-27 17:15:58.490856+00",
+      "updated_at": "2025-11-27 17:15:58.490856+00"
+    },
+    {
+      "id": 76,
+      "specification_key": "USB Type",
+      "created_at": "2025-11-08 05:08:55.259003+00",
+      "updated_at": "2025-11-08 05:08:55.259003+00"
+    },
+    {
+      "id": 467,
+      "specification_key": "USSD Support",
+      "created_at": "2025-11-16 16:38:35.887914+00",
+      "updated_at": "2025-11-16 16:38:35.887914+00"
+    },
+    {
+      "id": 432,
+      "specification_key": "Utility Bill Payment Support",
+      "created_at": "2025-11-16 12:27:34.78655+00",
+      "updated_at": "2025-11-16 12:27:34.78655+00"
+    },
+    {
+      "id": 133,
+      "specification_key": "Valve Configuration",
+      "created_at": "2025-11-08 05:09:07.535163+00",
+      "updated_at": "2025-11-08 05:09:07.535163+00"
+    },
+    {
+      "id": 134,
+      "specification_key": "Valve Per Cylinder",
+      "created_at": "2025-11-08 05:09:07.75376+00",
+      "updated_at": "2025-11-08 05:09:07.75376+00"
+    },
+    {
+      "id": 277,
+      "specification_key": "Veg/Non-Veg",
+      "created_at": "2025-11-08 05:09:38.683797+00",
+      "updated_at": "2025-11-08 05:09:38.683797+00"
+    },
+    {
+      "id": 508,
+      "specification_key": "VESA Mount Pattern",
+      "created_at": "2025-11-17 12:47:15.426636+00",
+      "updated_at": "2025-11-17 12:47:15.426636+00"
+    },
+    {
+      "id": 462,
+      "specification_key": "Video Call Support",
+      "created_at": "2025-11-16 16:38:34.557353+00",
+      "updated_at": "2025-11-16 16:38:34.557353+00"
+    },
+    {
+      "id": 197,
+      "specification_key": "Video Format",
+      "created_at": "2025-11-08 05:09:21.429514+00",
+      "updated_at": "2025-11-08 05:09:21.429514+00"
+    },
+    {
+      "id": 77,
+      "specification_key": "Video Recording",
+      "created_at": "2025-11-08 05:08:55.467875+00",
+      "updated_at": "2025-11-08 05:08:55.467875+00"
+    },
+    {
+      "id": 198,
+      "specification_key": "Viewfinder Type",
+      "created_at": "2025-11-08 05:09:21.644749+00",
+      "updated_at": "2025-11-08 05:09:21.644749+00"
+    },
+    {
+      "id": 174,
+      "specification_key": "Viewing Angle",
+      "created_at": "2025-11-08 05:09:16.437976+00",
+      "updated_at": "2025-11-08 05:09:16.437976+00"
+    },
+    {
+      "id": 430,
+      "specification_key": "Visa / Mastercard / UnionPay Support",
+      "created_at": "2025-11-16 12:27:34.321474+00",
+      "updated_at": "2025-11-16 12:27:34.321474+00"
+    },
+    {
+      "id": 385,
+      "specification_key": "Voice Assistant Support",
+      "created_at": "2025-11-16 12:27:13.910074+00",
+      "updated_at": "2025-11-16 12:27:13.910074+00"
+    },
+    {
+      "id": 457,
+      "specification_key": "Voice Call Service",
+      "created_at": "2025-11-16 16:38:33.341558+00",
+      "updated_at": "2025-11-16 16:38:33.341558+00"
+    },
+    {
+      "id": 514,
+      "specification_key": "Voice Control Support",
+      "created_at": "2025-11-17 12:47:16.875594+00",
+      "updated_at": "2025-11-17 12:47:16.875594+00"
+    },
+    {
+      "id": 487,
+      "specification_key": "Voice Quality Rating",
+      "created_at": "2025-11-16 16:38:41.613676+00",
+      "updated_at": "2025-11-16 16:38:41.613676+00"
+    },
+    {
+      "id": 160,
+      "specification_key": "Voltage",
+      "created_at": "2025-11-08 05:09:13.395969+00",
+      "updated_at": "2025-11-08 05:09:13.395969+00"
+    },
+    {
+      "id": 287,
+      "specification_key": "Volume",
+      "created_at": "2025-11-08 05:09:40.863985+00",
+      "updated_at": "2025-11-08 05:09:40.863985+00"
+    },
+    {
+      "id": 499,
+      "specification_key": "VRR Support",
+      "created_at": "2025-11-17 12:47:13.274573+00",
+      "updated_at": "2025-11-17 12:47:13.274573+00"
+    },
+    {
+      "id": 360,
+      "specification_key": "VVA Technology",
+      "created_at": "2025-11-10 12:09:15.848181+00",
+      "updated_at": "2025-11-10 12:09:15.848181+00"
+    },
+    {
+      "id": 390,
+      "specification_key": "Wall Mount Support (VESA)",
+      "created_at": "2025-11-16 12:27:15.381386+00",
+      "updated_at": "2025-11-16 12:27:15.381386+00"
+    },
+    {
+      "id": 323,
+      "specification_key": "Warranty",
+      "created_at": "2025-11-08 05:09:48.613046+00",
+      "updated_at": "2025-11-08 05:09:48.613046+00"
+    },
+    {
+      "id": 510,
+      "specification_key": "Warranty Coverage",
+      "created_at": "2025-11-17 12:47:15.888916+00",
+      "updated_at": "2025-11-17 12:47:15.888916+00"
+    },
+    {
+      "id": 161,
+      "specification_key": "Warranty Period",
+      "created_at": "2025-11-08 05:09:13.611224+00",
+      "updated_at": "2025-11-08 05:09:13.611224+00"
+    },
+    {
+      "id": 509,
+      "specification_key": "Warranty Period (Years)",
+      "created_at": "2025-11-17 12:47:15.657292+00",
+      "updated_at": "2025-11-17 12:47:15.657292+00"
+    },
+    {
+      "id": 162,
+      "specification_key": "Wash Programs",
+      "created_at": "2025-11-08 05:09:13.833428+00",
+      "updated_at": "2025-11-08 05:09:13.833428+00"
+    },
+    {
+      "id": 230,
+      "specification_key": "Watch Type",
+      "created_at": "2025-11-08 05:09:28.574296+00",
+      "updated_at": "2025-11-08 05:09:28.574296+00"
+    },
+    {
+      "id": 163,
+      "specification_key": "Water Consumption",
+      "created_at": "2025-11-08 05:09:14.050078+00",
+      "updated_at": "2025-11-08 05:09:14.050078+00"
+    },
+    {
+      "id": 560,
+      "specification_key": "water_resistance",
+      "created_at": "2025-11-20 10:15:18.742122+00",
+      "updated_at": "2025-11-20 10:15:18.742122+00"
+    },
+    {
+      "id": 78,
+      "specification_key": "Water Resistance",
+      "created_at": "2025-11-08 05:08:55.683917+00",
+      "updated_at": "2025-11-08 05:08:55.683917+00"
+    },
+    {
+      "id": 231,
+      "specification_key": "Water Resistant Depth",
+      "created_at": "2025-11-08 05:09:28.798672+00",
+      "updated_at": "2025-11-08 05:09:28.798672+00"
+    },
+    {
+      "id": 79,
+      "specification_key": "Web Browser",
+      "created_at": "2025-11-08 05:08:55.893975+00",
+      "updated_at": "2025-11-08 05:08:55.893975+00"
+    },
+    {
+      "id": 435,
+      "specification_key": "Website",
+      "created_at": "2025-11-16 12:27:35.751716+00",
+      "updated_at": "2025-11-16 12:27:35.751716+00"
+    },
+    {
+      "id": 558,
+      "specification_key": "weight",
+      "created_at": "2025-11-20 10:15:18.322924+00",
+      "updated_at": "2025-11-20 10:15:18.322924+00"
+    },
+    {
+      "id": 80,
+      "specification_key": "Weight",
+      "created_at": "2025-11-08 05:08:56.107359+00",
+      "updated_at": "2025-11-08 05:08:56.107359+00"
+    },
+    {
+      "id": 392,
+      "specification_key": "Weight (Without Stand)",
+      "created_at": "2025-11-16 12:27:15.834534+00",
+      "updated_at": "2025-11-16 12:27:15.834534+00"
+    },
+    {
+      "id": 506,
+      "specification_key": "Weight Without Stand (kg)",
+      "created_at": "2025-11-17 12:47:14.974679+00",
+      "updated_at": "2025-11-17 12:47:14.974679+00"
+    },
+    {
+      "id": 391,
+      "specification_key": "Weight (With Stand)",
+      "created_at": "2025-11-16 12:27:15.596426+00",
+      "updated_at": "2025-11-16 12:27:15.596426+00"
+    },
+    {
+      "id": 507,
+      "specification_key": "Weight With Stand (kg)",
+      "created_at": "2025-11-17 12:47:15.199479+00",
+      "updated_at": "2025-11-17 12:47:15.199479+00"
+    },
+    {
+      "id": 135,
+      "specification_key": "Wheelbase",
+      "created_at": "2025-11-08 05:09:08.007697+00",
+      "updated_at": "2025-11-08 05:09:08.007697+00"
+    },
+    {
+      "id": 599,
+      "specification_key": "Wheelbase (mm)",
+      "created_at": "2025-11-26 10:37:57.155499+00",
+      "updated_at": "2025-11-26 10:37:57.155499+00"
+    },
+    {
+      "id": 349,
+      "specification_key": "Wheel Type",
+      "created_at": "2025-11-09 18:02:57.847642+00",
+      "updated_at": "2025-11-09 18:02:57.847642+00"
+    },
+    {
+      "id": 136,
+      "specification_key": "Width",
+      "created_at": "2025-11-08 05:09:08.23547+00",
+      "updated_at": "2025-11-08 05:09:08.23547+00"
+    },
+    {
+      "id": 586,
+      "specification_key": "Width (mm)",
+      "created_at": "2025-11-26 10:37:53.908895+00",
+      "updated_at": "2025-11-26 10:37:53.908895+00"
+    },
+    {
+      "id": 81,
+      "specification_key": "WiFi",
+      "created_at": "2025-11-08 05:08:56.321213+00",
+      "updated_at": "2025-11-08 05:08:56.321213+00"
+    },
+    {
+      "id": 566,
+      "specification_key": "wifi_support",
+      "created_at": "2025-11-20 10:15:20.053041+00",
+      "updated_at": "2025-11-20 10:15:20.053041+00"
+    },
+    {
+      "id": 630,
+      "specification_key": "Wifi Support",
+      "created_at": "2025-11-27 17:16:05.302099+00",
+      "updated_at": "2025-11-27 17:16:05.302099+00"
+    },
+    {
+      "id": 387,
+      "specification_key": "Wi-Fi Support",
+      "created_at": "2025-11-16 12:27:14.523527+00",
+      "updated_at": "2025-11-16 12:27:14.523527+00"
+    },
+    {
+      "id": 183,
+      "specification_key": "Wired/Wireless",
+      "created_at": "2025-11-08 05:09:18.381898+00",
+      "updated_at": "2025-11-08 05:09:18.381898+00"
+    },
+    {
+      "id": 555,
+      "specification_key": "wireless_charging",
+      "created_at": "2025-11-20 10:15:17.69285+00",
+      "updated_at": "2025-11-20 10:15:17.69285+00"
+    },
+    {
+      "id": 82,
+      "specification_key": "Wireless Charging",
+      "created_at": "2025-11-08 05:08:56.530618+00",
+      "updated_at": "2025-11-08 05:08:56.530618+00"
+    },
+    {
+      "id": 425,
+      "specification_key": "Women Banking",
+      "created_at": "2025-11-16 12:27:32.97128+00",
+      "updated_at": "2025-11-16 12:27:32.97128+00"
+    },
+    {
+      "id": 439,
+      "specification_key": "Working Days",
+      "created_at": "2025-11-16 12:27:37.377732+00",
+      "updated_at": "2025-11-16 12:27:37.377732+00"
+    }
+  ]
+}

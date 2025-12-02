@@ -61,7 +61,7 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 
 	specs := DefaultMobileSpecs()
 	banglaTranslations := s.getBanglaTranslations()
-
+	println(banglaTranslations)
 	// Override model-specific values for Google Pixel 8 Pro
 	specs["Display Size"] = "6.7 inches"
 	specs["Processor"] = "Google Tensor G3"
@@ -93,10 +93,12 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 			return err
 		}
 
-		fmt.Printf(key)
-
+		fmt.Println(sk)
+		os.Exit(1)
 		var existing models.SpecificationModel
 		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, sk.ID).First(&existing).Error; err != nil {
+
+			fmt.Printf(" 77777777777777777777777777777 ")
 
 			if err == gorm.ErrRecordNotFound {
 				sModel := &models.SpecificationModel{
@@ -108,9 +110,6 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 				if err := db.Create(sModel).Error; err != nil {
 					return err
 				}
-
-				fmt.Printf("+++++++++++++++++++++++++++++++")
-				return nil
 
 				// Create Bangla translation for the specification
 				banglaValue, exists := banglaTranslations[value]
@@ -139,11 +138,9 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 			fmt.Println(existing)
 			return nil
 		} else {
+			// fmt.Printf(" 8888888888888888888 ")
 
-			fmt.Printf(" existing  ----------------- ")
-			fmt.Println(existing)
-			return nil
-			os.Exit(1)
+			// os.Exit(1)
 			// Update the specification value if it's different
 			if existing.Value != value {
 				existing.Value = value
@@ -155,6 +152,7 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 			// If specification already exists, check and update/create Bangla translation
 			banglaValue, exists := banglaTranslations[value]
 			if exists && banglaValue != "" {
+				fmt.Printf(" ++++++++++++++++++++ ")
 				var existingTranslation models.SpecificationTranslationModel
 				if err := db.Where("specification_id = ? AND locale = ?", existing.ID, "bn").First(&existingTranslation).Error; err != nil {
 					if err == gorm.ErrRecordNotFound {
@@ -171,6 +169,8 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 						return err
 					}
 				} else {
+					fmt.Printf(" SpecificationTranslationModel ")
+					fmt.Printf("Existing Translation: %+v\n", existingTranslation)
 					// Update translation if it's different
 					if existingTranslation.Value != banglaValue {
 						existingTranslation.Value = banglaValue
@@ -184,6 +184,7 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 				}
 			}
 		}
+
 	}
 
 	return nil

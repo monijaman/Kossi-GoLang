@@ -263,10 +263,10 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 
 	// Mobile Specification Seeders (Category ID: 79)
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8())
-	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8a())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9())
-	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9Pro())
+	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProFold())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProXl())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixHot50())
