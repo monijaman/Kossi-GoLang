@@ -1303,12 +1303,7 @@
       "created_at": "2025-11-20 10:15:17.267197+00",
       "updated_at": "2025-11-20 10:15:17.267197+00"
     },
-    {
-      "id": 634,
-      "specification_key": "Fast Charging",
-      "created_at": "2025-11-27 17:16:09.254243+00",
-      "updated_at": "2025-11-27 17:16:09.254243+00"
-    },
+
     {
       "id": 264,
       "specification_key": "Fat Content",

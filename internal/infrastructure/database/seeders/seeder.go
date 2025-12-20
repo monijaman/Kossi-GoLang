@@ -266,7 +266,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8a())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9())
-	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProFold())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProXl())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixHot50())
@@ -517,8 +517,6 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi14tPro())
 	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi15())
 	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi15Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi15Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi15sPro())
-
+	manager.AddSeeder(NewMobileSpecificationsExistingKeysSeeder())
 	return manager
 }

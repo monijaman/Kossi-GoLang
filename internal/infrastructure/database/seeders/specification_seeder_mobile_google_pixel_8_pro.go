@@ -92,7 +92,7 @@ func (s *SpecificationSeederMobileGooglePixel8Pro) Seed(db *gorm.DB) error {
 		if err != nil {
 			return err
 		}
-
+		fmt.Printf("EEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 		fmt.Println(sk)
 		os.Exit(1)
 		var existing models.SpecificationModel

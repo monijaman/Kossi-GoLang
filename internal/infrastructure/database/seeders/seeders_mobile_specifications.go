@@ -21,115 +21,91 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 		return nil
 	}
 
-	// Specification key mappings (will be created first)
-	specificationKeys := []models.SpecificationKeyModel{
-		{SpecificationKey: "display_size"},
-		{SpecificationKey: "processor"},
-		{SpecificationKey: "ram"},
-		{SpecificationKey: "storage"},
-		{SpecificationKey: "rear_camera"},
-		{SpecificationKey: "front_camera"},
-		{SpecificationKey: "battery"},
-		{SpecificationKey: "fast_charging"},
-		{SpecificationKey: "operating_system"},
-		{SpecificationKey: "weight"},
-		{SpecificationKey: "dimensions"},
-		{SpecificationKey: "water_resistance"},
-		{SpecificationKey: "5g_support"},
-		{SpecificationKey: "bluetooth_version"},
-		{SpecificationKey: "refresh_rate"},
-		{SpecificationKey: "chipset"},
-		{SpecificationKey: "cpu_type"},
-		{SpecificationKey: "gpu_type"},
-		{SpecificationKey: "display_type"},
-		{SpecificationKey: "resolution"},
-		{SpecificationKey: "screen_protection"},
-		{SpecificationKey: "build_material"},
-		{SpecificationKey: "network_technology"},
-		{SpecificationKey: "2g_bands"},
-		{SpecificationKey: "3g_bands"},
-		{SpecificationKey: "4g_bands"},
-		{SpecificationKey: "5g_bands"},
-		{SpecificationKey: "wifi_support"},
-		{SpecificationKey: "nfc_support"},
-		{SpecificationKey: "usb_type"},
-		{SpecificationKey: "announcement_date"},
-		{SpecificationKey: "device_status"},
-		{SpecificationKey: "internal_memory_capacity"},
-		{SpecificationKey: "card_slot_type"},
-		{SpecificationKey: "camera_features"},
-		{SpecificationKey: "quad_camera_setup"},
-		{SpecificationKey: "camera_video_resolution"},
-		{SpecificationKey: "optical_zoom"},
-		{SpecificationKey: "front_camera_video_resolution"},
-		{SpecificationKey: "loudspeaker_quality"},
-		{SpecificationKey: "audio_quality"},
-		{SpecificationKey: "audio_jack"},
-		{SpecificationKey: "battery_type"},
-		{SpecificationKey: "charging_speed"},
-		{SpecificationKey: "wireless_charging"},
-		{SpecificationKey: "positioning_system"},
-		{SpecificationKey: "sensors"},
-		{SpecificationKey: "special_features"},
-		{SpecificationKey: "sim_card_type"},
-		{SpecificationKey: "sar_rating"},
-		{SpecificationKey: "sar_rating_eu"},
-		{SpecificationKey: "available_colors"},
-		{SpecificationKey: "model_variants"},
-		{SpecificationKey: "processor_speed"},
+	existingkeyMapping := map[string]uint{
+		// Core display
+		"display_size":      66, // Screen Size
+		"display_type":      27, // Display Type
+		"resolution":        62, // Resolution
+		"refresh_rate":      61, // Refresh Rate
+		"screen_protection": 65, // Screen Protection
+
+		// Performance
+		"processor":       535, // processor (lowercase)
+		"chipset":         19,  // Chipset
+		"cpu_type":        21,  // CPU Type
+		"gpu_type":        33,  // GPU Type
+		"processor_speed": 57,  // Processor Speed
+
+		// Memory & storage
+		"ram":                      60, // RAM
+		"storage":                  71, // Storage Capacity
+		"internal_memory_capacity": 36, // Internal Memory Capacity
+		"card_slot_type":           17, // Card Slot Type
+
+		// Cameras
+		"rear_camera":                   122, // Rear Camera
+		"camera_features":               16,  // Camera Features
+		"quad_camera_setup":             58,  // Quad Camera Setup
+		"camera_video_resolution":       40,  // Main Camera Video Resolution
+		"optical_zoom":                  193, // Optical Zoom
+		"front_camera":                  32,  // Front Camera
+		"front_camera_video_resolution": 32,  // Front Camera Video Resolution
+
+		// Battery & charging
+		"battery":           11,  // Battery Capacity
+		"battery_type":      12,  // Battery Type
+		"fast_charging":     553, // fast_charging (lowercase)
+		"charging_speed":    18,  // Charging Speed
+		"wireless_charging": 82,  // Wireless Charging
+
+		// Software
+		"operating_system": 49, // Operating System
+
+		// Audio
+		"audio_quality":       9,  // Audio Quality
+		"loudspeaker_quality": 38, // Loudspeaker Quality
+		"audio_jack":          2,  // 3.5mm Audio Jack
+
+		// Build & body
+		"build_material":   14, // Build Material
+		"weight":           80, // Weight
+		"dimensions":       25, // Dimensions
+		"water_resistance": 78, // Water Resistance
+
+		// Network & connectivity
+		"network_technology": 653, // Network Technology
+		"2g_bands":           1,   // 2G Bands
+		"3g_bands":           3,   // 3G Bands
+		"4g_bands":           4,   // 4G Bands
+		"5g_bands":           5,   // 5G Bands
+		"5g_support":         5,   // 5G Support (maps to 5G Bands)
+		"wifi_support":       81,  // WiFi
+		"bluetooth_version":  13,  // Bluetooth Version
+		"nfc_support":        46,  // NFC Support
+		"usb_type":           76,  // USB Type
+
+		// Positioning & sensors
+		"positioning_system": 54, // Positioning System
+		"sensors":            67, // Sensors
+		"special_features":   69, // Special Features
+
+		// SIM & compliance
+		"sim_card_type": 68, // SIM Card Type
+		"sar_rating":    63, // SAR (Specific Absorption Rate)
+		"sar_rating_eu": 64, // SAR (Specific Absorption Rate) EU
+
+		// Commercial info
+		"available_colors":  10, // Available Colors
+		"model_variants":    42, // Model Variants
+		"announcement_date": 8,  // Announcement Date
+		"device_status":     23, // Device Status
 	}
 
-	// Create specification keys
-	// Remove duplicates in the seeder list and skip keys that already exist in DB
-	seenKeys := make(map[string]bool)
-	var toInsertKeys []models.SpecificationKeyModel
-	skippedExisting := 0
-	skippedDuplicateInList := 0
+	// Track keys used in data but not in mapping
+	missingKeys := make(map[string]bool)
 
-	for _, k := range specificationKeys {
-		if k.SpecificationKey == "" {
-			log.Printf("Skipping empty specification key entry")
-			skippedDuplicateInList++
-			continue
-		}
-
-		if seenKeys[k.SpecificationKey] {
-			skippedDuplicateInList++
-			log.Printf("Skipping duplicate specification key in seeder list: %s", k.SpecificationKey)
-			continue
-		}
-
-		seenKeys[k.SpecificationKey] = true
-
-		var existing models.SpecificationKeyModel
-		err := db.Where("specification_key = ?", k.SpecificationKey).First(&existing).Error
-		if err == nil {
-			skippedExisting++
-			log.Printf("Skipping existing specification key: %s", k.SpecificationKey)
-			continue
-		}
-		if err != nil && err != gorm.ErrRecordNotFound {
-			log.Printf("❌ Error checking existing specification key %s: %v", k.SpecificationKey, err)
-			return err
-		}
-
-		toInsertKeys = append(toInsertKeys, k)
-	}
-
-	if len(toInsertKeys) == 0 {
-		fmt.Printf("✅ No new specification keys to seed (skipped %d existing, %d duplicates in list)\n", skippedExisting, skippedDuplicateInList)
-	} else {
-		keyResult := db.CreateInBatches(toInsertKeys, 50)
-		if keyResult.Error != nil {
-			log.Printf("❌ Error seeding specification keys: %v", keyResult.Error)
-			return keyResult.Error
-		}
-
-		fmt.Printf("✅ Successfully seeded %d specification keys (skipped %d existing, %d duplicates in list)\n", keyResult.RowsAffected, skippedExisting, skippedDuplicateInList)
-	}
-
-	// Fetch the created keys
-	db.Find(&specificationKeys)
+	// Validate all keys in existingkeyMapping exist in database
+	fmt.Println("✅ Using existing specification key mappings only (no new keys will be created)")
 
 	// Create specifications for each product
 	specifications := []models.SpecificationModel{}
@@ -8670,22 +8646,46 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 			println("Not Exists")
 			// Use generic specs for products without specific data
 			//	specs = getGenericMobileSpecs()
+			continue
 		}
 
-		for _, specKey := range specificationKeys {
-			if value, ok := specs[specKey.SpecificationKey]; ok {
+		// Loop through product's specs and map to existing keys
+		for specKeyName, value := range specs {
+			if keyID, ok := existingkeyMapping[specKeyName]; ok {
+				// Key exists in mapping, create specification
 				specification := models.SpecificationModel{
 					ProductID:          product.ID,
-					SpecificationKeyID: specKey.ID,
+					SpecificationKeyID: keyID,
 					Value:              value,
 					Status:             1,
 				}
 				specifications = append(specifications, specification)
+			} else {
+				// Track missing key
+				if !missingKeys[specKeyName] {
+					missingKeys[specKeyName] = true
+					log.Printf("⚠️  Key not found in existingkeyMapping: '%s' (used in product: %s)", specKeyName, product.Name)
+				}
 			}
 		}
 	}
 
+	// Report missing keys summary
+	if len(missingKeys) > 0 {
+		fmt.Printf("\n⚠️  MISSING KEYS REPORT: Found %d keys in product data that are not in existingkeyMapping:\n", len(missingKeys))
+		for key := range missingKeys {
+			fmt.Printf("   - %s\n", key)
+		}
+		fmt.Println("\nThese specifications will be SKIPPED during insertion.")
+		fmt.Println("Please add these keys to existingkeyMapping or remove them from product data.\n")
+	}
+
 	// Batch create specifications
+	if len(specifications) == 0 {
+		fmt.Println("⚠️  No specifications to seed (all keys missing or no product data)")
+		return nil
+	}
+
 	result := db.CreateInBatches(specifications, 100)
 	if result.Error != nil {
 		log.Printf("❌ Error seeding specifications: %v", result.Error)
@@ -8693,6 +8693,9 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 	}
 
 	fmt.Printf("✅ Successfully seeded %d mobile specifications\n", result.RowsAffected)
+	if len(missingKeys) > 0 {
+		fmt.Printf("⚠️  %d key(s) were skipped (see missing keys report above)\n", len(missingKeys))
+	}
 	return nil
 }
 

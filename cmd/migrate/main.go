@@ -5,6 +5,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"kossti/internal/infrastructure/database"
 	"kossti/internal/infrastructure/database/seeders"
 	"log"
@@ -83,6 +84,7 @@ func main() {
 		seeder           = flag.String("seeder", "", "Run one or more seeders by name (comma-separated)")
 		freshSeed        = flag.Bool("fresh-seed", false, "Drop, migrate, and seed (DANGEROUS)")
 		updateBanglakink = flag.Bool("update-banglalink", false, "Update Banglalink reviews with HTML content")
+		sqlFile          = flag.String("sql", "", "Run SQL file")
 		dsn              = flag.String("dsn", defaultDSN, "Database DSN")
 	)
 	flag.Parse()
@@ -226,6 +228,17 @@ func main() {
 			log.Fatal("Failed to update Banglalink reviews:", err)
 		}
 		fmt.Println("✅ Banglalink reviews updated with HTML content!")
+
+	case *sqlFile != "":
+		fmt.Printf("📄 Running SQL file: %s\n", *sqlFile)
+		sqlContent, err := ioutil.ReadFile(*sqlFile)
+		if err != nil {
+			log.Fatalf("Failed to read SQL file: %v", err)
+		}
+		if err := db.Exec(string(sqlContent)).Error; err != nil {
+			log.Fatalf("Failed to execute SQL: %v", err)
+		}
+		fmt.Println("✅ SQL file executed successfully!")
 
 	default:
 		printUsage()

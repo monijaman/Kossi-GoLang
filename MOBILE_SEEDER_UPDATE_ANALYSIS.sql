@@ -1,0 +1,98 @@
+-- PROPOSED MOBILE SPECIFICATIONS SEEDER UPDATE
+-- ============================================================================
+
+-- CURRENT SEEDER KEYS (lowercase, generic):
+-- display_size, processor, ram, storage, rear_camera, front_camera, battery,
+-- fast_charging, operating_system, weight, dimensions, water_resistance, 5g_support,
+-- etc.
+
+-- ACTUAL DATABASE KEYS (proper case, specific):
+-- ID 11: Battery Capacity
+-- ID 12: Battery Type  
+-- ID 113: Length
+-- ID 114: Max Power
+-- ID 136: Width
+-- ID 526: Price (BDT)
+-- ID 553: fast_charging
+-- ID 81: WiFi (DELETED - should not use)
+-- ID 453: 2G Service Available
+-- ID 454: 3G Service Available
+-- ID 455: 4G/LTE Service Available
+-- ID 456: 5G Service Available
+-- ID 16: Camera Features
+-- ID 32: Front Camera Video Resolution
+-- ID 40: Main Camera Video Resolution
+-- ID 58: Quad Camera Setup
+-- ID 122: Rear Camera
+-- ID 80: Weight
+-- ID 25: Dimensions
+
+-- ============================================================================
+-- MAPPING CHANGES NEEDED:
+-- ============================================================================
+
+-- KEEP (Match existing):
+-- "fast_charging" -> ID 553: fast_charging ✓
+-- "rear_camera" -> ID 122: Rear Camera ✓
+-- "front_camera" -> ID 32: Front Camera Video Resolution (PARTIAL)
+-- "weight" -> ID 80: Weight ✓
+-- "dimensions" -> ID 25: Dimensions ✓
+-- "battery" -> ID 11/12: Battery Capacity/Type ✓
+-- "camera_features" -> ID 16: Camera Features ✓
+-- "quad_camera_setup" -> ID 58: Quad Camera Setup ✓
+
+-- REMOVE (NOT IN DB - WILL CAUSE ERRORS):
+-- "display_size" - NO MATCH (need: Screen Size, Resolution, Display Type)
+-- "processor" - NO MATCH (need: Chipset, CPU Type)
+-- "ram" - NO MATCH (need: RAM specification)
+-- "storage" - NO MATCH (need: Storage Capacity)
+-- "operating_system" - NO MATCH (need: Operating System proper key)
+-- "water_resistance" - NO MATCH
+-- "5g_support" - NO MATCH (use ID 456: 5G Service Available)
+-- "bluetooth_version" - NO MATCH (use ID 13: Bluetooth Version)
+-- "refresh_rate" - NO MATCH (use ID 61: Refresh Rate)
+-- "chipset" - NO MATCH (use ID 19: Chipset)
+-- "cpu_type" - NO MATCH (use ID 21: CPU Type)
+-- "gpu_type" - NO MATCH (use ID 33: GPU Type)
+-- "display_type" - NO MATCH (use ID 27: Display Type)
+-- "resolution" - NO MATCH (use ID 62: Resolution)
+-- "screen_protection" - NO MATCH (use ID 65: Screen Protection)
+-- "build_material" - NO MATCH (use ID 14: Build Material)
+-- "network_technology" - NO MATCH (use ID 653: Network Technology)
+-- "2g_bands" - NO MATCH (use ID 1: 2G Bands)
+-- "3g_bands" - NO MATCH (use ID 3: 3G Bands)
+-- "4g_bands" - NO MATCH (use ID 4: 4G Bands)
+-- "5g_bands" - NO MATCH (use ID 5: 5G Bands)
+-- "wifi_support" - NO MATCH (use ID 81: WiFi - DELETED!)
+-- "nfc_support" - NO MATCH (use ID 46: NFC Support)
+-- "usb_type" - NO MATCH (use ID 76: USB Type)
+-- "announcement_date" - NO MATCH (use ID 8: Announcement Date)
+-- "device_status" - NO MATCH (use ID 23: Device Status)
+-- "internal_memory_capacity" - NO MATCH (use ID 36: Internal Memory Capacity)
+-- "card_slot_type" - NO MATCH (use ID 17: Card Slot Type)
+-- "camera_video_resolution" - NO MATCH (use ID 40: Main Camera Video Resolution)
+-- "optical_zoom" - NO MATCH
+-- "front_camera_video_resolution" - NO MATCH (use ID 32: Front Camera Video Resolution)
+-- "loudspeaker_quality" - NO MATCH (use ID 38: Loudspeaker Quality)
+-- "audio_quality" - NO MATCH (use ID 9: Audio Quality)
+-- "audio_jack" - NO MATCH (use ID 2: 3.5mm Audio Jack)
+-- "charging_speed" - NO MATCH (use ID 18: Charging Speed)
+-- "wireless_charging" - NO MATCH (use ID 82: Wireless Charging)
+-- "positioning_system" - NO MATCH (use ID 54: Positioning System)
+-- "sensors" - NO MATCH (use ID 67: Sensors)
+-- "special_features" - NO MATCH (use ID 69: Special Features)
+-- "sim_card_type" - NO MATCH (use ID 68: SIM Card Type)
+-- "sar_rating" - NO MATCH (use ID 63: SAR - DELETED!)
+-- "sar_rating_eu" - NO MATCH (use ID 64: SAR EU - DELETED!)
+-- "available_colors" - NO MATCH (use ID 10: Available Colors)
+-- "model_variants" - NO MATCH (use ID 42: Model Variants)
+-- "processor_speed" - NO MATCH (use ID 57: Processor Speed)
+
+-- ============================================================================
+-- RECOMMENDATION:
+-- ============================================================================
+-- Update the seeder to use ACTUAL database specification key IDs instead of
+-- string matching. This will be more reliable and faster.
+-- 
+-- Current approach: Match by string name (fragile, error-prone)
+-- Better approach: Use ID numbers directly (faster, reliable)
