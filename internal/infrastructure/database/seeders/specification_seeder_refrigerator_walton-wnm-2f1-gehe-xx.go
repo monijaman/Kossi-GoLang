@@ -22,16 +22,16 @@ func NewSpecificationSeederRefrigeratorWaltonWnm2f1GeheXx() *SpecificationSeeder
 func (s *SpecificationSeederRefrigeratorWaltonWnm2f1GeheXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Walton":              "ওয়ালটন",
-		"WCF-1B5-GDEL-XX":     "ডব্লিউসিএফ-১বি৫-জিডিইএল-এক্সএক্স",
+		"WNM-2F1-GEHE-XX":     "ডব্লিউএনএম-২এফ১-জিইএইচই-এক্সএক্স",
 		"Single Door":         "একটি দরজা",
-		"150 Liters":          "১৫০ লিটার",
-		"125 Liters":          "১২৫ লিটার",
-		"25 Liters":           "২৫ লিটার",
+		"251 Liters":          "২৫১ লিটার",
+		"200 Liters":          "২০০ লিটার",
+		"51 Liters":           "৫১ লিটার",
 		"4 Star":              "৪ তারা",
 		"4":                   "৪",
 		"200 kWh":             "২০০ কিলোওয়াট ঘণ্টা",
 		"500 x 520 x 1200 mm": "৫০০ x ৫২০ x ১২০০ মিমি",
-		"38 kg":               "৩৮ কেজি",
+		"50 kg":               "৫০ কেজি",
 		"Silver":              "সিলভার",
 		"Reciprocating":       "রিসিপ্রোকেটিং",
 		"Direct Cool":         "ডাইরেক্ট কুল",
@@ -47,6 +47,11 @@ func (s *SpecificationSeederRefrigeratorWaltonWnm2f1GeheXx) getBanglaTranslation
 		"2 Years":             "২ বছর",
 		"10":                  "১০",
 		"Large Vegetable Crisper, Egg Tray, Ice Cube Tray": "বড় শাকসবজি ক্রিস্পার, ডিমের ট্রে, বরফের কিউব ট্রে",
+		"Refrigerant":      "রেফ্রিজারেন্ট",
+		"Gross Volume":     "মোট ভলিউম",
+		"Net Volume":       "নেট ভলিউম",
+		"R600a (CFC Free)": "আর৬০০এ (সিএফসি ফ্রি)",
+		"230 Liters":       "২৩০ লিটার",
 	}
 }
 
@@ -91,21 +96,24 @@ func (s *SpecificationSeederRefrigeratorWaltonWnm2f1GeheXx) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     385,
 		"Warranty":                    323,
 		"Compressor Warranty (Years)": 707,
+		"Refrigerant":                 708,
+		"Gross Volume":                709,
+		"Net Volume":                  710,
 		"Special Features":            69,
 	}
 
 	specs := map[string]string{
 		"Brand":                       "Walton",
-		"Model Name":                   "WNM-2F1-GEHE-XX",
+		"Model Name":                  "WNM-2F1-GEHE-XX",
 		"Door Type":                   "Single Door",
-		"Capacity":                    "150 Liters",
-		"Refrigerator Capacity":       "125 Liters",
-		"Freezer Capacity":            "25 Liters",
+		"Capacity":                    "251 Liters",
+		"Refrigerator Capacity":       "200 Liters",
+		"Freezer Capacity":            "51 Liters",
 		"Energy Efficiency Rating":    "4 Star",
 		"Energy Star Rating":          "4",
 		"Annual Energy Consumption":   "200 kWh",
 		"Dimensions":                  "500 x 520 x 1200 mm",
-		"Weight":                      "38 kg",
+		"Weight":                      "50 kg",
 		"Color":                       "Silver",
 		"Compressor Type":             "Reciprocating",
 		"Cooling Technology":          "Direct Cool",
@@ -124,6 +132,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWnm2f1GeheXx) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     "No",
 		"Warranty":                    "2 Years",
 		"Compressor Warranty (Years)": "10",
+		"Refrigerant":                 "R600a (CFC Free)",
+		"Gross Volume":                "251 Liters",
+		"Net Volume":                  "230 Liters",
 		"Special Features":            "Large Vegetable Crisper, Egg Tray, Ice Cube Tray",
 	}
 

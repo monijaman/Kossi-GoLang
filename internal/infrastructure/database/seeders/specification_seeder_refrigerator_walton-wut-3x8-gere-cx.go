@@ -46,6 +46,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWut3x8GereCx) getBanglaTranslation
 		"3 Years":             "৩ বছর",
 		"12":                  "১২",
 		"Inverter Technology, Large Vegetable Crisper, Egg Tray, Ice Cube Tray": "ইনভার্টার প্রযুক্তি, বড় শাকসবজি ক্রিস্পার, ডিমের ট্রে, বরফের কিউব ট্রে",
+		"Refrigerant":				"রেফ্রিজারেন্ট",
+		"Gross Volume":				"মোট ভলিউম",
+		"Net Volume":				"নেট ভলিউম",
 	}
 }
 
@@ -90,6 +93,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWut3x8GereCx) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     385,
 		"Warranty":                    323,
 		"Compressor Warranty (Years)": 707,
+		"Refrigerant":				708,
+		"Gross Volume":				709,
+		"Net Volume":					710,
 		"Special Features":            69,
 	}
 
@@ -123,6 +129,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWut3x8GereCx) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     "No",
 		"Warranty":                    "3 Years",
 		"Compressor Warranty (Years)": "12",
+		"Refrigerant":				"N/A",
+		"Gross Volume":				"N/A",
+		"Net Volume":				"N/A",
 		"Special Features":            "Inverter Technology, Large Vegetable Crisper, Egg Tray, Ice Cube Tray",
 	}
 

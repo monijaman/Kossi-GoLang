@@ -46,6 +46,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWni6a9GdsdDd) getBanglaTranslation
 		"2 Years":             "২ বছর",
 		"12":                  "১২",
 		"Electronic Temperature Control, LED Interior Lamp, Vegetable Crisper, Egg Tray, Ice Case, Ice Box": "ইলেকট্রনিক তাপমাত্রা নিয়ন্ত্রণ, এলইডি ইন্টেরিয়র ল্যাম্প, শাকসবজি ক্রিস্পার, ডিমের ট্রে, বরফের কেস, বরফের বাক্স",
+		"Refrigerant":  "রেফ্রিজারেন্ট",
+		"Gross Volume": "মোট ভলিউম",
+		"Net Volume":   "নেট ভলিউম",
 	}
 }
 
@@ -90,6 +93,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWni6a9GdsdDd) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     385,
 		"Warranty":                    323,
 		"Compressor Warranty (Years)": 707,
+		"Refrigerant":                 708,
+		"Gross Volume":                709,
+		"Net Volume":                  710,
 		"Special Features":            69,
 	}
 
@@ -123,6 +129,9 @@ func (s *SpecificationSeederRefrigeratorWaltonWni6a9GdsdDd) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     "No",
 		"Warranty":                    "2 Years",
 		"Compressor Warranty (Years)": "12",
+		"Refrigerant":                 "N/A",
+		"Gross Volume":                "N/A",
+		"Net Volume":                  "N/A",
 		"Special Features":            "Electronic Temperature Control, LED Interior Lamp, Vegetable Crisper, Egg Tray, Ice Case, Ice Box",
 	}
 

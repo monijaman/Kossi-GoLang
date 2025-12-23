@@ -47,7 +47,10 @@ func (s *SpecificationSeederRefrigeratorWaltonWnr6f0ScrcCo) getBanglaTranslation
 		"50":                  "৫০",
 		"1 Year":              "১ বছর",
 		"12":                  "১২",
-		"Trio Cooling+, Odor Filter, MSO Plus Inverter, LED Lighting, Curved Doors, Refrigerant: R600a (CFC Free), Technology: MSO Plus Inverter, Gross Volume: 660L, Net Volume: 613L": "ট্রায়ো কুলিং+, ওডর ফিল্টার, এমএসও প্লাস ইনভার্টার, এলইডি লাইটিং, কার্ভড দরজা, রেফ্রিজারেন্ট: আর৬০০এ (সিএফসি ফ্রি), টেকনোলজি: এমএসও প্লাস ইনভার্টার, গ্রস ভলিউম: ৬৬০এল, নেট ভলিউম: ৬১৩এল",
+		"Trio Cooling+, Odor Filter, MSO Plus Inverter, LED Lighting, Curved Doors": "ট্রায়ো কুলিং+, ওডর ফিল্টার, এমএসও প্লাস ইনভার্টার, এলইডি লাইটিং, কার্ভড দরজা",
+		"Refrigerant":         "রেফ্রিজারেন্ট",
+		"Gross Volume":        "মোট ভলিউম",
+		"Net Volume":          "নেট ভলিউম",
 		"R600a (CFC Free)": "আর৬০০এ (সিএফসি ফ্রি)",
 		"660 Liters":       "৬৬০ লিটার",
 		"613 Liters":       "৬১৩ লিটার",
@@ -131,10 +134,10 @@ func (s *SpecificationSeederRefrigeratorWaltonWnr6f0ScrcCo) Seed(db *gorm.DB) er
 		"Voice Assistant Support":     "No",
 		"Warranty":                    "1 Year",
 		"Compressor Warranty (Years)": "12",
-		"Special Features":            "Trio Cooling+, Odor Filter, MSO Plus Inverter, LED Lighting, Curved Doors, Refrigerant: R600a (CFC Free), Technology: MSO Plus Inverter, Gross Volume: 660L, Net Volume: 613L",
 		"Refrigerant":                 "R600a (CFC Free)",
 		"Gross Volume":                "660 Liters",
 		"Net Volume":                  "613 Liters",
+		"Special Features":            "Trio Cooling+, Odor Filter, MSO Plus Inverter, LED Lighting, Curved Doors",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
