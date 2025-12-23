@@ -200,6 +200,15 @@ func (sks *SpecificationKeySeeder) Seed(db *gorm.DB) error {
 		"Warranty Period",
 		"Wash Programs",
 		"Water Consumption",
+		"Cooling Technology",
+		"Shelf Material",
+		"Door Bins",
+		"Crisper Drawers",
+		"Ice Maker",
+		"Water Dispenser",
+		"Frequency (Hz)",
+		"App Control",
+		"Compressor Warranty (Years)",
 
 		// TV & Display
 		"Aspect Ratio",
