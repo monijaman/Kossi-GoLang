@@ -647,7 +647,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWcf1d5GdelLx())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWue3c4GepbXx())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWut3x8GereCx())
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWue2g2GepbXx())
+	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWfc3f5GdelXx())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWfa1n3GdxxXx())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWfb2e0GjxbSxP())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWfe2h2GdxxXx())

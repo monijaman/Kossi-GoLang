@@ -7,52 +7,49 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorWaltonWue2g2GepbXx seeds specifications/options for product 'walton-wue-2g2-gepb-xx'
-type SpecificationSeederRefrigeratorWaltonWue2g2GepbXx struct {
+// SpecificationSeederRefrigeratorWaltonWfc3f5GdelXx seeds specifications/options for product 'walton-wfc-3f5-gdel-xx'
+type SpecificationSeederRefrigeratorWaltonWfc3f5GdelXx struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorWaltonWue2g2GepbXx creates a new seeder instance
-func NewSpecificationSeederRefrigeratorWaltonWue2g2GepbXx() *SpecificationSeederRefrigeratorWaltonWue2g2GepbXx {
-	return &SpecificationSeederRefrigeratorWaltonWue2g2GepbXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for walton-wue-2g2-gepb-xx"},
+// NewSpecificationSeederRefrigeratorWaltonWfc3f5GdelXx creates a new seeder instance
+func NewSpecificationSeederRefrigeratorWaltonWfc3f5GdelXx() *SpecificationSeederRefrigeratorWaltonWfc3f5GdelXx {
+	return &SpecificationSeederRefrigeratorWaltonWfc3f5GdelXx{
+		BaseSeeder: BaseSeeder{name: "Specifications for walton-wfc-3f5-gdel-xx"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorWaltonWue2g2GepbXx) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorWaltonWfc3f5GdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Walton":              "ওয়ালটন",
-		"WCF-1B5-GDEL-XX":     "ডব্লিউসিএফ-১বি৫-জিডিইএল-এক্সএক্স",
-		"Single Door":         "একটি দরজা",
-		"150 Liters":          "১৫০ লিটার",
-		"125 Liters":          "১২৫ লিটার",
-		"25 Liters":           "২৫ লিটার",
-		"4 Star":              "৪ তারা",
-		"4":                   "৪",
-		"200 kWh":             "২০০ কিলোওয়াট ঘণ্টা",
-		"500 x 520 x 1200 mm": "৫০০ x ৫২০ x ১২০০ মিমি",
-		"38 kg":               "৩৮ কেজি",
-		"Silver":              "সিলভার",
-		"Reciprocating":       "রিসিপ্রোকেটিং",
-		"Direct Cool":         "ডাইরেক্ট কুল",
-		"Manual":              "ম্যানুয়াল",
-		"Mechanical":          "মেকানিক্যাল",
-		"Toughened Glass":     "টাফেন্ড গ্লাস",
-		"2":                   "২",
-		"1":                   "১",
-		"No":                  "না",
-		"38 dB":               "৩৮ ডেসিবেল",
-		"220V":                "২২০ভোল্ট",
-		"50":                  "৫০",
-		"2 Years":             "২ বছর",
-		"10":                  "১০",
-		"Large Vegetable Crisper, Egg Tray, Ice Cube Tray": "বড় শাকসবজি ক্রিস্পার, ডিমের ট্রে, বরফের কিউব ট্রে",
+		"Walton":                          "ওয়ালটন",
+		"WFC-3F5-GDEL-XX":                 "ডব্লিউএফসি-৩এফ৫-জিডিইএল-এক্সএক্স",
+		"Single Door":                     "একটি দরজা",
+		"380 Liters":                      "৩৮০ লিটার",
+		"365 Liters":                      "৩৬৫ লিটার",
+		"N/A":                             "এন/এ",
+		"5 Star":                          "৫ তারা",
+		"5":                               "৫",
+		"Silver":                          "সিলভার",
+		"Intelligent Inverter":            "ইন্টেলিজেন্ট ইনভার্টার",
+		"Direct Cool":                     "ডাইরেক্ট কুল",
+		"Manual":                          "ম্যানুয়াল",
+		"Mechanical":                      "মেকানিক্যাল",
+		"Toughened Glass":                 "টাফেন্ড গ্লাস",
+		"2":                               "২",
+		"4":                               "৪",
+		"1":                               "১",
+		"No":                              "না",
+		"220V":                            "২২০ভোল্ট",
+		"50":                              "৫০",
+		"2 Years":                         "২ বছর",
+		"10":                              "১০",
+		"Wide Voltage Design, Glass Door": "ওয়াইড ভোল্টেজ ডিজাইন, গ্লাস দরজা",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'walton-wue-2g2-gepb-xx'
-func (s *SpecificationSeederRefrigeratorWaltonWue2g2GepbXx) Seed(db *gorm.DB) error {
-	productSlug := "walton-wue-2g2-gepb-xx"
+// Seed inserts specification records for the product identified by slug 'walton-wfc-3f5-gdel-xx'
+func (s *SpecificationSeederRefrigeratorWaltonWfc3f5GdelXx) Seed(db *gorm.DB) error {
+	productSlug := "walton-wfc-3f5-gdel-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -96,18 +93,18 @@ func (s *SpecificationSeederRefrigeratorWaltonWue2g2GepbXx) Seed(db *gorm.DB) er
 
 	specs := map[string]string{
 		"Brand":                       "Walton",
-		"Model Name":                   "WUE-2G2-GEPB-XX",
+		"Model Name":                  "WFC-3F5-GDEL-XX",
 		"Door Type":                   "Single Door",
-		"Capacity":                    "150 Liters",
-		"Refrigerator Capacity":       "125 Liters",
-		"Freezer Capacity":            "25 Liters",
-		"Energy Efficiency Rating":    "4 Star",
-		"Energy Star Rating":          "4",
-		"Annual Energy Consumption":   "200 kWh",
-		"Dimensions":                  "500 x 520 x 1200 mm",
-		"Weight":                      "38 kg",
+		"Capacity":                    "380 Liters",
+		"Refrigerator Capacity":       "365 Liters",
+		"Freezer Capacity":            "N/A",
+		"Energy Efficiency Rating":    "5 Star",
+		"Energy Star Rating":          "5",
+		"Annual Energy Consumption":   "N/A",
+		"Dimensions":                  "N/A",
+		"Weight":                      "N/A",
 		"Color":                       "Silver",
-		"Compressor Type":             "Reciprocating",
+		"Compressor Type":             "Intelligent Inverter",
 		"Cooling Technology":          "Direct Cool",
 		"Defrost Type":                "Manual",
 		"Temperature Control":         "Mechanical",
@@ -117,14 +114,14 @@ func (s *SpecificationSeederRefrigeratorWaltonWue2g2GepbXx) Seed(db *gorm.DB) er
 		"Crisper Drawers":             "1",
 		"Ice Maker":                   "No",
 		"Water Dispenser":             "No",
-		"Noise Level":                 "38 dB",
+		"Noise Level":                 "N/A",
 		"Voltage":                     "220V",
 		"Frequency (Hz)":              "50",
 		"App Control":                 "No",
 		"Voice Assistant Support":     "No",
 		"Warranty":                    "2 Years",
 		"Compressor Warranty (Years)": "10",
-		"Special Features":            "Large Vegetable Crisper, Egg Tray, Ice Cube Tray",
+		"Special Features":            "Wide Voltage Design, Glass Door",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
