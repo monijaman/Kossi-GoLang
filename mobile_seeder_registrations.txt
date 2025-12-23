@@ -2,7 +2,7 @@
 // Add these lines to SetupAllSeeders() in seeder.go:
 
 	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8())
-	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8Pro())
+	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8ProAlt())
 	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8a())
 	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9())
 	manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9Pro())

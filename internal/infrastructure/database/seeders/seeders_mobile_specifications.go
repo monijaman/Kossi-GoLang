@@ -1,12 +1,34 @@
 package seeders
 
 import (
+	"encoding/json"
 	"fmt"
 	"kossti/internal/infrastructure/database/models"
 	"log"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"gorm.io/gorm"
 )
+
+// loadBanglaTranslations loads Bangla translations for a product from JSON file
+func loadBanglaTranslations(productName string) (map[string]string, error) {
+	// Convert product name to filename: replace spaces with underscores, lowercase
+	filename := strings.ToLower(strings.ReplaceAll(productName, " ", "_")) + "_bangla.json"
+	filePath := filepath.Join("translations", filename)
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var translations map[string]string
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&translations)
+	return translations, err
+}
 
 // SeedMobileSpecifications seeds specifications for mobile products
 func SeedMobileSpecifications(db *gorm.DB) error {
@@ -106,9 +128,6 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 
 	// Validate all keys in existingkeyMapping exist in database
 	fmt.Println("✅ Using existing specification key mappings only (no new keys will be created)")
-
-	// Create specifications for each product
-	specifications := []models.SpecificationModel{}
 
 	// Product specifications data
 	productSpecs := map[string]map[string]string{
@@ -8639,14 +8658,20 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 	}
 
 	// Create specifications for each product with available specs
+	specCount := 0
+	translationCount := 0
+
 	for _, product := range products {
 		specs, exists := productSpecs[product.Name]
 		if !exists {
-			println(productSpecs[product.Name])
-			println("Not Exists")
-			// Use generic specs for products without specific data
-			//	specs = getGenericMobileSpecs()
 			continue
+		}
+
+		// Load Bangla translations if available
+		banglaTranslations, err := loadBanglaTranslations(product.Name)
+		if err != nil {
+			// No translations file, skip translations for this product
+			fmt.Printf("⚠️  No Bangla translations found for %s\n", product.Name)
 		}
 
 		// Loop through product's specs and map to existing keys
@@ -8659,7 +8684,27 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 					Value:              value,
 					Status:             1,
 				}
-				specifications = append(specifications, specification)
+
+				// Insert the specification
+				if err := db.Create(&specification).Error; err != nil {
+					log.Printf("❌ Error inserting specification for %s: %v", product.Name, err)
+					continue
+				}
+				specCount++
+
+				// Insert Bangla translation if available
+				if banglaValue, exists := banglaTranslations[specKeyName]; exists && banglaValue != "" {
+					translation := models.SpecificationTranslationModel{
+						SpecificationID: specification.ID,
+						Locale:          "bn",
+						Value:           banglaValue,
+					}
+					if err := db.Create(&translation).Error; err != nil {
+						log.Printf("❌ Error inserting Bangla translation for %s: %v", product.Name, err)
+					} else {
+						translationCount++
+					}
+				}
 			} else {
 				// Track missing key
 				if !missingKeys[specKeyName] {
@@ -8680,79 +8725,9 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 		fmt.Println("Please add these keys to existingkeyMapping or remove them from product data.\n")
 	}
 
-	// Batch create specifications
-	if len(specifications) == 0 {
-		fmt.Println("⚠️  No specifications to seed (all keys missing or no product data)")
-		return nil
-	}
-
-	result := db.CreateInBatches(specifications, 100)
-	if result.Error != nil {
-		log.Printf("❌ Error seeding specifications: %v", result.Error)
-		return result.Error
-	}
-
-	fmt.Printf("✅ Successfully seeded %d mobile specifications\n", result.RowsAffected)
+	fmt.Printf("✅ Successfully seeded %d mobile specifications and %d Bangla translations\n", specCount, translationCount)
 	if len(missingKeys) > 0 {
 		fmt.Printf("⚠️  %d key(s) were skipped (see missing keys report above)\n", len(missingKeys))
 	}
 	return nil
-}
-
-// getGenericMobileSpecs returns generic specifications for mobile phones
-func getGenericMobileSpecs() map[string]string {
-	return map[string]string{
-		"display_size":                  "monirr",
-		"processor":                     "",
-		"chipset":                       "",
-		"cpu_type":                      "",
-		"gpu_type":                      "",
-		"processor_speed":               "",
-		"ram":                           "",
-		"storage":                       "",
-		"internal_memory_capacity":      "UFS 4.0",
-		"card_slot_type":                "microSD card slot up to 1TB",
-		"display_type":                  "AMOLED Display",
-		"resolution":                    "1080 x 2340 pixels",
-		"screen_protection":             "Corning Gorilla Glass",
-		"refresh_rate":                  "120Hz",
-		"build_material":                "Glass back, metal frame",
-		"weight":                        "185g",
-		"dimensions":                    "160 x 73 x 8.5 mm",
-		"water_resistance":              "IP67",
-		"network_technology":            "GSM / HSPA / LTE / 5G",
-		"2g_bands":                      "GSM 850 / 900 / 1800 / 1900 MHz",
-		"3g_bands":                      "HSPA 850 / 900 / 1900 / 2100 MHz",
-		"4g_bands":                      "LTE Band 1, 3, 5, 7, 8, 20, 32, 66",
-		"5g_bands":                      "n1, n3, n5, n7, n8, n20, n28, n78, n79",
-		"wifi_support":                  "Wi-Fi 802.11 a/b/g/n/ac/6",
-		"bluetooth_version":             "5.3",
-		"nfc_support":                   "Yes",
-		"usb_type":                      "USB Type-C 3.1",
-		"rear_camera":                   "50 MP Triple Camera",
-		"quad_camera_setup":             "50MP Wide + 12MP Telephoto + 12MP Ultrawide",
-		"camera_features":               "OIS, Auto Focus, LED Flash",
-		"camera_video_resolution":       "4K@30/60fps, 1080p@60fps",
-		"optical_zoom":                  "2x Optical Zoom",
-		"front_camera":                  "32 MP",
-		"front_camera_video_resolution": "4K@30fps, 1080p@30fps",
-		"operating_system":              "Android 15",
-		"battery":                       "4,500 mAh",
-		"battery_type":                  "Li-Po",
-		"fast_charging":                 "30W",
-		"charging_speed":                "30W wired; 15W wireless",
-		"wireless_charging":             "Yes - 15W wireless",
-		"5g_support":                    "Yes",
-		"positioning_system":            "GPS, GLONASS, BDS, GALILEO",
-		"sensors":                       "Fingerprint, accelerometer, gyro, proximity, compass, barometer",
-		"special_features":              "Face Unlock, AI Processing, Gaming Mode",
-		"sim_card_type":                 "Nano-SIM + eSIM",
-		"loudspeaker_quality":           "Dual stereo speakers",
-		"audio_quality":                 "High-resolution audio",
-		"audio_jack":                    "No",
-		"available_colors":              "Black, Silver, Blue, Green",
-		"model_variants":                "Standard models",
-		"announcement_date":             "Recent",
-		"device_status":                 "Available",
-	}
 }

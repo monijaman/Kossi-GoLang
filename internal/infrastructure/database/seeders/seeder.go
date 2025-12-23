@@ -81,6 +81,334 @@ func (bs *BaseSeeder) GetName() string {
 	return bs.name
 }
 
+// GetCommonBanglaTranslations returns a map of common English specification values to their Bangla translations
+func (bs *BaseSeeder) GetCommonBanglaTranslations() map[string]string {
+	return map[string]string{
+		// Screen sizes
+		"6.1 inches": "৬.১ ইঞ্চি",
+		"6.2 inches": "৬.২ ইঞ্চি",
+		"6.3 inches": "৬.৩ ইঞ্চি",
+		"6.4 inches": "৬.৪ ইঞ্চি",
+		"6.5 inches": "৬.৫ ইঞ্চি",
+		"6.6 inches": "৬.৬ ইঞ্চি",
+		"6.7 inches": "৬.৭ ইঞ্চি",
+		"6.8 inches": "৬.৮ ইঞ্চি",
+		"6.9 inches": "৬.৯ ইঞ্চি",
+		"7.0 inches": "৭.০ ইঞ্চি",
+
+		// Display types
+		"AMOLED":                "AMOLED",
+		"OLED":                  "OLED",
+		"LTPO OLED":             "LTPO OLED",
+		"Super Retina XDR OLED": "সুপার রেটিনা XDR OLED",
+		"Liquid Retina HD":      "লিকুইড রেটিনা HD",
+		"IPS LCD":               "IPS LCD",
+		"TFT LCD":               "TFT LCD",
+
+		// Display features
+		"HDR10+":       "HDR10+",
+		"HDR10":        "HDR10",
+		"Dolby Vision": "ডলবি ভিশন",
+		"120Hz":        "১২০Hz",
+		"90Hz":         "৯০Hz",
+		"60Hz":         "৬০Hz",
+		"1-120Hz":      "১-১২০Hz",
+
+		// Resolutions
+		"1080 x 2400 pixels": "১০৮০ x ২৪০০ পিক্সেল",
+		"1080 x 2412 pixels": "১০৮০ x ২৪১২ পিক্সেল",
+		"1179 x 2556 pixels": "১১৭৯ x ২৫৫৬ পিক্সেল",
+		"1284 x 2778 pixels": "১২৮৪ x ২৭৭৮ পিক্সেল",
+		"1290 x 2796 pixels": "১২৯০ x ২৭৯৬ পিক্সেল",
+		"1344 x 2992 pixels": "১৩৪৪ x ২৯৯২ পিক্সেল",
+
+		// Processors
+		"Apple A18":                   "অ্যাপল A18",
+		"Apple A18 Pro":               "অ্যাপল A18 প্রো",
+		"Apple A19":                   "অ্যাপল A19",
+		"Google Tensor G3":            "গুগল টেনসর G3",
+		"Google Tensor G4":            "গুগল টেনসর G4",
+		"Qualcomm Snapdragon 8 Gen 3": "কোয়ালকম স্ন্যাপড্রাগন ৮ জেন ৩",
+		"Qualcomm Snapdragon 8 Gen 4": "কোয়ালকম স্ন্যাপড্রাগন ৮ জেন ৪",
+		"MediaTek Dimensity 9300":     "মিডিয়াটেক ডাইমেনসিটি ৯৩০০",
+		"MediaTek Dimensity 9400":     "মিডিয়াটেক ডাইমেনসিটি ৯৪০০",
+
+		// CPU types
+		"Hexa-core": "হেক্সা-কোর",
+		"Octa-core": "অক্টা-কোর",
+		"Nona-core": "ননা-কোর",
+		"Deca-core": "ডেকা-কোর",
+
+		// RAM
+		"4 GB":  "৪ GB",
+		"6 GB":  "৬ GB",
+		"8 GB":  "৮ GB",
+		"12 GB": "১২ GB",
+		"16 GB": "১৬ GB",
+		"24 GB": "২৪ GB",
+
+		// Storage
+		"64 GB":                           "৬৪ GB",
+		"128 GB":                          "১২৮ GB",
+		"256 GB":                          "২৫৬ GB",
+		"512 GB":                          "৫১২ GB",
+		"1 TB":                            "১ TB",
+		"128 GB / 256 GB":                 "১২৮ GB / ২৫৬ GB",
+		"128 GB / 256 GB / 512 GB":        "১২৮ GB / ২৫৬ GB / ৫১২ GB",
+		"128 GB / 256 GB / 512 GB / 1 TB": "১২৮ GB / ২৫৬ GB / ৫১২ GB / ১ TB",
+
+		// Battery
+		"3000 mAh": "৩০০০ mAh",
+		"4000 mAh": "৪০০০ mAh",
+		"4500 mAh": "৪৫০০ mAh",
+		"5000 mAh": "৫০০০ mAh",
+		"6000 mAh": "৬০০০ mAh",
+
+		// Operating Systems
+		"Android 13": "অ্যান্ড্রয়েড ১৩",
+		"Android 14": "অ্যান্ড্রয়েড ১৪",
+		"Android 15": "অ্যান্ড্রয়েড ১৫",
+		"iOS 17":     "iOS ১৭",
+		"iOS 18":     "iOS ১৮",
+
+		// Colors
+		"Black":  "কালো",
+		"White":  "সাদা",
+		"Blue":   "নীল",
+		"Red":    "লাল",
+		"Green":  "সবুজ",
+		"Yellow": "হলুদ",
+		"Purple": "বেগুনি",
+		"Pink":   "গোলাপী",
+		"Gray":   "ধূসর",
+		"Silver": "রূপালী",
+		"Gold":   "সোনালী",
+
+		// Protection
+		"Corning Gorilla Glass":          "কর্নিং গরিলা গ্লাস",
+		"Corning Gorilla Glass Victus":   "কর্নিং গরিলা গ্লাস ভিক্টাস",
+		"Corning Gorilla Glass Victus 2": "কর্নিং গরিলা গ্লাস ভিক্টাস ২",
+		"Ceramic Shield":                 "সিরামিক শিল্ড",
+
+		// Water resistance
+		"IP68": "IP68",
+		"IP67": "IP67",
+
+		// Network
+		"5G":  "5G",
+		"4G":  "4G",
+		"LTE": "LTE",
+
+		// Status
+		"Available": "উপলব্ধ",
+
+		// Months
+		"January":   "জানুয়ারি",
+		"February":  "ফেব্রুয়ারি",
+		"March":     "মার্চ",
+		"April":     "এপ্রিল",
+		"May":       "মে",
+		"June":      "জুন",
+		"July":      "জুলাই",
+		"August":    "আগস্ট",
+		"September": "সেপ্টেম্বর",
+		"October":   "অক্টোবর",
+		"November":  "নভেম্বর",
+		"December":  "ডিসেম্বর",
+
+		// Years
+		"2023": "২০২৩",
+		"2024": "২০২৪",
+		"2025": "২০২৫",
+
+		// Connectivity
+		"USB-C":     "ইউএসবি-সি",
+		"Wi-Fi":     "ওয়াই-ফাই",
+		"Bluetooth": "ব্লুটুথ",
+		"GPS":       "জিপিএস",
+		"GLONASS":   "গ্লোনাস",
+		"GALILEO":   "গ্যালিলিও",
+		"BDS":       "বিডিএস",
+		"NFC":       "এনএফসি",
+
+		// SIM
+		"Nano-SIM": "ন্যানো-সিম",
+		"eSIM":     "ই-সিম",
+
+		// Camera
+		"OIS":       "ওআইএস",
+		"LED flash": "এলইডি ফ্ল্যাশ",
+		"4K":        "৪কে",
+
+		// Network bands
+		"GSM":   "জিএসএম",
+		"HSPA":  "এইচএসপিএ",
+		"HSDPA": "এইচএসডিপিএ",
+		"SA":    "এসএ",
+		"NSA":   "এনএসএ",
+		"Sub6":  "সাব৬",
+
+		// UI
+		"One UI": "ওয়ান UI",
+
+		// Colors additional
+		"Graphite": "গ্রাফাইট",
+		"Violet":   "বেগুনি",
+
+		// Storage
+		"microSDXC": "মাইক্রো এসডিএক্সসি",
+
+		// Battery
+		"Li-Ion": "লি-আয়ন",
+
+		// Features
+		"Accelerometer":    "অ্যাক্সেলেরোমিটার",
+		"Gyro":             "গাইরো",
+		"Compass":          "কম্পাস",
+		"Fingerprint":      "ফিঙ্গারপ্রিন্ট",
+		"Side fingerprint": "সাইড ফিঙ্গারপ্রিন্ট",
+		"Proximity":        "প্রক্সিমিটি",
+		"Depth":            "ডেপথ",
+
+		// Display types additional
+		"PLS LCD": "পিএলএস LCD",
+
+		// Colors additional
+		"Blazing Black": "ব্লেজিং ব্ল্যাক",
+		"Sage Green":    "সেজ গ্রীন",
+
+		// Additional screen sizes
+		"6.67 inches": "৬.৬৭ ইঞ্চি",
+		"6.72 inches": "৬.৭২ ইঞ্চি",
+
+		// Resolutions additional
+		"720 x 1600 pixels":  "৭২০ × ১৬০০ পিক্সেল",
+		"720 × 1604 pixels":  "৭২০ × ১৬০৪ পিক্সেল",
+		"1080 × 2400 pixels": "১০৮০ × ২৪০০ পিক্সেল",
+
+		// Processors additional
+		"Helio G37":          "হেলিও G37",
+		"Unisoc T606":        "ইউনিসক T606",
+		"MediaTek Helio G85": "মিডিয়াটেক হেলিও G85",
+		"MediaTek Helio G88": "মিডিয়াটেক হেলিও G88",
+
+		// Chipsets
+		"Mediatek Helio G37 (12 nm)": "মিডিয়াটেক হেলিও G37 (১২ nm)",
+		"Unisoc T606 (12 nm)":        "ইউনিসক T606 (১২ nm)",
+		"MediaTek Helio G85 (12 nm)": "মিডিয়াটেক হেলিও G85 (১২ nm)",
+
+		// GPU
+		"PowerVR GE8320": "পাওয়ারভিআর GE8320",
+		"Mali-G57 MP1":   "মালি-G57 MP1",
+		"Mali-G52":       "মালি-G52",
+		"Mali-G52 MC2":   "মালি-G52 MC2",
+
+		// Cameras
+		"8 MP":                   "৮ মেগাপিক্সেল",
+		"16 MP":                  "১৬ মেগাপিক্সেল",
+		"32 MP":                  "৩২ মেগাপিক্সেল",
+		"50 MP + 2 MP":           "৫০ মেগাপিক্সেল + ২ মেগাপিক্সেল",
+		"108 MP + 2 MP":          "১০৮ মেগাপিক্সেল + ২ মেগাপিক্সেল",
+		"108 MP + 2 MP + 0.8 MP": "১০৮ মেগাপিক্সেল + ২ মেগাপিক্সেল + ০.৮ মেগাপিক্সেল",
+
+		// Dimensions
+		"164 x 75.8 x 8.9 mm":    "১৬৪ × ৭৫.৮ × ৮.৯ মিলিমিটার",
+		"167.4 x 77.6 x 8.54 mm": "১৬৭.৪ × ৭৭.৬ × ৮.৫৪ মিলিমিটার",
+		"167 x 77.6 x 8.79 mm":   "১৬৭ × ৭৭.৬ × ৮.৭৯ মিলিমিটার",
+
+		// Weight
+		"190 g": "১৯০ গ্রাম",
+		"200 g": "২০০ গ্রাম",
+		"215 g": "২১৫ গ্রাম",
+
+		// Build materials
+		"Plastic body":              "প্লাস্টিক বডি",
+		"Glass front, plastic back": "গ্লাস ফ্রন্ট, প্লাস্টিক ব্যাক",
+
+		// Protection
+		"Glass front": "গ্লাস ফ্রন্ট",
+
+		// Water resistance
+		"No": "না",
+
+		// Battery types
+		"Li-Po (non-removable)": "লি-পো (নন-রিমুভেবল)",
+
+		// Charging
+		"18 W wired": "১৮ ওয়াট তারযুক্ত",
+		"33 W wired": "৩৩ ওয়াট তারযুক্ত",
+
+		// Audio
+		"Yes, 3.5 mm": "হ্যাঁ, ৩.৫ mm",
+		"Stereo":      "স্টেরিও",
+		"Standard":    "স্ট্যান্ডার্ড",
+
+		// Network
+		"GSM / HSPA / LTE": "জিএসএম / এইচএসপিএ / এলটিই",
+
+		// Wi-Fi
+		"Wi-Fi 802.11 b/g/n": "ওয়াই-ফাই ৮০২.১১ b/g/n",
+
+		// Bluetooth
+		"5.0": "৫.০",
+		"5.x": "৫.x",
+
+		// USB
+		"USB Type-C 2.0": "ইউএসবি টাইপ-সি ২.০",
+
+		// Positioning
+		"GPS, A-GPS": "জিপিএস, এ-জিপিএস",
+
+		// SIM
+		"Dual Nano-SIM / Hybrid": "ডুয়াল ন্যানো-সিম / হাইব্রিড",
+
+		// Video resolutions
+		"2K@30fps, 1080p@30fps": "২কে@৩০fps, ১০৮০পি@৩০fps",
+		"1080p@30fps":           "১০৮০পি@৩০fps",
+
+		// CPU types additional
+		"Octa-core, up to 2.0 GHz": "অক্টা-কোর, পর্যন্ত ২.০ GHz",
+
+		// RAM additional
+		"6 / 8 GB": "৬ / ৮ GB",
+
+		// Storage additional
+		"128 GB + microSD": "১২৮ GB + মাইক্রো এসডি",
+
+		// Features
+		"Always-on display":                             "অলওয়েজ-অন ডিসপ্লে",
+		"AI, Portrait, Pro Mode, Night, HDR, Macro":     "এআই, পোর্ট্রেট, প্রো মোড, নাইট, এইচডিআর, ম্যাক্রো",
+		"AI, RAW, Slow motion, Portrait, HDR":           "এআই, রঅ, স্লো মোশন, পোর্ট্রেট, এইচডিআর",
+		"Side fingerprint, proximity, light, gyroscope": "সাইড ফিঙ্গারপ্রিন্ট, প্রক্সিমিটি, লাইট, গাইরোস্কোপ",
+
+		// Colors multiple
+		"Green, Black": "সবুজ, কালো",
+		"Black, Blue":  "কালো, নীল",
+		"Forest Green, Cosmic Gold, Sunshine Green, Twilight Gold, Sky Blue": "ফরেস্ট গ্রীন, কসমিক গোল্ড, সানশাইন গ্রীন, টোয়াইলাইট গোল্ড, স্কাই ব্লু",
+		"Radium Green, Cosmic Gold, Honey Dew Green":                         "রেডিয়াম গ্রীন, কসমিক গোল্ড, হানি ডিউ গ্রীন",
+
+		// Announcement dates
+		"December 2023": "ডিসেম্বর ২০২৩",
+		"January 2024":  "জানুয়ারি ২০২৪",
+		"June 2024":     "জুন ২০২৪",
+
+		// Optical zoom
+		"None": "কোনোটি না",
+
+		// Units
+		"MP":    "মেগাপিক্সেল",
+		"Hz":    "হার্জ",
+		"mm":    "মিলিমিটার",
+		"px":    "পিক্সেল",
+		"fps":   "এফপিএস",
+		"mAh":   "মিলিঅ্যাম্পিয়ার আওয়ার",
+		"ppi":   "পিপিআই",
+		"GB":    "জিবি",
+		"TB":    "টিবি",
+		"1080p": "১০৮০পি",
+	}
+}
+
 // Helper function to create or find a category
 func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, error) {
 	var categoryModel models.CategoryModel
@@ -196,6 +524,17 @@ func CreateOrFindSpecificationKey(db *gorm.DB, key string) (*entities.Specificat
 	return specKeyModel.ToEntity(), nil
 }
 
+// MobileSpecificationsSeeder implements Seeder for mobile specifications
+// type MobileSpecificationsSeeder struct{}
+
+// func (s *MobileSpecificationsSeeder) Seed(db *gorm.DB) error {
+// 	return SeedMobileSpecifications(db)
+// }
+
+// func (s *MobileSpecificationsSeeder) GetName() string {
+// 	return "MobileSpecifications"
+// }
+
 // SetupAllSeeders configures all available seeders
 func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager := NewSeederManager(db)
@@ -263,260 +602,106 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 
 	// Mobile Specification Seeders (Category ID: 79)
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8())
-	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8a())
+	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel8ProAlt())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProFold())
-	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProXl())
+	// manager.AddSeeder(NewSpecificationSeederMobileGooglePixel9ProXL())
+
+	// Walton Mobile Specification Seeders
+
+	// Infinix Mobile Specification Seeders
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixHot50())
-	// manager.AddSeeder(NewSpecificationSeederMobileInfinixHot60i4g())
+	// manager.AddSeeder(NewSpecificationSeederMobileInfinixHot60i4G())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixNote40Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixNote50())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixNote50Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileInfinixNote50Pro5g())
+	// manager.AddSeeder(NewSpecificationSeederMobileInfinixNote50Pro5G())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixSmart10())
 	// manager.AddSeeder(NewSpecificationSeederMobileInfinixSmart10Plus())
-	// manager.AddSeeder(NewSpecificationSeederMobileInfinixZero305g())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone15())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone15Plus())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone15Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone15ProMax())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone16())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone16Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone16ProMax())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone17())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone17Plus())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphone17Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileInfinixZero305G())
+
+	// iPhone Mobile Specification Seeders
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhoneSE3rdGen())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone15())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone15Plus())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone15Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone15ProMax())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone16())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone16Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone16ProMax())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone17())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone17Plus())
+	// manager.AddSeeder(NewSpecificationSeederMobileIPhone17Pro())
 	// manager.AddSeeder(NewSpecificationSeederMobileIphone17ProMax())
-	// manager.AddSeeder(NewSpecificationSeederMobileIphoneSe3rdGen())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplus11())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplus12())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplus12r())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplus13())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplus13r())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusNord4())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusNord5())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusNordCe4Lite5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusNordCe5())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusNordN20Se())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusNordN30Se5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOneplusOpen())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA12())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA18())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA38())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA3x())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA5())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA555g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA57())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA5Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA5x())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA60())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA745g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoA78())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoFindN4Flip())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoFindN4Fold())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno125g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno12F5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno12Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno135g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno13F5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno13Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno145g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno14F5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno15())
-	// manager.AddSeeder(NewSpecificationSeederMobileOppoReno15Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileOrbitY71())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoC65())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoC71())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoC75())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoF65g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoF7())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoF7Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoM5())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoM6Plus())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoM6Plus5g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoM6Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoM7Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoX6Neo5g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoX6Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoX75g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePocoX7Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobilePrimoF10())
-	// manager.AddSeeder(NewSpecificationSeederMobilePrimoGh11())
-	// manager.AddSeeder(NewSpecificationSeederMobilePrimoH10())
-	// manager.AddSeeder(NewSpecificationSeederMobilePrimoR8())
-	// manager.AddSeeder(NewSpecificationSeederMobilePrimoS8())
-	// manager.AddSeeder(NewSpecificationSeederMobilePrimoZx4())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme12())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme13())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme13Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme145g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme14t5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme155g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme15Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealme15t5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeC61())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeC63())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeC65())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeC71())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeC75x())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeGtMasterEdition())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeGtNeo2())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeGtNeo3())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeNote60())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeNote60x())
-	// manager.AddSeeder(NewSpecificationSeederMobileRealmeNote70())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmi12())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmi12c())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmi13c())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmi14c())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmi15())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmi15c())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiA2())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiA3())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiA5())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote12())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote124g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote13())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote14())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote14Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote15())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote15Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileRedmiNote15Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA06())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA065g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA07())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA14())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA15())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA155g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA175g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA23())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA24())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA255g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA265g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA345g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA365g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA545g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyA565g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF15())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF165g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF23())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF345g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF365g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF545g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF555g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyF565g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM065g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM145g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM155g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM165g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM335g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM345g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM365g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM535g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyM565g())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS22())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS22Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS23())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS23Fe())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS23Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS24())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS24Fe())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS24Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS25())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyS25Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFlip5())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFlip6())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFlip7())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFlip7Fe())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFold5())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFold6())
-	// manager.AddSeeder(NewSpecificationSeederMobileSamsungGalaxyZFold7())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyAtom5())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyG27())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyHelio40())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyHelio50())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyHelio90())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyI10())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyInnova30())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyInnova40())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyMax60())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyS72())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyS75())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyXplorerV55())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyXplorerW20())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyXplorerW68())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyXplorerW92())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyXplorerZv())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyZ70())
-	// manager.AddSeeder(NewSpecificationSeederMobileSymphonyZ72())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCamon30())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCamon30Premier5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCamon30s())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCamon40())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCamon40Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCamon40Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPhantomVFold25g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPova7Pro5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPovaCurve5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPovaSlim5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark30())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark30Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark30c())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark40())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark405g())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark40Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSpark40c())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSparkGo1())
-	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSparkGo2())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV40())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV40Lite())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV50())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV50Lite())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV50Lite5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV605g())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV60Lite4g())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoV60Lite5g())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoX200Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoX200ProMini())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoX300())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoX300Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY03t())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY04())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY19s())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY19sPro())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY21d())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY28())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY29())
-	// manager.AddSeeder(NewSpecificationSeederMobileVivoY400())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonN26())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonN27())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonN74())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonNexgN10Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonNexgN71Plus())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonNexgN75())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonNexgN9())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonOrbitY11())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonOrbitY12())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonOrbitY13())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonOrbitY70c())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonX91())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonXanonX1Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonXanonX21())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonZenx1())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonZenx1t())
-	// manager.AddSeeder(NewSpecificationSeederMobileWaltonZenx2())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi13Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi13Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi13t())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi13tPro())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi14())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi14Pro())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi14Ultra())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi14tPro())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi15())
-	// manager.AddSeeder(NewSpecificationSeederMobileXiaomi15Pro())
-	manager.AddSeeder(NewMobileSpecificationsExistingKeysSeeder())
+
+	// Xiaomi Mobile Specification Seeders
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi14Ultra())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi14())
+	manager.AddSeeder(NewSpecificationSeederMobileWaltonZENX2())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi13Pro())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi13Ultra())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi14TPro())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi13T())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi14Pro())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi15SPro())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi15())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi15Pro())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi15Ultra())
+	manager.AddSeeder(NewSpecificationSeederMobileXiaomi13TPro())
+
+	// Redmi Mobile Specification Seeders
+
+	// Samsung Mobile Specification Seeders
+
+	// Symphony Mobile Specification Seeders
+
+	// Tecno Mobile Specification Seeders
+	// The following Tecno seeders are currently located in the `done/` subfolder
+	// and are not compiled with this package. Commenting out their registrations
+	// to avoid undefined constructor errors. Move those files into this folder
+	// or re-enable these registrations after ensuring constructors are available.
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCAMON30Premier5G())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCAMON30())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCAMON30S())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCAMON40Pro5G())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCAMON40Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoCAMON40())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPHANTOMVFold25G())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPOVA7Pro5G())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPOVACurve5G())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoPOVASlim5G())
+	// Tecno SPARK seeders are in the `done/` subfolder and not part of this package.
+	// Commenting out registrations until their constructors are available here.
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK30Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK30())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK30C())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK405G())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK40Pro())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK40())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARK40C())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARKGo1())
+	// manager.AddSeeder(NewSpecificationSeederMobileTecnoSPARKGo2())
+	// Register Symphony mobile seeder used by some product specs (e.g., "Green, Black")
+
+	// OnePlus Mobile Specification Seeders
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlus11())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlus12())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlus12R())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlus13())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlus13R())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusNord4())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusNord5())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusNordCE4Lite5G())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusNordCE5())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusNordN20SE())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusNordN30SE5G())
+	// manager.AddSeeder(NewSpecificationSeederMobileOnePlusOpen())
+
+	// POCO Mobile Specification Seeders
+
+	// Oppo Mobile Specification Seeders
+
 	return manager
 }
