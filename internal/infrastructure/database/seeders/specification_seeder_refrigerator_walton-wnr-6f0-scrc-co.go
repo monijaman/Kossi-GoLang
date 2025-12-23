@@ -48,11 +48,10 @@ func (s *SpecificationSeederRefrigeratorWaltonWnr6f0ScrcCo) getBanglaTranslation
 		"1 Year":              "১ বছর",
 		"12":                  "১২",
 		"Trio Cooling+, Odor Filter, MSO Plus Inverter, LED Lighting, Curved Doors": "ট্রায়ো কুলিং+, ওডর ফিল্টার, এমএসও প্লাস ইনভার্টার, এলইডি লাইটিং, কার্ভড দরজা",
-		"Refrigerant":         "রেফ্রিজারেন্ট",
-		"Gross Volume":        "মোট ভলিউম",
-		"Net Volume":          "নেট ভলিউম",
+		"Refrigerant":      "রেফ্রিজারেন্ট",
+		"Gross Volume":     "মোট ভলিউম",
+		"Net Volume":       "নেট ভলিউম",
 		"R600a (CFC Free)": "আর৬০০এ (সিএফসি ফ্রি)",
-		"660 Liters":       "৬৬০ লিটার",
 		"613 Liters":       "৬১৩ লিটার",
 	}
 }

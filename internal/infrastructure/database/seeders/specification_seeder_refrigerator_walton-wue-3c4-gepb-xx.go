@@ -47,10 +47,10 @@ func (s *SpecificationSeederRefrigeratorWaltonWue3c4GepbXx) getBanglaTranslation
 		"1 Year":              "১ বছর",
 		"12":                  "১২",
 		"Intelligent Inverter, Electronic Control with Digital Display, Wide Voltage Design": "ইন্টেলিজেন্ট ইনভার্টার, ইলেকট্রনিক কন্ট্রোল উইথ ডিজিটাল ডিসপ্লে, ওয়াইড ভোল্টেজ ডিজাইন",
-		"Refrigerant": "রেফ্রিজারেন্ট",
+		"Refrigerant":  "রেফ্রিজারেন্ট",
 		"Gross Volume": "মোট ভলিউম",
 		"Net Volume":   "নেট ভলিউম",
-		"N/A": "এন/এ",
+		"N/A":          "এন/এ",
 	}
 }
 
