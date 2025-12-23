@@ -96,7 +96,7 @@ func (s *SpecificationSeederRefrigeratorWaltonWfb2e0GjxbSxP) Seed(db *gorm.DB) e
 
 	specs := map[string]string{
 		"Brand":                       "Walton",
-		"Model Name":                  "WCF-1B5-GDEL-XX",
+		"Model Name":                   "WFB-2E0-GJXB-SX-P",
 		"Door Type":                   "Single Door",
 		"Capacity":                    "150 Liters",
 		"Refrigerator Capacity":       "125 Liters",
