@@ -7,57 +7,48 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx seeds specifications/options for product 'walton-wnj-5h5-rxxx-xx'
-type SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx struct {
+// SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter seeds specifications/options for product 'walton-wnj-5e5-rxxx-xx-inverter'
+type SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx creates a new seeder instance
-func NewSpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx() *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx {
-	return &SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for walton-wnj-5h5-rxxx-xx"},
+// NewSpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter creates a new seeder instance
+func NewSpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter() *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter {
+	return &SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter{
+		BaseSeeder: BaseSeeder{name: "Specifications for walton-wnj-5e5-rxxx-xx-inverter"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Walton":              "ওয়ালটন",
-		"WNJ-5H5-RXXX-XX":     "ডব্লিউএনজে-৫এইচ৫-আরএক্সএক্সএক্স-এক্সএক্স",
-		"Single Door":         "একটি দরজা",
-		"555 Liters":          "৫৫৫ লিটার",
-		"400 Liters":          "৪০০ লিটার",
-		"155 Liters":          "১৫৫ লিটার",
-		"4 Star":              "৪ তারা",
-		"4":                   "৪",
-		"200 kWh":             "২০০ কিলোওয়াট ঘণ্টা",
-		"700 x 650 x 1700 mm": "৭০০ x ৬৫০ x ১৭০০ মিমি",
-		"80 kg":               "৮০ কেজি",
-		"Silver":              "সিলভার",
-		"Inverter":            "ইনভার্টার",
-		"Direct Cool":         "ডাইরেক্ট কুল",
-		"Manual":              "ম্যানুয়াল",
-		"Mechanical":          "মেকানিক্যাল",
-		"Toughened Glass":     "টাফেন্ড গ্লাস",
-		"2":                   "২",
-		"1":                   "১",
-		"No":                  "না",
-		"38 dB":               "৩৮ ডেসিবেল",
-		"220V":                "২২০ভোল্ট",
-		"50":                  "৫০",
-		"2 Years":             "২ বছর",
-		"10":                  "১০",
-		"Large Vegetable Crisper, Egg Tray, Ice Cube Tray": "বড় শাকসবজি ক্রিস্পার, ডিমের ট্রে, বরফের কিউব ট্রে",
-		"Refrigerant":      "রেফ্রিজারেন্ট",
-		"Gross Volume":     "মোট ভলিউম",
-		"Net Volume":       "নেট ভলিউম",
-		"R600a (CFC Free)": "আর৬০০এ (সিএফসি ফ্রি)",
-		"500 Liters":       "৫০০ লিটার",
+		"Walton":                     "ওয়ালটন",
+		"WNJ-5E5-RXXX-XX (Inverter)": "ডব্লিউএনজে-৫ই৫-আরএক্সএক্সএক্স-এক্সএক্স (ইনভার্টার)",
+		"No-Frost":                   "নো ফ্রস্ট",
+		"555 Liters":                 "৫৫৫ লিটার",
+		"735 x 837 x 1880 mm":        "৭৩৫ x ৮৩৭ x ১৮৮০ মিমি",
+		"86 kg":                      "৮৬ কেজি",
+		"BLDC Inverter":              "বিএলডিসি ইনভার্টার",
+		"Automatic":                  "অটোমেটিক",
+		"Electronic":                 "ইলেকট্রনিক",
+		"Glass":                      "গ্লাস",
+		"4":                          "৪",
+		"7":                          "৭",
+		"Yes":                        "হ্যাঁ",
+		"220-240V":                   "২২০-২৪০ভোল্ট",
+		"50":                         "৫০",
+		"1 Year":                     "১ বছর",
+		"12":                         "১২",
+		"R600a (CFC Free)":           "আর৬০০এ (সিএফসি ফ্রি)",
+		"483 Liters":                 "৪৮৩ লিটার",
+		"Refrigerant":                "রেফ্রিজারেন্ট",
+		"Gross Volume":               "মোট ভলিউম",
+		"Net Volume":                 "নেট ভলিউম",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'walton-wnj-5h5-rxxx-xx'
-func (s *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx) Seed(db *gorm.DB) error {
-	productSlug := "walton-wnj-5h5-rxxx-xx"
+// Seed inserts specification records for the product identified by slug 'walton-wnj-5e5-rxxx-xx-inverter'
+func (s *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter) Seed(db *gorm.DB) error {
+	productSlug := "walton-wnj-5e5-rxxx-xx-inverter"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -104,38 +95,38 @@ func (s *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx) Seed(db *gorm.DB) er
 
 	specs := map[string]string{
 		"Brand":                       "Walton",
-		"Model Name":                  "WNJ-5H5-RXXX-XX",
-		"Door Type":                   "Single Door",
+		"Model Name":                  "WNJ-5E5-RXXX-XX (Inverter)",
+		"Door Type":                   "No-Frost",
 		"Capacity":                    "555 Liters",
-		"Refrigerator Capacity":       "400 Liters",
-		"Freezer Capacity":            "155 Liters",
-		"Energy Efficiency Rating":    "4 Star",
-		"Energy Star Rating":          "4",
-		"Annual Energy Consumption":   "200 kWh",
-		"Dimensions":                  "700 x 650 x 1700 mm",
-		"Weight":                      "80 kg",
-		"Color":                       "Silver",
-		"Compressor Type":             "Inverter",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
-		"Temperature Control":         "Mechanical",
-		"Shelf Material":              "Toughened Glass",
-		"Number of Shelves":           "2",
-		"Door Bins":                   "4",
+		"Refrigerator Capacity":       "",
+		"Freezer Capacity":            "",
+		"Energy Efficiency Rating":    "",
+		"Energy Star Rating":          "",
+		"Annual Energy Consumption":   "",
+		"Dimensions":                  "735 x 837 x 1880 mm",
+		"Weight":                      "86 kg",
+		"Color":                       "",
+		"Compressor Type":             "BLDC Inverter",
+		"Cooling Technology":          "No-Frost",
+		"Defrost Type":                "Automatic",
+		"Temperature Control":         "Electronic",
+		"Shelf Material":              "Glass",
+		"Number of Shelves":           "4",
+		"Door Bins":                   "7",
 		"Crisper Drawers":             "1",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Noise Level":                 "38 dB",
-		"Voltage":                     "220V",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "",
+		"Noise Level":                 "",
+		"Voltage":                     "220-240V",
 		"Frequency (Hz)":              "50",
-		"App Control":                 "No",
-		"Voice Assistant Support":     "No",
-		"Warranty":                    "2 Years",
-		"Compressor Warranty (Years)": "10",
+		"App Control":                 "",
+		"Voice Assistant Support":     "",
+		"Warranty":                    "1 Year",
+		"Compressor Warranty (Years)": "12",
 		"Refrigerant":                 "R600a (CFC Free)",
 		"Gross Volume":                "555 Liters",
-		"Net Volume":                  "500 Liters",
-		"Special Features":            "Large Vegetable Crisper, Egg Tray, Ice Cube Tray",
+		"Net Volume":                  "483 Liters",
+		"Special Features":            "",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

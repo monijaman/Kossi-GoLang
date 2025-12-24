@@ -605,6 +605,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Oppo Mobile Specification Seeders
 
 	// Refrigerator seeders
+
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWcf1b5GdelXx())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWnm2a7GdelXx())
 	manager.AddSeeder(NewSpecificationSeederRefrigeratorWaltonWnm2f1GeheXx())
