@@ -7,48 +7,48 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter seeds specifications/options for product 'walton-wnj-5e5-rxxx-xx-inverter'
-type SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter struct {
+// SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx seeds specifications/options for product 'walton-wnj-5h5-rxxx-xx'
+type SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter creates a new seeder instance
-func NewSpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter() *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter {
-	return &SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter{
-		BaseSeeder: BaseSeeder{name: "Specifications for walton-wnj-5e5-rxxx-xx-inverter"},
+// NewSpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx creates a new seeder instance
+func NewSpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx() *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx {
+	return &SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx{
+		BaseSeeder: BaseSeeder{name: "Specifications for walton-wnj-5h5-rxxx-xx"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Walton":                     "ওয়ালটন",
-		"WNJ-5E5-RXXX-XX (Inverter)": "ডব্লিউএনজে-৫ই৫-আরএক্সএক্সএক্স-এক্সএক্স (ইনভার্টার)",
-		"No-Frost":                   "নো ফ্রস্ট",
-		"555 Liters":                 "৫৫৫ লিটার",
-		"735 x 837 x 1880 mm":        "৭৩৫ x ৮৩৭ x ১৮৮০ মিমি",
-		"86 kg":                      "৮৬ কেজি",
-		"BLDC Inverter":              "বিএলডিসি ইনভার্টার",
-		"Automatic":                  "অটোমেটিক",
-		"Electronic":                 "ইলেকট্রনিক",
-		"Glass":                      "গ্লাস",
-		"4":                          "৪",
-		"7":                          "৭",
-		"Yes":                        "হ্যাঁ",
-		"220-240V":                   "২২০-২৪০ভোল্ট",
-		"50":                         "৫০",
-		"1 Year":                     "১ বছর",
-		"12":                         "১২",
-		"R600a (CFC Free)":           "আর৬০০এ (সিএফসি ফ্রি)",
-		"483 Liters":                 "৪৮৩ লিটার",
-		"Refrigerant":                "রেফ্রিজারেন্ট",
-		"Gross Volume":               "মোট ভলিউম",
-		"Net Volume":                 "নেট ভলিউম",
+		"Walton":              "ওয়ালটন",
+		"WNJ-5H5-RXXX-XX":     "ডব্লিউএনজে-৫এইচ৫-আরএক্সএক্সএক্স-এক্সএক্স",
+		"No-Frost":            "নো ফ্রস্ট",
+		"555 Liters":          "৫৫৫ লিটার",
+		"735 x 837 x 1880 mm": "৭৩৫ x ৮৩৭ x ১৮৮০ মিমি",
+		"86 kg":               "৮৬ কেজি",
+		"BLDC Inverter":       "বিএলডিসি ইনভার্টার",
+		"Automatic":           "অটোমেটিক",
+		"Electronic":          "ইলেকট্রনিক",
+		"Glass":               "গ্লাস",
+		"4":                   "৪",
+		"7":                   "৭",
+		"Yes":                 "হ্যাঁ",
+		"220-240V":            "২২০-২৪০ভোল্ট",
+		"50":                  "৫০",
+		"1 Year":              "১ বছর",
+		"12":                  "১২",
+		"R600a (CFC Free)":    "আর৬০০এ (সিএফসি ফ্রি)",
+		"483 Liters":          "৪৮৩ লিটার",
+		"Refrigerant":         "রেফ্রিজারেন্ট",
+		"Gross Volume":        "মোট ভলিউম",
+		"Net Volume":          "নেট ভলিউম",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'walton-wnj-5e5-rxxx-xx-inverter'
-func (s *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter) Seed(db *gorm.DB) error {
-	productSlug := "walton-wnj-5e5-rxxx-xx-inverter"
+// Seed inserts specification records for the product identified by slug 'walton-wnj-5h5-rxxx-xx'
+func (s *SpecificationSeederRefrigeratorWaltonWnj5h5RxxxXx) Seed(db *gorm.DB) error {
+	productSlug := "walton-wnj-5h5-rxxx-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -95,7 +95,7 @@ func (s *SpecificationSeederRefrigeratorWaltonWnj5e5RxxxXxInverter) Seed(db *gor
 
 	specs := map[string]string{
 		"Brand":                       "Walton",
-		"Model Name":                  "WNJ-5E5-RXXX-XX (Inverter)",
+		"Model Name":                  "WNJ-5H5-RXXX-XX",
 		"Door Type":                   "No-Frost",
 		"Capacity":                    "555 Liters",
 		"Refrigerator Capacity":       "",
