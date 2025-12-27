@@ -49,7 +49,7 @@ func (s *SpecificationSeederRefrigeratorSingerFTDS257ZWFBG) getBanglaTranslation
 		"10":       "10",
 		"R600a":    "আর600এ",
 		"252 Ltr.": "252 লিটার",
-		"Top Mounted Refrigerator, 45:55 Space Compartment Ratio, 5 Star Energy Rating by BSTI, PowerCool Technology, Real Tempered Glass Finish, Tempered Glass Shelves, NutriLock Technology to Keep Vitamin A & C Longer of Fruits and Vegetable, Fresh-O-Logy Technology to Keep Fruits and Vegitable Fresh upto 20 Days, Built-in Stabilizer, Odour Filter, Bottle Holder, Modular Odour Filter, Modular Bottle Holder, Big Freezer, Hidden Condenser, Flash Ergonomic Handle, Ice Scraper, Anti Bacterial Gasket, LED Light, Keep Fresh Up To 20 Days, Food Grade Plastic Shelf & Crisper": "টপ মাউন্টেড রেফ্রিজারেটর, 45:55 স্পেস কম্পার্টমেন্ট রেশিও, বিএসটিআই দ্বারা 5 তারা এনার্জি রেটিং, পাওয়ারকুল টেকনোলজি, রিয়েল টেম্পার্ড গ্লাস ফিনিশ, টেম্পার্ড গ্লাস শেল্ফ, নুট্রিলক টেকনোলজি ফল এবং শাকসবজিতে ভিটামিন A & C দীর্ঘতর রাখতে, ফ্রেশ-ও-লজি টেকনোলজি ফল এবং শাকসবজি 20 দিন পর্যন্ত তাজা রাখতে, বিল্ট-ইন স্ট্যাবিলাইজার, ওডর ফিল্টার, বটল হোল্ডার, মডুলার ওডর ফিল্টার, মডুলার বটল হোল্ডার, বিগ ফ্রিজার, হিডেন কন্ডেন্সার, ফ্ল্যাশ এর্গোনমিক হ্যান্ডেল, আইস স্ক্রেপার, অ্যান্টি ব্যাকটেরিয়াল গ্যাসকেট, LED লাইট, 20 দিন পর্যন্ত তাজা রাখুন, ফুড গ্রেড প্লাস্টিক শেল্ফ এবং ক্রিস্পার",
+		"Top Mounted Refrigerator, 45:55 Space Compartment Ratio, 5 Star Energy Rating by BSTI, PowerCool Technology, Real Tempered Glass Finish, Tempered Glass Shelves, NutriLock Technology to Keep Vitamin A & C Longer of Fruits and Vegetable, Fresh-O-Logy Technology to Keep Fruits and Vegitable Fresh upto 20 Days, Built-in Stabilizer, Odour Filter, Bottle Holder, Modular Odour Filter, Modular Bottle Holder, Big Freezer, Hidden Condenser, Flash Ergonomic Handle, Ice Scraper, Anti Bacterial Gasket, LED Light, Keep Fresh Up To 20 Days, Food Grade Plastic Shelf & Crisper": "টপ মাউন্টেড রেফ্রিজারেটর, 45:55 স্পেস রেশিও, 5 তারা এনার্জি রেটিং, পাওয়ারকুল টেকনোলজি, টেম্পার্ড গ্লাস শেল্ফ, নুট্রিলক টেকনোলজি, ফ্রেশ-ও-লজি টেকনোলজি, বিল্ট-ইন স্ট্যাবিলাইজার, ওডর ফিল্টার, বটল হোল্ডার, বিগ ফ্রিজার, হিডেন কন্ডেন্সার, LED লাইট, 20 দিন তাজা রাখুন",
 		"Refrigerant":      "রেফ্রিজারেন্ট",
 		"Gross Volume":     "মোট ভলিউম",
 		"Net Volume":       "নেট ভলিউম",
@@ -141,7 +141,16 @@ func (s *SpecificationSeederRefrigeratorSingerFTDS257ZWFBG) Seed(db *gorm.DB) er
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
+	for key, val := range specs {
+		if len(val) > 500 {
+			specs[key] = val[:500]
+		}
+	}
 	for key, value := range specs {
+		// Truncate value if longer than 500 characters
+		if len(value) > 500 {
+			value = value[:500]
+		}
 		specKeyID, exists := existingkeyMapping[key]
 		if !exists {
 			log.Printf("⚠️  Key not found in existingkeyMapping: '%s' (used in product: %s)", key, productSlug)
@@ -176,6 +185,13 @@ func (s *SpecificationSeederRefrigeratorSingerFTDS257ZWFBG) Seed(db *gorm.DB) er
 				return err
 			}
 		} else {
+			// Update the value if different
+			if existing.Value != value {
+				existing.Value = value
+				if err := db.Save(&existing).Error; err != nil {
+					return err
+				}
+			}
 			banglaValue, exists := banglaTranslations[value]
 			if exists && banglaValue != "" {
 				var existingTranslation models.SpecificationTranslationModel
@@ -191,6 +207,14 @@ func (s *SpecificationSeederRefrigeratorSingerFTDS257ZWFBG) Seed(db *gorm.DB) er
 						}
 					} else {
 						return err
+					}
+				} else {
+					// Update translation if different
+					if existingTranslation.Value != banglaValue {
+						existingTranslation.Value = banglaValue
+						if err := db.Save(&existingTranslation).Error; err != nil {
+							return err
+						}
 					}
 				}
 			}

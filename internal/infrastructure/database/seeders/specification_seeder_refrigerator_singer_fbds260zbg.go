@@ -140,6 +140,11 @@ func (s *SpecificationSeederRefrigeratorSingerFBDS260ZBG) Seed(db *gorm.DB) erro
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
+for key, val := range specs {
+    if len(val) > 500 {
+        specs[key] = val[:500]
+    }
+}
 	for key, value := range specs {
 		specKeyID, exists := existingkeyMapping[key]
 		if !exists {
@@ -175,6 +180,13 @@ func (s *SpecificationSeederRefrigeratorSingerFBDS260ZBG) Seed(db *gorm.DB) erro
 				return err
 			}
 		} else {
+			// Update the value if different
+			if existing.Value != value {
+				existing.Value = value
+				if err := db.Save(&existing).Error; err != nil {
+					return err
+				}
+			}
 			banglaValue, exists := banglaTranslations[value]
 			if exists && banglaValue != "" {
 				var existingTranslation models.SpecificationTranslationModel
@@ -190,6 +202,13 @@ func (s *SpecificationSeederRefrigeratorSingerFBDS260ZBG) Seed(db *gorm.DB) erro
 						}
 					} else {
 						return err
+					}
+				} else {
+					// Update translation if different
+					if existingTranslation.Value != banglaValue {
+						if err := db.Model(&existingTranslation).Update("value", banglaValue).Error; err != nil {
+							return err
+						}
 					}
 				}
 			}

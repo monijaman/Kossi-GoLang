@@ -140,6 +140,11 @@ func (s *SpecificationSeederRefrigeratorPanasonicScrch1000) Seed(db *gorm.DB) er
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
+for key, val := range specs {
+    if len(val) > 500 {
+        specs[key] = val[:500]
+    }
+}
 	for key, value := range specs {
 		specKeyID, exists := existingkeyMapping[key]
 		if !exists {
@@ -175,10 +180,12 @@ func (s *SpecificationSeederRefrigeratorPanasonicScrch1000) Seed(db *gorm.DB) er
 				return err
 			}
 		} else {
-			// Update existing spec value
-			existing.Value = value
-			if err := db.Save(&existing).Error; err != nil {
-				return err
+			// Update the value if different
+			if existing.Value != value {
+				existing.Value = value
+				if err := db.Save(&existing).Error; err != nil {
+					return err
+				}
 			}
 
 			banglaValue, exists := banglaTranslations[value]
@@ -198,7 +205,7 @@ func (s *SpecificationSeederRefrigeratorPanasonicScrch1000) Seed(db *gorm.DB) er
 						return err
 					}
 				} else {
-					// Update existing translation if value changed
+					// Update translation if different
 					if existingTranslation.Value != banglaValue {
 						existingTranslation.Value = banglaValue
 						if err := db.Save(&existingTranslation).Error; err != nil {
