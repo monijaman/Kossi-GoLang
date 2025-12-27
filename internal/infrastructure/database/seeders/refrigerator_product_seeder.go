@@ -38,9 +38,9 @@ func (rps *RefrigeratorProductSeeder) Seed(db *gorm.DB) error {
 	}
 
 	var brands []struct {
-		Brand   string   `json:"brand"`
-		Origin  string   `json:"origin"`
-		Models  []string `json:"models"`
+		Brand  string   `json:"brand"`
+		Origin string   `json:"origin"`
+		Models []string `json:"models"`
 	}
 
 	if err := json.Unmarshal(raw, &brands); err != nil {
@@ -50,13 +50,13 @@ func (rps *RefrigeratorProductSeeder) Seed(db *gorm.DB) error {
 	// Process each brand and its models
 	for _, brandData := range brands {
 		// Ensure brand exists
-		brand, err := CreateOrFindBrand(db, brandData.Brand, strings.ToLower(brandData.Brand), brandData.Origin)
+		brand, err := CreateOrFindBrand(db, brandData.Brand, strings.ToLower(brandData.Brand))
 		if err != nil {
 			return fmt.Errorf("failed to create/find brand %s: %w", brandData.Brand, err)
 		}
 
 		// Ensure brand-category relationship exists
-		if err := CreateOrFindBrandCategory(db, brand.ID, category.ID); err != nil {
+		if err := CreateBrandCategoryRelation(db, brand.ID, category.ID); err != nil {
 			return fmt.Errorf("failed to create brand-category relationship for %s: %w", brandData.Brand, err)
 		}
 
@@ -92,8 +92,8 @@ func (rps *RefrigeratorProductSeeder) createRefrigeratorProduct(db *gorm.DB, bra
 	product := &models.ProductModel{
 		Name:       modelName,
 		Slug:       slug,
-		BrandID:    brandID,
-		CategoryID: categoryID,
+		BrandID:    &brandID,
+		CategoryID: &categoryID,
 		Status:     1, // Active
 	}
 
