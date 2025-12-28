@@ -95,25 +95,9 @@ func (s *SpecificationSeederRefrigeratorSinger) Seed(db *gorm.DB) error {
 		"SS300FTDS185NS",
 	}
 
-	// Query for specification key IDs dynamically
-	existingkeyMapping := make(map[string]uint)
-	specKeys := []string{
-		"Brand", "Model Name", "Door Type", "Capacity", "Refrigerator Capacity",
-		"Freezer Capacity", "Energy Efficiency Rating", "Energy Star Rating",
-		"Annual Energy Consumption", "Dimensions", "Weight", "Color",
-		"Compressor Type", "Cooling Technology", "Defrost Type",
-		"Temperature Control", "Shelf Material", "Number of Shelves",
-		"Door Bins", "Crisper Drawers", "Ice Maker", "Water Dispenser",
-		"Noise Level", "Voltage", "Frequency (Hz)", "App Control",
-		"Voice Assistant Support", "Warranty", "Compressor Warranty (Years)",
-		"Refrigerant", "Gross Volume", "Net Volume", "Special Features",
-	}
-
-	for _, keyName := range specKeys {
-		var specKey models.SpecificationKeyModel
-		if err := db.Where("specification_key = ?", keyName).First(&specKey).Error; err == nil {
-			existingkeyMapping[keyName] = specKey.ID
-		}
+	existingkeyMapping := map[string]uint{
+		"Brand":      310,
+		"Model Name": 316,
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -114,10 +114,10 @@ func (s *SpecificationSeederRefrigeratorecossrt37k5532s8d3silver) Seed(db *gorm.
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
-	for key, val := range specs {
-		if len(val) > 500 {
-			specs[key] = val[:500]
-		}
+for key, val := range specs {
+    if len(val) > 500 {
+        specs[key] = val[:500]
+    }
 	}
 	for key, value := range specs {
 		specKeyID, exists := existingkeyMapping[key]
