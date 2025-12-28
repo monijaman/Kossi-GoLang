@@ -21,8 +21,22 @@ func NewSpecificationSeederRefrigeratorecogn304slbt() *SpecificationSeederRefrig
 
 func (s *SpecificationSeederRefrigeratorecogn304slbt) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Gn 304slbt":                    "Gn 304slbt",
+		"LG":              "এলজি",
+		"LG GN-304SLBT":   "এলজি জিএন-৩০৪এসএলবিটি",
+		"Freezer":         "ফ্রিজার",
+		"165":             "১৬৫",
+		"171":             "১৭১",
+		"Frost":           "ফ্রস্ট",
+		"Inverter":        "ইনভার্টার",
+		"Platinum Silver": "প্লাটিনাম সিলভার",
+		"1300*530*600 mm": "১৩০০*৫৩০*৬০০ মিমি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Direct Cooling System, Inverter Compressor, Smart Storage":        "ডাইরেক্ট কুলিং সিস্টেম, ইনভার্টার কম্প্রেসার, স্মার্ট স্টোরেজ",
+		"Faster Cooling": "ফাস্টার কুলিং",
+		"Yes":            "হ্যাঁ",
+		"6":              "৬",
+		"1":              "১",
+		"4":              "৪",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +89,23 @@ func (s *SpecificationSeederRefrigeratorecogn304slbt) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Gn 304slbt",
-		// Add specifications here
+		"Brand":              "LG",
+		"Model Name":         "LG GN-304SLBT",
+		"Door Type":          "Freezer",
+		"Capacity":           "165",
+		"Freezer Capacity":   "165",
+		"Gross Volume":       "171",
+		"Net Volume":         "165",
+		"Defrost Type":       "Frost",
+		"Compressor Type":    "Inverter",
+		"Color":              "Platinum Silver",
+		"Dimensions":         "1300*530*600 mm",
+		"Warranty":           "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":   "Direct Cooling System, Inverter Compressor, Smart Storage",
+		"Cooling Technology": "Faster Cooling",
+		"Shelf Material":     "Wire Shelves",
+		"Number of Shelves":  "6",
+		"Crisper Drawers":    "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -21,8 +21,25 @@ func NewSpecificationSeederRefrigeratorecossrt37k5532s8d3silver() *Specification
 
 func (s *SpecificationSeederRefrigeratorecossrt37k5532s8d3silver) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Ss Rt37k5532s8 D3 Silver":                    "Ss Rt37k5532s8 D3 Silver",
+		"SAMSUNG":                     "স্যামসাং",
+		"SS RT37K5532S8/D3 Silver":    "এসএস আরটি৩৭কে৫৫৩২এস৮/ডি৩ সিলভার",
+		"VCM":                         "ভিসিএম",
+		"345":                         "৩৪৫",
+		"No-frost":                    "নো-ফ্রস্ট",
+		"Digital Inverter Compressor": "ডিজিটাল ইনভার্টার কম্প্রেসর",
+		"R600a":                       "আর৬০০এ",
+		"Silver":                      "সিলভার",
+		"1715*600*605":                "১৭১৫*৬০০*৬০৫",
+		"20 Years Compressor Warranty, 1 Year Parts and Service Warranty": "২০ বছর কম্প্রেসর ওয়ারেন্টি, ১ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Twin Cooling Plus, Multi flow, Deodorizer, Frost Free":           "টুইন কুলিং প্লাস, মাল্টি ফ্লো, ডিওডোরাইজার, ফ্রস্ট ফ্রি",
+		"Twin Cooling Plus": "টুইন কুলিং প্লাস",
+		"External":          "এক্সটার্নাল",
+		"3":                 "৩",
+		"4":                 "৪",
+		"1":                 "১",
+		"2":                 "২",
+		"Yes":               "হ্যাঁ",
+		"59":                "৫৯",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +92,25 @@ func (s *SpecificationSeederRefrigeratorecossrt37k5532s8d3silver) Seed(db *gorm.
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Ss Rt37k5532s8 D3 Silver",
-		// Add specifications here
+		"Brand":               "SAMSUNG",
+		"Model Name":          "SS RT37K5532S8/D3 Silver",
+		"Door Type":           "VCM",
+		"Capacity":            "345",
+		"Gross Volume":        "345",
+		"Defrost Type":        "No-frost",
+		"Compressor Type":     "Digital Inverter Compressor",
+		"Refrigerant":         "R600a",
+		"Color":               "Silver",
+		"Dimensions":          "1715*600*605",
+		"Weight":              "59",
+		"Warranty":            "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",
+		"Special Features":    "Twin Cooling Plus, Multi flow, Deodorizer, Frost Free",
+		"Cooling Technology":  "Twin Cooling Plus",
+		"Temperature Control": "External",
+		"Number of Shelves":   "3",
+		"Door Bins":           "4",
+		"Crisper Drawers":     "1",
+		"Ice Maker":           "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

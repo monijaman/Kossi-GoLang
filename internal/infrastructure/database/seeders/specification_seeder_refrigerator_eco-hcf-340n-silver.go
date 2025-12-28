@@ -21,8 +21,18 @@ func NewSpecificationSeederRefrigeratorecohcf340nsilver() *SpecificationSeederRe
 
 func (s *SpecificationSeederRefrigeratorecohcf340nsilver) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Hcf 340n Silver":                    "Hcf 340n Silver",
+		"HAIER":                 "হাইয়ার",
+		"Haier HCF-340N Silver": "হাইয়ার এইচসিএফ-৩৪০এন সিলভার",
+		"Chest Freezer":         "চেস্ট ফ্রিজার",
+		"301":                   "৩০১",
+		"Fix":                   "ফিক্স",
+		"Gray":                  "গ্রে",
+		"880*1110*620 mm":       "৮৮০*১১১০*৬২০ মিমি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                     "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"150 Hours Frozen Retention, Super Fast Cooling up to -30°, Convert Freezer To Fridge": "১৫০ ঘণ্টা ফ্রোজেন রিটেনশন, সুপার ফাস্ট কুলিং আপ টু -৩০°, কনভার্ট ফ্রিজার টু ফ্রিজ",
+		"R600a":           "আর৬০০এ",
+		"Yes":             "হ্যাঁ",
+		"Recessed handle": "রিসেসড হ্যান্ডেল",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +85,20 @@ func (s *SpecificationSeederRefrigeratorecohcf340nsilver) Seed(db *gorm.DB) erro
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Hcf 340n Silver",
-		// Add specifications here
+		"Brand":            "HAIER",
+		"Model Name":       "Haier HCF-340N Silver",
+		"Door Type":        "Chest Freezer",
+		"Capacity":         "301",
+		"Freezer Capacity": "301",
+		"Gross Volume":     "301",
+		"Net Volume":       "301",
+		"Defrost Type":     "Manual",
+		"Compressor Type":  "Fix",
+		"Color":            "Gray",
+		"Dimensions":       "880*1110*620 mm",
+		"Warranty":         "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features": "150 Hours Frozen Retention, Super Fast Cooling up to -30°, Convert Freezer To Fridge",
+		"Refrigerant":      "R600a",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

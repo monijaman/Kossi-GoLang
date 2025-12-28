@@ -21,8 +21,26 @@ func NewSpecificationSeederRefrigeratorecohrf362tbgblack() *SpecificationSeederR
 
 func (s *SpecificationSeederRefrigeratorecohrf362tbgblack) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Hrf 362tbg Black":                    "Hrf 362tbg Black",
+		"HAIER":                  "হাইয়ার",
+		"Haier HRF-362TBG Black": "হাইয়ার এইচআরএফ-৩৬২টিবিজি ব্ল্যাক",
+		"Top Mount":              "টপ মাউন্ট",
+		"333":                    "৩৩৩",
+		"247":                    "২৪৭",
+		"86":                     "৮৬",
+		"342":                    "৩৪২",
+		"No-frost":               "নো-ফ্রস্ট",
+		"Twin Inverter":          "টুইন ইনভার্টার",
+		"R600a":                  "আর৬০০এ",
+		"Black":                  "ব্ল্যাক",
+		"710 x 1640 x 598 mm":    "৭১০ x ১৬৪০ x ৫৯৮ মিমি",
+		"53 kg":                  "৫৩ কেজি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":          "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Twin Inverter Technology, 360º Precise Cooling, Large Space to Store More": "টুইন ইনভার্টার টেকনোলজি, ৩৬০º প্রিসাইজ কুলিং, লার্জ স্পেস টু স্টোর মোর",
+		"Electrical":                 "ইলেকট্রিকাল",
+		"Recess":                     "রিসেস",
+		"Yes":                        "হ্যাঁ",
+		"4":                          "৪",
+		"Ice Tray + Ice Storage Box": "আইস ট্রে + আইস স্টোরেজ বক্স",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +93,25 @@ func (s *SpecificationSeederRefrigeratorecohrf362tbgblack) Seed(db *gorm.DB) err
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Hrf 362tbg Black",
-		// Add specifications here
+		"Brand":                 "HAIER",
+		"Model Name":            "Haier HRF-362TBG Black",
+		"Door Type":             "Top Mount",
+		"Capacity":              "333",
+		"Refrigerator Capacity": "247",
+		"Freezer Capacity":      "86",
+		"Gross Volume":          "342",
+		"Net Volume":            "333",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Twin Inverter",
+		"Color":                 "Black",
+		"Dimensions":            "710 x 1640 x 598 mm",
+		"Weight":                "53 kg",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Twin Inverter Technology, 360º Precise Cooling, Large Space to Store More",
+		"Refrigerant":           "R600a",
+		"Temperature Control":   "Electrical",
+		"Number of Shelves":     "4",
+		"Ice Maker":             "Ice Tray + Ice Storage Box",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

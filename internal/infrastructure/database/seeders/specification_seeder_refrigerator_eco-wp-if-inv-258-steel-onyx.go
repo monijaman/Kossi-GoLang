@@ -21,8 +21,21 @@ func NewSpecificationSeederRefrigeratorecowpifinv258steelonyx() *SpecificationSe
 
 func (s *SpecificationSeederRefrigeratorecowpifinv258steelonyx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Wp If Inv 258 Steel Onyx":                    "Wp If Inv 258 Steel Onyx",
+		"WHIRLPOOL":                "হোয়ার্লপুল",
+		"WP IF INV 258 STEEL ONYX": "ডব্লিউপি আইএফ আইএনভি ২৫৮ স্টিল ওনিক্স",
+		"VCM":                      "ভিসিএম",
+		"245":                      "২৪৫",
+		"No-frost":                 "নো-ফ্রস্ট",
+		"ONYX Black":               "ওনিক্স ব্ল্যাক",
+		"158.9*56.8*66.7":          "১৫৮.৯*৫৬.৮*৬৬.৭",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসর ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Up to 30 days preservation for chicken & fish, Up to 14 days garden freshness for fruits & vegetables, Active deo for anti odour action, Chilling gel for cooling retention during power cuts, Microblock technology prevents bacterial growth up to 99%": "চিকেন এবং ফিশের জন্য ৩০ দিন পর্যন্ত সংরক্ষণ, ফল এবং সবজির জন্য ১৪ দিন গার্ডেন ফ্রেশনেস, অ্যান্টি ওডর অ্যাকশনের জন্য অ্যাকটিভ ডিও, পাওয়ার কাটের সময় কুলিং রিটেনশনের জন্য চিলিং গেল, ৯৯% পর্যন্ত ব্যাকটেরিয়াল গ্রোথ প্রতিরোধ করে মাইক্রোব্লক টেকনোলজি",
+		"3":   "৩",
+		"4":   "৪",
+		"1":   "১",
+		"2":   "২",
+		"Yes": "হ্যাঁ",
+		"56":  "৫৬",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +88,19 @@ func (s *SpecificationSeederRefrigeratorecowpifinv258steelonyx) Seed(db *gorm.DB
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Wp If Inv 258 Steel Onyx",
-		// Add specifications here
+		"Brand":             "WHIRLPOOL",
+		"Model Name":        "WP IF INV 258 STEEL ONYX",
+		"Door Type":         "VCM",
+		"Capacity":          "245",
+		"Gross Volume":      "245",
+		"Defrost Type":      "No-frost",
+		"Color":             "ONYX Black",
+		"Dimensions":        "158.9*56.8*66.7",
+		"Weight":            "56",
+		"Warranty":          "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":  "Up to 30 days preservation for chicken & fish, Up to 14 days garden freshness for fruits & vegetables, Active deo for anti odour action, Chilling gel for cooling retention during power cuts, Microblock technology prevents bacterial growth up to 99%",
+		"Number of Shelves": "3",
+		"Door Bins":         "4",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -21,8 +21,25 @@ func NewSpecificationSeederRefrigeratorecogtm5097pzplatinumsilver() *Specificati
 
 func (s *SpecificationSeederRefrigeratorecogtm5097pzplatinumsilver) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Gt M5097pz Platinum Silver":                    "Gt M5097pz Platinum Silver",
+		"LG":                            "এলজি",
+		"LG GT-M5097PZ Platinum Silver": "এলজি জিটি-এম৫০৯৭পিজেড প্লাটিনাম সিলভার",
+		"Top Mount":                     "টপ মাউন্ট",
+		"506":                           "৫০৬",
+		"376":                           "৩৭৬",
+		"130":                           "১৩০",
+		"547":                           "৫৪৭",
+		"No-frost":                      "নো-ফ্রস্ট",
+		"Inverter Linear":               "ইনভার্টার লিনিয়ার",
+		"Platinum Silver":               "প্লাটিনাম সিলভার",
+		"1800×780×730 mm":               "১৮০০×৭৮০×৭৩০ মিমি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                                                           "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Inverter Linear Compressor, Door Cooling+, Hygiene Fresh+®, Multi Air Flow, Bioshield, Moving Ice Maker, Touch LED Display": "ইনভার্টার লিনিয়ার কম্প্রেসার, ডোর কুলিং+, হাইজিন ফ্রেশ+®, মাল্টি এয়ার ফ্লো, বায়োশিল্ড, মুভিং আইস মেকার, টাচ এলইডি ডিসপ্লে",
+		"Linear":           "লিনিয়ার",
+		"Touch":            "টাচ",
+		"Tempered Glass":   "টেম্পার্ড গ্লাস",
+		"Yes":              "হ্যাঁ",
+		"2":                "২",
+		"Movable Ice Tray": "মুভেবল আইস ট্রে",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +92,27 @@ func (s *SpecificationSeederRefrigeratorecogtm5097pzplatinumsilver) Seed(db *gor
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Gt M5097pz Platinum Silver",
-		// Add specifications here
+		"Brand":                 "LG",
+		"Model Name":            "LG GT-M5097PZ Platinum Silver",
+		"Door Type":             "Top Mount",
+		"Capacity":              "506",
+		"Refrigerator Capacity": "376",
+		"Freezer Capacity":      "130",
+		"Gross Volume":          "547",
+		"Net Volume":            "506",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Inverter Linear",
+		"Color":                 "Platinum Silver",
+		"Dimensions":            "1800×780×730 mm",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Inverter Linear Compressor, Door Cooling+, Hygiene Fresh+®, Multi Air Flow, Bioshield, Moving Ice Maker, Touch LED Display",
+		"Cooling Technology":    "Linear",
+		"Temperature Control":   "Touch",
+		"Shelf Material":        "Tempered Glass",
+		"Number of Shelves":     "2",
+		"Crisper Drawers":       "Yes",
+		"Ice Maker":             "Movable Ice Tray",
+		"App Control":           "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

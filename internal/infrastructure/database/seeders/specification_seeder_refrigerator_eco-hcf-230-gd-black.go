@@ -21,8 +21,17 @@ func NewSpecificationSeederRefrigeratorecohcf230gdblack() *SpecificationSeederRe
 
 func (s *SpecificationSeederRefrigeratorecohcf230gdblack) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Hcf 230 Gd Black":                    "Hcf 230 Gd Black",
+		"HAIER":                               "হাইয়ার",
+		"Haier HCF-230 GD Black With Display": "হাইয়ার এইচসিএফ-২৩০ জিডি ব্ল্যাক উইথ ডিসপ্লে",
+		"Chest Freezer":                       "চেস্ট ফ্রিজার",
+		"200":                                 "২০০",
+		"R600a":                               "আর৬০০এ",
+		"Black":                               "ব্ল্যাক",
+		"820 x 568 x 865 mm":                  "৮২০ x ৫৬৮ x ৮৬৫ মিমি",
+		"36 kg":                               "৩৬ কেজি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                            "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Super Fast Cooling up to -30° degrees, 150 Hours Frozen Retention, Electronic Control Panel": "সুপার ফাস্ট কুলিং আপ টু -৩০° ডিগ্রি, ১৫০ ঘণ্টা ফ্রোজেন রিটেনশন, ইলেকট্রনিক কন্ট্রোল প্যানেল",
+		"Electronic Control Panel": "ইলেকট্রনিক কন্ট্রোল প্যানেল",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +84,22 @@ func (s *SpecificationSeederRefrigeratorecohcf230gdblack) Seed(db *gorm.DB) erro
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Hcf 230 Gd Black",
-		// Add specifications here
+		"Brand":               "HAIER",
+		"Model Name":          "Haier HCF-230 GD Black With Display",
+		"Door Type":           "Chest Freezer",
+		"Capacity":            "200",
+		"Freezer Capacity":    "200",
+		"Gross Volume":        "200",
+		"Net Volume":          "200",
+		"Defrost Type":        "Manual",
+		"Compressor Type":     "Fix",
+		"Color":               "Black",
+		"Dimensions":          "820 x 568 x 865 mm",
+		"Weight":              "36 kg",
+		"Warranty":            "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":    "Super Fast Cooling up to -30° degrees, 150 Hours Frozen Retention, Electronic Control Panel",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Electronic Control Panel",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

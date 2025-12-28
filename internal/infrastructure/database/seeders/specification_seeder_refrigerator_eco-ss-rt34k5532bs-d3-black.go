@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecossrt34k5532bsd3black() *SpecificationS
 
 func (s *SpecificationSeederRefrigeratorecossrt34k5532bsd3black) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Ss Rt34k5532bs D3 Black":                    "Ss Rt34k5532bs D3 Black",
+		"SAMSUNG":                 "স্যামসাং",
+		"SS RT34K5532BS/D3 Black": "এসএস আরটি৩৪কে৫৫৩২বিএস/ডি৩ ব্ল্যাক",
+		"VCM":                     "ভিসিএম",
+		"300":                     "৩০০",
+		"228":                     "২২৮",
+		"72":                      "৭২",
+		"324":                     "৩২৪",
+		"No-frost":                "নো-ফ্রস্ট",
+		"R600a":                   "আর৬০০এ",
+		"Black":                   "ব্ল্যাক",
+		"1635*600*672":            "১৬৩৫*৬০০*৬৭২",
+		"20 Years Compressor Warranty, 1 Year Parts and Service Warranty":                "২০ বছর কম্প্রেসর ওয়ারেন্টি, ১ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Power Cool Function, Power Freeze Function, Multi Flow, Frost Free, Door Alarm": "পাওয়ার কুল ফাংশন, পাওয়ার ফ্রিজ ফাংশন, মাল্টি ফ্লো, ফ্রস্ট ফ্রি, ডোর অ্যালার্ম",
+		"Frost Free": "ফ্রস্ট ফ্রি",
+		"External":   "এক্সটার্নাল",
+		"3":          "৩",
+		"4":          "৪",
+		"1":          "১",
+		"2":          "২",
+		"Yes":        "হ্যাঁ",
+		"56":         "৫৬",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +94,27 @@ func (s *SpecificationSeederRefrigeratorecossrt34k5532bsd3black) Seed(db *gorm.D
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Ss Rt34k5532bs D3 Black",
-		// Add specifications here
+		"Brand":                 "SAMSUNG",
+		"Model Name":            "SS RT34K5532BS/D3 Black",
+		"Door Type":             "VCM",
+		"Capacity":              "300",
+		"Refrigerator Capacity": "228",
+		"Freezer Capacity":      "72",
+		"Gross Volume":          "324",
+		"Net Volume":            "300",
+		"Defrost Type":          "No-frost",
+		"Refrigerant":           "R600a",
+		"Color":                 "Black",
+		"Dimensions":            "1635*600*672",
+		"Weight":                "56",
+		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",
+		"Special Features":      "Power Cool Function, Power Freeze Function, Multi Flow, Frost Free, Door Alarm",
+		"Cooling Technology":    "Frost Free",
+		"Temperature Control":   "External",
+		"Number of Shelves":     "3",
+		"Door Bins":             "4",
+		"Crisper Drawers":       "1",
+		"Ice Maker":             "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

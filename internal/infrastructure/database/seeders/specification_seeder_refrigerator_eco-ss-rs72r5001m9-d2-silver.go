@@ -21,8 +21,29 @@ func NewSpecificationSeederRefrigeratorecossrs72r5001m9d2silver() *Specification
 
 func (s *SpecificationSeederRefrigeratorecossrs72r5001m9d2silver) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Ss Rs72r5001m9 D2 Silver":                    "Ss Rs72r5001m9 D2 Silver",
+		"SAMSUNG":                     "স্যামসাং",
+		"SS RS72R5001M9/D2 Silver":    "এসএস আরএস৭২আর৫০০১এম৯/ডি২ সিলভার",
+		"VCM":                         "ভিসিএম",
+		"647":                         "৬৪৭",
+		"418":                         "৪১৮",
+		"229":                         "২২৯",
+		"700":                         "৭০০",
+		"No-frost":                    "নো-ফ্রস্ট",
+		"Digital Inverter Compressor": "ডিজিটাল ইনভার্টার কম্প্রেসর",
+		"R600a":                       "আর৬০০এ",
+		"Silver":                      "সিলভার",
+		"1780*912*716":                "১৭৮০*৯১২*৭১৬",
+		"20 Years Compressor Warranty, 1 Year Parts and Service Warranty":                                      "২০ বছর কম্প্রেসর ওয়ারেন্টি, ১ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Digital Inverter Compressor, Power Cool Function, Power Freeze Function, Mono Cooling, Vacation Mode": "ডিজিটাল ইনভার্টার কম্প্রেসর, পাওয়ার কুল ফাংশন, পাওয়ার ফ্রিজ ফাংশন, মনো কুলিং, ভ্যাকেশন মোড",
+		"Mono Cooling":        "মনো কুলিং",
+		"Internal (Ice Blue)": "ইন্টারনাল (আইস ব্লু)",
+		"4":                   "৪",
+		"5":                   "৫",
+		"2":                   "২",
+		"Manual Twist":        "ম্যানুয়াল টুইস্ট",
+		"Yes":                 "হ্যাঁ",
+		"101":                 "১০১",
+		"Side-by-Side":        "সাইড-বাই-সাইড",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +96,28 @@ func (s *SpecificationSeederRefrigeratorecossrs72r5001m9d2silver) Seed(db *gorm.
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Ss Rs72r5001m9 D2 Silver",
-		// Add specifications here
+		"Brand":                 "SAMSUNG",
+		"Model Name":            "SS RS72R5001M9/D2 Silver",
+		"Door Type":             "VCM",
+		"Capacity":              "647",
+		"Refrigerator Capacity": "418",
+		"Freezer Capacity":      "229",
+		"Gross Volume":          "700",
+		"Net Volume":            "647",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Digital Inverter Compressor",
+		"Refrigerant":           "R600a",
+		"Color":                 "Silver",
+		"Dimensions":            "1780*912*716",
+		"Weight":                "101",
+		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",
+		"Special Features":      "Digital Inverter Compressor, Power Cool Function, Power Freeze Function, Mono Cooling, Vacation Mode",
+		"Cooling Technology":    "Mono Cooling",
+		"Temperature Control":   "Internal (Ice Blue)",
+		"Number of Shelves":     "4",
+		"Door Bins":             "5",
+		"Crisper Drawers":       "2",
+		"Ice Maker":             "Manual Twist",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

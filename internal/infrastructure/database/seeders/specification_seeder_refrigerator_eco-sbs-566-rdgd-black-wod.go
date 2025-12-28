@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecosbs566rdgdblackwod() *SpecificationSee
 
 func (s *SpecificationSeederRefrigeratorecosbs566rdgdblackwod) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Sbs 566 Rdgd Black Wod":                    "Sbs 566 Rdgd Black Wod",
+		"ECO+":                        "ইকো+",
+		"Eco+ SBS-566-RDGD Black WOD": "ইকো+ এসবিএস-৫৬৬-আরডিজিডি ব্ল্যাক ডব্লিউওডি",
+		"Side by side":                "সাইড বাই সাইড",
+		"516":                         "৫১৬",
+		"339":                         "৩৩৯",
+		"177":                         "১৭৭",
+		"566":                         "৫৬৬",
+		"350":                         "৩৫০",
+		"216":                         "২১৬",
+		"No-frost":                    "নো-ফ্রস্ট",
+		"R600a":                       "আর৬০০এ",
+		"Black":                       "ব্ল্যাক",
+		"1786*910*643 mm":             "১৭৮৬*৯১০*৬৪৩ মিমি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                                                                                "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Total No Frost, Multi Air Flow, Touch Electronic Control, Surge Protection Technology, Wide Voltage Range, Door Self Closing and Alarm Function": "টোটাল নো ফ্রস্ট, মাল্টি এয়ার ফ্লো, টাচ ইলেকট্রনিক কন্ট্রোল, সার্জ প্রোটেকশন টেকনোলজি, ওয়াইড ভোল্টেজ রেঞ্জ, ডোর সেল্ফ ক্লোজিং এবং অ্যালার্ম ফাংশন",
+		"Electronic":    "ইলেকট্রনিক",
+		"5":             "৫",
+		"3":             "৩",
+		"Yes":           "হ্যাঁ",
+		"Soft LED":      "সফ্ট এলইডি",
+		"Movable Twist": "মুভেবল টুইস্ট",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +94,25 @@ func (s *SpecificationSeederRefrigeratorecosbs566rdgdblackwod) Seed(db *gorm.DB)
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Sbs 566 Rdgd Black Wod",
-		// Add specifications here
+		"Brand":                 "ECO+",
+		"Model Name":            "Eco+ SBS-566-RDGD Black WOD",
+		"Door Type":             "Side by side",
+		"Capacity":              "516",
+		"Refrigerator Capacity": "339",
+		"Freezer Capacity":      "177",
+		"Gross Volume":          "566",
+		"Net Volume":            "516",
+		"Defrost Type":          "No-frost",
+		"Refrigerant":           "R600a",
+		"Color":                 "Black",
+		"Dimensions":            "1786*910*643 mm",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Total No Frost, Multi Air Flow, Touch Electronic Control, Surge Protection Technology, Wide Voltage Range, Door Self Closing and Alarm Function",
+		"Temperature Control":   "Electronic",
+		"Shelf Material":        "Transparent",
+		"Number of Shelves":     "5",
+		"Crisper Drawers":       "Yes",
+		"Ice Maker":             "Movable Twist",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

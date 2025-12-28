@@ -21,8 +21,23 @@ func NewSpecificationSeederRefrigeratorecors06drbc46() *SpecificationSeederRefri
 
 func (s *SpecificationSeederRefrigeratorecors06drbc46) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Rs 06dr Bc 46":                    "Rs 06dr Bc 46",
+		"ECO+":                     "ইকো+",
+		"BUTTERFLY RS-06DR/ BC-46": "বাটারফ্লাই আরএস-০৬ডিআর/ বিসি-৪৬",
+		"VCM":                      "ভিসিএম",
+		"41":                       "৪১",
+		"2":                        "২",
+		"39":                       "৩৯",
+		"46":                       "৪৬",
+		"Manual":                   "ম্যানুয়াল",
+		"R134a":                    "আর১৩৪এ",
+		"Silver":                   "সিলভার",
+		"439x512x740 mm":           "৪৩৯x৫১২x৭৪০ মিমি",
+		"220-240V":                 "২২০-২৪০ভি",
+		"50":                       "৫০",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"White": "হোয়াইট",
+		"Yes":   "হ্যাঁ",
+		"No":    "না",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +90,23 @@ func (s *SpecificationSeederRefrigeratorecors06drbc46) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Rs 06dr Bc 46",
-		// Add specifications here
+		"Brand":                 "ECO+",
+		"Model Name":            "BUTTERFLY RS-06DR/ BC-46",
+		"Door Type":             "VCM",
+		"Capacity":              "41",
+		"Refrigerator Capacity": "2",
+		"Freezer Capacity":      "39",
+		"Gross Volume":          "46",
+		"Net Volume":            "41",
+		"Defrost Type":          "Manual",
+		"Refrigerant":           "R134a",
+		"Color":                 "Silver",
+		"Dimensions":            "439x512x740 mm",
+		"Voltage":               "220-240V",
+		"Frequency (Hz)":        "50",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Temperature Control":   "Manual",
+		"Ice Maker":             "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

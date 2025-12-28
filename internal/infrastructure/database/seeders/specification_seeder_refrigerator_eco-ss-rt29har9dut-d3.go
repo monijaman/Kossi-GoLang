@@ -21,8 +21,26 @@ func NewSpecificationSeederRefrigeratorecossrt29har9dutd3() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorecossrt29har9dutd3) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Ss Rt29har9dut D3":                    "Ss Rt29har9dut D3",
+		"SAMSUNG":                  "স্যামসাং",
+		"SS RT29HAR9DUT/D3 Purple": "এসএস আরটি২৯এইচএআর৯ডিইউটি/ডি৩ পার্পল",
+		"VCM":                      "ভিসিএম",
+		"255":                      "২৫৫",
+		"202":                      "২০২",
+		"53":                       "৫৩",
+		"275":                      "২৭৫",
+		"Frost":                    "ফ্রস্ট",
+		"R600a":                    "আর৬০০এ",
+		"Purple":                   "পার্পল",
+		"1685*555*637 mm":          "১৬৮৫*৫৫৫*৬৩৭ মিমি",
+		"20 Years Compressor Warranty, 1 Year Parts and Service Warranty":     "২০ বছর কম্প্রেসর ওয়ারেন্টি, ১ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Humidity Control, Interior LED Light, Multi Storage Box, Multi Flow": "হিউমিডিটি কন্ট্রোল, ইন্টেরিয়র এলইডি লাইট, মাল্টি স্টোরেজ বক্স, মাল্টি ফ্লো",
+		"Multi Flow": "মাল্টি ফ্লো",
+		"Mechanical": "মেকানিক্যাল",
+		"3":          "৩",
+		"5":          "৫",
+		"1":          "১",
+		"Yes":        "হ্যাঁ",
+		"50.7":       "৫০.৭",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +93,27 @@ func (s *SpecificationSeederRefrigeratorecossrt29har9dutd3) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Ss Rt29har9dut D3",
-		// Add specifications here
+		"Brand":                 "SAMSUNG",
+		"Model Name":            "SS RT29HAR9DUT/D3 Purple",
+		"Door Type":             "VCM",
+		"Capacity":              "255",
+		"Refrigerator Capacity": "202",
+		"Freezer Capacity":      "53",
+		"Gross Volume":          "275",
+		"Net Volume":            "255",
+		"Defrost Type":          "Frost",
+		"Refrigerant":           "R600a",
+		"Color":                 "Purple",
+		"Dimensions":            "1685*555*637 mm",
+		"Weight":                "50.7",
+		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",
+		"Special Features":      "Humidity Control, Interior LED Light, Multi Storage Box, Multi Flow",
+		"Cooling Technology":    "Multi Flow",
+		"Temperature Control":   "Mechanical",
+		"Number of Shelves":     "3",
+		"Door Bins":             "5",
+		"Crisper Drawers":       "1",
+		"Ice Maker":             "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

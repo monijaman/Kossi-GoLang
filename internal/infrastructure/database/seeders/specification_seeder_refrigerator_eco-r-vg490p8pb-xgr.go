@@ -21,8 +21,26 @@ func NewSpecificationSeederRefrigeratorecorvg490p8pbxgr() *SpecificationSeederRe
 
 func (s *SpecificationSeederRefrigeratorecorvg490p8pbxgr) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"R Vg490p8pb Xgr":                    "R Vg490p8pb Xgr",
+		"HITACHI":                 "হিটাচি",
+		"Hitachi R-VG490P8PB XGR": "হিটাচি আর-ভিজি৪৯০পি৮পিবি এক্সজিআর",
+		"Top Mount":               "টপ মাউন্ট",
+		"407":                     "৪০৭",
+		"298":                     "২৯৮",
+		"109":                     "১০৯",
+		"443":                     "৪৪৩",
+		"133":                     "১৩৩",
+		"310":                     "৩১০",
+		"No-frost":                "নো-ফ্রস্ট",
+		"Inverter":                "ইনভার্টার",
+		"R600a":                   "আর৬০০এ",
+		"Gradation Gray":          "গ্র্যাডেশন গ্রে",
+		"1770*680*720 mm":         "১৭৭০*৬৮০*৭২০ মিমি",
+		"220-240V":                "২২০-২৪০ভি",
+		"50/60":                   "৫০/৬০",
+		"Inverter x Dual Fan Cooling, Fresh Select, Powerful Deodorization, Super Stable Operation, Eco-Friendly R600a Gas": "ইনভার্টার এক্স ডুয়াল ফ্যান কুলিং, ফ্রেশ সিলেক্ট, পাওয়ারফুল ডিওডোরাইজেশন, সুপার স্টেবল অপারেশন, ইকো-ফ্রেন্ডলি আর৬০০এ গ্যাস",
+		"Tempered Glass":         "টেম্পার্ড গ্লাস",
+		"Yes":                    "হ্যাঁ",
+		"Powerful Deodorization": "পাওয়ারফুল ডিওডোরাইজেশন",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +93,24 @@ func (s *SpecificationSeederRefrigeratorecorvg490p8pbxgr) Seed(db *gorm.DB) erro
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "R Vg490p8pb Xgr",
-		// Add specifications here
+		"Brand":                 "HITACHI",
+		"Model Name":            "Hitachi R-VG490P8PB XGR",
+		"Door Type":             "Top Mount",
+		"Capacity":              "407",
+		"Refrigerator Capacity": "298",
+		"Freezer Capacity":      "109",
+		"Gross Volume":          "443",
+		"Net Volume":            "407",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Inverter",
+		"Refrigerant":           "R600a",
+		"Color":                 "Gradation Gray",
+		"Dimensions":            "1770*680*720 mm",
+		"Voltage":               "220-240V",
+		"Frequency (Hz)":        "50/60",
+		"Special Features":      "Inverter x Dual Fan Cooling, Fresh Select, Powerful Deodorization, Super Stable Operation, Eco-Friendly R600a Gas",
+		"Shelf Material":        "Tempered Glass",
+		"Ice Maker":             "Movable Twist Ice Tray",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

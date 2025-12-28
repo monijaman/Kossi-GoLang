@@ -21,8 +21,31 @@ func NewSpecificationSeederRefrigeratorecoomega5glg252rlbbpz() *SpecificationSee
 
 func (s *SpecificationSeederRefrigeratorecoomega5glg252rlbbpz) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Omega5 Gl G252rlbb Pz":                    "Omega5 Gl G252rlbb Pz",
+		"LG":                       "এলজি",
+		"LG OMEGA5 GL-G252RLBB PZ": "এলজি ওমেগা৫ জিএল-জি২৫২আরএলবিবি পিজেড",
+		"Top Mount":                "টপ মাউন্ট",
+		"237":                      "২৩৭",
+		"177":                      "১৭৭",
+		"60":                       "৬০",
+		"260":                      "২৬০",
+		"75":                       "৭৫",
+		"185":                      "১৮৫",
+		"No-frost":                 "নো-ফ্রস্ট",
+		"Smart Inverter":           "স্মার্ট ইনভার্টার",
+		"R-600A":                   "আর-৬০০এ",
+		"Shiny steel":              "শাইনি স্টিল",
+		"1475*585*703 mm":          "১৪৭৫*৫৮৫*৭০৩ মিমি",
+		"48 kg":                    "৪৮ কেজি",
+		"100-290V":                 "১০০-২৯০ভি",
+		"50":                       "৫০",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                              "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Door Cooling+, Multi Air Flow, Moist Balance Crisper, Humidity Controller, Wide Voltage Range": "ডোর কুলিং+, মাল্টি এয়ার ফ্লো, ময়েস্ট ব্যালেন্স ক্রিস্পার, হিউমিডিটি কন্ট্রোলার, ওয়াইড ভোল্টেজ রেঞ্জ",
+		"Door Cooling+":   "ডোর কুলিং+",
+		"I Micom (Knob)":  "আই মাইকম (নব)",
+		"Toughened Glass": "টাফেন্ড গ্লাস",
+		"3":               "৩",
+		"Yes":             "হ্যাঁ",
+		"Transparent":     "ট্রান্সপারেন্ট",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +98,30 @@ func (s *SpecificationSeederRefrigeratorecoomega5glg252rlbbpz) Seed(db *gorm.DB)
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Omega5 Gl G252rlbb Pz",
-		// Add specifications here
+		"Brand":                 "LG",
+		"Model Name":            "LG OMEGA5 GL-G252RLBB PZ",
+		"Door Type":             "Top Mount",
+		"Capacity":              "237",
+		"Refrigerator Capacity": "177",
+		"Freezer Capacity":      "60",
+		"Gross Volume":          "260",
+		"Net Volume":            "237",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Smart Inverter",
+		"Refrigerant":           "R-600A",
+		"Color":                 "Shiny steel",
+		"Dimensions":            "1475*585*703 mm",
+		"Weight":                "48 kg",
+		"Voltage":               "100-290V",
+		"Frequency (Hz)":        "50",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Door Cooling+, Multi Air Flow, Moist Balance Crisper, Humidity Controller, Wide Voltage Range",
+		"Cooling Technology":    "Door Cooling+",
+		"Temperature Control":   "I Micom (Knob)",
+		"Shelf Material":        "Toughened Glass",
+		"Number of Shelves":     "3",
+		"Crisper Drawers":       "Yes",
+		"Ice Maker":             "Transparent",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -21,8 +21,20 @@ func NewSpecificationSeederRefrigeratorecohcf175white() *SpecificationSeederRefr
 
 func (s *SpecificationSeederRefrigeratorecohcf175white) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Hcf 175 White":                    "Hcf 175 White",
+		"HAIER":               "হাইয়ার",
+		"Haier HCF-175 White": "হাইয়ার এইচসিএফ-১৭৫ হোয়াইট",
+		"Chest":               "চেস্ট",
+		"146":                 "১৪৬",
+		"Fix":                 "ফিক্স",
+		"White":               "হোয়াইট",
+		"550*845*720 mm":      "৫৫০*৮৪৫*৭২০ মিমি",
+		"31 kg":               "৩১ কেজি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"150 Hours Frozen Retention, Super Fast Cooling Up To -30° Degrees, Ultra Microcellular High Density Foaming, High Efficiency Compressor, Counter Balanced Hinge, Fast Freeze Function": "১৫০ ঘণ্টা ফ্রোজেন রিটেনশন, সুপার ফাস্ট কুলিং আপ টু -৩০° ডিগ্রি, আল্ট্রা মাইক্রোসেলুলার হাই ডেনসিটি ফোমিং, হাই এফিসিয়েন্সি কম্প্রেসার, কাউন্টার ব্যালেন্সড হিঞ্জ, ফাস্ট ফ্রিজ ফাংশন",
+		"R600a":                     "আর৬০০এ",
+		"Dual Function (REF & FRZ)": "ডুয়াল ফাংশন (রেফ & ফ্রিজ)",
+		"Yes":                       "হ্যাঁ",
+		"1":                         "১",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +87,23 @@ func (s *SpecificationSeederRefrigeratorecohcf175white) Seed(db *gorm.DB) error 
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Hcf 175 White",
-		// Add specifications here
+		"Brand":               "HAIER",
+		"Model Name":          "Haier HCF-175 White",
+		"Door Type":           "Chest",
+		"Capacity":            "146",
+		"Freezer Capacity":    "146",
+		"Gross Volume":        "146",
+		"Net Volume":          "146",
+		"Defrost Type":        "Manual",
+		"Compressor Type":     "Fix",
+		"Color":               "White",
+		"Dimensions":          "550*845*720 mm",
+		"Weight":              "31 kg",
+		"Warranty":            "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":    "150 Hours Frozen Retention, Super Fast Cooling Up To -30° Degrees, Ultra Microcellular High Density Foaming, High Efficiency Compressor, Counter Balanced Hinge, Fast Freeze Function",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Dual Function (REF & FRZ)",
+		"Number of Shelves":   "1",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

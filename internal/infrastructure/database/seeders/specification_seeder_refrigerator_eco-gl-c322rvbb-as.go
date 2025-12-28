@@ -21,8 +21,28 @@ func NewSpecificationSeederRefrigeratorecoglc322rvbbas() *SpecificationSeederRef
 
 func (s *SpecificationSeederRefrigeratorecoglc322rvbbas) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Gl C322rvbb As":                    "Gl C322rvbb As",
+		"LG":                       "এলজি",
+		"LG OMEGA3 GL-C322RVBB AS": "এলজি ওমেগা৩ জিএল-সি৩২২আরভিবিবি এএস",
+		"Top Mount":                "টপ মাউন্ট",
+		"281":                      "২৮১",
+		"223":                      "২২৩",
+		"58":                       "৫৮",
+		"308":                      "৩০৮",
+		"No-frost":                 "নো-ফ্রস্ট",
+		"Smart Inverter":           "স্মার্ট ইনভার্টার",
+		"R-600A":                   "আর-৬০০এ",
+		"Amber Steel":              "অ্যাম্বার স্টিল",
+		"1675*585*703 mm":          "১৬৭৫*৫৮৫*৭০৩ মিমি",
+		"51 kg":                    "৫১ কেজি",
+		"100-290V":                 "১০০-২৯০ভি",
+		"50":                       "৫০",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                              "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Door Cooling+, Multi Air Flow, Moist Balance Crisper, Humidity Controller, Wide Voltage Range": "ডোর কুলিং+, মাল্টি এয়ার ফ্লো, ময়েস্ট ব্যালেন্স ক্রিস্পার, হিউমিডিটি কন্ট্রোলার, ওয়াইড ভোল্টেজ রেঞ্জ",
+		"Door Cooling+":   "ডোর কুলিং+",
+		"Knob I Micom":    "নব আই মাইকম",
+		"Toughened Glass": "টাফেন্ড গ্লাস",
+		"Yes":             "হ্যাঁ",
+		"Transparent":     "ট্রান্সপারেন্ট",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +95,29 @@ func (s *SpecificationSeederRefrigeratorecoglc322rvbbas) Seed(db *gorm.DB) error
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Gl C322rvbb As",
-		// Add specifications here
+		"Brand":                 "LG",
+		"Model Name":            "LG OMEGA3 GL-C322RVBB AS",
+		"Door Type":             "Top Mount",
+		"Capacity":              "281",
+		"Refrigerator Capacity": "223",
+		"Freezer Capacity":      "58",
+		"Gross Volume":          "308",
+		"Net Volume":            "281",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Smart Inverter",
+		"Refrigerant":           "R-600A",
+		"Color":                 "Amber Steel",
+		"Dimensions":            "1675*585*703 mm",
+		"Weight":                "51 kg",
+		"Voltage":               "100-290V",
+		"Frequency (Hz)":        "50",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Door Cooling+, Multi Air Flow, Moist Balance Crisper, Humidity Controller, Wide Voltage Range",
+		"Cooling Technology":    "Door Cooling+",
+		"Temperature Control":   "Knob I Micom",
+		"Shelf Material":        "Toughened Glass",
+		"Crisper Drawers":       "Yes",
+		"Ice Maker":             "Transparent",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

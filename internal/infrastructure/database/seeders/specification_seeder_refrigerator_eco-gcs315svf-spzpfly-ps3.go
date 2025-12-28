@@ -21,8 +21,23 @@ func NewSpecificationSeederRefrigeratorecogcs315svfspzpflyps3() *SpecificationSe
 
 func (s *SpecificationSeederRefrigeratorecogcs315svfspzpflyps3) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Gcs315svf Spzpfly Ps3":                    "Gcs315svf Spzpfly Ps3",
+		"LG":                       "LG",
+		"LG GCS315SVF.SPZPFLY PS3": "LG GCS315SVF.SPZPFLY PS3",
+		"Top Opening":              "টপ ওপেনিং",
+		"280":                      "২৮০",
+		"190":                      "১৯০",
+		"845*954*560 mm":           "৮৪৫*৯৫৪*৫৬০ মিমি",
+		"Freezer Silver":           "ফ্রিজার সিলভার",
+		"Recipro":                  "রেসিপ্রো",
+		"Frost":                    "ফ্রস্ট",
+		"E-Control":                "ই-কন্ট্রোল",
+		"1":                        "১",
+		"Mechanical temperature control, Water disposal device, Key and Lock, Door LED": "মেকানিক্যাল টেম্পারেচার কন্ট্রোল, ওয়াটার ডিসপোজাল ডিভাইস, কী অ্যান্ড লক, ডোর LED",
+		"Yes":     "হ্যাঁ",
+		"No":      "না",
+		"220~240": "২২০~২৪০",
+		"50":      "৫০",
+		"134a":    "134a",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +90,25 @@ func (s *SpecificationSeederRefrigeratorecogcs315svfspzpflyps3) Seed(db *gorm.DB
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Gcs315svf Spzpfly Ps3",
-		// Add specifications here
+		"Brand":                       "LG",
+		"Model Name":                  "LG GCS315SVF.SPZPFLY PS3",
+		"Door Type":                   "Top Opening",
+		"Capacity":                    "280",
+		"Freezer Capacity":            "190",
+		"Gross Volume":                "280",
+		"Net Volume":                  "190",
+		"Dimensions":                  "845*954*560 mm",
+		"Weight":                      "40",
+		"Color":                       "Freezer Silver",
+		"Compressor Type":             "Recipro",
+		"Defrost Type":                "Frost",
+		"Temperature Control":         "E-Control",
+		"Voltage":                     "220~240",
+		"Frequency (Hz)":              "50",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Refrigerant":                 "134a",
+		"Special Features":            "Mechanical temperature control, Water disposal device, Key and Lock, Door LED",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -21,8 +21,25 @@ func NewSpecificationSeederRefrigeratorecofd630bwdvcmblacksteel() *Specification
 
 func (s *SpecificationSeederRefrigeratorecofd630bwdvcmblacksteel) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Fd 630 Bwdvcm Black Steel":                    "Fd 630 Bwdvcm Black Steel",
+		"ECO+":                                  "ইকো+",
+		"Eco+ FD-630-BWDVCM Black Steel":        "Eco+ FD-630-BWDVCM Black Steel",
+		"Glass Door":                            "গ্লাস ডোর",
+		"630":                                   "৬৩০",
+		"414":                                   "৪১৪",
+		"122":                                   "১২২",
+		"536":                                   "৫৩৬",
+		"1776*912*765 mm":                       "১৭৭৬*৯১২*৭৬৫ মিমি",
+		"Black Steel":                           "ব্ল্যাক স্টিল",
+		"R600a":                                 "R600a",
+		"Auto":                                  "অটো",
+		"LED display with touch button control": "LED ডিসপ্লে উইথ টাচ বাটন কন্ট্রোল",
+		"3":                                     "৩",
+		"2":                                     "২",
+		"Multi Air Flow System, LED Display with Touch Button Control, External Water Dispenser, Folded coke rack, Easy-Slide Freezer Drawer, Movable twist ice-maker": "মাল্টি এয়ার ফ্লো সিস্টেম, LED ডিসপ্লে উইথ টাচ বাটন কন্ট্রোল, এক্সটার্নাল ওয়াটার ডিসপেন্সার, ফোল্ডেড কোক র্যাক, ইজি-স্লাইড ফ্রিজার ড্রয়ার, মুভেবল টুইস্ট আইস-মেকার",
+		"Yes":     "হ্যাঁ",
+		"No":      "না",
+		"220~240": "২২০~২৪০",
+		"50":      "৫০",
 		// Add more translations as needed
 	}
 }
@@ -76,16 +93,31 @@ func (s *SpecificationSeederRefrigeratorecofd630bwdvcmblacksteel) Seed(db *gorm.
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Fd 630 Bwdvcm Black Steel",
-		// Add specifications here
+		"Model Name":                  "Eco+ FD-630-BWDVCM Black Steel",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "630",
+		"Refrigerator Capacity":       "414",
+		"Freezer Capacity":            "122",
+		"Gross Volume":                "630",
+		"Net Volume":                  "536",
+		"Dimensions":                  "1776*912*765 mm",
+		"Weight":                      "120",
+		"Color":                       "Black Steel",
+		"Compressor Type":             "R600a",
+		"Defrost Type":                "Auto",
+		"Temperature Control":         "LED display with touch button control",
+		"Number of Shelves":           "2",
+		"Ice Maker":                   "Moveable Twist ice-maker",
+		"Water Dispenser":             "External Water Dispenser",
+		"Voltage":                     "220~240",
+		"Frequency (Hz)":              "50",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Multi Air Flow System, LED Display with Touch Button Control, External Water Dispenser, Folded coke rack, Easy-Slide Freezer Drawer, Movable twist ice-maker",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
-	for key, val := range specs {
-		if len(val) > 500 {
-			specs[key] = val[:500]
-		}
-	}
 	for key, value := range specs {
 		specKeyID, exists := existingkeyMapping[key]
 		if !exists {

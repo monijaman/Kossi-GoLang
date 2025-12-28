@@ -21,8 +21,26 @@ func NewSpecificationSeederRefrigeratorecohrf360wdbgblack() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorecohrf360wdbgblack) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Hrf 360wdbg Black":                    "Hrf 360wdbg Black",
+		"HAIER":                   "হাইয়ার",
+		"Haier HRF-360WDBG Black": "হাইয়ার এইচআরএফ-৩৬০ডব্লিউডিবিজি ব্ল্যাক",
+		"Glass Door":              "গ্লাস ডোর",
+		"340":                     "৩৪০",
+		"96":                      "৯৬",
+		"205":                     "২০৫",
+		"39":                      "৩৯",
+		"No-frost":                "নো-ফ্রস্ট",
+		"Inverter":                "ইনভার্টার",
+		"R600a":                   "আর৬০০এ",
+		"Black":                   "ব্ল্যাক",
+		"698*1735*598 mm":         "৬৯৮*১৭৩৫*৫৯৮ মিমি",
+		"66.5 kg":                 "৬৬.৫ কেজি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty":                                                                                       "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Twin Inverter Technology, Magic Cooling 3rd Space, 360° Airflow System, Large Freezer Space To Store More, Deo Fresh Technology, Digital Control Panel": "টুইন ইনভার্টার টেকনোলজি, ম্যাজিক কুলিং থার্ড স্পেস, ৩৬০° এয়ারফ্লো সিস্টেম, লার্জ ফ্রিজার স্পেস টু স্টোর মোর, ডিও ফ্রেশ টেকনোলজি, ডিজিটাল কন্ট্রোল প্যানেল",
+		"Recess type": "রিসেস টাইপ",
+		"Yes":         "হ্যাঁ",
+		"4":           "৪",
+		"1":           "১",
+		"2":           "২",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +93,25 @@ func (s *SpecificationSeederRefrigeratorecohrf360wdbgblack) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Hrf 360wdbg Black",
-		// Add specifications here
+		"Brand":                 "HAIER",
+		"Model Name":            "Haier HRF-360WDBG Black",
+		"Door Type":             "Glass Door",
+		"Capacity":              "340",
+		"Refrigerator Capacity": "205",
+		"Freezer Capacity":      "96",
+		"Gross Volume":          "340",
+		"Net Volume":            "340",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Inverter",
+		"Color":                 "Black",
+		"Dimensions":            "698*1735*598 mm",
+		"Weight":                "66.5 kg",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Twin Inverter Technology, Magic Cooling 3rd Space, 360° Airflow System, Large Freezer Space To Store More, Deo Fresh Technology, Digital Control Panel",
+		"Refrigerant":           "R600a",
+		"Number of Shelves":     "4",
+		"Crisper Drawers":       "Yes",
+		"Ice Maker":             "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

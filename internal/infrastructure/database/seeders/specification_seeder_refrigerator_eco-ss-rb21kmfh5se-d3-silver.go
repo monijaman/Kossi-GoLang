@@ -21,8 +21,24 @@ func NewSpecificationSeederRefrigeratorecossrb21kmfh5sed3silver() *Specification
 
 func (s *SpecificationSeederRefrigeratorecossrb21kmfh5sed3silver) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Ss Rb21kmfh5se D3 Silver":                    "Ss Rb21kmfh5se D3 Silver",
+		"SAMSUNG":                     "স্যামসাং",
+		"SS RB21KMFH5SE/D3 Silver":    "এসএস আরবি২১কে এম এফ এইচ৫এসই/ডি৩ সিলভার",
+		"VCM":                         "ভিসিএম",
+		"212":                         "২১২",
+		"142":                         "১৪২",
+		"70":                          "৭০",
+		"218":                         "২১৮",
+		"Frost":                       "ফ্রস্ট",
+		"Digital Inverter Compressor": "ডিজিটাল ইনভার্টার কম্প্রেসার",
+		"R600a":                       "আর৬০০এ",
+		"Electric Silver":             "ইলেকট্রিক সিলভার",
+		"1584*546*610 mm":             "১৫৮৪*৫৪৬*৬১০ মিমি",
+		"20 Years Compressor Warranty, 1 Year Parts and Service Warranty":                                 "২০ বছর কম্প্রেসার ওয়ারেন্টি, ১ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Digital Inverter Compressor, Power Cool Function, R600a Refrigerant, Mono Cooling, Tact Display": "ডিজিটাল ইনভার্টার কম্প্রেসার, পাওয়ার কুল ফাংশন, আর৬০০এ রেফ্রিজারেন্ট, মনো কুলিং, ট্যাক্ট ডিসপ্লে",
+		"Mono Cooling":            "মনো কুলিং",
+		"Tact Display (Blue LED)": "ট্যাক্ট ডিসপ্লে (ব্লু এলইডি)",
+		"3":                       "৩",
+		"Yes":                     "হ্যাঁ",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +91,25 @@ func (s *SpecificationSeederRefrigeratorecossrb21kmfh5sed3silver) Seed(db *gorm.
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Ss Rb21kmfh5se D3 Silver",
-		// Add specifications here
+		"Brand":                 "SAMSUNG",
+		"Model Name":            "SS RB21KMFH5SE/D3 Silver",
+		"Door Type":             "VCM",
+		"Capacity":              "212",
+		"Refrigerator Capacity": "142",
+		"Freezer Capacity":      "70",
+		"Gross Volume":          "218",
+		"Net Volume":            "212",
+		"Defrost Type":          "Frost",
+		"Compressor Type":       "Digital Inverter Compressor",
+		"Refrigerant":           "R600a",
+		"Color":                 "Electric Silver",
+		"Dimensions":            "1584*546*610 mm",
+		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",
+		"Special Features":      "Digital Inverter Compressor, Power Cool Function, R600a Refrigerant, Mono Cooling, Tact Display",
+		"Cooling Technology":    "Mono Cooling",
+		"Temperature Control":   "Tact Display (Blue LED)",
+		"Number of Shelves":     "3",
+		"Ice Maker":             "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

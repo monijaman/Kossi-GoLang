@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecohrf680bgblack() *SpecificationSeederRe
 
 func (s *SpecificationSeederRefrigeratorecohrf680bgblack) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Hrf 680bg Black":                    "Hrf 680bg Black",
+		"HAIER":                 "হাইয়ার",
+		"Haier HRF-680BG Black": "হাইয়ার এইচআরএফ-৬৮০বিজি ব্ল্যাক",
+		"Side by Side":          "সাইড বাই সাইড",
+		"630":                   "৬৩০",
+		"392":                   "৩৯২",
+		"238":                   "২৩৮",
+		"No-frost":              "নো-ফ্রস্ট",
+		"R600a":                 "আর৬০০এ",
+		"Black":                 "ব্ল্যাক",
+		"1775*905*697 mm":       "১৭৭৫*৯০৫*৬৯৭ মিমি",
+		"103 kg":                "১০৩ কেজি",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"Deo Fresh, Jumbo Ice Maker, Digital LED Door Display":             "ডিও ফ্রেশ, জাম্বো আইস মেকার, ডিজিটাল এলইডি ডোর ডিসপ্লে",
+		"Digital LED -Door Display":                                        "ডিজিটাল এলইডি -ডোর ডিসপ্লে",
+		"Recess Handle":                                                    "রিসেস হ্যান্ডেল",
+		"Yes":                                                              "হ্যাঁ",
+		"5":                                                                "৫",
+		"1":                                                                "১",
+		"3":                                                                "৩",
+		"2":                                                                "২",
+		"LED":                                                              "এলইডি",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +94,25 @@ func (s *SpecificationSeederRefrigeratorecohrf680bgblack) Seed(db *gorm.DB) erro
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Hrf 680bg Black",
-		// Add specifications here
+		"Brand":                 "HAIER",
+		"Model Name":            "Haier HRF-680BG Black",
+		"Door Type":             "Side by Side",
+		"Capacity":              "630",
+		"Refrigerator Capacity": "392",
+		"Freezer Capacity":      "238",
+		"Gross Volume":          "630",
+		"Net Volume":            "630",
+		"Defrost Type":          "No-frost",
+		"Color":                 "Black",
+		"Dimensions":            "1775*905*697 mm",
+		"Weight":                "103 kg",
+		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Special Features":      "Deo Fresh, Jumbo Ice Maker, Digital LED Door Display",
+		"Refrigerant":           "R600a",
+		"Temperature Control":   "Digital LED -Door Display",
+		"Number of Shelves":     "3",
+		"Crisper Drawers":       "Yes",
+		"Ice Maker":             "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

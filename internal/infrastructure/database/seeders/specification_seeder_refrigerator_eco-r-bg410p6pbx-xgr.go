@@ -21,8 +21,25 @@ func NewSpecificationSeederRefrigeratorecorbg410p6pbxxgr() *SpecificationSeederR
 
 func (s *SpecificationSeederRefrigeratorecorbg410p6pbxxgr) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"R Bg410p6pbx Xgr":                    "R Bg410p6pbx Xgr",
+		"HITACHI":                  "হিটাচি",
+		"Hitachi R-BG410P6PBX XGR": "হিটাচি আর-বিজি৪১০পি৬পিবিএক্স এক্সজিআর",
+		"Bottom Mount":             "বটম মাউন্ট",
+		"330":                      "৩৩০",
+		"215":                      "২১৫",
+		"115":                      "১১৫",
+		"366":                      "৩৬৬",
+		"139":                      "১৩৯",
+		"227":                      "২২৭",
+		"No-frost":                 "নো-ফ্রস্ট",
+		"Inverter Control":         "ইনভার্টার কন্ট্রোল",
+		"Gradation Gray":           "গ্র্যাডেশন গ্রে",
+		"1900*595*650 mm":          "১৯০০*৫৯৫*৬৫০ মিমি",
+		"220-240V":                 "২২০-২৪০ভি",
+		"50/60":                    "৫০/৬০",
+		"Inverter x Dual Fan Cooling, Powerful Cooling, Flat Glass Door, Touch Screen Controller, Nano Titanium Filter": "ইনভার্টার এক্স ডুয়াল ফ্যান কুলিং, পাওয়ারফুল কুলিং, ফ্ল্যাট গ্লাস ডোর, টাচ স্ক্রিন কন্ট্রোলার, ন্যানো টাইটানিয়াম ফিল্টার",
+		"Touch Screen Controller": "টাচ স্ক্রিন কন্ট্রোলার",
+		"Tempered Glass":          "টেম্পার্ড গ্লাস",
+		"Yes":                     "হ্যাঁ",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +92,24 @@ func (s *SpecificationSeederRefrigeratorecorbg410p6pbxxgr) Seed(db *gorm.DB) err
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "R Bg410p6pbx Xgr",
-		// Add specifications here
+		"Brand":                 "HITACHI",
+		"Model Name":            "Hitachi R-BG410P6PBX XGR",
+		"Door Type":             "Bottom Mount",
+		"Capacity":              "330",
+		"Refrigerator Capacity": "215",
+		"Freezer Capacity":      "115",
+		"Gross Volume":          "366",
+		"Net Volume":            "330",
+		"Defrost Type":          "No-frost",
+		"Compressor Type":       "Inverter Control",
+		"Color":                 "Gradation Gray",
+		"Dimensions":            "1900*595*650 mm",
+		"Voltage":               "220-240V",
+		"Frequency (Hz)":        "50/60",
+		"Special Features":      "Inverter x Dual Fan Cooling, Powerful Cooling, Flat Glass Door, Touch Screen Controller, Nano Titanium Filter",
+		"Temperature Control":   "Touch Screen Controller",
+		"Shelf Material":        "Tempered Glass",
+		"Crisper Drawers":       "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
