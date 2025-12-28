@@ -21,8 +21,28 @@ func NewSpecificationSeederRefrigeratorecoomega5glg252rpbbhp() *SpecificationSee
 
 func (s *SpecificationSeederRefrigeratorecoomega5glg252rpbbhp) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Omega5 Gl G252rpbb Hp":                    "Omega5 Gl G252rpbb Hp",
+		"ECO+":                  "ইকো+",
+		"Omega5 Gl G252rpbb Hp": "Omega5 Gl G252rpbb Hp",
+		"Glass Door":            "গ্লাস ডোর",
+		"252 Liters":            "252 লিটার",
+		"150 Liters":            "150 লিটার",
+		"102 Liters":            "102 লিটার",
+		"Red Pearl Black":       "রেড পার্ল ব্ল্যাক",
+		"R600a":                 "R600a",
+		"Mechanical":            "মেকানিক্যাল",
+		"Frost":                 "ফ্রস্ট",
+		"No":                    "না",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "10 বছর কম্প্রেসার ওয়ারেন্টি, 2 বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10":             "10",
+		"Frameless":      "ফ্রেমলেস",
+		"Bulb (side)":    "বাল্ব (সাইড)",
+		"2":              "2",
+		"1":              "1",
+		"Tempered glass": "টেম্পার্ড গ্লাস",
+		"220~240 / 50Hz": "220~240 / 50Hz",
+		"50":             "50",
+
+		"Frameless Door Design, R600a Refrigerant, Interior Light, Antibacterial Gasket": "ফ্রেমলেস ডোর ডিজাইন, R600a রেফ্রিজারেন্ট, ইন্টেরিয়র লাইট, অ্যান্টিব্যাকটেরিয়াল গ্যাসকেট",
 		// Add more translations as needed
 	}
 }
@@ -77,14 +97,37 @@ func (s *SpecificationSeederRefrigeratorecoomega5glg252rpbbhp) Seed(db *gorm.DB)
 	specs := map[string]string{
 		"Brand":                       "ECO+",
 		"Model Name":                  "Omega5 Gl G252rpbb Hp",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "252 Liters",
+		"Refrigerator Capacity":       "150 Liters",
+		"Freezer Capacity":            "102 Liters",
+		"Color":                       "Red Pearl Black",
+		"Compressor Type":             "R600a",
+		"Defrost Type":                "Frost",
+		"Temperature Control":         "Mechanical",
+		"Ice Maker":                   "1",
+		"Water Dispenser":             "No",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "252 Liters",
+		"Gross Volume":                "252 Liters",
+		"Display":                     "Mechanical",
+		"LED Light":                   "Bulb (side)",
+		"Egg Tray":                    "2",
+		"Shelf Material":              "Tempered glass",
+		"Number of Shelves":           "2",
+		"Voltage":                     "220~240 / 50Hz",
+		"Frequency (Hz)":              "50",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Frameless Door Design, R600a Refrigerant, Interior Light, Antibacterial Gasket",
 		// Add specifications here
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
-for key, val := range specs {
-    if len(val) > 500 {
-        specs[key] = val[:500]
-    }
+	for key, val := range specs {
+		if len(val) > 500 {
+			specs[key] = val[:500]
+		}
 	}
 	for key, value := range specs {
 		specKeyID, exists := existingkeyMapping[key]

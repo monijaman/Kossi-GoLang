@@ -21,8 +21,15 @@ func NewSpecificationSeederRefrigeratoreco24hdsmarttv() *SpecificationSeederRefr
 
 func (s *SpecificationSeederRefrigeratoreco24hdsmarttv) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"24 Hd Smart Tv":                    "24 Hd Smart Tv",
+		"ECO+":            "ইকো+",
+		"24 Hd Smart Tv":  "24 Hd Smart Tv",
+		"24 inches":       "24 ইঞ্চি",
+		"HD":              "HD",
+		"Yes":             "হ্যাঁ",
+		"Android":         "অ্যান্ড্রয়েড",
+		"1 Year Warranty": "1 বছর ওয়ারেন্টি",
+		"220~240 / 50Hz":  "220~240 / 50Hz",
+		"50":              "50",
 		// Add more translations as needed
 	}
 }
@@ -72,19 +79,30 @@ func (s *SpecificationSeederRefrigeratoreco24hdsmarttv) Seed(db *gorm.DB) error 
 		"Gross Volume":                709,
 		"Net Volume":                  710,
 		"Special Features":            69,
+		"Screen Size":                 800,
+		"Resolution":                  801,
+		"Smart TV":                    802,
+		"OS":                          803,
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "24 Hd Smart Tv",
+		"Brand":          "ECO+",
+		"Model Name":     "24 Hd Smart Tv",
+		"Screen Size":    "24 inches",
+		"Resolution":     "HD",
+		"Smart TV":       "Yes",
+		"OS":             "Android",
+		"Warranty":       "1 Year Warranty",
+		"Voltage":        "220~240 / 50Hz",
+		"Frequency (Hz)": "50",
 		// Add specifications here
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
-for key, val := range specs {
-    if len(val) > 500 {
-        specs[key] = val[:500]
-    }
+	for key, val := range specs {
+		if len(val) > 500 {
+			specs[key] = val[:500]
+		}
 	}
 	for key, value := range specs {
 		specKeyID, exists := existingkeyMapping[key]
