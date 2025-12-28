@@ -21,9 +21,26 @@ func NewSpecificationSeederRefrigeratorecobcd195flgdmagnoliabrownwb() *Specifica
 
 func (s *SpecificationSeederRefrigeratorecobcd195flgdmagnoliabrownwb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 195 Fl Gd Magnolia Brown Wb":                    "Bcd 195 Fl Gd Magnolia Brown Wb",
-		// Add more translations as needed
+		"ECO+":                            "ইকো+",
+		"BCD-195 FL GD Magnolia Brown WB": "BCD-195 FL GD Magnolia Brown WB",
+		"Glass Door":                      "গ্লাস ডোর",
+		"195 Liters":                      "195 লিটার",
+		"122 Liters":                      "122 লিটার",
+		"73 Liters":                       "73 লিটার",
+		"1393 x 550 x 490 mm":             "1393 x 550 x 490 মিমি",
+		"Magnolia Brown":                  "ম্যাগনোলিয়া ব্রাউন",
+		"R600a":                           "R600a",
+		"Mechanical":                      "মেকানিক্যাল",
+		"Frost":                           "ফ্রস্ট",
+		"Manual":                          "ম্যানুয়াল",
+		"Yes":                             "হ্যাঁ",
+		"No":                              "না",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "10 বছর কম্প্রেসার ওয়ারেন্টি, 2 বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10":          "10",
+		"Frameless":   "ফ্রেমলেস",
+		"Bulb (side)": "বাল্ব (সাইড)",
+		"2":           "2",
+		"Frameless Door, R600a Refrigerant, Key & Lock, Interior Light": "ফ্রেমলেস ডোর, R600a রেফ্রিজারেন্ট, কী & লক, ইন্টেরিয়র লাইট",
 	}
 }
 
@@ -76,8 +93,30 @@ func (s *SpecificationSeederRefrigeratorecobcd195flgdmagnoliabrownwb) Seed(db *g
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 195 Fl Gd Magnolia Brown Wb",
-		// Add specifications here
+		"Model Name":                  "BCD-195 FL GD Magnolia Brown WB",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "195 Liters",
+		"Refrigerator Capacity":       "122 Liters",
+		"Freezer Capacity":            "73 Liters",
+		"Dimensions":                  "1393 x 550 x 490 mm",
+		"Color":                       "Magnolia Brown",
+		"Compressor Type":             "R600a",
+		"Defrost Type":                "Frost",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "No",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "195 Liters",
+		"Gross Volume":                "195 Liters",
+		"Display":                     "Mechanical",
+		"LED Light":                   "Bulb (side)",
+		"Egg Tray":                    "Yes",
+		"Shelf Material":              "Tempered glass",
+		"Number of Shelves":           "2",
+		"Voltage":                     "220~240 / 50Hz",
+		"Frequency (Hz)":              "50",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Frameless Door, R600a Refrigerant, Key & Lock, Interior Light",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -22,8 +22,23 @@ func NewSpecificationSeederRefrigeratoreco2b312pxcbebonysheen() *SpecificationSe
 func (s *SpecificationSeederRefrigeratoreco2b312pxcbebonysheen) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"ECO+":                      "ইকো+",
-		"2b312pxcb Ebony Sheen":                    "2b312pxcb Ebony Sheen",
-		// Add more translations as needed
+		"2B312PXCB Ebony Sheen":     "2B312PXCB ইবোনি শিন",
+		"Top Mount":                 "টপ মাউন্ট",
+		"315 Liters":                "315 লিটার",
+		"236 Liters":                "236 লিটার",
+		"79 Liters":                 "79 লিটার",
+		"1640 x 600 x 710 mm":       "1640 x 600 x 710 মিমি",
+		"Ebony Sheen":               "ইবোনি শিন",
+		"Smart Inverter Compressor": "স্মার্ট ইনভার্টার কম্প্রেসার",
+		"Linear Cooling":            "লিনিয়ার কুলিং",
+		"No-frost":                  "নো-ফ্রস্ট",
+		"Glass":                     "গ্লাস",
+		"Yes":                       "হ্যাঁ",
+		"No":                        "না",
+		"10 Years Motor Warranty":   "10 বছর মোটর ওয়ারেন্টি",
+		"10":                        "10",
+		"340 Liters":                "340 লিটার",
+		"Door Cooling+, Wi-Fi, E-Micom Display, LED Light, Deodorizer, Express Freeze, Pocket Chrome Handle": "ডোর কুলিং+, ওয়াই-ফাই, ই-মাইকম ডিসপ্লে, এলইডি লাইট, ডিওডোরাইজার, এক্সপ্রেস ফ্রিজ, পকেট ক্রোম হ্যান্ডেল",
 	}
 }
 
@@ -76,8 +91,24 @@ func (s *SpecificationSeederRefrigeratoreco2b312pxcbebonysheen) Seed(db *gorm.DB
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "2b312pxcb Ebony Sheen",
-		// Add specifications here
+		"Model Name":                  "2B312PXCB Ebony Sheen",
+		"Door Type":                   "Top Mount",
+		"Capacity":                    "315 Liters",
+		"Refrigerator Capacity":       "236 Liters",
+		"Freezer Capacity":            "79 Liters",
+		"Dimensions":                  "1640 x 600 x 710 mm",
+		"Color":                       "Ebony Sheen",
+		"Compressor Type":             "Smart Inverter Compressor",
+		"Cooling Technology":          "Linear Cooling",
+		"Defrost Type":                "No-frost",
+		"Shelf Material":              "Glass",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "No",
+		"Warranty":                    "10 Years Motor Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Gross Volume":                "340 Liters",
+		"Net Volume":                  "315 Liters",
+		"Special Features":            "Door Cooling+, Wi-Fi, E-Micom Display, LED Light, Deodorizer, Express Freeze, Pocket Chrome Handle",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

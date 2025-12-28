@@ -21,9 +21,26 @@ func NewSpecificationSeederRefrigeratoreco2b392pxbbebonysheen() *SpecificationSe
 
 func (s *SpecificationSeederRefrigeratoreco2b392pxbbebonysheen) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"2b392pxbb Ebony Sheen":                    "2b392pxbb Ebony Sheen",
-		// Add more translations as needed
+		"ECO+":                     "ইকো+",
+		"2B392PXBB":                "2B392PXBB",
+		"Top Mount":                "টপ মাউন্ট",
+		"395 Liters":               "395 লিটার",
+		"1760 x 700 x 680 mm":      "1760 x 700 x 680 মিমি",
+		"Ebony Sheen":              "ইবোনি শিন",
+		"BSA075NHMV":               "BSA075NHMV",
+		"Linear Cooling":           "লিনিয়ার কুলিং",
+		"No-frost":                 "নো-ফ্রস্ট",
+		"Single Twist (Movable)":   "সিঙ্গেল টুইস্ট (মুভেবল)",
+		"No":                       "না",
+		"Yes":                      "হ্যাঁ",
+		"10 Years Motor Warranty":  "10 বছর মোটর ওয়ারেন্টি",
+		"10":                       "10",
+		"423 Liters":               "423 লিটার",
+		"Pocket with Chrome Décor": "পকেট উইথ ক্রোম ডেকর",
+		"Full Basket(4EA)":         "ফুল বাস্কেট(4EA)",
+		"Full Basket(2EA)":         "ফুল বাস্কেট(2EA)",
+		"1":                        "1",
+		"Pure Flat Door, Glossy Finish With Door E-micom, Linear Cooling™ (Smart Inverter Compressor), Hygiene Fresh™, Door Cooling+™, ThinQ™(Wi-Fi)": "পিউর ফ্ল্যাট ডোর, গ্লসি ফিনিশ উইথ ডোর ই-মাইকম, লিনিয়ার কুলিং™ (স্মার্ট ইনভার্টার কম্প্রেসার), হাইজিন ফ্রেশ™, ডোর কুলিং+™, থিনকিউ™(ওয়াই-ফাই)",
 	}
 }
 
@@ -76,8 +93,31 @@ func (s *SpecificationSeederRefrigeratoreco2b392pxbbebonysheen) Seed(db *gorm.DB
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "2b392pxbb Ebony Sheen",
-		// Add specifications here
+		"Model Name":                  "2B392PXBB",
+		"Door Type":                   "Top Mount",
+		"Capacity":                    "395 Liters",
+		"Dimensions":                  "1760 x 700 x 680 mm",
+		"Color":                       "Ebony Sheen",
+		"Compressor Type":             "BSA075NHMV",
+		"Cooling Technology":          "Linear Cooling",
+		"Defrost Type":                "No-frost",
+		"Ice Maker":                   "Single Twist (Movable)",
+		"Water Dispenser":             "No",
+		"App Control":                 "Yes",
+		"Voice Assistant Support":     "Yes",
+		"Warranty":                    "10 Years Motor Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Gross Volume":                "423 Liters",
+		"Net Volume":                  "395 Liters",
+		"Display":                     "E-Micom",
+		"LED Light":                   "Yes",
+		"Deodorizer":                  "Yes",
+		"Handle Type":                 "Pocket with Chrome Décor",
+		"Egg Tray":                    "1",
+		"Vegetable Box":               "Full Basket(4EA)",
+		"Shelf":                       "Yes",
+		"Basket":                      "Full Basket(2EA)",
+		"Special Features":            "Pure Flat Door, Glossy Finish With Door E-micom, Linear Cooling™ (Smart Inverter Compressor), Hygiene Fresh™, Door Cooling+™, ThinQ™(Wi-Fi)",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

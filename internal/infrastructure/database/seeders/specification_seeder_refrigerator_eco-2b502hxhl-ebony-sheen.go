@@ -21,9 +21,32 @@ func NewSpecificationSeederRefrigeratoreco2b502hxhlebonysheen() *SpecificationSe
 
 func (s *SpecificationSeederRefrigeratoreco2b502hxhlebonysheen) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"2b502hxhl Ebony Sheen":                    "2b502hxhl Ebony Sheen",
-		// Add more translations as needed
+		"ECO+":                    "ইকো+",
+		"2B502HXHL":               "2B502HXHL",
+		"Top Mount":               "টপ মাউন্ট",
+		"438 Liters":              "438 লিটার",
+		"321 Liters":              "321 লিটার",
+		"117 Liters":              "117 লিটার",
+		"1780 x 700 x 730 mm":     "1780 x 700 x 730 মিমি",
+		"Ebony Sheen":             "ইবোনি শিন",
+		"Smart Inverter":          "স্মার্ট ইনভার্টার",
+		"Linear Cooling":          "লিনিয়ার কুলিং",
+		"No-frost":                "নো-ফ্রস্ট",
+		"Moving Twist":            "মুভিং টুইস্ট",
+		"No":                      "না",
+		"Yes":                     "হ্যাঁ",
+		"10 Years Motor Warranty": "10 বছর মোটর ওয়ারেন্টি",
+		"10":                      "10",
+		"471 Liters":              "471 লিটার",
+		"335 Liters":              "335 লিটার",
+		"136 Liters":              "136 লিটার",
+		"3 Piece (Cr)":            "3 পিস (ক্রোম)",
+		"Tray":                    "ট্রে",
+		"1 Box":                   "1 বক্স",
+		"Full Basket (2EA)":       "ফুল বাস্কেট (2EA)",
+		"Top (Point)":             "টপ (পয়েন্ট)",
+		"E-Micom":                 "ই-মাইকম",
+		"Hygiene Fresh+®, Door Cooling+, Multi-Air Flow, Moving Ice Maker, Antibacterial Gasket, Moist Balance Crisper": "হাইজিন ফ্রেশ+®, ডোর কুলিং+, মাল্টি-এয়ার ফ্লো, মুভিং আইস মেকার, অ্যান্টিব্যাকটেরিয়াল গ্যাসকেট, ময়েস্ট ব্যালেন্স ক্রিসপার",
 	}
 }
 
@@ -76,8 +99,32 @@ func (s *SpecificationSeederRefrigeratoreco2b502hxhlebonysheen) Seed(db *gorm.DB
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "2b502hxhl Ebony Sheen",
-		// Add specifications here
+		"Model Name":                  "2B502HXHL",
+		"Door Type":                   "Top Mount",
+		"Capacity":                    "438 Liters",
+		"Refrigerator Capacity":       "321 Liters",
+		"Freezer Capacity":            "117 Liters",
+		"Dimensions":                  "1780 x 700 x 730 mm",
+		"Color":                       "Ebony Sheen",
+		"Compressor Type":             "Smart Inverter",
+		"Cooling Technology":          "Linear Cooling",
+		"Defrost Type":                "No-frost",
+		"Ice Maker":                   "Moving Twist",
+		"Water Dispenser":             "No",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "10 Years Motor Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Gross Volume":                "471 Liters",
+		"Net Volume":                  "438 Liters",
+		"Display":                     "E-Micom",
+		"LED Light":                   "Top (Point)",
+		"Handle Type":                 "3 Piece (Cr)",
+		"Egg Tray":                    "Tray",
+		"Crisper Drawers":             "1 Box",
+		"Shelf":                       "Yes",
+		"Basket":                      "Full Basket (2EA)",
+		"Special Features":            "Hygiene Fresh+®, Door Cooling+, Multi-Air Flow, Moving Ice Maker, Antibacterial Gasket, Moist Balance Crisper",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

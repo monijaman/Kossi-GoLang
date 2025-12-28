@@ -21,9 +21,29 @@ func NewSpecificationSeederRefrigeratorecobcd170flgdpurpleazalea() *Specificatio
 
 func (s *SpecificationSeederRefrigeratorecobcd170flgdpurpleazalea) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 170 Fl Gd Purple Azalea":                    "Bcd 170 Fl Gd Purple Azalea",
-		// Add more translations as needed
+		"ECO+":                        "ইকো+",
+		"BCD-170 FL GD Purple Azalea": "BCD-170 FL GD Purple Azalea",
+		"Glass Door":                  "গ্লাস ডোর",
+		"170 Liters":                  "170 লিটার",
+		"101 Liters":                  "101 লিটার",
+		"69 Liters":                   "69 লিটার",
+		"1250 x 535 x 579 mm":         "1250 x 535 x 579 মিমি",
+		"Purple Azalea":               "পার্পল অ্যাজালিয়া",
+		"R600a":                       "R600a",
+		"Mechanical":                  "মেকানিক্যাল",
+		"Frost":                       "ফ্রস্ট",
+		"Manual":                      "ম্যানুয়াল",
+		"Yes":                         "হ্যাঁ",
+		"No":                          "না",
+		"10 Years Motor Warranty":     "10 বছর মোটর ওয়ারেন্টি",
+		"10":                          "10",
+		"Integrated":                  "ইন্টিগ্রেটেড",
+		"Flat":                        "ফ্ল্যাট",
+		"LED lighting":                "এলইডি লাইটিং",
+		"2":                           "2",
+		"Tempered glass":              "টেম্পার্ড গ্লাস",
+		"1":                           "1",
+		"Frameless Design, Eco-Friendly Cooling with R600a Gas, LED Lighting, Big Freezer Space, Elegant Exterior Design, Colorful Glass Panel": "ফ্রেমলেস ডিজাইন, R600a গ্যাস দিয়ে ইকো-ফ্রেন্ডলি কুলিং, এলইডি লাইটিং, বড় ফ্রিজার স্পেস, এলিগ্যান্ট এক্সটেরিয়র ডিজাইন, কালারফুল গ্লাস প্যানেল",
 	}
 }
 
@@ -76,8 +96,31 @@ func (s *SpecificationSeederRefrigeratorecobcd170flgdpurpleazalea) Seed(db *gorm
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 170 Fl Gd Purple Azalea",
-		// Add specifications here
+		"Model Name":                  "BCD-170 FL GD Purple Azalea",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "170 Liters",
+		"Refrigerator Capacity":       "101 Liters",
+		"Freezer Capacity":            "69 Liters",
+		"Dimensions":                  "1250 x 535 x 579 mm",
+		"Color":                       "Purple Azalea",
+		"Compressor Type":             "R600a",
+		"Defrost Type":                "Frost",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "No",
+		"Warranty":                    "10 Years Motor Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "170 Liters",
+		"Display":                     "Mechanical",
+		"LED Light":                   "LED lighting",
+		"Handle Type":                 "Integrated",
+		"Egg Tray":                    "Yes",
+		"Crisper Drawers":             "1",
+		"Shelf Material":              "Tempered glass",
+		"Number of Shelves":           "2",
+		"Voltage":                     "220~240 / 50Hz",
+		"Frequency (Hz)":              "50",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Frameless Design, Eco-Friendly Cooling with R600a Gas, LED Lighting, Big Freezer Space, Elegant Exterior Design, Colorful Glass Panel",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

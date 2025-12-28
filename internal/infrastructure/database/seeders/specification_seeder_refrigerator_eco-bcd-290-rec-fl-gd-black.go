@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecobcd290recflgdblack() *SpecificationSee
 
 func (s *SpecificationSeederRefrigeratorecobcd290recflgdblack) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 290 Rec Fl Gd Black":                    "Bcd 290 Rec Fl Gd Black",
+		"ECO+":                         "ইকো+",
+		"ECO+ BCD-290 REC FL GD Black": "ECO+ BCD-290 REC FL GD Black",
+		"Glass Door":                   "গ্লাস ডোর",
+		"290":                          "২৯০",
+		"175":                          "১৭৫",
+		"115":                          "১১৫",
+		"292":                          "২৯২",
+		"177":                          "১৭৭",
+		"1674*603*615 mm":              "১৬৭৪*৬০৩*৬১৫ মিমি",
+		"Black":                        "ব্ল্যাক",
+		"R600a":                        "R600a",
+		"Automatic":                    "অটোমেটিক",
+		"Mechanical":                   "মেকানিক্যাল",
+		"2":                            "২",
+		"1":                            "১",
+		"R600a cooling system, Door Lock, Internal LED Lighting": "R600a কুলিং সিস্টেম, ডোর লক, ইন্টারনাল LED লাইটিং",
+		"Yes":            "হ্যাঁ",
+		"No":             "না",
+		"Tempered glass": "টেম্পার্ড গ্লাস",
+		"220~240":        "২২০~২৪০",
+		"50":             "৫০",
 		// Add more translations as needed
 	}
 }
@@ -76,8 +95,31 @@ func (s *SpecificationSeederRefrigeratorecobcd290recflgdblack) Seed(db *gorm.DB)
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 290 Rec Fl Gd Black",
-		// Add specifications here
+		"Model Name":                  "ECO+ BCD-290 REC FL GD Black",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "290",
+		"Refrigerator Capacity":       "175",
+		"Freezer Capacity":            "115",
+		"Gross Volume":                "292",
+		"Net Volume":                  "290",
+		"Dimensions":                  "1674*603*615 mm",
+		"Color":                       "Black",
+		"Compressor Type":             "R600a",
+		"Cooling Technology":          "R600a cooling system",
+		"Defrost Type":                "Automatic",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Tempered glass",
+		"Number of Shelves":           "2",
+		"Door Bins":                   "1",
+		"Crisper Drawers":             "1",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "No",
+		"Voltage":                     "220~240",
+		"Frequency (Hz)":              "50",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "R600a cooling system, Door Lock, Internal LED Lighting",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

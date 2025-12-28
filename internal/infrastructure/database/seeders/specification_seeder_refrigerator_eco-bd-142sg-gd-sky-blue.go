@@ -22,7 +22,22 @@ func NewSpecificationSeederRefrigeratorecobd142sggdskyblue() *SpecificationSeede
 func (s *SpecificationSeederRefrigeratorecobd142sggdskyblue) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"ECO+":                      "ইকো+",
-		"Bd 142sg Gd Sky Blue":                    "Bd 142sg Gd Sky Blue",
+		"ECO+ BD-142SG GD Sky Blue": "ECO+ BD-142SG GD Sky Blue",
+		"Top Opening":               "টপ ওপেনিং",
+		"142":                       "১৪২",
+		"136":                       "১৩৬",
+		"845*696*560 mm":            "৮৪৫*৬৯৬*৫৬০ মিমি",
+		"Sky Blue":                  "স্কাই ব্লু",
+		"R600a":                     "R600a",
+		"Manual":                    "ম্যানুয়াল",
+		"Mechanical temperature control with adjustable thermostat": "মেকানিক্যাল টেম্পারেচার কন্ট্রোল উইথ অ্যাডজাস্টেবল থার্মোস্ট্যাট",
+		"1": "১",
+		"4": "৪",
+		"Door Lock, Water Disposal Device, Power Indicator function, Cut off power function": "ডোর লক, ওয়াটার ডিসপোজাল ডিভাইস, পাওয়ার ইন্ডিকেটর ফাংশন, কাট অফ পাওয়ার ফাংশন",
+		"Yes":     "হ্যাঁ",
+		"No":      "না",
+		"187~276": "১৮৭~২৭৬",
+		"50":      "৫০",
 		// Add more translations as needed
 	}
 }
@@ -76,8 +91,22 @@ func (s *SpecificationSeederRefrigeratorecobd142sggdskyblue) Seed(db *gorm.DB) e
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bd 142sg Gd Sky Blue",
-		// Add specifications here
+		"Model Name":                  "ECO+ BD-142SG GD Sky Blue",
+		"Door Type":                   "Top Opening",
+		"Capacity":                    "142",
+		"Gross Volume":                "142",
+		"Net Volume":                  "136",
+		"Dimensions":                  "845*696*560 mm",
+		"Color":                       "Sky Blue",
+		"Compressor Type":             "R600a",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical temperature control with adjustable thermostat",
+		"Voltage":                     "187~276",
+		"Frequency (Hz)":              "50",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Door Lock, Water Disposal Device, Power Indicator function, Cut off power function",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

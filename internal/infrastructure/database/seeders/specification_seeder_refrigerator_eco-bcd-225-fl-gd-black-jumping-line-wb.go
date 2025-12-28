@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecobcd225flgdblackjumpinglinewb() *Specif
 
 func (s *SpecificationSeederRefrigeratorecobcd225flgdblackjumpinglinewb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 225 Fl Gd Black Jumping Line Wb":                    "Bcd 225 Fl Gd Black Jumping Line Wb",
+		"ECO+": "ইকো+",
+		"ECO+ BCD-225 FL GD Black Jumping Line WB": "ECO+ BCD-225 FL GD Black Jumping Line WB",
+		"Glass Door":         "গ্লাস ডোর",
+		"233 liter":          "২৩৩ লিটার",
+		"138 liter":          "১৩৮ লিটার",
+		"95 liter":           "৯৫ লিটার",
+		"1505*550*490 mm":    "১৫০৫*৫৫০*৪৯০ মিমি",
+		"Black Jumping Line": "ব্ল্যাক জাম্পিং লাইন",
+		"R600a":              "R600a",
+		"Manual":             "ম্যানুয়াল",
+		"Mechanical":         "মেকানিক্যাল",
+		"2":                  "২",
+		"1":                  "১",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10": "১০",
+		"Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock": "ফ্রেমলেস ডিজাইন, ইন্টেরিয়র LED লাইট, ইকো-ফ্রেন্ডলি কুলিং, কী এবং লক",
+		"Yes":            "হ্যাঁ",
+		"No":             "না",
+		"Tempered glass": "টেম্পার্ড গ্লাস",
+		"220~240":        "২২০~২৪০",
+		"50":             "৫০",
 		// Add more translations as needed
 	}
 }
@@ -76,8 +95,27 @@ func (s *SpecificationSeederRefrigeratorecobcd225flgdblackjumpinglinewb) Seed(db
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 225 Fl Gd Black Jumping Line Wb",
-		// Add specifications here
+		"Model Name":                  "ECO+ BCD-225 FL GD Black Jumping Line WB",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "233 liter",
+		"Refrigerator Capacity":       "138 liter",
+		"Freezer Capacity":            "95 liter",
+		"Dimensions":                  "1505*550*490 mm",
+		"Color":                       "Black Jumping Line",
+		"Refrigerant":                 "R600a",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Number of Shelves":           "2",
+		"Crisper Drawers":             "1",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "233 liter",
+		"Special Features":            "Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "No",
+		"Shelf Material":              "Tempered glass",
+		"Voltage":                     "220~240",
+		"Frequency (Hz)":              "50",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

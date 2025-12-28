@@ -21,9 +21,26 @@ func NewSpecificationSeederRefrigeratoreco2b332plcb() *SpecificationSeederRefrig
 
 func (s *SpecificationSeederRefrigeratoreco2b332plcb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"2b332plcb":                    "2b332plcb",
-		// Add more translations as needed
+		"ECO+":                              "ইকো+",
+		"2B332PLCB":                         "2B332PLCB",
+		"Top Mount":                         "টপ মাউন্ট",
+		"335 Liters":                        "335 লিটার",
+		"256 Liters":                        "256 লিটার",
+		"79 Liters":                         "79 লিটার",
+		"1720 x 600 x 710 mm":               "1720 x 600 x 710 মিমি",
+		"Shiny Steel":                       "শাইনি স্টিল",
+		"Smart Inverter Compressor":         "স্মার্ট ইনভার্টার কম্প্রেসার",
+		"Linear Cooling":                    "লিনিয়ার কুলিং",
+		"No-frost":                          "নো-ফ্রস্ট",
+		"Glass":                             "গ্লাস",
+		"Twist Movable/Big Ice Bucket 2.3L": "ঘূর্ণনযোগ্য আইস ট্রে/বড় আইস বাকেট 2.3L",
+		"No":                                "না",
+		"Yes":                               "হ্যাঁ",
+		"10 Years Motor Warranty":           "10 বছর মোটর ওয়ারেন্টি",
+		"10":                                "10",
+		"360 Liters":                        "360 লিটার",
+		"Glass Ceramic Fresh Crisper":       "গ্লাস সেরামিক তাজা শাকসবজি বাক্স",
+		"Door Cooling+, Wi-Fi, E-Micom Display, Shower LED (Night Adaptive), Deodorizer, Express Freeze, Pocket Chrome Handle, Convertible Mode, Pure Flat Door, Glossy Finish": "ডোর কুলিং+, ওয়াই-ফাই, ই-মাইকম ডিসপ্লে, শাওয়ার এলইডি (নাইট অ্যাডাপটিভ), ডিওডোরাইজার, এক্সপ্রেস ফ্রিজ, পকেট ক্রোম হ্যান্ডেল, কনভার্টিবল মোড, পিউর ফ্ল্যাট ডোর, গ্লসি ফিনিশ",
 	}
 }
 
@@ -76,8 +93,27 @@ func (s *SpecificationSeederRefrigeratoreco2b332plcb) Seed(db *gorm.DB) error {
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "2b332plcb",
-		// Add specifications here
+		"Model Name":                  "2B332PLCB",
+		"Door Type":                   "Top Mount",
+		"Capacity":                    "335 Liters",
+		"Refrigerator Capacity":       "256 Liters",
+		"Freezer Capacity":            "79 Liters",
+		"Dimensions":                  "1720 x 600 x 710 mm",
+		"Color":                       "Shiny Steel",
+		"Compressor Type":             "Smart Inverter Compressor",
+		"Cooling Technology":          "Linear Cooling",
+		"Defrost Type":                "No-frost",
+		"Shelf Material":              "Glass",
+		"Ice Maker":                   "Twist Movable/Big Ice Bucket 2.3L",
+		"Water Dispenser":             "No",
+		"App Control":                 "Yes",
+		"Voice Assistant Support":     "Yes",
+		"Warranty":                    "10 Years Motor Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Gross Volume":                "360 Liters",
+		"Net Volume":                  "335 Liters",
+		"Crisper Drawers":             "Glass Ceramic Fresh Crisper",
+		"Special Features":            "Door Cooling+, Wi-Fi, E-Micom Display, Shower LED (Night Adaptive), Deodorizer, Express Freeze, Pocket Chrome Handle, Convertible Mode, Pure Flat Door, Glossy Finish",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

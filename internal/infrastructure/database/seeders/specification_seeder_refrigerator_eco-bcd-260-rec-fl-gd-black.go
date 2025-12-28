@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecobcd260recflgdblack() *SpecificationSee
 
 func (s *SpecificationSeederRefrigeratorecobcd260recflgdblack) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 260 Rec Fl Gd Black":                    "Bcd 260 Rec Fl Gd Black",
+		"ECO+":                         "ইকো+",
+		"ECO+ BCD-260 REC FL GD Black": "ECO+ BCD-260 REC FL GD Black",
+		"VCM":                          "VCM",
+		"260":                          "২৬০",
+		"145":                          "১৪৫",
+		"115":                          "১১৫",
+		"262":                          "২৬২",
+		"147":                          "১৪৭",
+		"1544*603*615 mm":              "১৫৪৪*৬০৩*৬১৫ মিমি",
+		"Black":                        "ব্ল্যাক",
+		"R600a":                        "R600a",
+		"Automatic":                    "অটোমেটিক",
+		"Mechanical":                   "মেকানিক্যাল",
+		"2":                            "২",
+		"1":                            "১",
+		"R600a cooling system, Door Lock, Internal LED Lighting": "R600a কুলিং সিস্টেম, ডোর লক, ইন্টারনাল LED লাইটিং",
+		"Yes":            "হ্যাঁ",
+		"No":             "না",
+		"Tempered glass": "টেম্পার্ড গ্লাস",
+		"220~240":        "২২০~২৪০",
+		"50":             "৫০",
 		// Add more translations as needed
 	}
 }
@@ -75,9 +94,27 @@ func (s *SpecificationSeederRefrigeratorecobcd260recflgdblack) Seed(db *gorm.DB)
 	}
 
 	specs := map[string]string{
-		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 260 Rec Fl Gd Black",
-		// Add specifications here
+		"Brand":                 "ECO+",
+		"Model Name":            "ECO+ BCD-260 REC FL GD Black",
+		"Door Type":             "VCM",
+		"Capacity":              "260",
+		"Refrigerator Capacity": "145",
+		"Freezer Capacity":      "115",
+		"Dimensions":            "1544*603*615 mm",
+		"Color":                 "Black",
+		"Refrigerant":           "R600a",
+		"Defrost Type":          "Automatic",
+		"Temperature Control":   "Mechanical",
+		"Number of Shelves":     "2",
+		"Crisper Drawers":       "1",
+		"Net Volume":            "260",
+		"Gross Volume":          "262",
+		"Special Features":      "R600a cooling system, Door Lock, Internal LED Lighting",
+		"Ice Maker":             "No",
+		"Water Dispenser":       "No",
+		"Shelf Material":        "Tempered glass",
+		"Voltage":               "220~240",
+		"Frequency (Hz)":        "50",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

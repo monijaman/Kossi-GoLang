@@ -21,8 +21,27 @@ func NewSpecificationSeederRefrigeratorecobcd235flgdmagnoliamarronwb() *Specific
 
 func (s *SpecificationSeederRefrigeratorecobcd235flgdmagnoliamarronwb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 235 Fl Gd Magnolia Marron Wb":                    "Bcd 235 Fl Gd Magnolia Marron Wb",
+		"ECO+":                                  "ইকো+",
+		"ECO+ BCD-235 FL GD Magnolia Marron WB": "ECO+ BCD-235 FL GD Magnolia Marron WB",
+		"Glass Door":                            "গ্লাস ডোর",
+		"235 liter":                             "২৩৫ লিটার",
+		"147 liter":                             "১৪৭ লিটার",
+		"88 liter":                              "৮৮ লিটার",
+		"1613*550*490 mm":                       "১৬১৩*৫৫০*৪৯০ মিমি",
+		"Magnolia Marron":                       "ম্যাগনোলিয়া ম্যারন",
+		"R600a":                                 "R600a",
+		"Manual":                                "ম্যানুয়াল",
+		"Mechanical":                            "মেকানিক্যাল",
+		"2":                                     "২",
+		"1":                                     "১",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10": "১০",
+		"Frameless Door, R600a Refrigerant, Key & Lock, Interior Light": "ফ্রেমলেস ডোর, R600a রেফ্রিজারেন্ট, কী এবং লক, ইন্টেরিয়র লাইট",
+		"Yes":            "হ্যাঁ",
+		"No":             "না",
+		"Tempered glass": "টেম্পার্ড গ্লাস",
+		"220~240":        "২২০~২৪০",
+		"50":             "৫০",
 		// Add more translations as needed
 	}
 }
@@ -76,8 +95,27 @@ func (s *SpecificationSeederRefrigeratorecobcd235flgdmagnoliamarronwb) Seed(db *
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 235 Fl Gd Magnolia Marron Wb",
-		// Add specifications here
+		"Model Name":                  "ECO+ BCD-235 FL GD Magnolia Marron WB",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "235 liter",
+		"Refrigerator Capacity":       "147 liter",
+		"Freezer Capacity":            "88 liter",
+		"Dimensions":                  "1613*550*490 mm",
+		"Color":                       "Magnolia Marron",
+		"Refrigerant":                 "R600a",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Number of Shelves":           "2",
+		"Crisper Drawers":             "1",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "235 liter",
+		"Special Features":            "Frameless Door, R600a Refrigerant, Key & Lock, Interior Light",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "No",
+		"Shelf Material":              "Tempered glass",
+		"Voltage":                     "220~240",
+		"Frequency (Hz)":              "50",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

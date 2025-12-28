@@ -21,9 +21,28 @@ func NewSpecificationSeederRefrigeratorecobcd195flgdspbblue17wb() *Specification
 
 func (s *SpecificationSeederRefrigeratorecobcd195flgdspbblue17wb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 195 Fl Gd Spb Blue 17 Wb":                    "Bcd 195 Fl Gd Spb Blue 17 Wb",
-		// Add more translations as needed
+		"ECO+":                         "ইকো+",
+		"BCD-195 FL GD SPB Blue-17 WB": "BCD-195 FL GD SPB Blue-17 WB",
+		"Glass Door":                   "গ্লাস ডোর",
+		"195 Liters":                   "195 লিটার",
+		"122 Liters":                   "122 লিটার",
+		"73 Liters":                    "73 লিটার",
+		"1393 x 550 x 490 mm":          "1393 x 550 x 490 মিমি",
+		"Blue":                         "ব্লু",
+		"R600a":                        "R600a",
+		"Mechanical":                   "মেকানিক্যাল",
+		"Frost":                        "ফ্রস্ট",
+		"Manual":                       "ম্যানুয়াল",
+		"Yes":                          "হ্যাঁ",
+		"No":                           "না",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "10 বছর কম্প্রেসার ওয়ারেন্টি, 2 বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10":          "10",
+		"Frameless":   "ফ্রেমলেস",
+		"Bulb (side)": "বাল্ব (সাইড)",
+		"2":           "2",
+		"1":           "1",
+		"2 / 12":      "2 / 12",
+		"Frameless Door Design, R600a Refrigerant, Interior Light, Antibacterial Gasket": "ফ্রেমলেস ডোর ডিজাইন, R600a রেফ্রিজারেন্ট, ইন্টেরিয়র লাইট, অ্যান্টিব্যাকটেরিয়াল গ্যাসকেট",
 	}
 }
 
@@ -76,8 +95,31 @@ func (s *SpecificationSeederRefrigeratorecobcd195flgdspbblue17wb) Seed(db *gorm.
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 195 Fl Gd Spb Blue 17 Wb",
-		// Add specifications here
+		"Model Name":                  "BCD-195 FL GD SPB Blue-17 WB",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "195 Liters",
+		"Refrigerator Capacity":       "122 Liters",
+		"Freezer Capacity":            "73 Liters",
+		"Dimensions":                  "1393 x 550 x 490 mm",
+		"Color":                       "Blue",
+		"Compressor Type":             "R600a",
+		"Defrost Type":                "Frost",
+		"Temperature Control":         "Mechanical",
+		"Ice Maker":                   "1",
+		"Water Dispenser":             "No",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "195 Liters",
+		"Gross Volume":                "195 Liters",
+		"Display":                     "Mechanical",
+		"LED Light":                   "Bulb (side)",
+		"Egg Tray":                    "2 / 12",
+		"Shelf Material":              "Tempered glass",
+		"Number of Shelves":           "2",
+		"Voltage":                     "220~240 / 50Hz",
+		"Frequency (Hz)":              "50",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Frameless Door Design, R600a Refrigerant, Interior Light, Antibacterial Gasket",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

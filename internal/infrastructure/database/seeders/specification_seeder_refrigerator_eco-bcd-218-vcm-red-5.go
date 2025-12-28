@@ -21,8 +21,21 @@ func NewSpecificationSeederRefrigeratorecobcd218vcmred5() *SpecificationSeederRe
 
 func (s *SpecificationSeederRefrigeratorecobcd218vcmred5) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 218 Vcm Red 5":                    "Bcd 218 Vcm Red 5",
+		"ECO+":                   "ইকো+",
+		"ECO+ BCD-218 VCM Red 5": "ECO+ BCD-218 VCM Red 5",
+		"Glass Door":             "গ্লাস ডোর",
+		"218 liter":              "২১৮ লিটার",
+		"1505*550*490 mm":        "১৫০৫*৫৫০*৪৯০ মিমি",
+		"VCM Red 5":              "ভিসিএম রেড ৫",
+		"R600a":                  "R600a",
+		"Manual":                 "ম্যানুয়াল",
+		"Mechanical":             "মেকানিক্যাল",
+		"2":                      "২",
+		"1":                      "১",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10": "১০",
+		"Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock": "ফ্রেমলেস ডিজাইন, ইন্টেরিয়র LED লাইট, ইকো-ফ্রেন্ডলি কুলিং, কী এবং লক",
+		"Yes": "হ্যাঁ",
 		// Add more translations as needed
 	}
 }
@@ -76,8 +89,21 @@ func (s *SpecificationSeederRefrigeratorecobcd218vcmred5) Seed(db *gorm.DB) erro
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 218 Vcm Red 5",
-		// Add specifications here
+		"Model Name":                  "ECO+ BCD-218 VCM Red 5",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "218 liter",
+		"Dimensions":                  "1505*550*490 mm",
+		"Color":                       "VCM Red 5",
+		"Refrigerant":                 "R600a",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Number of Shelves":           "2",
+		"Crisper Drawers":             "1",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "218 liter",
+		"Special Features":            "Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock",
+		"Ice Maker":                   "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

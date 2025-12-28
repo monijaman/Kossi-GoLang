@@ -21,8 +21,21 @@ func NewSpecificationSeederRefrigeratorecobcd218flgdmagnoliabrownwb() *Specifica
 
 func (s *SpecificationSeederRefrigeratorecobcd218flgdmagnoliabrownwb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"ECO+":                      "ইকো+",
-		"Bcd 218 Fl Gd Magnolia Brown Wb":                    "Bcd 218 Fl Gd Magnolia Brown Wb",
+		"ECO+":                                 "ইকো+",
+		"ECO+ BCD-218 FL GD Magnolia Brown WB": "ECO+ BCD-218 FL GD Magnolia Brown WB",
+		"Glass Door":                           "গ্লাস ডোর",
+		"218 liter":                            "২১৮ লিটার",
+		"1505*550*490 mm":                      "১৫০৫*৫৫০*৪৯০ মিমি",
+		"Magnolia Brown":                       "ম্যাগনোলিয়া ব্রাউন",
+		"R600a":                                "R600a",
+		"Manual":                               "ম্যানুয়াল",
+		"Mechanical":                           "মেকানিক্যাল",
+		"2":                                    "২",
+		"1":                                    "১",
+		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
+		"10": "১০",
+		"Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock": "ফ্রেমলেস ডিজাইন, ইন্টেরিয়র LED লাইট, ইকো-ফ্রেন্ডলি কুলিং, কী এবং লক",
+		"Yes": "হ্যাঁ",
 		// Add more translations as needed
 	}
 }
@@ -76,8 +89,21 @@ func (s *SpecificationSeederRefrigeratorecobcd218flgdmagnoliabrownwb) Seed(db *g
 
 	specs := map[string]string{
 		"Brand":                       "ECO+",
-		"Model Name":                  "Bcd 218 Fl Gd Magnolia Brown Wb",
-		// Add specifications here
+		"Model Name":                  "ECO+ BCD-218 FL GD Magnolia Brown WB",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "218 liter",
+		"Dimensions":                  "1505*550*490 mm",
+		"Color":                       "Magnolia Brown",
+		"Refrigerant":                 "R600a",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Number of Shelves":           "2",
+		"Crisper Drawers":             "1",
+		"Warranty":                    "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
+		"Compressor Warranty (Years)": "10",
+		"Net Volume":                  "218 liter",
+		"Special Features":            "Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock",
+		"Ice Maker":                   "Yes",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
