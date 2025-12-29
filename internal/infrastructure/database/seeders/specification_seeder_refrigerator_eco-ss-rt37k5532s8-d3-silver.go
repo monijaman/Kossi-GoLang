@@ -100,7 +100,7 @@ func (s *SpecificationSeederRefrigeratorecossrt37k5532s8d3silver) Seed(db *gorm.
 		"Defrost Type":        "No-frost",
 		"Compressor Type":     "Digital Inverter Compressor",
 		"Refrigerant":         "R600a",
-		"Color":               "Silver",
+		"Color":                       "Silver",
 		"Dimensions":          "1715*600*605",
 		"Weight":              "59",
 		"Warranty":            "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",

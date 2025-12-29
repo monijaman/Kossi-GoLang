@@ -36,6 +36,7 @@ func (s *SpecificationSeederRefrigeratorecobcd218vcmred5) getBanglaTranslations(
 		"10": "১০",
 		"Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock": "ফ্রেমলেস ডিজাইন, ইন্টেরিয়র LED লাইট, ইকো-ফ্রেন্ডলি কুলিং, কী এবং লক",
 		"Yes": "হ্যাঁ",
+				"Red":                       "লাল",
 		// Add more translations as needed
 	}
 }
@@ -93,7 +94,7 @@ func (s *SpecificationSeederRefrigeratorecobcd218vcmred5) Seed(db *gorm.DB) erro
 		"Door Type":                   "Glass Door",
 		"Capacity":                    "218 liter",
 		"Dimensions":                  "1505*550*490 mm",
-		"Color":                       "VCM Red 5",
+		"Color":                       "Red",
 		"Refrigerant":                 "R600a",
 		"Defrost Type":                "Manual",
 		"Temperature Control":         "Mechanical",

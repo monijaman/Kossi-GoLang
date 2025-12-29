@@ -103,7 +103,7 @@ func (s *SpecificationSeederRefrigeratorecohrf362tbgblack) Seed(db *gorm.DB) err
 		"Net Volume":            "333",
 		"Defrost Type":          "No-frost",
 		"Compressor Type":       "Twin Inverter",
-		"Color":                 "Black",
+		"Color":                       "Black",
 		"Dimensions":            "710 x 1640 x 598 mm",
 		"Weight":                "53 kg",
 		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",

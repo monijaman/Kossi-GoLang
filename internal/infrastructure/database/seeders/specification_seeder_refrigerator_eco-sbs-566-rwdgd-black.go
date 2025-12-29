@@ -104,7 +104,7 @@ func (s *SpecificationSeederRefrigeratorecosbs566rwdgdblack) Seed(db *gorm.DB) e
 		"Net Volume":            "518",
 		"Defrost Type":          "No-frost",
 		"Refrigerant":           "R600a",
-		"Color":                 "Black",
+		"Color":                       "Black",
 		"Dimensions":            "1786*910*643 mm",
 		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
 		"Special Features":      "Total No Frost, Multi Air Flow, Fast Freeze, Surge Protection Technology, Wide Voltage Range, Door Self Closing and Alarm Function",

@@ -102,7 +102,7 @@ func (s *SpecificationSeederRefrigeratorecogtm5097pzplatinumsilver) Seed(db *gor
 		"Net Volume":            "506",
 		"Defrost Type":          "No-frost",
 		"Compressor Type":       "Inverter Linear",
-		"Color":                 "Platinum Silver",
+		"Color":                       "Platinum Silver",
 		"Dimensions":            "1800×780×730 mm",
 		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
 		"Special Features":      "Inverter Linear Compressor, Door Cooling+, Hygiene Fresh+®, Multi Air Flow, Bioshield, Moving Ice Maker, Touch LED Display",

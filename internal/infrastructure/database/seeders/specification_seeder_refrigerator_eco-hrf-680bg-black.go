@@ -103,7 +103,7 @@ func (s *SpecificationSeederRefrigeratorecohrf680bgblack) Seed(db *gorm.DB) erro
 		"Gross Volume":          "630",
 		"Net Volume":            "630",
 		"Defrost Type":          "No-frost",
-		"Color":                 "Black",
+		"Color":                       "Black",
 		"Dimensions":            "1775*905*697 mm",
 		"Weight":                "103 kg",
 		"Warranty":              "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",

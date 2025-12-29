@@ -36,6 +36,7 @@ func (s *SpecificationSeederRefrigeratorecowpifinv258steelonyx) getBanglaTransla
 		"2":   "২",
 		"Yes": "হ্যাঁ",
 		"56":  "৫৬",
+				"Steel Onyx":                       "স্টিল ওনিক্স",
 		// Add more translations as needed
 	}
 }
@@ -94,7 +95,7 @@ func (s *SpecificationSeederRefrigeratorecowpifinv258steelonyx) Seed(db *gorm.DB
 		"Capacity":          "245",
 		"Gross Volume":      "245",
 		"Defrost Type":      "No-frost",
-		"Color":             "ONYX Black",
+		"Color":                       "Steel Onyx",
 		"Dimensions":        "158.9*56.8*66.7",
 		"Weight":            "56",
 		"Warranty":          "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",

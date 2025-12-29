@@ -107,7 +107,7 @@ func (s *SpecificationSeederRefrigeratorecossrs72r5001m9d2silver) Seed(db *gorm.
 		"Defrost Type":          "No-frost",
 		"Compressor Type":       "Digital Inverter Compressor",
 		"Refrigerant":           "R600a",
-		"Color":                 "Silver",
+		"Color":                       "Silver",
 		"Dimensions":            "1780*912*716",
 		"Weight":                "101",
 		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",

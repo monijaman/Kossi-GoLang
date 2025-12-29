@@ -33,6 +33,7 @@ func (s *SpecificationSeederRefrigeratorecohcf340nsilver) getBanglaTranslations(
 		"R600a":           "আর৬০০এ",
 		"Yes":             "হ্যাঁ",
 		"Recessed handle": "রিসেসড হ্যান্ডেল",
+				"Silver":                       "রূপালী",
 		// Add more translations as needed
 	}
 }
@@ -94,7 +95,7 @@ func (s *SpecificationSeederRefrigeratorecohcf340nsilver) Seed(db *gorm.DB) erro
 		"Net Volume":       "301",
 		"Defrost Type":     "Manual",
 		"Compressor Type":  "Fix",
-		"Color":            "Gray",
+		"Color":                       "Silver",
 		"Dimensions":       "880*1110*620 mm",
 		"Warranty":         "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",
 		"Special Features": "150 Hours Frozen Retention, Super Fast Cooling up to -30°, Convert Freezer To Fridge",

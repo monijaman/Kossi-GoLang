@@ -34,6 +34,7 @@ func (s *SpecificationSeederRefrigeratorecowpneoinv258gdcrystalblack) getBanglaT
 		"1":   "১",
 		"Yes": "হ্যাঁ",
 		"58":  "৫৮",
+				"Crystal Black":                       "ক্রিস্টাল ব্ল্যাক",
 		// Add more translations as needed
 	}
 }
@@ -92,7 +93,7 @@ func (s *SpecificationSeederRefrigeratorecowpneoinv258gdcrystalblack) Seed(db *g
 		"Capacity":          "245",
 		"Gross Volume":      "245",
 		"Defrost Type":      "No-frost",
-		"Color":             "Black",
+		"Color":                       "Crystal Black",
 		"Dimensions":        "158.9*56.4*66.7",
 		"Weight":            "58",
 		"Warranty":          "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",

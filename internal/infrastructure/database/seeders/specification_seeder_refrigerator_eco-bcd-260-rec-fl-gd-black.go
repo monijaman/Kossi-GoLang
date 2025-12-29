@@ -101,7 +101,7 @@ func (s *SpecificationSeederRefrigeratorecobcd260recflgdblack) Seed(db *gorm.DB)
 		"Refrigerator Capacity": "145",
 		"Freezer Capacity":      "115",
 		"Dimensions":            "1544*603*615 mm",
-		"Color":                 "Black",
+		"Color":                       "Black",
 		"Refrigerant":           "R600a",
 		"Defrost Type":          "Automatic",
 		"Temperature Control":   "Mechanical",

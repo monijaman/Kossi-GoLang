@@ -37,6 +37,7 @@ func (s *SpecificationSeederRefrigeratorecobd311sgchampain) getBanglaTranslation
 		"No":      "না",
 		"187~276": "১৮৭~২৭৬",
 		"50":      "৫০",
+				"Champagne":                       "শ্যাম্পেইন",
 		// Add more translations as needed
 	}
 }
@@ -97,7 +98,7 @@ func (s *SpecificationSeederRefrigeratorecobd311sgchampain) Seed(db *gorm.DB) er
 		"Gross Volume":                "311",
 		"Net Volume":                  "311",
 		"Dimensions":                  "818*1125*670 mm",
-		"Color":                       "Champain",
+		"Color":                       "Champagne",
 		"Compressor Type":             "R600a",
 		"Defrost Type":                "Manual",
 		"Temperature Control":         "Mechanical temperature control with adjustable thermostat",

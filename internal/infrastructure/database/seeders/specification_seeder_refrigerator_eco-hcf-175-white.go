@@ -96,7 +96,7 @@ func (s *SpecificationSeederRefrigeratorecohcf175white) Seed(db *gorm.DB) error 
 		"Net Volume":          "146",
 		"Defrost Type":        "Manual",
 		"Compressor Type":     "Fix",
-		"Color":               "White",
+		"Color":                       "White",
 		"Dimensions":          "550*845*720 mm",
 		"Weight":              "31 kg",
 		"Warranty":            "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",

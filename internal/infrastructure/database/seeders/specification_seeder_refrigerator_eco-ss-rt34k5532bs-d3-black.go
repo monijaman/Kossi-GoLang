@@ -104,7 +104,7 @@ func (s *SpecificationSeederRefrigeratorecossrt34k5532bsd3black) Seed(db *gorm.D
 		"Net Volume":            "300",
 		"Defrost Type":          "No-frost",
 		"Refrigerant":           "R600a",
-		"Color":                 "Black",
+		"Color":                       "Black",
 		"Dimensions":            "1635*600*672",
 		"Weight":                "56",
 		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",

@@ -93,7 +93,7 @@ func (s *SpecificationSeederRefrigeratorecohcf230gdblack) Seed(db *gorm.DB) erro
 		"Net Volume":          "200",
 		"Defrost Type":        "Manual",
 		"Compressor Type":     "Fix",
-		"Color":               "Black",
+		"Color":                       "Black",
 		"Dimensions":          "820 x 568 x 865 mm",
 		"Weight":              "36 kg",
 		"Warranty":            "10 Years Compressor Warranty, 2 Years Parts and Service Warranty",

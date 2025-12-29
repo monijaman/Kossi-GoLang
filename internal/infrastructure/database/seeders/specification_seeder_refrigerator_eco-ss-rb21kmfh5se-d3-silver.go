@@ -39,6 +39,7 @@ func (s *SpecificationSeederRefrigeratorecossrb21kmfh5sed3silver) getBanglaTrans
 		"Tact Display (Blue LED)": "ট্যাক্ট ডিসপ্লে (ব্লু এলইডি)",
 		"3":                       "৩",
 		"Yes":                     "হ্যাঁ",
+				"Silver":                       "রূপালী",
 		// Add more translations as needed
 	}
 }
@@ -102,7 +103,7 @@ func (s *SpecificationSeederRefrigeratorecossrb21kmfh5sed3silver) Seed(db *gorm.
 		"Defrost Type":          "Frost",
 		"Compressor Type":       "Digital Inverter Compressor",
 		"Refrigerant":           "R600a",
-		"Color":                 "Electric Silver",
+		"Color":                       "Silver",
 		"Dimensions":            "1584*546*610 mm",
 		"Warranty":              "20 Years Compressor Warranty, 1 Year Parts and Service Warranty",
 		"Special Features":      "Digital Inverter Compressor, Power Cool Function, R600a Refrigerant, Mono Cooling, Tact Display",

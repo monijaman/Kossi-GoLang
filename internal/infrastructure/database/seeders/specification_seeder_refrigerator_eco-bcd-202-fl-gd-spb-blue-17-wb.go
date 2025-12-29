@@ -37,6 +37,7 @@ func (s *SpecificationSeederRefrigeratorecobcd202flgdspbblue17wb) getBanglaTrans
 		"10 Years Compressor Warranty, 2 Years Parts and Service Warranty": "১০ বছর কম্প্রেসার ওয়ারেন্টি, ২ বছর পার্টস এবং সার্ভিস ওয়ারেন্টি",
 		"10": "১০",
 		"Frameless Design, Interior LED Light, Eco-Friendly Cooling": "ফ্রেমলেস ডিজাইন, ইন্টেরিয়র LED লাইট, ইকো-ফ্রেন্ডলি কুলিং",
+				"Blue":                       "নীল",
 		// Add more translations as needed
 	}
 }
@@ -96,7 +97,7 @@ func (s *SpecificationSeederRefrigeratorecobcd202flgdspbblue17wb) Seed(db *gorm.
 		"Refrigerator Capacity":       "113 liter",
 		"Freezer Capacity":            "95 liter",
 		"Dimensions":                  "1393*550*490 mm",
-		"Color":                       "SPB Blue 17",
+		"Color":                       "Blue",
 		"Refrigerant":                 "R600a",
 		"Defrost Type":                "Manual",
 		"Temperature Control":         "Mechanical",

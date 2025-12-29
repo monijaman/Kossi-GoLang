@@ -36,6 +36,7 @@ func (s *SpecificationSeederRefrigeratorecobcd218flgdspbblue17wb) getBanglaTrans
 		"10": "১০",
 		"Frameless Design, Interior LED Light, Eco-Friendly Cooling, Key & Lock": "ফ্রেমলেস ডিজাইন, ইন্টেরিয়র LED লাইট, ইকো-ফ্রেন্ডলি কুলিং, কী এবং লক",
 		"Yes": "হ্যাঁ",
+				"Blue":                       "নীল",
 		// Add more translations as needed
 	}
 }
@@ -93,7 +94,7 @@ func (s *SpecificationSeederRefrigeratorecobcd218flgdspbblue17wb) Seed(db *gorm.
 		"Door Type":                   "Glass Door",
 		"Capacity":                    "218 liter",
 		"Dimensions":                  "1505*550*490 mm",
-		"Color":                       "SPB Blue 17",
+		"Color":                       "Blue",
 		"Refrigerant":                 "R600a",
 		"Defrost Type":                "Manual",
 		"Temperature Control":         "Mechanical",

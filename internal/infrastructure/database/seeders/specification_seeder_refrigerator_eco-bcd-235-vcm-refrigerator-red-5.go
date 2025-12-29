@@ -42,6 +42,7 @@ func (s *SpecificationSeederRefrigeratorecobcd235vcmrefrigeratorred5) getBanglaT
 		"Tempered glass": "টেম্পার্ড গ্লাস",
 		"220~240":        "২২০~২৪০",
 		"50":             "৫০",
+				"Red":                       "লাল",
 		// Add more translations as needed
 	}
 }
@@ -101,7 +102,7 @@ func (s *SpecificationSeederRefrigeratorecobcd235vcmrefrigeratorred5) Seed(db *g
 		"Refrigerator Capacity":       "147 liter",
 		"Freezer Capacity":            "88 liter",
 		"Dimensions":                  "1613*550*490 mm",
-		"Color":                       "Red 5",
+		"Color":                       "Red",
 		"Refrigerant":                 "R600a",
 		"Defrost Type":                "Manual",
 		"Temperature Control":         "Mechanical",
