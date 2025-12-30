@@ -21,9 +21,25 @@ func NewSpecificationSeederRefrigeratorMarcelMfaB2xGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-b2x-gdel-xx":         "মার্সেল-mfa-b2x-gdel-xx",
-		"MFA-B2X-GDEL-XX":   "MFA-B2X-GDEL-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfa-b2x-gdel-xx": "মার্সেল-mfa-b2x-gdel-xx",
+		"MFA-B2X-GDEL-XX":        "MFA-B2X-GDEL-XX",
+		"205 Ltr.":               "205 লিটার",
+		"220 Ltr.":               "220 লিটার",
+		"557 x 635 x 1580 mm":    "557 x 635 x 1580 মিমি",
+		"48.5 ± 2 Kg":            "48.5 ± 2 কেজি",
+		"RSCR":                   "RSCR",
+		"Manual":                 "ম্যানুয়াল",
+		"Mechanical":             "মেকানিক্যাল",
+		"R600a":                  "R600a",
+		"220 ~ 240/50":           "220 ~ 240/50",
+		"50":                     "50",
+		"5 Star":                 "5 তারা",
+		"Refrigerator: 3 wire shelves; Freezer: 2 wire shelves": "রেফ্রিজারেটর: 3 তারের তাক; ফ্রিজার: 2 তারের তাক",
+		"Wire":   "তার",
+		"4 GPPS": "4 GPPS",
+		"1":      "1",
+		"12":     "12",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +94,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdelXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-B2X-GDEL-XX",
-		// Add your specifications here as they become available
+		"Brand":                    "Marcel",
+		"Model Name":               "MFA-B2X-GDEL-XX",
+		"Capacity":                 "205 Ltr.",
+		"Gross Volume":             "220 Ltr.",
+		"Net Volume":               "205 Ltr.",
+		"Dimensions":               "557 x 635 x 1580 mm",
+		"Weight":                   "48.5 ± 2 Kg",
+		"Compressor Type":          "RSCR",
+		"Defrost Type":             "Manual",
+		"Temperature Control":      "Mechanical",
+		"Refrigerant":              "R600a",
+		"Voltage":                  "220 ~ 240/50",
+		"Frequency (Hz)":           "50",
+		"Energy Efficiency Rating": "5 Star", "Warranty": "Residential: Compressor 12 Years, Door 3 Years, Spare Parts 4 Years, After Sales Service 5 Years; Commercial: Compressor 4 Years, Door 1 Year, Spare Parts 2 Years, After Sales Service 2 Years",
+		"Compressor Warranty (Years)": "12", "Special Features": "Lock, Interior Lamp, Vegetable Crisper (1), Egg Tray (1), Recessed/Grip Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology",
+		"Number of Shelves": "Refrigerator: 3 wire shelves; Freezer: 2 wire shelves",
+		"Shelf Material":    "Wire",
+		"Door Bins":         "4 GPPS",
+		"Crisper Drawers":   "1",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -21,10 +21,30 @@ func NewSpecificationSeederRefrigeratorMarcelMfa2a3GdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfa2a3GdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-2a3-gdxx-xx":         "মার্সেল-mfa-2a3-gdxx-xx",
-		"MFA-2A3-GDXX-XX":   "MFA-2A3-GDXX-XX",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mfa-2a3-gdxx-xx": "মার্সেল-mfa-2a3-gdxx-xx",
+		"MFA-2A3-GDXX-XX":        "MFA-2A3-GDXX-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"176 Ltr.":               "১৭৬ লিটার",
+		"213 Ltr.":               "২১৩ লিটার",
+		"220-240V/ 50Hz":         "২২০-২৪০ভি/ ৫০হার্টজ",
+		"50Hz":                   "৫০হার্টজ",
+		"RSCR":                   "আরএসসিআর",
+		"Mechanical":             "মেকানিক্যাল",
+		"Manual":                 "ম্যানুয়াল",
+		"R600a":                  "আর৬০০এ",
+		"Wire":                   "ওয়্যার",
+		"2":                      "২",
+		"3":                      "৩",
+		"1":                      "১",
+		"Yes":                    "হ্যাঁ",
+		"No":                     "না",
+		"550 x 645 x 1510 mm":    "৫৫০ x ৬৪৫ x ১৫১০ মিমি",
+		"45.5 ± 2 Kg":            "৪৫.৫ ± ২ কেজি",
+		"5 Star":                 "৫ স্টার",
+		"Replacement Guarantee: 1 Year, Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years": "রিপ্লেসমেন্ট গ্যারান্টি: ১ বছর, মূল অংশ (কম্প্রেসার): ১২ বছর, দরজা: ৩ বছর, স্পেয়ার পার্টস: ৪ বছর, আফটার সেলস সার্ভিস: ৫ বছর",
+		"12": "১২",
+		"Lock: Yes, Interior Lamp: No, Handle: Recessed/Grip, Capillary: Copper, Polyurethane foam blowing agent CycloPentane [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelves: Wire/2, Refrigerator Door Baskets: GPPS/3, Vegetable Crisper: Yes/1, Egg Tray: Yes/1-2, Freezer Compartment Shelves: Wire/2, Loading quantity: 102/102/50 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Energy Rating: 5 Star, Recommended voltage stabilizer capacity: No need if within 145V-260V; 1000VA if outside range.": "লক: হ্যাঁ, ইন্টেরিয়র ল্যাম্প: না, হ্যান্ডেল: রিসেসড/গ্রিপ, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], রেফ্রিজারেটর কম্পার্টমেন্ট শেল্ফস: ওয়্যার/২, রেফ্রিজারেটর দরজা বাস্কেটস: জিপিপিএস/৩, ভেজিটেবল ক্রিসপার: হ্যাঁ/১, এগ ট্রে: হ্যাঁ/১-২, ফ্রিজার কম্পার্টমেন্ট শেল্ফস: ওয়্যার/২, লোডিং কোয়ান্টিটি: ১০২/১০২/৫০ (৪০এইচকিউ/৪০এফটি/২০এফটি), ক্লাইমেটিক টাইপ: এন~এসটি, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮°C, রেফ্রিজারেটর ক্যাবিনেট ০°C টু +৫°C, এনার্জি রেটিং: ৫ স্টার, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: ১৪৫ভি-২৬০ভি এর মধ্যে থাকলে প্রয়োজন নেই; বাইরে থাকলে ১০০০ভিএ।",
 	}
 }
 
@@ -80,7 +100,33 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3GdxxXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":                       "Marcel",
 		"Model Name":                  "MFA-2A3-GDXX-XX",
-		// Add your specifications here as they become available
+		"Door Type":                   "Single Door",
+		"Capacity":                    "176 Ltr.",
+		"Refrigerator Capacity":       "176 Ltr.",
+		"Freezer Capacity":            "0 Ltr.",
+		"Gross Volume":                "213 Ltr.",
+		"Net Volume":                  "176 Ltr.",
+		"Dimensions":                  "550 x 645 x 1510 mm",
+		"Weight":                      "45.5 ± 2 Kg",
+		"Energy Efficiency Rating":    "5 Star",
+		"Compressor Type":             "RSCR",
+		"Cooling Technology":          "Direct Cool",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Wire",
+		"Number of Shelves":           "2",
+		"Door Bins":                   "3",
+		"Crisper Drawers":             "1",
+		"Ice Maker":                   "No",
+		"Water Dispenser":             "No",
+		"Voltage":                     "220-240V/ 50Hz",
+		"Frequency (Hz)":              "50Hz",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "Replacement Guarantee: 1 Year, Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years",
+		"Compressor Warranty (Years)": "12",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Lock: Yes, Interior Lamp: No, Handle: Recessed/Grip, Capillary: Copper, Polyurethane foam blowing agent CycloPentane [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelves: Wire/2, Refrigerator Door Baskets: GPPS/3, Vegetable Crisper: Yes/1, Egg Tray: Yes/1-2, Freezer Compartment Shelves: Wire/2, Loading quantity: 102/102/50 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Energy Rating: 5 Star, Recommended voltage stabilizer capacity: No need if within 145V-260V; 1000VA if outside range.",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

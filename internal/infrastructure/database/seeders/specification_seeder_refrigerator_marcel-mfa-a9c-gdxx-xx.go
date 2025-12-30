@@ -21,9 +21,23 @@ func NewSpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-a9c-gdxx-xx":         "মার্সেল-mfa-a9c-gdxx-xx",
-		"MFA-A9C-GDXX-XX":   "MFA-A9C-GDXX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfa-a9c-gdxx-xx": "মার্সেল-mfa-a9c-gdxx-xx",
+		"MFA-A9C-GDXX-XX":        "MFA-A9C-GDXX-XX",
+		"175 Ltr.":               "175 লিটার",
+		"193 Ltr.":               "193 লিটার",
+		"538 x 600 x 1230 mm":    "538 x 600 x 1230 মিমি",
+		"45 ± 2 Kg":              "45 ± 2 কেজি",
+		"RSCR":                   "RSCR",
+		"Manual":                 "ম্যানুয়াল",
+		"Mechanical":             "মেকানিক্যাল",
+		"R600a":                  "R600a",
+		"220-240 V/ 50 Hz":       "220-240 ভোল্ট/ 50 হার্জ",
+		"50":                     "50",
+		"3 glass shelves":        "3 গ্লাস তাক",
+		"Glass":                  "গ্লাস",
+		"5 PS":                   "5 PS",
+		"1":                      "1",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +92,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-A9C-GDXX-XX",
-		// Add your specifications here as they become available
+		"Brand":               "Marcel",
+		"Model Name":          "MFA-A9C-GDXX-XX",
+		"Capacity":            "175 Ltr.",
+		"Gross Volume":        "193 Ltr.",
+		"Net Volume":          "175 Ltr.",
+		"Dimensions":          "538 x 600 x 1230 mm",
+		"Weight":              "45 ± 2 Kg",
+		"Compressor Type":     "RSCR",
+		"Defrost Type":        "Manual",
+		"Temperature Control": "Mechanical",
+		"Refrigerant":         "R600a",
+		"Voltage":             "220-240 V/ 50 Hz",
+		"Frequency (Hz)":      "50",
+		"Special Features":    "Lock, Interior Lamp, Vegetable Crisper (1), Egg Tray (1), Medicine Box (1), Recessed Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology, 2.25 L Bottle Accommodation, Double Layer Freezer Door, Uniform Flow",
+		"Number of Shelves":   "3 glass shelves",
+		"Shelf Material":      "Glass",
+		"Door Bins":           "5 PS",
+		"Crisper Drawers":     "1",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

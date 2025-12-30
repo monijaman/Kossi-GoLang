@@ -21,10 +21,24 @@ func NewSpecificationSeederRefrigeratorMarcelMcgC0tRxlxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMcgC0tRxlxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mcg-c0t-rxlx-xx":         "মার্সেল-mcg-c0t-rxlx-xx",
-		"MCG-C0T-RXLX-XX":   "MCG-C0T-RXLX-XX",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mcg-c0t-rxlx-xx": "মার্সেল-mcg-c0t-rxlx-xx",
+		"MCG-C0T-RXLX-XX":        "MCG-C0T-RXLX-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"300 Ltr.":               "৩০০ লিটার",
+		"220-240V/ 50Hz":         "২২০-২৪০ভি/ ৫০হার্টজ",
+		"50Hz":                   "৫০হার্টজ",
+		"RSCR, CSIR":             "আরএসসিআর, সিএসআইআর",
+		"Mechanical":             "মেকানিক্যাল",
+		"Manual":                 "ম্যানুয়াল",
+		"R600a":                  "আর৬০০এ",
+		"Wire":                   "ওয়্যার",
+		"1":                      "১",
+		"No":                     "না",
+		"Yes":                    "হ্যাঁ",
+		"1210 x 675 x 845 mm":    "১২১০ x ৬৭৫ x ৮৪৫ মিমি",
+		"53.7 kg":                "৫৩.৭ কেজি",
+		"Lock: No, Interior Lamp: Yes, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium Sheet, Shelf: Wire/1, Basket: Wire/1, Loading quantity: 81/54/26 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Recommended voltage stabilizer capacity: 2000VA or More.": "লক: না, ইন্টেরিয়র ল্যাম্প: হ্যাঁ, হ্যান্ডেল: হ্যাঁ, কনডেনসার: স্টিল, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], এক্সটেরিয়র ম্যাটেরিয়াল: পেইন্টেড স্টিল (পিসিএম), ইন্টেরিয়র ম্যাটেরিয়াল: এমবসড অ্যালুমিনিয়াম শীট, শেল্ফ: ওয়্যার/১, বাস্কেট: ওয়্যার/১, লোডিং কোয়ান্টিটি: ৮১/৫৪/২৬ (৪০এইচকিউ/৪০এফটি/২০এফটি), ক্লাইমেটিক টাইপ: এন~এসটি, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮°C, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: ২০০০ভিএ বা মোর।",
 	}
 }
 
@@ -78,9 +92,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tRxlxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MCG-C0T-RXLX-XX",
-		// Add your specifications here as they become available
+		"Brand":               "Marcel",
+		"Model Name":          "MCG-C0T-RXLX-XX",
+		"Door Type":           "Single Door",
+		"Capacity":            "300 Ltr.",
+		"Freezer Capacity":    "300 Ltr.",
+		"Gross Volume":        "300 Ltr.",
+		"Net Volume":          "300 Ltr.",
+		"Dimensions":          "1210 x 675 x 845 mm",
+		"Weight":              "53.7 kg",
+		"Compressor Type":     "RSCR, CSIR",
+		"Cooling Technology":  "Direct Cool",
+		"Defrost Type":        "Manual",
+		"Temperature Control": "Mechanical",
+		"Number of Shelves":   "1",
+		"Voltage":             "220-240V/ 50Hz",
+		"Frequency (Hz)":      "50Hz",
+		"Refrigerant":         "R600a",
+		"Special Features":    "Lock: No, Interior Lamp: Yes, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium Sheet, Shelf: Wire/1, Basket: Wire/1, Loading quantity: 81/54/26 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Recommended voltage stabilizer capacity: 2000VA or More.",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

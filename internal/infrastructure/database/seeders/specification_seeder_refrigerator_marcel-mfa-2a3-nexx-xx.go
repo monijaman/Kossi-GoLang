@@ -21,9 +21,37 @@ func NewSpecificationSeederRefrigeratorMarcelMfa2a3NexxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfa2a3NexxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-2a3-nexx-xx":         "মার্সেল-mfa-2a3-nexx-xx",
-		"MFA-2A3-NEXX-XX":   "MFA-2A3-NEXX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfa-2a3-nexx-xx": "মার্সেল-mfa-2a3-nexx-xx",
+		"MFA-2A3-NEXX-XX":        "MFA-2A3-NEXX-XX",
+		"176 Ltr.":               "176 লিটার",
+		"213 Ltr.":               "213 লিটার",
+		"545 x 640 x 1510 mm":    "545 x 640 x 1510 মিমি",
+		"Net - Width: 545 mm; Depth: 640 mm; Height: 1510 mm (545 x 640 x 1510 mm)": "নেট - প্রস্থ: 545 মিমি; গভীরতা: 640 মিমি; উচ্চতা: 1510 মিমি (545 x 640 x 1510 মিমি)",
+		"45.5 ± 2 Kg":      "45.5 ± 2 কেজি",
+		"RSCR":             "RSCR",
+		"Manual":           "ম্যানুয়াল",
+		"Mechanical":       "মেকানিক্যাল",
+		"R600a":            "R600a",
+		"220 ~ 240/ 50 Hz": "220 ~ 240/ 50 হার্জ",
+		"50":               "50",
+		"12":               "12",
+		"Refrigerator: 2 wire shelves; Freezer: 2 wire shelves": "রেফ্রিজারেটর: 2 তারের তাক; ফ্রিজার: 2 তারের তাক",
+		"Wire":                               "তার",
+		"Refrigerator: 2 PVC; Freezer: None": "রেফ্রিজারেটর: 2 PVC; ফ্রিজার: কোনোটি নয়",
+		"1":                                  "1",
+		"V 1101 - 102":                       "V 1101 - 102",
+		"V 1102 - 102":                       "V 1102 - 102",
+		"V 1301 - 108.6":                     "V 1301 - 108.6",
+		"V 1302 - 108.6":                     "V 1302 - 108.6",
+		"V 1401 - 102":                       "V 1401 - 102",
+		"V 1501 - 99.4":                      "V 1501 - 99.4",
+		"V 1601 - 108.6":                     "V 1601 - 108.6",
+		"Copper":                             "তামা",
+		"CycloPentane":                       "সাইক্লোপেনটেন",
+		"580 x 645 x 1530 mm":                "580 x 645 x 1530 মিমি",
+		"102/ 102 /50":                       "102/ 102 /50",
+		"No Need":                            "প্রয়োজন নেই",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +106,31 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3NexxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-2A3-NEXX-XX",
-		// Add your specifications here as they become available
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFA-2A3-NEXX-XX",
+		"Capacity":                        "176 Ltr.",
+		"Gross Volume":                    "213 Ltr.",
+		"Net Volume":                      "176 Ltr.",
+		"Dimensions":                      "Net - Width: 545 mm; Depth: 640 mm; Height: 1510 mm (545 x 640 x 1510 mm)",
+		"Packaging Dimensions":            "580 x 645 x 1530 mm",
+		"Weight":                          "45.5 ± 2 Kg (Net); 50 ± 2 Kg (Gross)",
+		"Compressor Type":                 "RSCR",
+		"Compressor Input Power (Watt)":   "V 1101 - 102; V 1102 - 102; V 1301 - 108.6; V 1302 - 108.6; V 1401 - 102; V 1501 - 99.4; V 1601 - 108.6",
+		"Defrost Type":                    "Manual",
+		"Temperature Control":             "Mechanical",
+		"Refrigerant":                     "R600a",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "CycloPentane",
+		"Voltage":                         "220 ~ 240/ 50 Hz",
+		"Frequency (Hz)":                  "50",
+		"Warranty":                        "Residential: Replacement Guarantee 1 Year, Compressor 12 Years, Door 3 Years, Spare Parts 4 Years, After Sales Service 5 Years. Commercial: Compressor 4 Years, Door 1 Year, Spare Parts 2 Years, After Sales Service 2 Years.",
+		"Compressor Warranty (Years)":     "12",
+		"Special Features":                "Lock, Interior Lamp (Refrigerator), Vegetable Crisper with Cover, Egg Tray (1-2), Recessed/Grip Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology",
+		"Number of Shelves":               "Refrigerator: 2 wire shelves; Freezer: 2 wire shelves",
+		"Shelf Material":                  "Wire",
+		"Door Bins":                       "Refrigerator: 2 PVC; Freezer: None",
+		"Crisper Drawers":                 "1",
+		"Loading Capacity":                "102/ 102 /50",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

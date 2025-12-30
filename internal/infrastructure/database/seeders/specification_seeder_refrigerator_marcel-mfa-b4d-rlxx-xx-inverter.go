@@ -21,9 +21,41 @@ func NewSpecificationSeederRefrigeratorMarcelMfaB4dRlxxXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfaB4dRlxxXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-b4d-rlxx-xx-inverter":         "মার্সেল-mfa-b4d-rlxx-xx-inverter",
-		"MFA-B4D-RLXX-XX-INVERTER":   "MFA-B4D-RLXX-XX-INVERTER",
+		"Marcel":                          "মার্সেল",
+		"marcel-mfa-b4d-rlxx-xx-inverter": "মার্সেল-mfa-b4d-rlxx-xx-inverter",
+		"MFA-B4D-RLXX-XX-INVERTER":        "MFA-B4D-RLXX-XX-INVERTER",
+
+		// Common values used in this seeder
+		"Direct Cool":                    "ডিরেক্ট কুল",
+		"244 Ltr.":                       "২৪৪ লিটার",
+		"220 Ltr.":                       "২২০ লিটার",
+		"N~ST":                           "N~ST",
+		"220-240V~":                      "২২০-২৪০V~",
+		"50Hz":                           "৫০Hz",
+		"V 0701-108.6; V 0801-99.4":      "V 0701-108.6; V 0801-99.4",
+		"RSCR":                           "RSCR",
+		"Mechanical":                     "মেকানিক্যাল",
+		"Manual":                         "ম্যানুয়াল",
+		"Recessed":                       "রিসেসড",
+		"Yes":                            "হ্যাঁ",
+		"No":                             "না",
+		"Copper":                         "তামা",
+		"Cyclopentene":                   "সাইক্লোপেন্টেন",
+		"R600a":                          "R600a",
+		"51/57 (Net/Packing) Kg (±2 Kg)": "৫১/৫৭ (নেট/প্যাকিং) কেজি (±২ কেজি)",
+		"545 x 605 x 1760 mm":            "৫৪৫ x ৬০৫ x ১৭৬০ মিমি",
+		"V 0701-R600a; V 0801-R600a":     "V 0701-R600a; V 0801-R600a",
+		"5 star (BDS 1850:2012)":         "৫ স্টার (BDS 1850:2012)",
+
+		// Feature clusters
+		"Wire/3":                "ওয়্যার/৩",
+		"Wire/2":                "ওয়্যার/২",
+		"Egg Case":              "ডিম ধারণ বাক্স",
+		"Vegetable Box":         "শাকসবজি বক্স",
+		"Interior Lamp":         "ইন্টারিয়র ল্যাম্প",
+		"Can Storage Dispenser": "ক্যান স্টোরেজ ডিসপেনসার",
+		"Deodorizer":            "ডিওডোরাইজার",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft 103/ 75/ 36": "লোডিং ক্যাপাসিটি- 40HQ/40Ft/20Ft 103/75/36",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +110,29 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dRlxxXxInverter) Seed(db *gor
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-B4D-RLXX-XX-INVERTER",
-		// Add your specifications here as they become available
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFA-B4D-RLXX-XX-INVERTER",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "244 Ltr.",
+		"Net Volume":                      "220 Ltr.",
+		"Energy Efficiency Rating":        "5 star (BDS 1850:2012)",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Manual",
+		"Reversible Door":                 "No",
+		"Handle":                          "Recessed",
+		"Lock":                            "Yes",
+		"Thermostat":                      "RoHS Certified",
+		"Compressor Type":                 "RSCR",
+		"Compressor Input Power (Watt)":   "V 0701-108.6; V 0801-99.4",
+		"Refrigerant":                     "V 0701-R600a; V 0801-R600a",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Voltage":                         "220-240V~",
+		"Frequency (Hz)":                  "50Hz",
+		"Dimensions":                      "545 x 605 x 1760 mm",
+		"Packing Dimensions":              "580 x 645 x 1770 mm",
+		"Weight":                          "51/57 (Net/Packing) Kg (±2 Kg)",
+		"Special Features":                "Reversible Door: No, Handle: Recessed, Lock: Yes, Thermostat: RoHS Certified, Capillary: Copper, Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Recommended voltage stabilizer capacity: V 0701/V 0801 : No Need to use voltage stabilizer; If out of voltage range(145V-260V), then suggested voltage stabilizer capacity is 1000VA. Refrigerator Compartment: Shelf (Wire/3), Door Pocket:4, Interior Lamp:Yes, Vegetable Box:Yes/1, Vegetable Box Cover:Yes, Egg Case:Yes/1, Can Storage Dispenser:No, Deodorizer:No. Freezer Compartment: Shelf (Wire/2), Drawer:No, Door Basket:No, Interior Lamp:No, Loading Capacity- 40HQ/ 40Ft/ 20Ft: 103/ 75/ 36",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

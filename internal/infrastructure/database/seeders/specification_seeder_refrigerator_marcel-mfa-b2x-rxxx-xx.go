@@ -21,9 +21,28 @@ func NewSpecificationSeederRefrigeratorMarcelMfaB2xRxxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfaB2xRxxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-b2x-rxxx-xx":         "মার্সেল-mfa-b2x-rxxx-xx",
-		"MFA-B2X-RXXX-XX":   "MFA-B2X-RXXX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfa-b2x-rxxx-xx": "মার্সেল-mfa-b2x-rxxx-xx",
+		"MFA-B2X-RXXX-XX":        "MFA-B2X-RXXX-XX",
+		"205 Ltr.":               "205 লিটার",
+		"220 Ltr.":               "220 লিটার",
+		"545 x 635 x 1580 mm":    "545 x 635 x 1580 মিমি",
+		"580 x 645 x 1640 mm":    "580 x 645 x 1640 মিমি",
+		"48.5 ± 2 Kg":            "48.5 ± 2 কেজি",
+		"52 ± 2 Kg":              "52 ± 2 কেজি",
+		"RSCR":                   "RSCR",
+		"Manual":                 "ম্যানুয়াল",
+		"Mechanical":             "মেকানিক্যাল",
+		"220 ~ 240/50":           "220 ~ 240/50",
+		"50":                     "50",
+		"5 Star (BDS 1850:2012)": "5 তারা (BDS 1850:2012)",
+		"R600a":                  "R600a",
+		"Steel":                  "ইস্পাত",
+		"Cyclopentene":           "সাইক্লোপেন্টেন",
+		"Wire/3":                 "তার/3",
+		"Wire/2":                 "তার/2",
+		"GPPS/4":                 "GPPS/4",
+		"100/ 100/ 50":           "100/ 100/ 50",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +97,34 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xRxxxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-B2X-RXXX-XX",
-		// Add your specifications here as they become available
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFA-B2X-RXXX-XX",
+		"Capacity":                        "205 Ltr.",
+		"Gross Volume":                    "220 Ltr.",
+		"Net Volume":                      "205 Ltr.",
+		"Dimensions":                      "545 x 635 x 1580 mm",
+		"Packaging Dimensions":            "580 x 645 x 1640 mm",
+		"Weight":                          "48.5 ± 2 Kg (Net); 52 ± 2 Kg (Gross)",
+		"Compressor Type":                 "RSCR",
+		"Compressor Input Power (Watt)":   "108.6 W",
+		"Defrost Type":                    "Manual",
+		"Temperature Control":             "Mechanical",
+		"Refrigerant":                     "R600a",
+		"Capillary":                       "Steel",
+		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Voltage":                         "220 ~ 240/50",
+		"Frequency (Hz)":                  "50",
+		"Energy Efficiency Rating":        "5 Star (BDS 1850:2012)",
+		"Special Features":                "Direct Cool, Lock, Recessed/Grip Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology, Recommended stabilizer: No need (suggested 1000VA if voltage out of 140V-260V)",
+		"Number of Shelves":               "Refrigerator: Wire/3; Freezer: Wire/2",
+		"Shelf Material":                  "Wire",
+		"Door Bins":                       "GPPS/4",
+		"Crisper Drawers":                 "1",
+		"Interior Lamp":                   "Yes",
+		"Vegetable Crisper":               "Yes/1",
+		"Vegetable Crisper Cover":         "Yes/1",
+		"Egg Tray or Pocket":              "Yes/1",
+		"Loading Capacity":                "100/ 100/ 50",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

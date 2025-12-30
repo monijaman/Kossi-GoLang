@@ -21,9 +21,28 @@ func NewSpecificationSeederRefrigeratorMarcelMfaB2xGdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfa-b2x-gdxx-xx":         "মার্সেল-mfa-b2x-gdxx-xx",
-		"MFA-B2X-GDXX-XX":   "MFA-B2X-GDXX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfa-b2x-gdxx-xx": "মার্সেল-mfa-b2x-gdxx-xx",
+		"MFA-B2X-GDXX-XX":        "MFA-B2X-GDXX-XX",
+		"205 Ltr.":               "205 লিটার",
+		"220 Ltr.":               "220 লিটার",
+		"545 x 635 x 1580 mm":    "545 x 635 x 1580 মিমি",
+		"48.5 ± 2 Kg":            "48.5 ± 2 কেজি",
+		"RSCR":                   "RSCR",
+		"Manual":                 "ম্যানুয়াল",
+		"Mechanical":             "মেকানিক্যাল",
+		"220 ~ 240/50":           "220 ~ 240/50",
+		"50":                     "50",
+		"5 Star":                 "5 তারা",
+		"12":                     "12",
+		"52 ± 2 Kg":              "52 ± 2 কেজি",
+		"Wire/3":                 "তার/3",
+		"GPPS/4":                 "GPPS/4",
+		"Steel":                  "ইস্পাত",
+		"Cyclopentene":           "সাইক্লোপেন্টেন",
+		"108.6 W":                "108.6 W",
+		"580 x 645 x 1640 mm":    "580 x 645 x 1640 মিমি",
+		"100/ 100/ 50":           "100/ 100/ 50",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +97,32 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdxxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-B2X-GDXX-XX",
-		// Add your specifications here as they become available
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFA-B2X-GDXX-XX",
+		"Capacity":                        "205 Ltr.",
+		"Gross Volume":                    "220 Ltr.",
+		"Net Volume":                      "205 Ltr.",
+		"Dimensions":                      "545 x 635 x 1580 mm",
+		"Weight":                          "48.5 ± 2 Kg (Net); 52 ± 2 Kg (Gross)",
+		"Compressor Type":                 "RSCR",
+		"Compressor Input Power (Watt)":   "108.6 W",
+		"Defrost Type":                    "Manual",
+		"Temperature Control":             "Mechanical",
+		"Refrigerant":                     "R600a",
+		"Capillary":                       "Steel",
+		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Voltage":                         "220 ~ 240/50",
+		"Frequency (Hz)":                  "50",
+		"Energy Efficiency Rating":        "5 Star (BDS 1850:2012)",
+		"Warranty":                        "Residential: Compressor 12 Years, Door 3 Years, Spare Parts 4 Years, After Sales Service 5 Years; Commercial: Compressor 4 Years, Door 1 Year, Spare Parts 2 Years, After Sales Service 2 Years",
+		"Compressor Warranty (Years)":     "12",
+		"Special Features":                "Direct Cool, Lock, Recessed/Grip Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology, Recommended stabilizer: No need (suggested 1000VA if voltage out of 140V-260V)",
+		"Number of Shelves":               "Refrigerator: 3 wire shelves; Freezer: 2 wire shelves",
+		"Shelf Material":                  "Wire",
+		"Door Bins":                       "GPPS/4",
+		"Crisper Drawers":                 "1",
+		"Packaging Dimensions":            "580 x 645 x 1640 mm",
+		"Loading Capacity":                "100/ 100/ 50",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
