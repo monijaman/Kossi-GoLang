@@ -7,48 +7,48 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM seeds specifications/options for product 'vision-vsn-gd-refrigerator-re-160l-red-fl-bm'
-type SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM struct {
+// SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM seeds specifications/options for product 'vision-vsn-gd-refrigerator-re-142l-digital-rainbow-fl-tm'
+type SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM creates a new seeder instance
-func NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM() *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM {
-	return &SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM{
-		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-refrigerator-re-160l-red-fl-bm"},
+// NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM creates a new seeder instance
+func NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM() *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM {
+	return &SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM{
+		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-refrigerator-re-142l-digital-rainbow-fl-tm"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Vision":                                "ভিশন",
-		"VSN GD Refrigerator RE-160L Red FL-BM": "ভিএসএন জিডি রেফ্রিজারেটর আরই-১৬০এল রেড এফএল-বিএম",
-		"Single Door":                           "সিঙ্গেল ডোর",
-		"160 Liters":                            "১৬০ লিটার",
-		"0 Liters":                              "০ লিটার",
-		"5 Star":                                "৫ তারা",
-		"5":                                     "৫",
-		"295 kWh":                               "২৯৫ কিলোওয়াট ঘণ্টা",
-		"550 x 570 x 1680 mm":                   "৫৫০ x ৫৭০ x ১৬৮০ মিমি",
-		"40 kg":                                 "৪০ কেজি",
-		"Red FL-BM":                             "রেড এফএল-বিএম",
-		"Direct Cool":                           "সরাসরি কুলিং",
-		"Frost Free":                            "ফ্রস্ট ফ্রি",
-		"Electronic":                            "ইলেকট্রনিক",
-		"Toughened Glass":                       "টাফেন্ড গ্লাস",
-		"3":                                     "৩",
-		"2":                                     "২",
-		"Yes":                                   "হ্যাঁ",
-		"No":                                    "না",
-		"40 dB":                                 "৪০ ডেসিবেল",
-		"160 ~ 260V":                            "১৬০ ~ ২৬০ভোল্ট",
-		"50":                                    "৫০",
-		"5 Years":                               "৫ বছর",
-		"10":                                    "১০",
-		"R600a":                                 "আর-৬০০এ",
+		"Vision": "ভিশন",
+		"VSN GD Refrigerator RE-142L Digital Rainbow FL-TM": "ভিএসএন জিডি রেফ্রিজারেটর আরই-১৪২এল ডিজিটাল রেইনবো এফএল-টিএম",
+		"Single Door":           "সিঙ্গেল ডোর",
+		"142 Liters":            "১৪২ লিটার",
+		"0 Liters":              "০ লিটার",
+		"5 Star":                "৫ তারা",
+		"5":                     "৫",
+		"295 kWh":               "২৯৫ কিলোওয়াট ঘণ্টা",
+		"550 x 570 x 1680 mm":   "৫৫০ x ৫৭০ x ১৬৮০ মিমি",
+		"38 kg":                 "৩৮ কেজি",
+		"Digital Rainbow FL-TM": "ডিজিটাল রেইনবো এফএল-টিএম",
+		"Direct Cool":           "সরাসরি কুলিং",
+		"Frost Free":            "ফ্রস্ট ফ্রি",
+		"Electronic":            "ইলেকট্রনিক",
+		"Toughened Glass":       "টাফেন্ড গ্লাস",
+		"3":                     "৩",
+		"2":                     "২",
+		"Yes":                   "হ্যাঁ",
+		"No":                    "না",
+		"40 dB":                 "৪০ ডেসিবেল",
+		"160 ~ 260V":            "১৬০ ~ ২৬০ভোল্ট",
+		"50":                    "৫০",
+		"5 Years":               "৫ বছর",
+		"10":                    "১০",
+		"R600a":                 "আর-৬০০এ",
 		"Fabulous ultra-Modern Glass door Colour, Very fast cooling speed, hygienic clean air, Anti-Bacterial gasket, Vast of storage capacity, Virgin & food grade Plastic liner, Low noise compressor, with lock and key, Manual defrost, Mechanical control, Interior LED light, 100% copper condenser": "ফ্যাবুলাস আল্ট্রা-মডার্ন গ্লাস ডোর কালার, খুব দ্রুত কুলিং গতি, স্বাস্থ্যকর পরিষ্কার বাতাস, অ্যান্টি-ব্যাকটেরিয়াল গ্যাসকেট, বিশাল স্টোরেজ ক্যাপাসিটি, ভার্জিন এবং ফুড গ্রেড প্লাস্টিক লাইনার, লো নয়েজ কম্প্রেসর, লক এবং কী সহ, ম্যানুয়াল ডিফ্রস্ট, মেকানিকাল কন্ট্রোল, ইন্টেরিয়র LED লাইট, ১০০% কপার কন্ডেনসার",
-		"177 Ltr.":   "১৭৭ লিটার",
-		"160 Ltr.":   "১৬০ লিটার",
+		"148 Ltr.":   "১৪৮ লিটার",
+		"142 Ltr.":   "১৪২ লিটার",
 		"Mechanical": "মেকানিকাল",
 		"Manual":     "ম্যানুয়াল",
 		"Normal":     "নরমাল",
@@ -56,9 +56,9 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM) ge
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-refrigerator-re-160l-red-fl-bm'
-func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM) Seed(db *gorm.DB) error {
-	productSlug := "vision-vsn-gd-refrigerator-re-160l-red-fl-bm"
+// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-refrigerator-re-142l-digital-rainbow-fl-tm'
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE142LDigitalRainbowFLTM) Seed(db *gorm.DB) error {
+	productSlug := "vision-vsn-gd-refrigerator-re-142l-digital-rainbow-fl-tm"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -105,17 +105,17 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM) Se
 
 	specs := map[string]string{
 		"Brand":                       "Vision",
-		"Model Name":                  "VSN GD Refrigerator RE-160L Red FL-BM",
+		"Model Name":                  "VSN GD Refrigerator RE-142L Digital Rainbow FL-TM",
 		"Door Type":                   "Single Door",
-		"Capacity":                    "160 Liters",
-		"Refrigerator Capacity":       "160 Liters",
+		"Capacity":                    "142 Liters",
+		"Refrigerator Capacity":       "142 Liters",
 		"Freezer Capacity":            "0 Liters",
 		"Energy Efficiency Rating":    "5 Star",
 		"Energy Star Rating":          "5",
 		"Annual Energy Consumption":   "295 kWh",
 		"Dimensions":                  "550 x 570 x 1680 mm",
-		"Weight":                      "40 kg",
-		"Color":                       "Red FL-BM",
+		"Weight":                      "38 kg",
+		"Color":                       "Digital Rainbow FL-TM",
 		"Compressor Type":             "Normal",
 		"Cooling Technology":          "Direct Cool",
 		"Defrost Type":                "Manual",
@@ -134,8 +134,8 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE160LRedFLBM) Se
 		"Warranty":                    "5 Years",
 		"Compressor Warranty (Years)": "10",
 		"Refrigerant":                 "R600a",
-		"Gross Volume":                "177 Ltr.",
-		"Net Volume":                  "160 Ltr.",
+		"Gross Volume":                "148 Ltr.",
+		"Net Volume":                  "142 Ltr.",
 		"Special Features":            "Fabulous ultra-Modern Glass door Colour, Very fast cooling speed, hygienic clean air, Anti-Bacterial gasket, Vast of storage capacity, Virgin & food grade Plastic liner, Low noise compressor, with lock and key, Manual defrost, Mechanical control, Interior LED light, 100% copper condenser",
 	}
 

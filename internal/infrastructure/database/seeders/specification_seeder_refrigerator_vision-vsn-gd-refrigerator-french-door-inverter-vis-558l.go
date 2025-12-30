@@ -7,36 +7,35 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital seeds specifications/options for product 'vision-vision-glass-door-refrigerator-re-180l-digital'
-type SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital struct {
+// SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L seeds specifications/options for product 'vision-vsn-gd-refrigerator-french-door-inverter-vis-558l'
+type SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital creates a new seeder instance
-func NewSpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital() *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital {
-	return &SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital{
-		BaseSeeder: BaseSeeder{name: "Specifications for vision-vision-glass-door-refrigerator-re-180l-digital"},
+// NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L creates a new seeder instance
+func NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L() *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L {
+	return &SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L{
+		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-refrigerator-french-door-inverter-vis-558l"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Vision": "ভিশন",
-		"VISION Glass Door Refrigerator RE-180L Dahlia Red Top Mount": "VISION Glass Door Refrigerator RE-180L Dahlia Red Top Mount",
-		"Single Door":         "Single Door",
-		"180 Liters":          "180 লিটার",
+		"VSN GD Refrigerator French Door Inverter Vis-558L": "ভিএসএন জিডি রেফ্রিজারেটর ফ্রেঞ্চ ডোর ইনভার্টার ভিআইএস-৫৫৮এল",
+		"French Door":         "ফ্রেঞ্চ ডোর",
+		"558 Liters":          "৫৫৮ লিটার",
 		"0 Liters":            "০ লিটার",
 		"5 Star":              "৫ তারা",
 		"5":                   "৫",
 		"295 kWh":             "২৯৫ কিলোওয়াট ঘণ্টা",
-		"572 x 662 x 1355 mm": "৫৭২ x ৬৬২ x ১৩৫৫ মিমি",
-		"55.96 kg":            "৫৫.৯৬ কেজি",
-		"Dahlia Red":          "ডাহলিয়া রেড",
-		"LG":                  "এলজি",
-		"Direct Cool":         "ডাইরেক্ট কুল",
-		"Manual":              "ম্যানুয়াল",
+		"660 x 604 x 1898 mm": "৬৬০ x ৬০৪ x ১৮৯৮ মিমি",
+		"100 kg":              "১০০ কেজি",
+		"Silver":              "সিলভার",
+		"Inverter":            "ইনভার্টার",
+		"No Frost":            "নো ফ্রস্ট",
 		"Electronic":          "ইলেকট্রনিক",
-		"Toughened Glass":     "টাফেন্ড গ্লাস",
+		"Tempered Glass":      "টেম্পার্ড গ্লাস",
 		"3":                   "৩",
 		"2":                   "২",
 		"Yes":                 "হ্যাঁ",
@@ -44,23 +43,21 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LD
 		"40 dB":               "৪০ ডেসিবেল",
 		"160 ~ 260V":          "১৬০ ~ ২৬০ভোল্ট",
 		"50":                  "৫০",
-		"4 Years":             "৪ বছর",
+		"5 Years":             "৫ বছর",
 		"10":                  "১০",
-		"R-600a":              "আর-৬০০এ",
-		"Low noise compressor, 100% copper condenser": "লো নয়েজ কম্প্রেসর, ১০০% কপার কন্ডেনসার",
-		"220V":             "২২০ভোল্ট",
-		"Special Features": "বিশেষ বৈশিষ্ট্য",
-		"Refrigerant":      "রেফ্রিজারেন্ট",
-		"Gross Volume":     "মোট ভলিউম",
-		"Net Volume":       "নেট ভলিউম",
-		"202 Ltr.":         "২০২ লিটার",
-		"BLDC Inverter":    "বিএলডিসি ইনভার্টার",
+		"R600a":               "আর-৬০০এ",
+		"Efficient Inverter compressor, No Frost Technology, Multi Air Flow System, Interior LED Light, Twist ice maker, Tempered glass shelves, Strong metal airflow protector, External Water Dispenser, Elegant Interior design, Tropical-grade durability, Wide voltage adaptability": "এফিশিয়েন্ট ইনভার্টার কম্প্রেসর, নো ফ্রস্ট টেকনোলজি, মাল্টি এয়ার ফ্লো সিস্টেম, ইন্টেরিয়র LED লাইট, টুইস্ট আইস মেকার, টেম্পার্ড গ্লাস শেল্ভস, স্ট্রং মেটাল এয়ারফ্লো প্রোটেক্টর, এক্সটার্নাল ওয়াটার ডিসপেনসার, এলিগ্যান্ট ইন্টেরিয়র ডিজাইন, ট্রপিকাল-গ্রেড ডুরাবিলিটি, ওয়াইড ভোল্টেজ অ্যাডাপ্টাবিলিটি",
+		"558 Ltr.":   "৫৫৮ লিটার",
+		"Mechanical": "মেকানিকাল",
+		"Automatic":  "অটোমেটিক",
+		"Normal":     "নরমাল",
+		"4":          "৪",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'vision-vision-glass-door-refrigerator-re-180l-digital'
-func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital) Seed(db *gorm.DB) error {
-	productSlug := "vision-vision-glass-door-refrigerator-re-180l-digital"
+// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-refrigerator-french-door-inverter-vis-558l'
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorFrenchDoorInverterVis558L) Seed(db *gorm.DB) error {
+	productSlug := "vision-vsn-gd-refrigerator-french-door-inverter-vis-558l"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -107,38 +104,38 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LD
 
 	specs := map[string]string{
 		"Brand":                       "Vision",
-		"Model Name":                  "VISION Glass Door Refrigerator RE-180L Dahlia Red Top Mount",
-		"Door Type":                   "Single Door",
-		"Capacity":                    "180 Liters",
-		"Refrigerator Capacity":       "180 Liters",
+		"Model Name":                  "VSN GD Refrigerator French Door Inverter Vis-558L",
+		"Door Type":                   "French Door",
+		"Capacity":                    "558 Liters",
+		"Refrigerator Capacity":       "558 Liters",
 		"Freezer Capacity":            "0 Liters",
 		"Energy Efficiency Rating":    "5 Star",
 		"Energy Star Rating":          "5",
 		"Annual Energy Consumption":   "295 kWh",
-		"Dimensions":                  "572 x 662 x 1355 mm",
-		"Weight":                      "55.96 kg",
-		"Color":                       "Dahlia Red",
-		"Compressor Type":             "LG",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
+		"Dimensions":                  "660 x 604 x 1898 mm",
+		"Weight":                      "100 kg",
+		"Color":                       "Silver",
+		"Compressor Type":             "Inverter",
+		"Cooling Technology":          "No Frost",
+		"Defrost Type":                "Automatic",
 		"Temperature Control":         "Electronic",
-		"Shelf Material":              "Toughened Glass",
+		"Shelf Material":              "Tempered Glass",
 		"Number of Shelves":           "3",
 		"Door Bins":                   "4",
 		"Crisper Drawers":             "2",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
+		"Ice Maker":                   "Yes",
+		"Water Dispenser":             "Yes",
 		"Noise Level":                 "40 dB",
 		"Voltage":                     "160 ~ 260V",
 		"Frequency (Hz)":              "50",
 		"App Control":                 "No",
 		"Voice Assistant Support":     "No",
-		"Warranty":                    "4 Years",
+		"Warranty":                    "5 Years",
 		"Compressor Warranty (Years)": "10",
-		"Refrigerant":                 "R-600a",
-		"Gross Volume":                "202 Ltr.",
-		"Net Volume":                  "180 Ltr.",
-		"Special Features":            "Low noise compressor, 100% copper condenser",
+		"Refrigerant":                 "R600a",
+		"Gross Volume":                "558 Ltr.",
+		"Net Volume":                  "558 Ltr.",
+		"Special Features":            "Efficient Inverter compressor, No Frost Technology, Multi Air Flow System, Interior LED Light, Twist ice maker, Tempered glass shelves, Strong metal airflow protector, External Water Dispenser, Elegant Interior design, Tropical-grade durability, Wide voltage adaptability",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

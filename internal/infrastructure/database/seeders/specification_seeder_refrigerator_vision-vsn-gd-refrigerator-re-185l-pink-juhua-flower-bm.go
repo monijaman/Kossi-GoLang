@@ -7,34 +7,33 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital seeds specifications/options for product 'vision-vision-glass-door-refrigerator-re-180l-digital'
-type SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital struct {
+// SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM seeds specifications/options for product 'vision-vsn-gd-refrigerator-re-185l-pink-juhua-flower-bm'
+type SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital creates a new seeder instance
-func NewSpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital() *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital {
-	return &SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital{
-		BaseSeeder: BaseSeeder{name: "Specifications for vision-vision-glass-door-refrigerator-re-180l-digital"},
+// NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM creates a new seeder instance
+func NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM() *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM {
+	return &SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM{
+		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-refrigerator-re-185l-pink-juhua-flower-bm"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Vision": "ভিশন",
-		"VISION Glass Door Refrigerator RE-180L Dahlia Red Top Mount": "VISION Glass Door Refrigerator RE-180L Dahlia Red Top Mount",
-		"Single Door":         "Single Door",
-		"180 Liters":          "180 লিটার",
+		"VSN GD Refrigerator RE-185L Pink Juhua Flower -BM": "ভিএসএন জিডি রেফ্রিজারেটর আরই-১৮৫এল পিঙ্ক জুহুয়া ফ্লাওয়ার -বিএম",
+		"Single Door":         "সিঙ্গেল ডোর",
+		"185 Liters":          "১৮৫ লিটার",
 		"0 Liters":            "০ লিটার",
 		"5 Star":              "৫ তারা",
 		"5":                   "৫",
 		"295 kWh":             "২৯৫ কিলোওয়াট ঘণ্টা",
-		"572 x 662 x 1355 mm": "৫৭২ x ৬৬২ x ১৩৫৫ মিমি",
-		"55.96 kg":            "৫৫.৯৬ কেজি",
-		"Dahlia Red":          "ডাহলিয়া রেড",
-		"LG":                  "এলজি",
-		"Direct Cool":         "ডাইরেক্ট কুল",
-		"Manual":              "ম্যানুয়াল",
+		"550 x 570 x 1680 mm": "৫৫০ x ৫৭০ x ১৬৮০ মিমি",
+		"50 kg":               "৫০ কেজি",
+		"Pink Juhua Flower":   "পিঙ্ক জুহুয়া ফ্লাওয়ার",
+		"Direct Cool":         "সরাসরি কুলিং",
+		"Frost Free":          "ফ্রস্ট ফ্রি",
 		"Electronic":          "ইলেকট্রনিক",
 		"Toughened Glass":     "টাফেন্ড গ্লাস",
 		"3":                   "৩",
@@ -44,23 +43,23 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LD
 		"40 dB":               "৪০ ডেসিবেল",
 		"160 ~ 260V":          "১৬০ ~ ২৬০ভোল্ট",
 		"50":                  "৫০",
-		"4 Years":             "৪ বছর",
+		"5 Years":             "৫ বছর",
 		"10":                  "১০",
-		"R-600a":              "আর-৬০০এ",
-		"Low noise compressor, 100% copper condenser": "লো নয়েজ কম্প্রেসর, ১০০% কপার কন্ডেনসার",
-		"220V":             "২২০ভোল্ট",
-		"Special Features": "বিশেষ বৈশিষ্ট্য",
-		"Refrigerant":      "রেফ্রিজারেন্ট",
-		"Gross Volume":     "মোট ভলিউম",
-		"Net Volume":       "নেট ভলিউম",
-		"202 Ltr.":         "২০২ লিটার",
-		"BLDC Inverter":    "বিএলডিসি ইনভার্টার",
+		"R600a":               "আর-৬০০এ",
+		"Fabulous ultra-Modern Glass door Colour, Very fast cooling speed, hygienic clean air, Anti-Bacterial gasket, Vast of storage capacity, Virgin & food grade Plastic liner, Low noise compressor, with lock and key, Manual defrost, Mechanical control, Interior LED light, 100% copper condenser": "ফ্যাবুলাস আল্ট্রা-মডার্ন গ্লাস ডোর কালার, খুব দ্রুত কুলিং গতি, স্বাস্থ্যকর পরিষ্কার বাতাস, অ্যান্টি-ব্যাকটেরিয়াল গ্যাসকেট, বিশাল স্টোরেজ ক্যাপাসিটি, ভার্জিন এবং ফুড গ্রেড প্লাস্টিক লাইনার, লো নয়েজ কম্প্রেসর, লক এবং কী সহ, ম্যানুয়াল ডিফ্রস্ট, মেকানিকাল কন্ট্রোল, ইন্টেরিয়র LED লাইট, ১০০% কপার কন্ডেনসার",
+		"203 Ltr.":   "২০৩ লিটার",
+		"185 Ltr.":   "১৮৫ লিটার",
+		"Mechanical": "মেকানিকাল",
+		"Manual":     "ম্যানুয়াল",
+		"Normal":     "নরমাল",
+		"Automatic":  "অটোমেটিক",
+		"4":          "৪",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'vision-vision-glass-door-refrigerator-re-180l-digital'
-func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LDigital) Seed(db *gorm.DB) error {
-	productSlug := "vision-vision-glass-door-refrigerator-re-180l-digital"
+// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-refrigerator-re-185l-pink-juhua-flower-bm'
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE185LPinkJuhuaFlowerBM) Seed(db *gorm.DB) error {
+	productSlug := "vision-vsn-gd-refrigerator-re-185l-pink-juhua-flower-bm"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -107,21 +106,21 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LD
 
 	specs := map[string]string{
 		"Brand":                       "Vision",
-		"Model Name":                  "VISION Glass Door Refrigerator RE-180L Dahlia Red Top Mount",
+		"Model Name":                  "VSN GD Refrigerator RE-185L Pink Juhua Flower -BM",
 		"Door Type":                   "Single Door",
-		"Capacity":                    "180 Liters",
-		"Refrigerator Capacity":       "180 Liters",
+		"Capacity":                    "185 Liters",
+		"Refrigerator Capacity":       "185 Liters",
 		"Freezer Capacity":            "0 Liters",
 		"Energy Efficiency Rating":    "5 Star",
 		"Energy Star Rating":          "5",
 		"Annual Energy Consumption":   "295 kWh",
-		"Dimensions":                  "572 x 662 x 1355 mm",
-		"Weight":                      "55.96 kg",
-		"Color":                       "Dahlia Red",
-		"Compressor Type":             "LG",
+		"Dimensions":                  "550 x 570 x 1680 mm",
+		"Weight":                      "50 kg",
+		"Color":                       "Pink Juhua Flower",
+		"Compressor Type":             "Normal",
 		"Cooling Technology":          "Direct Cool",
 		"Defrost Type":                "Manual",
-		"Temperature Control":         "Electronic",
+		"Temperature Control":         "Mechanical",
 		"Shelf Material":              "Toughened Glass",
 		"Number of Shelves":           "3",
 		"Door Bins":                   "4",
@@ -133,12 +132,12 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180LD
 		"Frequency (Hz)":              "50",
 		"App Control":                 "No",
 		"Voice Assistant Support":     "No",
-		"Warranty":                    "4 Years",
+		"Warranty":                    "5 Years",
 		"Compressor Warranty (Years)": "10",
-		"Refrigerant":                 "R-600a",
-		"Gross Volume":                "202 Ltr.",
-		"Net Volume":                  "180 Ltr.",
-		"Special Features":            "Low noise compressor, 100% copper condenser",
+		"Refrigerant":                 "R600a",
+		"Gross Volume":                "203 Ltr.",
+		"Net Volume":                  "185 Ltr.",
+		"Special Features":            "Fabulous ultra-Modern Glass door Colour, Very fast cooling speed, hygienic clean air, Anti-Bacterial gasket, Vast of storage capacity, Virgin & food grade Plastic liner, Low noise compressor, with lock and key, Manual defrost, Mechanical control, Interior LED light, 100% copper condenser",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

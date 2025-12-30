@@ -7,36 +7,32 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter seeds specifications/options for product 'vision-vision-glass-door-refrigerator-re-180-liter'
-type SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter struct {
+// SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN seeds specifications/options for product 'vision-vsn-gd-refrigerator-re-150l-digital-red-flower-en'
+type SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter creates a new seeder instance
-func NewSpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter() *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter {
-	return &SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter{
-		BaseSeeder: BaseSeeder{name: "Specifications for vision-vision-glass-door-refrigerator-re-180-liter"},
+// NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN creates a new seeder instance
+func NewSpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN() *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN {
+	return &SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN{
+		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-refrigerator-re-150l-digital-red-flower-en"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Vision": "ভিশন",
-		"VISION Glass Door Refrigerator RE-180 Liter Mirror Iris Top Mount": "VISION Glass Door Refrigerator RE-180 Liter Mirror Iris Top Mount",
-		"Single Door":           "Single Door",
-		"180 Liters":            "180 লিটার",
+		"VSN GD Refrigerator RE-150L Digital Red Flower EN": "ভিএসএন জিডি রেফ্রিজারেটর আরই-১৫০এল ডিজিটাল রেড ফ্লাওয়ার ইএন",
+		"Single Door":           "সিঙ্গেল ডোর",
+		"150 Liters":            "১৫০ লিটার",
 		"0 Liters":              "০ লিটার",
 		"5 Star":                "৫ তারা",
 		"5":                     "৫",
 		"295 kWh":               "২৯৫ কিলোওয়াট ঘণ্টা",
-		"572 x 662 x 1355 mm":   "৫৭২ x ৬৬২ x ১৩৫৫ মিমি",
-		"230 kg":                "230 কেজি",
-		"Mirror Iris":           "মিরর আইরিস",
-		"Normal":                "সাধারণ",
-		"Direct Cool":           "ডাইরেক্ট কুল",
-		"Manual":                "ম্যানুয়াল",
-		"Automatic":             "অটোমেটিক",
-		"Non-Frost":             "নন-ফ্রস্ট",
+		"550 x 570 x 1680 mm":   "৫৫০ x ৫৭০ x ১৬৮০ মিমি",
+		"48 kg":                 "৪৮ কেজি",
+		"Digital Red Flower EN": "ডিজিটাল রেড ফ্লাওয়ার ইএন",
+		"Direct Cool":           "সরাসরি কুলিং",
 		"Frost Free":            "ফ্রস্ট ফ্রি",
 		"Electronic":            "ইলেকট্রনিক",
 		"Toughened Glass":       "টাফেন্ড গ্লাস",
@@ -47,23 +43,22 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Li
 		"40 dB":                 "৪০ ডেসিবেল",
 		"160 ~ 260V":            "১৬০ ~ ২৬০ভোল্ট",
 		"50":                    "৫০",
-		"4 Years":               "৪ বছর",
+		"5 Years":               "৫ বছর",
 		"10":                    "১০",
-		"R-600a":                "আর-৬০০এ",
-		"Anti-bacterial gasket": "অ্যান্টি-ব্যাকটেরিয়াল গ্যাসকেট",
-		"220V":                  "২২০ভোল্ট",
-		"Special Features":      "বিশেষ বৈশিষ্ট্য",
-		"Refrigerant":           "রেফ্রিজারেন্ট",
-		"Gross Volume":          "মোট ভলিউম",
-		"Net Volume":            "নেট ভলিউম",
-		"202 Ltr.":              "২০২ লিটার",
-		"BLDC Inverter":         "বিএলডিসি ইনভার্টার",
+		"R600a":                 "আর-৬০০এ",
+		"Fabulous ultra-modern glass door design, Very fast cooling speed, Hygienic clean air, Anti-bacterial gasket, Huge storage capacity, Virgin & food grade plastic liner, Low noise compressor, with lock and key, Manual defrost, Mechanical control, Interior LED light, 100% copper condenser": "ফ্যাবুলাস আল্ট্রা-মডার্ন গ্লাস ডোর ডিজাইন, খুব দ্রুত কুলিং গতি, স্বাস্থ্যকর পরিষ্কার বাতাস, অ্যান্টি-ব্যাকটেরিয়াল গ্যাসকেট, বিশাল স্টোরেজ ক্যাপাসিটি, ভার্জিন এবং ফুড গ্রেড প্লাস্টিক লাইনার, লো নয়েজ কম্প্রেসর, লক এবং কী সহ, ম্যানুয়াল ডিফ্রস্ট, মেকানিকাল কন্ট্রোল, ইন্টেরিয়র LED লাইট, ১০০% কপার কন্ডেনসার",
+		"175 Ltr.":   "১৭৫ লিটার",
+		"150 Ltr.":   "১৫০ লিটার",
+		"Mechanical": "মেকানিকাল",
+		"Manual":     "ম্যানুয়াল",
+		"Normal":     "নরমাল",
+		"4":          "৪",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'vision-vision-glass-door-refrigerator-re-180-liter'
-func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Liter) Seed(db *gorm.DB) error {
-	productSlug := "vision-vision-glass-door-refrigerator-re-180-liter"
+// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-refrigerator-re-150l-digital-red-flower-en'
+func (s *SpecificationSeederRefrigeratorVisionVSNGDRefrigeratorRE150LDigitalRedFlowerEN) Seed(db *gorm.DB) error {
+	productSlug := "vision-vsn-gd-refrigerator-re-150l-digital-red-flower-en"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -110,21 +105,21 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Li
 
 	specs := map[string]string{
 		"Brand":                       "Vision",
-		"Model Name":                  "VISION Glass Door Refrigerator RE-180 Liter Mirror Iris Top Mount",
+		"Model Name":                  "VSN GD Refrigerator RE-150L Digital Red Flower EN",
 		"Door Type":                   "Single Door",
-		"Capacity":                    "180 Liters",
-		"Refrigerator Capacity":       "180 Liters",
+		"Capacity":                    "150 Liters",
+		"Refrigerator Capacity":       "150 Liters",
 		"Freezer Capacity":            "0 Liters",
 		"Energy Efficiency Rating":    "5 Star",
 		"Energy Star Rating":          "5",
 		"Annual Energy Consumption":   "295 kWh",
-		"Dimensions":                  "572 x 662 x 1355 mm",
-		"Weight":                      "230 kg",
-		"Color":                       "Mirror Iris",
+		"Dimensions":                  "550 x 570 x 1680 mm",
+		"Weight":                      "48 kg",
+		"Color":                       "Digital Red Flower EN",
 		"Compressor Type":             "Normal",
 		"Cooling Technology":          "Direct Cool",
 		"Defrost Type":                "Manual",
-		"Temperature Control":         "Electronic",
+		"Temperature Control":         "Mechanical",
 		"Shelf Material":              "Toughened Glass",
 		"Number of Shelves":           "3",
 		"Door Bins":                   "4",
@@ -136,12 +131,12 @@ func (s *SpecificationSeederRefrigeratorVisionVISIONGlassDoorRefrigeratorRE180Li
 		"Frequency (Hz)":              "50",
 		"App Control":                 "No",
 		"Voice Assistant Support":     "No",
-		"Warranty":                    "4 Years",
+		"Warranty":                    "5 Years",
 		"Compressor Warranty (Years)": "10",
-		"Refrigerant":                 "R-600a",
-		"Gross Volume":                "202 Ltr.",
-		"Net Volume":                  "180 Ltr.",
-		"Special Features":            "Anti-bacterial gasket",
+		"Refrigerant":                 "R600a",
+		"Gross Volume":                "175 Ltr.",
+		"Net Volume":                  "150 Ltr.",
+		"Special Features":            "Fabulous ultra-modern glass door design, Very fast cooling speed, Hygienic clean air, Anti-bacterial gasket, Huge storage capacity, Virgin & food grade plastic liner, Low noise compressor, with lock and key, Manual defrost, Mechanical control, Interior LED light, 100% copper condenser",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

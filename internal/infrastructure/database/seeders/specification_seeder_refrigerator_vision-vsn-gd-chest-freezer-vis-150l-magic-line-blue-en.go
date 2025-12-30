@@ -7,22 +7,22 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine seeds specifications/options for product 'vision-vsn-gd-chest-freezer-vis-150l-magic-line'
-type SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine struct {
+// SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN seeds specifications/options for product 'vision-vsn-gd-chest-freezer-vis-150l-magic-line-blue-en'
+type SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN struct {
 	BaseSeeder
 }
 
-// NewSpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine creates a new seeder instance
-func NewSpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine() *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine {
-	return &SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine{
-		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-chest-freezer-vis-150l-magic-line"},
+// NewSpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN creates a new seeder instance
+func NewSpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN() *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN {
+	return &SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN{
+		BaseSeeder: BaseSeeder{name: "Specifications for vision-vsn-gd-chest-freezer-vis-150l-magic-line-blue-en"},
 	}
 }
 
-func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine) getBanglaTranslations() map[string]string {
+func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Vision": "ভিশন",
-		"VSN GD Chest Freezer VIS-150L Magic Line": "ভিএসএন জিডি চেস্ট ফ্রিজার ভিআইএস-১৫০এল ম্যাজিক লাইন",
+		"VSN GD Chest Freezer VIS-150L Magic line blue": "ভিএসএন জিডি চেস্ট ফ্রিজার ভিআইএস-১৫০এল ম্যাজিক লাইন ব্লু",
 		"Chest":              "চেস্ট",
 		"150 Liters":         "১৫০ লিটার",
 		"0 Liters":           "০ লিটার",
@@ -31,7 +31,7 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine)
 		"295 kWh":            "২৯৫ কিলোওয়াট ঘণ্টা",
 		"692 x 570 x 835 mm": "৬৯২ x ৫৭০ x ৮৩৫ মিমি",
 		"37 kg":              "৩৭ কেজি",
-		"Silver":             "সিলভার",
+		"Magic line blue":    "ম্যাজিক লাইন ব্লু",
 		"Direct Cool":        "সরাসরি কুলিং",
 		"Frost Free":         "ফ্রস্ট ফ্রি",
 		"Electronic":         "ইলেকট্রনিক",
@@ -55,9 +55,9 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine)
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-chest-freezer-vis-150l-magic-line'
-func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine) Seed(db *gorm.DB) error {
-	productSlug := "vision-vsn-gd-chest-freezer-vis-150l-magic-line"
+// Seed inserts specification records for the product identified by slug 'vision-vsn-gd-chest-freezer-vis-150l-magic-line-blue-en'
+func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLineBlueEN) Seed(db *gorm.DB) error {
+	productSlug := "vision-vsn-gd-chest-freezer-vis-150l-magic-line-blue-en"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -104,7 +104,7 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine)
 
 	specs := map[string]string{
 		"Brand":                       "Vision",
-		"Model Name":                  "VSN GD Chest Freezer VIS-150L Magic Line",
+		"Model Name":                  "VSN GD Chest Freezer VIS-150L Magic line blue",
 		"Door Type":                   "Chest",
 		"Capacity":                    "150 Liters",
 		"Refrigerator Capacity":       "0 Liters",
@@ -114,7 +114,7 @@ func (s *SpecificationSeederRefrigeratorVisionVSNGDChestFreezerVIS150LMagicLine)
 		"Annual Energy Consumption":   "295 kWh",
 		"Dimensions":                  "692 x 570 x 835 mm",
 		"Weight":                      "37 kg",
-		"Color":                       "Silver",
+		"Color":                       "Magic line blue",
 		"Compressor Type":             "Normal",
 		"Cooling Technology":          "Direct Cool",
 		"Defrost Type":                "Manual",
