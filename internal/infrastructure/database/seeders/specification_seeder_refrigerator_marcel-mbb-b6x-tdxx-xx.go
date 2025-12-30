@@ -21,8 +21,29 @@ func NewSpecificationSeederRefrigeratorMarcelMbbB6xTdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMbbB6xTdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-		"marcel-mbb-b6x-tdxx-xx":         "মার্সেল-এমবিবি-বি৬এক্স-টিডিএক্সএক্স-এক্সএক্স",
+		"Marcel":                          "মার্সেল",
+		"marcel-mbb-b6x-tdxx-xx":          "মার্সেল-এমবিবি-বি৬এক্স-টিডিএক্সএক্স-এক্সএক্স",
+		"MBB-B6X-TDXX-XX":                 "এমবিবি-বি৬এক্স-টিডিএক্সএক্স-এক্সএক্স",
+		"Standard Door":                   "স্ট্যান্ডার্ড দরজা",
+		"254 Liters":                      "২৫৪ লিটার",
+		"0 Liters":                        "০ লিটার",
+		"Not Rated":                       "রেটেড নয়",
+		"Not Specified":                   "নির্দিষ্ট নয়",
+		"620 x 660 x 1873 mm (W x D x H)": "৬২০ x ৬৬০ x ১৮৭৩ মিমি (প্রস্থ x গভীরতা x উচ্চতা)",
+		"78.5 kg":                         "৭৮.৫ কেজি",
+		"CSIR":                            "সিএসআইআর",
+		"Direct Cool":                     "ডাইরেক্ট কুল",
+		"Manual":                          "ম্যানুয়াল",
+		"Mechanical":                      "মেকানিক্যাল",
+		"Steel":                           "স্টিল",
+		"No":                              "না",
+		"220-240V":                        "২২০-২৪০ ভোল্ট",
+		"50":                              "৫০",
+		"Commercial Use: 4 Years on Compressor, 1 Year on Door, 2 Years on Spare Parts, 2 Years After Sales Service": "কমার্শিয়াল ব্যবহার: কম্প্রেসারে ৪ বছর, দরজায় ১ বছর, স্পেয়ার পার্টসে ২ বছর, আফটার সেলস সার্ভিসে ২ বছর",
+		"4":          "৪",
+		"R134a":      "আর১৩৪এ",
+		"260 Liters": "২৬০ লিটার",
+		"Lock, Reversible Door No, Handle Recessed/Grip, Skin Condenser 100% Copper, RoHS Certified Thermostat, Copper Capillary, Eco-friendly PU Foam, IP24 Rating, Recommended for Commercial Use": "লক, রিভার্সিবল দরজা না, হ্যান্ডেল রিসেসড/গ্রিপ, স্কিন কন্ডেন্সার ১০০% কপার, রোএইচএস সার্টিফাইড থার্মোস্ট্যাট, কপার ক্যাপিলারি, ইকো-ফ্রেন্ডলি পিইউ ফোম, আইপি২৪ রেটিং, কমার্শিয়াল ব্যবহারের জন্য সুপারিশকৃত",
 		// Add more translations as needed
 	}
 }
@@ -77,8 +98,39 @@ func (s *SpecificationSeederRefrigeratorMarcelMbbB6xTdxxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
-		// Add your specifications here as they become available
+		"Brand":                       "Marcel",
+		"Model Name":                  "MBB-B6X-TDXX-XX",
+		"Door Type":                   "Standard Door",
+		"Capacity":                    "254 Liters",
+		"Refrigerator Capacity":       "254 Liters",
+		"Freezer Capacity":            "0 Liters",
+		"Energy Efficiency Rating":    "Not Rated",
+		"Energy Star Rating":          "Not Rated",
+		"Annual Energy Consumption":   "Not Specified",
+		"Dimensions":                  "620 x 660 x 1873 mm (W x D x H)",
+		"Weight":                      "78.5 kg",
+		"Color":                       "Not Specified",
+		"Compressor Type":             "CSIR",
+		"Cooling Technology":          "Direct Cool",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Steel",
+		"Number of Shelves":           "Not Specified",
+		"Door Bins":                   "Not Specified",
+		"Crisper Drawers":             "No",
+		"Ice Maker":                   "No",
+		"Water Dispenser":             "No",
+		"Noise Level":                 "Not Specified",
+		"Voltage":                     "220-240V",
+		"Frequency (Hz)":              "50",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "Commercial Use: 4 Years on Compressor, 1 Year on Door, 2 Years on Spare Parts, 2 Years After Sales Service",
+		"Compressor Warranty (Years)": "4",
+		"Refrigerant":                 "R134a",
+		"Gross Volume":                "260 Liters",
+		"Net Volume":                  "254 Liters",
+		"Special Features":            "Lock, Reversible Door No, Handle Recessed/Grip, Skin Condenser 100% Copper, RoHS Certified Thermostat, Copper Capillary, Eco-friendly PU Foam, IP24 Rating, Recommended for Commercial Use",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -21,8 +21,30 @@ func NewSpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-		"marcel-mbq-d4x-tdxx-xx":         "মার্সেল-এমবিকিউ-ডি৪এক্স-টিডিএক্সএক্স-এক্সএক্স",
+		"Marcel":                          "মার্সেল",
+		"marcel-mbq-d4x-tdxx-xx":          "মার্সেল-mbq-d4x-tdxx-xx",
+		"MBQ-D4X-TDXX-XX":                 "MBQ-D4X-TDXX-XX",
+		"Glass Door":                      "গ্লাস ডোর",
+		"396 Liters":                      "৩৯৬ লিটার",
+		"0 Liters":                        "০ লিটার",
+		"440 Liters":                      "৪৪০ লিটার",
+		"643 x 738 x 1834 mm (W x D x H)": "৬৪৩ x ৭৩৮ x ১৮৩৪ মিমি (প্রস্থ x গভীরতা x উচ্চতা)",
+		"117.25 kg":                       "১১৭.২৫ কেজি",
+		"Black":                           "কালো",
+		"V 0101-CSR":                      "V 0101-CSR",
+		"Direct Cool":                     "ডাইরেক্ট কুল",
+		"Automatic":                       "অটোমেটিক",
+		"Mechanical":                      "মেকানিক্যাল",
+		"Steel":                           "স্টিল",
+		"1":                               "১",
+		"No":                              "না",
+		"42 dB":                           "৪২ ডেসিবেল",
+		"220-240V":                        "২২০-২৪০ ভোল্ট",
+		"50":                              "৫০",
+		"2 Years":                         "২ বছর",
+		"5":                               "৫",
+		"R134a":                           "R134a",
+		"Beverage Cooler, Commercial Use, External Condenser, Lock, Interior Lamp": "বেভারেজ কুলার, কমার্শিয়াল ব্যবহার, এক্সটার্নাল কন্ডেনসার, লক, ইন্টেরিয়র ল্যাম্প",
 		// Add more translations as needed
 	}
 }
@@ -77,8 +99,36 @@ func (s *SpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
-		// Add your specifications here as they become available
+		"Brand":                       "Marcel",
+		"Model Name":                  "MBQ-D4X-TDXX-XX",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "396 Liters",
+		"Refrigerator Capacity":       "396 Liters",
+		"Freezer Capacity":            "0 Liters",
+		"Gross Volume":                "440 Liters",
+		"Net Volume":                  "396 Liters",
+		"Dimensions":                  "643 x 738 x 1834 mm (W x D x H)",
+		"Weight":                      "117.25 kg",
+		"Color":                       "Black",
+		"Compressor Type":             "V 0101-CSR",
+		"Cooling Technology":          "Direct Cool",
+		"Defrost Type":                "Automatic",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Steel",
+		"Number of Shelves":           "1",
+		"Door Bins":                   "0",
+		"Crisper Drawers":             "0",
+		"Ice Maker":                   "No",
+		"Water Dispenser":             "No",
+		"Noise Level":                 "42 dB",
+		"Voltage":                     "220-240V",
+		"Frequency (Hz)":              "50",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "2 Years",
+		"Compressor Warranty (Years)": "5",
+		"Refrigerant":                 "R134a",
+		"Special Features":            "Beverage Cooler, Commercial Use, External Condenser, Lock, Interior Lamp",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

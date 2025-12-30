@@ -22,7 +22,8 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC0nGdelXx() *SpecificationSeeder
 func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Marcel":         "মার্সেল",
-		"marcel-mfe-c0n-gdel-xx":         "মার্সেল-এমএফই-সি০এন-জিডিইএল-এক্সএক্স",
+				"marcel-mfe-c0n-gdel-xx":         "মার্সেল-mfe-c0n-gdel-xx",
+		"MFE-C0N-GDEL-XX":   "MFE-C0N-GDEL-XX",
 		// Add more translations as needed
 	}
 }
@@ -77,7 +78,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
+		"Brand":                       "Marcel",
+		"Model Name":                  "MFE-C0N-GDEL-XX",
 		// Add your specifications here as they become available
 	}
 

@@ -21,8 +21,30 @@ func NewSpecificationSeederRefrigeratorMarcelMcfB0eGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMcfB0eGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-		"marcel-mcf-b0e-gdel-xx":         "মার্সেল-এমসিএফ-বি০ই-জিডিইএল-এক্সএক্স",
+		"Marcel":                         "মার্সেল",
+		"marcel-mcf-b0e-gdel-xx":         "মার্সেল-mcf-b0e-gdel-xx",
+		"MCF-B0E-GDEL-XX":                "MCF-B0E-GDEL-XX",
+		"Single Door":                    "সিঙ্গেল ডোর",
+		"205 Liters":                     "২০৫ লিটার",
+		"0 Liters":                       "০ লিটার",
+		"962 x 585 x 852 mm (W x D x H)": "৯৬২ x ৫৮৫ x ৮৫২ মিমি (প্রস্থ x গভীরতা x উচ্চতা)",
+		"47 kg":                          "৪৭ কেজি",
+		"Silver":                         "সিলভার",
+		"RSIR/RSCR":                      "RSIR/RSCR",
+		"Direct Cool":                    "ডাইরেক্ট কুল",
+		"Manual":                         "ম্যানুয়াল",
+		"Mechanical":                     "মেকানিক্যাল",
+		"Wire":                           "ওয়্যার",
+		"1":                              "১",
+		"No":                             "না",
+		"Yes":                            "হ্যাঁ",
+		"40 dB":                          "৪০ ডেসিবেল",
+		"220-240V":                       "২২০-২৪০ ভোল্ট",
+		"50":                             "৫০",
+		"2 Years":                        "২ বছর",
+		"5":                              "৫",
+		"R134a/R600a":                    "R134a/R600a",
+		"Single Door Freezer, Manual Defrost, Lock, Interior Lamp": "সিঙ্গেল ডোর ফ্রিজার, ম্যানুয়াল ডিফ্রস্ট, লক, ইন্টেরিয়র ল্যাম্প",
 		// Add more translations as needed
 	}
 }
@@ -77,8 +99,36 @@ func (s *SpecificationSeederRefrigeratorMarcelMcfB0eGdelXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
-		// Add your specifications here as they become available
+		"Brand":                       "Marcel",
+		"Model Name":                  "MCF-B0E-GDEL-XX",
+		"Door Type":                   "Single Door",
+		"Capacity":                    "205 Liters",
+		"Refrigerator Capacity":       "0 Liters",
+		"Freezer Capacity":            "205 Liters",
+		"Gross Volume":                "205 Liters",
+		"Net Volume":                  "205 Liters",
+		"Dimensions":                  "962 x 585 x 852 mm (W x D x H)",
+		"Weight":                      "47 kg",
+		"Color":                       "Silver",
+		"Compressor Type":             "RSIR/RSCR",
+		"Cooling Technology":          "Direct Cool",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Wire",
+		"Number of Shelves":           "1",
+		"Door Bins":                   "0",
+		"Crisper Drawers":             "0",
+		"Ice Maker":                   "No",
+		"Water Dispenser":             "No",
+		"Noise Level":                 "40 dB",
+		"Voltage":                     "220-240V",
+		"Frequency (Hz)":              "50",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "2 Years",
+		"Compressor Warranty (Years)": "5",
+		"Refrigerant":                 "R134a/R600a",
+		"Special Features":            "Single Door Freezer, Manual Defrost, Lock, Interior Lamp",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

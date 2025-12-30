@@ -21,8 +21,33 @@ func NewSpecificationSeederRefrigeratorMarcelMbaB6xGcxbXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMbaB6xGcxbXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":                 "মার্সেল",
-		"marcel-mba-b6x-gcxb-xx": "মার্সেল-এমবিএ-বি৬এক্স-জিসিএক্সবি-এক্সএক্স",
+		"Marcel":                         "মার্সেল",
+		"marcel-mba-b6x-gcxb-xx":         "মার্সেল-এমবিএ-বি৬এক্স-জিসিএক্সবি-এক্সএক্স",
+		"MBA-B6X-GCXB-XX":                "এমবিএ-বি৬এক্স-জিসিএক্সবি-এক্সএক্স",
+		"Glass Door":                     "গ্লাস দরজা",
+		"168 Liters":                     "১৬৮ লিটার",
+		"0 Liters":                       "০ লিটার",
+		"3 Star":                         "৩ তারা",
+		"3":                              "৩",
+		"180 kWh":                        "১৮০ কিলোওয়াট ঘণ্টা",
+		"480 x 520 x 850 mm (W x D x H)": "৪৮০ x ৫২০ x ৮৫০ মিমি (প্রস্থ x গভীরতা x উচ্চতা)",
+		"32 kg":                          "৩২ কেজি",
+		"Black Glass":                    "ব্ল্যাক গ্লাস",
+		"Reciprocating":                  "রেসিপ্রোকেটিং",
+		"Direct Cool":                    "ডাইরেক্ট কুল",
+		"Manual":                         "ম্যানুয়াল",
+		"Mechanical":                     "মেকানিক্যাল",
+		"Wire Shelves":                   "ওয়্যার শেল্ফ",
+		"2":                              "২",
+		"No":                             "না",
+		"38 dB":                          "৩৮ ডেসিবেল",
+		"220V":                           "২২০ ভোল্ট",
+		"50":                             "৫০",
+		"1 Year Comprehensive + 5 Years on Compressor": "১ বছর কমপ্রিহেনসিভ + কম্প্রেসারে ৫ বছর",
+		"5":          "৫",
+		"R134a":      "আর১৩৪এ",
+		"180 Liters": "১৮০ লিটার",
+		"Glass door design, Interior LED light, Adjustable shelves, Lock & key": "গ্লাস দরজা ডিজাইন, ইন্টেরিয়র LED লাইট, অ্যাডজাস্টেবল শেল্ফ, লক এবং কী",
 		// Add more translations as needed
 	}
 }
@@ -77,8 +102,39 @@ func (s *SpecificationSeederRefrigeratorMarcelMbaB6xGcxbXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
-		// Add your specifications here as they become available
+		"Brand":                       "Marcel",
+		"Model Name":                  "MBA-B6X-GCXB-XX",
+		"Door Type":                   "Glass Door",
+		"Capacity":                    "168 Liters",
+		"Refrigerator Capacity":       "168 Liters",
+		"Freezer Capacity":            "0 Liters",
+		"Energy Efficiency Rating":    "3 Star",
+		"Energy Star Rating":          "3",
+		"Annual Energy Consumption":   "180 kWh",
+		"Dimensions":                  "480 x 520 x 850 mm (W x D x H)",
+		"Weight":                      "32 kg",
+		"Color":                       "Black Glass",
+		"Compressor Type":             "Reciprocating",
+		"Cooling Technology":          "Direct Cool",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Wire Shelves",
+		"Number of Shelves":           "3",
+		"Door Bins":                   "2",
+		"Crisper Drawers":             "0",
+		"Ice Maker":                   "No",
+		"Water Dispenser":             "No",
+		"Noise Level":                 "38 dB",
+		"Voltage":                     "220V",
+		"Frequency (Hz)":              "50",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "1 Year Comprehensive + 5 Years on Compressor",
+		"Compressor Warranty (Years)": "5",
+		"Refrigerant":                 "R134a",
+		"Gross Volume":                "180 Liters",
+		"Net Volume":                  "168 Liters",
+		"Special Features":            "Glass door design, Interior LED light, Adjustable shelves, Lock & key",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

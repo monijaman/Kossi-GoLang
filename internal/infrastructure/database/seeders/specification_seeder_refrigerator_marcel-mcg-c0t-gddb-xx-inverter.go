@@ -22,7 +22,8 @@ func NewSpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter() *Specificati
 func (s *SpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Marcel":         "মার্সেল",
-		"marcel-mcg-c0t-gddb-xx-inverter":         "মার্সেল-এমসিজি-সি০টি-জিডিডিবি-এক্সএক্স-আইএনভিইআরটিইআর",
+				"marcel-mcg-c0t-gddb-xx-inverter":         "মার্সেল-mcg-c0t-gddb-xx-inverter",
+		"MCG-C0T-GDDB-XX-INVERTER":   "MCG-C0T-GDDB-XX-INVERTER",
 		// Add more translations as needed
 	}
 }
@@ -77,7 +78,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter) Seed(db *gor
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
+		"Brand":                       "Marcel",
+		"Model Name":                  "MCG-C0T-GDDB-XX-INVERTER",
 		// Add your specifications here as they become available
 	}
 

@@ -21,8 +21,29 @@ func NewSpecificationSeederRefrigeratorMarcelMcfA4eGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMcfA4eGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-		"marcel-mcf-a4e-gdel-xx":         "মার্সেল-এমসিএফ-এ৪ই-জিডিইএল-এক্সএক্স",
+		"Marcel":                         "মার্সেল",
+		"marcel-mcf-a4e-gdel-xx":         "মার্সেল-mcf-a4e-gdel-xx",
+		"MCF-A4E-GDEL-XX":                "MCF-A4E-GDEL-XX",
+		"Single Door":                    "সিঙ্গেল ডোর",
+		"145 Liters":                     "১৪৫ লিটার",
+		"0 Liters":                       "০ লিটার",
+		"744 x 585 x 853 mm (W x D x H)": "৭৪৪ x ৫৮৫ x ৮৫৩ মিমি (প্রস্থ x গভীরতা x উচ্চতা)",
+		"37 kg":                          "৩৭ কেজি",
+		"Silver":                         "সিলভার",
+		"RSCR":                           "RSCR",
+		"Direct Cool":                    "ডাইরেক্ট কুল",
+		"Manual":                         "ম্যানুয়াল",
+		"Mechanical":                     "মেকানিক্যাল",
+		"Wire":                           "ওয়্যার",
+		"1":                              "১",
+		"No":                             "না",
+		"40 dB":                          "৪০ ডেসিবেল",
+		"220-240V":                       "২২০-২৪০ ভোল্ট",
+		"50":                             "৫০",
+		"2 Years":                        "২ বছর",
+		"5":                              "৫",
+		"R600a":                          "R600a",
+		"Single Door Freezer, Manual Defrost, Reversible Door": "সিঙ্গেল ডোর ফ্রিজার, ম্যানুয়াল ডিফ্রস্ট, রিভার্সিবল ডোর",
 		// Add more translations as needed
 	}
 }
@@ -77,8 +98,36 @@ func (s *SpecificationSeederRefrigeratorMarcelMcfA4eGdelXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		// Specifications will be populated from the database
-		// Add your specifications here as they become available
+		"Brand":                       "Marcel",
+		"Model Name":                  "MCF-A4E-GDEL-XX",
+		"Door Type":                   "Single Door",
+		"Capacity":                    "145 Liters",
+		"Refrigerator Capacity":       "0 Liters",
+		"Freezer Capacity":            "145 Liters",
+		"Gross Volume":                "145 Liters",
+		"Net Volume":                  "145 Liters",
+		"Dimensions":                  "744 x 585 x 853 mm (W x D x H)",
+		"Weight":                      "37 kg",
+		"Color":                       "Silver",
+		"Compressor Type":             "RSCR",
+		"Cooling Technology":          "Direct Cool",
+		"Defrost Type":                "Manual",
+		"Temperature Control":         "Mechanical",
+		"Shelf Material":              "Wire",
+		"Number of Shelves":           "1",
+		"Door Bins":                   "0",
+		"Crisper Drawers":             "0",
+		"Ice Maker":                   "No",
+		"Water Dispenser":             "No",
+		"Noise Level":                 "40 dB",
+		"Voltage":                     "220-240V",
+		"Frequency (Hz)":              "50",
+		"App Control":                 "No",
+		"Voice Assistant Support":     "No",
+		"Warranty":                    "2 Years",
+		"Compressor Warranty (Years)": "5",
+		"Refrigerant":                 "R600a",
+		"Special Features":            "Single Door Freezer, Manual Defrost, Reversible Door",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
