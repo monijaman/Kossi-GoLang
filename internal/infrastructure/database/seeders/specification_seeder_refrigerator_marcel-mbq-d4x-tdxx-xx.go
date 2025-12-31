@@ -98,38 +98,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MBQ-D4X-TDXX-XX",
-		"Door Type":                   "Glass Door",
-		"Capacity":                    "396 Liters",
-		"Refrigerator Capacity":       "396 Liters",
-		"Freezer Capacity":            "0 Liters",
-		"Gross Volume":                "440 Liters",
-		"Net Volume":                  "396 Liters",
-		"Dimensions":                  "643 x 738 x 1834 mm (W x D x H)",
-		"Weight":                      "117.25 kg",
-		"Color":                       "Black",
-		"Compressor Type":             "V 0101-CSR",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Automatic",
-		"Temperature Control":         "Mechanical",
-		"Shelf Material":              "Steel",
-		"Number of Shelves":           "1",
-		"Door Bins":                   "0",
-		"Crisper Drawers":             "0",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Noise Level":                 "42 dB",
-		"Voltage":                     "220-240V",
-		"Frequency (Hz)":              "50",
-		"App Control":                 "No",
-		"Voice Assistant Support":     "No",
-		"Warranty":                    "2 Years",
-		"Compressor Warranty (Years)": "5",
-		"Refrigerant":                 "R134a",
-		"Special Features":            "Beverage Cooler, Commercial Use, External Condenser, Lock, Interior Lamp",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MBQ-D4X-TDXX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

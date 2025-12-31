@@ -21,9 +21,9 @@ func NewSpecificationSeederRefrigeratorMarcelMnmB1gGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMnmB1gGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mnm-b1g-gdel-xx":         "মার্সেল-mnm-b1g-gdel-xx",
-		"MNM-B1G-GDEL-XX":   "MNM-B1G-GDEL-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mnm-b1g-gdel-xx": "মার্সেল-mnm-b1g-gdel-xx",
+		"MNM-B1G-GDEL-XX":        "MNM-B1G-GDEL-XX",
 		// Add more translations as needed
 	}
 }
@@ -78,9 +78,42 @@ func (s *SpecificationSeederRefrigeratorMarcelMnmB1gGdelXx) Seed(db *gorm.DB) er
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MNM-B1G-GDEL-XX",
-		// Add your specifications here as they become available
+		"Cooling Features - Type":                             "Direct Cool",
+		"Capacity - Gross Volume":                             "380 Ltr.",
+		"Capacity - Net Volume":                               "365 Ltr.",
+		"Performance - Climatic Type (SN":                     "N",
+		"Performance - Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Compressor Input Power":                              "V 0401- 130; V 0601- 130; V 0701- 130; V 0702- 130",
+		"Compressor":                                          "RSCR",
+		"Cooling Effect":                                      "Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃",
+		"General Features - Temperature Control":              "Mechanical",
+		"General Features - Defrosting":                       "Manual",
+		"General Features - Reversible Door":                  "No",
+		"General Features - Handle":                           "Recessed/ Grip",
+		"General Features - Lock":                             "Yes",
+		"Refrigerant":                                         "V 0401- R600a; V 0601- R600a; V 0701- R600a; V 0702- R600a",
+		"Capillary":                                           "Copper",
+		"Polyurethane foam blowing agent":                     "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Recommended voltage stabilizer capacity":             "V 0101/ 0201/ 0301/ 0401/ 0601/ 0701/ 0702: 2200VA",
+		"Refrigerator Compartment - Shelf (Material/ No.)":    "Wire/3",
+		"Refrigerator Compartment - Door Basket":              "4",
+		"Refrigerator Compartment - Interior Lamp":            "Yes",
+		"Refrigerator Compartment - Vegetable Crisper":        "Yes/1",
+		"Refrigerator Compartment - Vegetable Crisper Cover":  "Yes/1",
+		"Refrigerator Compartment - Egg Tray":                 "Yes/2",
+		"Refrigerator Compartment - Can Storage Dispenser":    "No",
+		"Freezer Compartment - Shelf (Material/ No.)":         "Wire/2",
+		"Freezer Compartment - Drawer":                        "No",
+		"Freezer Compartment - Door Basket":                   "No",
+		"Freezer Compartment - Interior Lamp":                 "No",
+		"Dimensions (Net) - Width/mm":                         "645",
+		"Dimensions (Net) - Depth/mm":                         "645",
+		"Dimensions (Net) - Height/mm":                        "1860",
+		"Packing - Width/mm":                                  "710",
+		"Packing - Depth/mm":                                  "710",
+		"Packing - Height/mm":                                 "1910",
+		"Weight/Kg - Net/Packing":                             "67/76 ± 2",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft":                  "66/ 48/ 24",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

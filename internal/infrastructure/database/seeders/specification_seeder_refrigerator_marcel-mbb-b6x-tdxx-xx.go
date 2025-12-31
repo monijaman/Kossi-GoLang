@@ -97,41 +97,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMbbB6xTdxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MBB-B6X-TDXX-XX",
-		"Door Type":                   "Standard Door",
-		"Capacity":                    "254 Liters",
-		"Refrigerator Capacity":       "254 Liters",
-		"Freezer Capacity":            "0 Liters",
-		"Energy Efficiency Rating":    "Not Rated",
-		"Energy Star Rating":          "Not Rated",
-		"Annual Energy Consumption":   "Not Specified",
-		"Dimensions":                  "620 x 660 x 1873 mm (W x D x H)",
-		"Weight":                      "78.5 kg",
-		"Color":                       "Not Specified",
-		"Compressor Type":             "CSIR",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
-		"Temperature Control":         "Mechanical",
-		"Shelf Material":              "Steel",
-		"Number of Shelves":           "Not Specified",
-		"Door Bins":                   "Not Specified",
-		"Crisper Drawers":             "No",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Noise Level":                 "Not Specified",
-		"Voltage":                     "220-240V",
-		"Frequency (Hz)":              "50",
-		"App Control":                 "No",
-		"Voice Assistant Support":     "No",
-		"Warranty":                    "Commercial Use: 4 Years on Compressor, 1 Year on Door, 2 Years on Spare Parts, 2 Years After Sales Service",
-		"Compressor Warranty (Years)": "4",
-		"Refrigerant":                 "R134a",
-		"Gross Volume":                "260 Liters",
-		"Net Volume":                  "254 Liters",
-		"Special Features":            "Lock, Reversible Door No, Handle Recessed/Grip, Skin Condenser 100% Copper, RoHS Certified Thermostat, Copper Capillary, Eco-friendly PU Foam, IP24 Rating, Recommended for Commercial Use",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MBB-B6X-TDXX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

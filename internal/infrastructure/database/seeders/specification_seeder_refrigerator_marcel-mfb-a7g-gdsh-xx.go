@@ -101,31 +101,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA7gGdshXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                           "Marcel",
-		"Model Name":                      "MFB-A7G-GDSH-XX",
-		"Cooling Technology":              "Direct Cool",
-		"Gross Volume":                    "177 Ltr.",
-		"Net Volume":                      "175 Ltr.",
-		"Weight":                          "50 ± 2 Kg",
-		"Special Features":                "Net Weight: 50 ± 2 Kg; Gross Weight: 54 ± 2 Kg; Climatic Type: N~ST; Compressor Input Power: V 01.01-88; V 01.02-88; Compressor Type: V 01.01-RSCR; V 01.02-RSCR; Cooling Effect: Freezer < -18℃, Refrigerator 0℃ to +5℃; Temperature Control: Mechanical; Defrost Type: Manual; Handle: Recessed/ Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free)]; Recommended voltage stabilizer capacity: V 01.01 - Wide Voltage Range (140Vac - 260Vac) (No stabilizer required), V 01.02 - Wide Voltage Range (135Vac - 260Vac) (No stabilizer required).",
-		"Refrigerant":                     "R600a",
-		"Temperature Control":             "Mechanical",
-		"Defrost Type":                    "Manual",
-		"Handle":                          "Recessed/ Grip",
-		"Lock":                            "Yes",
-		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene",
-		"Voltage":                         "220-240V~",
-		"Frequency (Hz)":                  "50Hz",
-		"Compressor Input Power (Watt)":   "V 01.01-88; V 01.02-88",
-		"Compressor Type":                 "V 01.01-RSCR; V 01.02-RSCR",
-		"Refrigerator Compartment":        "Shelf (Wire/2), Door Basket (GPPS/3), Interior Lamp: Yes, Vegetable Crisper: Yes, Vegetable Crisper Cover: Yes, Egg Tray/Pocket: Yes",
-		"Freezer Compartment":             "Shelf (Wire/2), Drawer (HIPS/3), Interior Lamp: No",
-		"Dimensions":                      "555 x 630 x 1410 mm",
-		"Packing Dimensions":              "580 x 645 x 1455 mm",
-		"Loading Capacity":                "105/ 105/ 52",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFB-A7G-GDSH-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -92,30 +92,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMcfB0eRrlxGx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MCF-B0E-RRLX-GX",
-		"Cooling Technology":          "Direct Cool",
-		"Gross Volume":                "205 Ltr.",
-		"Net Volume":                  "205 Ltr.",
-		"Freezer Capacity":            "205 Ltr.",
-		"Capacity":                    "205 Ltr.",
-		"Weight":                      "43±2 Kg",
-		"Voltage":                     "220-240V/ 50Hz",
-		"Frequency (Hz)":              "50Hz",
-		"Compressor Type":             "RSIR, RSCR",
-		"Temperature Control":         "Mechanical",
-		"Defrost Type":                "Manual",
-		"Refrigerant":                 "R134a, R600a",
-		"Shelf Material":              "Wire",
-		"Number of Shelves":           "1",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Dimensions":                  "962 x 585 x 848 mm",
-		"Warranty":                    "Replacement Guarantee: 1 Year (Condition Apply), Main Parts (Compressor): 12 Years, Door: 3 Years *, Spare Parts: 4 Years *, After Sales Service:5 Years *",
-		"Compressor Warranty (Years)": "12",
-		"Special Features":            "Lock: Yes, Interior Lamp: Yes, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Recommended voltage stabilizer capacity: 1000VA, Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium (Al2), Shelf: Wire/1, Basket: Wire/1, Loading quantity: 36/76/114, Warranty Note: This warranty does not cover the following cases: 1. Any damage due to accident, electrical fault, natural causes, negligence or improper installation. 2. Any damage or failure caused by unauthorized modification or alteration. 3. Products with original serial numbers that have been removed, distorted or cannot be readily recognized.",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MCF-B0E-RRLX-GX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -109,31 +109,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dRxxxRp) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                           "Marcel",
-		"Model Name":                      "MFA-B4D-RXXX-RP",
-		"Cooling Technology":              "Direct Cool",
-		"Gross Volume":                    "244 Ltr.",
-		"Net Volume":                      "220 Ltr.",
-		"Energy Efficiency Rating":        "5 star (BDS 1850:2012)",
-		"Temperature Control":             "Mechanical",
-		"Defrost Type":                    "Manual",
-		"Reversible Door":                 "No",
-		"Handle":                          "Recessed",
-		"Lock":                            "Yes",
-		"Thermostat":                      "RoHS Certified",
-		"Compressor Type":                 "RSCR",
-		"Compressor Input Power (Watt)":   "V 0701-108.6; V 0801-99.4",
-		"Refrigerant":                     "V 0701-R600a; V 0801-R600a",
-		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene",
-		"Voltage":                         "220-240V~",
-		"Frequency (Hz)":                  "50Hz",
-		"Dimensions":                      "545 x 605 x 1760 mm",
-		"Packing Dimensions":              "580 x 645 x 1770 mm",
-		"Weight":                          "51/57 (Net/Packing) Kg (±2 Kg)",
-		"Special Features":                "Reversible Door: No, Handle: Recessed, Lock: Yes, Thermostat: RoHS Certified, Capillary: Copper, Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Recommended voltage stabilizer capacity: V 0701/V 0801 : No Need to use voltage stabilizer; If out of voltage range(145V-260V), then suggested voltage stabilizer capacity is 1000VA. Refrigerator Compartment: Shelf (Wire/3), Door Pocket:4, Interior Lamp:Yes, Vegetable Box:Yes/1, Vegetable Box Cover:Yes, Egg Case:Yes/1, Can Storage Dispenser:No, Deodorizer:No. Freezer Compartment: Shelf (Wire/2), Drawer:No, Door Basket:No, Interior Lamp:No, Loading Capacity- 40HQ/ 40Ft/ 20Ft: 103/ 75/ 36",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-B4D-RXXX-RP",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

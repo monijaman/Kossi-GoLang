@@ -77,11 +77,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFE-C2X-GDXX-XX-INVERTER",
-		// Add your specifications here as they become available
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFE-C2X-GDXX-XX-INVERTER",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -21,10 +21,20 @@ func NewSpecificationSeederRefrigeratorMarcelMfcC0gNexxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfcC0gNexxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfc-c0g-nexx-xx":         "মার্সেল-mfc-c0g-nexx-xx",
-		"MFC-C0G-NEXX-XX":   "MFC-C0G-NEXX-XX",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mfc-c0g-nexx-xx": "মার্সেল-mfc-c0g-nexx-xx",
+		"MFC-C0G-NEXX-XX":        "MFC-C0G-NEXX-XX",
+
+		"Direct Cool":         "ডিরেক্ট কুল",
+		"Gross Volume":        "১৭৭ লিটার",
+		"Net Volume":          "১৭৫ লিটার",
+		"Weight":              "৫০ ± ২ কেজি",
+		"R600a":               "R600a",
+		"Mechanical":          "ম্যানুয়াল/মেকানিক্যাল",
+		"Manual":              "ম্যানুয়াল",
+		"220 ~ 240":           "২২0 ~ ২৪0",
+		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 	}
 }
 
@@ -77,11 +87,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC0gNexxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFC-C0G-NEXX-XX",
-		// Add your specifications here as they become available
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFC-C0G-NEXX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

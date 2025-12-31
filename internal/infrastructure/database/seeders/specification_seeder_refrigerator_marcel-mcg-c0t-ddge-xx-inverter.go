@@ -95,28 +95,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tDdgeXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MCG-C0T-DDGE-XX-INVERTER",
-		"Door Type":                   "Single Door",
-		"Capacity":                    "300 Ltr.",
-		"Freezer Capacity":            "300 Ltr.",
-		"Gross Volume":                "300 Ltr.",
-		"Net Volume":                  "300 Ltr.",
-		"Dimensions":                  "1210 x 680 x 860 mm",
-		"Weight":                      "53 ± 2 Kg",
-		"Compressor Type":             "RSCR, CSIR",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
-		"Temperature Control":         "Mechanical",
-		"Number of Shelves":           "1",
-		"Voltage":                     "220-240V/ 50Hz",
-		"Frequency (Hz)":              "50Hz",
-		"Warranty":                    "Replacement Guarantee: 1 Year, Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years",
-		"Compressor Warranty (Years)": "12",
-		"Refrigerant":                 "R600a",
-		"Special Features":            "Lock: No, Interior Lamp: No, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium Sheet, Shelf: Wire/1, Basket: Wire/1, Sliding Glass: Yes, Loading quantity: 26/54/81 (20ft/40ft/40HQ), Climatic Type: N~ST, Wide voltage range: 145V-260V, Cooling Effect: Freezer Cabinet Less than -18°C, Recommended voltage stabilizer capacity: 2000VA or More, Warranty Note: This warranty does not cover the following cases: 1. Any damage due to accident, electrical fault, natural causes, negligence or improper installation. 2. Any damage or failure caused by unauthorized modification or alteration. 3. Products with original serial numbers that have been removed, distorted or cannot be readily recognized.",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MCG-C0T-DDGE-XX-INVERTER",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -93,27 +93,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                    "Marcel",
-		"Model Name":               "MFA-B2X-GDEL-XX",
-		"Capacity":                 "205 Ltr.",
-		"Gross Volume":             "220 Ltr.",
-		"Net Volume":               "205 Ltr.",
-		"Dimensions":               "557 x 635 x 1580 mm",
-		"Weight":                   "48.5 ± 2 Kg",
-		"Compressor Type":          "RSCR",
-		"Defrost Type":             "Manual",
-		"Temperature Control":      "Mechanical",
-		"Refrigerant":              "R600a",
-		"Voltage":                  "220 ~ 240/50",
-		"Frequency (Hz)":           "50",
-		"Energy Efficiency Rating": "5 Star", "Warranty": "Residential: Compressor 12 Years, Door 3 Years, Spare Parts 4 Years, After Sales Service 5 Years; Commercial: Compressor 4 Years, Door 1 Year, Spare Parts 2 Years, After Sales Service 2 Years",
-		"Compressor Warranty (Years)": "12", "Special Features": "Lock, Interior Lamp, Vegetable Crisper (1), Egg Tray (1), Recessed/Grip Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology",
-		"Number of Shelves": "Refrigerator: 3 wire shelves; Freezer: 2 wire shelves",
-		"Shelf Material":    "Wire",
-		"Door Bins":         "4 GPPS",
-		"Crisper Drawers":   "1",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-B2X-GDEL-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

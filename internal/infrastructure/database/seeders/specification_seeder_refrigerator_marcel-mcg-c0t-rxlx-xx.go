@@ -91,26 +91,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tRxlxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":               "Marcel",
-		"Model Name":          "MCG-C0T-RXLX-XX",
-		"Door Type":           "Single Door",
-		"Capacity":            "300 Ltr.",
-		"Freezer Capacity":    "300 Ltr.",
-		"Gross Volume":        "300 Ltr.",
-		"Net Volume":          "300 Ltr.",
-		"Dimensions":          "1210 x 675 x 845 mm",
-		"Weight":              "53.7 kg",
-		"Compressor Type":     "RSCR, CSIR",
-		"Cooling Technology":  "Direct Cool",
-		"Defrost Type":        "Manual",
-		"Temperature Control": "Mechanical",
-		"Number of Shelves":   "1",
-		"Voltage":             "220-240V/ 50Hz",
-		"Frequency (Hz)":      "50Hz",
-		"Refrigerant":         "R600a",
-		"Special Features":    "Lock: No, Interior Lamp: Yes, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium Sheet, Shelf: Wire/1, Basket: Wire/1, Loading quantity: 81/54/26 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Recommended voltage stabilizer capacity: 2000VA or More.",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MCG-C0T-RXLX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

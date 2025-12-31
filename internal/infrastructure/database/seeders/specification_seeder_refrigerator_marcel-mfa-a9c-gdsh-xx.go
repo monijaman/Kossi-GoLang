@@ -91,26 +91,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdshXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":               "Marcel",
-		"Model Name":          "MFA-A9C-GDSH-XX",
-		"Capacity":            "175 Ltr.",
-		"Gross Volume":        "193 Ltr.",
-		"Net Volume":          "175 Ltr.",
-		"Dimensions":          "538 x 600 x 1230 mm",
-		"Weight":              "45 ± 2 Kg",
-		"Compressor Type":     "RSCR",
-		"Defrost Type":        "Manual",
-		"Temperature Control": "Mechanical",
-		"Refrigerant":         "R600a",
-		"Voltage":             "220-240 V/ 50 Hz",
-		"Frequency (Hz)":      "50",
-		"Special Features":    "Lock, Interior Lamp, Vegetable Crisper (1), Egg Tray (1), Medicine Box (1), Recessed Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology, 2.25 L Bottle Accommodation, Double Layer Freezer Door, Uniform Flow",
-		"Number of Shelves":   "3 glass shelves",
-		"Shelf Material":      "Glass",
-		"Door Bins":           "5 PS",
-		"Crisper Drawers":     "1",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-A9C-GDSH-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

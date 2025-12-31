@@ -101,41 +101,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMbaB6xGcxbXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MBA-B6X-GCXB-XX",
-		"Door Type":                   "Glass Door",
-		"Capacity":                    "168 Liters",
-		"Refrigerator Capacity":       "168 Liters",
-		"Freezer Capacity":            "0 Liters",
-		"Energy Efficiency Rating":    "3 Star",
-		"Energy Star Rating":          "3",
-		"Annual Energy Consumption":   "180 kWh",
-		"Dimensions":                  "480 x 520 x 850 mm (W x D x H)",
-		"Weight":                      "32 kg",
-		"Color":                       "Black Glass",
-		"Compressor Type":             "Reciprocating",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
-		"Temperature Control":         "Mechanical",
-		"Shelf Material":              "Wire Shelves",
-		"Number of Shelves":           "3",
-		"Door Bins":                   "2",
-		"Crisper Drawers":             "0",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Noise Level":                 "38 dB",
-		"Voltage":                     "220V",
-		"Frequency (Hz)":              "50",
-		"App Control":                 "No",
-		"Voice Assistant Support":     "No",
-		"Warranty":                    "1 Year Comprehensive + 5 Years on Compressor",
-		"Compressor Warranty (Years)": "5",
-		"Refrigerant":                 "R134a",
-		"Gross Volume":                "180 Liters",
-		"Net Volume":                  "168 Liters",
-		"Special Features":            "Glass door design, Interior LED light, Adjustable shelves, Lock & key",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MBA-B6X-GCXB-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

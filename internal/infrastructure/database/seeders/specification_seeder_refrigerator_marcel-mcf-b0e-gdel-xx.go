@@ -98,38 +98,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMcfB0eGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MCF-B0E-GDEL-XX",
-		"Door Type":                   "Single Door",
-		"Capacity":                    "205 Liters",
-		"Refrigerator Capacity":       "0 Liters",
-		"Freezer Capacity":            "205 Liters",
-		"Gross Volume":                "205 Liters",
-		"Net Volume":                  "205 Liters",
-		"Dimensions":                  "962 x 585 x 852 mm (W x D x H)",
-		"Weight":                      "47 kg",
-		"Color":                       "Silver",
-		"Compressor Type":             "RSIR/RSCR",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
-		"Temperature Control":         "Mechanical",
-		"Shelf Material":              "Wire",
-		"Number of Shelves":           "1",
-		"Door Bins":                   "0",
-		"Crisper Drawers":             "0",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Noise Level":                 "40 dB",
-		"Voltage":                     "220-240V",
-		"Frequency (Hz)":              "50",
-		"App Control":                 "No",
-		"Voice Assistant Support":     "No",
-		"Warranty":                    "2 Years",
-		"Compressor Warranty (Years)": "5",
-		"Refrigerant":                 "R134a/R600a",
-		"Special Features":            "Single Door Freezer, Manual Defrost, Lock, Interior Lamp",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MCF-B0E-GDEL-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

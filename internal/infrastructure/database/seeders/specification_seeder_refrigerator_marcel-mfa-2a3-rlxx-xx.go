@@ -103,31 +103,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3RlxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                           "Marcel",
-		"Model Name":                      "MFA-2A3-RLXX-XX",
-		"Capacity":                        "176 Ltr.",
-		"Gross Volume":                    "213 Ltr.",
-		"Net Volume":                      "176 Ltr.",
-		"Dimensions":                      "542 x 618 x 1500 mm",
-		"Weight":                          "45.5 ± 2 Kg",
-		"Compressor Type":                 "RSCR",
-		"Compressor Input Power (Watt)":   "V 1101 - 102; V 1102 - 102; V 1301 - 108.6; V 1302 - 108.6; V 1401 - 102; V 1501 - 99.4; V 1601 - 108.6",
-		"Defrost Type":                    "Manual",
-		"Refrigerant":                     "R600a",
-		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "CycloPentane",
-		"Packaging Dimensions":            "580 x 645 x 1530 mm",
-		"Loading Capacity":                "102/ 102 /50",
-		"Frequency (Hz)":                  "50",
-		"Warranty":                        "Residential: Replacement Guarantee 1 Year, Compressor 12 Years, Door 3 Years, Spare Parts 4 Years, After Sales Service 5 Years. Commercial: Compressor 4 Years, Door 1 Year, Spare Parts 2 Years, After Sales Service 2 Years.",
-		"Compressor Warranty (Years)":     "12",
-		"Special Features":                "Lock, Interior Lamp, Vegetable Crisper (1), Egg Tray (1-2), Recessed/Grip Handle, Door Baskets PVC/2, Eco-friendly (100% CFC & HCFC Free) Green Technology",
-		"Number of Shelves":               "2 wire shelves",
-		"Shelf Material":                  "Wire",
-		"Door Bins":                       "2 PVC",
-		"Crisper Drawers":                 "1",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-2A3-RLXX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

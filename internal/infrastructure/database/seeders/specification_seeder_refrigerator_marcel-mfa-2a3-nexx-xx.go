@@ -105,33 +105,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3NexxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                           "Marcel",
-		"Model Name":                      "MFA-2A3-NEXX-XX",
-		"Capacity":                        "176 Ltr.",
-		"Gross Volume":                    "213 Ltr.",
-		"Net Volume":                      "176 Ltr.",
-		"Dimensions":                      "Net - Width: 545 mm; Depth: 640 mm; Height: 1510 mm (545 x 640 x 1510 mm)",
-		"Packaging Dimensions":            "580 x 645 x 1530 mm",
-		"Weight":                          "45.5 ± 2 Kg (Net); 50 ± 2 Kg (Gross)",
-		"Compressor Type":                 "RSCR",
-		"Compressor Input Power (Watt)":   "V 1101 - 102; V 1102 - 102; V 1301 - 108.6; V 1302 - 108.6; V 1401 - 102; V 1501 - 99.4; V 1601 - 108.6",
-		"Defrost Type":                    "Manual",
-		"Temperature Control":             "Mechanical",
-		"Refrigerant":                     "R600a",
-		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "CycloPentane",
-		"Voltage":                         "220 ~ 240/ 50 Hz",
-		"Frequency (Hz)":                  "50",
-		"Warranty":                        "Residential: Replacement Guarantee 1 Year, Compressor 12 Years, Door 3 Years, Spare Parts 4 Years, After Sales Service 5 Years. Commercial: Compressor 4 Years, Door 1 Year, Spare Parts 2 Years, After Sales Service 2 Years.",
-		"Compressor Warranty (Years)":     "12",
-		"Special Features":                "Lock, Interior Lamp (Refrigerator), Vegetable Crisper with Cover, Egg Tray (1-2), Recessed/Grip Handle, Eco-friendly (100% CFC & HCFC Free) Green Technology",
-		"Number of Shelves":               "Refrigerator: 2 wire shelves; Freezer: 2 wire shelves",
-		"Shelf Material":                  "Wire",
-		"Door Bins":                       "Refrigerator: 2 PVC; Freezer: None",
-		"Crisper Drawers":                 "1",
-		"Loading Capacity":                "102/ 102 /50",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-2A3-NEXX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

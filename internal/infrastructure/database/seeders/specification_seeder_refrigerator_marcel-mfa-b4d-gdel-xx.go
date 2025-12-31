@@ -98,32 +98,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                           "Marcel",
-		"Model Name":                      "MFA-B4D-GDEL-XX",
-		"Capacity":                        "220 Ltr.",
-		"Gross Volume":                    "244 Ltr.",
-		"Net Volume":                      "220 Ltr.",
-		"Dimensions":                      "Net - Width: 545 mm; Depth: 605 mm; Height: 1760 mm (545 x 605 x 1760 mm)",
-		"Packaging Dimensions":            "580 x 645 x 1770 mm",
-		"Weight":                          "51 Kg (Net); 58 Kg (Packed) (±2 Kg)",
-		"Compressor Type":                 "RSCR",
-		"Compressor Input Power (Watt)":   "V 0501-119; V 0601-108.6; V 0701-108.6",
-		"Defrost Type":                    "Manual",
-		"Temperature Control":             "Mechanical",
-		"Refrigerant":                     "V 0501-R134a; V 0601-R600a; V 0701-R600a",
-		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene",
-		"Voltage":                         "220-240V~ and 50Hz",
-		"Energy Efficiency Rating":        "5 Star (BDS 1850:2012)",
-		"Recommended Stabilizer":          "V 05.01: 1000VA; V 06.01: No Need; V 07.01: No Need. If out of range (145V-260V) suggest 1000VA",
-		"Special Features":                "Lock, Recessed Handle, Interior Lamp, Vegetable Box (1), Vegetable Box Cover (1), Egg Case (1), Eco-friendly (100% CFC & HCFC Free) Green Technology",
-		"Number of Shelves":               "Refrigerator: Wire/3; Freezer: Wire/2",
-		"Shelf Material":                  "Wire",
-		"Door Bins":                       "GPPS/4",
-		"Crisper Drawers":                 "1",
-		"Loading Capacity":                "98/ 72/ 36",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-B4D-GDEL-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

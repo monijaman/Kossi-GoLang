@@ -21,10 +21,32 @@ func NewSpecificationSeederRefrigeratorMarcelMfbB2cGdehScInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdehScInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfb-b2c-gdeh-sc-inverter":         "মার্সেল-mfb-b2c-gdeh-sc-inverter",
-		"MFB-B2C-GDEH-SC-INVERTER":   "MFB-B2C-GDEH-SC-INVERTER",
-		// Add more translations as needed
+		"Marcel":                          "মার্সেল",
+		"marcel-mfb-b2c-gdeh-sc-inverter": "মার্সেল-mfb-b2c-gdeh-sc-inverter",
+		"MFB-B2C-GDEH-SC-INVERTER":        "MFB-B2C-GDEH-SC-INVERTER",
+
+		// Common values used in this seeder
+		"Direct Cool":                "ডিরেক্ট কুল",
+		"177 Ltr.":                   "১৭৭ লিটার",
+		"175 Ltr.":                   "১৭৫ লিটার",
+		"N~ST":                       "N~ST",
+		"220 ~ 240/ 50":              "২২০ ~ ২৪০/ ৫০",
+		"V 01.01-88; V 01.02-88":     "V 01.01-88; V 01.02-88",
+		"V 01.01-RSCR; V 01.02-RSCR": "V 01.01-RSCR; V 01.02-RSCR",
+		"RSCR":                       "RSCR",
+		"Mechanical":                 "মেকানিক্যাল",
+		"Manual":                     "ম্যানুয়াল",
+		"Recessed/ Grip":             "রিসেসড/গ্রিপ",
+		"Yes":                        "হ্যাঁ",
+		"No":                         "না",
+		"Copper":                     "তামা",
+		"Cyclopentene":               "সাইক্লোপেন্টেন",
+		"R600a":                      "R600a",
+		"50 ± 2 Kg":                  "৫০ ± ২ কেজি",
+		"54 ± 2 Kg":                  "৫৪ ± ২ কেজি",
+		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
+		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
 	}
 }
 
@@ -77,11 +99,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdehScInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFB-B2C-GDEH-SC-INVERTER",
-		// Add your specifications here as they become available
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFB-B2C-GDEH-SC-INVERTER",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

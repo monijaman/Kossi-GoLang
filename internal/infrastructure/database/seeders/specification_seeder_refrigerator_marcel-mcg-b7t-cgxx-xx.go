@@ -90,30 +90,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB7tCgxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MCG-B7T-CGXX-XX",
-		"Cooling Technology":          "Direct Cool",
-		"Gross Volume":                "270 Ltr.",
-		"Net Volume":                  "270 Ltr.",
-		"Freezer Capacity":            "270 Ltr.",
-		"Capacity":                    "270 Ltr.",
-		"Weight":                      "53.2±2 Kg",
-		"Voltage":                     "220-240V/ 50Hz",
-		"Frequency (Hz)":              "50Hz",
-		"Compressor Type":             "RSCR",
-		"Temperature Control":         "Mechanical",
-		"Defrost Type":                "Manual",
-		"Refrigerant":                 "R600a",
-		"Shelf Material":              "No",
-		"Number of Shelves":           "0",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Dimensions":                  "1080 x 702 x 890 mm",
-		"Warranty":                    "Replacement Guarantee: 1 Year (Condition Apply), Main Parts (Compressor): 12 Years, Door: 3 Years *, Spare Parts: 4 Years *, After Sales Service:5 Years *",
-		"Compressor Warranty (Years)": "12",
-		"Special Features":            "Lock: Yes, Interior Lamp: Yes, Handle: Yes, Condenser: Steel, Evaporator: Aluminum, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium (Al2), Basket: Wire/1, Climatic Type: N~T, Wide voltage range: 150V ~ 260V, Cooling Effect: Freezer Cabinet -20℃ to -30℃, Voltage Stabilizer Capacity: 2000VA (if Input Voltage is below 150V), Application: Commercial, Warranty Note: This warranty does not cover the following cases: 1. Any damage due to accident, electrical fault, natural causes, negligence or improper installation. 2. Any damage or failure caused by unauthorized modification or alteration. 3. Products with original serial numbers that have been removed, distorted or cannot be readily recognized.",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MCG-B7T-CGXX-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

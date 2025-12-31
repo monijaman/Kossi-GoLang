@@ -96,37 +96,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3GdehXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	specs := map[string]string{
-		"Brand":                       "Marcel",
-		"Model Name":                  "MFA-2A3-GDEH-XX",
-		"Door Type":                   "Single Door",
-		"Capacity":                    "176 Ltr.",
-		"Refrigerator Capacity":       "176 Ltr.",
-		"Freezer Capacity":            "0 Ltr.",
-		"Gross Volume":                "213 Ltr.",
-		"Net Volume":                  "176 Ltr.",
-		"Dimensions":                  "557 x 645 x 1510 mm",
-		"Weight":                      "45.5 ± 2 Kg",
-		"Energy Efficiency Rating":    "5 Star",
-		"Compressor Type":             "RSCR",
-		"Cooling Technology":          "Direct Cool",
-		"Defrost Type":                "Manual",
-		"Temperature Control":         "Mechanical",
-		"Shelf Material":              "Wire",
-		"Number of Shelves":           "2",
-		"Door Bins":                   "3",
-		"Crisper Drawers":             "1",
-		"Ice Maker":                   "No",
-		"Water Dispenser":             "No",
-		"Voltage":                     "220-240V/ 50Hz",
-		"Frequency (Hz)":              "50Hz",
-		"App Control":                 "No",
-		"Voice Assistant Support":     "No",
-		"Warranty":                    "Replacement Guarantee: 1 Year, Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years",
-		"Compressor Warranty (Years)": "12",
-		"Refrigerant":                 "R600a",
-		"Special Features":            "Lock: Yes, Interior Lamp: Yes, Handle: Recessed/Grip, Capillary: Copper, Polyurethane foam blowing agent CycloPentane [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelves: Wire/2, Refrigerator Door Baskets: GPPS/3, Vegetable Crisper: Yes/1, Egg Tray: Yes/1-2, Freezer Compartment Shelves: Wire/2, Loading quantity: 102/102/50 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Energy Rating: 5 Star, Recommended voltage stabilizer capacity: No need if within 145V-260V; 1000VA if outside range.",
-	}
+	
+    		
+    specs := map[string]string{
+        "Brand":               "Marcel",
+        "Model Name":          "MFA-2A3-GDEH-XX",
+        "Cooling Technology":  "Direct Cool",
+        "Gross Volume":        "177 Ltr.",
+        "Net Volume":          "175 Ltr.",
+        "Weight":              "50 ± 2 Kg",
+        "Refrigerant":         "R600a",
+        "Temperature Control": "Mechanical",
+        "Voltage":             "220 ~ 240",
+        "Dimensions":          "555 x 630 x 1410 mm",
+        "Packing Dimensions":  "580 x 645 x 1455 mm",
+    }
+
+
+
+
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {
