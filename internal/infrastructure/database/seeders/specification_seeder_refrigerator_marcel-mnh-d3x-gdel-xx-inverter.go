@@ -21,10 +21,35 @@ func NewSpecificationSeederRefrigeratorMarcelMnhD3xGdelXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMnhD3xGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mnh-d3x-gdel-xx-inverter":         "মার্সেল-mnh-d3x-gdel-xx-inverter",
-		"MNH-D3X-GDEL-XX-INVERTER":   "MNH-D3X-GDEL-XX-INVERTER",
-		// Add more translations as needed
+		"Marcel":                          "মার্সেল",
+		"marcel-mnh-d3x-gdel-xx-inverter": "মার্সেল-mnh-d3x-gdel-xx-inverter",
+		"MNH-D3X-GDEL-XX-INVERTER":        "MNH-D3X-GDEL-XX-INVERTER",
+
+		// specs values -> Bangla
+		"430 Ltr.":                          "৪৩০ লিটার",
+		"370 Ltr.":                          "৩৭০ লিটার",
+		"76.5 ± 2 Kg":                       "৭৬.৫ ± ২ কেজি",
+		"86 ± 2 Kg":                         "৮৬ ± ২ কেজি",
+		"BLDC Inverter":                     "বিএলডিসি ইনভার্টার",
+		"No-Frost":                          "নো-ফ্রস্ট",
+		"R600a":                             "R600a",
+		"705 x 690 x 1845 mm":               "৭০৫ x ৬৯০ x ১৮৪৫ মিমি",
+		"760 x 775 x 1900 mm":               "৭৬০ x ৭৭৫ x ১৯০০ মিমি",
+		"48/ 48/ 24":                        "৪৮/ ৪৮/ ২৪",
+		"Five Star (*****)":                 "পাঁচ তারা (*****)",
+		"360 kWh/year as per BDS 1850:2012": "৩৬০ kWh/বছর (BDS 1850:2012 অনুযায়ী)",
+		"T":                                 "T",
+		"220-240 V/ 50 Hz":                  "২২০-২৪০ V/ ৫০ Hz",
+		"100 % Copper":                      "১০০% কপার",
+		"Copper":                            "কপার",
+		"RoHS Certified":                    "RoHS সার্টিফাইড",
+		"Cyclopentene":                      "সাইক্লোপেন্টেন",
+		"Glass":                             "গ্লাস",
+		"GPPS":                              "GPPS",
+		"Automatic":                         "স্বয়ংক্রিয়",
+		"Yes":                               "হ্যাঁ",
+		"Yes/1":                             "হ্যাঁ/১",
+		"Yes/2":                             "হ্যাঁ/২",
 	}
 }
 
@@ -77,25 +102,46 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xGdelXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MNH-D3X-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MNH-D3X-GDEL-XX-INVERTER",
+		"Cooling Technology":              "No-Frost",
+		"Gross Volume":                    "430 Ltr.",
+		"Net Volume":                      "370 Ltr.",
+		"Energy Star Rating":              "Five Star (*****)",
+		"Annual Energy Consumption":       "360 kWh/year as per BDS 1850:2012",
+		"Climatic Type":                   "T",
+		"Voltage":                         "220-240 V/ 50 Hz",
+		"Weight":                          "76.5 ± 2 Kg",
+		"Gross Weight":                    "86 ± 2 Kg",
+		"Compressor Type":                 "BLDC Inverter",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Automatic",
+		"Refrigerant":                     "R600a",
+		"Condenser":                       "100 % Copper",
+		"Capillary":                       "Copper",
+		"Thermostat":                      "RoHS Certified",
+		"Polyurethane foam blowing agent": "Cyclopentene",
 
+		// Refrigerator compartment
+		"Shelf Material":     "Glass",
+		"Number of Shelves":  "4",
+		"Door Bins":          "GPPS/7",
+		"Interior Lamp":      "Yes",
+		"Crisper Drawers":    "1",
+		"Egg Tray or Pocket": "Yes/ 2",
 
+		// Freezer compartment
+		"Ice Maker":                "Yes/2",
+		"Ice Box":                  "Yes/1",
+		"Shelf Material (Freezer)": "GPPS",
+		"Interior LED Lamp":        "Yes",
+		"Cooling Effect":           "Freezer Cabinet Less than -18°C; Refrigerator Cabinet 0°C to +50°C",
 
-
+		"Dimensions":         "705 x 690 x 1845 mm",
+		"Packing Dimensions": "760 x 775 x 1900 mm",
+		"Loading Capacity":   "48/ 48/ 24",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

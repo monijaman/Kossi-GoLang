@@ -21,10 +21,29 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC2xGdelXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c2x-gdel-xx-inverter":         "মার্সেল-mfe-c2x-gdel-xx-inverter",
-		"MFE-C2X-GDEL-XX-INVERTER":   "MFE-C2X-GDEL-XX-INVERTER",
-		// Add more translations as needed
+		"Marcel":                          "মার্সেল",
+		"marcel-mfe-c2x-gdel-xx-inverter": "মার্সেল-mfe-c2x-gdel-xx-inverter",
+		"MFE-C2X-GDEL-XX-INVERTER":        "MFE-C2X-GDEL-XX-INVERTER",
+		"Direct Cool":                     "ডাইরেক্ট কুল",
+		"341 Ltr":                         "৩৪১ লিটার",
+		"320 Ltr.":                        "৩২০ লিটার",
+		"67 ± 2 Kg":                       "৬৭ ± ২ কেজি",
+		"72 ± 2 Kg":                       "৭২ ± ২ কেজি",
+		"N ~ ST":                          "এন ~ এসটি",
+		"220-240V~/50Hz":                  "২২০-২৪০V~/৫০Hz",
+		"V 0601 - (38~109) V 0701 - (33~126) V 0702 - (33~126)": "V ০৬০১ - (৩৮~১০৯) V ০৭০১ - (৩৩~১২৬) V ০৭০২ - (৩৩~১২৬)",
+		"V 0601 - BLDC V 0701 - BLDC V 0702 - BLDC":             "V ০৬০১ - BLDC V ০৭০১ - BLDC V ০৭০২ - BLDC",
+		"V 0601 - R600a V 0701 - R600a V 0702 - R600a":          "V ০৬০১ - R৬০০a V ০৭০১ - R৬০০a V ০৭০২ - R৬০০a",
+		"Wire":                "ওয়্যার",
+		"2":                   "২",
+		"PVC/4":               "পিভিসি/৪",
+		"Yes/1":               "হ্যাঁ/১",
+		"Copper":              "কপার",
+		"RoHS Certified":      "RoHS সার্টিফায়েড",
+		"Cyclopentene":        "সাইক্লোপেন্টিন",
+		"594 x 708 x 1720 mm": "৫৯৪ x ৭০৮ x ১৭২০ মিমি",
+		"635 x 740 x 1790 mm": "৬৩৫ x ৭৪০ x ১৭৯০ মিমি",
+		"77/ 57/ 27":          "৭৭/ ৫৭/ ২৭",
 	}
 }
 
@@ -77,25 +96,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdelXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C2X-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C2X-GDEL-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "341 Ltr",
+		"Net Volume":          "320 Ltr.",
+		"Weight":              "67 ± 2 Kg",
+		"Voltage":             "220-240V~/50Hz",
+		"Compressor Type":     "V 0601 - BLDC V 0701 - BLDC V 0702 - BLDC",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "V 0601 - R600a V 0701 - R600a V 0702 - R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "PVC/4",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "594 x 708 x 1720 mm",
+		"Special Features":    "Gross Weight: 72 ± 2 Kg; Climatic Type: N ~ ST; Compressor Input Power: V 0601 - (38~109) V 0701 - (33~126) V 0702 - (33~126); Polyurethane foam blowing agent: Cyclopentene; Thermostat: RoHS Certified; Capillary: Copper; Recommended stabilizer: V 0601 - No Need V 0701 - No Need V 0702 - No Need; Packing Dimensions: 635 x 740 x 1790 mm; Loading Capacity: 77/ 57/ 27; Freezer Cooling: Freezer Cabinet Less than -18 ̊C; Refrigerator Cooling: Refrigerator Cabinet 0 ̊C to +5 ̊C; Interior Lamp: Yes; Door Basket: No; Drawer: No; Deodorizer: No",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

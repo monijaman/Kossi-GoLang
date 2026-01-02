@@ -21,10 +21,29 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC3cGdenXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c3c-gden-xx":         "মার্সেল-mfe-c3c-gden-xx",
-		"MFE-C3C-GDEN-XX":   "MFE-C3C-GDEN-XX",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c3c-gden-xx": "মার্সেল-mfe-c3c-gden-xx",
+		"MFE-C3C-GDEN-XX":        "MFE-C3C-GDEN-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"333 Ltr":                "৩৩৩ লিটার",
+		"293 Ltr.":               "২৯৩ লিটার",
+		"74 ± 2 Kg":              "৭৪ ± ২ কেজি",
+		"80 ± 2 Kg":              "৮০ ± ২ কেজি",
+		"ST":                     "এসটি",
+		"220- 240/ 50/ 135":      "২২০- ২৪০/ ৫০/ ১৩৫",
+		"RSCR":                   "আরএসসিআর",
+		"Mechanical":             "যান্ত্রিক",
+		"Manual":                 "ম্যানুয়াল",
+		"Recessed":               "রিসেসড",
+		"Yes":                    "হ্যাঁ",
+		"No":                     "না",
+		"R600a":                  "R600a",
+		"Copper":                 "কপার",
+		"Cyclopentene":           "সাইক্লোপেন্টিন",
+		"2000VA or More":         "২০০০ভিএ বা তার বেশি",
+		"585 x 711 x 1746 mm":    "৫৮৫ x ৭১১ x ১৭৪৬ মিমি",
+		"625 x 745 x 1776 mm":    "৬২৫ x ৭৪৫ x ১৭৭৬ মিমি",
+		"76/ 57/ 27":             "৭৬/ ৫৭/ ২৭",
 	}
 }
 
@@ -77,25 +96,48 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C3C-GDEN-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFE-C3C-GDEN-XX",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "333 Ltr",
+		"Net Volume":                      "293 Ltr.",
+		"Net Weight":                      "74 ± 2 Kg",
+		"Gross Weight":                    "80 ± 2 Kg",
+		"Climate Type":                    "ST",
+		"Voltage":                         "220- 240/ 50/ 135",
+		"Compressor Type":                 "RSCR",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Manual",
+		"Reversible Door":                 "No",
+		"Handle":                          "Recessed",
+		"Lock":                            "Yes",
+		"Refrigerant":                     "R600a",
+		"Thermostat":                      "RoHS Certified",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Recommended voltage stabilizer capacity": "2000VA or More",
+		"Number of Shelves":                       "2",
+		"Shelf Material":                          "Wire",
+		"Door Bins":                               "Yes/4",
+		"Interior Lamp":                           "Yes",
+		"Crisper Drawers":                         "Yes/1",
+		"Vegetable Crisper":                       "Yes/1",
+		"Vegetable Crisper Cover":                 "Yes/1",
+		"Egg Tray or Pocket":                      "Yes",
+		"Can Storage Dispenser":                   "No",
+		"Freezer Shelf":                           "Rack Evaporator",
+		"Freezer Drawer":                          "No",
+		"Ice Tray":                                "Yes/1",
+		"Ice Case":                                "Yes/1",
+		"Ice Remover spoon":                       "Yes/1",
+		"Freezer Door Baskets":                    "No",
+		"Freezer Interior Lamp":                   "No",
+		"Cooling Effect":                          "Freezer Cabinet Less than -18°C; Refrigerator Cabinet 0°C to +50°C",
+		"Dimensions":                              "585 x 711 x 1746 mm",
+		"Packing Dimensions":                      "625 x 745 x 1776 mm",
+		"Loading Capacity":                        "76/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

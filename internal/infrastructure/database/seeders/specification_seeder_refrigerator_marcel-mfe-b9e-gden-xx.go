@@ -21,10 +21,41 @@ func NewSpecificationSeederRefrigeratorMarcelMfeB9eGdenXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdenXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-b9e-gden-xx":         "মার্সেল-mfe-b9e-gden-xx",
-		"MFE-B9E-GDEN-XX":   "MFE-B9E-GDEN-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-b9e-gden-xx": "মার্সেল-mfe-b9e-gden-xx",
+		"MFE-B9E-GDEN-XX":        "MFE-B9E-GDEN-XX",
 		// Add more translations as needed
+		"Mechanical": "যান্ত্রিক",
+		"635":        "৬৩৫",
+		"V 0101 - RSCR V 0201 - RSCR V 0202 - RSCR V 0301 - RSCR V 0501 - RSCR": "V ০১০১ - RSCR V ০২০১ - RSCR V ০২০২ - RSCR V ০৩০১ - RSCR V ০৫০১ - RSCR",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃":         "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"Yes":            "হ্যাঁ",
+		"316 Ltr.":       "৩১৬ লিটার",
+		"78/ 57/ 27":     "৭৮/ ৫৭/ ২৭",
+		"740":            "৭৪০",
+		"Direct Cool":    "ডাইরেক্ট কুল",
+		"220-240V~/50Hz": "২২০-২৪০V~/৫০Hz",
+		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"V 0101 - 118 V 0201 - 118 V 0202 - 118 V 0301 - 134 V 0501 - 118":    "V ০১০১ - ১১৮ V ০২০১ - ১১৮ V ০২০২ - ১১৮ V ০৩০১ - ১৩৪ V ০৫০১ - ১১৮",
+		"70 ± 2 Kg":      "৭০ ± ২ কেজি",
+		"Manual":         "Manual",
+		"Copper":         "কপার",
+		"RoHS Certified": "RoHS Certified",
+		"No":             "না",
+		"295 Ltr.":       "২৯৫ লিটার",
+		"V0102 - R600a V0201 - R600a V0202 - R600a V0301 - R134a V0501 - R600a": "V০১০২ - R৬০০a V০২০১ - R৬০০a V০২০২ - R৬০০a V০৩০১ - R১৩৪a V০৫০১ - R৬০০a",
+		"1690": "১৬৯০",
+		"V 0501:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.": "V ০৫০১:Wide Voltage Design (৭৫V-২৬৪V) N.B.: If out of voltage range(৭৫V-২৬৪V) then suggested voltage stabilizer capacity is ২১০০VA.",
+		"Recressed/ Grip/ Built-in": "Recressed/ Grip/ Built-in",
+		"N ~ ST":                    "N ~ ST",
+		"Yes (Plastic)":             "Yes (Plastic)",
+		"Wire/2":                    "Wire/২",
+		"Yes (ABS/ PS)":             "Yes (ABS/ PS)",
+		"62 ± 2 Kg":                 "৬২ ± ২ কেজি",
+		"V 0101 - RSCR; V 0201 - RSCR; V 0202 - RSCR; V 0301 - RSCR; V 0501 - RSCR": "V ০১০১ - RSCR; V ০২০১ - RSCR; V ০২০২ - RSCR; V ০৩০১ - RSCR; V ০৫০১ - RSCR",
+		"V0102 - R600a; V0201 - R600a; V0202 - R600a; V0301 - R134a; V0501 - R600a": "V০১০২ - R৬০০a; V০২০১ - R৬০০a; V০২০২ - R৬০০a; V০৩০১ - R১৩৪a; V০৫০১ - R৬০০a",
+		"PVC/4":               "PVC/৪",
+		"594 x 708 x 1620 mm": "৫৯৪ x ৭০৮ x ১৬২০ মিমি",
 	}
 }
 
@@ -77,25 +108,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdenXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-B9E-GDEN-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-B9E-GDEN-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "316 Ltr.",
+		"Net Volume":          "295 Ltr.",
+		"Weight":              "62 ± 2 Kg",
+		"Voltage":             "220-240V~/50Hz",
+		"Compressor Type":     "V 0101 - RSCR; V 0201 - RSCR; V 0202 - RSCR; V 0301 - RSCR; V 0501 - RSCR",
+		"Refrigerant":         "V0102 - R600a; V0201 - R600a; V0202 - R600a; V0301 - R134a; V0501 - R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/4",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Dimensions":          "594 x 708 x 1620 mm",
+		"Special Features":    "Gross Weight: 70 ± 2 Kg; Climate Type: N ~ ST; Compressor Input Power (Watt): V 0101 - 118; V 0201 - 118; V 0202 - 118; V 0301 - 134; V 0501 - 118; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Reversible Door: No; Handle (Recessed/ Grip): Recressed/ Grip/ Built-in; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: V 0501:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Shelf (Material/ No.): Wire/2; Freezer Drawer: No; Freezer Door Basket: No; Freezer Interior Lamp: No; Packing Dimensions: 635 x 740 x 1690 mm; Loading Capacity: 78/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

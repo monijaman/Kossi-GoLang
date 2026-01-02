@@ -21,10 +21,21 @@ func NewSpecificationSeederRefrigeratorMarcelMniE6cGdelDd() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMniE6cGdelDd) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mni-e6c-gdel-dd":         "মার্সেল-mni-e6c-gdel-dd",
-		"MNI-E6C-GDEL-DD":   "MNI-E6C-GDEL-DD",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mni-e6c-gdel-dd": "মার্সেল-mni-e6c-gdel-dd",
+		"MNI-E6C-GDEL-DD":        "MNI-E6C-GDEL-DD",
+
+		// specs values -> Bangla
+		"563 Ltr.":            "৫৬৩ লিটার",
+		"501 Ltr.":            "৫০১ লিটার",
+		"BLDC Inverter":       "বিএলডিসি ইনভার্টার",
+		"220~240 V/ 50 Hz":    "২২০~২৪০ V/ ৫০ Hz",
+		"Mechanical":          "যান্ত্রিক",
+		"R600a":               "R600a",
+		"865 x 715 x 1725 mm": "৮৬৫ x ৭১৫ x ১৭২৫ মিমি",
+		"890 x 775 x 1770 mm": "৮৯০ x ৭৭৫ x ১৭৭০ মিমি",
+		"101 / 115.5 ± 2":     "১০১ / ১১৫.৫ ± ২",
+		"39/ 39/ 18":          "৩৯/ ৩৯/ ১৮",
 	}
 }
 
@@ -77,25 +88,21 @@ func (s *SpecificationSeederRefrigeratorMarcelMniE6cGdelDd) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MNI-E6C-GDEL-DD",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MNI-E6C-GDEL-DD",
+		"Cooling Technology":  "Non-Frost",
+		"Gross Volume":        "563 Ltr.",
+		"Net Volume":          "501 Ltr.",
+		"Compressor Type":     "BLDC Inverter",
+		"Voltage":             "220~240 V/ 50 Hz",
+		"Temperature Control": "Mechanical",
+		"Refrigerant":         "R600a",
+		"Dimensions":          "865 x 715 x 1725 mm",
+		"Packing Dimensions":  "890 x 775 x 1770 mm",
+		"Weight":              "101 / 115.5 ± 2",
+		"Loading Capacity":    "39/ 39/ 18",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

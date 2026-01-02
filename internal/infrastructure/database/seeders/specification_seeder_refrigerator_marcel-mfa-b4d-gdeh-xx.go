@@ -47,6 +47,23 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dGdehXx) getBanglaTranslation
 		"1000VA":                 "1000VA",
 		"98/ 72/ 36":             "98/ 72/ 36",
 		// Add more translations as needed
+		"1770": "১৭৭০",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"Yes": "হ্যাঁ",
+		"V 0501-R134a V 0601-R600a V 0701-R600a": "V ০৫০১-R১৩৪a V ০৬০১-R৬০০a V ০৭০১-R৬০০a",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"V 05.01: 1000VA V 06.01: No Need to use voltage stabilizer. V 0701 : No Need to use voltage stabilizer If out of voltage range(145V-260V), then suggested voltage stabilizer capacity is 1000VA.": "V ০৫.০১: ১০০০VA V ০৬.০১: No Need to use voltage stabilizer. V ০৭০১ : No Need to use voltage stabilizer If out of voltage range(১৪৫V-২৬০V), then suggested voltage stabilizer capacity is ১০০০VA.",
+		"5 star (BDS 1850:2012)": "৫ star (BDS ১৮৫০:২০১২)",
+		"Yes/1": "Yes/১",
+		"RoHS Certified": "RoHS Certified",
+		"645": "৬৪৫",
+		"V 0501- 119 V 0601-108.6 V 0701-108.6": "V ০৫০১- ১১৯ V ০৬০১-১০৮.৬ V ০৭০১-১০৮.৬",
+		"No": "না",
+		"N~ST": "N~ST",
+		"580": "৫৮০",
+		"Recessed": "Recessed",
+
 	}
 }
 
@@ -102,18 +119,43 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dGdehXx) Seed(db *gorm.DB) er
 	
     		
     specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFA-B4D-GDEH-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+		"Type": "Direct Cool",
+		"Gross Volume (Outer Dimension, Manufacturer declared)": "244 Ltr.",
+		"Net Volume": "220 Ltr.",
+		"Climatic Type (SN, N, ST, T)": "N~ST",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Compressor Input Power (Watt)": "V 0501- 119 V 0601-108.6 V 0701-108.6",
+		"Compressor Type": "RSCR",
+		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Energy Rating": "5 star (BDS 1850:2012)",
+		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Reversible Door": "No",
+		"Handle (Recessed/ Grip)": "Recessed",
+		"Lock": "Yes",
+		"Refrigerant": "V 0501-R134a V 0601-R600a V 0701-R600a",
+		"Thermostat": "RoHS Certified",
+		"Capillary": "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Recommended voltage stabilizer capacity": "V 05.01: 1000VA V 06.01: No Need to use voltage stabilizer. V 0701 : No Need to use voltage stabilizer If out of voltage range(145V-260V), then suggested voltage stabilizer capacity is 1000VA.",
+		"Shelf (Material/No.)": "Wire/3",
+		"Door Pocket": "GPPS/4",
+		"Interior Lamp": "No",
+		"Vegetable Crisper": "Yes/1",
+		"Vegetable Crisper Cover": "Yes/1",
+		"Egg Tray": "Yes/1",
+		"Can Storage Dispenser": "No",
+		"Deodorizer": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Drawer": "No",
+		"Door Basket": "No",
+		"Width/mm": "580",
+		"Depth/mm": "645",
+		"Height/mm": "1770",
+		"Weight/Kg - Net/Packing (±2 KG)": "51/58",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "98/ 72/ 36",
+	}
+
 
 
 

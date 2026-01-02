@@ -21,10 +21,36 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC5hGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c5h-gdel-xx":         "মার্সেল-mfe-c5h-gdel-xx",
-		"MFE-C5H-GDEL-XX":   "MFE-C5H-GDEL-XX",
-		// Add more translations as needed
+		"Marcel":                     "মার্সেল",
+		"marcel-mfe-c5h-gdel-xx":     "মার্সেল-mfe-c5h-gdel-xx",
+		"MFE-C5H-GDEL-XX":            "MFE-C5H-GDEL-XX",
+		"Direct Cool":                "ডাইরেক্ট কুল",
+		"358 Ltr.":                   "৩৫৮ লিটার",
+		"345 Ltr.":                   "৩৪৫ লিটার",
+		"68.5 \u00b1 2 Kg":           "৬৮.৫ ± ২ কেজি",
+		"76 \u00b1 2 Kg":             "৭৬ ± ২ কেজি",
+		"N ~ ST":                     "N ~ ST",
+		"220~240/ 50/135":            "২২০~২৪০/৫০/১৩৫",
+		"V 0102- 130\nV 0301- 123":   "V 0102- 130\nV 0301- 123",
+		"V 0102- RSCR\nV 0301- RSCR": "V 0102- RSCR\nV 0301- RSCR",
+		"V 0102- RSCR; V 0301- RSCR": "V 0102- RSCR; V 0301- RSCR",
+		"Mechanical":                 "যান্ত্রিক",
+		"Manual":                     "ম্যানুয়াল",
+		"No":                         "না",
+		"Recessed":                   "রিসেসড",
+		"Yes":                        "হ্যাঁ",
+		"R600a":                      "R600a",
+		"Copper":                     "কপার",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "সাইক্লোপেন্টিন (পরিবেশবান্ধব, CFC/HCFC ফ্রি)",
+		"2000VA":              "২০০০ভিএ",
+		"Wire/2":              "ওয়্যার/2",
+		"Yes/3":               "হ্যাঁ/3",
+		"Yes/4":               "হ্যাঁ/4",
+		"Yes/1":               "হ্যাঁ/1",
+		"594 x 711 x 1820 mm": "৫৯৪ x ৭১১ x ১৮২০ মিমি",
+		"585 x 711 x 1825 mm": "৫৮৫ x ৭১১ x ১৮২৫ মিমি",
+		"625 x 745 x 1830 mm": "৬২৫ x ৭৪৫ x ১৮৩০ মিমি",
+		"76/ 57/ 27":          "৭৬/ ৫৭/ ২৭",
 	}
 }
 
@@ -77,25 +103,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C5H-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C5H-GDEL-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "358 Ltr.",
+		"Net Volume":          "345 Ltr.",
+		"Weight":              "68.5 ± 2 Kg",
+		"Voltage":             "220~240/ 50/135",
+		"Compressor Type":     "V 0102- RSCR; V 0301- RSCR",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "Yes/3",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "585 x 711 x 1825 mm",
+		"Special Features":    "Gross Weight: 76 ± 2 Kg; Climate Type: N ~ ST; Compressor Input Power: V 0102- 130; V 0301- 123; Cooling Effect: Freezer Cabinet Less than -18 ̊C; Refrigerator Cabinet 0 ̊C to +5 ̊C; Reversible Door: No; Handle: Recessed; Lock: Yes; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: 2000VA; Interior Lamp: Yes; Egg Tray or Pocket: Yes; Freezer - Rack Shelf: Rack Evaporator; Freezer - Drawer: Yes/4; Ice Tray: Yes/1; Ice Case: Yes/2; Ice Remover spoon: Yes/1; Packing Dimensions: 625 x 745 x 1830 mm; Loading Capacity: 76/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

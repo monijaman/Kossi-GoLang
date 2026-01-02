@@ -21,10 +21,31 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c3c-gden-dd-inverter":         "মার্সেল-mfe-c3c-gden-dd-inverter",
-		"MFE-C3C-GDEN-DD-INVERTER":   "MFE-C3C-GDEN-DD-INVERTER",
+		"Marcel":                          "মার্সেল",
+		"marcel-mfe-c3c-gden-dd-inverter": "মার্সেল-mfe-c3c-gden-dd-inverter",
+		"MFE-C3C-GDEN-DD-INVERTER":        "MFE-C3C-GDEN-DD-INVERTER",
 		// Add more translations as needed
+		"Direct Cool":           "ডাইরেক্ট কুল",
+		"333 Ltr":               "৩৩৩ লিটার",
+		"293 Ltr.":              "২৯৩ লিটার",
+		"74 ± 2 Kg":             "৭৪ ± ২ কেজি",
+		"80 ± 2 Kg":             "৮০ ± ২ কেজি",
+		"T":                     "টি",
+		"220- 240/ 50":          "২২০- ২৪০/ ৫০",
+		"V 0501- BLDC Inverter": "V ০৫০১- BLDC ইনভার্টার",
+		"V 0501- 57~125":        "V ০৫০১- ৫৭~১২৫",
+		"Rack Evaporator":       "র্যাক এভাপোরেটর",
+		"Wire":                  "ওয়্যার",
+		"Copper":                "কপার",
+		"Cyclopentene":          "সাইক্লোপেন্টিন",
+		"R600a":                 "R600a",
+		"RoHS Certified":        "RoHS সার্টিফায়েড",
+		"Wide Voltage Range (80Vac - 300Vac). Voltage stabilizer is not required.": "ব্যাপক ভোল্টেজ রেঞ্জ (৮০Vac - ৩০০Vac)। স্ট্যাবিলাইজার প্রয়োজন নেই।",
+		"No":                  "না",
+		"Yes":                 "হ্যাঁ",
+		"76/ 57/ 27":          "৭৬/ ৫৭/ ২৭",
+		"635 x 740 x 1890 mm": "৬৩৫ x ৭৪০ x ১৮৯০ মিমি",
+		"594 x 708 x 1746 mm": "৫৯৪ x ৭০৮ x ১৭৪৬ মিমি",
 	}
 }
 
@@ -77,25 +98,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C3C-GDEN-DD-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C3C-GDEN-DD-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "333 Ltr",
+		"Net Volume":          "293 Ltr.",
+		"Weight":              "74 ± 2 Kg",
+		"Voltage":             "220- 240/ 50",
+		"Compressor Type":     "V 0501- BLDC Inverter",
+		"Temperature Control": "Electronic",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "Yes/4",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "594 x 708 x 1746 mm",
+		"Special Features":    "Gross Weight: 80 ± 2 Kg; Climatic Type: T; Compressor Input Power: V 0501- 57~125; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended stabilizer: Wide Voltage Range (80Vac - 300Vac). Voltage stabilizer is not required.; Freezer: Rack Evaporator; Freezer Drawer: Yes/3; Loading Capacity: 76/ 57/ 27; Packing Dimensions: 635 x 740 x 1890 mm; Refrigerator Interior Lamp: Yes; Can Storage Dispenser: No",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

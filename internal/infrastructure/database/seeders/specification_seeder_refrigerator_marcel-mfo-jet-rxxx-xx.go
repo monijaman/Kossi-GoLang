@@ -21,10 +21,31 @@ func NewSpecificationSeederRefrigeratorMarcelMfoJetRxxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfoJetRxxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfo-jet-rxxx-xx":         "মার্সেল-mfo-jet-rxxx-xx",
-		"MFO-JET-RXXX-XX":   "MFO-JET-RXXX-XX",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mfo-jet-rxxx-xx": "মার্সেল-mfo-jet-rxxx-xx",
+		"MFO-JET-RXXX-XX":        "MFO-JET-RXXX-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"101 Ltr.":               "১০১ লিটার",
+		"93 Ltr.":                "৯৩ লিটার",
+		"25.55 \u00b1 2 Kg":      "২৫.৫৫ ± ২ কেজি",
+		"28.6 \u00b1 2 Kg":       "২৮.৬ ± ২ কেজি",
+		"T":                      "T",
+		"R600a":                  "R600a",
+		"Mechanical":             "যান্ত্রিক",
+		"V 0101-220~240/ 50/ 69\nV 0201-220~240/ 50/ 67": "V 0101-220~240/ 50/ 69\nV 0201-220~240/ 50/ 67",
+		"RSCR":               "RSCR",
+		"Wire/2":             "ওয়্যার/2",
+		"490 x 525 x 840 mm": "৪৯০ x ৫২৫ x ৮৪০ মিমি",
+		"525 x 535 x 870 mm": "৫২৫ x ৫৩৫ x ৮৭০ মিমি",
+		"264/ 176/ 88":       "২৬৪/ ১৭৬/ ৮৮",
+		"Manual":             "ম্যানুয়াল",
+		"No":                 "না",
+		"Yes":                "হ্যাঁ",
+		"Copper":             "তামা",
+		"CycloPentene [Eco-friendly (HCFC Free) Green Technology]": "সাইক্লোপেন্টিন (পরিবেশবান্ধব, HCFC ফ্রি)",
+		"600VA or More": "৬০০ভিএ বা বেশি",
+		"Inside temp. 0C to 5C; Preservation of Fresh food":               "ভিতরের তাপমাত্রা 0°C থেকে 5°C; তাজা খাবার সংরক্ষণ",
+		"Inside temp. -2C to +3C; Short time preservation of Frozen food": "ভিতরের তাপমাত্রা -2°C থেকে +3°C; স্বল্প সময়ের জন্য জমা খাবার সংরক্ষণ",
 	}
 }
 
@@ -77,25 +98,31 @@ func (s *SpecificationSeederRefrigeratorMarcelMfoJetRxxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFO-JET-RXXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFO-JET-RXXX-XX",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "101 Ltr.",
+		"Net Volume":                      "93 Ltr.",
+		"Net Weight":                      "25.55 ± 2 Kg",
+		"Gross Weight":                    "28.6 ± 2 Kg",
+		"Refrigerant":                     "R600a",
+		"Temperature Control":             "Mechanical",
+		"Defrosting":                      "Manual",
+		"Reversible Door":                 "No",
+		"Lock":                            "Yes",
+		"Voltage":                         "V 0101-220~240/ 50/ 69\nV 0201-220~240/ 50/ 67",
+		"Compressor":                      "RSCR",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "CycloPentene [Eco-friendly (HCFC Free) Green Technology]",
+		"Recommended voltage stabilizer capacity": "600VA or More",
+		"Shelf (Material/ No.)":                   "Wire/2",
+		"Cooling Effect (Refrigerator)":           "Inside temp. 0C to 5C; Preservation of Fresh food",
+		"Cooling Effect (Chilled Room)":           "Inside temp. -2C to +3C; Short time preservation of Frozen food",
+		"Dimensions":                              "490 x 525 x 840 mm",
+		"Packing Dimensions":                      "525 x 535 x 870 mm",
+		"Loading Capacity":                        "264/ 176/ 88",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

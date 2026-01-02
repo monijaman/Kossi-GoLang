@@ -21,9 +21,22 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC0nGdelXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c0n-gdel-xx-inverter":         "মার্সেল-mfe-c0n-gdel-xx-inverter",
-		"MFE-C0N-GDEL-XX-INVERTER":   "MFE-C0N-GDEL-XX-INVERTER",
+		"Marcel":                          "মার্সেল",
+		"marcel-mfe-c0n-gdel-xx-inverter": "মার্সেল-mfe-c0n-gdel-xx-inverter",
+		"MFE-C0N-GDEL-XX-INVERTER":        "MFE-C0N-GDEL-XX-INVERTER",
+		"Direct Cool":                     "ডাইরেক্ট কুল",
+		"309 Ltr.":                        "৩০৯ লিটার",
+		"270 Ltr.":                        "২৭০ লিটার",
+		"64 Kg":                           "৬৪ কেজি",
+		"220 ~ 240/ 50":                   "২২০ ~ ২৪০/ ৫০",
+		"V 0101- RSCR; V 0201- RSCR":      "V 0101- RSCR; V 0201- RSCR",
+		"V 0101- R600a; V 0201- R600a":    "V 0101- R600a; V 0201- R600a",
+		"Mechanical":                      "যান্ত্রিক",
+		"Manual":                          "ম্যানুয়াল",
+		"Wire/2":                          "ওয়্যার/2",
+		"Yes/3":                           "হ্যাঁ/3",
+		"Yes/1":                           "হ্যাঁ/1",
+		"594 x 708 x 1646 mm":             "৫৯৪ x ৭০৮ x ১৬৪৬ মিমি",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +90,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C0N-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C0N-GDEL-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "309 Ltr.",
+		"Net Volume":          "270 Ltr.",
+		"Weight":              "64 Kg",
+		"Voltage":             "220 ~ 240/ 50",
+		"Compressor Type":     "V 0101- RSCR; V 0201- RSCR",
+		"Refrigerant":         "V 0101- R600a; V 0201- R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "Yes/3",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "594 x 708 x 1646 mm",
+		"Special Features":    "Climate Class: N ~ ST; Compressor Input Power (Watt): V 0101- 117; V 0201- 109; Cooling Effect: Freezer Cabinet Less than -180C; Refrigerator Cabinet 00C to +50C; Reversible Door: No; Handle (Recessed/ Grip): Recressed; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Interior Lamp: Yes; Vegetable Box Cover: Yes; Egg Case: Yes/2; Ice Case: Yes/1; Ice Box: Yes/1; Can Storage Dispenser: No; Freezer Shelf (Material/ No.): No; Freezer Door Basket: No; Freezer Drawer: Yes/3; Freezer Ice Tray: Yes/1; Freezer Ice Remover spoon: Yes/1; Freezer Interior Lamp: No; Packing Dimensions: 625 x 745 x 1676 mm; Gross Weight: 69.5 ± 2 Kg; Loading Capacity: 78/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

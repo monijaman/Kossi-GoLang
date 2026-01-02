@@ -21,10 +21,35 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC2xGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c2x-gdel-xx":         "মার্সেল-mfe-c2x-gdel-xx",
-		"MFE-C2X-GDEL-XX":   "MFE-C2X-GDEL-XX",
-		// Add more translations as needed
+		"Marcel":                             "মার্সেল",
+		"marcel-mfe-c2x-gdel-xx":             "মার্সেল-mfe-c2x-gdel-xx",
+		"MFE-C2X-GDEL-XX":                    "MFE-C2X-GDEL-XX",
+		"Direct Cool":                        "ডাইরেক্ট কুল",
+		"341 Ltr":                            "৩৪১ লিটার",
+		"341 Ltr.":                           "৩৪১ লিটার",
+		"320 Ltr.":                           "৩২০ লিটার",
+		"61 ± 2 Kg":                          "৬১ ± ২ কেজি",
+		"68 ± 2 Kg":                          "৬৮ ± ২ কেজি",
+		"N ~ ST":                             "এন ~ এসটি",
+		"220-240V~/50Hz":                     "২২০-২৪০V~/৫০Hz",
+		"220~240/ 50/130":                    "২২০~২৪০/ ৫০/১৩০",
+		"RSCR":                               "আরএসসি আর",
+		"Mechanical":                         "ম্যানুয়াল",
+		"Manual":                             "ম্যানুয়াল",
+		"Recessed/ Grip":                     "রিসেসড/ গ্রিপ",
+		"Yes":                                "হ্যাঁ",
+		"No":                                 "না",
+		"Wire/2":                             "ওয়্যার/২",
+		"PVC/4":                              "পিভিসি/৪",
+		"Copper":                             "কপার",
+		"RoHS Certified":                     "RoHS সার্টিফায়েড",
+		"Cyclopentene":                       "সাইক্লোপেন্টিন",
+		"2000VA or More":                     "২০০০VA বা বেশি",
+		"Freezer Cabinet Less than -18 ̊C":   "ফ্রিজার কেবিনেট: -১৮°C-এর নিচে",
+		"Refrigerator Cabinet 0 ̊C to +5 ̊C": "রেফ্রিজারেটর: ০°C থেকে +৫°C",
+		"585 x 711 x 1726 mm":                "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
+		"625 x 745 x 1730 mm":                "৬২৫ x ৭৪৫ x ১৭৩০ মিমি",
+		"77/ 57/ 27":                         "৭৭/ ৫৭/ ২৭",
 	}
 }
 
@@ -77,25 +102,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C2X-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C2X-GDEL-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "341 Ltr",
+		"Net Volume":          "320 Ltr.",
+		"Weight":              "61 ± 2 Kg",
+		"Compressor Type":     "RSCR",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "PVC/4",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "585 x 711 x 1726 mm",
+		"Special Features":    "Gross Weight: 68 ± 2 Kg; Climatic Type: N ~ ST; Rated Voltage/Hz/Watt: 220~240/50/130; Polyurethane foam blowing agent: Cyclopentene; Thermostat: RoHS Certified; Capillary: Copper; Recommended stabilizer: 2000VA or More; Packing Dimensions: 625 x 745 x 1730 mm; Loading Capacity: 77/ 57/ 27; Freezer Cooling: Freezer Cabinet Less than -18 ̊C; Refrigerator Cooling: Refrigerator Cabinet 0 ̊C to +5 ̊C; Handle: Recessed/ Grip; Lock: Yes; Egg Tray: Yes; Can Storage Dispenser: No; Deodorizer: No",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

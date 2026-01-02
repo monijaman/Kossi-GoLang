@@ -21,10 +21,38 @@ func NewSpecificationSeederRefrigeratorMarcelMfsT9cC2srVb() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfsT9cC2srVb) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfs-t9c-c2sr-vb":         "মার্সেল-mfs-t9c-c2sr-vb",
-		"MFS-T9C-C2SR-VB":   "MFS-T9C-C2SR-VB",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mfs-t9c-c2sr-vb": "মার্সেল-mfs-t9c-c2sr-vb",
+		"MFS-T9C-C2SR-VB":        "MFS-T9C-C2SR-VB",
+
+		// specs values -> Bangla
+		"Direct Cool":      "ডাইরেক্ট কুল",
+		"93 Ltr.":          "৯৩ লিটার",
+		"90 Ltr.":          "৯০ লিটার",
+		"23 ± 2 Kg":        "২৩ ± ২ কেজি",
+		"26 ± 2 Kg":        "২৬ ± ২ কেজি",
+		"SN~T":             "SN~T",
+		"220~240 and 50Hz": "২২০~২৪০ এবং ৫০Hz",
+		"D43WY1 / RSIR":    "D43WY1 / RSIR",
+		"Mechanical":       "যান্ত্রিক",
+		"Manual":           "ম্যানুয়াল",
+		"Recessed":         "রিসেসড",
+		"No":               "না",
+		"R600a":            "R600a",
+		"RoHS Certified":   "RoHS সার্টিফাইড",
+		"Copper":           "কপার",
+		"CycloPentene":     "সাইক্লোপেন্টেন",
+		"Tempered Glass/2": "টেম্পার্ড গ্লাস/২",
+		"Yes/3":            "হ্যাঁ/৩",
+		"Yes":              "হ্যাঁ",
+		"12 cubes":         "১২ পিস",
+		"478 mm":           "৪৭৮ মিমি",
+		"446 mm":           "৪৪৬ মিমি",
+		"847 mm":           "৮৪৭ মিমি",
+		"500 mm":           "৫০০ মিমি",
+		"460 mm":           "৪৬০ মিমি",
+		"880 mm":           "৮৮০ মিমি",
+		"340/ 240/ 9":      "৩৪০/ ২৪০/ ৯",
 	}
 }
 
@@ -77,25 +105,39 @@ func (s *SpecificationSeederRefrigeratorMarcelMfsT9cC2srVb) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFS-T9C-C2SR-VB",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFS-T9C-C2SR-VB",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "93 Ltr.",
+		"Net Volume":                      "90 Ltr.",
+		"Net Weight":                      "23 ± 2 Kg",
+		"Gross Weight":                    "26 ± 2 Kg",
+		"Compressor Model & Type":         "D43WY1 / RSIR",
+		"Temperature Control":             "Mechanical",
+		"Defrosting":                      "Manual",
+		"Reversible Door":                 "No",
+		"Handle":                          "Recessed",
+		"Refrigerant":                     "V 0301- R600a",
+		"Thermostat":                      "RoHS Certified",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "CycloPentene",
 
+		// Refrigerator compartment
+		"Shelf (Material/ No.)": "Tempered Glass/2",
+		"Door Bin":              "Yes/3",
+		"Interior Lamp":         "Yes",
+		"Vegetable Crisper":     "Yes/1",
 
+		// Freezer compartment
+		"Cooling":                      "Faster Metal Cooling",
+		"Ice Tray":                     "Yes ,12 cubes",
+		"Ice Making Compartment Cover": "Flip Cover",
 
-
+		"Dimensions":         "478 x 446 x 847 mm",
+		"Packing Dimensions": "500 x 460 x 880 mm",
+		"Loading Capacity":   "340/ 240/ 9",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

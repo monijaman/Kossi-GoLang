@@ -21,10 +21,33 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC5hGdenXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdenXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c5h-gden-xx":         "মার্সেল-mfe-c5h-gden-xx",
-		"MFE-C5H-GDEN-XX":   "MFE-C5H-GDEN-XX",
-		// Add more translations as needed
+		"Marcel":                     "মার্সেল",
+		"marcel-mfe-c5h-gden-xx":     "মার্সেল-mfe-c5h-gden-xx",
+		"MFE-C5H-GDEN-XX":            "MFE-C5H-GDEN-XX",
+		"Direct Cool":                "ডাইরেক্ট কুল",
+		"358 Ltr.":                   "৩৫৮ লিটার",
+		"345 Ltr.":                   "৩৪৫ লিটার",
+		"68.5 \u00b1 2 Kg":           "৬৮.৫ ± ২ কেজি",
+		"76 \u00b1 2 Kg":             "৭৬ ± ২ কেজি",
+		"N ~ ST":                     "N ~ ST",
+		"220~240/ 50/135":            "২২০~২৪০/৫০/১৩৫",
+		"V 0102- 130\nV 0301- 123":   "V 0102- 130\nV 0301- 123",
+		"V 0102- RSCR\nV 0301- RSCR": "V 0102- RSCR\nV 0301- RSCR",
+		"Mechanical":                 "যান্ত্রিক",
+		"Manual":                     "ম্যানুয়াল",
+		"No":                         "না",
+		"Recessed":                   "রিসেসড",
+		"Yes":                        "হ্যাঁ",
+		"R600a":                      "R600a",
+		"Copper":                     "কপার",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "সাইক্লোপেন্টিন (পরিবেশবান্ধব, CFC/HCFC ফ্রি)",
+		"2000VA":              "২০০০ভিএ",
+		"Wire/2":              "ওয়্যার/2",
+		"Yes/3":               "হ্যাঁ/3",
+		"Yes/4":               "হ্যাঁ/4",
+		"594 x 711 x 1820 mm": "৫৯৪ x ৭১১ x ১৮২০ মিমি",
+		"625 x 745 x 1830 mm": "৬২৫ x ৭৪৫ x ১৮৩০ মিমি",
+		"76/ 57/ 27":          "৭৬/ ৫৭/ ২৭",
 	}
 }
 
@@ -77,25 +100,42 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdenXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C5H-GDEN-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFE-C5H-GDEN-XX",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "358 Ltr.",
+		"Net Volume":                      "345 Ltr.",
+		"Net Weight":                      "68.5 ± 2 Kg",
+		"Gross Weight":                    "76 ± 2 Kg",
+		"Climate Type":                    "N ~ ST",
+		"Voltage":                         "220~240/ 50/135",
+		"Compressor Input Power":          "V 0102- 130; V 0301- 123",
+		"Compressor Type":                 "V 0102- RSCR; V 0301- RSCR",
+		"Cooling Effect":                  "Freezer Cabinet Less than -18 ̊C; Refrigerator Cabinet 0 ̊C to +5 ̊C",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Manual",
+		"Reversible Door":                 "No",
+		"Handle":                          "Recessed",
+		"Lock":                            "Yes",
+		"Refrigerant":                     "R600a",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Recommended voltage stabilizer capacity": "2000VA",
+		"Shelf (Material/ No.)":                   "Wire/2",
+		"Door Bins":                               "Yes/3",
+		"Interior Lamp":                           "Yes",
+		"Vegetable Crisper":                       "Yes/1",
+		"Egg Tray or Pocket":                      "Yes",
+		"Freezer - Rack Shelf":                    "Rack Evaporator",
+		"Freezer - Drawer":                        "Yes/4",
+		"Ice Tray":                                "Yes/1",
+		"Ice Case":                                "Yes/2",
+		"Ice Remover spoon":                       "Yes/1",
+		"Dimensions":                              "585 x 711 x 1825 mm",
+		"Packing Dimensions":                      "625 x 745 x 1830 mm",
+		"Loading Capacity":                        "76/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

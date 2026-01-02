@@ -21,9 +21,9 @@ func NewSpecificationSeederRefrigeratorMarcelMfkC4gGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfk-c4g-gdel-xx":         "মার্সেল-mfk-c4g-gdel-xx",
-		"MFK-C4G-GDEL-XX":   "MFK-C4G-GDEL-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfk-c4g-gdel-xx": "মার্সেল-mfk-c4g-gdel-xx",
+		"MFK-C4G-GDEL-XX":        "MFK-C4G-GDEL-XX",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +77,26 @@ func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFK-C4G-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFK-C4G-GDEL-XX",
+		"Cooling Technology":  "Direct Evaporating Cooling System (DECS)",
+		"Gross Volume":        "347 Ltr",
+		"Net Volume":          "345 Ltr.",
+		"Compressor Type":     "V.01.01- RSCR (Input Power: V 01.01-147 W)",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "5",
+		"Crisper Drawers":     "Yes",
+		"Dimensions":          "680 x 675 x 1630 mm",
+		"Packing Dimensions":  "715 x 710 x 1645 mm",
+		"Weight":              "67.5 / 74 ± 2",
+		"Voltage":             "V.01.01 Wide Voltage Range (145V ~ 260V)",
+		"Loading Capacity":    "69/69/34",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -21,9 +21,31 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC2xGdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c2x-gdxx-xx":         "মার্সেল-mfe-c2x-gdxx-xx",
-		"MFE-C2X-GDXX-XX":   "MFE-C2X-GDXX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c2x-gdxx-xx": "মার্সেল-mfe-c2x-gdxx-xx",
+		"MFE-C2X-GDXX-XX":        "MFE-C2X-GDXX-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"341 Ltr.":               "৩৪১ লিটার",
+		"320 Ltr.":               "৩২০ লিটার",
+		"61 ± 2 Kg":              "৬১ ± ২ কেজি",
+		"68 ± 2 Kg":              "৬৮ ± ২ কেজি",
+		"N ~ ST":                 "এন ~ এসটি",
+		"220~240/ 50/130":        "২২০~২৪০/ ৫০/১৩০",
+		"RSCR":                   "আরএসসিআর",
+		"Mechanical":             "যান্ত্রিক",
+		"Manual":                 "ম্যানুয়াল",
+		"Recessed/ Grip":         "রিসেসড/ গ্রিপ",
+		"Yes":                    "হ্যাঁ",
+		"No":                     "না",
+		"R600a":                  "R600a",
+		"Copper":                 "কপার",
+		"Cyclopentene":           "সাইক্লোপেন্টিন",
+		"2000VA or More":         "২০০০ভিএ বা তার বেশি",
+		"Wire/2":                 "ওয়্যার/২",
+		"PVC/4":                  "পিভিসি/৪",
+		"585 x 711 x 1726 mm":    "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
+		"640 x 760 x 1750 mm":    "৬৪০ x ৭৬০ x ১৭৫০ মিমি",
+		"24/ 48/ 48":             "২৪/ ৪৮/ ৪৮",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +99,38 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C2X-GDXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFE-C2X-GDXX-XX",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "341 Ltr.",
+		"Net Volume":                      "320 Ltr.",
+		"Weight":                          "61 ± 2 Kg",
+		"Special Features":                "Gross Weight: 68 ± 2 Kg; Climatic Type: N ~ ST; Recommended stabilizer: 2000VA or More; Cooling Effect: Freezer Cabinet Less than -18°C; Refrigerator Cabinet 0°C to +50°C; Loading Capacity: 24/ 48/ 48",
+		"Voltage":                         "220~240/ 50/130",
+		"Compressor Type":                 "RSCR",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Manual",
+		"Refrigerant":                     "R600a",
+		"Thermostat":                      "RoHS Certified",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Shelf Material":                  "Wire",
+		"Number of Shelves":               "2",
+		"Door Bins":                       "PVC/4",
+		"Interior Lamp":                   "Yes",
+		"Crisper Drawers":                 "Yes/1",
+		"Vegetable Crisper Cover":         "Yes",
+		"Egg Tray or Pocket":              "Yes",
+		"Can Storage Dispenser":           "No",
+		"Freezer Shelf":                   "Wire/2",
+		"Drawer":                          "No",
+		"Freezer Door Baskets":            "No",
+		"Freezer Interior Lamp":           "No",
+		"Dimensions":                      "585 x 711 x 1726 mm",
+		"Packing Dimensions":              "640 x 760 x 1750 mm",
+		"Loading Capacity":                "24/ 48/ 48",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

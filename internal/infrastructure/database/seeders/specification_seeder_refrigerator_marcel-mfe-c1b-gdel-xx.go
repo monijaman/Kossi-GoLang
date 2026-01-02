@@ -21,9 +21,9 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC1bGdelXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c1b-gdel-xx":         "মার্সেল-mfe-c1b-gdel-xx",
-		"MFE-C1B-GDEL-XX":   "MFE-C1B-GDEL-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c1b-gdel-xx": "মার্সেল-mfe-c1b-gdel-xx",
+		"MFE-C1B-GDEL-XX":        "MFE-C1B-GDEL-XX",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +77,23 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C1B-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C1B-GDEL-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "312 Ltr.",
+		"Net Volume":          "290 Ltr.",
+		"Weight":              "60.14 ± 2 Kg",
+		"Refrigerant":         "V0101- R600a V0201- R600a V0301- R600a V0302- R600a V0401- R600a V 0501 -R600a",
+		"Temperature Control": "V 0201 - Mechanical; V 0301 - Mechanical; V 0302 - Mechanical; V 0501 - Mechanical; V 0401 - Electrical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/3",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Voltage":             "220-240V~ and 50Hz",
+		"Dimensions":          "594 x 708 x 1620 mm",
+		"Special Features":    "Net Weight: 60.14 ± 2 Kg; Gross Weight: 67.16 ± 2 Kg; Climate Type: N ~ ST; Compressor Input Power (Watt): V 0101-145.7 V 0201-145.7 V 0301-117 V 0302-117 V 0401 - 43.5~143.7 V 0501-123; Compressor Types: V 0101 - RSIR, V 0201 - RSIR, V 0301 - RSIR, V 0302 - RSIR, V 0501 - RSIR, V 0401 - BLDC; Recommended voltage stabilizer capacity: V 0201/0202/0203/0301: Wide Voltage Design (145V-253V) (suggested stabilizer 2100VA if out of range); V 0501: Wide Voltage Design (75V-264V) (suggested stabilizer 2100VA if out of range); Handle: Recressed/ Grip/ Built-in; Lock: Yes; Capillary: Copper; Thermostat: RoHS Certified; Polyurethane foam blowing agent: CycloPentene; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Drawer: No; Freezer Door Basket: No; Packaging Dimensions: 625 x 745 x 1630 mm; Loading Capacity- 40HQ/40Ft/20Ft: 79/54/27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

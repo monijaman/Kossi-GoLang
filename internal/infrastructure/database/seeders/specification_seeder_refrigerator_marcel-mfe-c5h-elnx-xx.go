@@ -21,9 +21,28 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC5hElnxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC5hElnxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c5h-elnx-xx":         "মার্সেল-mfe-c5h-elnx-xx",
-		"MFE-C5H-ELNX-XX":   "MFE-C5H-ELNX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c5h-elnx-xx": "মার্সেল-mfe-c5h-elnx-xx",
+		"MFE-C5H-ELNX-XX":        "MFE-C5H-ELNX-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"358 Ltr.":               "৩৫৮ লিটার",
+		"345 Ltr.":               "৩৪৫ লিটার",
+		"68.5 ± 2 Kg":            "৬৮.৫ ± ২ কেজি",
+		"76 ± 2 Kg":              "৭৬ ± ২ কেজি",
+		"N ~ ST":                 "এন ~ এসটি",
+		"220~240/ 50/135":        "২২০~২৪০/ ৫০/১৩৫",
+		"RSCR":                   "আরএসসিআর",
+		"Mechanical":             "যান্ত্রিক",
+		"Manual":                 "ম্যানুয়াল",
+		"Recessed":               "রিসেসড",
+		"Yes":                    "হ্যাঁ",
+		"No":                     "না",
+		"R600a":                  "R600a",
+		"Copper":                 "কপার",
+		"Cyclopentene":           "সাইক্লোপেন্টিন",
+		"2000VA":                 "২০০০ভিএ",
+		"585 x 711 x 1825 mm":    "৫৮৫ x ৭১১ x ১৮২৫ মিমি",
+		"625 x 745 x 1830 mm":    "৬২৫ x ৭৪৫ x ১৮৩০ মিমি",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +96,48 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hElnxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C5H-ELNX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MFE-C5H-ELNX-XX",
+		"Cooling Technology":              "Direct Cool",
+		"Gross Volume":                    "358 Ltr.",
+		"Net Volume":                      "345 Ltr.",
+		"Weight":                          "68.5 ± 2 Kg",
+		"Gross Weight":                    "76 ± 2 Kg",
+		"Climate Type":                    "N ~ ST",
+		"Voltage":                         "220~240/ 50/135",
+		"Compressor Type":                 "RSCR",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Manual",
+		"Reversible Door":                 "No",
+		"Handle":                          "Recessed",
+		"Lock":                            "Yes",
+		"Refrigerant":                     "R600a",
+		"Thermostat":                      "RoHS Certified",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Recommended voltage stabilizer capacity": "2000VA",
+		"Number of Shelves":                       "2",
+		"Shelf Material":                          "Wire",
+		"Door Bins":                               "Yes/3",
+		"Interior Lamp":                           "Yes",
+		"Crisper Drawers":                         "Yes/1",
+		"Vegetable Crisper":                       "Yes/1",
+		"Vegetable Crisper Cover":                 "Yes",
+		"Egg Tray or Pocket":                      "Yes",
+		"Can Storage Dispenser":                   "No",
+		"Freezer Shelf":                           "Rack Evaporator",
+		"Freezer Drawer":                          "Yes/4",
+		"Ice Tray":                                "Yes/1",
+		"Ice Case":                                "Yes/2",
+		"Ice Remover spoon":                       "Yes/1",
+		"Freezer Door Baskets":                    "No",
+		"Freezer Interior Lamp":                   "No",
+		"Cooling Effect":                          "Freezer Cabinet Less than -18°C; Refrigerator Cabinet 0°C to +50°C",
+		"Dimensions":                              "585 x 711 x 1825 mm",
+		"Packing Dimensions":                      "625 x 745 x 1830 mm",
+		"Loading Capacity":                        "76/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

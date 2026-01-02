@@ -21,10 +21,37 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC1bGdelXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c1b-gdel-xx-inverter":         "মার্সেল-mfe-c1b-gdel-xx-inverter",
-		"MFE-C1B-GDEL-XX-INVERTER":   "MFE-C1B-GDEL-XX-INVERTER",
+		"Marcel":                          "মার্সেল",
+		"marcel-mfe-c1b-gdel-xx-inverter": "মার্সেল-mfe-c1b-gdel-xx-inverter",
+		"MFE-C1B-GDEL-XX-INVERTER":        "MFE-C1B-GDEL-XX-INVERTER",
 		// Add more translations as needed
+		"V 0101-145.7 V 0201-145.7 V 0301-117 V 0302-117 V 0501-123": "V ০১০১-১৪৫.৭ V ০২০১-১৪৫.৭ V ০৩০১-১১৭ V ০৩০২-১১৭ V ০৫০১-১২৩",
+		"67.16 ± 2 Kg":  "৬৭.১৬ ± ২ কেজি",
+		"60.14 ± 2 Kg":  "৬০.১৪ ± ২ কেজি",
+		"635":           "৬৩৫",
+		"Yes (ABS/ PS)": "Yes (ABS/ PS)",
+		"V 0201/0202/0203/0301: Wide Voltage Design (145V-253V) N.B.: If out of voltage range (145V-253V) then suggested voltage stabilizer capacity is 2100VA. V 0501:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.": "V ০২০১/০২০২/০২০৩/০৩০১: Wide Voltage Design (১৪৫V-২৫৩V) N.B.: If out of voltage range (১৪৫V-২৫৩V) then suggested voltage stabilizer capacity is ২১০০VA. V ০৫০১:Wide Voltage Design (৭৫V-২৬৪V) N.B.: If out of voltage range(৭৫V-২৬৪V) then suggested voltage stabilizer capacity is ২১০০VA.",
+		"Yes":         "হ্যাঁ",
+		"740":         "৭৪০",
+		"312 Ltr.":    "৩১২ লিটার",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"79/ 54/ 27":  "৭৯/ ৫৪/ ২৭",
+		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Copper": "কপার",
+		"V 0101- RSIR V 0201- RSIR V 0301- RSIR V 0302- RSIR V 0501- RSIR": "V ০১০১- RSIR V ০২০১- RSIR V ০৩০১- RSIR V ০৩০২- RSIR V ০৫০১- RSIR",
+		"Manual":         "Manual",
+		"RoHS Certified": "RoHS Certified",
+		"No":             "না",
+		"V0101- R600a V0201- R600a V0301- R600a V0302- R600a V 0501 -R600a": "V০১০১- R৬০০a V০২০১- R৬০০a V০৩০১- R৬০০a V০৩০২- R৬০০a V ০৫০১ -R৬০০a",
+		"1690":                      "১৬৯০",
+		"Recressed/ Grip/ Built-in": "Recressed/ Grip/ Built-in",
+		"N ~ ST":                    "N ~ ST",
+		"Yes (Plastic)":             "Yes (Plastic)",
+		"V 0201 - Mechanical V 0301 - Mechanical V 0302 - Mechanical V 0501 - Mechanical": "V ০২০১ - Mechanical V ০৩০১ - Mechanical V ০৩০২ - Mechanical V ০৫০১ - Mechanical",
+		"220-240V ~ and 50Hz": "২২০-২৪০V ~ and ৫০Hz",
+		"Wire/2":              "Wire/২",
+		"Freezer Cabinet Less than -18 ̊C Refrigerator Cabinet 0 ̊C to +5 ̊C": "Freezer Cabinet Less than -১৮ ̊C Refrigerator Cabinet ০ ̊C to +৫ ̊C",
+		"290 Ltr.": "২৯০ লিটার",
 	}
 }
 
@@ -77,25 +104,22 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdelXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C1B-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Gross Volume":        "312 Ltr.",
+		"Net Volume":          "290 Ltr.",
+		"Weight":              "60.14 ± 2 Kg",
+		"Voltage":             "220-240V~ and 50Hz",
+		"Compressor Type":     "V 0101 - RSIR V 0201 - RSIR V 0301 - RSIR V 0302 - RSIR V 0501 - RSIR V 0401 - BLDC",
+		"Refrigerant":         "V0101- R600a V0201- R600a V0301- R600a V0302- R600a V0401- R600a V 0501 -R600a",
+		"Cooling Technology":  "Freezer Cabinet Less than -18 ̊C Refrigerator Cabinet 0 ̊C to +5 ̊C",
+		"Temperature Control": "V 0201 - Mechanical; V 0301 - Mechanical; V 0302 - Mechanical; V 0501 - Mechanical; V 0401 - Electrical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/3",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Dimensions":          "594 x 708 x 1620 mm",
+		"Special Features":    "Gross Weight: 67.16 ± 2 Kg; Climate Type: N ~ ST; Compressor Input Power (Watt): V 0101-145.7 V 0201-145.7 V 0301-117 V 0302-117 V 0401- 43.5~143.7 V 0501-123; Recommended voltage stabilizer capacity: V 0201/0202/0203/0301: Wide Voltage Design (145V-253V) (suggested stabilizer 2100VA if out of range); V 0501: Wide Voltage Design (75V-264V) (suggested stabilizer 2100VA if out of range); Reversible Door: No; Handle: Recressed/ Grip/ Built-in; Lock: Yes; Capillary: Copper; Thermostat: RoHS Certified; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Drawer: No; Freezer Door Basket: No; Packaging Dimensions: 635 x 740 x 1690 mm; Loading Capacity- 40HQ/40Ft/20Ft: 79/54/27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

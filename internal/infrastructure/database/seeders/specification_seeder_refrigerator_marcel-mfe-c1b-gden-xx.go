@@ -21,10 +21,31 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC1bGdenXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdenXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c1b-gden-xx":         "মার্সেল-mfe-c1b-gden-xx",
-		"MFE-C1B-GDEN-XX":   "MFE-C1B-GDEN-XX",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c1b-gden-xx": "মার্সেল-mfe-c1b-gden-xx",
+		"MFE-C1B-GDEN-XX":        "MFE-C1B-GDEN-XX",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"312 Ltr":                "৩১২ লিটার",
+		"290 Ltr.":               "২৯০ লিটার",
+		"59.22 ± 2 Kg":           "৫৯.২২ ± ২ কেজি",
+		"66.06 ± 2 Kg":           "৬৬.০৬ ± ২ কেজি",
+		"N ~ ST":                 "এন ~ এসটি",
+		"220-240V~/50Hz":         "২২০-২৪০V~/৫০Hz",
+		"V 0101 - RSIR V 0201 - RSIR V 0301 - RSIR V 0302 - RSIR V 0501 - RSIR":      "V ০১০১ - RSIR V ০২০১ - RSIR V ০৩০১ - RSIR V ০৩০২ - RSIR V ০৫০১ - RSIR",
+		"V 0101 - R600a V 0201 - R600a V 0301 - R600a V 0302 - R600a V 0501 - R600a": "V ০১০১ - R৬০০a V ০২০১ - R৬০০a V ০৩০১ - R৬০০a V ০৩০২ - R৬০০a V ০৫০১ - R৬০০a",
+		"Mechanical":          "ম্যানুয়াল",
+		"Manual":              "ম্যানুয়াল",
+		"Wire":                "ওয়্যার",
+		"2":                   "২",
+		"PVC/3":               "পিভিসি/৩",
+		"Yes":                 "হ্যাঁ",
+		"No":                  "না",
+		"Copper":              "কপার",
+		"RoHS Certified":      "RoHS সার্টিফায়েড",
+		"Cyclopentene":        "সাইক্লোপেন্টিন",
+		"594 x 708 x 1620 mm": "৫৯৪ x ৭০৮ x ১৬২০ মিমি",
+		"625 x 745 x 1630 mm": "৬২৫ x ৭৪৫ x ১৬৩০ মিমি",
+		"79/ 54/ 27":          "৭৯/ ৫৪/ ২৭",
 	}
 }
 
@@ -77,25 +98,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdenXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C1B-GDEN-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C1B-GDEN-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "312 Ltr",
+		"Net Volume":          "290 Ltr.",
+		"Weight":              "59.22 ± 2 Kg",
+		"Voltage":             "220-240V~/50Hz",
+		"Compressor Type":     "V 0101 - RSIR V 0201 - RSIR V 0301 - RSIR V 0302 - RSIR V 0501 - RSIR",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "V 0101 - R600a V 0201 - R600a V 0301 - R600a V 0302 - R600a V 0501 - R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "PVC/3",
+		"Crisper Drawers":     "Yes",
+		"Dimensions":          "594 x 708 x 1620 mm",
+		"Special Features":    "Gross Weight: 66.06 ± 2 Kg; Compressor Input Power: V 0101 - 145.7 V 0201 - 145.7 V 0301 - 117 V 0302 - 117 V 0501 - 123; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended stabilizer: V 0201/0202/0203/0301: Wide Voltage Design (145V-253V) (if out of range then suggested stabilizer 2100VA); V 0501: Wide Voltage Design (75V-264V) (if out of range then suggested stabilizer 2100VA); Packing Dimensions: 625 x 745 x 1630 mm; Loading Capacity: 79/ 54/ 27; Freezer Cooling: Less than -18 ̊C; Refrigerator Cooling: 0 ̊C to +5 ̊C; Interior Lamp: Yes; Vegetable Crisper: Yes (Plastic); Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray: Yes; Can Storage Dispenser: No; Deodorizer: No",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

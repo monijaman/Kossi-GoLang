@@ -25,6 +25,33 @@ func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter) getBanglaTra
 				"marcel-mfk-c4g-gdel-xx-inverter":         "মার্সেল-mfk-c4g-gdel-xx-inverter",
 		"MFK-C4G-GDEL-XX-INVERTER":   "MFK-C4G-GDEL-XX-INVERTER",
 		// Add more translations as needed
+		"Mechanical": "যান্ত্রিক",
+		"715": "৭১৫",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"Yes": "হ্যাঁ",
+		"347 Ltr": "৩৪৭ Ltr",
+		"1645": "১৬৪৫",
+		"220-240V~ and 50Hz": "২২০-২৪০V~ and ৫০Hz",
+		"345 Ltr.": "৩৪৫ লিটার",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"710": "৭১০",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Yes/2": "Yes/২",
+		"Copper": "কপার",
+		"V 01.01- 147": "V ০১.০১- ১৪৭",
+		"Manual": "Manual",
+		"No": "না",
+		"GPPS/2": "GPPS/২",
+		"N~ST": "N~ST",
+		"V01.01 R600a": "V০১.০১ R৬০০a",
+		"V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.": "V.০১.০১ Wide Voltage Range (১৪৫V ~ ২৬০V) NB: If out of voltage range then suggested voltage stabilizer capacity is ২১০০VA.",
+		"Direct Evaporating Cooling System (DECS)": "Direct Evaporating Cooling System (DECS)",
+		"Wire/2": "Wire/২",
+		"Wire/ 3": "Wire/ ৩",
+		"V.01.01- RSCR": "V.০১.০১- RSCR",
+		"67.5 / 74 ± 2": "৬৭.৫ / ৭৪ ± ২",
+		"69/69/34": "৬৯/৬৯/৩৪",
+
 	}
 }
 
@@ -80,18 +107,37 @@ func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter) Seed(db *gor
 	
     		
     specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFK-C4G-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+		"Type": "Direct Evaporating Cooling System (DECS)",
+		"Gross Volume": "347 Ltr",
+		"Net Volume": "345 Ltr.",
+		"Climatic Type (SN, N, ST, T)": "N~ST",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Compressor Input Power (Watt)": "V 01.01- 147",
+		"Compressor Type": "V.01.01- RSCR",
+		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Handle (Recessed/ Grip)": "Recessed/ Grip",
+		"Lock": "Yes",
+		"Refrigerant": "V01.01 R600a",
+		"Capillary": "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Operating voltage": "V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Door Basket": "GPPS/2",
+		"Interior Lamp": "Yes",
+		"Vegetable Crisper": "Yes",
+		"Vegetable Crisper Cover": "Yes",
+		"Egg Tray": "Yes/2",
+		"Rack Shelf (Material/No)": "Wire/ 3",
+		"Drawer": "No",
+		"Width/mm": "715",
+		"Depth/mm": "710",
+		"Height/mm": "1645",
+		"Weight/Kg - Net/Packing": "67.5 / 74 ± 2",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "69/69/34",
+	}
+
 
 
 

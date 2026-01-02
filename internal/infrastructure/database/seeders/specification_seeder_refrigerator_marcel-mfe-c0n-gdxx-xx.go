@@ -21,9 +21,9 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC0nGdxxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c0n-gdxx-xx":         "মার্সেল-mfe-c0n-gdxx-xx",
-		"MFE-C0N-GDXX-XX":   "MFE-C0N-GDXX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c0n-gdxx-xx": "মার্সেল-mfe-c0n-gdxx-xx",
+		"MFE-C0N-GDXX-XX":        "MFE-C0N-GDXX-XX",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +77,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C0N-GDXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C0N-GDXX-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "309 Ltr.",
+		"Net Volume":          "270 Ltr.",
+		"Weight":              "64 Kg",
+		"Voltage":             "220 ~ 240/ 50Hz",
+		"Compressor Type":     "V 0101- RSCR V 0201- RSCR",
+		"Refrigerant":         "V 0101- R600a V 0201- R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "Yes/3",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "594 x 708 x 1646 mm",
+		"Special Features":    "Packing Weight: 69.5 ± 2 Kg; Compressor Input Power (W): V 0101-117 V 0201-109; Cooling Effect: Freezer Cabinet Less than -18 ̊C; Refrigerator Cabinet 0 ̊C to +5 ̊C; Handle: Recressed; Lock: Yes; Capillary: Copper; Thermostat: RoHS Certified; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Refrigerator features: Door Basket Yes/3, Vegetable Box Yes/1, Vegetable Box Cover Yes, Egg Case Yes/2, Ice Case Yes/1, Ice Box Yes/1; Freezer features: Drawer Yes/3, Ice Tray Yes/1, Ice Remover spoon Yes/1; Packaging Dimensions: 625 x 745 x 1676 mm; Loading Capacity- 40HQ/40Ft/20Ft: 78/57/27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -21,10 +21,36 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC1bGdenDd() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdenDd) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c1b-gden-dd":         "মার্সেল-mfe-c1b-gden-dd",
-		"MFE-C1B-GDEN-DD":   "MFE-C1B-GDEN-DD",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-c1b-gden-dd": "মার্সেল-mfe-c1b-gden-dd",
+		"MFE-C1B-GDEN-DD":        "MFE-C1B-GDEN-DD",
 		// Add more translations as needed
+		"V 0401 - Electrical": "V ০৪০১ - Electrical",
+		"635":                 "৬৩৫",
+		"Yes (ABS/ PS)":       "Yes (ABS/ PS)",
+		"78/ 57/ 27":          "৭৮/ ৫৭/ ২৭",
+		"Yes":                 "হ্যাঁ",
+		"220-240V~ and 50Hz":  "২২০-২৪০V~ and ৫০Hz",
+		"740":                 "৭৪০",
+		"312 Ltr.":            "৩১২ লিটার",
+		"Direct Cool":         "ডাইরেক্ট কুল",
+		"72 ± 2 Kg":           "৭২ ± ২ কেজি",
+		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Copper":                    "কপার",
+		"Manual":                    "Manual",
+		"V 0401 - BLDC":             "V ০৪০১ - BLDC",
+		"No":                        "না",
+		"V 0401 - 43.5~143.7":       "V ০৪০১ - ৪৩.৫~১৪৩.৭",
+		"1690":                      "১৬৯০",
+		"Recressed/ Grip/ Built-in": "Recressed/ Grip/ Built-in",
+		"N ~ ST":                    "N ~ ST",
+		"Yes (Plastic)":             "Yes (Plastic)",
+		"V 0401 - R600a":            "V ০৪০১ - R৬০০a",
+		"V 0401:Wide Voltage Design (105V-185V) N.B.: If out of voltage range(105V-185V) then suggested voltage stabilizer capacity is 2100VA.": "V ০৪০১:Wide Voltage Design (১০৫V-১৮৫V) N.B.: If out of voltage range(১০৫V-১৮৫V) then suggested voltage stabilizer capacity is ২১০০VA.",
+		"Wire/2": "Wire/২",
+		"Freezer Cabinet Less than -18 ̊C Refrigerator Cabinet 0 ̊C to +5 ̊C": "Freezer Cabinet Less than -১৮ ̊C Refrigerator Cabinet ০ ̊C to +৫ ̊C",
+		"65 ± 2 Kg": "৬৫ ± ২ কেজি",
+		"290 Ltr.":  "২৯০ লিটার",
 	}
 }
 
@@ -77,25 +103,22 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC1bGdenDd) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C1B-GDEN-DD",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Gross Volume":        "312 Ltr.",
+		"Net Volume":          "290 Ltr.",
+		"Weight":              "65 ± 2 Kg",
+		"Voltage":             "220-240V~ and 50Hz",
+		"Compressor Type":     "V 0401 - BLDC",
+		"Refrigerant":         "V 0401 - R600a",
+		"Cooling Technology":  "Freezer Cabinet Less than -18 ̊C Refrigerator Cabinet 0 ̊C to +5 ̊C",
+		"Temperature Control": "Electrical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/3",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Dimensions":          "594 x 708 x 1620 mm",
+		"Special Features":    "Gross Weight: 72 ± 2 Kg; Climate Type (SN,N,ST,T): N ~ ST; Compressor Input Power (Watt): V 0401 - 43.5~143.7; Recommended voltage stabilizer capacity: V 0401:Wide Voltage Design (105V-185V) (suggested stabilizer 2100VA if out of range); Reversible Door: No; Handle: Recressed/ Grip/ Built-in; Lock: Yes; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Drawer: No; Freezer Door Basket: No; Packaging Dimensions: 635 x 740 x 1690 mm; Loading Capacity- 40HQ/40Ft/20Ft: 78/57/27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

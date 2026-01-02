@@ -21,9 +21,9 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC0nGdxxXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdxxXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c0n-gdxx-xx-inverter":         "মার্সেল-mfe-c0n-gdxx-xx-inverter",
-		"MFE-C0N-GDXX-XX-INVERTER":   "MFE-C0N-GDXX-XX-INVERTER",
+		"Marcel":                          "মার্সেল",
+		"marcel-mfe-c0n-gdxx-xx-inverter": "মার্সেল-mfe-c0n-gdxx-xx-inverter",
+		"MFE-C0N-GDXX-XX-INVERTER":        "MFE-C0N-GDXX-XX-INVERTER",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +77,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdxxXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C0N-GDXX-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C0N-GDXX-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "312 Ltr.",
+		"Net Volume":          "290 Ltr.",
+		"Weight":              "59.4 Kg",
+		"Voltage":             "220 ~ 240/ 50Hz",
+		"Compressor Type":     "RSCR",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/3",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Dimensions":          "585 x 711 x 1626 mm",
+		"Special Features":    "Gross Weight: 66.4 Kg; Climate Class: N ~ ST; Rated watt: 145.7; Reversible Door: No; Handle: Recressed/ Grip/ Built-in; Lock: Yes; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Shelf: Wire/2; Freezer Drawer: No; Freezer Door Basket: No; Freezer Interior Lamp: No; Cooling Effect: Freezer Cabinet Less than -18 ̊C Refrigerator Cabinet 0 ̊C to +5 ̊C; Packaging Dimensions: 625 x 745 x 1630 mm; Loading Capacity- 40HQ/40Ft/20Ft: 78/57/27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

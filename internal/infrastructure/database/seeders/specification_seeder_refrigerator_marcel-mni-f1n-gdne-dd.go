@@ -21,10 +21,55 @@ func NewSpecificationSeederRefrigeratorMarcelMniF1nGdneDd() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMniF1nGdneDd) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mni-f1n-gdne-dd":         "মার্সেল-mni-f1n-gdne-dd",
-		"MNI-F1N-GDNE-DD":   "MNI-F1N-GDNE-DD",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mni-f1n-gdne-dd": "মার্সেল-mni-f1n-gdne-dd",
+		"MNI-F1N-GDNE-DD":        "MNI-F1N-GDNE-DD",
+		"No Frost":               "নো ফ্রস্ট",
+		"Direct Cool":            "ডাইরেক্ট কুল",
+		"R600a":                  "R600a",
+		"Mechanical":             "যান্ত্রিক",
+		"Electronic":             "ইলেকট্রনিক",
+		"220 ~ 240":              "২২০ ~ ২৪০",
+		"50":                     "৫০",
+		"Automatic":              "স্বয়ংক্রিয়",
+		"Double Door":            "ডাবল দরজা",
+		"Rotary":                 "রোটারি",
+		"BLDC Inverter":          "বিএলডিসি ইনভার্টার",
+		"No Frost Technology, LED Lighting, Anti-fungal Door Gasket, Dynamic Flow, Power Cooler": "নো ফ্রস্ট প্রযুক্তি, LED লাইটিং, অ্যান্টি-ফাঙ্গাল ডোর গ্যাসকেট, ডায়নামিক ফ্লো, পাওয়ার কুলার",
+		"591 Ltr.":            "৫৯১ লিটার",
+		"548 Ltr.":            "৫৪৮ লিটার",
+		"115 ± 2 Kg":          "১১৫ ± ২ কেজি",
+		"125 ± 2 Kg":          "১২৫ ± ২ কেজি",
+		"865 x 725 x 1780 mm": "৮৬৫ x ৭২৫ x ১৭৮০ মিমি",
+		"900 x 775 x 1885 mm": "৯০০ x ৭৭৫ x ১৮৮৫ মিমি",
+		"39/39/18":            "৩৯/৩৯/১৮",
+		"5":                   "৫",
+		"1":                   "১",
+		"Glass":               "গ্লাস",
+		"GPPS/4":              "GPPS/4",
+		"Yes":                 "হ্যাঁ",
+		"No":                  "না",
+		"Freezer < -18℃; Refrigerator 0℃ to +5℃": "ফ্রিজার: < -18℃; ফ্রিজ: 0℃ থেকে +5℃",
+		"775 mm": "৭৭৫ মিমি",
+		"GLASS/5": "GLASS/৫",
+		"Steel": "স্টীল",
+		"220~240 V/ 50 Hz": "২২০~২৪০ V/ ৫০ Hz",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"1885 mm": "১৮৮৫ মিমি",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Yes/1": "Yes/১",
+		"900 mm": "৯০০ মিমি",
+		"Copper": "কপার",
+		"No-Frost": "নো ফ্রস্ট",
+		"591": "৫৯১",
+		"39/39/18 (Vertical Loading)": "৩৯/৩৯/১৮ (Vertical Loading)",
+		"Built In": "বিল্ট ইন",
+		"45.4 - 197": "৪৫.৪ - ১৯৭",
+		"Glass/5": "Glass/৫",
+		"Yes/ 1": "Yes/ ১",
+		"N~T": "N~T",
+		"548": "৫৪৮",
+
 	}
 }
 
@@ -77,24 +122,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMniF1nGdneDd) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MNI-F1N-GDNE-DD",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
+	specs := map[string]string{
+		"Type": "No-Frost",
+		"Gross Volume": "591",
+		"Net Volume": "548",
+		"Net Weight": "115 ± 2 Kg",
+		"Gross Weight": "125 ± 2 Kg",
+		"Climatic Type (SN, N, ST, T)": "N~T",
+		"Rated Voltage/ Hz": "220~240 V/ 50 Hz",
+		"Compressor Input Power (watt)": "45.4 - 197",
+		"Compressor": "BLDC Inverter",
+		"Temperature Control (Electronic/ Mechanical)": "Electronic",
+		"Defrosting (Automatic/ Manual)": "Automatic",
+		"Condenser": "Steel",
+		"Capillary": "Copper",
+		"Handle (Recessed/ Grip)": "Built In",
+		"Lock": "No",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Shelf (Material/No.)": "Glass/5",
+		"Bottle Pocket": "GPPS/4",
+		"Interior Lamp": "Yes",
+		"Egg Tray or Pocket": "Yes/ 1",
+		"Vegetable Crisper": "Yes/1",
+		"Water Dispenser": "Yes",
+		"Ice Case": "Yes/1",
+		"Ice Box": "Yes/1",
+		"Shelf (Material/ No.)": "GLASS/5",
+		"Interior LED Lamp": "Yes",
+		"Drawer": "Yes/1",
+		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Width/mm": "900 mm",
+		"Depth/mm": "775 mm",
+		"Height/mm": "1885 mm",
+		"Loading Capacity- 40HQ/40Ft/20Ft": "39/39/18 (Vertical Loading)",
+	}
 
 
 	banglaTranslations := s.getBanglaTranslations()

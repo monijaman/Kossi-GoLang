@@ -21,10 +21,33 @@ func NewSpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mnh-d3x-hdxx-xx-inverter":         "মার্সেল-mnh-d3x-hdxx-xx-inverter",
-		"MNH-D3X-HDXX-XX-INVERTER":   "MNH-D3X-HDXX-XX-INVERTER",
-		// Add more translations as needed
+		"Marcel":                          "মার্সেল",
+		"marcel-mnh-d3x-hdxx-xx-inverter": "মার্সেল-mnh-d3x-hdxx-xx-inverter",
+		"MNH-D3X-HDXX-XX-INVERTER":        "MNH-D3X-HDXX-XX-INVERTER",
+		"Non-Frost":                       "নন-ফ্রস্ট",
+		"430 Ltr.":                        "৪৩০ লিটার",
+		"370 Ltr.":                        "৩৭০ লিটার",
+		"Five Star (*****)":               "ফাইভ স্টার (*****)",
+		"360 kWh/year":                    "৩৬০ কিলোওয়াট-ঘন্টা/বছর",
+		"T":                               "T",
+		"220-240 V/ 50 Hz":                "২২০-২৪০ ভি / ৫০ হার্জ",
+		"76.5 \u00b1 2 Kg":                "৭৬.৫ ± ২ কেজি",
+		"86 \u00b1 2 Kg":                  "৮৬ ± ২ কেজি",
+		"BLDC Inverter":                   "BLDC ইনভার্টার",
+		"Mechanical":                      "যান্ত্রিক",
+		"Automatic":                       "স্বয়ংক্রিয়",
+		"R600a":                           "R600a",
+		"100 % Copper":                    "১০০% কপার",
+		"Copper":                          "কপার",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "সাইক্লোপেন্টিন (পরিবেশবান্ধব, CFC/HCFC ফ্রি)",
+		"1000VA or More":      "১০০০ভিএ বা বেশি",
+		"Glass/4":             "গ্লাস/৪",
+		"GPPS/7":              "GPPS/৭",
+		"Yes/1":               "হ্যাঁ/১",
+		"Yes/2":               "হ্যাঁ/২",
+		"705 x 690 x 1845 mm": "৭০৫ x ৬৯০ x ১৮৪৫ মিমি",
+		"760 x 775 x 1900 mm": "৭৬০ x ৭৭৫ x ১৯০০ মিমি",
+		"48/ 48/ 24":          "৪৮/ ৪৮/ ২৪",
 	}
 }
 
@@ -77,25 +100,35 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MNH-D3X-HDXX-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                           "Marcel",
+		"Model Name":                      "MNH-D3X-HDXX-XX-INVERTER",
+		"Cooling Technology":              "Non-Frost",
+		"Gross Volume":                    "430 Ltr.",
+		"Net Volume":                      "370 Ltr.",
+		"Energy Star Rating":              "Five Star (*****)",
+		"Annual Energy Consumption":       "360 kWh/year",
+		"Temperature Control":             "Mechanical",
+		"Defrost Type":                    "Automatic",
+		"Voltage":                         "220-240 V/ 50 Hz",
+		"Weight":                          "76.5 ± 2 Kg / 86 ± 2 Kg",
+		"Compressor Type":                 "BLDC Inverter",
+		"Refrigerant":                     "R600a",
+		"Condenser":                       "100 % Copper",
+		"Capillary":                       "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Recommended voltage stabilizer capacity": "1000VA or More",
+		"Shelf Material":                   "Glass",
+		"Number of Shelves":                "4",
+		"Door Bins":                        "GPPS/7",
+		"Crisper Drawers":                  "Yes/1",
+		"Egg Tray or Pocket":               "Yes/2",
+		"Freezer Compartment - Rack Shelf": "Wire/3",
+		"Freezer Compartment - Ice Box":    "Yes/1",
+		"Dimensions":                       "705 x 690 x 1845 mm",
+		"Packing Dimensions":               "760 x 775 x 1900 mm",
+		"Loading Capacity":                 "48/ 48/ 24",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

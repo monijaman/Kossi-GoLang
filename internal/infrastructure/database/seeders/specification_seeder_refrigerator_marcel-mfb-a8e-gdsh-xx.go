@@ -47,6 +47,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eGdshXx) getBanglaTranslation
 		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
 		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
+		"193 Ltr.": "১৯৩ লিটার",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"645 mm": "৬৪৫ মিমি",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"58 ± 2 Kg": "৫৮ ± ২ কেজি",
+		"RoHS Certified": "RoHS Certified",
+		"V 05.01,V 06.01, V 06.02,V 07.01-1000VA V 07.02-Low Voltage(155~260V) For V 07.02 - Wide Voltage Range (155Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended": "V ০৫.০১,V ০৬.০১, V ০৬.০২,V ০৭.০১-১০০০VA V ০৭.০২-Low Voltage(১৫৫~২৬০V) For V ০৭.০২ - Wide Voltage Range (১৫৫Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is reco মিমিended",
+		"1530 mm": "১৫৩০ মিমি",
+		"N/A": "N/A",
+		"V 05.01-111 V 06.01-111 V 06.02-111 V 07.01-104 V 07.02-104": "V ০৫.০১-১১১ V ০৬.০১-১১১ V ০৬.০২-১১১ V ০৭.০১-১০৪ V ০৭.০২-১০৪",
+		"580 mm": "৫৮০ মিমি",
+		"207 Ltr.": "২০৭ লিটার",
+		"102/ 102/ 50": "১০২/ ১০২/ ৫০",
+		"53 ± 2 Kg": "৫৩ ± ২ কেজি",
+		"HIPS/4": "HIPS/৪",
+		"Wire/2": "Wire/২",
+		"GPPS/4": "GPPS/৪",
+
 	}
 }
 
@@ -102,18 +120,38 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eGdshXx) Seed(db *gorm.DB) er
 	
     		
     specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-A8E-GDSH-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+		"Type": "Direct Cool",
+		"Gross Volume": "207 Ltr.",
+		"Net Volume": "193 Ltr.",
+		"Net Weight": "53 ± 2 Kg",
+		"Gross Weight": "58 ± 2 Kg",
+		"Climatic Type (SN, N, ST, T)": "N~ST",
+		"Rated Voltage/ Hz": "220 ~ 240/ 50",
+		"Compressor Input Power (Watt)": "V 05.01-111 V 06.01-111 V 06.02-111 V 07.01-104 V 07.02-104",
+		"Compressor Type": "RSCR",
+		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Energy Rating": "N/A",
+		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Handle (Recessed/ Grip)": "Recessed/ Grip",
+		"Lock": "Yes",
+		"Recommended voltage stabilizer capacity": "V 05.01,V 06.01, V 06.02,V 07.01-1000VA V 07.02-Low Voltage(155~260V) For V 07.02 - Wide Voltage Range (155Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended",
+		"Thermostat": "RoHS Certified",
+		"Capillary": "Copper",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Shelf (Material/No.)": "Wire/2",
+		"Door Basket": "GPPS/4",
+		"Interior Lamp": "Yes",
+		"Vegetable Crisper": "Yes",
+		"Vegetable Crisper Cover": "Yes",
+		"Egg Tray or Pocket": "Yes",
+		"Drawer": "HIPS/4",
+		"Width/mm": "580 mm",
+		"Depth/mm": "645 mm",
+		"Height/mm": "1530 mm",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "102/ 102/ 50",
+	}
+
 
 
 

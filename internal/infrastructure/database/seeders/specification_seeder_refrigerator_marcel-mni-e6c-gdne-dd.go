@@ -21,10 +21,47 @@ func NewSpecificationSeederRefrigeratorMarcelMniE6cGdneDd() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMniE6cGdneDd) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mni-e6c-gdne-dd":         "মার্সেল-mni-e6c-gdne-dd",
-		"MNI-E6C-GDNE-DD":   "MNI-E6C-GDNE-DD",
-		// Add more translations as needed
+		"Marcel":                 "মার্সেল",
+		"marcel-mni-e6c-gdne-dd": "মার্সেল-mni-e6c-gdne-dd",
+		"MNI-E6C-GDNE-DD":        "MNI-E6C-GDNE-DD",
+		"No-Frost":               "নো ফ্রস্ট",
+		"No Frost":               "নো ফ্রস্ট",
+		"BLDC Inverter":          "বিএলডিসি ইনভার্টার",
+		"Electronic":             "ইলেকট্রনিক",
+		"Automatic":              "স্বয়ংক্রিয়",
+		"Steel":                  "স্টীল",
+		"Copper":                 "কপার",
+		"Built In":               "বিল্ট ইন",
+		"Cyclopentene":           "সাইকলোপেন্টেন",
+		"Glass":                  "গ্লাস",
+		"GPPS/4":                 "GPPS/4",
+		"GPPS/5":                 "GPPS/5",
+		"Yes":                    "হ্যাঁ",
+		"No":                     "না",
+		"Freezer < -18℃; Refrigerator 0℃ to +5℃": "ফ্রিজার: < -18℃; ফ্রিজ: 0℃ থেকে +5℃",
+		"563 Ltr.":   "৫৬৩ লিটার",
+		"501 Ltr.":   "৫০১ লিটার",
+		"103 ± 2 Kg": "১০৩ ± ২ কেজি",
+		"113 ± 2 Kg": "১১৩ ± ২ কেজি",
+		"865 mm":     "৮৬৫ মিমি",
+		"725 mm":     "৭২৫ মিমি",
+		"1700 mm":    "১৭০০ মিমি",
+		"900 mm":     "৯০০ মিমি",
+		"775 mm":     "৭৭৫ মিমি",
+		"1815 mm":    "১৮১৫ মিমি",
+		"5":          "৫",
+		"1":          "১",
+		"39/39/19":   "৩৯/৩৯/১৯",
+		"220~240 V/ 50 Hz": "২২০~২৪০ V/ ৫০ Hz",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Yes/1": "Yes/১",
+		"45.4 - 197": "৪৫.৪ - ১৯৭",
+		"39/39/19 (Vertical Loading)": "৩৯/৩৯/১৯ (Vertical Loading)",
+		"Glass/5": "Glass/৫",
+		"Yes/ 1": "Yes/ ১",
+		"N~T": "N~T",
+
 	}
 }
 
@@ -77,24 +114,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMniE6cGdneDd) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MNI-E6C-GDNE-DD",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
+	specs := map[string]string{
+		"Type": "No-Frost",
+		"Gross Volume": "563 Ltr.",
+		"Net Volume": "501 Ltr.",
+		"Net Weight": "103 ± 2 Kg",
+		"Gross Weight": "113 ± 2 Kg",
+		"Climatic Type (SN, N, ST, T)": "N~T",
+		"Rated Voltage/ Hz/ watt": "220~240 V/ 50 Hz",
+		"Compressor Input Power (watt)": "45.4 - 197",
+		"Compressor": "BLDC Inverter",
+		"Temperature Control (Electronic/ Mechanical)": "Electronic",
+		"Defrosting (Automatic/ Manual)": "Automatic",
+		"Condenser": "Steel",
+		"Capillary": "Copper",
+		"Handle (Recessed/ Grip)": "Built In",
+		"Lock": "No",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Shelf (Material/No.)": "Glass/5",
+		"Bottle Pocket": "GPPS/4",
+		"Interior Lamp": "Yes",
+		"Egg Tray or Pocket": "Yes/ 1",
+		"Vegetable Crisper": "Yes/1",
+		"Water Dispenser": "No",
+		"Ice Case": "Yes/1",
+		"Ice Box": "Yes/1",
+		"Shelf (Material/ No.)": "GPPS/5",
+		"Interior LED Lamp": "Yes",
+		"Drawer": "Yes/1",
+		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Width/mm": "900 mm",
+		"Depth/mm": "775 mm",
+		"Height/mm": "1815 mm",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "39/39/19 (Vertical Loading)",
+	}
 
 
 	banglaTranslations := s.getBanglaTranslations()

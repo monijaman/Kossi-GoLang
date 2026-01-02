@@ -21,9 +21,21 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC0nElnxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC0nElnxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c0n-elnx-xx":         "মার্সেল-mfe-c0n-elnx-xx",
-		"MFE-C0N-ELNX-XX":   "MFE-C0N-ELNX-XX",
+		"Marcel":                     "মার্সেল",
+		"marcel-mfe-c0n-elnx-xx":     "মার্সেল-mfe-c0n-elnx-xx",
+		"MFE-C0N-ELNX-XX":            "MFE-C0N-ELNX-XX",
+		"Direct Cool":                "ডাইরেক্ট কুল",
+		"309 Ltr.":                   "৩০৯ লিটার",
+		"270 Ltr.":                   "২৭০ লিটার",
+		"59 Kg":                      "৫৯ কেজি",
+		"220 ~ 240/ 50":              "২২০ ~ ২৪০/ ৫০",
+		"V 0101- RSCR; V 0201- RSCR": "V 0101- RSCR; V 0201- RSCR",
+		"Mechanical":                 "যান্ত্রিক",
+		"Manual":                     "ম্যানুয়াল",
+		"Wire/2":                     "ওয়্যার/2",
+		"Yes/3":                      "হ্যাঁ/3",
+		"Yes/1":                      "হ্যাঁ/1",
+		"594 x 711 x 1646 mm":        "৫৯৪ x ৭১১ x ১৬৪৬ মিমি",
 		// Add more translations as needed
 	}
 }
@@ -77,25 +89,23 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nElnxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C0N-ELNX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C0N-ELNX-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "309 Ltr.",
+		"Net Volume":          "270 Ltr.",
+		"Weight":              "59 Kg",
+		"Voltage":             "220 ~ 240/ 50",
+		"Compressor Type":     "V 0101- RSCR; V 0201- RSCR",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "Yes/3",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "594 x 711 x 1646 mm",
+		"Special Features":    "Climate Class: N ~ ST; Compressor Input Power (Watt): V 0101- 118; V 0201- 109; Cooling Effect: Freezer Cabinet Less than -18 ̊C; Refrigerator Cabinet 0 ̊C to +5 ̊C; Reversible Door: No; Handle (Recessed/ Grip): Recressed; Lock: Yes; Condenser: V 0101- Copper; V 0201- Copper; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 2100VA is recommended; Interior Lamp: Yes; Vegetable Box Cover: Yes; Egg Case: Yes/2; Ice Case: Yes/1; Ice Box: Yes/1; Can Storage Dispenser: No; Freezer Shelf (Material/ No.): No; Freezer Door Basket: No; Freezer Drawer: Yes/3; Freezer Ice Tray: Yes/1; Freezer Ice Remover spoon: Yes/1; Freezer Interior Lamp: No; Packing Dimensions: 625 x 745 x 1676 mm; Gross Weight: 64.5 ± 2 Kg; Loading Capacity: 78/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

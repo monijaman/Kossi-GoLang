@@ -21,10 +21,35 @@ func NewSpecificationSeederRefrigeratorMarcelMfeC2xGdenXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdenXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-c2x-gden-xx-inverter":         "মার্সেল-mfe-c2x-gden-xx-inverter",
-		"MFE-C2X-GDEN-XX-INVERTER":   "MFE-C2X-GDEN-XX-INVERTER",
-		// Add more translations as needed
+		"Marcel":                            "মার্সেল",
+		"marcel-mfe-c2x-gden-xx-inverter":   "মার্সেল-mfe-c2x-gden-xx-inverter",
+		"MFE-C2X-GDEN-XX-INVERTER":          "MFE-C2X-GDEN-XX-INVERTER",
+		"Direct Cool":                       "ডাইরেক্ট কুল",
+		"341 Ltr":                           "৩৪১ লিটার",
+		"341 Ltr.":                          "৩৪১ লিটার",
+		"320 Ltr.":                          "৩২০ লিটার",
+		"67 ± 2 Kg":                         "৬৭ ± ২ কেজি",
+		"72 ± 2 Kg":                         "৭২ ± ২ কেজি",
+		"N ~ ST":                            "এন ~ এসটি",
+		"220-240V~/50Hz":                    "২২০-২৪০V~/৫০Hz",
+		"V 0301 - 38~109":                   "V ০৩০১ - ৩৮~১০৯",
+		"V 0301 - BLDC":                     "V ০৩০১ - BLDC",
+		"V 0301 - R600a":                    "V ০৩০১ - R600a",
+		"Mechanical":                        "যান্ত্রিক",
+		"Manual":                            "ম্যানুয়াল",
+		"Recessed/ Grip":                    "রিসেসড/ গ্রিপ",
+		"Yes":                               "হ্যাঁ",
+		"No":                                "না",
+		"No need to use voltage stabilizer": "স্ট্যাবিলাইজার ব্যবহার করার প্রয়োজন নেই",
+		"Wire/2":                            "ওয়্যার/২",
+		"PVC/4":                             "পিভিসি/৪",
+		"Copper":                            "কপার",
+		"RoHS Certified":                    "RoHS সার্টিফায়েড",
+		"Cyclopentene":                      "সাইক্লোপেন্টিন",
+		"Freezer Cabinet Less than -18 ̊C Refrigerator Cabinet 0 ̊C to +5 ̊C": "ফ্রিজার কেবিনেট: -১৮°C-এর নিচে; রেফ্রিজারেটর: ০°C থেকে +৫°C",
+		"594 x 708 x 1720 mm": "৫৯৪ x ৭০৮ x ১৭২০ মিমি",
+		"635 x 740 x 1790 mm": "৬৩৫ x ৭৪০ x ১৭৯০ মিমি",
+		"77/ 57/ 27":          "৭৭/ ৫৭/ ২৭",
 	}
 }
 
@@ -77,25 +102,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdenXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-C2X-GDEN-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C2X-GDEN-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "341 Ltr",
+		"Net Volume":          "320 Ltr.",
+		"Weight":              "67 ± 2 Kg",
+		"Voltage":             "220-240V~/50Hz",
+		"Compressor Type":     "V 0301 - BLDC",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "V 0301 - R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "PVC/4",
+		"Crisper Drawers":     "Yes/1",
+		"Dimensions":          "594 x 708 x 1720 mm",
+		"Special Features":    "Gross Weight: 72 ± 2 Kg; Climatic Type: N ~ ST; Compressor Input Power: V 0301 - 38~109; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended stabilizer: No need to use voltage stabilizer; Freezer Shelf: Wire/2; Loading Capacity: 77/ 57/ 27; Packing Dimensions: 635 x 740 x 1790 mm; Interior Lamp: Yes; Can Storage Dispenser: No",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

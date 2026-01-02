@@ -25,6 +25,32 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhC8fGdelXxInverter) getBanglaTra
 				"marcel-mnh-c8f-gdel-xx-inverter":         "মার্সেল-mnh-c8f-gdel-xx-inverter",
 		"MNH-C8F-GDEL-XX-INVERTER":   "MNH-C8F-GDEL-XX-INVERTER",
 		// Add more translations as needed
+		"Glass/3": "Glass/৩",
+		"Glass/1": "Glass/১",
+		"Yes/ 2": "Yes/ ২",
+		"220-240/ 50 Hz": "২২০-২৪০/ ৫০ Hz",
+		"Steel": "স্টীল",
+		"Yes": "হ্যাঁ",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"74/82 ± 2": "৭৪/৮২ ± ২",
+		"1775 mm": "১৭৭৫ মিমি",
+		"Electronic": "ইলেকট্রনিক",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Yes/2": "Yes/২",
+		"Yes/1": "Yes/১",
+		"BLDC Inverter": "বিএলডিসি ইনভার্টার",
+		"Copper": "কপার",
+		"RoHS Certified": "RoHS Certified",
+		"750 mm": "৭৫০ মিমি",
+		"740 mm": "৭৪০ মিমি",
+		"No-Frost": "নো ফ্রস্ট",
+		"GPPS/2": "GPPS/২",
+		"328 Ltr.": "৩২৮ লিটার",
+		"T": "T",
+		"Automatic": "স্বয়ংক্রিয়",
+		"386 Ltr.": "৩৮৬ লিটার",
+		"66/ 48/ 24": "৬৬/ ৪৮/ ২৪",
+
 	}
 }
 
@@ -80,18 +106,37 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhC8fGdelXxInverter) Seed(db *gor
 	
     		
     specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MNH-C8F-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+		"Type": "No-Frost",
+		"Gross Volume": "386 Ltr.",
+		"Net Volume": "328 Ltr.",
+		"Climatic Type (SN, N, ST, T)": "T",
+		"Rated Voltage/ Hz/ watt": "220-240/ 50 Hz",
+		"Weight(Kg): Net/Packing": "74/82 ± 2",
+		"Compressor": "BLDC Inverter",
+		"Temperature Control (Electronic/ Mechanical)": "Electronic",
+		"Defrosting (Automatic/ Manual)": "Automatic",
+		"Condenser": "Steel",
+		"Capillary": "Copper",
+		"Thermostat": "RoHS Certified",
+		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Shelf (Material/No.)": "Glass/3",
+		"Bottle Pocket": "GPPS/2",
+		"Interior Lamp": "Yes",
+		"Chilled Room": "Yes/1",
+		"Chilled Room Door": "Yes/1",
+		"Egg Tray or Pocket": "Yes/ 2",
+		"Vegetable Crisper": "Yes/1",
+		"Twist Ice tray": "Yes/2",
+		"Ice Box": "Yes/1",
+		"Shelf (Material/ No.)": "Glass/1",
+		"Interior LED Lamp": "Yes",
+		"Cooling Efect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Width/mm": "740 mm",
+		"Depth/mm": "750 mm",
+		"Height/mm": "1775 mm",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "66/ 48/ 24",
+	}
+
 
 
 
