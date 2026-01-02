@@ -21,10 +21,39 @@ func NewSpecificationSeederRefrigeratorMarcelMfeB9eElnxXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeB9eElnxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-b9e-elnx-xx":         "মার্সেল-mfe-b9e-elnx-xx",
-		"MFE-B9E-ELNX-XX":   "MFE-B9E-ELNX-XX",
+		"Marcel":                 "মার্সেল",
+		"marcel-mfe-b9e-elnx-xx": "মার্সেল-mfe-b9e-elnx-xx",
+		"MFE-B9E-ELNX-XX":        "MFE-B9E-ELNX-XX",
 		// Add more translations as needed
+		"Direct Cool":                    "ডাইরেক্ট কুল",
+		"316 Ltr.":                       "৩১৬ লিটার",
+		"295 Ltr.":                       "২৯৫ লিটার",
+		"57 ± 2 Kg":                      "৫৭ ± ২ কেজি",
+		"220-240V~/50Hz":                 "২২০-২৪০V~/৫০Hz",
+		"V 0101 - RSCR; V 0201 - RSCR":   "V ০১০১ - RSCR; V ০২০১ - RSCR",
+		"V 0101 - R600a; V 0201 - R600a": "V ০১০১ - R৬০০a; V ০২০১ - R৬০০a",
+		"Mechanical":                     "যান্ত্রিক",
+		"Manual":                         "Manual",
+		"Wire/2":                         "Wire/২",
+		"PVC/4":                          "PVC/৪",
+		"Yes (Plastic)":                  "Yes (Plastic)",
+		"594 x 711 x 1620 mm":            "৫৯৪ x ৭১১ x ১৬২০ মিমি",
+		"70 ± 2 Kg":                      "৭০ ± ২ কেজি",
+		"N ~ ST":                         "N ~ ST",
+		"V 0101 - 118; V 0201 - 118":     "V ০১০১ - ১১৮; V ০২০১ - ১১৮",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"No":                        "না",
+		"Yes":                       "হ্যাঁ",
+		"Recressed/ Grip/ Built-in": "Recressed/ Grip/ Built-in",
+		"RoHS Certified":            "RoHS Certified",
+		"Copper":                    "কপার",
+		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"2100VA":        "২১০০VA",
+		"Yes (ABS/ PS)": "Yes (ABS/ PS)",
+		"78/ 57/ 27":    "৭৮/ ৫৭/ ২৭",
+		"625":           "৬২৫",
+		"745":           "৭৪৫",
+		"1630":          "১৬৩০",
 	}
 }
 
@@ -77,25 +106,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eElnxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-B9E-ELNX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-B9E-ELNX-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "316 Ltr.",
+		"Net Volume":          "295 Ltr.",
+		"Weight":              "57 ± 2 Kg",
+		"Voltage":             "220-240V~/50Hz",
+		"Compressor Type":     "V 0101 - RSCR; V 0201 - RSCR",
+		"Refrigerant":         "V 0101 - R600a; V 0201 - R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/4",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Dimensions":          "594 x 711 x 1620 mm",
+		"Special Features":    "Gross Weight: 70 ± 2 Kg; Climate Type: N ~ ST; Compressor Input Power (Watt): V 0101 - 118; V 0201 - 118; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Reversible Door: No; Handle (Recessed/ Grip): Recressed/ Grip/ Built-in; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: 2100VA; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Shelf (Material/ No.): Wire/2; Freezer Drawer: No; Freezer Door Basket: No; Freezer Interior Lamp: No; Packing Dimensions: 625 x 745 x 1630 mm; Loading Capacity: 78/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

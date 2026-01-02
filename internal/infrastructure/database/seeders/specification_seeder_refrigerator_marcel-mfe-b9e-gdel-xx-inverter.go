@@ -21,10 +21,38 @@ func NewSpecificationSeederRefrigeratorMarcelMfeB9eGdelXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-b9e-gdel-xx-inverter":         "মার্সেল-mfe-b9e-gdel-xx-inverter",
-		"MFE-B9E-GDEL-XX-INVERTER":   "MFE-B9E-GDEL-XX-INVERTER",
+		"Marcel":                          "মার্সেল",
+		"marcel-mfe-b9e-gdel-xx-inverter": "মার্সেল-mfe-b9e-gdel-xx-inverter",
+		"MFE-B9E-GDEL-XX-INVERTER":        "MFE-B9E-GDEL-XX-INVERTER",
 		// Add more translations as needed
+		"Mechanical":          "যান্ত্রিক",
+		"Direct Cool":         "ডাইরেক্ট কুল",
+		"316 Ltr.":            "৩১৬ লিটার",
+		"295 Ltr.":            "২৯৫ লিটার",
+		"57 ± 2 Kg":           "৫৭ ± ২ কেজি",
+		"220~240V~/50Hz":      "২২০~২৪০V~/৫০Hz",
+		"RSCR":                "RSCR",
+		"R600a":               "R৬০০a",
+		"Manual":              "Manual",
+		"Yes":                 "হ্যাঁ",
+		"No":                  "না",
+		"Wire/2":              "Wire/২",
+		"PVC/4":               "PVC/৪",
+		"Yes (Plastic)":       "Yes (Plastic)",
+		"585 x 711 x 1626 mm": "৫৮৫ x ৭১১ x ১৬২৬ মিমি",
+		"64 ± 2 Kg":           "৬৪ ± ২ কেজি",
+		"N ~ ST":              "N ~ ST",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"Recressed/ Grip/ Built-in": "Recressed/ Grip/ Built-in",
+		"RoHS Certified":            "RoHS Certified",
+		"Copper":                    "কপার",
+		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"2000VA or More": "২০০০VA or More",
+		"Yes (ABS/ PS)":  "Yes (ABS/ PS)",
+		"78/ 57/ 27":     "৭৮/ ৫৭/ ২৭",
+		"625":            "৬২৫",
+		"745":            "৭৪৫",
+		"1630":           "১৬৩০",
 	}
 }
 
@@ -77,25 +105,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdelXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-B9E-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-B9E-GDEL-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "316 Ltr.",
+		"Net Volume":          "295 Ltr.",
+		"Weight":              "57 ± 2 Kg",
+		"Voltage":             "220~240V~/50Hz",
+		"Compressor Type":     "RSCR",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "PVC/4",
+		"Crisper Drawers":     "Yes (Plastic)",
+		"Dimensions":          "585 x 711 x 1626 mm",
+		"Special Features":    "Gross Weight: 64 ± 2 Kg; Climate Type: N ~ ST; Rated Voltage/ Hz/ watt: 220~240/ 50/118; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Reversible Door: No; Handle (Recessed/ Grip): Recressed/ Grip/ Built-in; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: 2000VA or More; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Shelf (Material/ No.): Wire/2; Freezer Drawer: No; Freezer Door Basket: No; Freezer Interior Lamp: No; Packing Dimensions: 625 x 745 x 1630 mm; Loading Capacity: 78/ 57/ 27",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {
