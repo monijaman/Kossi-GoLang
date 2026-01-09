@@ -25,21 +25,32 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdshXx) getBanglaTranslation
 		"marcel-mfb-b2c-gdsh-xx": "মার্সেল-mfb-b2c-gdsh-xx",
 		"MFB-B2C-GDSH-XX":        "MFB-B2C-GDSH-XX",
 
-		"Direct Cool":         "ডিরেক্ট কুল",
-		"177 Ltr.":            "১৭৭ লিটার",
-		"175 Ltr.":            "১৭৫ লিটার",
-		"50 ± 2 Kg":           "৫০ ± ২ কেজি",
-		"R600a":               "R600a",
-		"Mechanical":          "ম্যানুয়াল/মেকানিক্যাল",
-		"Manual":              "ম্যানুয়াল",
-		"Recessed/ Grip":      "রিসেসড/গ্রিপ",
-		"Copper":              "কপার",
-		"Cyclopentene":        "সাইক্লোপেন্টেন",
-		"220 ~ 240":           "২২0 ~ ২৪0",
-		"Hermetic":            "হার্মেটিক",
-		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
-		"Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere": "কমপ্রেসার: V 01.01-RSCR; V 01.02-RSCR; কমপ্রেসার ইনপুট পাওয়ার (ওয়াট): V 01.01-88; V 01.02-88; ভোল্টেজ/হার্জ: 220 ~ 240/50; স্ট্যাবিলাইজার: ৫ অ্যাম্পিয়ার",
+		"Direct Cool":    "ডিরেক্ট কুল",
+		"223 Ltr.":       "২২৩ লিটার",
+		"219 Ltr.":       "২১৯ লিটার",
+		"51.5 ± 2 Kg":    "৫১.৫ ± ২ কেজি",
+		"56 ± 2 Kg":      "৫৬ ± ২ কেজি",
+		"N~ST":           "N~ST",
+		"220 ~ 240/ 50":  "২২০ ~ ২৪০/ ৫০",
+		"V 01.01-R600a":  "V 01.01-R600a",
+		"V 01.02-R600a":  "V 01.02-R600a",
+		"RSCR":           "RSCR",
+		"Mechanical":     "ম্যানুয়াল/মেকানিক্যাল",
+		"Manual":         "ম্যানুয়াল",
+		"Recessed/ Grip": "রিসেসড/গ্রিপ",
+		"Copper":         "তামা",
+		"Cyclopentene":   "সাইক্লোপেন্টেন",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"RoHS Certified":      "RoHS Certified",
+		"555 x 630 x 1550 mm": "৫৫৫ x ৬৩০ x ১৫৫০ মিমি",
+		"580 x 645 x 1620 mm": "৫৮০ x ৬৪৫ x ১৬২০ মিমি",
+		"72/ 72/ 36":          "৭২/ ৭২/ ৩৬",
+		"Wire/2":              "ওয়্যার/২",
+		"GPPS/3":              "GPPS/৩",
+		"Yes":                 "হ্যাঁ",
+
+		// Special features long translation
+		`Gross Weight: 56 ± 2 Kg; Packing Dimensions: 580 x 645 x 1620 mm; Loading Capacity (40HQ/ 40Ft/ 20Ft): 72/ 72/ 36; Climatic Type: N~ST; Compressor Input Power: V 01.01-R600a; V 01.02-R600a; Compressor Type: RSCR; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 01.01, V 01.02-Low Voltage(140~260V). For V 01.01, V 01.02 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.`: `গ্রস ওয়েট: 56 ± 2 কেজি; প্যাকেজিং ডাইমেনশন: 580 x 645 x 1620 মিমি; লোডিং ক্ষমতা (40HQ/ 40Ft/ 20Ft): 72/ 72/ 36; ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার: V 01.01-R600a; V 01.02-R600a; কম্প্রেসার টাইপ: RSCR; কুলিং ইফেক্ট: ফ্রিজার কেবিনেট -18℃ এর নিচে; রেফ্রিজারেটর কেবিনেট 0℃ থেকে +5℃; থার্মোস্ট্যাট: RoHS সার্টিফায়েড; ক্যাপিলারি: তামা; পলিইউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন; সুপারিশকৃত ভোল্টেজ স্ট্যাবিলাইজার ক্ষমতা: V 01.01, V 01.02-লো ভোল্টেজ(140~260V). V 01.01, V 01.02 এর ক্ষেত্রে - ওয়াইড ভোল্টেজ রেঞ্জ (140Vac - 260Vac). ভোল্টেজ স্ট্যাবিলাইজার প্রয়োজন নেই। উল্লিখিত রেঞ্জের বাইরে ভোল্টেজ থাকলে 1000VA সুপারিশ করা হয়।`,
 	}
 }
 
@@ -92,25 +103,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdshXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B2C-GDSH-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B2C-GDSH-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "223 Ltr.",
+		"Net Volume":          "219 Ltr.",
+		"Weight":              "51.5 ± 2 Kg",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Voltage":             "220 ~ 240/ 50",
+		"Dimensions":          "555 x 630 x 1550 mm",
+		"Compressor Type":     "RSCR",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "GPPS/3",
+		"Crisper Drawers":     "Yes",
+		"Special Features":    `Gross Weight: 56 ± 2 Kg; Packing Dimensions: 580 x 645 x 1620 mm; Loading Capacity (40HQ/ 40Ft/ 20Ft): 72/ 72/ 36; Climatic Type: N~ST; Compressor Input Power: V 01.01-R600a; V 01.02-R600a; Compressor Type: RSCR; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 01.01, V 01.02-Low Voltage(140~260V). For V 01.01, V 01.02 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.`,
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter seeds specifications/options for product 'marcel-mfc-c4h-gjxb-fd-inverter'
+// SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter seeds specifications/options for product 'mfc-c4h-gjxb-fd-inverter'
 type SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter struct {
 	BaseSeeder
 }
@@ -15,51 +15,37 @@ type SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter struct {
 // NewSpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter() *SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter {
 	return &SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfc-c4h-gjxb-fd-inverter"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfc-c4h-gjxb-fd-inverter"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfc-c4h-gjxb-fd-inverter":         "মার্সেল-mfc-c4h-gjxb-fd-inverter",
-		"MFC-C4H-GJXB-FD-INVERTER":   "MFC-C4H-GJXB-FD-INVERTER",
-		// Add more translations as needed
-		"348 Ltr": "৩৪৮ Ltr",
-		"Freezer Cabinet -15℃ to -22℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet -১৫℃ to -২২℃ Refrigerator Cabinet ০℃ to +৫℃",
-		"67/ 48/ 24": "৬৭/ ৪৮/ ২৪",
-		"V 0501- Mechanical V 0502- Electronics V 0503- Mechanical V 0504- Electronics V 0505- Electronics": "V ০৫০১- Mechanical V ০৫০২- Electronics V ০৫০৩- Mechanical V ০৫০৪- Electronics V ০৫০৫- Electronics",
-		"Glass/ 2": "Glass/ ২",
-		"Yes": "হ্যাঁ",
-		"220-240V~ and 50Hz": "২২০-২৪০V~ and ৫০Hz",
-		"Recessed/ Grip": "Recessed/ Grip",
-		"710": "৭১০",
-		"Direct Cool": "ডাইরেক্ট কুল",
-		"Yes(Glass/ Plastic)": "Yes(Glass/ Plastic)",
-		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
-		"R600a": "R৬০০a",
-		"1790": "১৭৯০",
-		"Yes/2": "Yes/২",
-		"V 0501-33.78~126.46 V 0502-33.78~126.46 V 0503-33.78~126.46 V 0504-33.78~126.46 V 0505-33.78~126.46": "V ০৫০১-৩৩.৭৮~১২৬.৪৬ V ০৫০২-৩৩.৭৮~১২৬.৪৬ V ০৫০৩-৩৩.৭৮~১২৬.৪৬ V ০৫০৪-৩৩.৭৮~১২৬.৪৬ V ০৫০৫-৩৩.৭৮~১২৬.৪৬",
-		"Yes/1": "Yes/১",
-		"Copper": "কপার",
+		"1790": "1790",
+		"2": "2",
+		"220-240V~ and 50Hz": "220-240V~ and 50Hz",
+		"333 Ltr.": "333 Ltr.",
+		"348 Ltr": "348 Ltr",
+		"5": "5",
+		"66/ 73 ± 2": "66/ 73 ± 2",
+		"710": "710",
+		"Glass/ 2": "Glass/ 2",
 		"Manual": "Manual",
-		"No": "না",
-		"N~ST": "N~ST",
-		"2": "২",
-		"66/ 73 ± 2": "৬৬/ ৭৩ ± ২",
-		"V 0501- BLDC V 0502- BLDC V 0503- BLDC V 0504- BLDC V 0505- BLDC": "V ০৫০১- BLDC V ০৫০২- BLDC V ০৫০৩- BLDC V ০৫০৪- BLDC V ০৫০৫- BLDC",
-		"V 0501/V0502/V0503/V0504/V0505: Wide Voltage Design (80V to 300V) N.B.: Do not use voltage stabilizer unless voltage is out of the range(80V-300V). Then suggested voltage stabilizer capacity is 2100VA.": "V ০৫০১/V০৫০২/V০৫০৩/V০৫০৪/V০৫০৫: Wide Voltage Design (৮০V to ৩০০V) N.B.: Do not use voltage stabilizer unless voltage is out of the range(৮০V-৩০০V). Then suggested voltage stabilizer capacity is ২১০০VA.",
-		"5": "৫",
-		"333 Ltr.": "৩৩৩ লিটার",
-		"Wire/2": "Wire/২",
-
+		"No": "No",
+		"R600a": "R600a",
+		"V 0501- BLDC V 0502- BLDC V 0503- BLDC V 0504- BLDC V 0505- BLDC": "V 0501- BLDC V 0502- BLDC V 0503- BLDC V 0504- BLDC V 0505- BLDC",
+		"V 0501- Mechanical V 0502- Electronics V 0503- Mechanical V 0504- Electronics V 0505- Electronics": "V 0501- Mechanical V 0502- Electronics V 0503- Mechanical V 0504- Electronics V 0505- Electronics",
+		"V 0501/V0502/V0503/V0504/V0505: Wide Voltage Design (80V to 300V) N.B.: Do not use voltage stabilizer unless voltage is out of the range(80V-300V). Then suggested voltage stabilizer capacity is 2100VA.": "V 0501/V0502/V0503/V0504/V0505: Wide Voltage Design (80V to 300V) N.B.: Do not use voltage stabilizer unless voltage is out of the range(80V-300V). Then suggested voltage stabilizer capacity is 2100VA.",
+		"Wire/2": "Wire/2",
+		"Yes(Glass/ Plastic)": "Yes(Glass/ Plastic)",
+		"Yes/1": "Yes/1",
+		// Add more translations as needed
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfc-c4h-gjxb-fd-inverter'
+// Seed inserts specification records for the product identified by slug 'mfc-c4h-gjxb-fd-inverter'
 func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfc-c4h-gjxb-fd-inverter"
+	productSlug := "mfc-c4h-gjxb-fd-inverter"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -71,83 +57,48 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter) Seed(db *gor
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Basket": 700,
+		"Gross Volume": 709,
+		"Height/mm": 25,
+		"Net Volume": 710,
+		"Operating voltage": 160,
+		"Rated Operating Voltage and Frequency": 160,
+		"Refrigerant": 708,
+		"Reversible Door": 142,
+		"Shelf (Material/ No.)": 699,
+		"Shelf (Material/No.)": 699,
+		"Star rating (BDS 1850:2012)": 144,
+		"Temperature Control (Electronic/  Mechanical)": 158,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Weight/Kg - Net/Packing": 80,
+		"Width/mm": 25,
 	}
 
-	
-    		
-    specs := map[string]string{
-		"Type": "Direct Cool",
-		"Gross Volume": "348 Ltr",
-		"Net Volume": "333 Ltr.",
-		"Climatic Type (SN, N, ST, T)": "N~ST",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
-		"Compressor Input Power (Watt)": "V 0501-33.78~126.46 V 0502-33.78~126.46 V 0503-33.78~126.46 V 0504-33.78~126.46 V 0505-33.78~126.46",
+	specs := map[string]string{
 		"Compressor Type": "V 0501- BLDC V 0502- BLDC V 0503- BLDC V 0504- BLDC V 0505- BLDC",
-		"Cooling Effect": "Freezer Cabinet -15℃ to -22℃ Refrigerator Cabinet 0℃ to +5℃",
-		"Temperature Control (Electronic/ Mechanical)": "V 0501- Mechanical V 0502- Electronics V 0503- Mechanical V 0504- Electronics V 0505- Electronics",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Reversible Door": "No",
-		"Handle (Recessed/ Grip)": "Recessed/ Grip",
-		"Lock": "Yes",
-		"Refrigerant": "R600a",
-		"Capillary": "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
-		"Operating voltage": "V 0501/V0502/V0503/V0504/V0505: Wide Voltage Design (80V to 300V) N.B.: Do not use voltage stabilizer unless voltage is out of the range(80V-300V). Then suggested voltage stabilizer capacity is 2100VA.",
-		"Shelf (Material/ No.)": "Wire/2",
+		"Depth/mm": "710",
 		"Door Basket": "2",
-		"Interior Lamp": "No",
+		"Gross Volume": "348 Ltr",
+		"Height/mm": "1790",
+		"Net Volume": "333 Ltr.",
+		"Operating voltage": "V 0501/V0502/V0503/V0504/V0505: Wide Voltage Design (80V to 300V) N.B.: Do not use voltage stabilizer unless voltage is out of the range(80V-300V). Then suggested voltage stabilizer capacity is 2100VA.",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Refrigerant": "R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Shelf (Material/No.)": "Glass/ 2",
+		"Star rating (BDS 1850:2012)": "5",
+		"Temperature Control (Electronic/  Mechanical)": "V 0501- Mechanical V 0502- Electronics V 0503- Mechanical V 0504- Electronics V 0505- Electronics",
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes(Glass/ Plastic)",
-		"Egg Tray or Pocket": "Yes/2",
-		"Can Storage Dispenser": "No",
-		"Deodorizer": "No",
-		"Shelf (Material/No.)": "Glass/ 2",
-		"Drawer": "No",
-		"Width/mm": "710",
-		"Depth/mm": "710",
-		"Height/mm": "1790",
 		"Weight/Kg - Net/Packing": "66/ 73 ± 2",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "67/ 48/ 24",
-		"Star rating (BDS 1850:2012)": "5",
+		"Width/mm": "710",
 	}
-
-
-
-
-
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

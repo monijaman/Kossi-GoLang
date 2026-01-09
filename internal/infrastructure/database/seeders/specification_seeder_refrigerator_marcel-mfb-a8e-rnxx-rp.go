@@ -47,6 +47,19 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eRnxxRp) getBanglaTranslation
 		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
 		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
+		"207 Ltr.":                   "২০৭ লিটার",
+		"193 Ltr.":                   "১৯৩ লিটার",
+		"53 ± 2 Kg":                  "৫৩ ± ২ কেজি",
+		"58 ± 2 Kg":                  "৫৮ ± ২ কেজি",
+		"V 05.01-111 V 06.01-111 V 06.02-111 V 07.01-104 V 07.02-104": "V ০৫.০১-১১১ V ০৬.০১-১১১ V ০৬.০২-১১১ V ০৭.০১-১০৪ V ০৭.০২-১০৪",
+		"N/A":          "N/A",
+		"GPPS/4":       "GPPS/৪",
+		"HIPS/4":       "HIPS/৪",
+		"545 mm":       "৫৪৫ মিমি",
+		"1485 mm":      "১৪৮৫ মিমি",
+		"1530 mm":      "১৫৩০ মিমি",
+		"102/ 102/ 50": "১০২/ ১০২/ ৫০",
+		"Lock: Yes, Interior Lamp: Yes, Handle: Recessed/Grip, Condenser: Copper, Capillary: Copper, Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelf: Wire/2, Refrigerator Door Baskets: GPPS/4, Vegetable Crisper: Yes, Egg Tray or Pocket: Yes, Freezer Compartment Shelf: Wire/2, Drawer: HIPS/4, Loading quantity: 102/102/50 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Recommended voltage stabilizer capacity: V 05.01,V 06.01, V 06.02,V 07.01-1000VA V 07.02-Low Voltage(155~260V)": `লক: হ্যাঁ, ইন্টেরিয়র ল্যাম্প: হ্যাঁ, হ্যান্ডেল: রিসেসড/গ্রিপ, কন্ডেনসার: কপার, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], রেফ্রিজারেটর কম্পার্টমেন্ট শেল্ফ: ওয়্যার/২, রেফ্রিজারেটর দরজা বাস্কেটস: জিপিপিএস/৪, ভেজিটেবল ক্রিসপার: হ্যাঁ, এগ ট্রে অর পকেট: হ্যাঁ, ফ্রিজার কম্পার্টমেন্ট শেল্ফ: ওয়্যার/২, ড্রয়ার: এইচআইপিএস/৪, লোডিং কোয়ান্টিটি: ১০২/১০২/৫০ (৪০এইচকিউ/৪০এফটি/২০এফটি), ক্লাইমেটিক টাইপ: এন~এসটি, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮°C, রেফ্রিজারেটর ক্যাবিনেট ০°C টু +৫°C, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: V ০৫.০১,V ০৬.০১, V ০৬.০২,V ০৭.০১-১০০০VA V ০৭.০২-Low Voltage(১৫৫~২৬০V)`,
 	}
 }
 
@@ -99,25 +112,47 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eRnxxRp) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-A8E-RNXX-RP",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                         "Marcel",
+		"Model Name":                    "MFB-A8E-RNXX-RP",
+		"Cooling Technology":            "Direct Cool",
+		"Gross Volume":                  "207 Ltr.",
+		"Net Volume":                    "193 Ltr.",
+		"Net Weight":                    "53 ± 2 Kg",
+		"Gross Weight":                  "58 ± 2 Kg",
+		"Climatic Type (SN, N, ST, T)":  "N~ST",
+		"Rated Voltage/ Hz":             "220 ~ 240/ 50",
+		"Compressor Input Power (Watt)": "V 05.01-111 V 06.01-111 V 06.02-111 V 07.01-104 V 07.02-104",
+		"Compressor Type":               "RSCR",
+		"Cooling Effect":                "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Energy Rating":                 "N/A",
+		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
+		"Defrosting (Automatic/ Manual)":               "Manual",
+		"Handle (Recessed/ Grip)":                      "Recessed/ Grip",
+		"Lock":                                         "Yes",
+		"Refrigerant":                                  "R600a",
+		"Condenser":                                    "Copper",
+		"Thermostat":                                   "RoHS Certified",
+		"Capillary":                                    "Copper",
+		"Polyurethane foam blowing agent":              "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Recommended voltage stabilizer capacity":      "V 05.01,V 06.01, V 06.02,V 07.01-1000VA V 07.02-Low Voltage(155~260V) For V 07.02 - Wide Voltage Range (155Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended",
+		"Shelf (Material/No.)":                         "Wire/2",
+		"Door Basket":                                  "GPPS/4",
+		"Interior Lamp":                                "Yes",
+		"Vegetable Crisper":                            "Yes",
+		"Vegetable Crisper Cover":                      "Yes",
+		"Egg Tray or Pocket":                           "Yes",
+		"Freezer Shelf (Material/No.)":                 "Wire/2",
+		"Drawer":                                       "HIPS/4",
+		"Width/mm":                                     "545 mm",
+		"Depth/mm":                                     "630 mm",
+		"Height/mm":                                    "1485 mm",
+		"Packing Width/mm":                             "580 mm",
+		"Packing Depth/mm":                             "645 mm",
+		"Packing Height/mm":                            "1530 mm",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft":           "102/ 102/ 50",
+		"Special Features":                             `Lock: Yes, Interior Lamp: Yes, Handle: Recessed/Grip, Condenser: Copper, Capillary: Copper, Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelf: Wire/2, Refrigerator Door Baskets: GPPS/4, Vegetable Crisper: Yes, Egg Tray or Pocket: Yes, Freezer Compartment Shelf: Wire/2, Drawer: HIPS/4, Loading quantity: 102/102/50 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Recommended voltage stabilizer capacity: V 05.01,V 06.01, V 06.02,V 07.01-1000VA V 07.02-Low Voltage(155~260V)`,
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

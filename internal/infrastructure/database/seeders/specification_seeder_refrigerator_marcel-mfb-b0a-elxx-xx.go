@@ -47,6 +47,18 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aElxxXx) getBanglaTranslation
 		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
 		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
+		"223 Ltr.":                   "২২৩ লিটার",
+		"209 Ltr.":                   "২০৯ লিটার",
+		"56 ± 2 Kg":                  "৫৬ ± ২ কেজি",
+		"60 ± 2 Kg":                  "৬০ ± ২ কেজি",
+		"V 04.01-111 V 05.01-111 V 05.02-111 V 05.03-111 V 06.01-108.6": "V ০৪.০১-১১১ V ০৫.০১-১১১ V ০৫.০২-১১১ V ০৫.০৩-১১১ V ০৬.০১-১০৮.৬",
+		"N/A":                 "N/A",
+		"Wire/3":              "Wire/৩",
+		"HIPS/5":              "HIPS/৫",
+		"GPPS/4":              "GPPS/৪",
+		"555 x 630 x 1560 mm": "৫৫৫ x ৬৩০ x ১৫৬০ মিমি",
+		"580 x 645 x 1610 mm": "৫৮০ x ৬৪৫ x ১৬১০ মিমি",
+		"101/ 101/ 49":        "১০১/ ১০১/ ৪৯",
 	}
 }
 
@@ -99,25 +111,26 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aElxxXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B0A-ELXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B0A-ELXX-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "223 Ltr.",
+		"Net Volume":          "209 Ltr.",
+		"Weight":              "56 ± 2 Kg",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Compressor Type":     "RSCR",
+		"Voltage":             "220 ~ 240",
+		"Frequency (Hz)":      "50",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "3",
+		"Door Bins":           "GPPS/4",
+		"Crisper Drawers":     "Yes",
+		"Dimensions":          "555 x 630 x 1560 mm",
+		"Special Features":    `Net Weight: 56 ± 2 Kg; Gross Weight: 60 ± 2 Kg; Climatic Type: N~ST; Compressor Input Power: V 04.01-111 V 05.01-111 V 05.02-111 V 05.03-111 V 06.01-108.6; Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C; Reversible Door: No; Handle: Recessed/ Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: V 04.01,V 05.01,V 05.02,V 05.03-1000VA, V 06.01-Low Voltage(130~260V); Freezer Drawer: HIPS/5; Freezer Door Basket: No; Freezer Interior Lamp: No; Packing Dimensions: 580 x 645 x 1610 mm; Loading Capacity-40HQ/40Ft/20Ft: 101/101/49`,
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

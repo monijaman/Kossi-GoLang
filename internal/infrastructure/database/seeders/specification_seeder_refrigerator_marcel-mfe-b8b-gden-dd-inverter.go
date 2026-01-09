@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter seeds specifications/options for product 'marcel-mfe-b8b-gden-dd-inverter'
+// SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter seeds specifications/options for product 'mfe-b8b-gden-dd-inverter'
 type SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter struct {
 	BaseSeeder
 }
@@ -15,50 +15,35 @@ type SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter struct {
 // NewSpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter() *SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter {
 	return &SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfe-b8b-gden-dd-inverter"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfe-b8b-gden-dd-inverter"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-b8b-gden-dd-inverter":         "মার্সেল-mfe-b8b-gden-dd-inverter",
-		"MFE-B8B-GDEN-DD-INVERTER":   "MFE-B8B-GDEN-DD-INVERTER",
-		// Add more translations as needed
-		"V 0702- R600a V 0902- R600a": "V ০৭০২- R৬০০a V ০৯০২- R৬০০a",
-		"66 ± 2 Kg": "৬৬ ± ২ কেজি",
-		"1590": "১৫৯০",
-		"635": "৬৩৫",
-		"80/ 80/ 38": "৮০/ ৮০/ ৩৮",
-		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
-		"Steel": "স্টীল",
-		"Yes": "হ্যাঁ",
-		"740": "৭৪০",
-		"V 0702- RSCR V 0902- BLDC": "V ০৭০২- RSCR V ০৯০২- BLDC",
-		"Direct Cool": "ডাইরেক্ট কুল",
-		"265 Ltr.": "২৬৫ লিটার",
-		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
-		"Copper": "কপার",
+		"1590": "1590",
+		"220-240V ~ and 50Hz": "220-240V ~ and 50Hz",
+		"265 Ltr.": "265 Ltr.",
+		"282 Ltr.": "282 Ltr.",
+		"59 ± 2 Kg": "59 ± 2 Kg",
+		"635": "635",
+		"66 ± 2 Kg": "66 ± 2 Kg",
+		"740": "740",
 		"Manual": "Manual",
-		"V0902: Wide Voltage Design (80V-300V) N.B: No need to volatage stabilizer V0702: Wide Voltage Design (155V-260V) N.B.: If out of voltage range(155V-260V) then suggested voltage stabilizer capacity is 2100VA.": "V০৯০২: Wide Voltage Design (৮০V-৩০০V) N.B: No need to volatage stabilizer V০৭০২: Wide Voltage Design (১৫৫V-২৬০V) N.B.: If out of voltage range(১৫৫V-২৬০V) then suggested voltage stabilizer capacity is ২১০০VA.",
-		"No": "না",
-		"Recressed/ Grip/ Built-in": "Recressed/ Grip/ Built-in",
-		"V 0702- 109 V 0902- 96": "V ০৭০২- ১০৯ V ০৯০২- ৯৬",
-		"N ~ ST": "N ~ ST",
-		"Yes (Plastic)": "Yes (Plastic)",
-		"220-240V ~ and 50Hz": "২২০-২৪০V ~ and ৫০Hz",
-		"V 0702- Electronic V 0902- Electronic": "V ০৭০২- Electronic V ০৯০২- Electronic",
-		"Wire/2": "Wire/২",
+		"No": "No",
+		"V 0702- Electronic V 0902- Electronic": "V 0702- Electronic V 0902- Electronic",
+		"V 0702- R600a V 0902- R600a": "V 0702- R600a V 0902- R600a",
+		"V 0702- RSCR V 0902- BLDC": "V 0702- RSCR V 0902- BLDC",
+		"Wire/2": "Wire/2",
 		"Yes (ABS/ PS)": "Yes (ABS/ PS)",
-		"59 ± 2 Kg": "৫৯ ± ২ কেজি",
-		"282 Ltr.": "২৮২ লিটার",
-
+		"Yes (Plastic)": "Yes (Plastic)",
+		// Add more translations as needed
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfe-b8b-gden-dd-inverter'
+// Seed inserts specification records for the product identified by slug 'mfe-b8b-gden-dd-inverter'
 func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfe-b8b-gden-dd-inverter"
+	productSlug := "mfe-b8b-gden-dd-inverter"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -70,83 +55,44 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdenDdInverter) Seed(db *gor
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Basket": 700,
+		"Gross Volume": 709,
+		"Gross Weight": 80,
+		"Height/mm": 25,
+		"Net Volume": 710,
+		"Net Weight": 80,
+		"Rated Operating Voltage and Frequency": 160,
+		"Refrigerant": 708,
+		"Reversible Door": 142,
+		"Shelf (Material/ No.)": 699,
+		"Temperature Control (Electronic/  Mechanical)": 158,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Width/mm": 25,
 	}
 
-	
-    		
-    specs := map[string]string{
-		"Type": "Direct Cool",
+	specs := map[string]string{
+		"Compressor Type": "V 0702- RSCR V 0902- BLDC",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm": "740",
+		"Door Basket": "No",
 		"Gross Volume": "282 Ltr.",
+		"Gross Weight": "66 ± 2 Kg",
+		"Height/mm": "1590",
 		"Net Volume": "265 Ltr.",
 		"Net Weight": "59 ± 2 Kg",
-		"Gross Weight": "66 ± 2 Kg",
-		"Climate Type (SN, N, ST, T)": "N ~ ST",
 		"Rated Operating Voltage and Frequency": "220-240V ~ and 50Hz",
-		"Compressor Input Power (Watt)": "V 0702- 109 V 0902- 96",
-		"Compressor Type": "V 0702- RSCR V 0902- BLDC",
-		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
-		"Temperature Control (Electronic/ Mechanical)": "V 0702- Electronic V 0902- Electronic",
-		"Defrosting (Automatic/ Manual)": "Manual",
-		"Reversible Door": "No",
-		"Handle (Recessed/ Grip)": "Recressed/ Grip/ Built-in",
-		"Lock": "Yes",
 		"Refrigerant": "V 0702- R600a V 0902- R600a",
-		"Condenser": "Steel",
-		"Capillary": "Copper",
-		"Polyurethane foam blowing agent": "CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
-		"Recommended voltage stabilizer capacity": "V0902: Wide Voltage Design (80V-300V) N.B: No need to volatage stabilizer V0702: Wide Voltage Design (155V-260V) N.B.: If out of voltage range(155V-260V) then suggested voltage stabilizer capacity is 2100VA.",
+		"Reversible Door": "No",
 		"Shelf (Material/ No.)": "Wire/2",
-		"Door Basket": "No",
-		"Interior Lamp": "No",
+		"Temperature Control (Electronic/  Mechanical)": "V 0702- Electronic V 0902- Electronic",
 		"Vegetable Crisper": "Yes (Plastic)",
 		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
-		"Egg Tray or Pocket": "Yes",
-		"Can Storage Dispenser": "No",
-		"Deodorizer": "No",
-		"Drawer": "No",
 		"Width/mm": "635",
-		"Depth/mm": "740",
-		"Height/mm": "1590",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "80/ 80/ 38",
 	}
-
-
-
-
-
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

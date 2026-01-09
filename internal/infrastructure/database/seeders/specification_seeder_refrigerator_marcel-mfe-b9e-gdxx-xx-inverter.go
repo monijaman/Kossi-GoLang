@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter seeds specifications/options for product 'marcel-mfe-b9e-gdxx-xx-inverter'
+// SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter seeds specifications/options for product 'mfe-b9e-gdxx-xx-inverter'
 type SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter struct {
 	BaseSeeder
 }
@@ -15,35 +15,30 @@ type SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter struct {
 // NewSpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter() *SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter {
 	return &SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfe-b9e-gdxx-xx-inverter"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfe-b9e-gdxx-xx-inverter"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":                          "মার্সেল",
-		"marcel-mfe-b9e-gdxx-xx-inverter": "মার্সেল-mfe-b9e-gdxx-xx-inverter",
-		"MFE-B9E-GDXX-XX-INVERTER":        "MFE-B9E-GDXX-XX-INVERTER",
-		"Direct Cool":                     "ডাইরেক্ট কুল",
-		"316 Ltr.":                        "৩১৬ লিটার",
-		"295 Ltr.":                        "২৯৫ লিটার",
-		"62 ± 2 Kg":                       "৬২ ± ২ কেজি",
-		"220-240V~ and 50Hz":              "২২০-২৪০ভি~ এবং ৫০হার্টজ",
-		"V 0101 - RSCR; V 0201 - RSCR; V 0202 - RSCR; V 0301 - RSCR; V 0501 - RSCR": "V 0101 - RSCR; V 0201 - RSCR; V 0202 - RSCR; V 0301 - RSCR; V 0501 - RSCR",
-		"V0102 - R600a; V0201 - R600a; V0202 - R600a; V0301 - R134a; V0501 - R600a": "V0102 - R600a; V0201 - R600a; V0202 - R600a; V0301 - R134a; V0501 - R600a",
-		"Mechanical":          "যান্ত্রিক",
-		"Manual":              "ম্যানুয়াল",
-		"Wire/2":              "ওয়্যার/2",
-		"PVC/4":               "PVC/4",
-		"Yes (Plastic)":       "হ্যাঁ (প্লাস্টিক)",
-		"594 x 708 x 1620 mm": "৫৯৪ x ৭০৮ x ১৬২০ মিমি",
+		"1630": "1630",
+		"220-240V~ and 50Hz": "220-240V~ and 50Hz",
+		"625": "625",
+		"745": "745",
+		"Manual": "Manual",
+		"No": "No",
+		"V 0401- BLDC Inverter": "V 0401- BLDC Inverter",
+		"V 0401- R600a": "V 0401- R600a",
+		"Wire/2": "Wire/2",
+		"Yes (ABS/ PS)": "Yes (ABS/ PS)",
+		"Yes (Plastic)": "Yes (Plastic)",
 		// Add more translations as needed
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfe-b9e-gdxx-xx-inverter'
+// Seed inserts specification records for the product identified by slug 'mfe-b9e-gdxx-xx-inverter'
 func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfe-b9e-gdxx-xx-inverter"
+	productSlug := "mfe-b9e-gdxx-xx-inverter"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -55,58 +50,33 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdxxXxInverter) Seed(db *gor
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Basket": 700,
+		"Height/mm": 25,
+		"Rated Operating Voltage and Frequency": 160,
+		"Refrigerant": 708,
+		"Reversible Door": 142,
+		"Shelf (Material/ No.)": 699,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Width/mm": 25,
 	}
 
 	specs := map[string]string{
-		"Brand":               "Marcel",
-		"Model Name":          "MFE-B9E-GDXX-XX-INVERTER",
-		"Cooling Technology":  "Direct Cool",
-		"Gross Volume":        "316 Ltr.",
-		"Net Volume":          "295 Ltr.",
-		"Weight":              "62 ± 2 Kg",
-		"Voltage":             "220-240V~ and 50Hz",
-		"Compressor Type":     "V 0101 - RSCR; V 0201 - RSCR; V 0202 - RSCR; V 0301 - RSCR; V 0501 - RSCR",
-		"Refrigerant":         "V0102 - R600a; V0201 - R600a; V0202 - R600a; V0301 - R134a; V0501 - R600a",
-		"Temperature Control": "Mechanical",
-		"Defrost Type":        "Manual",
-		"Shelf Material":      "Wire/2",
-		"Door Bins":           "PVC/4",
-		"Crisper Drawers":     "Yes (Plastic)",
-		"Dimensions":          "594 x 708 x 1620 mm",
-		"Special Features":    "Gross Weight: 70 ± 2 Kg; Climate Type: N ~ ST; Compressor Input Power (Watt): V 0101 - 118; V 0201 - 118; V 0202 - 118; V 0301 - 134; V 0501 - 118; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Reversible Door: No; Handle (Recessed/ Grip): Recressed/ Grip/ Built-in; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: V 0501:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.; Interior Lamp: Yes; Vegetable Crisper Cover: Yes (ABS/ PS); Egg Tray or Pocket: Yes; Can Storage Dispenser: No; Deodorizer: No; Freezer Shelf (Material/ No.): Wire/2; Freezer Drawer: No; Freezer Door Basket: No; Freezer Interior Lamp: No; Packing Dimensions: 635 x 740 x 1690 mm; Loading Capacity: 78/ 57/ 27",
+		"Compressor Type": "V 0401- BLDC Inverter",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm": "745",
+		"Door Basket": "No",
+		"Height/mm": "1630",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Refrigerant": "V 0401- R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Vegetable Crisper": "Yes (Plastic)",
+		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
+		"Width/mm": "625",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

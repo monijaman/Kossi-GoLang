@@ -26,27 +26,37 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aRnxxRp) getBanglaTranslation
 		"MFB-B0A-RNXX-RP":        "MFB-B0A-RNXX-RP",
 
 		// Common values used in this seeder
-		"Direct Cool":                "ডিরেক্ট কুল",
-		"177 Ltr.":                   "১৭৭ লিটার",
-		"175 Ltr.":                   "১৭৫ লিটার",
-		"N~ST":                       "N~ST",
-		"220 ~ 240/ 50":              "২২০ ~ ২৪০/ ৫০",
-		"V 01.01-88; V 01.02-88":     "V 01.01-88; V 01.02-88",
-		"V 01.01-RSCR; V 01.02-RSCR": "V 01.01-RSCR; V 01.02-RSCR",
-		"RSCR":                       "RSCR",
-		"Mechanical":                 "মেকানিক্যাল",
-		"Manual":                     "ম্যানুয়াল",
-		"Recessed/ Grip":             "রিসেসড/গ্রিপ",
-		"Yes":                        "হ্যাঁ",
-		"No":                         "না",
-		"Copper":                     "তামা",
-		"Cyclopentene":               "সাইক্লোপেন্টেন",
-		"R600a":                      "R600a",
-		"50 ± 2 Kg":                  "৫০ ± ২ কেজি",
-		"54 ± 2 Kg":                  "৫৪ ± ২ কেজি",
-		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
-		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
+		"Direct Cool":         "ডিরেক্ট কুল",
+		"223 Ltr.":            "২২৩ লিটার",
+		"209 Ltr.":            "২০৯ লিটার",
+		"N~ST":                "N~ST",
+		"220 ~ 240/ 50":       "২২০ ~ ২৪০/ ৫০",
+		"V 04.01-111":         "V 04.01-111",
+		"V 05.01-111":         "V 05.01-111",
+		"V 05.02-111":         "V 05.02-111",
+		"V 05.03-111":         "V 05.03-111",
+		"V 06.01-108.6":       "V 06.01-108.6",
+		"RSCR":                "RSCR",
+		"Mechanical":          "মেকানিক্যাল",
+		"Manual":              "ম্যানুয়াল",
+		"Recessed/ Grip":      "রিসেসড/গ্রিপ",
+		"Yes":                 "হ্যাঁ",
+		"No":                  "না",
+		"Copper":              "তামা",
+		"Cyclopentene":        "সাইক্লোপেন্টেন",
+		"R600a":               "R600a",
+		"56 ± 2 Kg":           "৫৬ ± ২ কেজি",
+		"60 ± 2 Kg":           "৬০ ± ২ কেজি",
+		"555 x 630 x 1560 mm": "৫৫৫ x ৬৩০ x ১৫৬০ মিমি",
+		"580 x 645 x 1610 mm": "৫৮০ x ৬৪৫ x ১৬১০ মিমি",
+		"101/ 101/ 49":        "১০১/ ১০১/ ৪৯",
+		"Wire/3":              "ওয়্যার/৩",
+		"GPPS/4":              "GPPS/৪",
+		"Wire/2":              "ওয়্যার/২",
+		"HIPS/5":              "HIPS/৫",
+
+		// Special features long translation (Bangla)
+		`Gross Weight: 60 ± 2 Kg; Packing Dimensions: 580 x 645 x 1610 mm; Loading Capacity (40HQ/ 40Ft/ 20Ft): 101/ 101/ 49; Climatic Type: N~ST; Compressor Input Power: V 04.01-111; V 05.01-111; V 05.02-111; V 05.03-111; V 06.01-108.6; Cooling Effect: Freezer Cabinet Less than -18C; Refrigerator Cabinet 0C to +5C; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 04.01,V 05.01,V 05.02,V 05.03-1000VA V 06.01-Low Voltage(130~260V) For V 06.01 - Wide Voltage Range (130Vac -260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.`: `গ্রস ওয়েট: 60 ± 2 কেজি; প্যাকেজিং ডাইমেনশন: 580 x 645 x 1610 মিমি; লোডিং ক্ষমতা (40HQ/ 40Ft/ 20Ft): 101/ 101/ 49; ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার: V 04.01-111; V 05.01-111; V 05.02-111; V 05.03-111; V 06.01-108.6; কুলিং ইফেক্ট: ফ্রিজার কেবিনেট -18C এর নিচে; রেফ্রিজারেটর কেবিনেট 0C থেকে +5C; ক্যাপিলারি: তামা; পলিইউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন; সুপারিশকৃত ভোল্টেজ স্ট্যাবিলাইজার ক্ষমতা: V 04.01,V 05.01,V 05.02,V 05.03-1000VA V 06.01-লো ভোল্টেজ(130~260V) V 06.01 এর ক্ষেত্রে - ওয়াইড ভোল্টেজ রেঞ্জ (130Vac -260Vac). ভোল্টেজ স্ট্যাবিলাইজার প্রয়োজন নেই। উল্লিখিত রেঞ্জের বাইরে ভোল্টেজ থাকলে 1000VA সুপারিশ করা হয়।`,
 	}
 }
 
@@ -99,25 +109,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aRnxxRp) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B0A-RNXX-RP",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B0A-RNXX-RP",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "223 Ltr.",
+		"Net Volume":          "209 Ltr.",
+		"Weight":              "56 ± 2 Kg",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Voltage":             "220 ~ 240/ 50",
+		"Dimensions":          "555 x 630 x 1560 mm",
+		"Compressor Type":     "RSCR",
+		"Shelf Material":      "Wire/3",
+		"Door Bins":           "GPPS/4",
+		"Crisper Drawers":     "Yes",
+		"Special Features":    `Gross Weight: 60 ± 2 Kg; Packing Dimensions: 580 x 645 x 1610 mm; Loading Capacity (40HQ/ 40Ft/ 20Ft): 101/ 101/ 49; Climatic Type: N~ST; Compressor Input Power: V 04.01-111; V 05.01-111; V 05.02-111; V 05.03-111; V 06.01-108.6; Cooling Effect: Freezer Cabinet Less than -18C; Refrigerator Cabinet 0C to +5C; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 04.01,V 05.01,V 05.02,V 05.03-1000VA V 06.01-Low Voltage(130~260V) For V 06.01 - Wide Voltage Range (130Vac -260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.`,
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

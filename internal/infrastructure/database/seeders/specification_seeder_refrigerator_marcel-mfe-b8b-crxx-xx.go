@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx seeds specifications/options for product 'marcel-mfe-b8b-crxx-xx'
+// SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx seeds specifications/options for product 'mfe-b8b-crxx-xx'
 type SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx struct {
 	BaseSeeder
 }
@@ -15,22 +15,33 @@ type SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx struct {
 // NewSpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx() *SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx {
 	return &SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfe-b8b-crxx-xx"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfe-b8b-crxx-xx"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfe-b8b-crxx-xx":         "মার্সেল-mfe-b8b-crxx-xx",
-		"MFE-B8B-CRXX-XX":   "MFE-B8B-CRXX-XX",
+		"1530": "1530",
+		"220-240V ~ and 50Hz": "220-240V ~ and 50Hz",
+		"265 Ltr.": "265 Ltr.",
+		"282 Ltr.": "282 Ltr.",
+		"54 ± 2 Kg": "54 ± 2 Kg",
+		"625": "625",
+		"745": "745",
+		"Manual": "Manual",
+		"No": "No",
+		"V 0201- R134a V 0301- R600a V 0401- R134a": "V 0201- R134a V 0301- R600a V 0401- R134a",
+		"V 0201- RSCR V 0301- RSCR ​ V 0401- RSCR": "V 0201- RSCR V 0301- RSCR ​ V 0401- RSCR",
+		"Wire/2": "Wire/2",
+		"Yes (ABS/ PS)": "Yes (ABS/ PS)",
+		"Yes (Plastic)": "Yes (Plastic)",
 		// Add more translations as needed
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfe-b8b-crxx-xx'
+// Seed inserts specification records for the product identified by slug 'mfe-b8b-crxx-xx'
 func (s *SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfe-b8b-crxx-xx"
+	productSlug := "mfe-b8b-crxx-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -42,60 +53,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB8bCrxxXx) Seed(db *gorm.DB) er
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Basket": 700,
+		"Gross Volume": 709,
+		"Height/mm": 25,
+		"Net Volume": 710,
+		"Net Weight": 80,
+		"Rated Operating Voltage and Frequency": 160,
+		"Refrigerant": 708,
+		"Reversible Door": 142,
+		"Shelf (Material/ No.)": 699,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Width/mm": 25,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-B8B-CRXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Compressor Type": "V 0201- RSCR V 0301- RSCR ​ V 0401- RSCR",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm": "745",
+		"Door Basket": "No",
+		"Gross Volume": "282 Ltr.",
+		"Height/mm": "1530",
+		"Net Volume": "265 Ltr.",
+		"Net Weight": "54 ± 2 Kg",
+		"Rated Operating Voltage and Frequency": "220-240V ~ and 50Hz",
+		"Refrigerant": "V 0201- R134a V 0301- R600a V 0401- R134a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Vegetable Crisper": "Yes (Plastic)",
+		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
+		"Width/mm": "625",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

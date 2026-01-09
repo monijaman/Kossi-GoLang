@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter seeds specifications/options for product 'marcel-mfe-c3c-gden-dd-inverter'
+// SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter seeds specifications/options for product 'mfe-c3c-gden-dd-inverter'
 type SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter struct {
 	BaseSeeder
 }
@@ -15,43 +15,35 @@ type SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter struct {
 // NewSpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter() *SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter {
 	return &SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfe-c3c-gden-dd-inverter"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfe-c3c-gden-dd-inverter"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":                          "মার্সেল",
-		"marcel-mfe-c3c-gden-dd-inverter": "মার্সেল-mfe-c3c-gden-dd-inverter",
-		"MFE-C3C-GDEN-DD-INVERTER":        "MFE-C3C-GDEN-DD-INVERTER",
+		"1890": "1890",
+		"220- 240/ 50": "220- 240/ 50",
+		"293 Ltr.": "293 Ltr.",
+		"333 Ltr": "333 Ltr",
+		"635": "635",
+		"74 ± 2 Kg": "74 ± 2 Kg",
+		"740": "740",
+		"80 ± 2 Kg": "80 ± 2 Kg",
+		"Electronic": "Electronic",
+		"Manual": "Manual",
+		"No": "No",
+		"R600a": "R600a",
+		"Rack Evaporator": "Rack Evaporator",
+		"V 0501- BLDC Inverter": "V 0501- BLDC Inverter",
+		"Wire/2": "Wire/2",
+		"Yes/1": "Yes/1",
 		// Add more translations as needed
-		"Direct Cool":           "ডাইরেক্ট কুল",
-		"333 Ltr":               "৩৩৩ লিটার",
-		"293 Ltr.":              "২৯৩ লিটার",
-		"74 ± 2 Kg":             "৭৪ ± ২ কেজি",
-		"80 ± 2 Kg":             "৮০ ± ২ কেজি",
-		"T":                     "টি",
-		"220- 240/ 50":          "২২০- ২৪০/ ৫০",
-		"V 0501- BLDC Inverter": "V ০৫০১- BLDC ইনভার্টার",
-		"V 0501- 57~125":        "V ০৫০১- ৫৭~১২৫",
-		"Rack Evaporator":       "র্যাক এভাপোরেটর",
-		"Wire":                  "ওয়্যার",
-		"Copper":                "কপার",
-		"Cyclopentene":          "সাইক্লোপেন্টিন",
-		"R600a":                 "R600a",
-		"RoHS Certified":        "RoHS সার্টিফায়েড",
-		"Wide Voltage Range (80Vac - 300Vac). Voltage stabilizer is not required.": "ব্যাপক ভোল্টেজ রেঞ্জ (৮০Vac - ৩০০Vac)। স্ট্যাবিলাইজার প্রয়োজন নেই।",
-		"No":                  "না",
-		"Yes":                 "হ্যাঁ",
-		"76/ 57/ 27":          "৭৬/ ৫৭/ ২৭",
-		"635 x 740 x 1890 mm": "৬৩৫ x ৭৪০ x ১৮৯০ মিমি",
-		"594 x 708 x 1746 mm": "৫৯৪ x ৭০৮ x ১৭৪৬ মিমি",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfe-c3c-gden-dd-inverter'
+// Seed inserts specification records for the product identified by slug 'mfe-c3c-gden-dd-inverter'
 func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfe-c3c-gden-dd-inverter"
+	productSlug := "mfe-c3c-gden-dd-inverter"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -63,59 +55,49 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenDdInverter) Seed(db *gor
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Basket": 700,
+		"Gross Volume": 709,
+		"Gross Weight": 80,
+		"Height/mm": 25,
+		"Ice Case": 702,
+		"Ice Tray": 702,
+		"Net Volume": 710,
+		"Net Weight": 80,
+		"Rated Voltage/ Hz": 160,
+		"Refrigerant": 708,
+		"Reversible Door": 142,
+		"Shelf (Material/ No.)": 699,
+		"Shelf (Material/No.)": 699,
+		"Temperature Control (Electronic/  Mechanical)": 158,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Width/mm": 25,
 	}
 
 	specs := map[string]string{
-		"Brand":               "Marcel",
-		"Model Name":          "MFE-C3C-GDEN-DD-INVERTER",
-		"Cooling Technology":  "Direct Cool",
-		"Gross Volume":        "333 Ltr",
-		"Net Volume":          "293 Ltr.",
-		"Weight":              "74 ± 2 Kg",
-		"Voltage":             "220- 240/ 50",
-		"Compressor Type":     "V 0501- BLDC Inverter",
-		"Temperature Control": "Electronic",
-		"Defrost Type":        "Manual",
-		"Refrigerant":         "R600a",
-		"Shelf Material":      "Wire",
-		"Number of Shelves":   "2",
-		"Door Bins":           "Yes/4",
-		"Crisper Drawers":     "Yes/1",
-		"Dimensions":          "594 x 708 x 1746 mm",
-		"Special Features":    "Gross Weight: 80 ± 2 Kg; Climatic Type: T; Compressor Input Power: V 0501- 57~125; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended stabilizer: Wide Voltage Range (80Vac - 300Vac). Voltage stabilizer is not required.; Freezer: Rack Evaporator; Freezer Drawer: Yes/3; Loading Capacity: 76/ 57/ 27; Packing Dimensions: 635 x 740 x 1890 mm; Refrigerator Interior Lamp: Yes; Can Storage Dispenser: No",
+		"Compressor Type": "V 0501- BLDC Inverter",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm": "740",
+		"Door Basket": "No",
+		"Gross Volume": "333 Ltr",
+		"Gross Weight": "80 ± 2 Kg",
+		"Height/mm": "1890",
+		"Ice Case": "Yes/1",
+		"Ice Tray": "Yes/1",
+		"Net Volume": "293 Ltr.",
+		"Net Weight": "74 ± 2 Kg",
+		"Rated Voltage/ Hz": "220- 240/ 50",
+		"Refrigerant": "R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Shelf (Material/No.)": "Rack Evaporator",
+		"Temperature Control (Electronic/  Mechanical)": "Electronic",
+		"Vegetable Crisper": "Yes/1",
+		"Vegetable Crisper Cover": "Yes/1",
+		"Width/mm": "635",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

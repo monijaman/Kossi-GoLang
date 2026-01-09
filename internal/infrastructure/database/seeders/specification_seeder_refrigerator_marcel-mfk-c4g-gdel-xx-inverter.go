@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter seeds specifications/options for product 'marcel-mfk-c4g-gdel-xx-inverter'
+// SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter seeds specifications/options for product 'mfk-c4g-gdel-xx-inverter'
 type SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter struct {
 	BaseSeeder
 }
@@ -15,49 +15,35 @@ type SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter struct {
 // NewSpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter() *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter {
 	return &SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfk-c4g-gdel-xx-inverter"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfk-c4g-gdel-xx-inverter"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":         "মার্সেল",
-				"marcel-mfk-c4g-gdel-xx-inverter":         "মার্সেল-mfk-c4g-gdel-xx-inverter",
-		"MFK-C4G-GDEL-XX-INVERTER":   "MFK-C4G-GDEL-XX-INVERTER",
-		// Add more translations as needed
-		"Mechanical": "যান্ত্রিক",
-		"715": "৭১৫",
-		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
-		"Yes": "হ্যাঁ",
-		"347 Ltr": "৩৪৭ Ltr",
-		"1645": "১৬৪৫",
-		"220-240V~ and 50Hz": "২২০-২৪০V~ and ৫০Hz",
-		"345 Ltr.": "৩৪৫ লিটার",
-		"Recessed/ Grip": "Recessed/ Grip",
-		"710": "৭১০",
-		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
-		"Yes/2": "Yes/২",
-		"Copper": "কপার",
-		"V 01.01- 147": "V ০১.০১- ১৪৭",
+		"1645": "1645",
+		"220-240V~ and 50Hz": "220-240V~ and 50Hz",
+		"345 Ltr.": "345 Ltr.",
+		"347 Ltr": "347 Ltr",
+		"67.5 / 74 ± 2": "67.5 / 74 ± 2",
+		"710": "710",
+		"715": "715",
+		"GPPS/2": "GPPS/2",
 		"Manual": "Manual",
-		"No": "না",
-		"GPPS/2": "GPPS/২",
-		"N~ST": "N~ST",
-		"V01.01 R600a": "V০১.০১ R৬০০a",
-		"V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.": "V.০১.০১ Wide Voltage Range (১৪৫V ~ ২৬০V) NB: If out of voltage range then suggested voltage stabilizer capacity is ২১০০VA.",
-		"Direct Evaporating Cooling System (DECS)": "Direct Evaporating Cooling System (DECS)",
-		"Wire/2": "Wire/২",
-		"Wire/ 3": "Wire/ ৩",
-		"V.01.01- RSCR": "V.০১.০১- RSCR",
-		"67.5 / 74 ± 2": "৬৭.৫ / ৭৪ ± ২",
-		"69/69/34": "৬৯/৬৯/৩৪",
-
+		"Mechanical": "Mechanical",
+		"V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.": "V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.",
+		"V.01.01- RSCR": "V.01.01- RSCR",
+		"V01.01 R600a": "V01.01 R600a",
+		"Wire/ 3": "Wire/ 3",
+		"Wire/2": "Wire/2",
+		"Yes": "Yes",
+		// Add more translations as needed
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfk-c4g-gdel-xx-inverter'
+// Seed inserts specification records for the product identified by slug 'mfk-c4g-gdel-xx-inverter'
 func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfk-c4g-gdel-xx-inverter"
+	productSlug := "mfk-c4g-gdel-xx-inverter"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -69,79 +55,44 @@ func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter) Seed(db *gor
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Basket": 700,
+		"Gross Volume": 709,
+		"Height/mm": 25,
+		"Net Volume": 710,
+		"Operating voltage": 160,
+		"Rack Shelf (Material/No)": 699,
+		"Rated Operating Voltage and Frequency": 160,
+		"Refrigerant": 708,
+		"Shelf (Material/ No.)": 699,
+		"Temperature Control (Electronic/  Mechanical)": 158,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Weight/Kg - Net/Packing": 80,
+		"Width/mm": 25,
 	}
 
-	
-    		
-    specs := map[string]string{
-		"Type": "Direct Evaporating Cooling System (DECS)",
-		"Gross Volume": "347 Ltr",
-		"Net Volume": "345 Ltr.",
-		"Climatic Type (SN, N, ST, T)": "N~ST",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
-		"Compressor Input Power (Watt)": "V 01.01- 147",
+	specs := map[string]string{
 		"Compressor Type": "V.01.01- RSCR",
-		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
-		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Handle (Recessed/ Grip)": "Recessed/ Grip",
-		"Lock": "Yes",
-		"Refrigerant": "V01.01 R600a",
-		"Capillary": "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
-		"Operating voltage": "V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.",
-		"Shelf (Material/ No.)": "Wire/2",
+		"Depth/mm": "710",
 		"Door Basket": "GPPS/2",
-		"Interior Lamp": "Yes",
+		"Gross Volume": "347 Ltr",
+		"Height/mm": "1645",
+		"Net Volume": "345 Ltr.",
+		"Operating voltage": "V.01.01 Wide Voltage Range (145V ~ 260V) NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.",
+		"Rack Shelf (Material/No)": "Wire/ 3",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Refrigerant": "V01.01 R600a",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
 		"Vegetable Crisper": "Yes",
 		"Vegetable Crisper Cover": "Yes",
-		"Egg Tray": "Yes/2",
-		"Rack Shelf (Material/No)": "Wire/ 3",
-		"Drawer": "No",
-		"Width/mm": "715",
-		"Depth/mm": "710",
-		"Height/mm": "1645",
 		"Weight/Kg - Net/Packing": "67.5 / 74 ± 2",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "69/69/34",
+		"Width/mm": "715",
 	}
-
-
-
-
-
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

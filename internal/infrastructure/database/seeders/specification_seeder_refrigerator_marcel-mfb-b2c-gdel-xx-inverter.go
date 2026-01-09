@@ -46,6 +46,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdelXxInverter) getBanglaTra
 		"54 ± 2 Kg":                  "৫৪ ± ২ কেজি",
 		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
 		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
+		"555 x 630 x 1550 mm":        "৫৫৫ x ৬৩০ x ১৫৫০ মিমি",
+		"580 x 645 x 1620 mm":        "৫৮০ x ৬৪৫ x ১৬২০ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
 	}
 }
@@ -99,25 +101,24 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdelXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B2C-GDEL-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B2C-GDEL-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "223 Ltr.",
+		"Net Volume":          "219 Ltr.",
+		"Weight":              "51.5 ± 2 Kg",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Voltage":             "220~240V/50Hz",
+		"Dimensions":          "555 x 630 x 1550 mm",
+		"Shelf Material":      "Wire/2",
+		"Door Bins":           "GPPS/3",
+		"Crisper Drawers":     "Yes",
+		"Packing Dimensions":  "580 x 645 x 1620 mm",
+		"Special Features":    `Gross Weight: 56 ± 2 Kg; Climatic Type: N~ST; Compressor Input Power: V 01.01-97.4; V 01.02-97.4; Compressor Type: RSCR; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 01.01, V 01.02-Low Voltage(140~260V). For V 01.01, V 01.02 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended; Loading Capacity (40HQ/ 40Ft/ 20Ft): 72/ 72/ 36`,
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

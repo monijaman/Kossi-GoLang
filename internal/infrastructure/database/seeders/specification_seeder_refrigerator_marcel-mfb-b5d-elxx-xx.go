@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx seeds specifications/options for product 'marcel-mfb-b5d-elxx-xx'
+// SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx seeds specifications/options for product 'mfb-b5d-elxx-xx'
 type SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx struct {
 	BaseSeeder
 }
@@ -15,36 +15,38 @@ type SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx struct {
 // NewSpecificationSeederRefrigeratorMarcelMfbB5dElxxXx creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfbB5dElxxXx() *SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx {
 	return &SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfb-b5d-elxx-xx"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfb-b5d-elxx-xx"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":                 "মার্সেল",
-		"marcel-mfb-b5d-elxx-xx": "মার্সেল-mfb-b5d-elxx-xx",
-		"MFB-B5D-ELXX-XX":        "MFB-B5D-ELXX-XX",
+		"Marcel":          "মার্সেল",
+		"mfb-b5d-elxx-xx": "mfb-b5d-elxx-xx",
+		"MFB-B5D-ELXX-XX": "MFB-B5D-ELXX-XX",
 
-		"Direct Cool":         "ডিরেক্ট কুল",
-		"177 Ltr.":            "১৭৭ লিটার",
-		"175 Ltr.":            "১৭৫ লিটার",
-		"50 ± 2 Kg":           "৫০ ± ২ কেজি",
-		"R600a":               "R600a",
-		"Mechanical":          "ম্যানুয়াল/মেকানিক্যাল",
-		"Manual":              "ম্যানুয়াল",
-		"Copper":              "কপার",
-		"Cyclopentene":        "সাইক্লোপেন্টেন",
-		"220 ~ 240":           "২২0 ~ ২৪0",
-		"Hermetic":            "হার্মেটিক",
-		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
-		"Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere": "কমপ্রেসার: V 01.01-RSCR; V 01.02-RSCR; কমপ্রেসার ইনপুট পাওয়ার (ওয়াট): V 01.01-88; V 01.02-88; ভোল্টেজ/হার্জ: 220 ~ 240/50; স্ট্যাবিলাইজার: ৫ অ্যাম্পিয়ার",
+		"V 02.01-RSCR V 03.01-RSCR V 03.02-RSCR V 04.01-RSCR": "ভি ০২.০১-আরএসসিআর ভি ০৩.০১-আরএসসিআর ভি ০৩.০২-আরএসসিআর ভি ০৪.০১-আরএসসিআর",
+		"Manual":                 "ম্যানুয়াল",
+		"630 mm":                 "৬৩০ মিমি",
+		"GPPS/4":                 "জিপিপিএস/৪",
+		"5 star (BDS 1850:2012)": "৫ তারা (বিডিএস ১৮৫০:২০১২)",
+		"268 Ltr.":               "২৬৮ লিটার",
+		"1800 mm":                "১৮০০ মিমি",
+		"254 Ltr.":               "২৫৪ লিটার",
+		"62 ± 2 Kg":              "৬২ ± ২ কেজি",
+		"220 ~ 240/ 50":          "২২০ ~ ২৪০/ ৫০",
+		"R600a":                  "আর৬০০এ",
+		"No":                     "না",
+		"Wire/3":                 "তারে/৩",
+		"Yes":                    "হ্যাঁ",
+		"555 mm":                 "৫৫৫ মিমি",
+		"Type: Direct Cool; Gross Weight: 67 ± 2 Kg; Performance: Climatic Type: N~ST; Compressor Input Power (Watt): V 02.01-132; V 03.01-118; V 03.02-118; V 04.01-127; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Temperature Control: Mechanical; Handle: Recessed/ Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Eco-friendly (100% CFC & HCFC Free) Green Technology; Recommended voltage stabilizer: V 02.01-1000VA; V 03.01,V 03.02-Low Voltage(140~260V); V 04.01-Low Voltage(150~260V); Interior Lamp: Yes; Egg Tray: Yes; Freezer Shelf: Wire/3; Freezer Drawer: HIPS/5; Freezer Door Pocket: No; Freezer Interior Lamp: No; Packaging Dimensions: 580 x 645 x 1845 mm; Loading Capacity- 40HQ/ 40Ft/ 20Ft: 97/ 72/ 36": "টাইপ: ডিরেক্ট কুল; গ্রস ওজন: ৬৭ ± ২ কেজি; পারফরম্যান্স: ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার (ওয়াট): ভি ০২.০১-১৩২; ভি ০৩.০১-১১৮; ভি ০৩.০২-১১৮; ভি ০৪.০১-১২৭; কুলিং ইফেক্ট: ফ্রিজার কেবিনেট -১৮℃ এর কম; রেফ্রিজেরেটর কেবিনেট ০℃ থেকে +৫℃; তাপমাত্রা নিয়ন্ত্রণ: ম্যানুয়াল/মেকানিক্যাল; হ্যান্ডেল: রিসেসড/গ্রিপ; লক: হ্যাঁ; থার্মোস্ট্যাট: রোএইচএস সনদপ্রাপ্ত; ক্যাপিলারি: কপার; পলিউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন; পরিবেশবান্ধব (১০০% সিএফসি ও এইচসিএফসি মুক্ত) সবুজ প্রযুক্তি; সুপারিশকৃত ভোল্টেজ স্ট্যাবিলাইজার: ভি ০২.০১-১০০০ভিএ; ভি ০৩.০১,ভি ০৩.০২-নিম্ন ভোল্টেজ(১৪০~২৬০ভি); ভি ০৪.০১-নিম্ন ভোল্টেজ(১৫০~২৬০ভি); ইন্টারিয়র ল্যাম্প: হ্যাঁ; ডিম ট্রে: হ্যাঁ; ফ্রিজার শেলফ: তারে/৩; ফ্রিজার ড্রয়ার: এইচআইপিএস/৫; ফ্রিজার ডোর পকেট: না; ফ্রিজার ইন্টারিয়র ল্যাম্প: না; প্যাকেজিং ডাইমেনশনস: ৫৮০ x ৬৪৫ x ১৮৪৫ মিমি; লোডিং ক্যাপাসিটি- ৪০এইচকিউ/ ৪০এফটি/ ২০এফটি: ৯৭/ ৭২/ ৩৬",
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfb-b5d-elxx-xx'
+// Seed inserts specification records for the product identified by slug 'mfb-b5d-elxx-xx'
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfb-b5d-elxx-xx"
+	productSlug := "mfb-b5d-elxx-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -56,60 +58,48 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx) Seed(db *gorm.DB) er
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Brand":                          310,
+		"Model Name":                     316,
+		"Compressor Type":                139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm":                       25,
+		"Door Pocket":                    700,
+		"Energy Rating":                  143,
+		"Gross Volume":                   709,
+		"Height/mm":                      25,
+		"Net Volume":                     710,
+		"Net Weight":                     80,
+		"Rated Voltage/ Hz":              160,
+		"Refrigerant":                    708,
+		"Reversible Door":                142,
+		"Shelf (Material/ No.)":          699,
+		"Vegetable Crisper":              701,
+		"Vegetable Crisper Cover":        701,
+		"Width/mm":                       25,
+		"Special Features":               69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B5D-ELXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":                          "Marcel",
+		"Model Name":                     "MFB-B5D-ELXX-XX",
+		"Compressor Type":                "V 02.01-RSCR V 03.01-RSCR V 03.02-RSCR V 04.01-RSCR",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm":                       "630 mm",
+		"Door Pocket":                    "GPPS/4",
+		"Energy Rating":                  "5 star (BDS 1850:2012)",
+		"Gross Volume":                   "268 Ltr.",
+		"Height/mm":                      "1800 mm",
+		"Net Volume":                     "254 Ltr.",
+		"Net Weight":                     "62 ± 2 Kg",
+		"Rated Voltage/ Hz":              "220 ~ 240/ 50",
+		"Refrigerant":                    "R600a",
+		"Reversible Door":                "No",
+		"Shelf (Material/ No.)":          "Wire/3",
+		"Vegetable Crisper":              "Yes",
+		"Vegetable Crisper Cover":        "Yes",
+		"Width/mm":                       "555 mm",
+		"Special Features":               "Type: Direct Cool; Gross Weight: 67 ± 2 Kg; Performance: Climatic Type: N~ST; Compressor Input Power (Watt): V 02.01-132; V 03.01-118; V 03.02-118; V 04.01-127; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Temperature Control: Mechanical; Handle: Recessed/ Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Eco-friendly (100% CFC & HCFC Free) Green Technology; Recommended voltage stabilizer: V 02.01-1000VA; V 03.01,V 03.02-Low Voltage(140~260V); V 04.01-Low Voltage(150~260V); Interior Lamp: Yes; Egg Tray: Yes; Freezer Shelf: Wire/3; Freezer Drawer: HIPS/5; Freezer Door Pocket: No; Freezer Interior Lamp: No; Packaging Dimensions: 580 x 645 x 1845 mm; Loading Capacity- 40HQ/ 40Ft/ 20Ft: 97/ 72/ 36",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

@@ -47,6 +47,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eGdelXx) getBanglaTranslation
 		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
 		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
+		"GPPS/3":                     "জিপিপিএস/৩",
+		"Lock: Yes, Interior Lamp: Yes, Handle: Recessed/Grip, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelves: Wire/2, Refrigerator Door Baskets: GPPS/3, Vegetable Crisper: Yes, Egg Tray or Pocket: Yes, Freezer Compartment Shelves: Wire/2, Drawer: HIPS/3, Loading quantity: 105/105/52 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Recommended voltage stabilizer capacity: V 01.01-Low Voltage(140~260V) For V 01.01 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended. V 01.02-Low Voltage(135~260V) For V01.02 - Wide Voltage Range (135Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.": `লক: হ্যাঁ, ইন্টেরিয়র ল্যাম্প: হ্যাঁ, হ্যান্ডেল: রিসেসড/গ্রিপ, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], রেফ্রিজারেটর কম্পার্টমেন্ট শেল্ফস: ওয়্যার/২, রেফ্রিজারেটর দরজা বাস্কেটস: জিপিপিএস/৩, ভেজিটেবল ক্রিসপার: হ্যাঁ, এগ ট্রে অর পকেট: হ্যাঁ, ফ্রিজার কম্পার্টমেন্ট শেল্ফস: ওয়্যার/২, ড্রয়ার: এইচআইপিএস/৩, লোডিং কোয়ান্টিটি: ১০৫/১০৫/৫২ (৪০এইচকিউ/৪০এফটি/২০এফটি), ক্লাইমেটিক টাইপ: এন~এসটি, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮°C, রেফ্রিজারেটর ক্যাবিনেট ০°C টু +৫°C, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: V ০১.০১-Low Voltage(১৪০~২৬০V) For V ০১.০১ - Wide Voltage Range (১৪০Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is recommended. V ০১.০২-Low Voltage(১৩৫~২৬০V) For V০১.০২ - Wide Voltage Range (১৩৫Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is recommended.`
 	}
 }
 
@@ -99,25 +101,25 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eGdelXx) Seed(db *gorm.DB) er
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-A8E-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-A8E-GDEL-XX",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "177 Ltr.",
+		"Net Volume":          "175 Ltr.",
+		"Weight":              "50 ± 2 Kg",
+		"Voltage":             "220 ~ 240/ 50",
+		"Compressor Type":     "RSCR",
+		"Temperature Control": "Mechanical",
+		"Defrost Type":        "Manual",
+		"Refrigerant":         "R600a",
+		"Shelf Material":      "Wire",
+		"Number of Shelves":   "2",
+		"Door Bins":           "GPPS/3",
+		"Crisper Drawers":     "Yes",
+		"Dimensions":          "555 x 630 x 1410 mm",
+		"Special Features":    "Lock: Yes, Interior Lamp: Yes, Handle: Recessed/Grip, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelves: Wire/2, Refrigerator Door Baskets: GPPS/3, Vegetable Crisper: Yes, Egg Tray or Pocket: Yes, Freezer Compartment Shelves: Wire/2, Drawer: HIPS/3, Loading quantity: 105/105/52 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Recommended voltage stabilizer capacity: V 01.01-Low Voltage(140~260V) For V 01.01 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended. V 01.02-Low Voltage(135~260V) For V01.02 - Wide Voltage Range (135Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

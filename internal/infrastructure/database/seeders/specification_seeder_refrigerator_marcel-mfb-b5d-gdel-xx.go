@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx seeds specifications/options for product 'marcel-mfb-b5d-gdel-xx'
+// SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx seeds specifications/options for product 'mfb-b5d-gdel-xx'
 type SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx struct {
 	BaseSeeder
 }
@@ -15,37 +15,33 @@ type SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx struct {
 // NewSpecificationSeederRefrigeratorMarcelMfbB5dGdelXx creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfbB5dGdelXx() *SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx {
 	return &SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfb-b5d-gdel-xx"},
+		BaseSeeder: BaseSeeder{name: "Specifications for mfb-b5d-gdel-xx"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Marcel":                 "মার্সেল",
-		"marcel-mfb-b5d-gdel-xx": "মার্সেল-mfb-b5d-gdel-xx",
-		"MFB-B5D-GDEL-XX":        "MFB-B5D-GDEL-XX",
-
-		"Direct Cool":         "ডিরেক্ট কুল",
-		"177 Ltr.":            "১৭৭ লিটার",
-		"175 Ltr.":            "১৭৫ লিটার",
-		"50 ± 2 Kg":           "৫০ ± ২ কেজি",
-		"R600a":               "R600a",
-		"Mechanical":          "ম্যানুয়াল/মেকানিক্যাল",
-		"Manual":              "ম্যানুয়াল",
-		"Recessed/ Grip":      "রিসেসড/গ্রিপ",
-		"Copper":              "কপার",
-		"Cyclopentene":        "সাইক্লোপেন্টেন",
-		"220 ~ 240":           "২২0 ~ ২৪0",
-		"Hermetic":            "হার্মেটিক",
-		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
-		"Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere": "কমপ্রেসার: V 01.01-RSCR; V 01.02-RSCR; কমপ্রেসার ইনপুট পাওয়ার (ওয়াট): V 01.01-88; V 01.02-88; ভোল্টেজ/হার্জ: 220 ~ 240/50; স্ট্যাবিলাইজার: ৫ অ্যাম্পিয়ার",
+		"1845 mm": "1845 mm",
+		"220 ~ 240/ 50": "220 ~ 240/ 50",
+		"254 Ltr.": "254 Ltr.",
+		"268 Ltr.": "268 Ltr.",
+		"5 star (BDS 1850:2012)": "5 star (BDS 1850:2012)",
+		"580 mm": "580 mm",
+		"62 ± 2 Kg": "62 ± 2 Kg",
+		"645 mm": "645 mm",
+		"Manual": "Manual",
+		"No": "No",
+		"R600a": "R600a",
+		"V 02.01-RSCR V 03.01-RSCR V 03.02-RSCR V 04.01-RSCR": "V 02.01-RSCR V 03.01-RSCR V 03.02-RSCR V 04.01-RSCR",
+		"Wire/3": "Wire/3",
+		"Yes": "Yes",
+		// Add more translations as needed
 	}
 }
 
-// Seed inserts specification records for the product identified by slug 'marcel-mfb-b5d-gdel-xx'
+// Seed inserts specification records for the product identified by slug 'mfb-b5d-gdel-xx'
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx) Seed(db *gorm.DB) error {
-	productSlug := "marcel-mfb-b5d-gdel-xx"
+	productSlug := "mfb-b5d-gdel-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -57,60 +53,42 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGdelXx) Seed(db *gorm.DB) er
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Brand":                       310,
-		"Model Name":                  316,
-		"Door Type":                   142,
-		"Capacity":                    138,
-		"Refrigerator Capacity":       156,
-		"Freezer Capacity":            146,
-		"Energy Efficiency Rating":    143,
-		"Energy Star Rating":          144,
-		"Annual Energy Consumption":   137,
-		"Dimensions":                  25,
-		"Weight":                      80,
-		"Color":                       311,
-		"Compressor Type":             139,
-		"Cooling Technology":          698,
-		"Defrost Type":                141,
-		"Temperature Control":         158,
-		"Shelf Material":              699,
-		"Number of Shelves":           154,
-		"Door Bins":                   700,
-		"Crisper Drawers":             701,
-		"Ice Maker":                   702,
-		"Water Dispenser":             703,
-		"Noise Level":                 150,
-		"Voltage":                     160,
-		"Frequency (Hz)":              704,
-		"App Control":                 705,
-		"Voice Assistant Support":     385,
-		"Warranty":                    323,
-		"Compressor Warranty (Years)": 707,
-		"Refrigerant":                 708,
-		"Gross Volume":                709,
-		"Net Volume":                  710,
-		"Special Features":            69,
+		"Compressor Type": 139,
+		"Defrosting (Automatic/ Manual)": 141,
+		"Depth/mm": 25,
+		"Door Pocket": 700,
+		"Energy Rating": 143,
+		"Gross Volume": 709,
+		"Height/mm": 25,
+		"Net Volume": 710,
+		"Net Weight": 80,
+		"Rated Voltage/ Hz": 160,
+		"Refrigerant": 708,
+		"Reversible Door": 142,
+		"Shelf (Material/ No.)": 699,
+		"Vegetable Crisper": 701,
+		"Vegetable Crisper Cover": 701,
+		"Width/mm": 25,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B5D-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Compressor Type": "V 02.01-RSCR V 03.01-RSCR V 03.02-RSCR V 04.01-RSCR",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm": "645 mm",
+		"Door Pocket": "No",
+		"Energy Rating": "5 star (BDS 1850:2012)",
+		"Gross Volume": "268 Ltr.",
+		"Height/mm": "1845 mm",
+		"Net Volume": "254 Ltr.",
+		"Net Weight": "62 ± 2 Kg",
+		"Rated Voltage/ Hz": "220 ~ 240/ 50",
+		"Refrigerant": "R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/3",
+		"Vegetable Crisper": "Yes",
+		"Vegetable Crisper Cover": "Yes",
+		"Width/mm": "580 mm",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {

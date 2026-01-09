@@ -42,29 +42,31 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fGdelScInverter) getBanglaTra
 		"Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere": "কমপ্রেসার: V 01.01-RSCR; V 01.02-RSCR; কমপ্রেসার ইনপুট পাওয়ার (ওয়াট): V 01.01-88; V 01.02-88; ভোল্টেজ/হার্জ: 220 ~ 240/50; স্ট্যাবিলাইজার: ৫ অ্যাম্পিয়ার",
 		"66 ± 2 Kg": "৬৬ ± ২ কেজি",
 		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
-		"Yes": "হ্যাঁ",
-		"645 mm": "৬৪৫ মিমি",
+		"Yes":        "হ্যাঁ",
+		"645 mm":     "৬৪৫ মিমি",
 		"Electronic": "ইলেকট্রনিক",
-		"RSCR": "RSCR",
+		"RSCR":       "RSCR",
 		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
-		"220 ~ 240/ 50": "২২০ ~ ২৪০/ ৫০",
-		"HIPS/5": "HIPS/৫",
-		"Wire/3": "Wire/৩",
+		"220 ~ 240/ 50":  "২২০ ~ ২৪০/ ৫০",
+		"HIPS/5":         "HIPS/৫",
+		"Wire/3":         "Wire/৩",
 		"RoHS Certified": "RoHS Certified",
-		"1765 mm": "১৭৬৫ মিমি",
-		"N~ST": "N~ST",
+		"1765 mm":        "১৭৬৫ মিমি",
+		"N~ST":           "N~ST",
 		"V 06.01-124 V 07.01-109 V 07.02-109 V 07.03-109 V 08.01-127": "V ০৬.০১-১২৪ V ০৭.০১-১০৯ V ০৭.০২-১০৯ V ০৭.০৩-১০৯ V ০৮.০১-১২৭",
-		"N/A": "N/A",
+		"N/A":    "N/A",
 		"580 mm": "৫৮০ মিমি",
 		"V 06.01-Low Voltage(130~260V) For V 06.01- Wide Voltage Range (130Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended. V 07.01,V 07.02,V 07.03-Low Voltage(140~260V) For V07.01, V 07.02,V 07.03 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended V 08.01-Low Voltage(150~260V) For V 08.01 - Wide Voltage Range (150Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.": "V ০৬.০১-Low Voltage(১৩০~২৬০V) For V ০৬.০১- Wide Voltage Range (১৩০Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is reco মিমিended. V ০৭.০১,V ০৭.০২,V ০৭.০৩-Low Voltage(১৪০~২৬০V) For V০৭.০১, V ০৭.০২,V ০৭.০৩ - Wide Voltage Range (১৪০Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is reco মিমিended V ০৮.০১-Low Voltage(১৫০~২৬০V) For V ০৮.০১ - Wide Voltage Range (১৫০Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is reco মিমিended.",
-		"238 Ltr.": "২৩৮ লিটার",
-		"Wire/2": "Wire/২",
+		"238 Ltr.":      "২৩৮ লিটার",
+		"Wire/2":        "Wire/২",
 		"Recessed/Grip": "Recessed/Grip",
-		"252 Ltr.": "২৫২ লিটার",
-		"GPPS/4": "GPPS/৪",
-		"59 ± 2 Kg": "৫৯ ± ২ কেজি",
-		"98/ 72/ 36": "৯৮/ ৭২/ ৩৬",
+		"252 Ltr.":      "২৫২ লিটার",
+		"GPPS/4":        "GPPS/৪",
+		"59 ± 2 Kg":     "৫৯ ± ২ কেজি",
+		"98/ 72/ 36":    "৯৮/ ৭২/ ৩৬",
 
+		// Special features long translation for consolidated unmapped specs
+		"Gross Weight: 66 ± 2 Kg; Climatic Type: N~ST; Compressor Input Power (Watt): V 06.01-124; V 07.01-109; V 07.02-109; V 07.03-109; V 08.01-127; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Handle: Recessed/Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene (Eco-friendly, 100% CFC & HCFC Free); Recommended voltage stabilizer capacity: V 06.01 - Low Voltage(130~260V) (Wide Range 130Vac - 260Vac) — stabilizer usually not required; V 07.01/V 07.02/V 07.03 - Low Voltage(140~260V) (Wide Range 140Vac - 260Vac) — stabilizer usually not required; V 08.01 - Low Voltage(150~260V) (Wide Range 150Vac - 260Vac) — stabilizer usually not required; if voltages exceed these ranges, 1000VA recommended; Refrigerator Compartment: Interior Lamp: Yes; Vegetable Crisper Cover: Yes; Egg Tray: Yes; Freezer Compartment: Shelf (Wire/3); Drawer: HIPS/5; Net Dimensions: 555 x 630 x 1720 mm; Loading Capacity (40HQ/40Ft/20Ft): 98/ 72/ 36": "কম্প্রেসার ইনপুট পাওয়ার: ৬৬ ± ২ কেজি; ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার (ওয়াট): V ০৬.০১-১২৪; V ০৭.০১-১০৯; V ০৭.০২-১০৯; V ০৭.০৩-১০৯; V ০৮.০১-১২৭; কুলিং ইফেক্ট: ফ্রিজার অংশ −১৮℃ এর নিচে; রেফ্রিজারেটর অংশ ০℃ থেকে +৫℃; হ্যান্ডেল: রিসেসড/গ্রিপ; লক: হ্যাঁ; থার্মোস্ট্যাট: RoHS সার্টিফায়েড; ক্যাপিলারি: তামা; পলিউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন (ইকো-ফ্রেন্ডলি, ১০০% CFC/HCFC মুক্ত); সুপারিশকৃত স্ট্যাবিলাইজার: V ০৬.০১ - লো ভোল্টেজ (১৩০~২৬০V) (ওয়াইড রেঞ্জ ১৩০Vac - ২৬০Vac) — সাধারণত স্ট্যাবিলাইজার প্রয়োজন হয় না; V ০৭.০১/V ০৭.০২/V ০৭.০৩ - লো ভোল্টেজ (১৪০~২৬০V) (ওয়াইড রেঞ্জ ১৪০Vac - ২৬০Vac) — সাধারণত স্ট্যাবিলাইজার প্রয়োজন হয় না; V ০৮.০১ - লো ভোল্টেজ (১৫০~২৬০V) (ওয়াইড রেঞ্জ ১৫০Vac - ২৬০Vac) — সাধারণত স্ট্যাবিলাইজার প্রয়োজন হয় না; যদি ভোল্টেজ এই রেঞ্জের বাইরে যায়, তবে ১০০০VA স্ট্যাবিলাইজার ব্যবহার করার পরামর্শ দেওয়া হয়; রেফ্রিজারেটর অংশ: অভ্যন্তরীণ বাতি: হ্যাঁ; সবজি ক্রিস্পার ঢাকনা: হ্যাঁ; ডিম ধারক: হ্যাঁ; ফ্রিজার অংশ: তাক (তারের) (৩টি); ড্রয়ার: HIPS (৫টি); নেট মাত্রা: ৫৫৫ x ৬৩০ x ১৭২০ মিমি; লোডিং ক্যাপাসিটি (40HQ/40Ft/20Ft): ৯৮/৭২/৩৬",
 	}
 }
 
@@ -117,47 +119,23 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fGdelScInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-		"Type": "Direct Cool",
-		"Gross Volume": "252 Ltr.",
-		"Net Volume": "238 Ltr.",
-		"Net Weight": "59 ± 2 Kg",
-		"Gross Weight": "66 ± 2 Kg",
-		"Climatic Type (SN, N, ST, T)": "N~ST",
-		"Rated Voltage/ Hz": "220 ~ 240/ 50",
-		"Compressor Input Power (Watt)": "V 06.01-124 V 07.01-109 V 07.02-109 V 07.03-109 V 08.01-127",
-		"Compressor Type": "RSCR",
-		"Energy Rating": "N/A",
-		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
-		"Temperature Control (Electronic/ Mechanical)": "Electronic",
-		"Defrosting (Automatic/ Manual):": "Manual",
-		"Handle (Recessed/ Grip)": "Recessed/Grip",
-		"Lock": "Yes",
-		"Refrigerant": "R600a",
-		"Thermostat": "RoHS Certified",
-		"Capillary": "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
-		"Recommended voltage stabilizer capacity": "V 06.01-Low Voltage(130~260V) For V 06.01- Wide Voltage Range (130Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended. V 07.01,V 07.02,V 07.03-Low Voltage(140~260V) For V07.01, V 07.02,V 07.03 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended V 08.01-Low Voltage(150~260V) For V 08.01 - Wide Voltage Range (150Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.",
-		"Shelf (Material/No.)": "Wire/2",
-		"Door Basket": "GPPS/4",
-		"Interior Lamp": "Yes",
-		"Vegetable Crisper": "Yes",
-		"Vegetable Crisper Cover": "Yes",
-		"Egg Tray": "Yes",
-		"Shelf (Material/ No.)": "Wire/3",
-		"Drawer": "HIPS/5",
-		"Width/mm": "580 mm",
-		"Depth/mm": "645 mm",
-		"Height/mm": "1765 mm",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "98/ 72/ 36",
+	specs := map[string]string{
+		// Only keys present in existingkeyMapping should be used here.
+		"Cooling Technology":       "Direct Cool",
+		"Gross Volume":             "252 Ltr.",
+		"Net Volume":               "238 Ltr.",
+		"Weight":                   "59 ± 2 Kg",
+		"Voltage":                  "220 ~ 240/ 50",
+		"Compressor Type":          "RSCR",
+		"Energy Efficiency Rating": "N/A",
+		"Temperature Control":      "Electronic",
+		"Defrost Type":             "Manual",
+		"Shelf Material":           "Wire/2",
+		"Door Bins":                "GPPS/4",
+		"Crisper Drawers":          "Yes",
+		"Dimensions":               "580 x 645 x 1765 mm",
+		"Special Features":         `Gross Weight: 66 ± 2 Kg; Climatic Type: N~ST; Compressor Input Power (Watt): V 06.01-124; V 07.01-109; V 07.02-109; V 07.03-109; V 08.01-127; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Handle: Recessed/Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene (Eco-friendly, 100% CFC & HCFC Free); Recommended voltage stabilizer capacity: V 06.01 - Low Voltage(130~260V) (Wide Range 130Vac - 260Vac) — stabilizer usually not required; V 07.01/V 07.02/V 07.03 - Low Voltage(140~260V) (Wide Range 140Vac - 260Vac) — stabilizer usually not required; V 08.01 - Low Voltage(150~260V) (Wide Range 150Vac - 260Vac) — stabilizer usually not required; if voltages exceed these ranges, 1000VA recommended; Refrigerator Compartment: Interior Lamp: Yes; Vegetable Crisper Cover: Yes; Egg Tray: Yes; Freezer Compartment: Shelf (Wire/3); Drawer: HIPS/5; Net Dimensions: 555 x 630 x 1720 mm; Loading Capacity (40HQ/40Ft/20Ft): 98/ 72/ 36`,
 	}
-
-
-
-
-
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {
