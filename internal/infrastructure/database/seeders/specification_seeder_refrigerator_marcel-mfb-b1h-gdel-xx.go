@@ -151,7 +151,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB1hGdelXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFB-B1H-GDEL-XX",
-		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V 01.01-88V 02.01-111V 02.02-111V 03.01-109",
@@ -170,7 +169,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB1hGdelXx) Seed(db *gorm.DB) er
 		"Loading Capacity (40HQ/40Ft/20Ft)": "101/ 101/ 49",
 		"Lock": "Yes",
 		"Net Volume": "190 Ltr.",
-		"Net Weight": "57± 2 Kg",
+		"Weight": "57± 2 Kg",
 		"Polyurethane Foam Blowing Agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
 		"Voltage": "220 ~ 240/ 50",
 		"Recommended voltage stabilizer capacity": "V 01.01,V 02.01,V 02.02- 1000VAV 03.01-Low Voltage(135~260V)For V 03.01 - Wide Voltage Range (135Vac - 260Vac).Voltage stabilizer is not required.In case of voltages beyond this range,1000VA is recommended",

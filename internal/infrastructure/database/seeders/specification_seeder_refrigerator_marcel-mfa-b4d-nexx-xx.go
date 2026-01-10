@@ -53,7 +53,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dNexxXx) getBanglaTranslation
 		"Egg Case":              "ডিম ধারণ বাক্স",
 		"Vegetable Box":         "শাকসবজি বক্স",
 		"Interior Lamp":         "ইন্টারিয়র ল্যাম্প",
-		"Can Storage Dispenser": "ক্যান স্টোরেজ ডিসপেনসার",
 		"Deodorizer":            "ডিওডোরাইজার",
 		"Loading Capacity (40HQ/40Ft/20Ft)": "লোডিং ক্যাপাসিটি- 40HQ/40Ft/20Ft 103/75/36",
 		// Add more translations as needed
@@ -163,7 +162,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dNexxXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFA-B4D-NEXX-XX",
-		"Can Storage Dispenser":          "No",
 		"Capillary":                      "Copper",
 		"Climate Type (SN, N, ST, T)":   "N~ST",
 		"Compressor Input Power (Watt)":  "V 0701-108.6V 0801-99.4",
@@ -173,7 +171,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dNexxXx) Seed(db *gorm.DB) er
 		"Deodorizer":                     "No",
 		"Depth (mm)":                       "640",
 		"Door Basket":                    "No",
-		"Door Pocket":                    "4",
 		"Drawer":                         "No",
 		"Egg Case":                       "Yes/ 1",
 		"Energy Rating":                  "5 star (BDS 1850:2012)",
@@ -185,7 +182,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dNexxXx) Seed(db *gorm.DB) er
 		"Lock":                                                  "Yes",
 		"Net Volume":                                            "220 Ltr.",
 		"Polyurethane Foam Blowing Agent":                       "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
-		"Rated Operating Voltage and Frequency":                 "220-240V~ and 50Hz",
+		"Voltage":                 "220-240V~ and 50Hz",
 		"Recommended voltage stabilizer capacity":               "V 0701/V 0801 : No Need to use voltage stabilizerIf out of voltage range(145V-260V), then suggested voltage stabilizer capacity is 1000VA.",
 		"Refrigerant":                                           "V 0701-R600aV 0801-R600a",
 		"Reversible Door":                                       "No",

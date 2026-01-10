@@ -141,7 +141,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter) Seed(db *gor
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFC-C4H-GJXB-FD-INVERTER",
-		"Can Storage Dispenser":                 "No",
 		"Capillary":                             "Copper",
 		"Climate Type (SN, N, ST, T)":          "N~ST",
 		"Compressor Input Power (Watt)":         "V 0501-33.78~126.46V 0502-33.78~126.46V 0503-33.78~126.46V 0504-33.78~126.46V 0505-33.78~126.46",
@@ -162,7 +161,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGjxbFdInverter) Seed(db *gor
 		"Net Volume":                            "333 Ltr.",
 		"Operating voltage":                     "V 0501/V0502/V0503/V0504/V0505: Wide Voltage Design (80V to 300V)N.B.: Do not use voltage stabilizer unless voltage is out of the range(80V-300V). Then suggested voltage stabilizer capacity is 2100VA.",
 		"Polyurethane Foam Blowing Agent":       "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Refrigerant":                           "R600a",
 		"Reversible Door":                       "No",
 		"Shelf Material":                 "Wire/2",

@@ -162,7 +162,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter) Seed(db *gor
 		"Weight":                          "76.5 ± 2 Kg / 86 ± 2 Kg",
 		"Compressor Type":                 "BLDC Inverter",
 		"Refrigerant":                     "R600a",
-		"Condenser":                       "100 % Copper",
 		"Capillary":                       "Copper",
 		"Polyurethane Foam Blowing Agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
 		"Recommended voltage stabilizer capacity": "1000VA or More",

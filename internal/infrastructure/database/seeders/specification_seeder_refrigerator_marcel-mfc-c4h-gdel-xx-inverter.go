@@ -149,7 +149,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGdelXxInverter) Seed(db *gor
 		"Height (mm)": "1790",
 		"Net Volume": "333 Ltr.",
 		"Operating voltage": "V 0201/0301/0302: Wide Voltage Design (140V-260V) N.B.: If out of voltage range(140V-260V), then suggested voltage stabilizer capacity is 2100VA.",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Refrigerant": "V 0201- R600a V 0301- R600a V 0302- R600a",
 		"Reversible Door": "No",
 		"Shelf Material": "Wire/2",

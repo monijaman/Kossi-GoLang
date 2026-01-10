@@ -164,7 +164,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXxInverter) Seed(db *gor
 		"Crisper Drawers":                 "Yes/1",
 		"Vegetable Crisper Cover":         "Yes",
 		"Egg Tray or Pocket":              "Yes",
-		"Can Storage Dispenser":           "No",
 		"Freezer Shelf":                   "Wire/2",
 		"Drawer":                          "No",
 		"Freezer Door Baskets":            "No",

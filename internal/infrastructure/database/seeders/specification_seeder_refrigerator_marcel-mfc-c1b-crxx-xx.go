@@ -139,12 +139,11 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1bCrxxXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFC-C1B-CRXX-XX",
-		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N ~ ST",
 		"Compressor Input Power (Watt)": "V 0101- 145.7V 0201- 145.7",
 		"Compressor Type": "V 0101- RSCRV 0201- RSCR",
-		"Cooling Efect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
+		"Cooling Effect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Deodorizer": "No",
 		"Depth (mm)": "711",
@@ -159,7 +158,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1bCrxxXx) Seed(db *gorm.DB) er
 		"Lock": "Yes",
 		"Net Volume": "290 Ltr.",
 		"Polyurethane Foam Blowing Agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Recommended voltage stabilizer capacity": "No Need To use Voltage stabilizer.NB: If out of voltage range (140V-260V)Then suggested 2100VA.",
 		"Refrigerant": "V 0101- R600aV 0201- R600a",
 		"Reversible Door": "No",
@@ -169,7 +168,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1bCrxxXx) Seed(db *gorm.DB) er
 		"Type": "Direct Cool",
 		"Vegetable Crisper": "Yes (Plastic)",
 		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
-		"Weight/Kg - Net/Packing:": "59.4 /66.4± 2 Kg",
+		"Weight": "59.4 /66.4± 2 Kg",
 		"Width": "594",
 	}
 

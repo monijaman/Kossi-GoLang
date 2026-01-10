@@ -148,12 +148,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB5eEhlcXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MCG-B5E-EHLC-XX",
-		"Basket": "Wire/1",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "V.0301, N~STV.0302, N~STV.0401, N~TV.0501, N~T",
 		"Compressor Input Power (Watt)": "V.0301-109V.0302-109V.0401-133V.0501-102",
 		"Compressor Type": "V.0301-RSCRV.0302-RSCRV.0401-InverterV.0501-RSCR",
-		"Condenser": "Steel",
 		"Cooling Effect": "Freezer Cabinet Less than -180C",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Depth (mm)": "725",

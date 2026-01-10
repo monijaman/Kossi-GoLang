@@ -135,7 +135,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC0gElxxXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFC-C0G-ELXX-XX",
-		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V01.01- 132V02.01- 117",
@@ -156,7 +155,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC0gElxxXx) Seed(db *gorm.DB) er
 		"Net Volume": "301 Ltr",
 		"Operating voltage": "V 0201: Wide Voltage Design (150V-260V)N.B.: If out of voltage range(150V-260V), then suggested voltage stabilizer capacity is 2100VA.",
 		"Polyurethane Foam Blowing Agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green  Technology]",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Refrigerant": "V 0101- R134aV 0201- R600a",
 		"Reversible Door": "No",
 		"Shelf Material": "Wire/3",

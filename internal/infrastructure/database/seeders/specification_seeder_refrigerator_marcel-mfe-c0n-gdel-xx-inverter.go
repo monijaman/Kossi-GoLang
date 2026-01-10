@@ -145,9 +145,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXxInverter) Seed(db *gor
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFE-C0N-GDEL-XX-INVERTER",
-		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
-		"Climate Class": "N ~ ST",
+		"Climate Type (SN, N, ST, T)": "N ~ ST",
 		"Compressor Input Power (Watt)": "V 0301 - 38~109",
 		"Compressor Type": "V 0301 - BLDC",
 		"Cooling Effect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
@@ -178,7 +177,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXxInverter) Seed(db *gor
 		"Type": "Direct Cool",
 		"Vegetable Box": "Yes/1",
 		"Vegetable Box Cover": "Yes",
-		"Weight/Kg - Net/Packing:": "64 / 69.5 ± 2 Kg",
+		"Weight": "64 / 69.5 ± 2 Kg",
 		"Width": "594",
 	}
 

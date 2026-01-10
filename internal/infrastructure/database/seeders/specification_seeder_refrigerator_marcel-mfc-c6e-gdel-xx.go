@@ -136,12 +136,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdelXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFC-C6E-GDEL-XX",
-		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N~ST",
-		"Compressor": "RSCR",
 		"Compressor Input Power (Watt)": "V 0401- 130V 0601- 130V 0701- 130V 0702- 130",
-		"Cooling Efect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
+		"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Depth (mm)": "645",
 		"Door Basket": "4",
@@ -155,7 +153,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdelXx) Seed(db *gorm.DB) er
 		"Lock": "Yes",
 		"Net Volume": "365 Ltr.",
 		"Polyurethane Foam Blowing Agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Recommended voltage stabilizer capacity": "V 0101/ 0201/ 0301/ 0401/ 0601/ 0701/ 0702: 2200VA",
 		"Refrigerant": "V 0401- R600aV 0601- R600aV 0701- R600aV 0702- R600a",
 		"Reversible Door": "No",
@@ -164,7 +162,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdelXx) Seed(db *gorm.DB) er
 		"Type": "Direct Cool",
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes/1",
-		"Weight/Kg - Net/Packing:": "67/76 ± 2",
+		"Weight": "67/76 ± 2",
 		"Width": "645",
 	}
 

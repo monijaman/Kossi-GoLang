@@ -175,7 +175,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eElxxXx) Seed(db *gorm.DB) er
 		"Loading Capacity (40HQ/40Ft/20Ft)": "102/ 102/ 50",
 		"Lock": "Yes",
 		"Net Volume": "193 Ltr.",
-		"Net Weight": "53± 2 Kg",
+		"Weight": "53± 2 Kg",
 		"Polyurethane Foam Blowing Agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
 		"Voltage": "220 ~ 240/ 50",
 		"Recommended voltage stabilizer capacity": "V 05.01,V 06.01, V 06.02,V 07.01-1000VAV 07.02-Low Voltage(155~260V)For V 07.02 - Wide Voltage Range (155Vac - 260Vac).Voltage stabilizer is not required.In case of voltages beyond this range,1000VA is recommended",

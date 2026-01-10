@@ -139,7 +139,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdehDdInverter) Seed(db *gor
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFC-C6E-GDEH-DD-INVERTER",
-		"Can Storage Dispenser":                 "No",
 		"Capillary":                             "Copper",
 		"Climate Type (SN, N, ST, T)":          "N~ST",
 		"Compressor Input Power (Watt)":         "V0401- 130V 0501- 50.3~166.7V 0601- 130V 0701- 130V 0702- 130V 0703-130V 0801-33.78~126.46V 0802-33.78~126.46",
@@ -159,7 +158,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdehDdInverter) Seed(db *gor
 		"Net Volume":                            "365 Ltr.",
 		"Operating voltage":                     "V0401/V 0601/V 0701/V 0702/V 0703: Need Voltage  stabilizer capacity is 2100VAV 0501: Wide Voltage Design (105V-276V)V 0801:Wide Voltage Design (75V-264V)N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.",
 		"Polyurethane Foam Blowing Agent":       "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Reversible Door":                       "No",
 		"Shelf Material":                 "Wire/3",
 		"Star rating (BDS 1850:2012)":           "5",

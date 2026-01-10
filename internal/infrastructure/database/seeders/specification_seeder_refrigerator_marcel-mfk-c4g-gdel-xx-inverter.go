@@ -162,7 +162,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfkC4gGdelXxInverter) Seed(db *gor
 		"Operating voltage": "V.01.01 Wide Voltage Range (145V ~ 260V)NB: If out of voltage range then suggested voltage stabilizer capacity is 2100VA.",
 		"Polyurethane Foam Blowing Agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
 		"Rack Shelf (Material/No)": "Wire/ 3",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Refrigerant": "V01.01 R600a",
 		"Shelf Material": "Wire/2",
 		"Temperature Control": "Mechanical",

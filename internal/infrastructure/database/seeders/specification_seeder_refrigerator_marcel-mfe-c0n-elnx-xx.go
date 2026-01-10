@@ -139,13 +139,11 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nElnxXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MFE-C0N-ELNX-XX",
-		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
-		"Climate Class": "N ~ ST",
+		"Climate Type (SN, N, ST, T)": "N ~ ST",
 		"Compressor Input Power (Watt)": "V 0101- 118V 0201- 109",
 		"Compressor Type": "V 0101- RSCRV 0201- RSCR",
-		"Condenser": "V 0101- CopperV 0201- Copper",
-		"Cooling Efect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
+		"Cooling Effect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Depth (mm)": "711",
 		"Door Basket": "Yes/3",
@@ -172,7 +170,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nElnxXx) Seed(db *gorm.DB) er
 		"Type": "Direct Cool",
 		"Vegetable Box": "Yes/1",
 		"Vegetable Box Cover": "Yes",
-		"Weight/Kg - Net/Packing:": "59 /64.5± 2 Kg",
+		"Weight": "59 /64.5± 2 Kg",
 		"Width": "594",
 	}
 

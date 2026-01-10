@@ -146,7 +146,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hNexxXx) Seed(db *gorm.DB) er
 		"Height (mm)": "1790",
 		"Net Volume": "333 Ltr.",
 		"Operating voltage": "V 0103: 105V-276V (Wide Voltage Design)",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Refrigerant": "R600a",
 		"Reversible Door": "No",
 		"Shelf Material": "Wire/2",

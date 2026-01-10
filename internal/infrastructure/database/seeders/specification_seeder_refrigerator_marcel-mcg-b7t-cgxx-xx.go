@@ -161,14 +161,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB7tCgxxXx) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MCG-B7T-CGXX-XX",
-		"Application": "Commercial",
-		"Application Type": "Recommended for Commercial use only",
-		"Basket": "Wire/1",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N ~ T",
 		"Compressor Input Power (Watt)": "V.0101-153V.0201-153",
 		"Compressor Type": "V.0101-RSCRV.0201-RSCR",
-		"Condenser": "Steel",
 		"Cooling Effect": "Freezer Cabinet  -20℃ to -30℃",
 		"Cooling Technology": "Direct Cooling Evaporative System (DECS)",
 		"Defrosting (Automatic/ Manual)": "Manual",
@@ -191,7 +187,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB7tCgxxXx) Seed(db *gorm.DB) er
 		"Shelf (Material/No)": "No",
 		"Temperature Control": "V0101 & V0201- Mechanical",
 		"Voltage stabilizer capacity": "V.0101 & V.0201- 2000VA (if Input Voltage is below 150V)",
-		"Weight/Kg - Net/Packing:": "60-53.2 ± 2",
+		"Weight": "60-53.2 ± 2",
 		"Wide Voltage Range": "V.0101-150V ~ 260VV.0201-150V ~ 260V",
 		"Width": "1080",
 	}

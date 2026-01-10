@@ -53,7 +53,6 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dRlxxXxInverter) getBanglaTra
 		"Egg Case":              "ডিম ধারণ বাক্স",
 		"Vegetable Box":         "শাকসবজি বক্স",
 		"Interior Lamp":         "ইন্টারিয়র ল্যাম্প",
-		"Can Storage Dispenser": "ক্যান স্টোরেজ ডিসপেনসার",
 		"Deodorizer":            "ডিওডোরাইজার",
 		"Loading Capacity (40HQ/40Ft/20Ft)": "লোডিং ক্যাপাসিটি- 40HQ/40Ft/20Ft 103/75/36",
 		// Add more translations as needed

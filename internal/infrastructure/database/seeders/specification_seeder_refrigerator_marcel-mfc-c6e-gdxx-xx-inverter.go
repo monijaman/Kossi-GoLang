@@ -145,7 +145,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdxxXxInverter) Seed(db *gor
 		"Height (mm)": "1910",
 		"Net Volume": "365 Ltr.",
 		"Operating voltage": "V 0501: 105V-276V (Wide Voltage Design)",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Voltage": "220-240V~ and 50Hz",
 		"Refrigerant": "R600a",
 		"Reversible Door": "No",
 		"Shelf Material": "Wire/2",

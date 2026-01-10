@@ -148,11 +148,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMniE6cGdelDd) Seed(db *gorm.DB) er
 	specs := map[string]string{
 		"Brand":               "Marcel",
 		"Model Name":          "MNI-E6C-GDEL-DD",
-		"Bottle Pocket": "GPPS/5",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "ST",
-		"Compressor": "BLDC Inverter",
-		"Condenser": "100 % Copper",
 		"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
 		"Defrosting (Automatic/ Manual)": "Automatic",
 		"Depth (mm)": "715 mm",
