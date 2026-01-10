@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx seeds specifications/options for product 'mfb-b5x-gdeh-xx'
+// SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx seeds specifications/options for product 'marcel-mfb-b5x-gdeh-xx'
 type SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx struct {
 	BaseSeeder
 }
@@ -15,32 +15,48 @@ type SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx struct {
 // NewSpecificationSeederRefrigeratorMarcelMfbB5xGdehXx creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfbB5xGdehXx() *SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx {
 	return &SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for mfb-b5x-gdeh-xx"},
+		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfb-b5x-gdeh-xx"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"1725 mm": "1725 mm",
-		"220 ~ 240/ 50": "220 ~ 240/ 50",
-		"250 Ltr.": "250 Ltr.",
-		"254 Ltr.": "254 Ltr.",
-		"54.5 ± 2 Kg": "54.5 ± 2 Kg",
-		"580 mm": "580 mm",
-		"645 mm": "645 mm",
-		"GPPS/3": "GPPS/3",
-		"Manual": "Manual",
-		"RSCR": "RSCR",
-		"V 01.01-R600a V 02.01-R600a V 03.01-R600a V 03.02-R600a": "V 01.01-R600a V 02.01-R600a V 03.01-R600a V 03.02-R600a",
-		"Wire/2": "Wire/2",
-		"Yes": "Yes",
+		"1675 mm":       "১৬৭৫ mm",
+		"220 ~ 240/ 50": "২২০ ~ ২৪০/ ৫০",
+		"250 Ltr.":      "২৫০ লিটার",
+		"254 Ltr.":      "২৫৪ লিটার",
+		"54.5 ± 2 Kg":   "৫৪.৫ ± ২ কেজি",
+		"555 mm":        "৫৫৫ mm",
+		"59.5 ± 2 Kg":   "৫৯.৫ ± ২ কেজি",
+		"630 mm":        "৬৩০ mm",
+		"97/ 72/ 36":    "৯৭/ ৭২/ ৩৬",
+		"Copper":        "কপার",
+		"Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "Cyclopentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Direct Cool, Eco Friendly, Energy Saving, Large Vegetable Crisper, Stabilizer Free Operation, Anti Bacterial Gasket, Door Lock, LED Light, Adjustable Shelves, Egg Tray, Ice Tray": "ডাইরেক্ট কুল, ইকো ফ্রেন্ডলি, এনার্জি সেভিং, লার্জ ভেজিটেবল ক্রিস্পার, স্ট্যাবিলাইজার ফ্রি অপারেশন, অ্যান্টি ব্যাকটেরিয়াল গ্যাসকেট, ডোর লক, LED লাইট, অ্যাডজাস্টেবল শেলভস, এগ ট্রে, আইস ট্রে",
+		"Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃ Refrigerator Cabinet ০℃ to +৫℃",
+		"GPPS/3":          "GPPS/3",
+		"Manual":          "ম্যানুয়াল",
+		"Marcel":          "মার্সেল",
+		"Mechanical":      "মেকানিক্যাল",
+		"MFB-B5X-GDEH-XX": "MFB-B5X-GDEH-XX",
+		"N~ST":            "N~ST",
+		"No":              "না",
+		"Recessed/ Grip":  "রিসেসড/ গ্রিপ",
+		"RoHS Certified":  "RoHS Certified",
+		"RSCR":            "RSCR",
+		"V 01.01-97.4 V 02.01-97.4 V 03.01-97.4 V 03.02-97.4": "V ০১.০১-৯৭.৪ V ০২.০১-৯৭.৪ V ০৩.০১-৯৭.৪ V ০৩.০২-৯৭.৪",
+		"V 01.01, V 02.01-Low Voltage(140~260V) For V01.01, V 02.01-Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended. V 03.01, V 03.02-Low Voltage(150~260V) For V 03.01, V 03.02 - Wide Voltage Range (150Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.": "V ০১.০১, V ০২.০১-Low Voltage(১৪০~২৬০V) For V০১.০১, V ০২.০১-Wide Voltage Range (১৪০Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is recommended. V ০৩.০১, V ০৩.০২-Low Voltage(১৫০~২৬০V) For V ০৩.০১, V ০৩.০২ - Wide Voltage Range (১৫০Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is recommended.",
+		"V 01.01-R600a V 02.01-R600a V 03.01-R600a V 03.02-R600a": "V ০১.০১-R600a V ০২.০১-R600a V ০৩.০১-R600a V ০৩.০২-R600a",
+		"Wire/2": "ওয়্যার/2",
+		"Yes":    "হ্যাঁ",
 		// Add more translations as needed
 	}
 }
 
 // Seed inserts specification records for the product identified by slug 'mfb-b5x-gdeh-xx'
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx) Seed(db *gorm.DB) error {
-	productSlug := "mfb-b5x-gdeh-xx"
+	productSlug := "marcel-mfb-b5x-gdeh-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -52,37 +68,75 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdehXx) Seed(db *gorm.DB) er
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Compressor Type": 139,
-		"Defrosting (Automatic/ Manual)": 141,
-		"Depth/mm": 25,
-		"Door Basket": 700,
-		"Gross Volume": 709,
-		"Height/mm": 25,
-		"Net Volume": 710,
-		"Net Weight": 80,
-		"Rated Voltage/ Hz": 160,
-		"Refrigerant": 708,
+		"Brand":                              1,
+		"Capillary":                          718,
+		"Climatic Type (SN, N, ST, T)":       712,
+		"Compressor Input Power (Watt)":      713,
+		"Compressor Type":                    139,
+		"Cooling Effect":                     714,
+		"Defrosting (Automatic/ Manual)":     141,
+		"Depth/mm":                           25,
+		"Door Basket":                        700,
+		"Drawer":                             723,
+		"Egg Tray":                           722,
+		"Gross Volume":                       709,
+		"Gross Weight":                       80,
+		"Handle (Recessed/ Grip)":            715,
+		"Height/mm":                          25,
+		"Interior Lamp":                      721,
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": 724,
+		"Lock":                               716,
+		"Model Name":                         2,
+		"Net Volume":                         710,
+		"Net Weight":                         80,
+		"Polyurethane foam blowing agent":    719,
+		"Rated Voltage/ Hz":                  160,
+		"Recommended voltage stabilizer capacity": 720,
+		"Refrigerant":           708,
 		"Shelf (Material/ No.)": 699,
-		"Vegetable Crisper": 701,
+		"Special Features":      142,
+		"Temperature Control (Electronic/  Mechanical)": 158,
+		"Thermostat":              717,
+		"Type":                    711,
+		"Vegetable Crisper":       701,
 		"Vegetable Crisper Cover": 701,
-		"Width/mm": 25,
+		"Width/mm":                25,
 	}
 
 	specs := map[string]string{
-		"Compressor Type": "RSCR",
-		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "645 mm",
-		"Door Basket": "GPPS/3",
-		"Gross Volume": "250 Ltr.",
-		"Height/mm": "1725 mm",
-		"Net Volume": "254 Ltr.",
-		"Net Weight": "54.5 ± 2 Kg",
-		"Rated Voltage/ Hz": "220 ~ 240/ 50",
-		"Refrigerant": "V 01.01-R600a V 02.01-R600a V 03.01-R600a V 03.02-R600a",
+		"Brand":                              "Marcel",
+		"Capillary":                          "Copper",
+		"Climatic Type (SN, N, ST, T)":       "N~ST",
+		"Compressor Input Power (Watt)":      "V 01.01-97.4 V 02.01-97.4 V 03.01-97.4 V 03.02-97.4",
+		"Compressor Type":                    "RSCR",
+		"Cooling Effect":                     "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
+		"Defrosting (Automatic/ Manual)":     "Manual",
+		"Depth/mm":                           "630 mm",
+		"Door Basket":                        "GPPS/3",
+		"Drawer":                             "No",
+		"Egg Tray":                           "Yes",
+		"Gross Volume":                       "250 Ltr.",
+		"Gross Weight":                       "59.5 ± 2 Kg",
+		"Handle (Recessed/ Grip)":            "Recessed/ Grip",
+		"Height/mm":                          "1675 mm",
+		"Interior Lamp":                      "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "97/ 72/ 36",
+		"Lock":                               "Yes",
+		"Model Name":                         "MFB-B5X-GDEH-XX",
+		"Net Volume":                         "254 Ltr.",
+		"Net Weight":                         "54.5 ± 2 Kg",
+		"Polyurethane foam blowing agent":    "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Rated Voltage/ Hz":                  "220 ~ 240/ 50",
+		"Recommended voltage stabilizer capacity": "V 01.01, V 02.01-Low Voltage(140~260V) For V01.01, V 02.01-Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended. V 03.01, V 03.02-Low Voltage(150~260V) For V 03.01, V 03.02 - Wide Voltage Range (150Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.",
+		"Refrigerant":           "V 01.01-R600a V 02.01-R600a V 03.01-R600a V 03.02-R600a",
 		"Shelf (Material/ No.)": "Wire/2",
-		"Vegetable Crisper": "Yes",
+		"Special Features":      "Direct Cool, Eco Friendly, Energy Saving, Large Vegetable Crisper, Stabilizer Free Operation, Anti Bacterial Gasket, Door Lock, LED Light, Adjustable Shelves, Egg Tray, Ice Tray",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Thermostat":              "RoHS Certified",
+		"Type":                    "Direct Cool",
+		"Vegetable Crisper":       "Yes",
 		"Vegetable Crisper Cover": "Yes",
-		"Width/mm": "580 mm",
+		"Width/mm":                "555 mm",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

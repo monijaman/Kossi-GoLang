@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx seeds specifications/options for product 'mfb-b5x-gdel-xx'
+// SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx seeds specifications/options for product 'marcel-mfb-b5x-gdel-xx'
 type SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx struct {
 	BaseSeeder
 }
@@ -15,33 +15,49 @@ type SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx struct {
 // NewSpecificationSeederRefrigeratorMarcelMfbB5xGdelXx creates a new seeder instance
 func NewSpecificationSeederRefrigeratorMarcelMfbB5xGdelXx() *SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx {
 	return &SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx{
-		BaseSeeder: BaseSeeder{name: "Specifications for mfb-b5x-gdel-xx"},
+		BaseSeeder: BaseSeeder{name: "Specifications for marcel-mfb-b5x-gdel-xx"},
 	}
 }
 
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"1725 mm": "1725 mm",
-		"220 ~ 240/ 50": "220 ~ 240/ 50",
-		"250 Ltr.": "250 Ltr.",
-		"274 Ltr.": "274 Ltr.",
-		"54 ± 2 Kg": "54 ± 2 Kg",
-		"54/59 ± 2": "54/59 ± 2",
-		"580 mm": "580 mm",
-		"645 mm": "645 mm",
-		"GPPS/3": "GPPS/3",
-		"Manual": "Manual",
-		"R600a": "R600a",
-		"RSCR": "RSCR",
-		"Wire/2": "Wire/2",
-		"Yes": "Yes",
+		"1520":               "১৫২০",
+		"220 ~ 240/ 50/ 109": "২২০ ~ ২৪০/ ৫০/ ১০৯",
+		"265 Ltr.":           "২৬৫ লিটার",
+		"282 Ltr.":           "২৮২ লিটার",
+		"54 ± 2 Kg":          "৫৪ ± ২ কেজি",
+		"54/61 ± 2":          "৫৪/৬১ ± ২",
+		"594":                "৫৯৪",
+		"61 ± 2 Kg":          "৬১ ± ২ কেজি",
+		"708":                "৭০৮",
+		"80/ 80/ 38":         "৮০/ ৮০/ ৩৮",
+		"Copper":             "কপার",
+		"CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]": "CycloPentene [Eco-friendly (১০০% CFC & HCFC Free) Green Technology]",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Direct Cool, Eco Friendly, Energy Saving, Large Vegetable Crisper, Stabilizer Free Operation, Anti Bacterial Gasket, Door Lock, LED Light, Adjustable Shelves, Egg Tray, Ice Tray": "ডাইরেক্ট কুল, ইকো ফ্রেন্ডলি, এনার্জি সেভিং, লার্জ ভেজিটেবল ক্রিস্পার, স্ট্যাবিলাইজার ফ্রি অপারেশন, অ্যান্টি ব্যাকটেরিয়াল গ্যাসকেট, ডোর লক, LED লাইট, অ্যাডজাস্টেবল শেলভস, এগ ট্রে, আইস ট্রে",
+		"Freezer Cabinet Less than -180C Refrigerator Cabinet 00C to +50C": "Freezer Cabinet Less than -১৮০C Refrigerator Cabinet ০০C to +৫০C",
+		"Marcel":                    "মার্সেল",
+		"Mechanical":                "মেকানিক্যাল",
+		"MFB-B5X-GDEL-XX":           "MFB-B5X-GDEL-XX",
+		"Manual":                    "ম্যানুয়াল",
+		"N ~ ST":                    "N ~ ST",
+		"No":                        "না",
+		"PVC/3":                     "PVC/3",
+		"Recressed/ Grip/ Built-in": "রিসেসড/ গ্রিপ/ বিল্ট-ইন",
+		"RoHS Certified":            "RoHS Certified",
+		"R600a":                     "R600a",
+		"RSCR":                      "RSCR",
+		"Wire/2":                    "ওয়্যার/2",
+		"Yes":                       "হ্যাঁ",
+		"Yes (ABS/ PS)":             "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)":             "হ্যাঁ (প্লাস্টিক)",
 		// Add more translations as needed
 	}
 }
 
 // Seed inserts specification records for the product identified by slug 'mfb-b5x-gdel-xx'
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx) Seed(db *gorm.DB) error {
-	productSlug := "mfb-b5x-gdel-xx"
+	productSlug := "marcel-mfb-b5x-gdel-xx"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -53,39 +69,81 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdelXx) Seed(db *gorm.DB) er
 	productID := prod.ID
 
 	existingkeyMapping := map[string]uint{
-		"Compressor Type": 139,
-		"Defrosting (Automatic/ Manual)": 141,
-		"Depth/mm": 25,
-		"Door Basket": 700,
-		"Gross Volume": 709,
-		"Height/mm": 25,
-		"Net Volume": 710,
-		"Net Weight": 80,
-		"Rated Voltage/ Hz": 160,
-		"Refrigerant": 708,
-		"Shelf (Material/ No.)": 699,
-		"Vegetable Crisper": 701,
-		"Vegetable Crisper Cover": 701,
-		"Weight/Kg - Net/Packing": 80,
-		"Width/mm": 25,
+		"Brand":                              1,
+		"Can Storage Dispenser":              725,
+		"Capillary":                          718,
+		"Climate Class":                      712,
+		"Compressor":                         139,
+		"Cooling Effect":                     714,
+		"Deodorizer":                         726,
+		"Defrosting (Automatic/ Manual)":     141,
+		"Depth/mm":                           25,
+		"Door Basket":                        700,
+		"Drawer":                             723,
+		"Egg Tray or Pocket":                 722,
+		"Gross Volume":                       709,
+		"Gross Weight":                       80,
+		"Handle (Recessed/ Grip)":            715,
+		"Height/mm":                          25,
+		"Interior Lamp":                      721,
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": 724,
+		"Lock":                               716,
+		"Model Name":                         2,
+		"Net Volume":                         710,
+		"Net Weight":                         80,
+		"Polyurethane foam blowing agent":    719,
+		"Rated Voltage/ Hz/ watt":            160,
+		"Refrigerant":                        708,
+		"Reversible Door":                    727,
+		"Shelf (Material/ No.)":              699,
+		"Shelf (Material/No.)":               699,
+		"Special Features":                   142,
+		"Temperature Control":                158,
+		"Thermostat":                         717,
+		"Type":                               711,
+		"Vegetable Crisper":                  701,
+		"Vegetable Crisper Cover":            701,
+		"Weight/Kg - Net/Packing":            80,
+		"Width/mm":                           25,
 	}
 
 	specs := map[string]string{
-		"Compressor Type": "RSCR",
-		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "645 mm",
-		"Door Basket": "GPPS/3",
-		"Gross Volume": "250 Ltr.",
-		"Height/mm": "1725 mm",
-		"Net Volume": "274 Ltr.",
-		"Net Weight": "54 ± 2 Kg",
-		"Rated Voltage/ Hz": "220 ~ 240/ 50",
-		"Refrigerant": "R600a",
-		"Shelf (Material/ No.)": "Wire/2",
-		"Vegetable Crisper": "Yes",
-		"Vegetable Crisper Cover": "Yes",
-		"Weight/Kg - Net/Packing": "54/59 ± 2",
-		"Width/mm": "580 mm",
+		"Brand":                              "Marcel",
+		"Can Storage Dispenser":              "No",
+		"Capillary":                          "Copper",
+		"Climate Class":                      "N ~ ST",
+		"Compressor":                         "RSCR",
+		"Cooling Effect":                     "Freezer Cabinet Less than -180C Refrigerator Cabinet 00C to +50C",
+		"Deodorizer":                         "No",
+		"Defrosting (Automatic/ Manual)":     "Manual",
+		"Depth/mm":                           "708",
+		"Door Basket":                        "PVC/3",
+		"Drawer":                             "No",
+		"Egg Tray or Pocket":                 "Yes",
+		"Gross Volume":                       "282 Ltr.",
+		"Gross Weight":                       "61 ± 2 Kg",
+		"Handle (Recessed/ Grip)":            "Recressed/ Grip/ Built-in",
+		"Height/mm":                          "1520",
+		"Interior Lamp":                      "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "80/ 80/ 38",
+		"Lock":                               "Yes",
+		"Model Name":                         "MFB-B5X-GDEL-XX",
+		"Net Volume":                         "265 Ltr.",
+		"Net Weight":                         "54 ± 2 Kg",
+		"Polyurethane foam blowing agent":    "CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Rated Voltage/ Hz/ watt":            "220 ~ 240/ 50/ 109",
+		"Refrigerant":                        "R600a",
+		"Reversible Door":                    "No",
+		"Shelf (Material/ No.)":              "Wire/2",
+		"Shelf (Material/No.)":               "Wire/2",
+		"Special Features":                   "Direct Cool, Eco Friendly, Energy Saving, Large Vegetable Crisper, Stabilizer Free Operation, Anti Bacterial Gasket, Door Lock, LED Light, Adjustable Shelves, Egg Tray, Ice Tray",
+		"Temperature Control":                "Mechanical",
+		"Thermostat":                         "RoHS Certified",
+		"Type":                               "Direct Cool",
+		"Vegetable Crisper":                  "Yes (Plastic)",
+		"Vegetable Crisper Cover":            "Yes (ABS/ PS)",
+		"Weight/Kg - Net/Packing":            "54/61 ± 2",
+		"Width/mm":                           "594",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

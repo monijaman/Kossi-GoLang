@@ -23,22 +23,22 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGdxxXxInverter) getBanglaTra
 	return map[string]string{
 		"Marcel":                          "মার্সেল",
 		"marcel-mfb-b5d-gdxx-xx-inverter": "মার্সেল-mfb-b5d-gdxx-xx-inverter",
-		"MFB-B5D-GDXX-XX-INVERTER":        "MFB-B5D-GDXX-XX-INVERTER",
+		"MFB-B5D-GDXX-XX-INVERTER":        "এমএফবি-বি৫ডি-জিডিএক্সএক্স-এক্সএক্স-ইনভার্টার",
 
 		"Direct Cool":         "ডিরেক্ট কুল",
 		"177 Ltr.":            "১৭৭ লিটার",
 		"175 Ltr.":            "১৭৫ লিটার",
 		"50 ± 2 Kg":           "৫০ ± ২ কেজি",
-		"R600a":               "R600a",
+		"R600a":               "আর৬০০এ",
 		"Mechanical":          "ম্যানুয়াল/মেকানিক্যাল",
 		"Manual":              "ম্যানুয়াল",
 		"Copper":              "কপার",
 		"Cyclopentene":        "সাইক্লোপেন্টেন",
-		"220 ~ 240":           "২২0 ~ ২৪0",
+		"220 ~ 240":           "২২০ ~ ২৪০",
 		"Hermetic":            "হার্মেটিক",
 		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
 		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
-		"Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere": "কমপ্রেসার: V 01.01-RSCR; V 01.02-RSCR; কমপ্রেসার ইনপুট পাওয়ার (ওয়াট): V 01.01-88; V 01.02-88; ভোল্টেজ/হার্জ: 220 ~ 240/50; স্ট্যাবিলাইজার: ৫ অ্যাম্পিয়ার",
+		"Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere": "কমপ্রেসার: ভি ০১.০১-আরএসসিআর; ভি ০১.০২-আরএসসিআর; কমপ্রেসার ইনপুট পাওয়ার (ওয়াট): ভি ০১.০১-৮৮; ভি ০১.০২-৮৮; ভোল্টেজ/হার্জ: ২২০ ~ ২৪০/ ৫০; স্ট্যাবিলাইজার: ৫ অ্যাম্পিয়ার",
 	}
 }
 
@@ -91,25 +91,20 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGdxxXxInverter) Seed(db *gor
 		"Special Features":            69,
 	}
 
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFB-B5D-GDXX-XX-INVERTER",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
-
-
-
-
+	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B5D-GDXX-XX-INVERTER",
+		"Cooling Technology":  "Direct Cool",
+		"Gross Volume":        "177 Ltr.",
+		"Net Volume":          "175 Ltr.",
+		"Weight":              "50 ± 2 Kg",
+		"Refrigerant":         "R600a",
+		"Temperature Control": "Mechanical",
+		"Voltage":             "220 ~ 240",
+		"Dimensions":          "555 x 630 x 1410 mm",
+		"Packing Dimensions":  "580 x 645 x 1455 mm",
+		"Special Features":    "Compressor: V 01.01-RSCR; V 01.02-RSCR; Compressor Input Power (Watt): V 01.01-88; V 01.02-88; Voltage/Hz: 220 ~ 240/ 50; Stabilizer: 5 Ampere",
+	}
 
 	banglaTranslations := s.getBanglaTranslations()
 	for key, value := range specs {
