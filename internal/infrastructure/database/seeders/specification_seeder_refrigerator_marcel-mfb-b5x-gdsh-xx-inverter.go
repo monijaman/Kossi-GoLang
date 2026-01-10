@@ -52,10 +52,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdshXxInverter) getBanglaTra
 		// Add more translations as needed
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
-		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
-		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
-		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
-		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[পরিবেশ বান্ধব (১০০% CFC &HCFC মুক্ত) সবুজ প্রযুক্তি]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[পরিবেশ বান্ধব (১০০% CFC &HCFC মুক্ত) সবুজ প্রযুক্তি]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "ফ্রিজার ক্যাবিনেট -১৮০C এর কম, রেফ্রিজারেটর ক্যাবিনেট ০০C থেকে +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "ফ্রিজার ক্যাবিনেট -১৮℃ এর কম, রেফ্রিজারেটর ক্যাবিনেট ০℃ থেকে +৫℃",
 		"N ~ ST": "N ~ ST",
 		"N~ST": "N~ST",
 		"PVC/1": "PVC/১",
@@ -140,6 +140,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdshXxInverter) Seed(db *gor
 		"Vegetable Crisper":                 725,
 		"Vegetable Crisper Cover":           726,
 		"Loading Capacity (40HQ/40Ft/20Ft)": 727,
+		"Type":                              456,
+		"Lock":                              361,
 		"Height (mm)":                       587,
 		"Width":                             136,
 		"Lock Type":                         299,

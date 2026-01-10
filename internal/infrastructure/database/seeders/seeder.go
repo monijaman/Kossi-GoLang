@@ -607,25 +607,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Refrigerator product seeder (must run before specification seeders)
 	manager.AddSeeder(NewRefrigeratorProductSeeder())
 
-	// Singer refrigerator seeders
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorSinger())
-
-	// Vision refrigerator seeders
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorVision())
-
 	// Specific Vision refrigerator seeders
-
-	// ECO refrigerator seeders
-
-	// Hitachi refrigerator seeders
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRVg460P8Pb())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRVg490P8Pb())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiHrtn6379Sxsg())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRw720Puc1())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRW690P7Pb())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRWb640Ppb1())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRSx800Gpbo())
-	// manager.AddSeeder(NewSpecificationSeederRefrigeratorHitachiRBg410P6Pbx())
 
 	// Sharp refrigerator seeders
 
