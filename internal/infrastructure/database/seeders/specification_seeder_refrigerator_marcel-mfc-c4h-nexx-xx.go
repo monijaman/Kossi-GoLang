@@ -140,10 +140,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hNexxXx) Seed(db *gorm.DB) er
 		"Brand":               "Marcel",
 		"Model Name":          "MFC-C4H-NEXX-XX",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "710",
+		"Depth (mm)": "710",
 		"Door Basket": "No",
 		"Gross Volume": "348 Ltr",
-		"Height/mm": "1790",
+		"Height (mm)": "1790",
 		"Net Volume": "333 Ltr.",
 		"Operating voltage": "V 0103: 105V-276V (Wide Voltage Design)",
 		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
@@ -155,7 +155,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hNexxXx) Seed(db *gorm.DB) er
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes(Glass/ Plastic)",
 		"Weight/Kg - Net/Packing": "66/ 73 ± 2",
-		"Width/mm": "710",
+		"Width": "710",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

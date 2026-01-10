@@ -171,13 +171,13 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB5eGdelXx) Seed(db *gorm.DB) er
 		"Condenser": "Steel",
 		"Cooling Effect": "Freezer Cabinet Less than -18℃",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "685",
+		"Depth (mm)": "685",
 		"Drawer": "No",
 		"Exterior Material": "Painted Steel (PCM)",
 		"Gross Volume": "255 Ltr.",
 		"Gross Weight": "59 ± 2 (Kg)",
 		"Handle (Recessed/ Grip)": "Yes",
-		"Height/mm": "865",
+		"Height (mm)": "865",
 		"Ice/ cold water Dispenser": "No",
 		"Interior Lamp": "Yes",
 		"Interior Material": "Embossed Aluminium Sheet",
@@ -195,7 +195,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB5eGdelXx) Seed(db *gorm.DB) er
 		"Thermostat": "RoHS Certified",
 		"Type": "Direct Cool",
 		"Wide voltage range": "V 03.01",
-		"Width/mm": "1085",
+		"Width": "1085",
 	}
 
 

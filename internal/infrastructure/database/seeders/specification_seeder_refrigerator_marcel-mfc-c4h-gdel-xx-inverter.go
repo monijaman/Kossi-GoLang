@@ -143,10 +143,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGdelXxInverter) Seed(db *gor
 		"Model Name":          "MFC-C4H-GDEL-XX-INVERTER",
 		"Compressor Type": "V 0201- RSCR V 0301- RSIR V 0302- RSIR",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "710",
+		"Depth (mm)": "710",
 		"Door Basket": "No",
 		"Gross Volume": "348 Ltr",
-		"Height/mm": "1790",
+		"Height (mm)": "1790",
 		"Net Volume": "333 Ltr.",
 		"Operating voltage": "V 0201/0301/0302: Wide Voltage Design (140V-260V) N.B.: If out of voltage range(140V-260V), then suggested voltage stabilizer capacity is 2100VA.",
 		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
@@ -158,7 +158,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hGdelXxInverter) Seed(db *gor
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes(Glass/ Plastic)",
 		"Weight/Kg - Net/Packing": "66/ 73 ± 2",
-		"Width/mm": "710",
+		"Width": "710",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

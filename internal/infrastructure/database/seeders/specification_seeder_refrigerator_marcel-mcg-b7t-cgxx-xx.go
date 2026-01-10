@@ -172,13 +172,13 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB7tCgxxXx) Seed(db *gorm.DB) er
 		"Cooling Effect": "Freezer Cabinet  -20℃ to -30℃",
 		"Cooling Technology": "Direct Cooling Evaporative System (DECS)",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "702",
+		"Depth (mm)": "702",
 		"Drawer": "No",
 		"Evaporator": "Aluminum",
 		"Exterior Material": "Painted Steel (PCM)",
 		"Gross Volume": "270 Ltr.",
 		"Handle (Recessed/ Grip)": "Yes",
-		"Height/mm": "890",
+		"Height (mm)": "890",
 		"Ice/ cold water Dispenser": "No",
 		"Interior Lamp": "Yes",
 		"Interior Material": "Embossed Aluminium (Al2)",
@@ -193,7 +193,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB7tCgxxXx) Seed(db *gorm.DB) er
 		"Voltage stabilizer capacity": "V.0101 & V.0201- 2000VA (if Input Voltage is below 150V)",
 		"Weight/Kg - Net/Packing:": "60-53.2 ± 2",
 		"Wide Voltage Range": "V.0101-150V ~ 260VV.0201-150V ~ 260V",
-		"Width/mm": "1080",
+		"Width": "1080",
 	}
 
 

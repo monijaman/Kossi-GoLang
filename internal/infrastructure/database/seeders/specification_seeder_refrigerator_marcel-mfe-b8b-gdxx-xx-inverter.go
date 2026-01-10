@@ -140,10 +140,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdxxXxInverter) Seed(db *gor
 		"Model Name":          "MFE-B8B-GDXX-XX-INVERTER",
 		"Compressor Type": "V 0501- BLDC",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "745",
+		"Depth (mm)": "745",
 		"Door Basket": "No",
 		"Gross Volume": "282 Ltr.",
-		"Height/mm": "1530",
+		"Height (mm)": "1530",
 		"Net Volume": "265 Ltr.",
 		"Net Weight": "53.84 ± 2 Kg",
 		"Rated Operating Voltage and Frequency": "220-240V ~ and 50Hz",
@@ -153,7 +153,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdxxXxInverter) Seed(db *gor
 		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
 		"Vegetable Crisper": "Yes (Plastic)",
 		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
-		"Width/mm": "625",
+		"Width": "625",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -139,10 +139,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdxxXx) Seed(db *gorm.DB) er
 		"Model Name":          "MFE-B8B-GDXX-XX",
 		"Compressor": "RSCR",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "745",
+		"Depth (mm)": "745",
 		"Door Basket": "No",
 		"Gross Volume": "282 Ltr.",
-		"Height/mm": "1530",
+		"Height (mm)": "1530",
 		"Net Volume": "265 Ltr.",
 		"Net Weight": "54 ± 2 Kg",
 		"Rated Voltage/ Hz/ watt": "220 ~ 240/ 50/ 109",
@@ -152,7 +152,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB8bGdxxXx) Seed(db *gorm.DB) er
 		"Temperature Control": "Mechanical",
 		"Vegetable Crisper": "Yes (Plastic)",
 		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
-		"Width/mm": "625",
+		"Width": "625",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

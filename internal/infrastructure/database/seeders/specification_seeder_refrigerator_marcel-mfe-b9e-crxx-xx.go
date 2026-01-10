@@ -162,9 +162,9 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eCrxxXx) Seed(db *gorm.DB) er
 			"Deodorizer": "NO",
 			"Drawer": "No",
 			"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
-			"Width/mm": "640",
-			"Depth/mm": "760",
-			"Height/mm": "1650",
+			"Width": "640",
+			"Depth (mm)": "760",
+			"Height (mm)": "1650",
 			"Loading Capacity 20Ft/ 40Ft/ 40 HQ": "24/ 48/ 48",
 		}
 

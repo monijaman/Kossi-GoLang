@@ -182,9 +182,9 @@ func (s *SpecificationSeederRefrigeratorMarcelMcfB0eGdelGx) Seed(db *gorm.DB) er
 			"Drawer": "No",
 			"Basket": "Wire/1",
 			"Interior Lamp": "Yes",
-			"Width/mm": "1010",
-			"Depth/mm": "620",
-			"Height/mm": "890",
+			"Width": "1010",
+			"Depth (mm)": "620",
+			"Height (mm)": "890",
 			"Loading quantity(20ft/40ft.40 HQ)": "36/76/114",
 		}
 

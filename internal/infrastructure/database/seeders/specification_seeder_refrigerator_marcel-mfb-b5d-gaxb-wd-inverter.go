@@ -149,7 +149,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGaxbWdInverter) Seed(db *gor
 		"Compressor Type": "V.0801: BLDC",
 		"Cooling Effect": "Freezer Cabinet between -16℃ to -24℃Fresh Food Cabinet  between 0℃ to +6℃",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "635 mm",
+		"Depth (mm)": "635 mm",
 		"Door Pocket": "GPPS/4",
 		"Drawer": "HIPS/5",
 		"Egg Tray": "Yes",
@@ -157,7 +157,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGaxbWdInverter) Seed(db *gor
 		"Gross Volume": "268 Ltr. (Freezer 127L, Refrigerator: 141L)",
 		"Gross Weight": "67 ± 2 Kg",
 		"Handle (Recessed/ Grip)": "Recessed/ Grip",
-		"Height/mm": "1810 mm",
+		"Height (mm)": "1810 mm",
 		"Interior Lamp": "Yes",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "97/ 72/ 36",
 		"Lock": "Yes",
@@ -175,7 +175,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dGaxbWdInverter) Seed(db *gor
 		"Vegetable Crisper": "Yes",
 		"Vegetable Crisper Cover": "Yes",
 		"Water Dispenser": "Yes (New Feature with 3.5L Water Reserving Capacity)",
-		"Width/mm": "550 mm",
+		"Width": "550 mm",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

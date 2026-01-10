@@ -153,7 +153,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx) Seed(db *gorm.DB) er
 		"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Deodorizer": "No",
-		"Depth/mm": "600",
+		"Depth (mm)": "600",
 		"Door Basket": "No",
 		"Double Layer Freezer Door": "Yes",
 		"Drawer": "No",
@@ -161,7 +161,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx) Seed(db *gorm.DB) er
 		"Gross Volume": "193 Ltr.",
 		"Gross Weight": "50± 2Kg",
 		"Handle (Recessed/ Grip)": "Recessed",
-		"Height/mm": "1230",
+		"Height (mm)": "1230",
 		"Interior Lamp": "Yes",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "144/109/49",
 		"Lock": "Yes",
@@ -181,7 +181,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx) Seed(db *gorm.DB) er
 		"Uniform Flow": "Yes",
 		"Vegetable Crisper": "Yes/1 (17L)",
 		"Vegetable Crisper Cover": "Yes (Glass)",
-		"Width/mm": "538",
+		"Width": "538",
 	}
 
 

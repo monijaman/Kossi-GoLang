@@ -150,11 +150,11 @@ func (s *SpecificationSeederRefrigeratorMarcelMfoJetRxxxXx) Seed(db *gorm.DB) er
 		"Cooling Efect": "Inside temp. 0C to 5CPreservation of Fresh food",
 		"Cooling Effect": "Inside temp. -2C to +3C​ Short time preservation of Frozen food",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "525",
+		"Depth (mm)": "525",
 		"Gross Volume": "50 Ltr.",
 		"Gross Weight": "22.25± 2 Kg",
 		"Handle (Recessed/ Grip)": "Recressed/ Grip/ Built-in",
-		"Height/mm": "535",
+		"Height (mm)": "535",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "352/ 352/ 176",
 		"Lock": "Yes",
 		"Net Volume": "50 Ltr.",
@@ -168,7 +168,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfoJetRxxxXx) Seed(db *gorm.DB) er
 		"Temperature Control": "Mechanical",
 		"Thermostat": "RoHS Certified",
 		"Type": "Direct Cool",
-		"Width/mm": "490",
+		"Width": "490",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -161,10 +161,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhC8fGdelXxInverter) Seed(db *gor
 		"Condenser": "Steel",
 		"Cooling Efect": "Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃",
 		"Defrosting (Automatic/ Manual)": "Automatic",
-		"Depth/mm": "680 mm",
+		"Depth (mm)": "680 mm",
 		"Egg Tray or Pocket": "Yes/ 2",
 		"Gross Volume": "386 Ltr.",
-		"Height/mm": "1735 mm",
+		"Height (mm)": "1735 mm",
 		"Ice Box": "Yes/1",
 		"Interior LED Lamp": "Yes",
 		"Interior Lamp": "Yes",
@@ -180,7 +180,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhC8fGdelXxInverter) Seed(db *gor
 		"Type": "No-Frost",
 		"Vegetable Crisper": "Yes/1",
 		"Weight(Kg):  Net/Packing": "74/82  ± 2",
-		"Width/mm": "705 mm",
+		"Width": "705 mm",
 	}
 
 

@@ -151,14 +151,14 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdenDdInverter) Seed(db *gor
 		"Cooling Efect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Deodorizer": "No",
-		"Depth/mm": "711",
+		"Depth (mm)": "711",
 		"Door Basket": "Yes/3",
 		"Drawer": "Yes/4",
 		"Egg Tray or Pocket": "Yes",
 		"Gross Volume": "358 Ltr.",
 		"Gross Weight": "84 ±  Kg",
 		"Handle (Recessed/ Grip):": "Recessed",
-		"Height/mm": "1825",
+		"Height (mm)": "1825",
 		"Ice Case": "Yes/2",
 		"Ice Remover spoon": "Yes/1",
 		"Ice Tray": "Yes/1",
@@ -178,7 +178,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdenDdInverter) Seed(db *gor
 		"Type": "Direct Cool",
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes",
-		"Width/mm": "585",
+		"Width": "585",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

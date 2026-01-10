@@ -178,13 +178,13 @@ func (s *SpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx) Seed(db *gorm.DB) er
 		"Cooling Effect": "Continuously maintained from 0.0°C and 7.2°C with acabinet average below 3.2°C.",
 		"Defrosting (Automatic/ Manual)": "Automatic",
 		"Deodorzier": "No",
-		"Depth/mm": "738",
+		"Depth (mm)": "738",
 		"Door Basket": "No",
 		"Egg Tray or Pocket": "No",
 		"External Condenser": "External condenser copper coated Steel",
 		"Gross Volume": "440 Ltr.",
 		"Handle (Recessed/ Grip)": "Recessed/ Grip",
-		"Height/mm": "1834",
+		"Height (mm)": "1834",
 		"Interior Lamp": "Yes",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "54/ 54/ 24",
 		"Lock": "Yes",
@@ -204,7 +204,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx) Seed(db *gorm.DB) er
 		"Vegetable Crisper": "No",
 		"Vegetable Crisper Cover": "No",
 		"Weight/Kg - Net/Packing:": "117.25 /125.8 ± 0.5Kg",
-		"Width/mm": "643",
+		"Width": "643",
 	}
 
 

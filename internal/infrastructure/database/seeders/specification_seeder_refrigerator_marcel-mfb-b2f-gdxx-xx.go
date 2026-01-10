@@ -157,7 +157,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fGdxxXx) Seed(db *gorm.DB) er
 		"Compressor Type": "RSCR",
 		"Cooling Effect": "Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "630 mm",
+		"Depth (mm)": "630 mm",
 		"Door Basket": "GPPS/4",
 		"Drawer": "HIPS/5",
 		"Egg Tray": "Yes",
@@ -165,7 +165,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fGdxxXx) Seed(db *gorm.DB) er
 		"Gross Volume": "252 Ltr.",
 		"Gross Weight": "66± 2 Kg",
 		"Handle (Recessed/ Grip)": "Recessed/ Grip",
-		"Height/mm": "1720 mm",
+		"Height (mm)": "1720 mm",
 		"Interior Lamp": "Yes",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "98/ 72/ 36",
 		"Lock": "Yes",
@@ -181,7 +181,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fGdxxXx) Seed(db *gorm.DB) er
 		"Type": "Direct Cool",
 		"Vegetable Crisper": "Yes",
 		"Vegetable Crisper Cover": "Yes",
-		"Width/mm": "555 mm",
+		"Width": "555 mm",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

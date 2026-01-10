@@ -169,13 +169,13 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter) Seed(db *gor
 		"Condenser": "Steel",
 		"Cooling Efect": "Freezer Cabinet Less than -18℃",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "680",
+		"Depth (mm)": "680",
 		"Drawer": "No",
 		"Exterior Material": "Painted Steel (PCM)",
 		"Gross Volume": "300 Ltr.",
 		"Gross Weight": "60 ± 2 (Kg)",
 		"Handle (Recessed/ Grip)": "Yes",
-		"Height/mm": "860",
+		"Height (mm)": "860",
 		"Ice/ cold water Dispenser": "No",
 		"Interior Lamp": "No",
 		"Interior Material": "Embossed Aluminium Sheet",
@@ -194,7 +194,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter) Seed(db *gor
 		"Thermostat": "RoHS Certified",
 		"Type": "Direct Cool",
 		"Wide voltage range": "V 26.01, 150V-260VV 27.01, 145V-260V",
-		"Width/mm": "1210",
+		"Width": "1210",
 	}
 
 

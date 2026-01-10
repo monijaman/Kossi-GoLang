@@ -139,10 +139,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdxxXxInverter) Seed(db *gor
 		"Model Name":          "MFC-C6E-GDXX-XX-INVERTER",
 		"Compressor Type": "BLDC Inverter​",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "710",
+		"Depth (mm)": "710",
 		"Door Basket": "No",
 		"Gross Volume": "380 Ltr.",
-		"Height/mm": "1910",
+		"Height (mm)": "1910",
 		"Net Volume": "365 Ltr.",
 		"Operating voltage": "V 0501: 105V-276V (Wide Voltage Design)",
 		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
@@ -152,7 +152,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdxxXxInverter) Seed(db *gor
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes",
 		"Weight/Kg - Net/Packing": "67/76 ± 2",
-		"Width/mm": "710",
+		"Width": "710",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

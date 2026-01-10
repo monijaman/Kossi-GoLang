@@ -158,13 +158,13 @@ func (s *SpecificationSeederRefrigeratorMarcelMfsT9cC2srVb) Seed(db *gorm.DB) er
 		"Compressor Model & Type": "D43WY1 & RSIR",
 		"Cooling": "Faster Metal Cooling",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "446 mm",
+		"Depth (mm)": "446 mm",
 		"Door Bin": "Yes/3",
 		"Egg Tray": "No",
 		"Gross Volume": "93 Ltr.",
 		"Gross Weight": "26 ± 2 Kg",
 		"Handle (Recessed/ Grip)": "Recessed",
-		"Height/mm": "847 mm",
+		"Height (mm)": "847 mm",
 		"Ice Making Compartment Cover": "Flip Cover",
 		"Ice Tray": "Yes ,12 cubes",
 		"Interior Lamp": "Yes",
@@ -183,7 +183,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfsT9cC2srVb) Seed(db *gorm.DB) er
 		"Type": "Direct Cool",
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes/1",
-		"Width/mm": "478 mm",
+		"Width": "478 mm",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

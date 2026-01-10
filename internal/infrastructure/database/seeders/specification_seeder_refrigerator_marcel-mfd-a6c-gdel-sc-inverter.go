@@ -176,9 +176,9 @@ func (s *SpecificationSeederRefrigeratorMarcelMfdA6cGdelScInverter) Seed(db *gor
 		"Deodorizer":                                    "No",
 		"Shelf (Material/ No.)":                         "Wire/2",
 		"Drawer":                                        "No",
-		"Width/mm":                                      "555",
-		"Depth/mm":                                      "595",
-		"Height/mm":                                     "1630",
+		"Width":                                      "555",
+		"Depth (mm)":                                      "595",
+		"Height (mm)":                                     "1630",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft":            "109/109 /49",
 	}
 
