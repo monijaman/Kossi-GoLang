@@ -43,8 +43,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXx) getBanglaTranslation
 		"2000VA or More":         "২০০০ভিএ বা তার বেশি",
 		"Wire/2":                 "ওয়্যার/২",
 		"PVC/4":                  "পিভিসি/৪",
-		"585 x 711 x 1726 mm":    "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
-		"640 x 760 x 1750 mm":    "৬৪০ x ৭৬০ x ১৭৫০ মিমি",
+		"585 x 711 x 1726 mm": "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
+		"640 x 760 x 1750 mm": "৬৪০ x ৭৬০ x ১৭৫০ মিমি",
 		"24/ 48/ 48":             "২৪/ ৪৮/ ৪৮",
 		// Add more translations as needed
 	

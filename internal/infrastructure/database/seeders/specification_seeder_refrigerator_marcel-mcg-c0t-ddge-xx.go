@@ -36,7 +36,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tDdgeXx) getBanglaTranslation
 		"2":                      "২",
 		"1":                      "১",
 		"No":                     "না",
-		"1210 x 675 x 845 mm":    "১২১০ x ৬৭৫ x ৮৪৫ মিমি",
+		"1210 x 675 x 845 mm": "১২১০ x ৬৭৫ x ৮৪৫ মিমি",
 		"53.7 ± 2 Kg":            "৫৩.৭ ± ২ কেজি",
 		"Replacement Guarantee: 1 Year (Condition Apply), Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years": "রিপ্লেসমেন্ট গ্যারান্টি: ১ বছর (শর্ত প্রযোজ্য), মূল অংশ (কম্প্রেসার): ১২ বছর, দরজা: ৩ বছর, স্পেয়ার পার্টস: ৪ বছর, আফটার সেলস সার্ভিস: ৫ বছর",
 		"12": "১২",

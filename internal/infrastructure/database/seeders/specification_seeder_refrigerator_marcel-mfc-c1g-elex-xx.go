@@ -31,8 +31,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1gElexXx) getBanglaTranslation
 		"R600a":                  "R600a",
 		"Mechanical":             "ম্যানুয়াল/মেকানিক্যাল",
 		"220 ~ 240":              "২২0 ~ ২৪0",
-		"555 x 630 x 1410 mm":    "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm":    "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
+		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
 		"Copper": "কপার",
@@ -143,6 +143,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1gElexXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFC-C1G-ELEX-XX",
 		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N~ST",

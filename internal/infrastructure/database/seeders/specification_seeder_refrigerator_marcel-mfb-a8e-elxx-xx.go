@@ -44,8 +44,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eElxxXx) getBanglaTranslation
 		"R600a":                      "R600a",
 		"50 ± 2 Kg":                  "৫০ ± ২ কেজি",
 		"54 ± 2 Kg":                  "৫৪ ± ২ কেজি",
-		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
+		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
 		"207 Ltr.":                   "২০৭ লিটার",
 		"193 Ltr.":                   "১৯৩ লিটার",
@@ -54,7 +54,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eElxxXx) getBanglaTranslation
 		"Wire":                       "ওয়্যার",
 		"2":                          "২",
 		"GPPS/4":                     "জিপিপিএস/৪",
-		"555 x 630 x 1485 mm":        "৫৫৫ x ৬৩০ x ১৪৮৫ মিমি",
+		"555 x 630 x 1485 mm": "৫৫৫ x ৬৩০ x ১৪৮৫ মিমি",
 		"Lock: Yes, Interior Lamp: Yes, Handle: Recessed/Grip, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Refrigerator Compartment Shelves: Wire/2, Refrigerator Door Baskets: GPPS/4, Vegetable Crisper: Yes, Egg Tray or Pocket: Yes, Freezer Compartment Shelves: Wire/2, Drawer: HIPS/4, Loading quantity: 102/102/50 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Cooling Effect: Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C, Energy Rating: N/A, Recommended voltage stabilizer capacity: V 05.01,V 06.01, V 06.02,V 07.01-1000VA V 07.02-Low Voltage(155~260V) For V 07.02 - Wide Voltage Range (155Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.": "লক: হ্যাঁ, ইন্টেরিয়র ল্যাম্প: হ্যাঁ, হ্যান্ডেল: রিসেসড/গ্রিপ, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], রেফ্রিজারেটর কম্পার্টমেন্ট শেল্ফস: ওয়্যার/২, রেফ্রিজারেটর দরজা বাস্কেটস: জিপিপিএস/৪, ভেজিটেবল ক্রিসপার: হ্যাঁ, এগ ট্রে অর পকেট: হ্যাঁ, ফ্রিজার কম্পার্টমেন্ট শেল্ফস: ওয়্যার/২, ড্রয়ার: এইচআইপিএস/৪, লোডিং কোয়ান্টিটি: ১০২/১০২/৫০ (৪০এইচকিউ/৪০এফটি/২০এফটি), ক্লাইমেটিক টাইপ: এন~এসটি, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮°C, রেফ্রিজারেটর ক্যাবিনেট ০°C টু +৫°C, এনার্জি রেটিং: N/A, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: V ০৫.০১,V ০৬.০১, V ০৬.০২,V ০৭.০১-১০০০VA V ০৭.০২-Low Voltage(১৫৫~২৬০V) For V ০৭.০২ - Wide Voltage Range (১৫৫Vac - ২৬০Vac). Voltage stabilizer is not required. In case of voltages beyond this range, ১০০০VA is recommended.",
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
@@ -154,6 +154,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbA8eElxxXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-A8E-ELXX-XX",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V 05.01-111V 06.01-111V 06.02-111V 07.01-104V 07.02-104",

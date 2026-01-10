@@ -134,6 +134,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdxxXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B5X-GDXX-XX",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V 01.01-97.4V 02.01-97.4V 03.01-97.4V 03.02-97.4",

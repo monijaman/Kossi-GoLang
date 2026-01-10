@@ -21,6 +21,8 @@ func NewSpecificationSeederRefrigeratorMarcelMfcC6eGdxxXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdxxXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
+		"Marcel":                 "মার্সেল",
+		"MFC-C6E-GDXX-XX-INVERTER":        "MFC-C6E-GDXX-XX-INVERTER",
 		"1910": "1910",
 		"220-240V~ and 50Hz": "220-240V~ and 50Hz",
 		"365 Ltr.": "365 Ltr.",
@@ -133,6 +135,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdxxXxInverter) Seed(db *gor
 	}
 
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFC-C6E-GDXX-XX-INVERTER",
 		"Compressor Type": "BLDC Inverter​",
 		"Defrosting (Automatic/ Manual)": "Manual",
 		"Depth/mm": "710",

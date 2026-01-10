@@ -41,7 +41,10 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdelXx) getBanglaTranslation
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
 		"Copper":             "কপার",
 		"Direct Cool":        "ডাইরেক্ট কুল",
-		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "ফ্রিজার ক্যাবিনেট -১৮℃ এর কম, রেফ্রিজারেটর ক্যাবিনেট ০℃ থেকে +৫℃",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃":      "ফ্রিজার ক্যাবিনেট -১৮℃ এর কম, রেফ্রিজারেটর ক্যাবিনেট ০℃ থেকে +৫℃",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C":    "ফ্রিজার ক্যাবিনেট -১৮০C এর কম, রেফ্রিজারেটর ক্যাবিনেট ০০C থেকে +৫০C",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[পরিবেশ বান্ধব (১০০% CFC &HCFC মুক্ত) সবুজ প্রযুক্তি]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[পরিবেশ বান্ধব (১০০% CFC &HCFC মুক্ত) সবুজ প্রযুক্তি]",
 		"Mechanical":     "মেকানিক্যাল",
 		"N ~ ST":         "N ~ ST",
 		"N~ST":           "N~ST",
@@ -135,6 +138,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC5hGdelXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C5H-GDEL-XX",
 		"Can Storage Dispenser":              "No",
 		"Capillary":                          "Copper",
 		"Climate Type (SN, N, ST, T)":        "N ~ ST",

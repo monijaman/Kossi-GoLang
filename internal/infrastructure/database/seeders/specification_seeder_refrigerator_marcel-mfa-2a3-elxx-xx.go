@@ -37,7 +37,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3ElxxXx) getBanglaTranslation
 		"2":                      "২",
 		"1":                      "১",
 		"Yes":                    "হ্যাঁ",
-		"550 x 630 x 1510 mm":    "৫৫০ x ৬৩০ x ১৫১০ মিমি",
+		"550 x 630 x 1510 mm": "৫৫০ x ৬৩০ x ১৫১০ মিমি",
 		"45.5 ± 2 Kg":            "৪৫.৫ ± ২ কেজি",
 		"Replacement Guarantee: 1 Year, Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years": "রিপ্লেসমেন্ট গ্যারান্টি: ১ বছর, মূল অংশ (কম্প্রেসার): ১২ বছর, দরজা: ৩ বছর, স্পেয়ার পার্টস: ৪ বছর, আফটার সেলস সার্ভিস: ৫ বছর",
 		"12": "১২",
@@ -153,6 +153,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfa2a3ElxxXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFA-2A3-ELXX-XX",
 		"Can Storage Dispenser":          "No",
 		"Capillary":                      "Copper",
 		"Climatic Type (SN, N, ST, T)":   "N~ST",

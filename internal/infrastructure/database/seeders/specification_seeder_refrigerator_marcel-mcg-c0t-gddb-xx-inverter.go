@@ -35,7 +35,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter) getBanglaTra
 		"Wire":                            "ওয়্যার",
 		"1":                               "১",
 		"No":                              "না",
-		"1210 x 680 x 860 mm":             "১২১০ x ৬৮০ x ৮৬০ মিমি",
+		"1210 x 680 x 860 mm": "১২১০ x ৬৮০ x ৮৬০ মিমি",
 		"60 ± 2 Kg":                       "৬০ ± ২ কেজি",
 		"Replacement Guarantee: 1 Year (Condition Apply), Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years": "রিপ্লেসমেন্ট গ্যারান্টি: ১ বছর (শর্ত প্রযোজ্য), মূল অংশ (কম্প্রেসার): ১২ বছর, দরজা: ৩ বছর, স্পেয়ার পার্টস: ৪ বছর, আফটার সেলস সার্ভিস: ৫ বছর",
 		"12": "১২",
@@ -158,6 +158,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tGddbXxInverter) Seed(db *gor
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MCG-C0T-GDDB-XX-INVERTER",
 		"Basket": "Wire/1",
 		"Capillary": "Copper",
 		"Caster": "No",

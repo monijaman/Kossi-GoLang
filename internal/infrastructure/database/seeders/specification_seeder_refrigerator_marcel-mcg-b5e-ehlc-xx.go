@@ -36,7 +36,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB5eEhlcXx) getBanglaTranslation
 		"Wire":                    "ওয়্যার",
 		"1":                       "১",
 		"No":                      "না",
-		"1085 x 725 x 855 mm":     "১০৮৫ x ৭২৫ x ৮৫৫ মিমি",
+		"1085 x 725 x 855 mm": "১০৮৫ x ৭২৫ x ৮৫৫ মিমি",
 		"Replacement Guarantee: 1 Year (Condition Apply), Main Parts (Compressor): 12 Years, Door: 3 Years *, Spare Parts: 4 Years *, After Sales Service:5 Years *": "রিপ্লেসমেন্ট গ্যারান্টি: ১ বছর (শর্ত প্রযোজ্য), মূল অংশ (কম্প্রেসার): ১২ বছর, দরজা: ৩ বছর *, স্পেয়ার পার্টস: ৪ বছর *, আফটার সেলস সার্ভিস: ৫ বছর *",
 		"12": "১২",
 		"Lock: Yes, Interior Lamp: Yes, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium (Al2), Shelf: Wire/1, Basket: Wire/1, Loading quantity: 32/64/96, Climatic Type: V.0301 N~ST, V.0302 N~ST, V.0401 N~T, V.0501 N~T, Compressor Input Power: V.0301-109W, V.0302-109W, V.0401-133W, V.0501-102W, Wide voltage range: V 03.01, Cooling Effect: Freezer Cabinet Less than -180C, Recommended voltage stabilizer capacity: Not Required for 140V to above (most variants), Warranty Note: This warranty does not cover the following cases: 1. Any damage due to accident, electrical fault, natural causes, negligence or improper installation. 2. Any damage or failure caused by unauthorized modification or alteration. 3. Products with original serial numbers that have been removed, distorted or cannot be readily recognized.": "লক: হ্যাঁ, ইন্টেরিয়র ল্যাম্প: হ্যাঁ, হ্যান্ডেল: হ্যাঁ, কনডেনসার: স্টিল, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], এক্সটেরিয়র ম্যাটেরিয়াল: পেইন্টেড স্টিল (পিসিএম), ইন্টেরিয়র ম্যাটেরিয়াল: এমবসড অ্যালুমিনিয়াম (এল২), শেল্ফ: ওয়্যার/১, বাস্কেট: ওয়্যার/১, লোডিং কোয়ান্টিটি: ৩২/৬৪/৯৬, ক্লাইমেটিক টাইপ: ভি.০৩০১ এন~এসটি, ভি.০৩০২ এন~এসটি, ভি.০৪০১ এন~টি, ভি.০৫০১ এন~টি, কম্প্রেসার ইনপুট পাওয়ার: ভি.০৩০১-১০৯ওয়াট, ভি.০৩০২-১০৯ওয়াট, ভি.০৪০১-১৩৩ওয়াট, ভি.০৫০১-১০২ওয়াট, ওয়াইড ভোল্টেজ রেঞ্জ: ভি ০৩.০১, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮০সি, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: ১৪০ভি থেকে উপরে প্রয়োজন নেই (বেশিরভাগ ভেরিয়েন্ট), ওয়ারেন্টি নোট: এই ওয়ারেন্টি নিম্নলিখিত ক্ষেত্রে কভার করে না: ১. দুর্ঘটনা, বৈদ্যুতিক ত্রুটি, প্রাকৃতিক কারণ, অবহেলা বা অনুপযুক্ত ইনস্টলেশনের কারণে কোনো ক্ষতি। ২. অননুমোদিত পরিবর্তন বা পরিবর্ধনের কারণে কোনো ক্ষতি বা ব্যর্থতা। ৩. মূল সিরিয়াল নম্বর যেগুলি সরানো, বিকৃত বা সহজেই চেনা যায় না এমন পণ্য।",
@@ -146,6 +146,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB5eEhlcXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MCG-B5E-EHLC-XX",
 		"Basket": "Wire/1",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "V.0301, N~STV.0302, N~STV.0401, N~TV.0501, N~T",

@@ -136,6 +136,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eI5GedeFdInverter) Seed(db *g
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFC-C6E-I5-GEDE-FD-INVERTER",
 		"Type":                                  "Direct Cool",
 		"Gross Volume":                          "380 Ltr.",
 		"Net Volume":                            "365 Ltr.",

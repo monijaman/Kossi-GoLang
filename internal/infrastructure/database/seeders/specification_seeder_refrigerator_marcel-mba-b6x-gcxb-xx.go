@@ -168,6 +168,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMbaB6xGcxbXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MBA-B6X-GCXB-XX",
 		"Application Type": "Recommended for Commercial use only",
 		"CB/Safety Certificate (IEC 60335-1 & 60335-2-89)": "Yes",
 		"Can Storage Dispenser": "No",

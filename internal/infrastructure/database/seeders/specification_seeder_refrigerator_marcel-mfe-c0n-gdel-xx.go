@@ -36,7 +36,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXx) getBanglaTranslation
 		"Wire/2":                       "ওয়্যার/2",
 		"Yes/3":                        "হ্যাঁ/3",
 		"Yes/1":                        "হ্যাঁ/1",
-		"594 x 708 x 1646 mm":          "৫৯৪ x ৭০৮ x ১৬৪৬ মিমি",
+		"594 x 708 x 1646 mm": "৫৯৪ x ৭০৮ x ১৬৪৬ মিমি",
 		// Add more translations as needed
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
@@ -139,6 +139,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC0nGdelXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C0N-GDEL-XX",
 		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Class": "N ~ ST",

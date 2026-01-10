@@ -35,7 +35,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tDdgeXxInverter) getBanglaTra
 		"Wire":                            "ওয়্যার",
 		"1":                               "১",
 		"No":                              "না",
-		"1210 x 680 x 860 mm":             "১২১০ x ৬৮০ x ৮৬০ মিমি",
+		"1210 x 680 x 860 mm": "১২১০ x ৬৮০ x ৮৬০ মিমি",
 		"53 ± 2 Kg":                       "৫৩ ± ২ কেজি",
 		"145V-260V":                       "১৪৫ভি-২৬০ভি",
 		"26/54/81 (20ft/40ft/40HQ)":       "২৬/৫৪/৮১ (২০এফটি/৪০এফটি/৪০এইচকিউ)",
@@ -159,6 +159,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tDdgeXxInverter) Seed(db *gor
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MCG-C0T-DDGE-XX-INVERTER",
 		"Basket": "Wire/1",
 		"Capillary": "Copper",
 		"Caster": "No",

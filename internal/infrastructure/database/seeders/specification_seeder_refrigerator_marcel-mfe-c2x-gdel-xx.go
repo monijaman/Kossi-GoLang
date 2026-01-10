@@ -47,8 +47,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdelXx) getBanglaTranslation
 		"2000VA or More":                     "২০০০VA বা বেশি",
 		"Freezer Cabinet Less than -18 ̊C":   "ফ্রিজার কেবিনেট: -১৮°C-এর নিচে",
 		"Refrigerator Cabinet 0 ̊C to +5 ̊C": "রেফ্রিজারেটর: ০°C থেকে +৫°C",
-		"585 x 711 x 1726 mm":                "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
-		"625 x 745 x 1730 mm":                "৬২৫ x ৭৪৫ x ১৭৩০ মিমি",
+		"585 x 711 x 1726 mm": "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
+		"625 x 745 x 1730 mm": "৬২৫ x ৭৪৫ x ১৭৩০ মিমি",
 		"77/ 57/ 27":                         "৭৭/ ৫৭/ ২৭",
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
@@ -142,6 +142,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdelXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFE-C2X-GDEL-XX",
 		"Can Storage Dispenser": "No",
 		"Capillary": "Copper",
 		"Climate Type (SN, N, ST, T)": "N ~ ST",

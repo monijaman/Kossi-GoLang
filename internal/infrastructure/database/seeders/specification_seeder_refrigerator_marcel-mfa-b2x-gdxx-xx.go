@@ -26,7 +26,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdxxXx) getBanglaTranslation
 		"MFA-B2X-GDXX-XX":        "MFA-B2X-GDXX-XX",
 		"205 Ltr.":               "205 লিটার",
 		"220 Ltr.":               "220 লিটার",
-		"545 x 635 x 1580 mm":    "545 x 635 x 1580 মিমি",
+		"545 x 635 x 1580 mm": "৫৪৫ x ৬৩৫ x ১৫৮০ মিমি",
 		"48.5 ± 2 Kg":            "48.5 ± 2 কেজি",
 		"RSCR":                   "RSCR",
 		"Manual":                 "ম্যানুয়াল",
@@ -41,7 +41,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdxxXx) getBanglaTranslation
 		"Steel":                  "ইস্পাত",
 		"Cyclopentene":           "সাইক্লোপেন্টেন",
 		"108.6 W":                "108.6 W",
-		"580 x 645 x 1640 mm":    "580 x 645 x 1640 মিমি",
+		"580 x 645 x 1640 mm": "৫৮০ x ৬৪৫ x ১৬৪০ মিমি",
 		"100/ 100/ 50":           "100/ 100/ 50",
 		// Add more translations as needed
 		"": "",
@@ -154,6 +154,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB2xGdxxXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFA-B2X-GDXX-XX",
 		"Can Storage Dispenser":          "No",
 		"Capillary":                      "Steel",
 		"Climatic Type (SN, N, ST, T)":   "N~ST",

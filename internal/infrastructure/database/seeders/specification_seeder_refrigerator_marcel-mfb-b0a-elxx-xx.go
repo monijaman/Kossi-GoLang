@@ -44,8 +44,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aElxxXx) getBanglaTranslation
 		"R600a":                      "R600a",
 		"50 ± 2 Kg":                  "৫০ ± ২ কেজি",
 		"54 ± 2 Kg":                  "৫৪ ± ২ কেজি",
-		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
+		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
 		"223 Ltr.":                   "২২৩ লিটার",
 		"209 Ltr.":                   "২০৯ লিটার",
@@ -153,6 +153,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aElxxXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B0A-ELXX-XX",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V 04.01-111V 05.01-111V 05.02-111V 05.03-111V 06.01-108.6",

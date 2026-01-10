@@ -44,8 +44,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xCrxxXxInverter) getBanglaTra
 		"Wire":                            "ওয়্যার",
 		"2":                               "২",
 		"PVC/4":                           "পিভিসি/৪",
-		"585 x 711 x 1726 mm":             "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
-		"630 x 740 x 1750 mm":             "৬৩০ x ৭৪০ x ১৭৫০ মিমি",
+		"585 x 711 x 1726 mm": "৫৮৫ x ৭১১ x ১৭২৬ মিমি",
+		"630 x 740 x 1750 mm": "৬৩০ x ৭৪০ x ১৭৫০ মিমি",
 		"24/ 48/ 48":                      "২৪/ ৪৮/ ৪৮",
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",

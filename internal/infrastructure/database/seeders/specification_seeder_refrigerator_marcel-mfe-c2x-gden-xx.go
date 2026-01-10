@@ -42,8 +42,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdenXx) getBanglaTranslation
 		"No need to use voltage stabilizer": "স্ট্যাবিলাইজার ব্যবহার করার প্রয়োজন নেই",
 		"Wire/2":                            "ওয়্যার/২",
 		"PVC/4":                             "পিভিসি/৪",
-		"594 x 708 x 1720 mm":               "৫৯৪ x ৭০৮ x ১৭২০ মিমি",
-		"635 x 740 x 1790 mm":               "৬৩৫ x ৭৪০ x ১৭৯০ মিমি",
+		"594 x 708 x 1720 mm": "৫৯৪ x ৭০৮ x ১৭২০ মিমি",
+		"635 x 740 x 1790 mm": "৬৩৫ x ৭৪০ x ১৭৯০ মিমি",
 		"77/ 57/ 27":                        "৭৭/ ৫৭/ ২৭",
 		// Add more translations as needed
 	

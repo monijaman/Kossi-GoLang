@@ -26,7 +26,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdshXx) getBanglaTranslation
 		"MFA-A9C-GDSH-XX":        "MFA-A9C-GDSH-XX",
 		"175 Ltr.":               "175 লিটার",
 		"193 Ltr.":               "193 লিটার",
-		"538 x 600 x 1230 mm":    "538 x 600 x 1230 মিমি",
+		"538 x 600 x 1230 mm": "৫৩৮ x ৬০০ x ১২৩০ মিমি",
 		"45 ± 2 Kg":              "45 ± 2 কেজি",
 		"RSCR":                   "RSCR",
 		"Manual":                 "ম্যানুয়াল",
@@ -142,6 +142,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdshXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFA-A9C-GDSH-XX",
 		"2.25 L Bottle Accommodation": "Yes",
 		"Bottle Basket": "PS/5",
 		"Can Storage Dispenser": "No",

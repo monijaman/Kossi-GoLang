@@ -21,6 +21,8 @@ func NewSpecificationSeederRefrigeratorMarcelMfbB5xGdshXx() *SpecificationSeeder
 
 func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdshXx) getBanglaTranslations() map[string]string {
 	return map[string]string{
+		"Marcel":                 "মার্সেল",
+		"MFB-B5X-GDSH-XX":        "MFB-B5X-GDSH-XX",
 		"1675 mm":       "১৬৭৫ মিমি",
 		"220 ~ 240/ 50": "২২০ ~ ২৪০/ ৫০",
 		"250 Ltr.":      "২৫০ লিটার",
@@ -141,6 +143,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5xGdshXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B5X-GDSH-XX",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V 01.01-97.4V 02.01-97.4V 03.01-97.4V 03.02-97.4",

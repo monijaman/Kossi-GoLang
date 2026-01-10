@@ -47,8 +47,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fElxxXx) getBanglaTranslation
 		"Recessed/ Grip":                 "রিসেসড (গ্রিপ)",
 		"Copper":                         "তামা",
 		"Cyclopentene":                   "সাইক্লোপেন্টেন",
-		"555 x 630 x 1720 mm":            "৫৫৫ x ৬৩০ x ১৭২০ মিমি",
-		"580 x 645 x 1765 mm":            "৫৮০ x ৬৪৫ x ১৭৬৫ মিমি",
+		"555 x 630 x 1720 mm": "৫৫৫ x ৬৩০ x ১৭২০ মিমি",
+		"580 x 645 x 1765 mm": "৫৮০ x ৬৪৫ x ১৭৬৫ মিমি",
 		"Wire/2":                         "তারের তাক (২টি)",
 		"Wire/3":                         "তারের তাক (৩টি)",
 		"GPPS/4":                         "GPPS (৪টি)",
@@ -155,6 +155,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2fElxxXx) Seed(db *gorm.DB) er
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B2F-ELXX-XX",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "N~ST",
 		"Compressor Input Power (Watt)": "V 06.01-124V 07.01-109V 07.02-109V 07.03-109V 08.01-127",

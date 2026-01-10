@@ -44,8 +44,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdelScInverter) getBanglaTra
 		"R600a":                      "R600a",
 		"50 ± 2 Kg":                  "৫০ ± ২ কেজি",
 		"54 ± 2 Kg":                  "৫৪ ± ২ কেজি",
-		"555 x 630 x 1410 mm":        "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
-		"580 x 645 x 1455 mm":        "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
+		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",
 		"105/ 105/ 52":               "১০৫/ ১০৫/ ৫২",
 		"100/ 100/ 49":               "১০০/ ১০০/ ৪৯",
 		"V 04.01- 57~125":            "V ০৪.০১- ৫৭~১২৫",
@@ -162,6 +162,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdelScInverter) Seed(db *gor
 		"Lock Type":                         299,
 	}
 	specs := map[string]string{
+		"Brand":               "Marcel",
+		"Model Name":          "MFB-B2C-GDEL-SC-INVERTER",
 		"Capillary": "Copper",
 		"Climatic Type (SN, N, ST, T)": "T",
 		"Compressor Input Power (Watt)": "V 04.01- 57~125",

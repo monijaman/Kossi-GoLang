@@ -43,7 +43,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dRlxxXxInverter) getBanglaTra
 		"Cyclopentene":                   "সাইক্লোপেন্টেন",
 		"R600a":                          "R600a",
 		"51/57 (Net/Packing) Kg (±2 Kg)": "৫১/৫৭ (নেট/প্যাকিং) কেজি (±২ কেজি)",
-		"545 x 605 x 1760 mm":            "৫৪৫ x ৬০৫ x ১৭৬০ মিমি",
+		"545 x 605 x 1760 mm": "৫৪৫ x ৬০৫ x ১৭৬০ মিমি",
 		"V 0701-R600a; V 0801-R600a":     "V 0701-R600a; V 0801-R600a",
 		"5 star (BDS 1850:2012)":         "৫ স্টার (BDS 1850:2012)",
 

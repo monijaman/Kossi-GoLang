@@ -41,8 +41,8 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenXx) getBanglaTranslation
 		"Copper":                 "কপার",
 		"Cyclopentene":           "সাইক্লোপেন্টিন",
 		"2000VA or More":         "২০০০ভিএ বা তার বেশি",
-		"585 x 711 x 1746 mm":    "৫৮৫ x ৭১১ x ১৭৪৬ মিমি",
-		"625 x 745 x 1776 mm":    "৬২৫ x ৭৪৫ x ১৭৭৬ মিমি",
+		"585 x 711 x 1746 mm": "৫৮৫ x ৭১১ x ১৭৪৬ মিমি",
+		"625 x 745 x 1776 mm": "৬২৫ x ৭৪৫ x ১৭৭৬ মিমি",
 		"76/ 57/ 27":             "৭৬/ ৫৭/ ২৭",
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
