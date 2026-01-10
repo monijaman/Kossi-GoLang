@@ -85,22 +85,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1gGdxxXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFC-C1G-GDXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Climate Type (SN, N, ST, T)": "N~ST",
+		"Compressor Input Power (Watt)": "V 0301- 118",
+		"Compressor Type": "RSCR",
+		"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Deodorizer": "No",
+		"Depth/mm": "670",
+		"Door Basket": "4",
+		"Drawer": "No",
+		"Egg Tray or Pocket": "Yes/2",
+		"Gross Volume": "337 Ltr",
+		"Handle (Recessed/Grip)": "Recessed/Grip",
+		"Height/mm": "1605",
+		"Interior Lamp": "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "69/ 48/ 24",
+		"Lock": "Yes",
+		"Net Volume": "317 Ltr",
+		"Operating voltage": "V 0301: Wide Voltage Design (150V-260V)N.B.: If out of voltage range(150V-260V), then suggested voltage stabilizer capacity is 2100VA.",
+		"Polyurethane foam blowing agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green  Technology]",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Refrigerant": "V 0301- R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/3",
+		"Shelf (Material/No.)": "Wire/2",
+		"Star rating (BDS 1850:2012)": "5",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Type": "Direct Cool",
+		"Vegetable Crisper Cover": "Yes (Glass/ plastic)",
+		"Weight/Kg - Net/Packing": "61/ 69 ± 2",
+		"Width/mm": "645",
+	}
 
 
 

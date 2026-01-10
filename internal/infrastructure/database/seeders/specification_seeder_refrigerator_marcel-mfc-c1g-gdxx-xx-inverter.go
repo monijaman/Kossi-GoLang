@@ -111,42 +111,44 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1gGdxxXxInverter) Seed(db *gor
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-		"Type": "Direct Cool",
-		"Gross Volume": "337 Ltr",
-		"Net Volume": "317 Ltr",
-		"Climate Type (SN, N, ST, T)": "N~ST",
-		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
-		"Compressor Input Power (Watt)": "V02.01- 118 V03.01- 118 V0302-118 V0401-33.78~126.46",
-		"Compressor Type": "V02.01- RSCR V03.01- RSCR V0302-RSCR V0401-BLDC",
-		"Cooling Effect": "Freezer Cabinet Less than -18℃ Refrigerator Cabinet 0℃ to +5℃",
-		"Temperature Control (Electronic/ Mechanical)": "Mechanical",
-		"Defrosting (Automatic/ Manual)": "Manual",
-		"Reversible Door": "No",
-		"Handle (Recessed/Grip)": "Recessed/Grip",
-		"Lock": "Yes",
-		"Refrigerant": "V 0301- R600a",
-		"Capillary": "Copper",
-		"Polyurethane foam blowing agent": "CycloPentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
-		"Operating voltage": "V 0301/V 0302: Wide Voltage Design (150V-260V) N.B.: If out of voltage range(150V-260V), then suggested voltage stabilizer capacity is 2100VA. V 0401:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.",
-		"Shelf (Material/ No.)": "Wire/3",
-		"Door Basket": "2",
-		"Interior Lamp": "No",
-		"Vegetable Crisper Cover": "Yes (Glass/ plastic)",
-		"Egg Tray or Pocket": "Yes/2",
+	specs := map[string]string{
 		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Climate Type (SN, N, ST, T)": "N~ST",
+		"Compressor Input Power (Watt)": "V02.01-
+  118V03.01- 118V0302-118V0401-33.78~126.46",
+		"Compressor Type": "V02.01-
+  RSCRV03.01- RSCRV0302-RSCRV0401-BLDC",
+		"Cooling Effect": "Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃",
+		"Defrosting (Automatic/ Manual)": "Manual",
 		"Deodorizer": "No",
-		"Shelf (Material/No.)": "Wire/2",
+		"Depth/mm": "650",
+		"Door Basket": "4",
 		"Drawer": "No",
-		"Width/mm": "710",
-		"Depth/mm": "710",
-		"Height/mm": "1660",
-		"Weight/Kg - Net/Packing": "61/ 69 ± 2",
+		"Egg Tray or Pocket": "Yes/2",
+		"Gross Volume": "337 Ltr",
+		"Handle (Recessed/Grip)": "Recessed/Grip",
+		"Height/mm": "1605",
+		"Interior Lamp": "Yes",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "69/ 48/ 24",
+		"Lock": "Yes",
+		"Net Volume": "317 Ltr",
+		"Operating voltage": "V
+  0301/V 0302: Wide Voltage Design (150V-260V)N.B.: If out of voltage range(150V-260V), then suggested voltage stabilizer
+  capacity is 2100VA.V 0401:Wide Voltage Design (75V-264V)N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer
+  capacity is 2100VA.",
+		"Polyurethane foam blowing agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green  Technology]",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Refrigerant": "V 0301- R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/3",
+		"Shelf (Material/No.)": "Wire/2",
 		"Star rating (BDS 1850:2012)": "5",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Type": "Direct Cool",
+		"Vegetable Crisper Cover": "Yes (Glass/ plastic)",
+		"Weight/Kg - Net/Packing": "61/ 69 ± 2",
+		"Width/mm": "645",
 	}
 
 

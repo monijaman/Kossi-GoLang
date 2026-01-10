@@ -76,22 +76,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eCrxxXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFE-B9E-CRXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+			"Type": "Direct Cool",
+			"Gross Volume": "316 Ltr.",
+			"Net Volume": "295 Ltr.",
+			"Net Weight": "57± 2 Kg",
+			"Gross Weight": "64± 2 Kg",
+			"Climate Type (SN, N, ST, T)": "N ~ ST",
+			"Rated Voltage/ Hz/ watt": "220~240/ 50/118",
+			"Compressor": "RSCR",
+			"Temperature Control": "Mechanical",
+			"Defrosting (Automatic/ Manual)": "Manual",
+			"Reversible Door": "No",
+			"Handle (Recessed/ Grip)": "Recressed/ Grip/ Built-in",
+			"Lock": "Yes",
+			"Refrigerant": "R600a",
+			"Thermostat": "RoHS Certified",
+			"Capillary": "Copper",
+			"Polyurethane foam blowing agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+			"Recommended voltage stabilizer capacity": "2000VA or More",
+			"Shelf (Material/ No.)": "Wire/2",
+			"Door Basket": "No",
+			"Interior Lamp": "No",
+			"Vegetable Crisper": "Yes (Plastic)",
+			"Vegetable Crisper Cover": "Yes (ABS/ PS)",
+			"Egg Tray or Pocket": "Yes",
+			"Can Storage Dispenser": "No",
+			"Deodorizer": "NO",
+			"Drawer": "No",
+			"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
+			"Width/mm": "640",
+			"Depth/mm": "760",
+			"Height/mm": "1650",
+			"Loading Capacity 20Ft/ 40Ft/ 40 HQ": "24/ 48/ 48",
+		}
 
 
 

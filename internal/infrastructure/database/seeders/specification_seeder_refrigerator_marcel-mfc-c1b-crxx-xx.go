@@ -85,22 +85,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1bCrxxXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFC-C1B-CRXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Climate Type (SN, N, ST, T)": "N ~ ST",
+		"Compressor Input Power (Watt)": "V 0101- 145.7V 0201- 145.7",
+		"Compressor Type": "V 0101- RSCRV 0201- RSCR",
+		"Cooling Efect": "Freezer Cabinet Less than -18 ̊CRefrigerator Cabinet 0 ̊C to +5 ̊C",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Deodorizer": "No",
+		"Depth/mm": "711",
+		"Door Basket": "PVC/3",
+		"Drawer": "No",
+		"Egg Tray or Pocket": "Yes",
+		"Gross Volume": "312 Ltr.",
+		"Handle (Recessed/ Grip)": "Recressed/ Grip/ Built-in",
+		"Height/mm": "1626",
+		"Interior Lamp": "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "78/ 57/ 27",
+		"Lock": "Yes",
+		"Net Volume": "290 Ltr.",
+		"Polyurethane foam blowing agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Recommended voltage stabilizer capacity": "No Need To use Voltage stabilizer.NB: If out of voltage range (140V-260V)Then suggested 2100VA.",
+		"Refrigerant": "V 0101- R600aV 0201- R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Thermostat": "RoHS Certified",
+		"Type": "Direct Cool",
+		"Vegetable Crisper": "Yes (Plastic)",
+		"Vegetable Crisper Cover": "Yes (ABS/ PS)",
+		"Weight/Kg - Net/Packing:": "59.4 /66.4± 2 Kg",
+		"Width/mm": "594",
+	}
 
 
 

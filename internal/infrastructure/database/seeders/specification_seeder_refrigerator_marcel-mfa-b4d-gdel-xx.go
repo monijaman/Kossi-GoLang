@@ -97,22 +97,43 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dGdelXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFA-B4D-GDEL-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Climatic Type (SN, N, ST, T)": "N~ST",
+		"Compressor Input Power (Watt)": "V 0501-119V 0601-108.6V 0701 108.6",
+		"Compressor Type": "RSCR",
+		"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Deodorizer": "No",
+		"Depth/mm": "605",
+		"Door Basket": "No",
+		"Door Pocket": "GPPS/4",
+		"Drawer": "No",
+		"Egg Case": "Yes/1",
+		"Energy Rating": "5 star (BDS 1850:2012)",
+		"Gross Volume(Outer Dimension, Manufacturer declared)": "244 Ltr.",
+		"Handle (Recessed/ Grip)": "Recessed",
+		"Height/mm": "1760",
+		"Interior Lamp": "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "98/ 72/ 36",
+		"Lock": "Yes",
+		"Net Volume": "220 Ltr.",
+		"Polyurethane foam blowing agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Recommended voltage stabilizer capacity": "V05.01: 1000VAV06.01: No Need to use voltage stabilizer.If out of voltage range(145V-260V), then suggested voltage stabilizer capacity is 1000VA.",
+		"Refrigerant": "V 0501-R134aV 0601-R600aV 0701-R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Shelf (Material/No.)": "Wire/3",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Thermostat": "RoHS Certified",
+		"Type": "Direct Cool",
+		"Vegetable Box": "Yes/1",
+		"Vegetable Box Cover": "Yes/1",
+		"Weight/Kg - Net/Packing (±2 KG)": "51/58",
+		"Width/mm": "545",
+	}
 
 
 

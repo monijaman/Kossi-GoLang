@@ -21,22 +21,22 @@ func NewSpecificationSeederRefrigeratorMarcelMfcC6eGdelXxInverter() *Specificati
 
 func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdelXxInverter) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"1910": "1910",
-		"2": "2",
+		"1910":               "1910",
+		"2":                  "2",
 		"220-240V~ and 50Hz": "220-240V~ and 50Hz",
-		"365 Ltr.": "365 Ltr.",
-		"380 Ltr.": "380 Ltr.",
-		"5": "5",
-		"67/ 76 ± 2": "67/ 76 ± 2",
-		"710": "710",
-		"Manual": "Manual",
-		"No": "No",
-		"V 0401- Mechanical V 0501- Mechanical V 0601- Mechanical V 0701- Mechanical V 0702- Mechanical V 0703-Mechanical V 0801-Mechanical V 0802-Electronic": "V 0401- Mechanical V 0501- Mechanical V 0601- Mechanical V 0701- Mechanical V 0702- Mechanical V 0703-Mechanical V 0801-Mechanical V 0802-Electronic",
-		"V 0401- RSCR V 0501-BLDC V 0601- RSCR V 0701- RSCR V 0702- RSCR V 0703-RSCR V 0801-BLDC V 0802-BLDC": "V 0401- RSCR V 0501-BLDC V 0601- RSCR V 0701- RSCR V 0702- RSCR V 0703-RSCR V 0801-BLDC V 0802-BLDC",
+		"365 Ltr.":           "365 Ltr.",
+		"380 Ltr.":           "380 Ltr.",
+		"5":                  "5",
+		"67/ 76 ± 2":         "67/ 76 ± 2",
+		"710":                "710",
+		"Manual":             "Manual",
+		"No":                 "No",
+		"V 0401- Mechanical V 0501- Mechanical V 0601- Mechanical V 0701- Mechanical V 0702- Mechanical V 0703-Mechanical V 0801-Mechanical V 0802-Electronic":                                                                                                       "V 0401- Mechanical V 0501- Mechanical V 0601- Mechanical V 0701- Mechanical V 0702- Mechanical V 0703-Mechanical V 0801-Mechanical V 0802-Electronic",
+		"V 0401- RSCR V 0501-BLDC V 0601- RSCR V 0701- RSCR V 0702- RSCR V 0703-RSCR V 0801-BLDC V 0802-BLDC":                                                                                                                                                        "V 0401- RSCR V 0501-BLDC V 0601- RSCR V 0701- RSCR V 0702- RSCR V 0703-RSCR V 0801-BLDC V 0802-BLDC",
 		"V 0401/V 0601/V 0701/V 0702/V 0703: Need Voltage stabilizer capacity is 2100VA V 0501: Wide Voltage Design (105V-276V) V 0801:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.": "V 0401/V 0601/V 0701/V 0702/V 0703: Need Voltage stabilizer capacity is 2100VA V 0501: Wide Voltage Design (105V-276V) V 0801:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.",
 		"Wire/2": "Wire/2",
-		"Yes": "Yes",
-		"Yes/1": "Yes/1",
+		"Yes":    "Yes",
+		"Yes/1":  "Yes/1",
 		// Add more translations as needed
 	}
 }
@@ -89,25 +89,42 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdelXxInverter) Seed(db *gor
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
 	specs := map[string]string{
-		"Compressor Type": "V 0401- RSCR V 0501-BLDC V 0601- RSCR V 0701- RSCR V 0702- RSCR V 0703-RSCR V 0801-BLDC V 0802-BLDC",
+		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Climatic Type (SN, N, ST, T)": "N~ST",
+		"Compressor Input Power (Watt)": "V
+  0401- 130V 0501- 50.3~166.7V 0601- 130V 0701- 130V 0702- 130V 0703-130V 0801-33.78~126.46V 0802-33.78~126.46",
+		"Compressor Type": "V
+  0401- RSCRV 0501-BLDCV 0601- RSCRV 0701- RSCRV 0702- RSCRV 0703-RSCRV 0801-BLDCV 0802-BLDC",
+		"Cooling Efect": "Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃",
 		"Defrosting (Automatic/ Manual)": "Manual",
-		"Depth/mm": "710",
-		"Door Basket": "2",
+		"Depth/mm": "650",
+		"Door Basket": "4",
+		"Drawer": "No",
+		"Egg Tray": "Yes/2",
 		"Gross Volume": "380 Ltr.",
-		"Height/mm": "1910",
+		"Handle (Recessed/ Grip)": "Recessed/ Grip",
+		"Height/mm": "1860",
+		"Interior Lamp": "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "66/ 48/ 24",
+		"Lock": "Yes",
 		"Net Volume": "365 Ltr.",
-		"Operating voltage": "V 0401/V 0601/V 0701/V 0702/V 0703: Need Voltage stabilizer capacity is 2100VA V 0501: Wide Voltage Design (105V-276V) V 0801:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.",
+		"Operating voltage": "V
+  0401/V 0601/V 0701/V 0702/V 0703: Need Voltage  stabilizer capacity is 2100VAV 0501: Wide Voltage Design (105V-276V)V 0801:Wide Voltage Design (75V-264V)N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer
+  capacity is 2100VA.",
+		"Polyurethane foam blowing agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
 		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
 		"Reversible Door": "No",
-		"Shelf (Material/ No.)": "Wire/2",
+		"Shelf (Material/ No.)": "Wire/3",
 		"Star rating (BDS 1850:2012)": "5",
-		"Temperature Control (Electronic/  Mechanical)": "V 0401- Mechanical V 0501- Mechanical V 0601- Mechanical V 0701- Mechanical V 0702- Mechanical V 0703-Mechanical V 0801-Mechanical V 0802-Electronic",
+		"Temperature Control (Electronic/  Mechanical)": "V
+  0401- MechanicalV 0501- MechanicalV 0601- MechanicalV 0701- MechanicalV 0702- MechanicalV 0703-MechanicalV 0801-MechanicalV 0802-Electronic",
+		"Type": "Direct Cool",
 		"Vegetable Crisper": "Yes/1",
 		"Vegetable Crisper Cover": "Yes",
-		"Weight/Kg - Net/Packing": "67/ 76 ± 2",
-		"Width/mm": "710",
+		"Weight/Kg - Net/Packing": "67/ 76 ± 2",
+		"Width/mm": "650",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

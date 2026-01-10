@@ -90,22 +90,46 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaA9cGdxxXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFA-A9C-GDXX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"2.25 L Bottle Accommodation": "Yes",
+		"Bottle Basket": "PS/5",
+		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Climatic Type (SN, N, ST, T)": "T",
+		"Compressor": "RSCR",
+		"Cooling Effect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Deodorizer": "No",
+		"Depth/mm": "600",
+		"Door Basket": "No",
+		"Double Layer Freezer Door": "Yes",
+		"Drawer": "No",
+		"Egg Tray or Pocket": "Yes/1",
+		"Gross Volume": "193 Ltr.",
+		"Gross Weight": "50± 2Kg",
+		"Handle (Recessed/ Grip)": "Recessed",
+		"Height/mm": "1230",
+		"Interior Lamp": "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "144/109/49",
+		"Lock": "Yes",
+		"Medicine Box": "Yes/1",
+		"Net Volume": "175 Ltr.",
+		"Net Weight": "45± 2Kg",
+		"Polyurethane foam blowing agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+		"Rated Voltage/ Hz/ watt": "220-240 V/ 50 Hz/ 72W",
+		"Recommended voltage stabilizer capacity": "No Voltage Stabilizer",
+		"Refrigerant": "R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "No",
+		"Shelf (Material/No.)": "Glass/3",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Thermostat": "RoHS Certified",
+		"Type": "Direct Cool",
+		"Uniform Flow": "Yes",
+		"Vegetable Crisper": "Yes/1 (17L)",
+		"Vegetable Crisper Cover": "Yes (Glass)",
+		"Width/mm": "538",
+	}
 
 
 

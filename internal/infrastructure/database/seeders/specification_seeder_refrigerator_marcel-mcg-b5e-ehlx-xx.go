@@ -90,22 +90,40 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgB5eEhlxXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MCG-B5E-EHLX-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Basket": "Wire/1",
+		"Capillary": "Copper",
+		"Climatic Type (SN, N, ST, T)": "N ~ ST",
+		"Compressor Input Power (Watt)": "V.0301, N~STV.0302, N~STV.0401, N~TV.0501, N~T",
+		"Compressor Type": "V.0301-109V.0302-109V.0401-133V.0501-102",
+		"Condenser": "Steel",
+		"Cooling Efect": "Freezer Cabinet Less than -180C",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Depth/mm": "725",
+		"Drawer": "No",
+		"Exterior Material": "Painted Steel (PCM)",
+		"Gross Volume": "255 Ltr.",
+		"Gross Weight(Kg)": "53±2",
+		"Handle (Recessed/ Grip)": "Yes",
+		"Height/mm": "855",
+		"Ice/ cold water Dispenser": "No",
+		"Interior Lamp": "Yes",
+		"Interior Material": "Embossed Aluminium (Al2)",
+		"Loading quantity(20ft/40ft.40 HQ)": "32/64/96",
+		"Lock": "Yes",
+		"Net Volume": "255 Ltr.",
+		"Net Weight(Kg)": "47±2",
+		"Polyurethane foam blowing agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+		"Rated Voltage/ Hz": "220-240V/ 50Hz",
+		"Recommended voltage stabilizer capacity": "V.0301-Not Required for 140V to aboveV.0302-Not Required for 140V to aboveV.0401-Not ApplicableV.0501-Not Required for 140V to above",
+		"Refrigerant": "V.0301-R600aV.0302-R600aV.0401-R600aV.0501-R600a",
+		"Reversible Door": "N/A",
+		"Shelf (Material/No)": "Wire/1",
+		"Temperature Control (Electronic/  Mechanical):": "V.0301-MechanicalV.0302-MechanicalV.0401-MechanicalV.0501-Electronics",
+		"Type": "Direct Cool",
+		"Wide voltage range": "V 03.01",
+		"Width/mm": "1085",
+	}
 
 
 

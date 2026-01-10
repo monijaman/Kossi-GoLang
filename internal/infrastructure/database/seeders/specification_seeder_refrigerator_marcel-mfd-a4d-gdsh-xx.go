@@ -76,22 +76,42 @@ func (s *SpecificationSeederRefrigeratorMarcelMfdA4dGdshXx) Seed(db *gorm.DB) er
 		"Net Volume":                  710,
 		"Special Features":            69,
 	}
-
-	
-    		
-    specs := map[string]string{
-        "Brand":               "Marcel",
-        "Model Name":          "MFD-A4D-GDSH-XX",
-        "Cooling Technology":  "Direct Cool",
-        "Gross Volume":        "177 Ltr.",
-        "Net Volume":          "175 Ltr.",
-        "Weight":              "50 ± 2 Kg",
-        "Refrigerant":         "R600a",
-        "Temperature Control": "Mechanical",
-        "Voltage":             "220 ~ 240",
-        "Dimensions":          "555 x 630 x 1410 mm",
-        "Packing Dimensions":  "580 x 645 x 1455 mm",
-    }
+	specs := map[string]string{
+		"Can Storage Dispenser": "No",
+		"Capillary": "Copper",
+		"Compressor Input Power (Watt)": "V 0201- 107.5V 0401- 82V 0501/0502- 72V 0601/0602- 81V 0701- 72",
+		"Compressor Type": "V 0201- RSIRV 0401- RSCRV 0501/0502- RSCRV 0601/0602- RSCRV 0701- RSCR",
+		"Cooling Efect": "Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C",
+		"Defrosting (Automatic/ Manual)": "Manual",
+		"Deodorizer": "No",
+		"Depth/mm": "550",
+		"Door Basket": "PS/3",
+		"Drawer": "No",
+		"Egg Tray or Pocket": "Yes",
+		"Gross Volume": "157 Ltr.",
+		"Gross Weight": "46 ± 2 Kg",
+		"Handle (Recessed/ Grip)": "Recessed/ Grip",
+		"Height/mm": "1425",
+		"Interior Lamp": "Yes",
+		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "112/ 112/ 52",
+		"Lock": "Yes",
+		"Net Volume": "144 Ltr.",
+		"Net Weight": "41.5 ± 2 Kg",
+		"Polyurethane foam blowing agent": "Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
+		"Rated Voltage/Hz": "220~240/ 50",
+		"Recommended voltage stabilizer capacity": "600VA",
+		"Refrigerant": "R600a",
+		"Reversible Door": "No",
+		"Shelf (Material/ No.)": "Wire/2",
+		"Shelf (Material/No.)": "Wire/1",
+		"Temperature Control (Electronic/  Mechanical)": "Mechanical",
+		"Thermostat": "RoHS Certified",
+		"Type": "Direct Cool",
+		"Vegetable Crisper": "Yes/1",
+		"Vegetable Crisper Cover": "Yes",
+		"Width/mm": "512",
+	}
 
 
 
