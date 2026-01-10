@@ -58,7 +58,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aGdelXx) getBanglaTranslation
 		"555 x 630 x 1560 mm": "৫৫৫ x ৬৩০ x ১৫৬০ মিমি",
 		"580 x 645 x 1610 mm": "৫৮০ x ৬৪৫ x ১৬১০ মিমি",
 		"101/ 101/ 49":                       "১০১/ ১০১/ ৪৯",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "১০১/ ১০১/ ৪৯",
+		"Loading Capacity (40HQ/40Ft/20Ft)": "১০১/ ১০১/ ৪৯",
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
 		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[পরিবেশ বান্ধব (১০০% CFC &HCFC মুক্ত) সবুজ প্রযুক্তি]",

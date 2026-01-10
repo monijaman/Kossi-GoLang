@@ -164,7 +164,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter) Seed(db *gor
 		"Refrigerant":                     "R600a",
 		"Condenser":                       "100 % Copper",
 		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Polyurethane Foam Blowing Agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
 		"Recommended voltage stabilizer capacity": "1000VA or More",
 		"Shelf Material":                   "Glass",
 		"Number of Shelves":                "4",
@@ -175,7 +175,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter) Seed(db *gor
 		"Freezer Compartment - Ice Box":    "Yes/1",
 		"Dimensions":                       "705 x 690 x 1845 mm",
 		"Packing Dimensions":               "760 x 775 x 1900 mm",
-		"Loading Capacity":                 "48/ 48/ 24",
+		"Loading Capacity (40HQ/40Ft/20Ft)":                 "48/ 48/ 24",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

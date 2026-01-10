@@ -140,7 +140,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eCrxxXx) Seed(db *gorm.DB) er
 			"Net Weight": "57± 2 Kg",
 			"Gross Weight": "64± 2 Kg",
 			"Climate Type (SN, N, ST, T)": "N ~ ST",
-			"Rated Voltage/ Hz/ watt": "220~240/ 50/118",
+			"Voltage": "220~240/ 50/118",
 			"Compressor": "RSCR",
 			"Temperature Control": "Mechanical",
 			"Defrosting (Automatic/ Manual)": "Manual",
@@ -150,9 +150,9 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eCrxxXx) Seed(db *gorm.DB) er
 			"Refrigerant": "R600a",
 			"Thermostat": "RoHS Certified",
 			"Capillary": "Copper",
-			"Polyurethane foam blowing agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
+			"Polyurethane Foam Blowing Agent": "CycloPentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]",
 			"Recommended voltage stabilizer capacity": "2000VA or More",
-			"Shelf (Material/ No.)": "Wire/2",
+			"Shelf Material": "Wire/2",
 			"Door Basket": "No",
 			"Interior Lamp": "No",
 			"Vegetable Crisper": "Yes (Plastic)",
@@ -165,7 +165,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eCrxxXx) Seed(db *gorm.DB) er
 			"Width": "640",
 			"Depth (mm)": "760",
 			"Height (mm)": "1650",
-			"Loading Capacity 20Ft/ 40Ft/ 40 HQ": "24/ 48/ 48",
+			"Loading Capacity (40HQ/40Ft/20Ft)": "24/ 48/ 48",
 		}
 
 

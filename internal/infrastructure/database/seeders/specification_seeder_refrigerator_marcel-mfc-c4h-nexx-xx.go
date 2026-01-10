@@ -149,7 +149,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC4hNexxXx) Seed(db *gorm.DB) er
 		"Rated Operating Voltage and Frequency": "220-240V~ and 50Hz",
 		"Refrigerant": "R600a",
 		"Reversible Door": "No",
-		"Shelf (Material/ No.)": "Wire/2",
+		"Shelf Material": "Wire/2",
 		"Shelf (Material/No.)": "Glass/2",
 		"Star rating (BDS 1850:2012)": "5",
 		"Vegetable Crisper": "Yes/1",

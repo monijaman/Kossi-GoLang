@@ -163,7 +163,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdenXx) Seed(db *gorm.DB) er
 		"Crisper Drawers":     "Yes/1",
 		"Dimensions":          "594 x 708 x 1720 mm",
 		"Special Features":    "Gross Weight: 72 ± 2 Kg; Climatic Type: N ~ ST; Compressor Input Power: V 0301 - 38~109; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended stabilizer: No need to use voltage stabilizer; Freezer Shelf: Wire/2; Loading Capacity: 77/ 57/ 27; Packing Dimensions: 635 x 740 x 1790 mm; Interior Lamp: Yes; Can Storage Dispenser: No",
-		"Loading Capacity":    "77/ 57/ 27",
+		"Loading Capacity (40HQ/40Ft/20Ft)":    "77/ 57/ 27",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -162,7 +162,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenXx) Seed(db *gorm.DB) er
 		"Refrigerant":                     "R600a",
 		"Thermostat":                      "RoHS Certified",
 		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Polyurethane Foam Blowing Agent": "Cyclopentene",
 		"Recommended voltage stabilizer capacity": "2000VA or More",
 		"Number of Shelves":                       "2",
 		"Shelf Material":                          "Wire",
@@ -183,7 +183,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC3cGdenXx) Seed(db *gorm.DB) er
 		"Cooling Effect":                          "Freezer Cabinet Less than -18°C; Refrigerator Cabinet 0°C to +50°C",
 		"Dimensions":                              "585 x 711 x 1746 mm",
 		"Packing Dimensions":                      "625 x 745 x 1776 mm",
-		"Loading Capacity":                        "76/ 57/ 27",
+		"Loading Capacity (40HQ/40Ft/20Ft)":                        "76/ 57/ 27",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

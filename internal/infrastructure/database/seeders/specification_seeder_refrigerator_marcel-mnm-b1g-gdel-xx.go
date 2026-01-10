@@ -148,7 +148,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnmB1gGdelXx) Seed(db *gorm.DB) er
 		"Defrost Type":                    "Manual",
 		"Refrigerant":                     "R600a",
 		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Polyurethane Foam Blowing Agent": "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
 		"Recommended voltage stabilizer capacity": "2200VA",
 		"Shelf Material":     "Wire",
 		"Number of Shelves":  "3",
@@ -157,7 +157,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnmB1gGdelXx) Seed(db *gorm.DB) er
 		"Dimensions":         "645 x 645 x 1860 mm",
 		"Packing Dimensions": "710 x 710 x 1910 mm",
 		"Weight":             "67/76 ± 2",
-		"Loading Capacity":   "66/ 48/ 24",
+		"Loading Capacity (40HQ/40Ft/20Ft)":   "66/ 48/ 24",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

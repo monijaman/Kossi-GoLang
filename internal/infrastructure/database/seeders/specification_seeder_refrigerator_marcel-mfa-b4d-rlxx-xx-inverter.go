@@ -55,7 +55,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dRlxxXxInverter) getBanglaTra
 		"Interior Lamp":         "ইন্টারিয়র ল্যাম্প",
 		"Can Storage Dispenser": "ক্যান স্টোরেজ ডিসপেনসার",
 		"Deodorizer":            "ডিওডোরাইজার",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft 103/ 75/ 36": "লোডিং ক্যাপাসিটি- 40HQ/40Ft/20Ft 103/75/36",
+		"Loading Capacity (40HQ/40Ft/20Ft)": "লোডিং ক্যাপাসিটি- 40HQ/40Ft/20Ft 103/75/36",
 		// Add more translations as needed
 	
 		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",

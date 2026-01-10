@@ -159,7 +159,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xGdelXxInverter) Seed(db *gor
 		"Net Volume":                      "370 Ltr.",
 		"Energy Star Rating":              "Five Star (*****)",
 		"Annual Energy Consumption":       "360 kWh/year as per BDS 1850:2012",
-		"Climatic Type":                   "T",
+		"Climate Type (SN, N, ST, T)":                   "T",
 		"Voltage":                         "220-240 V/ 50 Hz",
 		"Weight":                          "76.5 ± 2 Kg",
 		"Gross Weight":                    "86 ± 2 Kg",
@@ -170,7 +170,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xGdelXxInverter) Seed(db *gor
 		"Condenser":                       "100 % Copper",
 		"Capillary":                       "Copper",
 		"Thermostat":                      "RoHS Certified",
-		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Polyurethane Foam Blowing Agent": "Cyclopentene",
 
 		// Refrigerator compartment
 		"Shelf Material":     "Glass",
@@ -189,7 +189,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xGdelXxInverter) Seed(db *gor
 
 		"Dimensions":         "705 x 690 x 1845 mm",
 		"Packing Dimensions": "760 x 775 x 1900 mm",
-		"Loading Capacity":   "48/ 48/ 24",
+		"Loading Capacity (40HQ/40Ft/20Ft)":   "48/ 48/ 24",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

@@ -156,7 +156,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfdA6cGdelScInverter) Seed(db *gor
 		"Compressor Input Power (Watt)":         "V 0802- 22~84",
 		"Compressor Type":                       "V 0802- BLDC",
 		"Cooling Efect":                         "Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃",
-		"Temperature Control (Electronic/  Mechanical)": "Electronic",
+		"Temperature Control": "Electronic",
 		"Defrosting (Automatic/ Manual)":                "Manual",
 		"Reversible Door":                               "No",
 		"Handle (Recessed/ Grip)":                       "Recessed/ Grip",
@@ -164,7 +164,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfdA6cGdelScInverter) Seed(db *gor
 		"Refrigerant":                                   "R600A",
 		"Capillary":                                     "Copper",
 		"Thermostat":                                    "RoHS Certified",
-		"Polyurethane foam blowing agent":               "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
+		"Polyurethane Foam Blowing Agent":               "Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]",
 		"Operating Voltage":                             "Low Voltage (80~300V) Voltage Stabilizer is not required",
 		"Shelf (Material/No.)":                          "Wire/2",
 		"Door Basket":                                   "No",
@@ -174,12 +174,12 @@ func (s *SpecificationSeederRefrigeratorMarcelMfdA6cGdelScInverter) Seed(db *gor
 		"Egg Tray or Pocket":                            "Yes",
 		"Can Storage Dispenser":                         "No",
 		"Deodorizer":                                    "No",
-		"Shelf (Material/ No.)":                         "Wire/2",
+		"Shelf Material":                         "Wire/2",
 		"Drawer":                                        "No",
 		"Width":                                      "555",
 		"Depth (mm)":                                      "595",
 		"Height (mm)":                                     "1630",
-		"Loading Capacity- 40HQ/ 40Ft/ 20Ft":            "109/109 /49",
+		"Loading Capacity (40HQ/40Ft/20Ft)":            "109/109 /49",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()

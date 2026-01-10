@@ -156,7 +156,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXx) Seed(db *gorm.DB) er
 		"Refrigerant":                     "R600a",
 		"Thermostat":                      "RoHS Certified",
 		"Capillary":                       "Copper",
-		"Polyurethane foam blowing agent": "Cyclopentene",
+		"Polyurethane Foam Blowing Agent": "Cyclopentene",
 		"Shelf Material":                  "Wire",
 		"Number of Shelves":               "2",
 		"Door Bins":                       "PVC/4",
@@ -171,7 +171,7 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeC2xGdxxXx) Seed(db *gorm.DB) er
 		"Freezer Interior Lamp":           "No",
 		"Dimensions":                      "585 x 711 x 1726 mm",
 		"Packing Dimensions":              "640 x 760 x 1750 mm",
-		"Loading Capacity":                "24/ 48/ 48",
+		"Loading Capacity (40HQ/40Ft/20Ft)":                "24/ 48/ 48",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
