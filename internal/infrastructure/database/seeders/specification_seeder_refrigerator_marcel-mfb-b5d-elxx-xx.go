@@ -41,7 +41,33 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB5dElxxXx) getBanglaTranslation
 		"Yes":                    "হ্যাঁ",
 		"555 mm":                 "৫৫৫ মিমি",
 		"Type: Direct Cool; Gross Weight: 67 ± 2 Kg; Performance: Climatic Type: N~ST; Compressor Input Power (Watt): V 02.01-132; V 03.01-118; V 03.02-118; V 04.01-127; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Temperature Control: Mechanical; Handle: Recessed/ Grip; Lock: Yes; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology]; Recommended voltage stabilizer capacity: V 02.01-1000VA; V 03.01,V 03.02-Low Voltage(140~260V); For V 03.01,V 03.02 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended; V 04.01-Low Voltage(150~260V); For V 04.01 - Wide Voltage Range (150Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended; Interior Lamp: Yes; Egg Tray: Yes; Freezer Shelf: Wire/3; Freezer Drawer: HIPS/5; Freezer Door Pocket: No; Freezer Interior Lamp: No; Packaging Dimensions: 580 x 645 x 1845 mm; Loading Capacity- 40HQ/ 40Ft/ 20Ft: 97/ 72/ 36": "টাইপ: ডিরেক্ট কুল; গ্রস ওজন: ৬৭ ± ২ কেজি; পারফরম্যান্স: ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার (ওয়াট): ভি ০২.০১-১৩২; ভি ০৩.০১-১১৮; ভি ০৩.০২-১১৮; ভি ০৪.০১-১২৭; কুলিং ইফেক্ট: ফ্রিজার কেবিনেট -১৮℃ এর কম; রেফ্রিজেরেটর কেবিনেট ০℃ থেকে +৫℃; তাপমাত্রা নিয়ন্ত্রণ: ম্যানুয়াল/মেকানিক্যাল; হ্যান্ডেল: রিসেসড/গ্রিপ; লক: হ্যাঁ; থার্মোস্ট্যাট: রোএইচএস সনদপ্রাপ্ত; ক্যাপিলারি: কপার; পলিউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন [পরিবেশবান্ধব (১০০% সিএফসি ও এইচসিএফসি মুক্ত) সবুজ প্রযুক্তি]; সুপারিশকৃত ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: ভি ০২.০১-১০০০ভিএ; ভি ০৩.০১,ভি ০৩.০২-নিম্ন ভোল্টেজ(১৪০~২৬০ভি); ভি ০৩.০১,ভি ০৩.০২ এর জন্য - ওয়াইড ভোল্টেজ রেঞ্জ (১৪০ভ্যাক - ২৬০ভ্যাক). ভোল্টেজ স্ট্যাবিলাইজার প্রয়োজন নেই। এই রেঞ্জের বাইরে ভোল্টেজের ক্ষেত্রে, ১০০০ভিএ সুপারিশকৃত; ভি ০৪.০১-নিম্ন ভোল্টেজ(১৫০~২৬০ভি); ভি ০৪.০১ এর জন্য - ওয়াইড ভোল্টেজ রেঞ্জ (১৫০ভ্যাক - ২৬০ভ্যাক). ভোল্টেজ স্ট্যাবিলাইজার প্রয়োজন নেই। এই রেঞ্জের বাইরে ভোল্টেজের ক্ষেত্রে, ১০০০ভিএ সুপারিশকৃত; ইন্টারিয়র ল্যাম্প: হ্যাঁ; ডিম ট্রে: হ্যাঁ; ফ্রিজার শেলফ: তারে/৩; ফ্রিজার ড্রয়ার: এইচআইপিএস/৫; ফ্রিজার ডোর পকেট: না; ফ্রিজার ইন্টারিয়র ল্যাম্প: না; প্যাকেজিং ডাইমেনশনস: ৫৮০ x ৬৪৫ x ১৮৪৫ মিমি; লোডিং ক্যাপাসিটি- ৪০এইচকিউ/ ৪০এফটি/ ২০এফটি: ৯৭/ ৭২/ ৩৬",
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"Copper": "কপার",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"Mechanical": "মেকানিক্যাল",
+		"N ~ ST": "N ~ ST",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"97/ 72/ 36": "৯৭/ ৭২/ ৩৬",
+		"HIPS/5": "HIPS/৫",}
 }
 
 // Seed inserts specification records for the product identified by slug 'mfb-b5d-elxx-xx'

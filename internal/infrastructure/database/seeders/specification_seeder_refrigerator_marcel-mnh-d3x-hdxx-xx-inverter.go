@@ -48,7 +48,33 @@ func (s *SpecificationSeederRefrigeratorMarcelMnhD3xHdxxXxInverter) getBanglaTra
 		"705 x 690 x 1845 mm": "৭০৫ x ৬৯০ x ১৮৪৫ মিমি",
 		"760 x 775 x 1900 mm": "৭৬০ x ৭৭৫ x ১৯০০ মিমি",
 		"48/ 48/ 24":          "৪৮/ ৪৮/ ২৪",
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"Manual": "ম্যানুয়াল",
+		"N ~ ST": "N ~ ST",
+		"No": "না",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Wire/3": "Wire/৩",
+		"Yes": "হ্যাঁ",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+	
+		"4": "৪",
+		"Glass": "গ্লাস",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mnh-d3x-hdxx-xx-inverter'

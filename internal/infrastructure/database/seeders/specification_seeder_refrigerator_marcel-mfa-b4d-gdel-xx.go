@@ -46,7 +46,31 @@ func (s *SpecificationSeederRefrigeratorMarcelMfaB4dGdelXx) getBanglaTranslation
 		"1000VA":                 "1000VA",
 		"98/ 72/ 36":             "98/ 72/ 36",
 		// Add more translations as needed
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"No": "না",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Yes": "হ্যাঁ",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"5 star (BDS 1850:2012)": "৫ star (BDS ১৮৫০:২০১২)",
+		"Recessed": "Recessed",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mfa-b4d-gdel-xx'

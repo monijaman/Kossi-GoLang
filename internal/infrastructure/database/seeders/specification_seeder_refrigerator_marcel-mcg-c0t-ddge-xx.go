@@ -41,7 +41,37 @@ func (s *SpecificationSeederRefrigeratorMarcelMcgC0tDdgeXx) getBanglaTranslation
 		"Replacement Guarantee: 1 Year (Condition Apply), Main Parts (Compressor): 12 Years, Door: 3 Years, Spare Parts: 4 Years, After Sales Service: 5 Years": "রিপ্লেসমেন্ট গ্যারান্টি: ১ বছর (শর্ত প্রযোজ্য), মূল অংশ (কম্প্রেসার): ১২ বছর, দরজা: ৩ বছর, স্পেয়ার পার্টস: ৪ বছর, আফটার সেলস সার্ভিস: ৫ বছর",
 		"12": "১২",
 		"Lock: No, Interior Lamp: No, Handle: Yes, Condenser: Steel, Capillary: Copper, Polyurethane foam blowing agent Cyclopentene [Eco-friendly (100% CFC & HCFC Free) Green Technology], Exterior Material: Painted Steel (PCM), Interior Material: Embossed Aluminium Sheet, Shelf: Wire/2, Basket: Wire/1, Sliding Glass: Yes, Loading quantity: 81/54/26 (40HQ/40Ft/20Ft), Climatic Type: N~ST, Wide voltage range: V 06.01, Cooling Effect: Freezer Cabinet Less than -18°C, Recommended voltage stabilizer capacity: 2000VA or More, Warranty Note: Does not cover damage due to accident, electrical fault, natural causes, negligence, improper installation, unauthorized modification, or unreadable serial numbers. Warranty period may be changed without notice. Covers only manufacturing defects subject to verification.": "লক: না, ইন্টেরিয়র ল্যাম্প: না, হ্যান্ডেল: হ্যাঁ, কনডেনসার: স্টিল, ক্যাপিলারি: কপার, পলিউরেথেন ফোম ব্লোয়িং এজেন্ট সাইক্লোপেন্টেন [ইকো-ফ্রেন্ডলি (১০০% সিএফসি এবং এইচসিএফসি ফ্রি) গ্রিন টেকনোলজি], এক্সটেরিয়র ম্যাটেরিয়াল: পেইন্টেড স্টিল (পিসিএম), ইন্টেরিয়র ম্যাটেরিয়াল: এমবসড অ্যালুমিনিয়াম শীট, শেল্ফ: ওয়্যার/২, বাস্কেট: ওয়্যার/১, স্লাইডিং গ্লাস: হ্যাঁ, লোডিং কোয়ান্টিটি: ৮১/৫৪/২৬ (৪০এইচকিউ/৪০এফটি/২০এফটি), ক্লাইমেটিক টাইপ: এন~এসটি, ওয়াইড ভোল্টেজ রেঞ্জ: ভি ০৬.০১, কুলিং ইফেক্ট: ফ্রিজার ক্যাবিনেট লেস থ্যান -১৮°C, রেকমেন্ডেড ভোল্টেজ স্ট্যাবিলাইজার ক্যাপাসিটি: ২০০০ভিএ বা মোর, ওয়ারেন্টি নোট: দুর্ঘটনা, বৈদ্যুতিক ত্রুটি, প্রাকৃতিক কারণ, অবহেলা, অনুপযুক্ত ইনস্টলেশন, অননুমোদিত পরিবর্তন, বা অপঠনযোগ্য সিরিয়াল নম্বরের কারণে ক্ষতি কভার করে না। ওয়ারেন্টি সময়কাল বিজ্ঞপ্তি ছাড়াই পরিবর্তিত হতে পারে। যাচাইকরণের সাপেক্ষে শুধুমাত্র উৎপাদন ত্রুটি কভার করে।",
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"Copper": "কপার",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Wire/3": "Wire/৩",
+		"Yes": "হ্যাঁ",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"175 Ltr.": "175 লিটার",
+		"177 Ltr.": "১৭৭ লিটার",
+		"220 ~ 240": "220 ~ 240 ভোল্ট",
+		"50 ± 2 Kg": "৫০ ± ২ কেজি",
+		"555 x 630 x 1410 mm": "৫৫৫ x ৬৩০ x ১৪১০ মিমি",
+		"580 x 645 x 1455 mm": "৫৮০ x ৬৪৫ x ১৪৫৫ মিমি",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mcg-c0t-ddge-xx'

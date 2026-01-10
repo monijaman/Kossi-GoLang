@@ -71,6 +71,27 @@ func (s *SpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx) getBanglaTranslation
 		"N ~ T and 5 or 7 (IEC 60335-2-89)": "N ~ T and ৫ or ৭ (IEC ৬০৩৩৫-২-৮৯)",
 		"396 Ltr": "৩৯৬ Ltr",
 
+	
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"Manual": "ম্যানুয়াল",
+		"N ~ ST": "N ~ ST",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"R600a": "R600a",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Wire/3": "Wire/৩",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
 	}
 }
 

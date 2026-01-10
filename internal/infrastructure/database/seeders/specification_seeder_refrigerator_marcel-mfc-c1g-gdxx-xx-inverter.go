@@ -59,7 +59,26 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC1gGdxxXxInverter) getBanglaTra
 		"V 0301/V 0302: Wide Voltage Design (150V-260V) N.B.: If out of voltage range(150V-260V), then suggested voltage stabilizer capacity is 2100VA. V 0401:Wide Voltage Design (75V-264V) N.B.: If out of voltage range(75V-264V) then suggested voltage stabilizer capacity is 2100VA.": "V ০৩০১/V ০৩০২: Wide Voltage Design (১৫০V-২৬০V) N.B.: If out of voltage range(১৫০V-২৬০V), then suggested voltage stabilizer capacity is ২১০০VA. V ০৪০১:Wide Voltage Design (৭৫V-২৬৪V) N.B.: If out of voltage range(৭৫V-২৬৪V) then suggested voltage stabilizer capacity is ২১০০VA.",
 		"Wire/2":        "Wire/২",
 		"Recessed/Grip": "Recessed/Grip",
-	}
+	
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+	
+		"4": "৪",
+		"645": "৬৪৫",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mfc-c1g-gdxx-xx-inverter'

@@ -70,7 +70,31 @@ func (s *SpecificationSeederRefrigeratorMarcelMniF1nGdneDd) getBanglaTranslation
 		"N~T": "N~T",
 		"548": "৫৪৮",
 
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"Manual": "ম্যানুয়াল",
+		"N ~ ST": "N ~ ST",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Wire/3": "Wire/৩",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"725 mm": "৭২৫ মিমি",
+		"865 mm": "৮৬৫ মিমি",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mni-f1n-gdne-dd'

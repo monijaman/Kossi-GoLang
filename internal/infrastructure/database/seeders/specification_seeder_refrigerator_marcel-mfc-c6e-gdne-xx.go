@@ -34,7 +34,32 @@ func (s *SpecificationSeederRefrigeratorMarcelMfcC6eGdneXx) getBanglaTranslation
 		"Yes": "Yes",
 		"Yes/1": "Yes/1",
 		// Add more translations as needed
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"Copper": "কপার",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Direct Cool": "ডাইরেক্ট কুল",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"Mechanical": "মেকানিক্যাল",
+		"N ~ ST": "N ~ ST",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/3": "Wire/৩",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"645": "৬৪৫",
+		"66/ 48/ 24": "৬৬/ ৪৮/ ২৪",}
 }
 
 // Seed inserts specification records for the product identified by slug 'mfc-c6e-gdne-xx'

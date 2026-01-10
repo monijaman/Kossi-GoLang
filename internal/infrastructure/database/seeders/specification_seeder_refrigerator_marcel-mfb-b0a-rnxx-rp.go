@@ -57,7 +57,26 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aRnxxRp) getBanglaTranslation
 
 		// Special features long translation (Bangla)
 		`Gross Weight: 60 ± 2 Kg; Packing Dimensions: 580 x 645 x 1610 mm; Loading Capacity (40HQ/ 40Ft/ 20Ft): 101/ 101/ 49; Climatic Type: N~ST; Compressor Input Power: V 04.01-111; V 05.01-111; V 05.02-111; V 05.03-111; V 06.01-108.6; Cooling Effect: Freezer Cabinet Less than -18C; Refrigerator Cabinet 0C to +5C; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 04.01,V 05.01,V 05.02,V 05.03-1000VA V 06.01-Low Voltage(130~260V) For V 06.01 - Wide Voltage Range (130Vac -260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended.`: `গ্রস ওয়েট: 60 ± 2 কেজি; প্যাকেজিং ডাইমেনশন: 580 x 645 x 1610 মিমি; লোডিং ক্ষমতা (40HQ/ 40Ft/ 20Ft): 101/ 101/ 49; ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার: V 04.01-111; V 05.01-111; V 05.02-111; V 05.03-111; V 06.01-108.6; কুলিং ইফেক্ট: ফ্রিজার কেবিনেট -18C এর নিচে; রেফ্রিজারেটর কেবিনেট 0C থেকে +5C; ক্যাপিলারি: তামা; পলিইউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন; সুপারিশকৃত ভোল্টেজ স্ট্যাবিলাইজার ক্ষমতা: V 04.01,V 05.01,V 05.02,V 05.03-1000VA V 06.01-লো ভোল্টেজ(130~260V) V 06.01 এর ক্ষেত্রে - ওয়াইড ভোল্টেজ রেঞ্জ (130Vac -260Vac). ভোল্টেজ স্ট্যাবিলাইজার প্রয়োজন নেই। উল্লিখিত রেঞ্জের বাইরে ভোল্টেজ থাকলে 1000VA সুপারিশ করা হয়।`,
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSIR": "RSIR",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"555 mm": "৫৫৫ মিমি",
+		"630 mm": "৬৩০ মিমি",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mfb-b0a-rnxx-rp'

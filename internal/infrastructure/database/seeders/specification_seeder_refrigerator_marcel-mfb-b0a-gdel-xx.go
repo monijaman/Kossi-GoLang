@@ -59,7 +59,29 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB0aGdelXx) getBanglaTranslation
 		"580 x 645 x 1610 mm":                "৫৮০ x ৬৪৫ x ১৬১০ মিমি",
 		"101/ 101/ 49":                       "১০১/ ১০১/ ৪৯",
 		"Loading Capacity- 40HQ/ 40Ft/ 20Ft": "১০১/ ১০১/ ৪৯",
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"RSIR": "RSIR",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"220 ~ 240": "220 ~ 240 ভোল্ট",
+		"3": "৩",
+		"50": "৫০",
+		"Wire": "ওয়্যার",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mfb-b0a-gdel-xx'

@@ -46,7 +46,39 @@ func (s *SpecificationSeederRefrigeratorMarcelMcfB0eGdelGx) getBanglaTranslation
 		"R134a/R600a":                    "R134a/R600a",
 		"Single Door Freezer, Manual Defrost, Lock, Interior Lamp": "সিঙ্গেল ডোর ফ্রিজার, ম্যানুয়াল ডিফ্রস্ট, লক, ইন্টেরিয়র ল্যাম্প",
 		// Add more translations as needed
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"Copper": "কপার",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"R600a": "R600a",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"RoHS Certified": "RoHS সার্টিফাইড",
+		"Wire/1": "Wire/১",
+		"Wire/2": "Wire/২",
+		"Wire/3": "Wire/৩",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"205 Ltr.": "২০৫ লিটার",
+		"220-240V/ 50Hz": "২২০-২৪০ভি/ ৫০হার্টজ",
+		"620": "৬২০",
+		"890": "৮৯০",
+		"Embossed Aluminium (Al2)": "Embossed Aluminium (Al২)",
+		"N/A": "N/A",
+		"Painted Steel (PCM)": "Painted Steel (PCM)",
+		"Steel": "স্টীল",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mcf-b0e-gdel-gx'

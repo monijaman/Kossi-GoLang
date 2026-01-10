@@ -53,7 +53,32 @@ func (s *SpecificationSeederRefrigeratorMarcelMfeB9eGdenXxInverter) getBanglaTra
 		"V0102 - R600a; V0201 - R600a; V0202 - R600a; V0301 - R134a; V0501 - R600a": "V০১০২ - R৬০০a; V০২০১ - R৬০০a; V০২০২ - R৬০০a; V০৩০১ - R১৩৪a; V০৫০১ - R৬০০a",
 		"PVC/4":               "PVC/৪",
 		"594 x 708 x 1620 mm": "৫৯৪ x ৭০৮ x ১৬২০ মিমি",
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N~ST": "N~ST",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"R600a": "R600a",
+		"RSCR": "RSCR",
+		"RSIR": "RSIR",
+		"Recessed/ Grip": "Recessed/ Grip",
+		"Wire/1": "Wire/১",
+		"Wire/3": "Wire/৩",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"1620": "১৬২০",
+		"594": "৫৯৪",
+		"708": "৭০৮",
+		"NO": "NO",
+		"V 0401 - 33~126": "V ০৪০১ - ৩৩~১২৬",
+		"V 0401 - BLDC": "V ০৪০১ - BLDC",
+		"V0401 - R600a": "V০৪০১ - R৬০০a",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mfe-b9e-gden-xx-inverter'

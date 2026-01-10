@@ -51,7 +51,30 @@ func (s *SpecificationSeederRefrigeratorMarcelMfbB2cGdelXx) getBanglaTranslation
 
 		// Special features long translation
 		`Gross Weight: 56 ± 2 Kg; Climatic Type: N~ST; Compressor Input Power: V 01.01-97.4; V 01.02-97.4; Compressor Type: RSCR; Cooling Effect: Freezer Cabinet Less than -18℃; Refrigerator Cabinet 0℃ to +5℃; Thermostat: RoHS Certified; Capillary: Copper; Polyurethane foam blowing agent: Cyclopentene; Recommended voltage stabilizer capacity: V 01.01, V 01.02-Low Voltage(140~260V). For V 01.01, V 01.02 - Wide Voltage Range (140Vac - 260Vac). Voltage stabilizer is not required. In case of voltages beyond this range, 1000VA is recommended; Loading Capacity (40HQ/ 40Ft/ 20Ft): 72/ 72/ 36`: `গ্রস ওয়েট: 56 ± 2 কেজি; ক্লাইম্যাটিক টাইপ: N~ST; কম্প্রেসার ইনপুট পাওয়ার: V 01.01-97.4; V 01.02-97.4; কম্প্রেসার টাইপ: RSCR; কুলিং ইফেক্ট: ফ্রিজার কেবিনেট -18℃ এর নিচে; রেফ্রিজারেটর কেবিনেট 0℃ থেকে +5℃; থার্মোস্ট্যাট: RoHS সার্টিফায়েড; ক্যাপিলারি: তামা; পলিইউরেথেন ফোম ব্লোয়িং এজেন্ট: সাইক্লোপেন্টেন; সুপারিশকৃত ভোল্টেজ স্ট্যাবিলাইজার ক্ষমতা: V 01.01, V 01.02-লো ভোল্টেজ(140~260V). V 01.01, V 01.02 এর ক্ষেত্রে - ওয়াইড ভোল্টেজ রেঞ্জ (140Vac - 260Vac). ভোল্টেজ স্ট্যাবিলাইজার প্রয়োজন নেই। উল্লিখিত রেঞ্জের বাইরে ভোল্টেজ থাকলে 1000VA সুপারিশ করা হয়; লোডিং ক্ষমতা (40HQ/ 40Ft/ 20Ft): 72/ 72/ 36`,
-	}
+	
+		"220-240V~ and 50Hz": "২২০-২৪০V~ এবং ৫০Hz",
+		"CycloPentane[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "CycloPentane[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Cyclopentene[Eco-friendly (100% CFC &HCFC Free) Green Technology]": "Cyclopentene[Eco-friendly (১০০% CFC &HCFC Free) Green Technology]",
+		"Freezer Cabinet Less than -180CRefrigerator Cabinet 00Cto +50C": "Freezer Cabinet Less than -১৮০CRefrigerator Cabinet ০০Cto +৫০C",
+		"Freezer Cabinet Less than -18℃Refrigerator Cabinet 0℃ to +5℃": "Freezer Cabinet Less than -১৮℃Refrigerator Cabinet ০℃ to +৫℃",
+		"N ~ ST": "N ~ ST",
+		"No": "না",
+		"PVC/1": "PVC/১",
+		"PVC/2": "PVC/২",
+		"PVC/3": "PVC/৩",
+		"R600a": "R600a",
+		"RSIR": "RSIR",
+		"Wire/1": "Wire/১",
+		"Wire/3": "Wire/৩",
+		"Yes": "হ্যাঁ",
+		"Yes (ABS/ PS)": "হ্যাঁ (ABS/ PS)",
+		"Yes (Plastic)": "হ্যাঁ (প্লাস্টিক)",
+		"Yes/1": "হ্যাঁ/১",
+		"Yes/2": "হ্যাঁ/২",
+	
+		"555": "৫৫৫",
+		"630": "৬৩০",
+		"Yes/ 1": "Yes/ ১",}
 }
 
 // Seed inserts specification records for the product identified by slug 'marcel-mfb-b2c-gdel-xx'
