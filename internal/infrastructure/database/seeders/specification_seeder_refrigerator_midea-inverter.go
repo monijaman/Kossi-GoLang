@@ -74,6 +74,7 @@ func (s *SpecificationSeederRefrigeratorMideaInverter) getBanglaTranslations() m
 		"50":                 "৫০",
 		"Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C":        "ফ্রিজার ক্যাবিনেট -১৮°C এর কম, রেফ্রিজারেটর ক্যাবিনেট ০°C থেকে +৫°C",
 		"Compressor: 10 Years, Spare Parts: 2 Years, After Sales Service: 5 Years": "কম্প্রেসর: ১০ বছর, খুচরা যন্ত্রাংশ: ২ বছর, বিক্রয়োত্তর সেবা: ৫ বছর",
+		"320 Ltr.": "৩২০ Ltr.",
 	}
 }
 
@@ -184,6 +185,7 @@ func (s *SpecificationSeederRefrigeratorMideaInverter) Seed(db *gorm.DB) error {
 		"Drawer":                          "HIPS/2",
 		"Warranty":                        "1 Year",
 		"Compressor Warranty (Years)":     "5 Years",
+		"Gross Volume":                    "320 Ltr.",
 		"Refrigerant":                     "R600a",
 		"Voltage":                         "220-240V~ and 50Hz",
 		"Frequency (Hz)":                  "50",
