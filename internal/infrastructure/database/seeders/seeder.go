@@ -607,11 +607,10 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Refrigerator product seeder (must run before specification seeders)
 	manager.AddSeeder(NewRefrigeratorProductSeeder())
 
-	// Singer refrigerator seeders
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorSinger())
+	// Marcel refrigerator seeders
+	manager.AddSeeder(NewSpecificationSeederRefrigeratorMarcelMfbA8eGdelXx())
 
-	// Vision refrigerator seeders
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorVision())
+	// Singer refrigerator seeders
 
 	// Specific Vision refrigerator seeders
 
