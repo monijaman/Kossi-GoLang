@@ -608,8 +608,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager.AddSeeder(NewRefrigeratorProductSeeder())
 
 	// Marcel refrigerator specification seeders (194 products)
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorMarcelMbaB6xGcxbXx())
-	manager.AddSeeder(NewSpecificationSeederRefrigeratorMarcelMfbA8eGdelXx())
+
 	// manager.AddSeeder(NewSpecificationSeederRefrigeratorMarcelMbbB6xTdxxXx())
 	// manager.AddSeeder(NewSpecificationSeederRefrigeratorMarcelMbqD4xTdxxXx())
 	// manager.AddSeeder(NewSpecificationSeederRefrigeratorMarcelMcfA2eGdelXx())
