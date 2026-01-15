@@ -620,14 +620,42 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager.AddSeeder(NewHondaBRVSeeder())
 	manager.AddSeeder(NewHondaJazzSeeder())
 	manager.AddSeeder(NewHondaFitSeeder())
-	// manager.AddSeeder(CarBrandTranslationSeeder())
-	// manager.AddSeeder(NewBrandTranslationInclusionSeeder())
-
-	// Specific Vision refrigerator seeders
-
-	// Sharp refrigerator seeders
-
-	// Refrigerator seeders
-
+	// Mitsubishi car seeders
+	manager.AddSeeder(NewMitsubishiPajeroSeeder())
+	manager.AddSeeder(NewMitsubishiMonteroSeeder())
+	manager.AddSeeder(NewMitsubishiOutlanderSeeder())
+	manager.AddSeeder(NewMitsubishiASXSeeder())
+	manager.AddSeeder(NewMitsubishiLancerSeeder())
+	manager.AddSeeder(NewMitsubishiMirageSeeder())
+	manager.AddSeeder(NewMitsubishiTritonSeeder())
+	// Mazda car seeders
+	manager.AddSeeder(NewMazdaMazda2Seeder())
+	manager.AddSeeder(NewMazdaMazda3Seeder())
+	manager.AddSeeder(NewMazdaMazda6Seeder())
+	manager.AddSeeder(NewMazdaCx3Seeder())
+	manager.AddSeeder(NewMazdaCx5Seeder())
+	manager.AddSeeder(NewMazdaCx30Seeder())
+	manager.AddSeeder(NewMazdaBt50Seeder())
+	// Subaru car seeders
+	manager.AddSeeder(NewSubaruForesterSeeder())
+	manager.AddSeeder(NewSubaruXVSeeder())
+	manager.AddSeeder(NewSubaruImprezaSeeder())
+	manager.AddSeeder(NewSubaruOutbackSeeder())
+	manager.AddSeeder(NewSubaruLegacySeeder())
+	// Suzuki car seeders
+	manager.AddSeeder(NewSuzukiSwiftSeeder())
+	manager.AddSeeder(NewSuzukiCelerioSeeder())
+	manager.AddSeeder(NewSuzukiAltoSeeder())
+	manager.AddSeeder(NewSuzukiWagonRSeeder())
+	manager.AddSeeder(NewSuzukiErtigaSeeder())
+	manager.AddSeeder(NewSuzukiBalenoSeeder())
+	manager.AddSeeder(NewSuzukiVitaraBrezzaSeeder())
+	manager.AddSeeder(NewSuzukiJimnySeeder())
+	// Daihatsu car seeders
+	manager.AddSeeder(NewDaihatsuMiraSeeder())
+	manager.AddSeeder(NewDaihatsuMoveSeeder())
+	manager.AddSeeder(NewDaihatsuCastSeeder())
+	manager.AddSeeder(NewDaihatsuTeriosSeeder())
+	manager.AddSeeder(NewDaihatsuSirionSeeder())
 	return manager
 }
