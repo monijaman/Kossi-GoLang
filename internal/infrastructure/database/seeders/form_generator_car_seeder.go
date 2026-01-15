@@ -25,6 +25,7 @@ func (fgcs *FormGeneratorCarSeeder) Seed(db *gorm.DB) error {
 	carSpecificationKeys := []string{
 		// Basic Information (728-735)
 		"Variant",
+		"model Name",
 		"Generation",
 		"Segment",
 		"Launch Year",

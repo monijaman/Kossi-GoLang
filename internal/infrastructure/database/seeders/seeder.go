@@ -593,6 +593,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 
 	// Car category seeders (Category ID: 18)
 	manager.AddSeeder(NewFormGeneratorCarSeeder())
+	manager.AddSeeder(NewToyotaCorollaSeeder())
 	// manager.AddSeeder(CarBrandTranslationSeeder())
 	// manager.AddSeeder(NewBrandTranslationInclusionSeeder())
 
