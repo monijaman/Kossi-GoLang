@@ -611,6 +611,15 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	manager.AddSeeder(NewToyotaSientaSeeder())
 	manager.AddSeeder(NewToyotaVoxySeeder())
 	manager.AddSeeder(NewToyotaNoahSeeder())
+	// Honda car seeders
+	manager.AddSeeder(NewHondaCivicSeeder())
+	manager.AddSeeder(NewHondaCitySeeder())
+	manager.AddSeeder(NewHondaAmazeSeeder())
+	manager.AddSeeder(NewHondaAccordSeeder())
+	manager.AddSeeder(NewHondaCRVSeeder())
+	manager.AddSeeder(NewHondaBRVSeeder())
+	manager.AddSeeder(NewHondaJazzSeeder())
+	manager.AddSeeder(NewHondaFitSeeder())
 	// manager.AddSeeder(CarBrandTranslationSeeder())
 	// manager.AddSeeder(NewBrandTranslationInclusionSeeder())
 
