@@ -79,7 +79,7 @@ func (s *SpecificationSeederRefrigeratorHisense664LCrossDoor) getBanglaTranslati
 		"664L":                           "६६४L",
 		"393L":                           "३९३L",
 		"320":                            "३२०",
-		"0.834":                          "०.८३৪",
+		"0.834":                          "०.८३४",
 		"7":                              "७",
 		"40":                             "४०",
 		"Integrated":                     "সমন্বিত",
@@ -110,7 +110,7 @@ func (s *SpecificationSeederRefrigeratorHisense664LCrossDoor) getBanglaTranslati
 		"150":                                    "১৫০",
 		"200":                                    "২০৯",
 		"12 Years Inverter":                      "১২ বছর ইনভার্টার",
-		"2 Years Free Service":                   "২ बछर बिनामूल्ये सेवा",
+		"2 Years Free Service":                   "২ बছর বिनামূল্যे सेवा",
 	}
 }
 
@@ -189,16 +189,16 @@ func (s *SpecificationSeederRefrigeratorHisense664LCrossDoor) Seed(db *gorm.DB) 
 		"Energy Rating":                     730,
 		"Power Consumption (Watts)":         732,
 		"Dimensions (mm)":                   734,
-		"Handle Type":                       907,
-		"Fridge Compartment Volume":         908,
-		"Freezer Compartment Volume":        909,
-		"Energy Consumption (kWh/year)":     910,
-		"Energy Consumption (kWh/24h)":      911,
-		"Freezing Capacity (kg/12h)":        912,
-		"Max Noise Level (dB)":              913,
-		"Max Storage Time (Power Failure)":  914,
-		"Control System":                    915,
-		"Internal Control Display":          916,
+	}
+
+	specs := map[string]string{
+		"Brand":                            "Hisense",
+		"Model Name":                       "HQ-664WCDGU",
+		"Origin":                           "China",
+		"Type":                             "Cross Door Refrigerator",
+		"Door Type":                        "Cross Door",
+		"Handle Type":                      "Integrated",
+		"Capacity":                         "664L",
 		"Fridge Compartment Volume":        "393L",
 		"Freezer Compartment Volume":       "95/13/108L",
 		"Compressor Type":                  "Inverter",

@@ -74,7 +74,15 @@ func (s *SpecificationSeederRefrigeratorMideaSingleDoor) getBanglaTranslations()
 		"50":                 "৫০",
 		"Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C":        "ফ্রিজার ক্যাবিনেট -১৮°C এর কম, রেফ্রিজারেটর ক্যাবিনেট ০°C থেকে +৫°C",
 		"Compressor: 10 Years, Spare Parts: 2 Years, After Sales Service: 5 Years": "কম্প্রেসর: ১০ বছর, খুচরা যন্ত্রাংশ: ২ বছর, বিক্রয়োত্তর সেবা: ৫ বছর",
-		"180 Ltr.": "১৮০ Ltr.",
+		"180 Ltr.":                 "১৮০ Ltr.",
+		"215 Ltr.":                 "২১৫ Ltr.",
+		"Wine Flower":              "ওয়াইন ফ্লাওয়ার",
+		"Toughened Glass":          "টাফেন্ড গ্লাস",
+		"Toughened Glass/2":        "টাফেন্ড গ্লাস/২",
+		"Eco-Friendly Refrigerant": "ইকো-ফ্রেন্ডলি রেফ্রিজারেন্ট",
+		"Defrost Indicator":        "ডিফ্রস্ট ইন্ডিকেটর",
+		"10 Years Compressor Warranty, 1 Year Product Warranty": "১০ বছর কম্প্রেসর ওয়ারেন্টি, ১ বছর প্রোডাক্ট ওয়ারেন্টি",
+		"Width: 535 mm, Height: 1278 mm, Depth: 629 mm":         "প্রস্থ: ৫৩৫ মিমি, উচ্চতা: ১২৭৮ মিমি, গভীরতা: ৬২৯ মিমি",
 	}
 }
 
@@ -156,17 +164,17 @@ func (s *SpecificationSeederRefrigeratorMideaSingleDoor) Seed(db *gorm.DB) error
 
 	specs := map[string]string{
 		"Brand":                           "Midea",
-		"Model Name":                      "Single Door",
+		"Model Name":                      "MRD215D2HPCW",
 		"Origin":                          "China",
 		"Type":                            "Direct Cool",
 		"Door Type":                       "Single Door",
 		"Compressor Type":                 "Conventional",
 		"Cooling Technology":              "Direct Cool",
-		"Defrost Type":                    "Manual",
+		"Defrost Type":                    "Defrost Indicator",
 		"Defrosting (Automatic/ Manual)":  "Manual",
 		"Temperature Control":             "Mechanical",
-		"Shelf Material":                  "Wire",
-		"Shelf (Material/No.)":            "Wire/2",
+		"Shelf Material":                  "Toughened Glass",
+		"Shelf (Material/No.)":            "Toughened Glass/2",
 		"Number of Shelves":               "2",
 		"Door Basket":                     "GPPS/3",
 		"Vegetable Crisper":               "Yes",
@@ -183,12 +191,15 @@ func (s *SpecificationSeederRefrigeratorMideaSingleDoor) Seed(db *gorm.DB) error
 		"Thermostat":                      "RoHS Certified",
 		"Cooling Effect":                  "Freezer Cabinet Less than -18°C, Refrigerator Cabinet 0°C to +5°C",
 		"Drawer":                          "HIPS/2",
-		"Warranty":                        "1 Year",
-		"Compressor Warranty (Years)":     "5 Years",
-		"Gross Volume":                    "180 Ltr.",
-		"Refrigerant":                     "R600a",
+		"Warranty":                        "10 Years Compressor Warranty, 1 Year Product Warranty",
+		"Compressor Warranty (Years)":     "10 Years",
+		"Gross Volume":                    "215 Ltr.",
+		"Net Volume":                      "215 Ltr.",
+		"Refrigerant":                     "Eco-Friendly Refrigerant",
 		"Voltage":                         "220-240V~ and 50Hz",
 		"Frequency (Hz)":                  "50",
+		"Color":                           "Wine Flower",
+		"Dimensions":                      "Width: 535 mm, Height: 1278 mm, Depth: 629 mm",
 	}
 
 	banglaTranslations := s.getBanglaTranslations()
