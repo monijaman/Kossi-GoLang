@@ -592,6 +592,7 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Bajaj example template
 
 	// Car category seeders (Category ID: 18)
+	manager.AddSeeder(NewFormGeneratorCarSeeder())
 	// manager.AddSeeder(CarBrandTranslationSeeder())
 	// manager.AddSeeder(NewBrandTranslationInclusionSeeder())
 
