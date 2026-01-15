@@ -7,52 +7,52 @@ import (
 	"gorm.io/gorm"
 )
 
-// SubaruOutbackSeeder seeds specifications for Subaru Outback
-type SubaruOutbackSeeder struct {
+// HyundaiTucsonSeeder seeds specifications for Hyundai Tucson
+type HyundaiTucsonSeeder struct {
 	BaseSeeder
 }
 
-// NewSubaruOutbackSeeder creates a new Subaru Outback seeder
-func NewSubaruOutbackSeeder() *SubaruOutbackSeeder {
-	return &SubaruOutbackSeeder{
-		BaseSeeder: BaseSeeder{name: "Subaru Outback Specifications"},
+// NewHyundaiTucsonSeeder creates a new Hyundai Tucson seeder
+func NewHyundaiTucsonSeeder() *HyundaiTucsonSeeder {
+	return &HyundaiTucsonSeeder{
+		BaseSeeder: BaseSeeder{name: "Hyundai Tucson Specifications"},
 	}
 }
 
-func (sos *SubaruOutbackSeeder) getBanglaTranslations() map[string]string {
+func (hts *HyundaiTucsonSeeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"2.5L":                                "২.৫ লিটার",
-		"6th":                                 "৬ষ্ঠ প্রজন্ম",
+		"2.0L":                                "২.০ লিটার",
+		"4th":                                 "৪র্থ প্রজন্ম",
 		"D-Segment":                           "ডি-সেগমেন্ট",
-		"2019":                                "২০১৯",
-		"Wagon":                               "ওয়াগন",
-		"Crystal Black Silica":                "ক্রিস্টাল ব্ল্যাক সিলিকা",
-		"Boxer":                               "বক্সার",
-		"2498":                                "২৪৯৮ সিসি",
+		"2021":                                "২০২১",
+		"SUV":                                 "এসইউভি",
+		"Phantom Black":                       "ফ্যান্টম ব্ল্যাক",
+		"Inline":                              "ইনলাইন",
+		"1999":                                "১৯৯৯ সিসি",
 		"4":                                   "৪ (সিলিন্ডার)",
-		"175 hp":                              "১৭৫ হর্স পাওয়ার",
-		"175 hp @ 5800 rpm":                   "৫৮০০ আরপিএম এ ১৭৫ হর্স পাওয়ার",
-		"235 Nm @ 4000 rpm":                   "৪০০০ আরপিএম এ ২৩৫ এনএম",
+		"155 hp":                              "১৫৫ হর্স পাওয়ার",
+		"155 hp @ 6200 rpm":                   "৬২০০ আরপিএম এ ১৫৫ হর্স পাওয়ার",
+		"192 Nm @ 4500 rpm":                   "৪৫০০ আরপিএম এ ১৯২ এনএম",
 		"Petrol":                              "পেট্রোল",
 		"Naturally Aspirated":                 "ন্যাচারালি অ্যাসপিরেটেড",
 		"Direct Injection":                    "সরাসরি ইনজেকশন",
-		"9.9 seconds":                         "৯.৯ সেকেন্ড",
-		"198 km/h":                            "১৯৮ কিমি/ঘণ্টা",
-		"11 km/L":                             "১১ কিমি/লিটার",
-		"13 km/L":                             "১৩ কিমি/লিটার",
+		"9.1 seconds":                         "৯.১ সেকেন্ড",
+		"201 km/h":                            "২০১ কিমি/ঘণ্টা",
 		"12 km/L":                             "১২ কিমি/লিটার",
-		"CVT (Transmission)":                  "সিভিটি (ট্রান্সমিশন)",
-		"Lineartronic CVT":                    "লিনিয়ারট্রনিক সিভিটি",
-		"All-Wheel Drive":                     "সমস্ত চাকা চালিত",
+		"15 km/L":                             "১৫ কিমি/লিটার",
+		"13 km/L":                             "১৩ কিমি/লিটার",
+		"DCT (Transmission)":                  "ডিসিটি (ট্রান্সমিশন)",
+		"7-Speed DCT":                         "৭-স্পিড ডিসিটি",
+		"Front-Wheel Drive":                   "সামনের চাকা চালিত",
 		"Multi-plate Clutch":                  "মাল্টি-প্লেট ক্লাচ",
-		"4870 mm":                             "৪৮৭০ মিমি",
-		"1875 mm":                             "১৮৭৫ মিমি",
-		"1675 mm":                             "১৬৭৫ মিমি",
-		"2745 mm":                             "২৭৪৫ মিমি",
-		"1595 mm":                             "১৫৯৫ মিমি",
-		"1680 kg":                             "১৬৮০ কেজি",
-		"75 L":                                "৭৫ লিটার",
-		"225/65 R18":                          "২২৫/৬৫ আর১৮",
+		"4630 mm":                             "৪৬৩০ মিমি",
+		"1865 mm":                             "১৮৬৫ মিমি",
+		"1665 mm":                             "১৬৬৫ মিমি",
+		"2755 mm":                             "২৭৫৫ মিমি",
+		"172 mm":                              "১৭২ মিমি",
+		"1475 kg":                             "১৪৭৫ কেজি",
+		"487 L":                               "৪৮৭ লিটার",
+		"235/60 R18":                          "২৩৫/৬০ আর১৮",
 		"Radial Tubeless":                     "রেডিয়াল টিউবলেস",
 		"Alloy":                               "অ্যালয়",
 		"LED (Headlamps)":                     "এলইডি (হেডল্যাম্পস)",
@@ -65,16 +65,16 @@ func (sos *SubaruOutbackSeeder) getBanglaTranslations() map[string]string {
 		"Automatic (Wiper)":                   "অটোমেটিক (ওয়াইপার)",
 		"5 (Seating)":                         "৫ (সিটিং)",
 		"5 (Seats)":                           "৫ (সিটস)",
-		"Electric (Driver Seat)":              "ইলেকট্রিক (ড্রাইভার সিট)",
+		"Power (Driver Seat)":                 "পাওয়ার (ড্রাইভার সিট)",
 		"No (Ventilated Seats)":               "না (ভেন্টিলেটেড সিটস)",
 		"Automatic (Air Conditioning)":        "অটোমেটিক (এয়ার কন্ডিশনিং)",
 		"Yes (Climate Control)":               "হ্যাঁ (ক্লাইমেট কন্ট্রোল)",
 		"Touchscreen (Infotainment)":          "টাচস্ক্রিন (ইনফোটেইনমেন্ট)",
-		"11.6 inch (Screen)":                  "১১.৬ ইঞ্চি (স্ক্রিন)",
+		"10.25 inch (Screen)":                 "১০.২৫ ইঞ্চি (স্ক্রিন)",
 		"Yes (Apple CarPlay)":                 "হ্যাঁ (অ্যাপল কারপ্লে)",
 		"Yes (Android Auto)":                  "হ্যাঁ (অ্যান্ড্রয়েড অটো)",
-		"Harman Kardon (Sound System)":        "হারম্যান কার্ডন (সাউন্ড সিস্টেম)",
-		"12 (Speakers)":                       "১২ (স্পিকার)",
+		"BOSE (Sound System)":                 "বোজ (সাউন্ড সিস্টেম)",
+		"8 (Speakers)":                        "৮ (স্পিকার)",
 		"Yes (Ambient Lighting)":              "হ্যাঁ (অ্যাম্বিয়েন্ট লাইটিং)",
 		"Yes (ABS)":                           "হ্যাঁ (এবিএস)",
 		"Driver + Passenger + Side (Airbags)": "ড্রাইভার + প্যাসেঞ্জার + সাইড (এয়ারব্যাগস)",
@@ -88,31 +88,28 @@ func (sos *SubaruOutbackSeeder) getBanglaTranslations() map[string]string {
 		"Yes (Rear Camera)":                   "হ্যাঁ (রিয়ার ক্যামেরা)",
 		"Keyless Entry":                       "কীলেস এন্ট্রি",
 		"Push Button Start":                   "পুশ বাটন স্টার্ট",
-		"Height Adjustable":                   "হাইট অ্যাডজাস্টেবল",
+		"Height Adjustable (Driver Seat)":     "হাইট অ্যাডজাস্টেবল (ড্রাইভার সিট)",
 		"Rear AC Vents":                       "রিয়ার এসি ভেন্টস",
 		"Steering Mounted Controls":           "স্টিয়ারিং মাউন্টেড কন্ট্রোলস",
 		"Cruise Control":                      "ক্রুজ কন্ট্রোল",
-		"Parking Sensors":                     "পার্কিং সেন্সরস",
-		"Camera":                              "ক্যামেরা",
-		"360 Degree Camera":                   "৩৬০ ডিগ্রি ক্যামেরা",
+		"Front + Rear (Parking Sensors)":      "সামনে + পিছনে (পার্কিং সেন্সরস)",
+		"Rear Camera":                         "রিয়ার ক্যামেরা",
 		"Auto Headlamps":                      "অটো হেডল্যাম্পস",
 		"Rain Sensing Wipers":                 "রেইন সেন্সিং ওয়াইপারস",
 		"Follow Me Home Headlamps":            "ফলো মি হোম হেডল্যাম্পস",
-		"Yes (Sunroof)":                       "হ্যাঁ (সানরুফ)",
-		"Panoramic Sunroof":                   "প্যানোরামিক সানরুফ",
 		"Yes (Alloy Wheels)":                  "হ্যাঁ (অ্যালয় হুইলস)",
 		"18 inch":                             "১৮ ইঞ্চি",
 		"MacPherson Strut":                    "ম্যাকফারসন স্ট্রাট",
-		"Double Wishbone":                     "ডাবল উইশবোন",
+		"Multi-link":                          "মাল্টি-লিঙ্ক",
 		"Rack and Pinion":                     "র্যাক অ্যান্ড পিনিয়ন",
 		"Tilt & Telescopic":                   "টিল্ট অ্যান্ড টেলিস্কোপিক",
 		"18":                                  "১৮",
 	}
 }
 
-// Seed implements the Seeder interface for Subaru Outback
-func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
-	productSlug := "subaru-outback"
+// Seed implements the Seeder interface for Hyundai Tucson
+func (hts *HyundaiTucsonSeeder) Seed(db *gorm.DB) error {
+	productSlug := "hyundai-tucson"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -183,21 +180,21 @@ func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Variant":                        "2.5L Limited XT",
-		"Generation":                     "6th",
+		"Variant":                        "2.0L GLS",
+		"Generation":                     "4th",
 		"Segment":                        "D-Segment",
-		"Launch Year":                    "2019",
-		"Engine Configuration":           "Boxer",
-		"Displacement (cc)":              "2498",
+		"Launch Year":                    "2021",
+		"Engine Configuration":           "Inline",
+		"Displacement (cc)":              "1999",
 		"Valves Per Cylinder":            "4",
 		"Engine Aspiration":              "Naturally Aspirated",
-		"Differential Type":              "Intercooled",
-		"Power to Weight (HP/ton)":       "104 hp/ton",
-		"Mileage City (km/L)":            "11 km/L",
-		"Mileage Highway (km/L)":         "13 km/L",
-		"Mileage Combined (km/L)":        "12 km/L",
+		"Differential Type":              "Open",
+		"Power to Weight (HP/ton)":       "105 hp/ton",
+		"Mileage City (km/L)":            "12 km/L",
+		"Mileage Highway (km/L)":         "15 km/L",
+		"Mileage Combined (km/L)":        "13 km/L",
 		"Front Suspension":               "MacPherson Strut",
-		"Rear Suspension":                "Double Wishbone",
+		"Rear Suspension":                "Multi-link",
 		"Steering Type":                  "Rack and Pinion",
 		"Steering Adjustment":            "Tilt & Telescopic",
 		"Wheel Size (inch)":              "18",
@@ -205,22 +202,22 @@ func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
 		"DRL":                            "Yes",
 		"Fog Lamp Type":                  "LED",
 		"Alloy Wheels":                   "Yes",
-		"Sunroof Type":                   "Panoramic Sunroof",
+		"Sunroof Type":                   "No",
 		"Roof Rails":                     "Yes",
 		"ORVM Type":                      "Power",
 		"Wiper Type":                     "Automatic",
 		"Seating Capacity":               "5",
 		"Number of Seats":                "5",
-		"Driver Seat Adjustment":         "Electric",
+		"Driver Seat Adjustment":         "Power",
 		"Ventilated Seats":               "No",
 		"Air Conditioning":               "Automatic",
 		"Climate Control":                "Yes",
 		"Infotainment System":            "Touchscreen",
-		"Infotainment Screen (inch)":     "11.6 inch",
+		"Infotainment Screen (inch)":     "10.25 inch",
 		"Apple CarPlay":                  "Yes",
 		"Android Auto":                   "Yes",
-		"Sound System Brand":             "Harman Kardon",
-		"Number of Speakers":             "12",
+		"Sound System Brand":             "BOSE",
+		"Number of Speakers":             "8",
 		"Ambient Lighting":               "Yes",
 		"ABS (Anti-lock Braking System)": "Yes",
 		"Airbags":                        "Driver + Passenger + Side",
@@ -231,12 +228,12 @@ func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
 		"Hill Assist":                    "Yes",
 		"Power Steering":                 "Yes",
 		"Touchscreen":                    "Yes",
-		"Suspension Type":                "MacPherson Strut / Double Wishbone",
-		"Emission Standard":              "Euro 6",
+		"Suspension Type":                "MacPherson Strut / Multi-link",
+		"Emission Standard":              "BS6",
 		"Starting System":                "Electric",
 		"Cooling System":                 "Liquid Cooled",
 		"Ignition Type":                  "Electronic",
-		"Compression Ratio":              "10.3:1",
+		"Compression Ratio":              "10.0:1",
 		"Valve Configuration":            "DOHC",
 		"Valve Per Cylinder":             "4",
 	}
@@ -274,7 +271,7 @@ func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
 		}
 
 		// Create translation if Bangla translation exists
-		if banglaValue, exists := sos.getBanglaTranslations()[value]; exists {
+		if banglaValue, exists := hts.getBanglaTranslations()[value]; exists {
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
 				Locale:          "bn",
@@ -287,6 +284,6 @@ func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
 		}
 	}
 
-	log.Printf("✅ Subaru Outback specifications seeded successfully")
+	log.Printf("✅ Hyundai Tucson specifications seeded successfully")
 	return nil
 }
