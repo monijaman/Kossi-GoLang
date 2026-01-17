@@ -1,0 +1,410 @@
+package seeders
+
+import (
+	"kossti/internal/infrastructure/database/models"
+	"log"
+
+	"gorm.io/gorm"
+)
+
+// MINICooperSeeder seeds specifications for MINI Cooper
+type MINICooperSeeder struct {
+	BaseSeeder
+}
+
+// NewMINICooperSeeder creates a new MINI Cooper seeder
+func NewMINICooperSeeder() *MINICooperSeeder {
+	return &MINICooperSeeder{
+		BaseSeeder: BaseSeeder{name: "MINI Cooper Specifications"},
+	}
+}
+
+func (mcs *MINICooperSeeder) getBanglaTranslations() map[string]string {
+	return map[string]string{
+		"1.5L Turbo":                    "১.৫ লিটার টার্বো",
+		"Subcompact Hatchback":          "সাবকমপ্যাক্ট হ্যাচব্যাক",
+		"2021":                          "২০২১",
+		"Hatchback":                     "হ্যাচব্যাক",
+		"Chili Red":                     "চিলি রেড",
+		"Inline":                        "ইনলাইন",
+		"1499":                          "১৪৯৯ সিসি",
+		"3":                             "৩ (সিলিন্ডার)",
+		"136 hp":                        "১৩৬ হর্স পাওয়ার",
+		"136 hp @ 4400 rpm":             "৪৪০০ আরপিএম এ ১৩৬ হর্স পাওয়ার",
+		"220 Nm @ 1250 rpm":             "১২৫০ আরপিএম এ ২২০ এনএম",
+		"Petrol":                        "পেট্রোল",
+		"Turbocharged":                  "টার্বোচার্জড",
+		"7.8 seconds":                   "৭.৮ সেকেন্ড",
+		"210 km/h":                      "২১০ কিমি/ঘণ্টা",
+		"16 km/L":                       "১৬ কিমি/লিটার",
+		"13 km/L":                       "১৩ কিমি/লিটার",
+		"19 km/L":                       "১৯ কিমি/লিটার",
+		"Manual (Transmission)":         "ম্যানুয়াল (ট্রান্সমিশন)",
+		"6-Speed Manual":                "৬-স্পিড ম্যানুয়াল",
+		"Front-Wheel Drive":             "ফ্রন্ট-হুইল ড্রাইভ",
+		"Single Plate Dry Clutch":       "সিঙ্গেল প্লেট ড্রাই ক্লাচ",
+		"3821 mm":                       "৩৮২১ মিমি",
+		"1727 mm":                       "১৭২৭ মিমি",
+		"1414 mm":                       "১৪১৪ মিমি",
+		"2495 mm":                       "২৪৯৫ মিমি",
+		"4":                             "৪ (সিট)",
+		"3 Doors":                       "৩ ডোর",
+		"4 Seats":                       "৪ সিট",
+		"Black":                         "ব্ল্যাক",
+		"Gray":                          "গ্রে",
+		"White":                         "হোয়াইট",
+		"Silver":                        "সিলভার",
+		"Blue":                          "ব্লু",
+		"Red":                           "রেড",
+		"Green":                         "গ্রিন",
+		"Orange":                        "অরেঞ্জ",
+		"LED":                           "এলইডি",
+		"Halogen":                       "হ্যালোজেন",
+		"LED Headlights":                "এলইডি হেডলাইট",
+		"Halogen Headlights":            "হ্যালোজেন হেডলাইট",
+		"LED Daytime Running Lights":    "এলইডি ডে টাইম রানিং লাইট",
+		"No Roof Rails":                 "রুফ রেল নেই",
+		"Alloy Wheels":                  "অ্যালয় হুইল",
+		"15-inch Alloy Wheels":          "১৫-ইঞ্চি অ্যালয় হুইল",
+		"16-inch Alloy Wheels":          "১৬-ইঞ্চি অ্যালয় হুইল",
+		"17-inch Alloy Wheels":          "১৭-ইঞ্চি অ্যালয় হুইল",
+		"195/55 R16":                    "১৯৫/৫৫ আর১৬",
+		"205/45 R17":                    "২০৫/৪৫ আর১৭",
+		"Manual Adjustment":             "ম্যানুয়াল অ্যাডজাস্টমেন্ট",
+		"Electric Adjustment":           "ইলেকট্রিক অ্যাডজাস্টমেন্ট",
+		"Height Adjustable":             "হাইট অ্যাডজাস্টেবল",
+		"6-way Manual":                  "৬-ওয়ে ম্যানুয়াল",
+		"8-way Electric":                "৮-ওয়ে ইলেকট্রিক",
+		"Fabric":                        "ফ্যাব্রিক",
+		"Leather":                       "লেদার",
+		"Leatherette":                   "লেদারেট",
+		"Fabric Seats":                  "ফ্যাব্রিক সিট",
+		"Leather Seats":                 "লেদার সিট",
+		"60:40 Split":                   "৬০:৪০ স্প্লিট",
+		"Folding Rear Seats":            "ফোল্ডিং রিয়ার সিট",
+		"Manual AC":                     "ম্যানুয়াল এসি",
+		"Auto AC":                       "অটো এসি",
+		"Single Zone":                   "সিঙ্গেল জোন",
+		"Dual Zone":                     "ডুয়াল জোন",
+		"Rear AC Vents":                 "রিয়ার এসি ভেন্ট",
+		"6.5-inch Touchscreen":          "৬.৫-ইঞ্চি টাচস্ক্রিন",
+		"8.8-inch Touchscreen":          "৮.৮-ইঞ্চি টাচস্ক্রিন",
+		"Android Auto":                  "অ্যান্ড্রয়েড অটো",
+		"Apple CarPlay":                 "অ্যাপল কারপ্লে",
+		"Bluetooth":                     "ব্লুটুথ",
+		"USB":                           "ইউএসবি",
+		"AUX":                           "অক্সিলারি",
+		"6 Speakers":                    "৬ স্পিকার",
+		"8 Speakers":                    "৮ স্পিকার",
+		"Harman Kardon":                 "হারম্যান কার্ডন",
+		"ABS":                           "এবিএস",
+		"EBD":                           "ইবিডি",
+		"Brake Assist":                  "ব্রেক অ্যাসিস্ট",
+		"ESP":                           "ইএসপি",
+		"Traction Control":              "ট্র্যাকশন কন্ট্রোল",
+		"Hill Hold Control":             "হিল হোল্ড কন্ট্রোল",
+		"Front Airbags":                 "ফ্রন্ট এয়ারব্যাগ",
+		"Side Airbags":                  "সাইড এয়ারব্যাগ",
+		"Knee Airbags":                  "নী এয়ারব্যাগ",
+		"Curtain Airbags":               "কার্টেন এয়ারব্যাগ",
+		"Rear Parking Sensors":          "রিয়ার পার্কিং সেন্সর",
+		"Front Parking Sensors":         "ফ্রন্ট পার্কিং সেন্সর",
+		"Rear Parking Camera":           "রিয়ার পার্কিং ক্যামেরা",
+		"360-degree Camera":             "৩৬০-ডিগ্রি ক্যামেরা",
+		"ISOFIX":                        "আইএসওফিক্স",
+		"Child Safety Locks":            "চাইল্ড সেফটি লক",
+		"Speed Sensing Door Locks":      "স্পিড সেন্সিং ডোর লক",
+		"Central Locking":               "সেন্ট্রাল লকিং",
+		"Keyless Entry":                 "কীলেস এন্ট্রি",
+		"Push Button Start":             "পুশ বাটন স্টার্ট",
+		"Engine Immobilizer":            "ইঞ্জিন ইমোবিলাইজার",
+		"Anti-theft Alarm":              "অ্যান্টি-থেফট অ্যালার্ম",
+		"Tyre Pressure Monitoring":      "টায়ার প্রেশার মনিটরিং",
+		"Follow-me-home Headlamps":      "ফলো-মি-হোম হেডল্যাম্প",
+		"Rain Sensing Wipers":           "রেইন সেন্সিং ওয়াইপার",
+		"Auto Headlamps":                "অটো হেডল্যাম্প",
+		"Sunroof":                       "সানরুফ",
+		"Panoramic Sunroof":             "প্যানোরামিক সানরুফ",
+		"Chrome Accents":                "ক্রোম অ্যাকসেন্ট",
+		"Body Colored Bumpers":          "বডি কালার্ড বাম্পার",
+		"Rear Spoiler":                  "রিয়ার স্পয়লার",
+		"LED Tail Lights":               "এলইডি টেইল লাইট",
+		"Fog Lights":                    "ফগ লাইট",
+		"LED Fog Lights":                "এলইডি ফগ লাইট",
+		"Projector Headlamps":           "প্রজেক্টর হেডল্যাম্প",
+		"DRLs":                          "ডিআরএল",
+		"LED DRLs":                      "এলইডি ডিআরএল",
+		"Digital Instrument Cluster":    "ডিজিটাল ইন্সট্রুমেন্ট ক্লাস্টার",
+		"Analog Instrument Cluster":     "অ্যানালগ ইন্সট্রুমেন্ট ক্লাস্টার",
+		"Trip Computer":                 "ট্রিপ কম্পিউটার",
+		"Tachometer":                    "ট্যাকোমিটার",
+		"Gear Shift Indicator":          "গিয়ার শিফ্ট ইন্ডিকেটর",
+		"Door Ajar Warning":             "ডোর অজার ওয়ার্নিং",
+		"Low Fuel Warning":              "লো ফুয়েল ওয়ার্নিং",
+		"12V Power Outlet":              "১২ভি পাওয়ার আউটলেট",
+		"Cigarette Lighter":             "সিগারেট লাইটার",
+		"Boot Lamp":                     "বুট ল্যাম্প",
+		"Vanity Mirrors":                "ভ্যানিটি মিরর",
+		"Adjustable Steering":           "অ্যাডজাস্টেবল স্টিয়ারিং",
+		"Tilt Steering":                 "টিল্ট স্টিয়ারিং",
+		"Telescopic Steering":           "টেলিস্কোপিক স্টিয়ারিং",
+		"Height Adjustable Steering":    "হাইট অ্যাডজাস্টেবল স্টিয়ারিং",
+		"Leather Steering Wheel":        "লেদার স্টিয়ারিং হুইল",
+		"Multi-function Steering":       "মাল্টি-ফাংশন স্টিয়ারিং",
+		"Audio Controls":                "অডিও কন্ট্রোল",
+		"Voice Commands":                "ভয়েস কমান্ড",
+		"Cruise Control":                "ক্রুজ কন্ট্রোল",
+		"Wireless Charger":              "ওয়্যারলেস চার্জার",
+		"Ambient Lighting":              "অ্যাম্বিয়েন্ট লাইটিং",
+		"Reading Lamps":                 "রিডিং ল্যাম্প",
+		"Glove Box Lamp":                "গ্লোভ বক্স ল্যাম্প",
+		"Trunk Lamp":                    "ট্রাঙ্ক ল্যাম্প",
+		"Welcome Function":              "ওয়েলকাম ফাংশন",
+		"ORVMs with Turn Indicators":    "ওআরভিএম উইথ টার্ন ইন্ডিকেটর",
+		"Power Windows":                 "পাওয়ার উইন্ডো",
+		"One Touch Up/Down":             "ওয়ান টাচ আপ/ডাউন",
+		"Anti-pinch":                    "অ্যান্টি-পিঞ্চ",
+		"Boot Release":                  "বুট রিলিজ",
+		"Remote Boot Release":           "রিমোট বুট রিলিজ",
+		"Rear Defogger":                 "রিয়ার ডিফগার",
+		"Rear Wiper":                    "রিয়ার ওয়াইপার",
+		"Heated ORVMs":                  "হিটেড ওআরভিএম",
+		"Electrically Adjustable ORVMs": "ইলেকট্রিক্যালি অ্যাডজাস্টেবল ওআরভিএম",
+		"Boot Space":                    "বুট স্পেস",
+		"211 L":                         "২১১ লিটার",
+		"Fuel Tank":                     "ফুয়েল ট্যাঙ্ক",
+		"40 L":                          "৪০ লিটার",
+		"Ground Clearance":              "গ্রাউন্ড ক্লিয়ারেন্স",
+		"146 mm":                        "১৪৬ মিমি",
+		"Kerb Weight":                   "কার্ব ওয়েট",
+		"1150 kg":                       "১১৫০ কেজি",
+		"Gross Weight":                  "গ্রস ওয়েট",
+		"1650 kg":                       "১৬৫০ কেজি",
+		"Turning Radius":                "টার্নিং রেডিয়াস",
+		"5.4 m":                         "৫.৪ মিটার",
+		"Top Speed":                     "টপ স্পিড",
+		"210 km/h":                      "২১০ কিমি/ঘণ্টা",
+		"Acceleration 0-100 km/h":       "০-১০০ কিমি/ঘণ্টা অ্যাকসেলারেশন",
+		"7.8 seconds":                   "৭.৮ সেকেন্ড",
+		"Engine Type":                   "ইঞ্জিন টাইপ",
+		"1.5L Turbo":                    "১.৫লি টার্বো",
+		"Displacement":                  "ডিসপ্লেসমেন্ট",
+		"1499 cc":                       "১৪৯৯ সিসি",
+		"Max Power":                     "ম্যাক্স পাওয়ার",
+		"136 hp @ 4400 rpm":             "১৩৬ হর্স পাওয়ার @ ৪৪০০ আরপিএম",
+		"Max Torque":                    "ম্যাক্স টর্ক",
+		"220 Nm @ 1250 rpm":             "২২০ এনএম @ ১২৫০ আরপিএম",
+		"No. of Cylinders":              "সিলিন্ডারের সংখ্যা",
+		"3":                             "৩",
+		"Valves per Cylinder":           "প্রতি সিলিন্ডার ভালভ",
+		"4":                             "৪",
+		"Fuel Supply System":            "ফুয়েল সাপ্লাই সিস্টেম",
+		"Direct Injection":              "ডাইরেক্ট ইনজেকশন",
+		"Bore x Stroke":                 "বোর x স্ট্রোক",
+		"82.0 x 94.6 mm":                "৮২.০ x ৯৪.৬ মিমি",
+		"Compression Ratio":             "কম্প্রেশন রেশিও",
+		"11.0:1":                        "১১.০:১",
+		"Turbo Charger":                 "টার্বো চার্জার",
+		"Yes":                           "হ্যাঁ",
+		"Super Charger":                 "সুপার চার্জার",
+		"No":                            "না",
+		"Transmission Type":             "ট্রান্সমিশন টাইপ",
+		"Manual":                        "ম্যানুয়াল",
+		"Gear Box":                      "গিয়ার বক্স",
+		"6-Speed":                       "৬-স্পিড",
+		"Drive Type":                    "ড্রাইভ টাইপ",
+		"FWD":                           "এফডব্লিউডি",
+		"Clutch Type":                   "ক্লাচ টাইপ",
+		"Single Plate Dry Clutch":       "সিঙ্গেল প্লেট ড্রাই ক্লাচ",
+		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
+		"16 km/L":                       "১৬ কিমি/লিটার",
+		"Mileage (City)":                "মাইলেজ (সিটি)",
+		"13 km/L":                       "১৩ কিমি/লিটার",
+		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
+		"19 km/L":                       "১৯ কিমি/লিটার",
+		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
+		"BS VI":                         "বিএস ভি",
+		"Length":                        "দৈর্ঘ্য",
+		"3821 mm":                       "৩৮২১ মিমি",
+		"Width":                         "প্রস্থ",
+		"1727 mm":                       "১৭২৭ মিমি",
+		"Height":                        "উচ্চতা",
+		"1414 mm":                       "১৪১৪ মিমি",
+		"Wheelbase":                     "হুইলবেস",
+		"2495 mm":                       "২৪৯৫ মিমি",
+		"Front Tread":                   "ফ্রন্ট ট্রেড",
+		"1501 mm":                       "১৫০১ মিমি",
+		"Rear Tread":                    "রিয়ার ট্রেড",
+		"1501 mm":                       "১৫০১ মিমি",
+		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
+		"4":                             "৪",
+		"Door Count":                    "ডোর কাউন্ট",
+		"3":                             "৩",
+		"Boot Space":                    "বুট স্পেস",
+		"211 L":                         "২১১ লিটার",
+		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
+		"40 L":                          "৪০ লিটার",
+		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
+		"146 mm":                        "১৪৬ মিমি",
+		"Kerb Weight":                   "কার্ব ওয়েট",
+		"1150 kg":                       "১১৫০ কেজি",
+		"Gross Weight":                  "গ্রস ওয়েট",
+		"1650 kg":                       "১৬৫০ কেজি",
+		"Turning Radius":                "টার্নিং রেডিয়াস",
+		"5.4 m":                         "৫.৪ মিটার",
+		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
+		"MacPherson Strut":              "ম্যাকফারসন স্ট্রাট",
+		"Rear Suspension":               "রিয়ার সাসপেনশন",
+		"Multi-link":                    "মাল্টি-লিঙ্ক",
+		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
+		"Disc":                          "ডিস্ক",
+		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
+		"Drum":                          "ড্রাম",
+		"Tyre Size":                     "টায়ার সাইজ",
+		"195/55 R16":                    "১৯৫/৫৫ আর১৬",
+		"Wheel Size":                    "হুইল সাইজ",
+		"16 inches":                     "১৬ ইঞ্চি",
+		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
+		"195/55 R16":                    "১৯৫/৫৫ আর১৬",
+	}
+}
+
+func (mcs *MINICooperSeeder) Seed(db *gorm.DB) error {
+	// First, find or create the product
+	var product models.ProductModel
+	if err := db.Where("name = ?", "MINI Cooper").First(&product).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			product = models.ProductModel{
+				Name:        "MINI Cooper",
+				Brand:       "MINI",
+				Category:    "Hatchback",
+				Subcategory: "Subcompact Hatchback",
+				Status:      1,
+			}
+			if err := db.Create(&product).Error; err != nil {
+				return err
+			}
+			log.Printf("Created product: %s", product.Name)
+		} else {
+			return err
+		}
+	}
+
+	// Get all specification keys
+	var specKeys []models.SpecificationKeyModel
+	if err := db.Find(&specKeys).Error; err != nil {
+		return err
+	}
+
+	// Create a map for quick lookup
+	specKeyMap := make(map[string]uint)
+	for _, key := range specKeys {
+		specKeyMap[key.Key] = key.ID
+	}
+
+	// Define specifications
+	specifications := map[string]string{
+		"engine_type":                 "1.5L Turbo",
+		"engine_displacement":         "1499 cc",
+		"engine_cylinders":            "3",
+		"engine_valves_per_cylinder":  "4",
+		"engine_configuration":        "Inline",
+		"engine_fuel_type":            "Petrol",
+		"engine_max_power":            "136 hp @ 4400 rpm",
+		"engine_max_torque":           "220 Nm @ 1250 rpm",
+		"engine_fuel_supply_system":   "Direct Injection",
+		"engine_bore_stroke":          "82.0 x 94.6 mm",
+		"engine_compression_ratio":    "11.0:1",
+		"engine_turbo_charger":        "Yes",
+		"engine_super_charger":        "No",
+		"transmission_type":           "Manual",
+		"transmission_gearbox":        "6-Speed",
+		"transmission_drive_type":     "FWD",
+		"transmission_clutch_type":    "Single Plate Dry Clutch",
+		"performance_top_speed":       "210 km/h",
+		"performance_acceleration":    "7.8 seconds",
+		"performance_mileage_arai":    "16 km/L",
+		"performance_mileage_city":    "13 km/L",
+		"performance_mileage_highway": "19 km/L",
+		"performance_emission_norm":   "BS VI",
+		"dimensions_length":           "3821 mm",
+		"dimensions_width":            "1727 mm",
+		"dimensions_height":           "1414 mm",
+		"dimensions_wheelbase":        "2495 mm",
+		"dimensions_front_tread":      "1501 mm",
+		"dimensions_rear_tread":       "1501 mm",
+		"dimensions_ground_clearance": "146 mm",
+		"dimensions_boot_space":       "211 L",
+		"dimensions_fuel_tank":        "40 L",
+		"dimensions_turning_radius":   "5.4 m",
+		"weight_kerb_weight":          "1150 kg",
+		"weight_gross_weight":         "1650 kg",
+		"capacity_seating_capacity":   "4",
+		"capacity_doors":              "3",
+		"suspension_front":            "MacPherson Strut",
+		"suspension_rear":             "Multi-link",
+		"brakes_front":                "Disc",
+		"brakes_rear":                 "Drum",
+		"tyres_size":                  "195/55 R16",
+		"tyres_wheel_size":            "16 inches",
+		"tyres_spare_size":            "195/55 R16",
+		"exterior_colors":             "Chili Red, Black, Gray, White, Silver, Blue, Green, Orange",
+		"exterior_headlights":         "LED",
+		"exterior_daytime_running":    "LED DRLs",
+		"exterior_roof_rails":         "No",
+		"exterior_wheels":             "16-inch Alloy Wheels",
+		"interior_seats_material":     "Leatherette",
+		"interior_seats_adjustment":   "6-way Manual",
+		"interior_ac":                 "Manual AC",
+		"infotainment_screen_size":    "6.5-inch Touchscreen",
+		"infotainment_connectivity":   "Android Auto, Apple CarPlay, Bluetooth",
+		"infotainment_speakers":       "6 Speakers",
+		"safety_airbags":              "Front, Side, Knee Airbags",
+		"safety_abs":                  "Yes",
+		"safety_ebd":                  "Yes",
+		"safety_brake_assist":         "Yes",
+		"safety_esp":                  "Yes",
+		"safety_parking_sensors":      "Rear Parking Sensors",
+		"safety_camera":               "Rear Parking Camera",
+		"features_central_locking":    "Yes",
+		"features_keyless_entry":      "Yes",
+		"features_push_start":         "Yes",
+		"features_cruise_control":     "No",
+		"features_sunroof":            "No",
+		"year":                        "2021",
+		"category":                    "Hatchback",
+		"subcategory":                 "Subcompact Hatchback",
+	}
+
+	// Create specifications
+	for key, value := range specifications {
+		if specKeyID, exists := specKeyMap[key]; exists {
+			spec := models.SpecificationModel{
+				ProductID:          product.ID,
+				SpecificationKeyID: specKeyID,
+				Value:              value,
+				Status:             1,
+			}
+			if err := db.Create(&spec).Error; err != nil {
+				log.Printf("Error creating specification for key %s: %v", key, err)
+				continue
+			}
+
+			// Create translation
+			translation := models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				LanguageCode:    "bn",
+				Value:           mcs.getBanglaTranslations()[value],
+				Status:          1,
+			}
+			if err := db.Create(&translation).Error; err != nil {
+				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)
+			}
+		} else {
+			log.Printf("Specification key not found: %s", key)
+		}
+	}
+
+	log.Printf("Seeded specifications for MINI Cooper")
+	return nil
+}
