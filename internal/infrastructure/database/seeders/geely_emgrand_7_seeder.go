@@ -51,7 +51,6 @@ func (ge7s *GeelyEmgrand7Seeder) getBanglaTranslations() map[string]string {
 		"Basic Radio":              "বেসিক রেডিও",
 		"7 inch":                   "৭ ইঞ্চি",
 		"Geely":                    "জিলি",
-		"4":                        "৪",
 		"Disc":                     "ডিস্ক",
 		"Semi-Independent":         "সেমি-ইন্ডিপেন্ডেন্ট",
 		"Euro 5":                   "ইউরো ৫",

@@ -21,20 +21,13 @@ func NewNissanLeafSeeder() *NissanLeafSeeder {
 
 func (nls *NissanLeafSeeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Leaf e+":                        "লিফ ই+",
-		"2nd Generation (ZE1)":           "২য় প্রজন্ম (জেডই১)",
-		"Compact Hatchback Electric":     "কমপ্যাক্ট হ্যাচব্যাক ইলেকট্রিক",
-		"2021":                           "২০২১",
-		"Electric Motor":                 "ইলেকট্রিক মোটর",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"Open":                           "ওপেন",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
+		"Leaf e+":                    "লিফ ই+",
+		"2nd Generation (ZE1)":       "২য় প্রজন্ম (জেডই১)",
+		"Compact Hatchback Electric": "কমপ্যাক্ট হ্যাচব্যাক ইলেকট্রিক",
+		"2021":                       "২০২১",
+		"Electric Motor":             "ইলেকট্রিক মোটর",
+		"N/A":                        "এন/এ",
+
 		"MacPherson Strut":               "ম্যাকফারসন স্ট্রাট",
 		"Torsion Beam":                   "টর্শন বিম",
 		"Electric Power Steering":        "ইলেকট্রিক পাওয়ার স্টিয়ারিং",
@@ -58,10 +51,6 @@ func (nls *NissanLeafSeeder) getBanglaTranslations() map[string]string {
 		"Independent":                    "ইন্ডিপেন্ডেন্ট",
 		"Zero Emission":                  "জিরো এমিশন",
 		"Push Button":                    "পুশ বাটন",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
-		"N/A":                            "এন/এ",
 	}
 }
 
