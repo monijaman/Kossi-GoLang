@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 	"log"
 
@@ -223,10 +224,6 @@ func (mcs *MINICooperSeeder) getBanglaTranslations() map[string]string {
 		"Door Count":                    "ডোর কাউন্ট",
 		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
 		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"1650 kg":                       "১৬৫০ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"5.4 m":                         "৫.৪ মিটার",
 		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
 		"MacPherson Strut":              "ম্যাকফারসন স্ট্রাট",
 		"Rear Suspension":               "রিয়ার সাসপেনশন",
@@ -236,25 +233,35 @@ func (mcs *MINICooperSeeder) getBanglaTranslations() map[string]string {
 		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
 		"Drum":                          "ড্রাম",
 		"Tyre Size":                     "টায়ার সাইজ",
-		"195/55 R16":                    "১৯৫/৫৫ আর১৬",
 		"Wheel Size":                    "হুইল সাইজ",
 		"16 inches":                     "১৬ ইঞ্চি",
 		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"195/55 R16":                    "১৯৫/৫৫ আর১৬",
 	}
 }
 
 func (mcs *MINICooperSeeder) Seed(db *gorm.DB) error {
+	// Lookup brand by slug
+	var brand models.BrandModel
+	if err := db.Where("slug = ?", "mini").First(&brand).Error; err != nil {
+		return fmt.Errorf("brand not found: %w", err)
+	}
+
+	// Lookup category by ID
+	var category models.CategoryModel
+	if err := db.Where("id = ?", 18).First(&category).Error; err != nil {
+		return fmt.Errorf("category not found: %w", err)
+	}
+
 	// First, find or create the product
 	var product models.ProductModel
 	if err := db.Where("name = ?", "MINI Cooper").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "MINI Cooper",
-				Brand:       "MINI",
-				Category:    "Hatchback",
-				Subcategory: "Subcompact Hatchback",
-				Status:      1,
+				Name:       "MINI Cooper",
+				Slug:       "mini-cooper",
+				BrandID:    &brand.ID,
+				CategoryID: &category.ID,
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -274,7 +281,7 @@ func (mcs *MINICooperSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -368,9 +375,8 @@ func (mcs *MINICooperSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           mcs.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

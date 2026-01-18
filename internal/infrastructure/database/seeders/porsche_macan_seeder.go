@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 	"log"
 
@@ -171,7 +172,6 @@ func (pms *PorscheMacanSeeder) getBanglaTranslations() map[string]string {
 		"Max Power":                     "ম্যাক্স পাওয়ার",
 		"Max Torque":                    "ম্যাক্স টর্ক",
 		"No. of Cylinders":              "সিলিন্ডারের সংখ্যা",
-		"4":                             "৪",
 		"Valves per Cylinder":           "প্রতি সিলিন্ডার ভালভ",
 		"Fuel Supply System":            "ফুয়েল সাপ্লাই সিস্টেম",
 		"Direct Injection":              "ডাইরেক্ট ইনজেকশন",
@@ -191,69 +191,61 @@ func (pms *PorscheMacanSeeder) getBanglaTranslations() map[string]string {
 		"AWD":                           "এডব্লিউডি",
 		"Clutch Type":                   "ক্লাচ টাইপ",
 		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
-		"12 km/L":                       "১২ কিমি/লিটার",
 		"Mileage (City)":                "মাইলেজ (সিটি)",
-		"9 km/L":                        "৯ কিমি/লিটার",
 		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
-		"15 km/L":                       "১৫ কিমি/লিটার",
 		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
 		"BS VI":                         "বিএস ভি",
 		"Length":                        "দৈর্ঘ্য",
-		"4696 mm":                       "৪৬৯৬ মিমি",
 		"Width":                         "প্রস্থ",
-		"1923 mm":                       "১৯২৩ মিমি",
 		"Height":                        "উচ্চতা",
-		"1621 mm":                       "১৬২১ মিমি",
 		"Wheelbase":                     "হুইলবেস",
-		"2807 mm":                       "২৮০৭ মিমি",
 		"Front Tread":                   "ফ্রন্ট ট্রেড",
 		"1655 mm":                       "১৬৫৫ মিমি",
 		"Rear Tread":                    "রিয়ার ট্রেড",
 		"1654 mm":                       "১৬৫৪ মিমি",
 		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
-		"5":                             "৫",
 		"Door Count":                    "ডোর কাউন্ট",
-		"5":                             "৫",
-		"Boot Space":                    "বুট স্পেস",
-		"488 L":                         "৪৮৮ লিটার",
-		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
-		"65 L":                          "৬৫ লিটার",
-		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"188 mm":                        "১৮৮ মিমি",
-		"Kerb Weight":                   "কার্ব ওয়েট",
-		"1770 kg":                       "১৭৭০ কেজি",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"2400 kg":                       "২৪০০ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"5.9 m":                         "৫.৯ মিটার",
-		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
-		"Double Wishbone":               "ডাবল উইশবোন",
-		"Rear Suspension":               "রিয়ার সাসপেনশন",
-		"Multi-link":                    "মাল্টি-লিঙ্ক",
-		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Tyre Size":                     "টায়ার সাইজ",
-		"235/60 R18":                    "২৩৫/৬০ আর১৮",
-		"Wheel Size":                    "হুইল সাইজ",
-		"18 inches":                     "১৮ ইঞ্চি",
-		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"235/60 R18":                    "২৩৫/৬০ আর১৮",
+
+		"Fuel Tank Capacity":       "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
+		"Ground Clearance Unladen": "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
+
+		"Front Suspension": "ফ্রন্ট সাসপেনশন",
+		"Double Wishbone":  "ডাবল উইশবোন",
+		"Rear Suspension":  "রিয়ার সাসপেনশন",
+		"Multi-link":       "মাল্টি-লিঙ্ক",
+		"Front Brake Type": "ফ্রন্ট ব্রেক টাইপ",
+		"Disc":             "ডিস্ক",
+		"Rear Brake Type":  "রিয়ার ব্রেক টাইপ",
+		"Tyre Size":        "টায়ার সাইজ",
+		"Wheel Size":       "হুইল সাইজ",
+		"18 inches":        "১৮ ইঞ্চি",
+		"Spare Tyre Size":  "স্পেয়ার টায়ার সাইজ",
 	}
 }
 
 func (pms *PorscheMacanSeeder) Seed(db *gorm.DB) error {
+	// Lookup brand by slug
+	var brand models.BrandModel
+	if err := db.Where("slug = ?", "porsche").First(&brand).Error; err != nil {
+		return fmt.Errorf("brand not found: %w", err)
+	}
+
+	// Lookup category by ID
+	var category models.CategoryModel
+	if err := db.Where("id = ?", 18).First(&category).Error; err != nil {
+		return fmt.Errorf("category not found: %w", err)
+	}
+
 	// First, find or create the product
 	var product models.ProductModel
 	if err := db.Where("name = ?", "Porsche Macan").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "Porsche Macan",
-				Brand:       "Porsche",
-				Category:    "SUV",
-				Subcategory: "Compact Luxury SUV",
-				Status:      1,
+				Name:       "Porsche Macan",
+				Slug:       "porsche-macan",
+				BrandID:    &brand.ID,
+				CategoryID: &category.ID,
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -273,7 +265,7 @@ func (pms *PorscheMacanSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -367,9 +359,8 @@ func (pms *PorscheMacanSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           pms.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

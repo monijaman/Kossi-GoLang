@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 	"log"
 
@@ -255,16 +256,41 @@ func (mhs *MGHSSeeder) getBanglaTranslations() map[string]string {
 }
 
 func (mhs *MGHSSeeder) Seed(db *gorm.DB) error {
+	// Find the Car category (ID: 18)
+	var carCategory models.CategoryModel
+	if err := db.Where("id = ?", 18).First(&carCategory).Error; err != nil {
+		return fmt.Errorf("category with id 18 not found: %w", err)
+	}
+
+	// Find or create the MG brand
+	var brand models.BrandModel
+	brandSlug := "mg"
+	if err := db.Where("slug = ?", brandSlug).First(&brand).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			brand = models.BrandModel{
+				Name:   "MG",
+				Slug:   brandSlug,
+				Status: 1,
+			}
+			if err := db.Create(&brand).Error; err != nil {
+				return err
+			}
+		} else {
+			return err
+		}
+	}
+
 	// First, find or create the product
 	var product models.ProductModel
-	if err := db.Where("name = ?", "MG HS").First(&product).Error; err != nil {
+	productSlug := "mg-hs"
+	if err := db.Where("slug = ?", productSlug).First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "MG HS",
-				Brand:       "MG",
-				Category:    "SUV",
-				Subcategory: "Compact SUV",
-				Status:      1,
+				Name:       "MG HS",
+				Slug:       productSlug,
+				CategoryID: &carCategory.ID,
+				BrandID:    &brand.ID,
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -284,7 +310,7 @@ func (mhs *MGHSSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -378,9 +404,8 @@ func (mhs *MGHSSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           mhs.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 	"log"
 
@@ -238,16 +239,28 @@ func (mcs *MINICountrymanSeeder) getBanglaTranslations() map[string]string {
 }
 
 func (mcs *MINICountrymanSeeder) Seed(db *gorm.DB) error {
+	// Lookup brand by slug
+	var brand models.BrandModel
+	if err := db.Where("slug = ?", "mini").First(&brand).Error; err != nil {
+		return fmt.Errorf("brand not found: %w", err)
+	}
+
+	// Lookup category by ID
+	var category models.CategoryModel
+	if err := db.Where("id = ?", 18).First(&category).Error; err != nil {
+		return fmt.Errorf("category not found: %w", err)
+	}
+
 	// First, find or create the product
 	var product models.ProductModel
 	if err := db.Where("name = ?", "MINI Countryman").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "MINI Countryman",
-				Brand:       "MINI",
-				Category:    "SUV",
-				Subcategory: "Subcompact SUV",
-				Status:      1,
+				Name:       "MINI Countryman",
+				Slug:       "mini-countryman",
+				BrandID:    &brand.ID,
+				CategoryID: &category.ID,
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -267,7 +280,7 @@ func (mcs *MINICountrymanSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -361,9 +374,8 @@ func (mcs *MINICountrymanSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           mcs.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

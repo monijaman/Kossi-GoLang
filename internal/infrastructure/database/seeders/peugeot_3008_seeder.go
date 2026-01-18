@@ -1,6 +1,7 @@
 package seeders
 
 import (
+	"fmt"
 	"kossti/internal/infrastructure/database/models"
 	"log"
 
@@ -189,69 +190,61 @@ func (p3s *Peugeot3008Seeder) getBanglaTranslations() map[string]string {
 		"AWD":                           "এডব্লিউডি",
 		"Clutch Type":                   "ক্লাচ টাইপ",
 		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
-		"20 km/L":                       "২০ কিমি/লিটার",
 		"Mileage (City)":                "মাইলেজ (সিটি)",
-		"16 km/L":                       "১৬ কিমি/লিটার",
 		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
-		"24 km/L":                       "২৪ কিমি/লিটার",
 		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
 		"BS VI":                         "বিএস ভি",
 		"Length":                        "দৈর্ঘ্য",
-		"4447 mm":                       "৪৪৪৭ মিমি",
 		"Width":                         "প্রস্থ",
-		"1841 mm":                       "১৮৪১ মিমি",
 		"Height":                        "উচ্চতা",
-		"1620 mm":                       "১৬২০ মিমি",
 		"Wheelbase":                     "হুইলবেস",
-		"2675 mm":                       "২৬৭৫ মিমি",
 		"Front Tread":                   "ফ্রন্ট ট্রেড",
 		"1608 mm":                       "১৬০৮ মিমি",
 		"Rear Tread":                    "রিয়ার ট্রেড",
 		"1617 mm":                       "১৬১৭ মিমি",
 		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
-		"5":                             "৫",
 		"Door Count":                    "ডোর কাউন্ট",
-		"5":                             "৫",
-		"Boot Space":                    "বুট স্পেস",
-		"520 L":                         "৫২০ লিটার",
 		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
-		"53 L":                          "৫৩ লিটার",
 		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"219 mm":                        "২১৯ মিমি",
-		"Kerb Weight":                   "কার্ব ওয়েট",
-		"1420 kg":                       "১৪২০ কেজি",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"1990 kg":                       "১৯৯০ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"5.4 m":                         "৫.৪ মিটার",
 		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
 		"MacPherson Strut":              "ম্যাকফারসন স্ট্রাট",
 		"Rear Suspension":               "রিয়ার সাসপেনশন",
 		"Multi-link":                    "মাল্টি-লিঙ্ক",
 		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
 		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
 		"Disc":                          "ডিস্ক",
 		"Tyre Size":                     "টায়ার সাইজ",
-		"225/55 R18":                    "২২৫/৫৫ আর১৮",
 		"Wheel Size":                    "হুইল সাইজ",
 		"18 inches":                     "১৮ ইঞ্চি",
 		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"225/55 R18":                    "২২৫/৫৫ আর১৮",
+		"Front, Side & Curtain Airbags": "ফ্রন্ট, সাইড এবং কার্টেন এয়ারব্যাগ",
+		"Dual Zone Auto AC":             "ডুয়াল জোন অটো এসি",
 	}
 }
 
 func (p3s *Peugeot3008Seeder) Seed(db *gorm.DB) error {
+	// Lookup brand by slug
+	var brand models.BrandModel
+	if err := db.Where("slug = ?", "peugeot").First(&brand).Error; err != nil {
+		return fmt.Errorf("brand not found: %w", err)
+	}
+
+	// Lookup category by ID
+	var category models.CategoryModel
+	if err := db.Where("id = ?", 18).First(&category).Error; err != nil {
+		return fmt.Errorf("category not found: %w", err)
+	}
+
 	// First, find or create the product
 	var product models.ProductModel
 	if err := db.Where("name = ?", "Peugeot 3008").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "Peugeot 3008",
-				Brand:       "Peugeot",
-				Category:    "SUV",
-				Subcategory: "Compact SUV",
-				Status:      1,
+				Name:       "Peugeot 3008",
+				Slug:       "peugeot-3008",
+				BrandID:    &brand.ID,
+				CategoryID: &category.ID,
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -271,7 +264,7 @@ func (p3s *Peugeot3008Seeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -365,9 +358,8 @@ func (p3s *Peugeot3008Seeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           p3s.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)
