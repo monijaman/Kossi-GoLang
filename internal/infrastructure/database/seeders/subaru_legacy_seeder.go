@@ -126,6 +126,8 @@ func (sls *SubaruLegacySeeder) Seed(db *gorm.DB) error {
 	productID := prod.ID
 
 	existingKeyMapping := map[string]uint{
+		"Brand":                             310,
+		"Model Name":                        316,
 		"Variant":                        728,
 		"Generation":                     729,
 		"Segment":                        730,
