@@ -174,21 +174,14 @@ func (mf *MG5Seeder) getBanglaTranslations() map[string]string {
 		"Turning Radius":                "টার্নিং রেডিয়াস",
 		"5.5 m":                         "৫.৫ মিটার",
 		"Top Speed":                     "টপ স্পিড",
-		"180 km/h":                      "১৮০ কিমি/ঘণ্টা",
 		"Acceleration 0-100 km/h":       "০-১০০ কিমি/ঘণ্টা অ্যাকসেলারেশন",
-		"10.8 seconds":                  "১০.৮ সেকেন্ড",
 		"Engine Type":                   "ইঞ্জিন টাইপ",
-		"1.5L Turbo":                    "১.৫লি টার্বো",
 		"Displacement":                  "ডিসপ্লেসমেন্ট",
 		"1498 cc":                       "১৪৯৮ সিসি",
 		"Max Power":                     "ম্যাক্স পাওয়ার",
-		"108 hp @ 5600 rpm":             "১০৮ হর্স পাওয়ার @ ৫৬০০ আরপিএম",
 		"Max Torque":                    "ম্যাক্স টর্ক",
-		"150 Nm @ 4500 rpm":             "১৫০ এনএম @ ৪৫০০ আরপিএম",
 		"No. of Cylinders":              "সিলিন্ডারের সংখ্যা",
-		"4":                             "৪",
 		"Valves per Cylinder":           "প্রতি সিলিন্ডার ভালভ",
-		"4":                             "৪",
 		"Fuel Supply System":            "ফুয়েল সাপ্লাই সিস্টেম",
 		"Direct Injection":              "ডাইরেক্ট ইনজেকশন",
 		"Bore x Stroke":                 "বোর x স্ট্রোক",
@@ -206,57 +199,7 @@ func (mf *MG5Seeder) getBanglaTranslations() map[string]string {
 		"Drive Type":                    "ড্রাইভ টাইপ",
 		"FWD":                           "এফডব্লিউডি",
 		"Clutch Type":                   "ক্লাচ টাইপ",
-		"Single Plate Dry Clutch":       "সিঙ্গেল প্লেট ড্রাই ক্লাচ",
 		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
-		"17 km/L":                       "১৭ কিমি/লিটার",
-		"Mileage (City)":                "মাইলেজ (সিটি)",
-		"14 km/L":                       "১৪ কিমি/লিটার",
-		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
-		"20 km/L":                       "২০ কিমি/লিটার",
-		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
-		"BS VI":                         "বিএস ভি",
-		"Length":                        "দৈর্ঘ্য",
-		"4601 mm":                       "৪৬০১ মিমি",
-		"Width":                         "প্রস্থ",
-		"1818 mm":                       "১৮১৮ মিমি",
-		"Height":                        "উচ্চতা",
-		"1489 mm":                       "১৪৮৯ মিমি",
-		"Wheelbase":                     "হুইলবেস",
-		"2650 mm":                       "২৬৫০ মিমি",
-		"Front Tread":                   "ফ্রন্ট ট্রেড",
-		"1546 mm":                       "১৫৪৬ মিমি",
-		"Rear Tread":                    "রিয়ার ট্রেড",
-		"1549 mm":                       "১৫৪৯ মিমি",
-		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
-		"5":                             "৫",
-		"Door Count":                    "ডোর কাউন্ট",
-		"4":                             "৪",
-		"Boot Space":                    "বুট স্পেস",
-		"523 L":                         "৫২৩ লিটার",
-		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
-		"50 L":                          "৫০ লিটার",
-		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"150 mm":                        "১৫০ মিমি",
-		"Kerb Weight":                   "কার্ব ওয়েট",
-		"1255 kg":                       "১২৫৫ কেজি",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"1755 kg":                       "১৭৫৫ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"5.5 m":                         "৫.৫ মিটার",
-		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
-		"MacPherson Strut":              "ম্যাকফারসন স্ট্রাট",
-		"Rear Suspension":               "রিয়ার সাসপেনশন",
-		"Torsion Beam":                  "টর্শন বিম",
-		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
-		"Drum":                          "ড্রাম",
-		"Tyre Size":                     "টায়ার সাইজ",
-		"205/55 R16":                    "২০৫/৫৫ আর১৬",
-		"Wheel Size":                    "হুইল সাইজ",
-		"16 inches":                     "১৬ ইঞ্চি",
-		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"205/55 R16":                    "২০৫/৫৫ আর১৬",
 	}
 }
 
@@ -266,11 +209,10 @@ func (mf *MG5Seeder) Seed(db *gorm.DB) error {
 	if err := db.Where("name = ?", "MG 5").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "MG 5",
-				Brand:       "MG",
-				Category:    "Sedan",
-				Subcategory: "Compact Sedan",
-				Status:      1,
+				Name:       "MG 5",
+				BrandID:    func() *uint { id := uint(1); return &id }(),
+				CategoryID: func() *uint { id := uint(18); return &id }(),
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -290,7 +232,7 @@ func (mf *MG5Seeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -384,9 +326,8 @@ func (mf *MG5Seeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           mf.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

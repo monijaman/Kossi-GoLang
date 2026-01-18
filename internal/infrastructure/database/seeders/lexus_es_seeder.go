@@ -162,89 +162,8 @@ func (less *LexusESSeeder) getBanglaTranslations() map[string]string {
 		"Turning Radius":                "টার্নিং রেডিয়াস",
 		"5.9 m":                         "৫.৯ মিটার",
 		"Top Speed":                     "টপ স্পিড",
-		"210 km/h":                      "২১০ কিমি/ঘণ্টা",
 		"Acceleration 0-100 km/h":       "০-১০০ কিমি/ঘণ্টা অ্যাকসেলারেশন",
-		"6.8 seconds":                   "৬.৮ সেকেন্ড",
 		"Engine Type":                   "ইঞ্জিন টাইপ",
-		"3.5L V6":                       "৩.৫লি ভি৬",
-		"Displacement":                  "ডিসপ্লেসমেন্ট",
-		"3456 cc":                       "৩৪৫৬ সিসি",
-		"Max Power":                     "ম্যাক্স পাওয়ার",
-		"302 hp @ 6600 rpm":             "৩০২ হর্স পাওয়ার @ ৬৬০০ আরপিএম",
-		"Max Torque":                    "ম্যাক্স টর্ক",
-		"367 Nm @ 4700 rpm":             "৩৬৭ এনএম @ ৪৭০০ আরপিএম",
-		"No. of Cylinders":              "সিলিন্ডারের সংখ্যা",
-		"6":                             "৬",
-		"Valves per Cylinder":           "প্রতি সিলিন্ডার ভালভ",
-		"4":                             "৪",
-		"Fuel Supply System":            "ফুয়েল সাপ্লাই সিস্টেম",
-		"Direct Injection":              "ডাইরেক্ট ইনজেকশন",
-		"Bore x Stroke":                 "বোর x স্ট্রোক",
-		"94.0 x 83.0 mm":                "৯৪.০ x ৮৩.০ মিমি",
-		"Compression Ratio":             "কম্প্রেশন রেশিও",
-		"11.8:1":                        "১১.৮:১",
-		"Turbo Charger":                 "টার্বো চার্জার",
-		"No":                            "না",
-		"Super Charger":                 "সুপার চার্জার",
-		"No":                            "না",
-		"Transmission Type":             "ট্রান্সমিশন টাইপ",
-		"Automatic":                     "অটোমেটিক",
-		"Gear Box":                      "গিয়ার বক্স",
-		"8-Speed":                       "৮-স্পিড",
-		"Drive Type":                    "ড্রাইভ টাইপ",
-		"FWD":                           "এফডব্লিউডি",
-		"Clutch Type":                   "ক্লাচ টাইপ",
-		"N/A":                           "এন/এ",
-		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
-		"12 km/L":                       "১২ কিমি/লিটার",
-		"Mileage (City)":                "মাইলেজ (সিটি)",
-		"8 km/L":                        "৮ কিমি/লিটার",
-		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
-		"16 km/L":                       "১৬ কিমি/লিটার",
-		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
-		"BS VI":                         "বিএস ভি",
-		"Length":                        "দৈর্ঘ্য",
-		"4976 mm":                       "৪৯৭৬ মিমি",
-		"Width":                         "প্রস্থ",
-		"1864 mm":                       "১৮৬৪ মিমি",
-		"Height":                        "উচ্চতা",
-		"1445 mm":                       "১৪৪৫ মিমি",
-		"Wheelbase":                     "হুইলবেস",
-		"2870 mm":                       "২৮৭০ মিমি",
-		"Front Tread":                   "ফ্রন্ট ট্রেড",
-		"1600 mm":                       "১৬০০ মিমি",
-		"Rear Tread":                    "রিয়ার ট্রেড",
-		"1605 mm":                       "১৬০৫ মিমি",
-		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
-		"5":                             "৫",
-		"Door Count":                    "ডোর কাউন্ট",
-		"4":                             "৪",
-		"Boot Space":                    "বুট স্পেস",
-		"454 L":                         "৪৫৪ লিটার",
-		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
-		"65 L":                          "৬৫ লিটার",
-		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"150 mm":                        "১৫০ মিমি",
-		"Kerb Weight":                   "কার্ব ওয়েট",
-		"1680 kg":                       "১৬৮০ কেজি",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"2100 kg":                       "২১০০ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"5.9 m":                         "৫.৯ মিটার",
-		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
-		"MacPherson Strut":              "ম্যাকফারসন স্ট্রাট",
-		"Rear Suspension":               "রিয়ার সাসপেনশন",
-		"Multi-Link":                    "মাল্টি-লিঙ্ক",
-		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Tyre Size":                     "টায়ার সাইজ",
-		"235/50 R17":                    "২৩৫/৫০ আর১৭",
-		"Wheel Size":                    "হুইল সাইজ",
-		"17 inches":                     "১৭ ইঞ্চি",
-		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"235/50 R17":                    "২৩৫/৫০ আর১৭",
 	}
 }
 
@@ -254,11 +173,10 @@ func (less *LexusESSeeder) Seed(db *gorm.DB) error {
 	if err := db.Where("name = ?", "Lexus ES").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "Lexus ES",
-				Brand:       "Lexus",
-				Category:    "Sedan",
-				Subcategory: "Executive Sedan",
-				Status:      1,
+				Name:       "Lexus ES",
+				BrandID:    func() *uint { id := uint(1); return &id }(),
+				CategoryID: func() *uint { id := uint(18); return &id }(),
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -278,7 +196,7 @@ func (less *LexusESSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -372,9 +290,8 @@ func (less *LexusESSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           less.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

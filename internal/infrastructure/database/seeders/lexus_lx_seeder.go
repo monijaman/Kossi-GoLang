@@ -162,19 +162,13 @@ func (llxs *LexusLXSeeder) getBanglaTranslations() map[string]string {
 		"Turning Radius":                "টার্নিং রেডিয়াস",
 		"6.2 m":                         "৬.২ মিটার",
 		"Top Speed":                     "টপ স্পিড",
-		"220 km/h":                      "২২০ কিমি/ঘণ্টা",
 		"Acceleration 0-100 km/h":       "০-১০০ কিমি/ঘণ্টা অ্যাকসেলারেশন",
-		"6.4 seconds":                   "৬.৪ সেকেন্ড",
 		"Engine Type":                   "ইঞ্জিন টাইপ",
-		"3.4L V6 Turbo":                 "৩.৪লি ভি৬ টার্বো",
 		"Displacement":                  "ডিসপ্লেসমেন্ট",
 		"3345 cc":                       "৩৩৪৫ সিসি",
 		"Max Power":                     "ম্যাক্স পাওয়ার",
-		"415 hp @ 5200 rpm":             "৪১৫ হর্স পাওয়ার @ ৫২০০ আরপিএম",
 		"Max Torque":                    "ম্যাক্স টর্ক",
-		"650 Nm @ 2000 rpm":             "৬৫০ এনএম @ ২০০০ আরপিএম",
 		"No. of Cylinders":              "সিলিন্ডারের সংখ্যা",
-		"6":                             "৬",
 		"Valves per Cylinder":           "প্রতি সিলিন্ডার ভালভ",
 		"4":                             "৪",
 		"Fuel Supply System":            "ফুয়েল সাপ্লাই সিস্টেম",
@@ -194,57 +188,7 @@ func (llxs *LexusLXSeeder) getBanglaTranslations() map[string]string {
 		"Drive Type":                    "ড্রাইভ টাইপ",
 		"AWD":                           "এডব্লিউডি",
 		"Clutch Type":                   "ক্লাচ টাইপ",
-		"Multi-Terrain Select":          "মাল্টি-টেরেইন সিলেক্ট",
 		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
-		"8 km/L":                        "৮ কিমি/লিটার",
-		"Mileage (City)":                "মাইলেজ (সিটি)",
-		"6 km/L":                        "৬ কিমি/লিটার",
-		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
-		"10 km/L":                       "১০ কিমি/লিটার",
-		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
-		"BS VI":                         "বিএস ভি",
-		"Length":                        "দৈর্ঘ্য",
-		"5080 mm":                       "৫০৮০ মিমি",
-		"Width":                         "প্রস্থ",
-		"1980 mm":                       "১৯৮০ মিমি",
-		"Height":                        "উচ্চতা",
-		"1895 mm":                       "১৮৯৫ মিমি",
-		"Wheelbase":                     "হুইলবেস",
-		"2850 mm":                       "২৮৫০ মিমি",
-		"Front Tread":                   "ফ্রন্ট ট্রেড",
-		"1680 mm":                       "১৬৮০ মিমি",
-		"Rear Tread":                    "রিয়ার ট্রেড",
-		"1685 mm":                       "১৬৮৫ মিমি",
-		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
-		"5":                             "৫",
-		"Door Count":                    "ডোর কাউন্ট",
-		"4":                             "৪",
-		"Boot Space":                    "বুট স্পেস",
-		"258 L":                         "২৫৮ লিটার",
-		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
-		"80 L":                          "৮০ লিটার",
-		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"205 mm":                        "২০৫ মিমি",
-		"Kerb Weight":                   "কার্ব ওয়েট",
-		"2585 kg":                       "২৫৮৫ কেজি",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"3265 kg":                       "৩২৬৫ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"6.2 m":                         "৬.২ মিটার",
-		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
-		"Double Wishbone":               "ডাবল উইশবোন",
-		"Rear Suspension":               "রিয়ার সাসপেনশন",
-		"Multi-Link":                    "মাল্টি-লিঙ্ক",
-		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Tyre Size":                     "টায়ার সাইজ",
-		"275/50 R20":                    "২৭৫/৫০ আর২০",
-		"Wheel Size":                    "হুইল সাইজ",
-		"20 inches":                     "২০ ইঞ্চি",
-		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"275/50 R20":                    "২৭৫/৫০ আর২০",
 	}
 }
 
@@ -254,11 +198,10 @@ func (llxs *LexusLXSeeder) Seed(db *gorm.DB) error {
 	if err := db.Where("name = ?", "Lexus LX").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "Lexus LX",
-				Brand:       "Lexus",
-				Category:    "SUV",
-				Subcategory: "Full-size Luxury SUV",
-				Status:      1,
+				Name:       "Lexus LX",
+				BrandID:    func() *uint { id := uint(1); return &id }(),
+				CategoryID: func() *uint { id := uint(18); return &id }(),
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -278,7 +221,7 @@ func (llxs *LexusLXSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -372,9 +315,8 @@ func (llxs *LexusLXSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           llxs.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)

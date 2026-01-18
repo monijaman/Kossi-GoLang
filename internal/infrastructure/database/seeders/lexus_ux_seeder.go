@@ -160,21 +160,14 @@ func (luxs *LexusUXSeeder) getBanglaTranslations() map[string]string {
 		"Turning Radius":                "টার্নিং রেডিয়াস",
 		"5.4 m":                         "৫.৪ মিটার",
 		"Top Speed":                     "টপ স্পিড",
-		"190 km/h":                      "১৯০ কিমি/ঘণ্টা",
 		"Acceleration 0-100 km/h":       "০-১০০ কিমি/ঘণ্টা অ্যাকসেলারেশন",
-		"9.2 seconds":                   "৯.২ সেকেন্ড",
 		"Engine Type":                   "ইঞ্জিন টাইপ",
-		"2.0L I4":                       "২.০লি আই৪",
 		"Displacement":                  "ডিসপ্লেসমেন্ট",
 		"1987 cc":                       "১৯৮৭ সিসি",
 		"Max Power":                     "ম্যাক্স পাওয়ার",
-		"171 hp @ 6000 rpm":             "১৭১ হর্স পাওয়ার @ ৬০০০ আরপিএম",
 		"Max Torque":                    "ম্যাক্স টর্ক",
-		"205 Nm @ 4400 rpm":             "২০৫ এনএম @ ৪৪০০ আরপিএম",
 		"No. of Cylinders":              "সিলিন্ডারের সংখ্যা",
-		"4":                             "৪",
 		"Valves per Cylinder":           "প্রতি সিলিন্ডার ভালভ",
-		"4":                             "৪",
 		"Fuel Supply System":            "ফুয়েল সাপ্লাই সিস্টেম",
 		"Direct Injection":              "ডাইরেক্ট ইনজেকশন",
 		"Bore x Stroke":                 "বোর x স্ট্রোক",
@@ -182,67 +175,14 @@ func (luxs *LexusUXSeeder) getBanglaTranslations() map[string]string {
 		"Compression Ratio":             "কম্প্রেশন রেশিও",
 		"13.0:1":                        "১৩.০:১",
 		"Turbo Charger":                 "টার্বো চার্জার",
-		"No":                            "না",
 		"Super Charger":                 "সুপার চার্জার",
-		"No":                            "না",
 		"Transmission Type":             "ট্রান্সমিশন টাইপ",
 		"Automatic":                     "অটোমেটিক",
 		"Gear Box":                      "গিয়ার বক্স",
-		"CVT":                           "সিভিটি",
 		"Drive Type":                    "ড্রাইভ টাইপ",
 		"FWD":                           "এফডব্লিউডি",
 		"Clutch Type":                   "ক্লাচ টাইপ",
 		"N/A":                           "এন/এ",
-		"Mileage (ARAI)":                "মাইলেজ (এআরএআই)",
-		"15 km/L":                       "১৫ কিমি/লিটার",
-		"Mileage (City)":                "মাইলেজ (সিটি)",
-		"11 km/L":                       "১১ কিমি/লিটার",
-		"Mileage (Highway)":             "মাইলেজ (হাইওয়ে)",
-		"19 km/L":                       "১৯ কিমি/লিটার",
-		"Emission Norm Compliance":      "ইমিশন নর্ম কমপ্লায়েন্স",
-		"BS VI":                         "বিএস ভি",
-		"Length":                        "দৈর্ঘ্য",
-		"4495 mm":                       "৪৪৯৫ মিমি",
-		"Width":                         "প্রস্থ",
-		"1840 mm":                       "১৮৪০ মিমি",
-		"Height":                        "উচ্চতা",
-		"1540 mm":                       "১৫৪০ মিমি",
-		"Wheelbase":                     "হুইলবেস",
-		"2640 mm":                       "২৬৪০ মিমি",
-		"Front Tread":                   "ফ্রন্ট ট্রেড",
-		"1555 mm":                       "১৫৫৫ মিমি",
-		"Rear Tread":                    "রিয়ার ট্রেড",
-		"1560 mm":                       "১৫৬০ মিমি",
-		"Seating Capacity":              "সিটিং ক্যাপাসিটি",
-		"5":                             "৫",
-		"Door Count":                    "ডোর কাউন্ট",
-		"4":                             "৪",
-		"Boot Space":                    "বুট স্পেস",
-		"320 L":                         "৩২০ লিটার",
-		"Fuel Tank Capacity":            "ফুয়েল ট্যাঙ্ক ক্যাপাসিটি",
-		"47 L":                          "৪৭ লিটার",
-		"Ground Clearance Unladen":      "গ্রাউন্ড ক্লিয়ারেন্স আনলোডেড",
-		"160 mm":                        "১৬০ মিমি",
-		"Kerb Weight":                   "কার্ব ওয়েট",
-		"1500 kg":                       "১৫০০ কেজি",
-		"Gross Weight":                  "গ্রস ওয়েট",
-		"2000 kg":                       "২০০০ কেজি",
-		"Turning Radius":                "টার্নিং রেডিয়াস",
-		"5.4 m":                         "৫.৪ মিটার",
-		"Front Suspension":              "ফ্রন্ট সাসপেনশন",
-		"MacPherson Strut":              "ম্যাকফারসন স্ট্রাট",
-		"Rear Suspension":               "রিয়ার সাসপেনশন",
-		"Double Wishbone":               "ডাবল উইশবোন",
-		"Front Brake Type":              "ফ্রন্ট ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Rear Brake Type":               "রিয়ার ব্রেক টাইপ",
-		"Disc":                          "ডিস্ক",
-		"Tyre Size":                     "টায়ার সাইজ",
-		"215/60 R17":                    "২১৫/৬০ আর১৭",
-		"Wheel Size":                    "হুইল সাইজ",
-		"17 inches":                     "১৭ ইঞ্চি",
-		"Spare Tyre Size":               "স্পেয়ার টায়ার সাইজ",
-		"215/60 R17":                    "২১৫/৬০ আর১৭",
 	}
 }
 
@@ -252,11 +192,10 @@ func (luxs *LexusUXSeeder) Seed(db *gorm.DB) error {
 	if err := db.Where("name = ?", "Lexus UX").First(&product).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			product = models.ProductModel{
-				Name:        "Lexus UX",
-				Brand:       "Lexus",
-				Category:    "SUV",
-				Subcategory: "Compact Luxury Crossover",
-				Status:      1,
+				Name:       "Lexus UX",
+				BrandID:    func() *uint { id := uint(1); return &id }(),
+				CategoryID: func() *uint { id := uint(18); return &id }(),
+				Status:     1,
 			}
 			if err := db.Create(&product).Error; err != nil {
 				return err
@@ -276,7 +215,7 @@ func (luxs *LexusUXSeeder) Seed(db *gorm.DB) error {
 	// Create a map for quick lookup
 	specKeyMap := make(map[string]uint)
 	for _, key := range specKeys {
-		specKeyMap[key.Key] = key.ID
+		specKeyMap[key.SpecificationKey] = key.ID
 	}
 
 	// Define specifications
@@ -370,9 +309,8 @@ func (luxs *LexusUXSeeder) Seed(db *gorm.DB) error {
 			// Create translation
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
-				LanguageCode:    "bn",
+				Locale:          "bn",
 				Value:           luxs.getBanglaTranslations()[value],
-				Status:          1,
 			}
 			if err := db.Create(&translation).Error; err != nil {
 				log.Printf("Error creating translation for specification %d: %v", spec.ID, err)
