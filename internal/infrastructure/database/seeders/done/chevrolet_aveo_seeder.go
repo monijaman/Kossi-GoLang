@@ -1,4 +1,4 @@
-+package seeders
+package seeders
 
 import (
 	"kossti/internal/infrastructure/database/models"
@@ -48,7 +48,6 @@ func (cas *ChevroletAveoSeeder) getBanglaTranslations() map[string]string {
 		"Basic Radio":              "বেসিক রেডিও",
 		"5 inch":                   "৫ ইঞ্চি",
 		"Chevrolet":                "শেভ্রোলেট",
-		"4":                        "৪",
 		"Disc":                     "ডিস্ক",
 		"Semi-Independent":         "সেমি-ইন্ডিপেন্ডেন্ট",
 		"Euro 4":                   "ইউরো ৪",
@@ -74,8 +73,8 @@ func (cas *ChevroletAveoSeeder) Seed(db *gorm.DB) error {
 	productID := prod.ID
 
 	existingKeyMapping := map[string]uint{
-		"Brand":                             310,
-		"Model Name":                        316,
+		"Brand":                          310,
+		"Model Name":                     316,
 		"Variant":                        728,
 		"Generation":                     729,
 		"Segment":                        730,
@@ -135,8 +134,8 @@ func (cas *ChevroletAveoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Chevrolet",
-		"Model Name":                  "Aveo",
+		"Brand":                          "Chevrolet",
+		"Model Name":                     "Aveo",
 		"Variant":                        "LS",
 		"Generation":                     "2nd Generation",
 		"Segment":                        "Subcompact Sedan",

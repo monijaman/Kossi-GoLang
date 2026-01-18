@@ -120,8 +120,8 @@ func (aas *AudiA3Seeder) Seed(db *gorm.DB) error {
 	productID := prod.ID
 
 	existingKeyMapping := map[string]uint{
-		"Brand":                             310,
-		"Model Name":                        316,
+		"Brand":                          310,
+		"Model Name":                     316,
 		"Variant":                        728,
 		"Generation":                     729,
 		"Segment":                        730,
@@ -181,10 +181,8 @@ func (aas *AudiA3Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                       "Audi",
-		"Model Name":                  "A3",
-		"Brand":                       "Audi",
-		"Model Name":                  "A3",
+		"Brand":                          "Audi",
+		"Model Name":                     "A3",
 		"Variant":                        "35 TFSI",
 		"Generation":                     "4th",
 		"Segment":                        "C-Segment",
