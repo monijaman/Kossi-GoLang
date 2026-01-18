@@ -179,6 +179,8 @@ func (vps *VolkswagenPoloSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volkswagen",
+		"Model Name":                  "Polo",
 		"Variant":                        "Highline 1.0L",
 		"Generation":                     "6th",
 		"Segment":                        "Subcompact Hatchback",

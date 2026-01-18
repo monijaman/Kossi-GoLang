@@ -138,6 +138,8 @@ func (mbacs *MercedesBenzAClassSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "A-Class",
 		"Variant":                        "A 200",
 		"Generation":                     "4th Generation (W177)",
 		"Segment":                        "Subcompact Hatchback",

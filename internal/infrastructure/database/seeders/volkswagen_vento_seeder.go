@@ -179,6 +179,8 @@ func (vvs *VolkswagenVentoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volkswagen",
+		"Model Name":                  "Vento",
 		"Variant":                        "1.5L MPI Highline",
 		"Generation":                     "1st",
 		"Segment":                        "Compact Sedan",

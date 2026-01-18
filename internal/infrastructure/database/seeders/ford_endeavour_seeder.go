@@ -179,6 +179,8 @@ func (fess *FordEndeavourSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Ford",
+		"Model Name":                  "Endeavour",
 		"Variant":                        "Titanium Plus 2.0L 4x2 AT",
 		"Generation":                     "3rd",
 		"Segment":                        "Mid-Size SUV",

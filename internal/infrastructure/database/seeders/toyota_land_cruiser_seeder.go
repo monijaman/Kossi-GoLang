@@ -213,6 +213,8 @@ func (tlcs *ToyotaLandCruiserSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Land Cruiser",
 		"Variant":                        "3.5L Diesel V8",
 		"Generation":                     "300 Series",
 		"Segment":                        "E-Segment",

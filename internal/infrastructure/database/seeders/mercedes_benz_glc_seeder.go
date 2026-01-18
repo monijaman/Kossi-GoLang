@@ -137,6 +137,8 @@ func (mbglcs *MercedesBenzGLCSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "GLC",
 		"Variant":                        "GLC 300",
 		"Generation":                     "2nd Generation (X253)",
 		"Segment":                        "Mid-Size Luxury SUV",

@@ -137,6 +137,8 @@ func (nns *NissanNavaraSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "Navara",
 		"Variant":                        "Navara 2.3",
 		"Generation":                     "3rd Generation (D23)",
 		"Segment":                        "Mid-Size Pickup Truck",

@@ -179,6 +179,8 @@ func (rrss *RangeRoverSportSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Range Rover",
+		"Model Name":                  "Sport",
 		"Variant":                        "P400 HSE Dynamic",
 		"Generation":                     "2nd",
 		"Segment":                        "Mid-size SUV",

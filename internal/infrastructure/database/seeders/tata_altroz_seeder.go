@@ -179,6 +179,8 @@ func (tas *TataAltrozSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Tata",
+		"Model Name":                  "Altroz",
 		"Variant":                        "XZ Plus",
 		"Generation":                     "1st",
 		"Segment":                        "Premium Hatchback",

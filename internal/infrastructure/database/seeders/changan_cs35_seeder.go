@@ -179,6 +179,8 @@ func (ccs *ChanganCs35Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Changan",
+		"Model Name":                  "CS35",
 		"Variant":                        "Comfort 1.6L MT",
 		"Generation":                     "1st",
 		"Segment":                        "Compact SUV",

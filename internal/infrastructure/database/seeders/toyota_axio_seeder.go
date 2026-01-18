@@ -212,6 +212,8 @@ func (tax *ToyotaAxioSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Axio",
 		"Variant":                        "1.5L Petrol",
 		"Generation":                     "2nd",
 		"Segment":                        "C-Segment",

@@ -179,6 +179,8 @@ func (frs *FordRangerSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Ford",
+		"Model Name":                  "Ranger",
 		"Variant":                        "XL 2.0L 4x2 MT",
 		"Generation":                     "3rd",
 		"Segment":                        "Pickup Truck",

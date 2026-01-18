@@ -135,6 +135,8 @@ func (nms *NissanMarchSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "March",
 		"Variant":                        "March 1.2",
 		"Generation":                     "4th Generation (K14)",
 		"Segment":                        "Subcompact Hatchback",

@@ -137,6 +137,8 @@ func (njs *NissanJukeSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "Juke",
 		"Variant":                        "Juke 1.6",
 		"Generation":                     "2nd Generation (F16)",
 		"Segment":                        "Subcompact Crossover SUV",

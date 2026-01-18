@@ -180,6 +180,8 @@ func (hvs *HyundaiVenueSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Venue",
 		"Variant":                        "1.0L T-GDi",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

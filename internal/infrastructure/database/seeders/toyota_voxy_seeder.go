@@ -211,6 +211,8 @@ func (tvs *ToyotaVoxySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Voxy",
 		"Variant":                        "2.0L Petrol",
 		"Generation":                     "3rd",
 		"Segment":                        "B-Segment",

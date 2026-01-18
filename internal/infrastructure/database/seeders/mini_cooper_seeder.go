@@ -286,6 +286,8 @@ func (mcs *MINICooperSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "MINI",
+		"model":                       "Cooper",
 		"engine_type":                 "1.5L Turbo",
 		"engine_displacement":         "1499 cc",
 		"engine_cylinders":            "3",

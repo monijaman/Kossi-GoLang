@@ -270,6 +270,8 @@ func (pms *PorscheMacanSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Porsche",
+		"model":                       "Macan",
 		"engine_type":                 "2.0L Turbo I4",
 		"engine_displacement":         "1984 cc",
 		"engine_cylinders":            "4",

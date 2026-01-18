@@ -246,6 +246,8 @@ func (ms *MG6Seeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "MG",
+		"model":                       "6",
 		"engine_type":                 "1.8L Turbo",
 		"engine_displacement":         "1796 cc",
 		"engine_cylinders":            "4",

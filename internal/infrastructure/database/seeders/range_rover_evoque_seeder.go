@@ -179,6 +179,8 @@ func (rres *RangeRoverEvoqueSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Range Rover",
+		"Model Name":                  "Evoque",
 		"Variant":                        "P250 S AWD",
 		"Generation":                     "1st",
 		"Segment":                        "Compact SUV",

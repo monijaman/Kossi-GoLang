@@ -211,6 +211,8 @@ func (tvs *ToyotaVitzSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Vitz",
 		"Variant":                        "1.3L Petrol",
 		"Generation":                     "4th",
 		"Segment":                        "B-Segment",

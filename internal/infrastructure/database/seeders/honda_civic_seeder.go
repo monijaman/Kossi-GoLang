@@ -230,6 +230,8 @@ func (hcs *HondaCivicSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Honda",
+		"Model Name":                  "Civic",
 		"Variant":                        "1.5L Turbo",
 		"Generation":                     "11th",
 		"Segment":                        "C-Segment",

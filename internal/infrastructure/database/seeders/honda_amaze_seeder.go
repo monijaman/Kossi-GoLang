@@ -193,6 +193,8 @@ func (has *HondaAmazeSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Honda",
+		"Model Name":                  "Amaze",
 		"Variant":                        "1.2L",
 		"Generation":                     "2nd",
 		"Segment":                        "B-Segment",

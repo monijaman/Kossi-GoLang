@@ -260,6 +260,8 @@ func (jchs *JeepCherokeeSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Jeep",
+		"model":                       "Cherokee",
 		"engine_type":                 "2.4L I4",
 		"engine_displacement":         "2360 cc",
 		"engine_cylinders":            "4",

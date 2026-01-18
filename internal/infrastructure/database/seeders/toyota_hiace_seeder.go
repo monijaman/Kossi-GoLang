@@ -211,6 +211,8 @@ func (ths *ToyotaHiaceSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Hiace",
 		"Variant":                        "2.8L Diesel",
 		"Generation":                     "4th",
 		"Segment":                        "M-Segment",

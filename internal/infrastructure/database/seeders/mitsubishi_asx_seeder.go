@@ -161,6 +161,8 @@ func (mass *MitsubishiASXSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "ASX",
 		"Variant":                        "1.6L",
 		"Generation":                     "2nd",
 		"Segment":                        "B-Segment",

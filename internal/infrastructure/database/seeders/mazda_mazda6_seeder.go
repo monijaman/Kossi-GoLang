@@ -162,6 +162,8 @@ func (mm6s *MazdaMazda6Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mazda",
+		"Model Name":                  "Mazda6",
 		"Variant":                        "2.0L",
 		"Generation":                     "3rd",
 		"Segment":                        "D-Segment",

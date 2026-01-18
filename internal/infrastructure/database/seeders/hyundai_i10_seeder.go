@@ -179,6 +179,8 @@ func (his *HyundaiI10Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "i10",
 		"Variant":                        "1.0L MPi",
 		"Generation":                     "3rd",
 		"Segment":                        "A-Segment",

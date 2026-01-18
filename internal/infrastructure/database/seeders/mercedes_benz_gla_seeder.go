@@ -137,6 +137,8 @@ func (mbglas *MercedesBenzGLASeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "GLA",
 		"Variant":                        "GLA 200",
 		"Generation":                     "2nd Generation (H247)",
 		"Segment":                        "Compact Luxury SUV",

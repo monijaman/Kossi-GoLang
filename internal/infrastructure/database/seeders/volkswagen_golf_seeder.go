@@ -179,6 +179,8 @@ func (vgs *VolkswagenGolfSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volkswagen",
+		"Model Name":                  "Golf",
 		"Variant":                        "TSI Highline",
 		"Generation":                     "8th",
 		"Segment":                        "Compact Hatchback",

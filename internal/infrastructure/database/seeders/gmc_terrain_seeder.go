@@ -138,6 +138,8 @@ func (gts *GMCTerrainSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "GMC",
+		"Model Name":                  "Terrain",
 		"Variant":                        "SLT",
 		"Generation":                     "2nd Generation",
 		"Segment":                        "Compact SUV",

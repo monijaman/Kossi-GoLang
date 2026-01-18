@@ -183,6 +183,8 @@ func (sos *SubaruOutbackSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Subaru",
+		"Model Name":                  "Outback",
 		"Variant":                        "2.5L Limited XT",
 		"Generation":                     "6th",
 		"Segment":                        "D-Segment",

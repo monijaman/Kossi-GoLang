@@ -181,6 +181,8 @@ func (sxs *SubaruXVSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Subaru",
+		"Model Name":                  "XV",
 		"Variant":                        "2.0L EyeSight",
 		"Generation":                     "3rd",
 		"Segment":                        "C-Segment",

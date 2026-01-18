@@ -179,6 +179,8 @@ func (vts *VolkswagenTiguanSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volkswagen",
+		"Model Name":                  "Tiguan",
 		"Variant":                        "TDI 4Motion Highline",
 		"Generation":                     "2nd",
 		"Segment":                        "Compact SUV",

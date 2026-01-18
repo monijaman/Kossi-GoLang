@@ -271,6 +271,8 @@ func (pcs *PorscheCayenneSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Porsche",
+		"model":                       "Cayenne",
 		"engine_type":                 "3.0L Turbo V6",
 		"engine_displacement":         "2995 cc",
 		"engine_cylinders":            "6",

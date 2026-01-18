@@ -208,6 +208,8 @@ func (hbvs *HondaBRVSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Honda",
+		"Model Name":                  "BR-V",
 		"Variant":                        "1.5L",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

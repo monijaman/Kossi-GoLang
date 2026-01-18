@@ -179,6 +179,8 @@ func (has *HyundaiAccentSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Accent",
 		"Variant":                        "1.4L MPi",
 		"Generation":                     "HC",
 		"Segment":                        "B-Segment",

@@ -180,6 +180,8 @@ func (kcs *KiaCarnivalSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Kia",
+		"Model Name":                  "Carnival",
 		"Variant":                        "2.2L CRDi",
 		"Generation":                     "4th",
 		"Segment":                        "M-Segment",

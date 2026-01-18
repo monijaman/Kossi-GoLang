@@ -162,6 +162,8 @@ func (mc30s *MazdaCx30Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mazda",
+		"Model Name":                  "CX-30",
 		"Variant":                        "2.0L",
 		"Generation":                     "1st",
 		"Segment":                        "C-Segment",

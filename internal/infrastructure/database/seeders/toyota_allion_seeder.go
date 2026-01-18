@@ -211,6 +211,8 @@ func (tas *ToyotaAllionSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Allion",
 		"Variant":                        "1.5L Petrol",
 		"Generation":                     "3rd",
 		"Segment":                        "C-Segment",

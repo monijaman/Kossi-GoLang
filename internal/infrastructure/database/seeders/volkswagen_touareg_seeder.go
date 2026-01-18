@@ -179,6 +179,8 @@ func (vts *VolkswagenTouaregSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volkswagen",
+		"Model Name":                  "Touareg",
 		"Variant":                        "V6 TDI 4Motion",
 		"Generation":                     "3rd",
 		"Segment":                        "Mid-Size SUV",

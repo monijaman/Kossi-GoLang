@@ -180,6 +180,8 @@ func (hss *HyundaiSonataSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Sonata",
 		"Variant":                        "2.0L MPi",
 		"Generation":                     "8th",
 		"Segment":                        "D-Segment",

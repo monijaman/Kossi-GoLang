@@ -180,6 +180,8 @@ func (kps *KiaPicantoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Kia",
+		"Model Name":                  "Picanto",
 		"Variant":                        "1.0L MPi",
 		"Generation":                     "3rd",
 		"Segment":                        "A-Segment",

@@ -179,6 +179,8 @@ func (rras *RangeRoverAutobiographySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Range Rover",
+		"Model Name":                  "Autobiography",
 		"Variant":                        "3.0 SDV6 Autobiography",
 		"Generation":                     "5th",
 		"Segment":                        "Full-size SUV",

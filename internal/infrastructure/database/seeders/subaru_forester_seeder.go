@@ -183,6 +183,8 @@ func (sfs *SubaruForesterSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Subaru",
+		"Model Name":                  "Forester",
 		"Variant":                        "2.5L Turbo",
 		"Generation":                     "5th",
 		"Segment":                        "C-Segment",

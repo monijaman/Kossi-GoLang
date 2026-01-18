@@ -179,6 +179,8 @@ func (hes *HyundaiElantraSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Elantra",
 		"Variant":                        "1.6L MPi",
 		"Generation":                     "6th",
 		"Segment":                        "C-Segment",

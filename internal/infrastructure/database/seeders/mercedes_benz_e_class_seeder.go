@@ -137,6 +137,8 @@ func (mbecs *MercedesBenzEClassSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "E-Class",
 		"Variant":                        "E 300",
 		"Generation":                     "5th Generation (W124)",
 		"Segment":                        "Executive Sedan",

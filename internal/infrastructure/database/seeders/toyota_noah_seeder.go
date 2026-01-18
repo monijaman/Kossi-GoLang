@@ -211,6 +211,8 @@ func (tns *ToyotaNoahSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Noah",
 		"Variant":                        "2.0L Petrol",
 		"Generation":                     "3rd",
 		"Segment":                        "B-Segment",

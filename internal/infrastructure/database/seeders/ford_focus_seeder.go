@@ -179,6 +179,8 @@ func (ffs *FordFocusSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Ford",
+		"Model Name":                  "Focus",
 		"Variant":                        "Titanium 1.5L Ti-VCT MT",
 		"Generation":                     "3rd",
 		"Segment":                        "Compact Car",

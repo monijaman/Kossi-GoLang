@@ -137,6 +137,8 @@ func (mbvcs *MercedesBenzVClassSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "V-Class",
 		"Variant":                        "V 250",
 		"Generation":                     "3rd Generation (W447)",
 		"Segment":                        "MPV",

@@ -185,6 +185,8 @@ func (sls *SubaruLegacySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Subaru",
+		"Model Name":                  "Legacy",
 		"Variant":                        "2.5L Limited",
 		"Generation":                     "7th",
 		"Segment":                        "D-Segment",

@@ -179,6 +179,8 @@ func (tss *TataSafariSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Tata",
+		"Model Name":                  "Safari",
 		"Variant":                        "XZ Plus 6 Str",
 		"Generation":                     "3rd",
 		"Segment":                        "Mid-Size SUV",

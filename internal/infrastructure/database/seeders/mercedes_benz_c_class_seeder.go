@@ -137,6 +137,8 @@ func (mbccs *MercedesBenzCClassSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "C-Class",
 		"Variant":                        "C 300",
 		"Generation":                     "5th Generation (W206)",
 		"Segment":                        "Compact Executive Sedan",

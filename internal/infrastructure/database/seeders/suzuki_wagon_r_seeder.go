@@ -181,6 +181,8 @@ func (swrs *SuzukiWagonRSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Wagon R",
 		"Variant":                        "1.0L VXi",
 		"Generation":                     "3rd",
 		"Segment":                        "A-Segment",

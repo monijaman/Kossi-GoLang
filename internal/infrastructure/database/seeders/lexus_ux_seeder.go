@@ -220,6 +220,8 @@ func (luxs *LexusUXSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Lexus",
+		"model":                       "UX",
 		"engine_type":                 "2.0L I4",
 		"engine_displacement":         "1987 cc",
 		"engine_cylinders":            "4",

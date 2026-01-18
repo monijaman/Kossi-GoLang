@@ -137,6 +137,8 @@ func (nxts *NissanXTtrailSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "X-Trail",
 		"Variant":                        "X-Trail 2.0",
 		"Generation":                     "4th Generation (T33)",
 		"Segment":                        "Mid-Size SUV",

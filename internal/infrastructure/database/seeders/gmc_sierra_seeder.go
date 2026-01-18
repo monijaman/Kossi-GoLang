@@ -137,6 +137,8 @@ func (gss *GMCSierraSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "GMC",
+		"Model Name":                  "Sierra",
 		"Variant":                        "Denali",
 		"Generation":                     "4th Generation",
 		"Segment":                        "Full-size Pickup",

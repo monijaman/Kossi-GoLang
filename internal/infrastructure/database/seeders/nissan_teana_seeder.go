@@ -137,6 +137,8 @@ func (nts *NissanTeanaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "Teana",
 		"Variant":                        "Teana 2.5",
 		"Generation":                     "4th Generation (J34)",
 		"Segment":                        "Mid-Size Sedan",

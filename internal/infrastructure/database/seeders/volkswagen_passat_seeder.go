@@ -179,6 +179,8 @@ func (vps *VolkswagenPassatSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volkswagen",
+		"Model Name":                  "Passat",
 		"Variant":                        "TDI Highline",
 		"Generation":                     "8th",
 		"Segment":                        "Mid-Size Sedan",

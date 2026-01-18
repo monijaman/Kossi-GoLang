@@ -180,6 +180,8 @@ func (pxs *ProtonX50Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Proton",
+		"Model Name":                  "X50",
 		"Variant":                        "1.5L TGDi",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

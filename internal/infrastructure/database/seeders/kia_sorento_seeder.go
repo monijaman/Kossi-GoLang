@@ -180,6 +180,8 @@ func (kss *KiaSorentoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Kia",
+		"Model Name":                  "Sorento",
 		"Variant":                        "2.2L CRDi",
 		"Generation":                     "4th",
 		"Segment":                        "D-Segment",

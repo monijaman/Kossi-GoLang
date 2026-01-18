@@ -212,6 +212,8 @@ func (hjs *HondaJazzSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Honda",
+		"Model Name":                  "Jazz",
 		"Variant":                        "1.5L",
 		"Generation":                     "4th",
 		"Segment":                        "B-Segment",

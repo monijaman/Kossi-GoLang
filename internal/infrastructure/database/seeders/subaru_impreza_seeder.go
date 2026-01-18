@@ -177,6 +177,8 @@ func (sis *SubaruImprezaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Subaru",
+		"Model Name":                  "Impreza",
 		"Variant":                        "1.6L i-S",
 		"Generation":                     "5th",
 		"Segment":                        "C-Segment",

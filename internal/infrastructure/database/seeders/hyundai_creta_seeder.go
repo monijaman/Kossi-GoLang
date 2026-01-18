@@ -180,6 +180,8 @@ func (hcs *HyundaiCretaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Creta",
 		"Variant":                        "1.5L SX",
 		"Generation":                     "2nd",
 		"Segment":                        "C-Segment",

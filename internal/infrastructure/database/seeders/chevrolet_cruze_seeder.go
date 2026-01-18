@@ -136,6 +136,8 @@ func (ccs *ChevroletCruzeSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Chevrolet",
+		"Model Name":                  "Cruze",
 		"Variant":                        "LT",
 		"Generation":                     "1st Generation",
 		"Segment":                        "Compact Sedan",

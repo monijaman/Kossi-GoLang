@@ -179,6 +179,8 @@ func (sks *SsangyongKorandoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "SsangYong",
+		"Model Name":                  "Korando",
 		"Variant":                        "2.0 ELX 2WD",
 		"Generation":                     "4th",
 		"Segment":                        "Compact SUV",

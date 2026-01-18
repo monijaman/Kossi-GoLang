@@ -213,6 +213,8 @@ func (trs *ToyotaRav4Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "RAV4",
 		"Variant":                        "2.5L Petrol",
 		"Generation":                     "6th",
 		"Segment":                        "D-Segment",

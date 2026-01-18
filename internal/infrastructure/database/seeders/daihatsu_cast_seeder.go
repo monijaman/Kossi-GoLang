@@ -177,6 +177,8 @@ func (dcs *DaihatsuCastSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Daihatsu",
+		"Model Name":                  "Cast",
 		"Variant":                        "0.66L Style",
 		"Generation":                     "2nd",
 		"Segment":                        "A-Segment",

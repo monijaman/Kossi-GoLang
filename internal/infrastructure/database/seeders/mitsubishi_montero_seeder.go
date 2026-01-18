@@ -163,6 +163,8 @@ func (mms *MitsubishiMonteroSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "Montero",
 		"Variant":                        "3.5L",
 		"Generation":                     "4th",
 		"Segment":                        "B-Segment",

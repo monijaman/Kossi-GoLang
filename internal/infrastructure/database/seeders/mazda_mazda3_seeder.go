@@ -162,6 +162,8 @@ func (mm3s *MazdaMazda3Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mazda",
+		"Model Name":                  "Mazda3",
 		"Variant":                        "1.5L",
 		"Generation":                     "4th",
 		"Segment":                        "C-Segment",

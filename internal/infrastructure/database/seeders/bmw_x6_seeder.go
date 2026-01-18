@@ -180,6 +180,8 @@ func (bx6s *BmwX6Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "BMW",
+		"Model Name":                  "X6",
 		"Variant":                        "xDrive40i M Sport",
 		"Generation":                     "3rd",
 		"Segment":                        "E-SUV",

@@ -182,6 +182,8 @@ func (ses *SuzukiErtigaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Ertiga",
 		"Variant":                        "1.5L VXi",
 		"Generation":                     "2nd",
 		"Segment":                        "MPV",

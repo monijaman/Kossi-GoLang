@@ -135,6 +135,8 @@ func (nns *NissanNoteSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "Note",
 		"Variant":                        "Note 1.2",
 		"Generation":                     "2nd Generation (E12)",
 		"Segment":                        "Compact MPV",

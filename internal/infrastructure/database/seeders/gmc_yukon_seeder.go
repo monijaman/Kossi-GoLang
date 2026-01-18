@@ -136,6 +136,8 @@ func (gys *GMCYukonSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "GMC",
+		"Model Name":                  "Yukon",
 		"Variant":                        "Denali",
 		"Generation":                     "4th Generation",
 		"Segment":                        "Full-size SUV",

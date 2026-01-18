@@ -220,6 +220,8 @@ func (tps *ToyotaPriusSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Prius",
 		"Variant":                        "1.8L Hybrid",
 		"Generation":                     "5th",
 		"Segment":                        "C-Segment",

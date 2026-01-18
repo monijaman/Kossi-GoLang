@@ -271,6 +271,8 @@ func (p2s *Peugeot208Seeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Peugeot",
+		"model":                       "208",
 		"engine_type":                 "1.2L Turbo",
 		"engine_displacement":         "1199 cc",
 		"engine_cylinders":            "3",

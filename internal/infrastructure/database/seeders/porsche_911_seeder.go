@@ -271,6 +271,8 @@ func (p9s *Porsche911Seeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Porsche",
+		"model":                       "911",
 		"engine_type":                 "3.0L Turbo Flat-6",
 		"engine_displacement":         "2981 cc",
 		"engine_cylinders":            "6",

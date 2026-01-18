@@ -176,6 +176,8 @@ func (dts *DaihatsuTeriosSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Daihatsu",
+		"Model Name":                  "Terios",
 		"Variant":                        "1.5L X",
 		"Generation":                     "2nd",
 		"Segment":                        "B-Segment",

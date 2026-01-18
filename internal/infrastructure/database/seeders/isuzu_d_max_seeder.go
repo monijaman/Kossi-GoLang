@@ -140,6 +140,8 @@ func (ids *IsuzuDMaxSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Isuzu",
+		"model":                       "D-Max",
 		"engine_type":                 "1.9L Turbo Diesel I4",
 		"engine_displacement":         "1898 cc",
 		"engine_cylinders":            "4",

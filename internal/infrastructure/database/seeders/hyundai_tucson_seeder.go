@@ -180,6 +180,8 @@ func (hts *HyundaiTucsonSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Tucson",
 		"Variant":                        "2.0L GLS",
 		"Generation":                     "4th",
 		"Segment":                        "D-Segment",

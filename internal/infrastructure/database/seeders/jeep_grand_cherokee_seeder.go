@@ -142,6 +142,8 @@ func (jgcs *JeepGrandCherokeeSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Jeep",
+		"model":                       "Grand Cherokee",
 		"engine_type":                 "3.6L V6",
 		"engine_displacement":         "3604 cc",
 		"engine_cylinders":            "6",

@@ -160,6 +160,8 @@ func (mts *MitsubishiTritonSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "Triton",
 		"Variant":                        "2.4L",
 		"Generation":                     "6th",
 		"Segment":                        "Pickup Truck",

@@ -136,6 +136,8 @@ func (mbgles *MercedesBenzGLESeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "GLE",
 		"Variant":                        "GLE 450",
 		"Generation":                     "2nd Generation (W167)",
 		"Segment":                        "Full-Size Luxury SUV",

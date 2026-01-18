@@ -180,6 +180,8 @@ func (hss *HyundaiSantaFeSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Hyundai",
+		"Model Name":                  "Santa Fe",
 		"Variant":                        "2.2L CRDi 4WD",
 		"Generation":                     "4th",
 		"Segment":                        "D-Segment",

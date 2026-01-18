@@ -159,6 +159,8 @@ func (mms *MitsubishiMirageSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "Mirage",
 		"Variant":                        "1.2L",
 		"Generation":                     "5th",
 		"Segment":                        "A-Segment",

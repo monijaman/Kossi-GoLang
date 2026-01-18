@@ -139,6 +139,8 @@ func (jeps *JaguarEPACESeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Jaguar",
+		"model":                       "E-PACE",
 		"engine_type":                 "2.0L Turbo I4",
 		"engine_displacement":         "1997 cc",
 		"engine_cylinders":            "4",

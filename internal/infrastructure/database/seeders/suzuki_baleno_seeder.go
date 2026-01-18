@@ -183,6 +183,8 @@ func (sbs *SuzukiBalenoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Baleno",
 		"Variant":                        "1.2L Zeta",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

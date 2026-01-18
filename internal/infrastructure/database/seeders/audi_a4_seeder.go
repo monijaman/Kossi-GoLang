@@ -179,6 +179,8 @@ func (aas *AudiA4Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Audi",
+		"Model Name":                  "A4",
 		"Variant":                        "40 TFSI",
 		"Generation":                     "5th",
 		"Segment":                        "D-Segment",

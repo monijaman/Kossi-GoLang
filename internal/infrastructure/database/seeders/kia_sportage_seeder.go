@@ -180,6 +180,8 @@ func (kss *KiaSportageSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Kia",
+		"Model Name":                  "Sportage",
 		"Variant":                        "2.0L MPi",
 		"Generation":                     "5th",
 		"Segment":                        "C-Segment",

@@ -169,6 +169,8 @@ func (bi3s *BmwI3Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "BMW",
+		"Model Name":                  "i3",
 		"Variant":                        "120 Ah",
 		"Generation":                     "1st",
 		"Segment":                        "A-Hatchback",

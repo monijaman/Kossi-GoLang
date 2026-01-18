@@ -179,6 +179,8 @@ func (sts *SsangyongTivoliSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "SsangYong",
+		"Model Name":                  "Tivoli",
 		"Variant":                        "1.6 EX",
 		"Generation":                     "1st",
 		"Segment":                        "Subcompact SUV",

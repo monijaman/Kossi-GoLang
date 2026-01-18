@@ -179,6 +179,8 @@ func (kss *KiaSeltosSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Kia",
+		"Model Name":                  "Seltos",
 		"Variant":                        "1.5L MPi",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

@@ -139,6 +139,8 @@ func (ims *IsuzuMUXSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Isuzu",
+		"model":                       "MU-X",
 		"engine_type":                 "3.0L Turbo Diesel I4",
 		"engine_displacement":         "2999 cc",
 		"engine_cylinders":            "4",

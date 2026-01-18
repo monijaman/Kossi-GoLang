@@ -139,6 +139,8 @@ func (jjs *JaguarXJSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Jaguar",
+		"model":                       "XJ",
 		"engine_type":                 "3.0L Supercharged V6",
 		"engine_displacement":         "2995 cc",
 		"engine_cylinders":            "6",

@@ -176,6 +176,8 @@ func (bi8s *BmwI8Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "BMW",
+		"Model Name":                  "i8",
 		"Variant":                        "Hybrid",
 		"Generation":                     "1st",
 		"Segment":                        "S-Sports",

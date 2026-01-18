@@ -143,6 +143,8 @@ func (mss *MahindraScorpioSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Mahindra",
+		"model":                       "Scorpio",
 		"engine_type":                 "2.2L mHawk Diesel",
 		"engine_displacement":         "2179 cc",
 		"engine_cylinders":            "4",

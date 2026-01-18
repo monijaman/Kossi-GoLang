@@ -270,6 +270,8 @@ func (pps *PorschePanameraSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Porsche",
+		"model":                       "Panamera",
 		"engine_type":                 "2.9L Turbo V6",
 		"engine_displacement":         "2894 cc",
 		"engine_cylinders":            "6",

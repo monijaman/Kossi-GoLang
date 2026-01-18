@@ -212,6 +212,8 @@ func (tcas *ToyotaCorollaAxioSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Corolla Axio",
 		"Variant":                        "1.5L Petrol",
 		"Generation":                     "11th",
 		"Segment":                        "C-Segment",

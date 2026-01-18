@@ -213,6 +213,8 @@ func (hcs *HondaCitySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Honda",
+		"Model Name":                  "City",
 		"Variant":                        "1.5L",
 		"Generation":                     "5th",
 		"Segment":                        "B-Segment",

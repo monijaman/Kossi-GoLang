@@ -161,6 +161,8 @@ func (mls *MitsubishiLancerSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "Lancer",
 		"Variant":                        "2.0L",
 		"Generation":                     "10th",
 		"Segment":                        "C-Segment",

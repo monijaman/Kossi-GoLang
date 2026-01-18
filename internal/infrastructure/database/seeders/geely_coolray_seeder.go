@@ -137,6 +137,8 @@ func (gcs *GeelyCoolraySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Geely",
+		"Model Name":                  "Coolray",
 		"Variant":                        "Luxury",
 		"Generation":                     "1st Generation",
 		"Segment":                        "Compact SUV",

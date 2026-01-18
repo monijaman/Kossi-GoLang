@@ -180,6 +180,8 @@ func (kss *KiaStonicSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Kia",
+		"Model Name":                  "Stonic",
 		"Variant":                        "1.4L MPi",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

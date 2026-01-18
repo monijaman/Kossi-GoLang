@@ -166,6 +166,8 @@ func (mps *MitsubishiPajeroSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "Pajero",
 		"Variant":                        "3.2L",
 		"Generation":                     "3rd",
 		"Segment":                        "B-Segment",

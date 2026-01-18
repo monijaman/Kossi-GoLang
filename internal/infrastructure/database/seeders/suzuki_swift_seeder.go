@@ -181,6 +181,8 @@ func (sss *SuzukiSwiftSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Swift",
 		"Variant":                        "1.2L GL",
 		"Generation":                     "5th",
 		"Segment":                        "B-Segment",

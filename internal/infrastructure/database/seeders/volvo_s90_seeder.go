@@ -179,6 +179,8 @@ func (vss *VolvoS90Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volvo",
+		"Model Name":                  "S90",
 		"Variant":                        "T6 AWD Inscription",
 		"Generation":                     "2nd",
 		"Segment":                        "Luxury Sedan",

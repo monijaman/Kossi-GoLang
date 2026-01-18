@@ -134,6 +134,8 @@ func (gps *GeelyPandaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Geely",
+		"Model Name":                  "Panda",
 		"Variant":                        "Base",
 		"Generation":                     "1st Generation",
 		"Segment":                        "City Car",

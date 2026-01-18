@@ -214,6 +214,8 @@ func (hcvs *HondaCRVSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Honda",
+		"Model Name":                  "CR-V",
 		"Variant":                        "2.0L",
 		"Generation":                     "5th",
 		"Segment":                        "C-Segment",

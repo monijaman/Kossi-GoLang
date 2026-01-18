@@ -133,6 +133,8 @@ func (cas *ChevroletAveoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Chevrolet",
+		"Model Name":                  "Aveo",
 		"Variant":                        "LS",
 		"Generation":                     "2nd Generation",
 		"Segment":                        "Subcompact Sedan",

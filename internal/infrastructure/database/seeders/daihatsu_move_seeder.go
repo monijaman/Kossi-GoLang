@@ -176,6 +176,8 @@ func (dms *DaihatsuMoveSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Daihatsu",
+		"Model Name":                  "Move",
 		"Variant":                        "0.66L X",
 		"Generation":                     "6th",
 		"Segment":                        "A-Segment",

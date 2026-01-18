@@ -212,6 +212,8 @@ func (tfs *ToyotaFortunerSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Fortuner",
 		"Variant":                        "2.8L Diesel",
 		"Generation":                     "3rd",
 		"Segment":                        "E-Segment",

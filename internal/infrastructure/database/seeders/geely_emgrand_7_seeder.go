@@ -135,6 +135,8 @@ func (ge7s *GeelyEmgrand7Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Geely",
+		"Model Name":                  "Emgrand 7",
 		"Variant":                        "Comfort",
 		"Generation":                     "1st Generation",
 		"Segment":                        "Compact Sedan",

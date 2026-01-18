@@ -225,6 +225,8 @@ func (lrxs *LexusRXSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Lexus",
+		"model":                       "RX",
 		"engine_type":                 "3.5L V6",
 		"engine_displacement":         "3456 cc",
 		"engine_cylinders":            "6",

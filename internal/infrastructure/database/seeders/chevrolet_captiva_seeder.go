@@ -138,6 +138,8 @@ func (ccs *ChevroletCaptivaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Chevrolet",
+		"Model Name":                  "Captiva",
 		"Variant":                        "LTZ",
 		"Generation":                     "2nd Generation",
 		"Segment":                        "Mid-size SUV",

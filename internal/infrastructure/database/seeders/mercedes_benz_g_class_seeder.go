@@ -136,6 +136,8 @@ func (mbgcs *MercedesBenzGClassSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mercedes-Benz",
+		"Model Name":                  "G-Class",
 		"Variant":                        "G 500",
 		"Generation":                     "5th Generation (W463)",
 		"Segment":                        "Off-Road SUV",

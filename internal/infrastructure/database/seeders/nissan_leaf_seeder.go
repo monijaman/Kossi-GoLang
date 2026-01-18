@@ -127,6 +127,8 @@ func (nls *NissanLeafSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "Leaf",
 		"Variant":                        "Leaf e+",
 		"Generation":                     "2nd Generation (ZE1)",
 		"Segment":                        "Compact Hatchback Electric",

@@ -179,6 +179,8 @@ func (cts *CheryTiggo3Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Chery",
+		"Model Name":                  "Tiggo 3",
 		"Variant":                        "Comfort 1.6L MT",
 		"Generation":                     "1st",
 		"Segment":                        "Compact SUV",

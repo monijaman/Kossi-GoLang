@@ -179,6 +179,8 @@ func (aqs *AudiQ5Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Audi",
+		"Model Name":                  "Q5",
 		"Variant":                        "45 TDI quattro",
 		"Generation":                     "2nd",
 		"Segment":                        "Mid-Size SUV",

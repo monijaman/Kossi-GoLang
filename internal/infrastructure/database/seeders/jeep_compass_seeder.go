@@ -141,6 +141,8 @@ func (jcs *JeepCompassSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Jeep",
+		"model":                       "Compass",
 		"engine_type":                 "2.0L Turbo I4",
 		"engine_displacement":         "1995 cc",
 		"engine_cylinders":            "4",

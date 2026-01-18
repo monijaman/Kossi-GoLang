@@ -179,6 +179,8 @@ func (srs *SsangyongRextonSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "SsangYong",
+		"Model Name":                  "Rexton",
 		"Variant":                        "RX7 AWD Elite",
 		"Generation":                     "3rd",
 		"Segment":                        "Mid-size SUV",

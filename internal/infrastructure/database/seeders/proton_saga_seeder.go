@@ -180,6 +180,8 @@ func (pss *ProtonSagaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Proton",
+		"Model Name":                  "Saga",
 		"Variant":                        "1.3L MPi",
 		"Generation":                     "1st",
 		"Segment":                        "C-Segment",

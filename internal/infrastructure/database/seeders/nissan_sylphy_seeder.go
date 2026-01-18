@@ -135,6 +135,8 @@ func (nss *NissanSylphySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Nissan",
+		"Model Name":                  "Sylphy",
 		"Variant":                        "Sylphy 1.6",
 		"Generation":                     "3rd Generation (B18)",
 		"Segment":                        "Compact Sedan",

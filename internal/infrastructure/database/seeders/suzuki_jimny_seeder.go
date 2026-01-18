@@ -180,6 +180,8 @@ func (sjs *SuzukiJimnySeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Jimny",
 		"Variant":                        "1.5L JLX",
 		"Generation":                     "5th",
 		"Segment":                        "B-Segment",

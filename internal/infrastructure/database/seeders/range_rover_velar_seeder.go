@@ -179,6 +179,8 @@ func (rrvs *RangeRoverVelarSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Range Rover",
+		"Model Name":                  "Velar",
 		"Variant":                        "P250 R-Dynamic S AWD",
 		"Generation":                     "1st",
 		"Segment":                        "Mid-size SUV",

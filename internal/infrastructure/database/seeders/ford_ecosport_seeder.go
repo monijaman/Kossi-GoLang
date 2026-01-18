@@ -179,6 +179,8 @@ func (fess *FordEcoSportSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Ford",
+		"Model Name":                  "EcoSport",
 		"Variant":                        "Titanium 1.5L Ti-VCT",
 		"Generation":                     "1st",
 		"Segment":                        "Compact SUV",

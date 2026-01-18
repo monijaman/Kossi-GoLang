@@ -179,6 +179,8 @@ func (vxs *VolvoXc40Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volvo",
+		"Model Name":                  "XC40",
 		"Variant":                        "T4 AWD Momentum",
 		"Generation":                     "1st",
 		"Segment":                        "Compact SUV",

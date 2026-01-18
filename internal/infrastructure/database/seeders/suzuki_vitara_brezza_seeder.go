@@ -181,6 +181,8 @@ func (svbs *SuzukiVitaraBrezzaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Vitara Brezza",
 		"Variant":                        "1.5L ZXi",
 		"Generation":                     "1st",
 		"Segment":                        "B-Segment",

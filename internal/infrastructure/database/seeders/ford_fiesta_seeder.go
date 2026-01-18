@@ -179,6 +179,8 @@ func (ffs *FordFiestaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Ford",
+		"Model Name":                  "Fiesta",
 		"Variant":                        "1.6L Ambiente MT",
 		"Generation":                     "6th",
 		"Segment":                        "Subcompact Car",

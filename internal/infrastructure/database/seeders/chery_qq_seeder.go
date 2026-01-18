@@ -179,6 +179,8 @@ func (cqs *CheryQqSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Chery",
+		"Model Name":                  "QQ",
 		"Variant":                        "Base 1.0L MT",
 		"Generation":                     "1st",
 		"Segment":                        "Subcompact Hatchback",

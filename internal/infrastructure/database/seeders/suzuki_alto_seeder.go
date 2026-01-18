@@ -177,6 +177,8 @@ func (sas *SuzukiAltoSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Alto",
 		"Variant":                        "0.8L VXi",
 		"Generation":                     "9th",
 		"Segment":                        "A-Segment",

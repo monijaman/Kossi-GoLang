@@ -141,6 +141,8 @@ func (hjs *HavalJolionSeeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Haval",
+		"model":                       "Jolion",
 		"engine_type":                 "1.5L Turbo I4",
 		"engine_displacement":         "1497 cc",
 		"engine_cylinders":            "4",

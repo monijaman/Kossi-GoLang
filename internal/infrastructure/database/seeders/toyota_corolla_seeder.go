@@ -213,6 +213,8 @@ func (tcs *ToyotaCorollaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Corolla",
 		"Variant":                        "1.6L Petrol",
 		"Generation":                     "12th",
 		"Segment":                        "C-Segment",

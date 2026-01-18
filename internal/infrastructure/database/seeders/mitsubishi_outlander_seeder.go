@@ -164,6 +164,8 @@ func (mos *MitsubishiOutlanderSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Mitsubishi",
+		"Model Name":                  "Outlander",
 		"Variant":                        "2.4L",
 		"Generation":                     "3rd",
 		"Segment":                        "C-Segment",

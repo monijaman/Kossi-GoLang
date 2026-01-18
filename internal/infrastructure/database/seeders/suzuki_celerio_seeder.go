@@ -181,6 +181,8 @@ func (scs *SuzukiCelerioSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Suzuki",
+		"Model Name":                  "Celerio",
 		"Variant":                        "1.0L VXi",
 		"Generation":                     "2nd",
 		"Segment":                        "A-Segment",

@@ -212,6 +212,8 @@ func (tps *ToyotaPremioSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Premio",
 		"Variant":                        "1.8L Petrol",
 		"Generation":                     "3rd",
 		"Segment":                        "D-Segment",

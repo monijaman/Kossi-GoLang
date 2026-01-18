@@ -141,6 +141,8 @@ func (hhs *HavalH6Seeder) Seed(db *gorm.DB) error {
 
 	// Define specifications
 	specifications := map[string]string{
+		"brand":                       "Haval",
+		"model":                       "H6",
 		"engine_type":                 "2.0L Turbo I4",
 		"engine_displacement":         "1981 cc",
 		"engine_cylinders":            "4",

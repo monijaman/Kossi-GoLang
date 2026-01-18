@@ -221,6 +221,8 @@ func (taq *ToyotaAquaSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Toyota",
+		"Model Name":                  "Aqua",
 		"Variant":                        "1.5L Hybrid",
 		"Generation":                     "2nd",
 		"Segment":                        "B-Segment",

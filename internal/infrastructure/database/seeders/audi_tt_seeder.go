@@ -179,6 +179,8 @@ func (ats *AudiTTSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Audi",
+		"Model Name":                  "TT",
 		"Variant":                        "45 TFSI quattro",
 		"Generation":                     "3rd",
 		"Segment":                        "Sports Car",
