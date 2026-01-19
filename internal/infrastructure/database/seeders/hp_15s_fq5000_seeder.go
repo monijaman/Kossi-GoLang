@@ -7,82 +7,80 @@ import (
 	"gorm.io/gorm"
 )
 
-// AsusRogZephyrusG14Seeder seeds specifications for Asus ROG Zephyrus G14 2024
-type AsusRogZephyrusG14Seeder struct {
+// Hp15sFq5000Seeder seeds specifications for HP 15s-fq5000
+type Hp15sFq5000Seeder struct {
 	BaseSeeder
 }
 
-// NewAsusRogZephyrusG14Seeder creates a new Asus ROG Zephyrus G14 2024 seeder
-func NewAsusRogZephyrusG14Seeder() *AsusRogZephyrusG14Seeder {
-	return &AsusRogZephyrusG14Seeder{
-		BaseSeeder: BaseSeeder{name: "Asus ROG Zephyrus G14 2024 Specifications"},
+// NewHp15sFq5000Seeder creates a new HP 15s-fq5000 seeder
+func NewHp15sFq5000Seeder() *Hp15sFq5000Seeder {
+	return &Hp15sFq5000Seeder{
+		BaseSeeder: BaseSeeder{name: "HP 15s-fq5000 Specifications"},
 	}
 }
 
-func (arz *AsusRogZephyrusG14Seeder) getBanglaTranslations() map[string]string {
+func (hfs *Hp15sFq5000Seeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Asus":                          "এসুস",
-		"ROG Zephyrus G14 2024":         "আরওজি জেফাইরাস জি১৪ ২০২৪",
+		"HP":                            "এইচপি",
+		"15s-fq5000":                    "১৫এস-এফকিউ৫০০০",
 		"Windows 11 Home":               "উইন্ডোজ ১১ হোম",
 		"AMD":                           "এএমডি",
-		"Ryzen 9 7940HS":                "রাইজেন ৯ ৭৯৪০এইচএস",
-		"7th Gen":                       "৭ম প্রজন্ম",
+		"Ryzen 5 7520U":                 "রাইজেন ৫ ৭৫২০ইউ",
+		"Zen 2":                         "জেন ২",
 		"AMD Platform Controller Hub":   "এএমডি প্ল্যাটফর্ম কন্ট্রোলার হাব",
-		"NVIDIA GeForce RTX 4070":       "এনভিডিয়া গেফোর্স আরটিএক্স ৪০৭০",
-		"2560 x 1600 pixels":            "২৫৬০ x ১৬০০ পিক্সেল",
-		"14 inches":                     "১৪ ইঞ্চি",
-		"76 Wh":                         "৭৬ ডব্লিউএইচ",
-		"Aluminum":                      "অ্যালুমিনিয়াম",
-		"Moonlight White":               "মুনলাইট হোয়াইট",
-		"1.6 kg":                        "১.৬ কেজি",
-		"2024":                          "২০২৪",
+		"Radeon Graphics":               "রেডিয়ন গ্রাফিক্স",
+		"1920 x 1080 pixels":            "১৯২০ x ১০৮০ পিক্সেল",
+		"15.6 inches":                   "১৫.৬ ইঞ্চি",
+		"41 Wh":                         "৪১ ডব্লিউএইচ",
+		"Plastic":                       "প্লাস্টিক",
+		"Silver":                        "সিলভার",
+		"1.7 kg":                        "১.৭ কেজি",
+		"2023":                          "২০২৩",
 		"1 Year International Warranty": "১ বছর আন্তর্জাতিক ওয়ারেন্টি",
-		"1 TB":                          "১ টেরাবাইট",
+		"512 GB":                        "৫১২ জিবি",
 		"Bluetooth 5.2":                 "ব্লুটুথ ৫.২",
-		"32 GB":                         "৩২ জিবি",
+		"8 GB":                          "৮ জিবি",
 		"IPS":                           "আইপিএস",
-		"165 Hz":                        "১৬৫ হার্জ",
+		"60 Hz":                         "৬০ হার্জ",
 		"Yes":                           "হ্যাঁ",
 		"3.5mm Combo Jack":              "৩.৫মিমি কম্বো জ্যাক",
 		"Wi-Fi 6 (802.11ax)":            "ওয়াই-ফাই ৬ (৮০২.১১এক্স)",
 		"USB 3.2 Gen 1":                 "ইউএসবি ৩.২ জেন ১",
-		"Dedicated":                     "ডেডিকেটেড",
-		"1 TB SSD":                      "১ টেরাবাইট এসএসডি",
-		"AMD Ryzen 9":                   "এএমডি রাইজেন ৯",
-		"Dual Fan":                      "ডুয়াল ফ্যান",
-		"165":                           "১৬৫",
+		"Integrated":                    "ইন্টিগ্রেটেড",
+		"512 GB SSD":                    "৫১২ জিবি এসএসডি",
+		"AMD Ryzen 5":                   "এএমডি রাইজেন ৫",
+		"Single Fan":                    "সিঙ্গেল ফ্যান",
+		"60":                            "৬০",
 		"No":                            "না",
 		"1 Year":                        "১ বছর",
 		// New translations for added specs
-		"Gaming":                               "গেমিং",
+		"Budget":                               "বাজেট",
 		"Lithium-ion":                          "লিথিয়াম-আয়ন",
-		"240W":                                 "২৪০ওয়াট",
-		"8-10 hours":                           "৮-১০ ঘন্টা",
-		"IPS, 500 nits":                        "আইপিএস, ৫০০ নিটস",
-		"2.0 GHz base / 5.2 GHz boost":         "২.০ গিগাহার্টজ বেস / ৫.২ গিগাহার্টজ বুস্ট",
+		"45W AC Adapter":                       "৪৫ওয়াট এসি অ্যাডাপ্টার",
+		"6-8 hours":                            "৬-৮ ঘন্টা",
+		"IPS, 250 nits":                        "আইপিএস, ২৫০ নিটস",
+		"2.3 GHz base / 4.0 GHz boost":         "২.৩ গিগাহার্টজ বেস / ৪.০ গিগাহার্টজ বুস্ট",
 		"16 MB cache":                          "১৬ এমবি ক্যাশ",
-		"1080p FHD":                            "১০৮০পি এফএইচডি",
-		"Dolby Atmos Speakers":                 "ডলবি অ্যাটমস স্পিকার",
-		"312 x 222 x 16 mm":                    "৩১২ x ২২২ x ১৬ মিমি",
+		"720p HD":                              "৭২০পি এইচডি",
+		"Stereo Speakers":                      "স্টেরিও স্পিকার",
+		"357.9 x 239.2 x 19.9 mm":              "৩৫৭.৯ x ২৩৯.২ x ১৯.৯ মিমি",
 		"TPM 2.0":                              "টিপিএম ২.০",
-		"16":                                   "১৬",
-		"32":                                   "৩২",
-		"5200 MHz":                             "৫২০০ মেগাহার্টজ",
-		"Yes (up to 64GB)":                     "হ্যাঁ (৬৪জিবি পর্যন্ত)",
-		"NVMe PCIe Gen4":                       "এনভিএমই পিসিআই জেন৪",
+		"6":                                    "৬",
+		"12":                                   "১২",
+		"3200 MHz":                             "৩২০০ মেগাহার্টজ",
+		"Yes (up to 32GB)":                     "হ্যাঁ (৩২জিবি পর্যন্ত)",
+		"NVMe PCIe Gen3":                       "এনভিএমই পিসিআই জেন৩",
 		"Yes (M.2 slot)":                       "হ্যাঁ (এম.২ স্লট)",
-		"8 GB GDDR6":                           "৮ জিবি জিডিডিআর৬",
+		"Shared":                               "শেয়ার্ড",
 		"English/Bangla":                       "ইংরেজি/বাংলা",
 		"Standard":                             "স্ট্যান্ডার্ড",
-		"HDMI 2.1":                             "এইচডিএমআই ২.১",
-		"2x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2": "২x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ২",
-		"Thunderbolt 4":                        "থান্ডারবোল্ট ৪",
-	}
+		"HDMI 1.4":                             "এইচডিএমআই ১.৪",
+		"2x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 1": "২x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ১"}
 }
 
-// Seed implements the Seeder interface for Asus ROG Zephyrus G14 2024
-func (arz *AsusRogZephyrusG14Seeder) Seed(db *gorm.DB) error {
-	productSlug := "asus-rog-zephyrus-g14-2024"
+// Seed implements the Seeder interface for HP 15s-fq5000
+func (hfs *Hp15sFq5000Seeder) Seed(db *gorm.DB) error {
+	productSlug := "hp-15s-fq5000"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -172,80 +170,80 @@ func (arz *AsusRogZephyrusG14Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                "Asus",
-		"Model Name":           "ROG Zephyrus G14 2024",
+		"Brand":                "HP",
+		"Model Name":           "15s-fq5000",
 		"Operating System":     "Windows 11 Home",
 		"Processor Brand":      "AMD",
-		"Processor Model":      "Ryzen 9 7940HS",
-		"Processor Generation": "7th Gen",
+		"Processor Model":      "Ryzen 5 7520U",
+		"Processor Generation": "Zen 2",
 		"Chipset":              "AMD Platform Controller Hub",
-		"Graphics Card":        "NVIDIA GeForce RTX 4070",
-		"Screen Resolution":    "2560 x 1600 pixels",
-		"Display Size":         "14 inches",
-		"Battery Capacity":     "76 Wh",
-		"Build Material":       "Aluminum",
-		"Color":                "Moonlight White",
-		"Product Weight":       "1.6 kg",
-		"Release Year":         "2024",
+		"Graphics Card":        "Radeon Graphics",
+		"Screen Resolution":    "1920 x 1080 pixels",
+		"Display Size":         "15.6 inches",
+		"Battery Capacity":     "41 Wh",
+		"Build Material":       "Plastic",
+		"Color":                "Silver",
+		"Product Weight":       "1.7 kg",
+		"Release Year":         "2023",
 		"Warranty":             "1 Year International Warranty",
-		"Storage Capacity":     "1 TB",
+		"Storage Capacity":     "512 GB",
 		"Bluetooth Version":    "Bluetooth 5.2",
-		"RAM":                  "32 GB",
-		"Weight":               "1.6 kg",
+		"RAM":                  "8 GB",
+		"Weight":               "1.7 kg",
 		"Display Type":         "IPS",
-		"Refresh Rate":         "165 Hz",
-		"Screen Size":          "14 inches",
+		"Refresh Rate":         "60 Hz",
+		"Screen Size":          "15.6 inches",
 		"Backlit Keyboard":     "Yes",
 		"Audio Jack":           "3.5mm Combo Jack",
-		"Ram":                  "32 GB",
+		"Ram":                  "8 GB",
 		"Wifi Support":         "Wi-Fi 6 (802.11ax)",
 		"Usb Type":             "USB 3.2 Gen 1",
-		"Battery":              "76 Wh",
-		"Gpu Type":             "Dedicated",
-		"Storage":              "1 TB SSD",
-		"Cpu Type":             "AMD Ryzen 9",
-		"Cooling Technology":   "Dual Fan",
-		"Frequency (Hz)":       "165",
+		"Battery":              "41 Wh",
+		"Gpu Type":             "Integrated",
+		"Storage":              "512 GB SSD",
+		"Cpu Type":             "AMD Ryzen 5",
+		"Cooling Technology":   "Single Fan",
+		"Frequency (Hz)":       "60",
 		"App Control":          "No",
 		"Warranty Period":      "1 Year",
 		// New specs from specs.sql
-		"Laptop Type":             "Gaming",
+		"Laptop Type":             "Budget",
 		"Battery Type":            "Lithium-ion",
-		"Charging Speed":          "240W",
-		"Standby Time":            "8-10 hours",
+		"Charging Speed":          "45W AC Adapter",
+		"Standby Time":            "6-8 hours",
 		"Wireless Charging":       "No",
-		"Resolution":              "2560 x 1600 pixels",
-		"Display Characteristics": "IPS, 500 nits",
-		"Processor Speed":         "2.0 GHz base / 5.2 GHz boost",
+		"Resolution":              "1920 x 1080 pixels",
+		"Display Characteristics": "IPS, 250 nits",
+		"Processor Speed":         "2.3 GHz base / 4.0 GHz boost",
 		"Clock Feature":           "16 MB cache",
 		"3.5mm Audio Jack":        "Yes",
-		"Camera Features":         "1080p FHD",
-		"Audio Quality":           "Dolby Atmos Speakers",
+		"Camera Features":         "720p HD",
+		"Audio Quality":           "Stereo Speakers",
 		"Sensors":                 "No",
-		"Dimensions":              "312 x 222 x 16 mm",
-		"Body Type":               "Aluminum",
-		"Cooling System":          "Dual Fan",
-		"Available Colors":        "Moonlight White",
+		"Dimensions":              "357.9 x 239.2 x 19.9 mm",
+		"Body Type":               "Plastic",
+		"Cooling System":          "Single Fan",
+		"Available Colors":        "Silver",
 		"Special Features":        "TPM 2.0",
 		// Major laptop specs added to database
-		"Processor Cores":       "16",
-		"Processor Threads":     "32",
-		"RAM Speed":             "5200 MHz",
+		"Processor Cores":       "6",
+		"Processor Threads":     "12",
+		"RAM Speed":             "3200 MHz",
 		"RAM Slots":             "2",
-		"RAM Expandable":        "Yes (up to 64GB)",
-		"Storage Interface":     "NVMe PCIe Gen4",
+		"RAM Expandable":        "Yes (up to 32GB)",
+		"Storage Interface":     "NVMe PCIe Gen3",
 		"Storage Expandable":    "Yes (M.2 slot)",
-		"Graphics VRAM":         "8 GB GDDR6",
+		"Graphics VRAM":         "Shared",
 		"Display Touch Support": "No",
 		"Ethernet":              "No",
-		"Thunderbolt Version":   "Thunderbolt 4",
+		"Thunderbolt Version":   "No",
 		"SD Card Reader":        "No",
 		"Keyboard Language":     "English/Bangla",
 		"Build Standard":        "Standard",
 		// Additional available keys
 		"Touchscreen": "No",
-		"HDMI Ports":  "HDMI 2.1",
-		"USB Ports":   "2x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
+		"HDMI Ports":  "HDMI 1.4",
+		"USB Ports":   "2x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 1",
 	}
 
 	// Create specifications
@@ -281,7 +279,7 @@ func (arz *AsusRogZephyrusG14Seeder) Seed(db *gorm.DB) error {
 		}
 
 		// Create translation if Bangla translation exists
-		if banglaValue, exists := arz.getBanglaTranslations()[value]; exists {
+		if banglaValue, exists := hfs.getBanglaTranslations()[value]; exists {
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
 				Locale:          "bn",
@@ -294,6 +292,6 @@ func (arz *AsusRogZephyrusG14Seeder) Seed(db *gorm.DB) error {
 		}
 	}
 
-	log.Printf("✅ Asus ROG Zephyrus G14 2024 specifications seeded successfully")
+	log.Printf("✅ HP 15s-fq5000 specifications seeded successfully")
 	return nil
 }

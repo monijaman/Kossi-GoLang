@@ -7,81 +7,81 @@ import (
 	"gorm.io/gorm"
 )
 
-// AsusZenbook14OledSeeder seeds specifications for Asus ZenBook 14 OLED
-type AsusZenbook14OledSeeder struct {
+// HuaweiMatebookD15Seeder seeds specifications for Huawei MateBook D15
+type HuaweiMatebookD15Seeder struct {
 	BaseSeeder
 }
 
-// NewAsusZenbook14OledSeeder creates a new Asus ZenBook 14 OLED seeder
-func NewAsusZenbook14OledSeeder() *AsusZenbook14OledSeeder {
-	return &AsusZenbook14OledSeeder{
-		BaseSeeder: BaseSeeder{name: "Asus ZenBook 14 OLED Specifications"},
+// NewHuaweiMatebookD15Seeder creates a new Huawei MateBook D15 seeder
+func NewHuaweiMatebookD15Seeder() *HuaweiMatebookD15Seeder {
+	return &HuaweiMatebookD15Seeder{
+		BaseSeeder: BaseSeeder{name: "Huawei MateBook D15 Specifications"},
 	}
 }
 
-func (az *AsusZenbook14OledSeeder) getBanglaTranslations() map[string]string {
+func (hms *HuaweiMatebookD15Seeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Asus":                                 "এসুস",
-		"ZenBook 14 OLED":                      "জেনবুক ১৪ ওএলইডি",
+		"Huawei":                               "হুয়াওয়ে",
+		"MateBook D15":                         "মেটবুক ডি১৫",
 		"Windows 11 Home":                      "উইন্ডোজ ১১ হোম",
-		"Intel":                                "ইন্টেল",
-		"Core i7-1355U":                        "কোর আই৭-১৩৫৫ইউ",
-		"13th Gen":                             "১৩তম প্রজন্ম",
-		"Intel Platform Controller Hub":        "ইন্টেল প্ল্যাটফর্ম কন্ট্রোলার হাব",
-		"Intel Iris Xe":                        "ইন্টেল আইরিস এক্সই",
-		"2880 x 1800 pixels":                   "২৮৮০ x ১৮০০ পিক্সেল",
-		"14 inches":                            "১৪ ইঞ্চি",
-		"75 Wh":                                "৭৫ ডব্লিউএইচ",
-		"Aluminum":                             "অ্যালুমিনিয়াম",
-		"Pine Grey":                            "পাইন গ্রে",
-		"1.2 kg":                               "১.২ কেজি",
-		"2023":                                 "২০২৩",
+		"AMD":                                  "এএমডি",
+		"Ryzen 5 5500U":                        "রাইজেন ৫ ৫৫০০ইউ",
+		"5th Gen":                              "৫ম প্রজন্ম",
+		"AMD Platform Controller Hub":          "এএমডি প্ল্যাটফর্ম কন্ট্রোলার হাব",
+		"Radeon Graphics":                      "রেডিওন গ্রাফিক্স",
+		"1920 x 1080 pixels":                   "১৯২০ x ১০৮০ পিক্সেল",
+		"15.6 inches":                          "১৫.৬ ইঞ্চি",
+		"42 Wh":                                "৪২ ডব্লিউএইচ",
+		"Plastic":                              "প্লাস্টিক",
+		"Space Gray":                           "স্পেস গ্রে",
+		"1.56 kg":                              "১.৫৬ কেজি",
+		"2021":                                 "২০২১",
 		"1 Year International Warranty":        "১ বছর আন্তর্জাতিক ওয়ারেন্টি",
 		"512 GB":                               "৫১২ জিবি",
-		"Bluetooth 5.3":                        "ব্লুটুথ ৫.৩",
-		"16 GB":                                "১৬ জিবি",
-		"OLED":                                 "ওএলইডি",
-		"90 Hz":                                "৯০ হার্জ",
+		"Bluetooth 5.0":                        "ব্লুটুথ ৫.০",
+		"8 GB":                                 "৮ জিবি",
+		"IPS":                                  "আইপিএস",
+		"60 Hz":                                "৬০ হার্জ",
 		"Yes":                                  "হ্যাঁ",
 		"3.5mm Combo Jack":                     "৩.৫মিমি কম্বো জ্যাক",
-		"Wi-Fi 6E (802.11ax)":                  "ওয়াই-ফাই ৬ই (৮০২.১১এক্স)",
+		"Wi-Fi 5 (802.11ac)":                   "ওয়াই-ফাই ৫ (৮০২.১১এসি)",
 		"USB 3.2 Gen 1":                        "ইউএসবি ৩.২ জেন ১",
 		"Integrated":                           "ইন্টিগ্রেটেড",
 		"512 GB SSD":                           "৫১২ জিবি এসএসডি",
-		"Intel Core i7":                        "ইন্টেল কোর আই৭",
+		"AMD Ryzen 5":                          "এএমডি রাইজেন ৫",
 		"Single Fan":                           "সিঙ্গেল ফ্যান",
-		"90":                                   "৯০",
+		"60":                                   "৬০",
 		"No":                                   "না",
 		"1 Year":                               "১ বছর",
 		"Ultraportable":                        "আল্ট্রাপোর্টেবল",
 		"Lithium-ion":                          "লিথিয়াম-আয়ন",
 		"65W USB-C":                            "৬৫ওয়াট ইউএসবি-সি",
-		"10-12 hours":                          "১০-১২ ঘন্টা",
-		"OLED, 400 nits":                       "ওএলইডি, ৪০০ নিটস",
-		"1.7 GHz base / 5.0 GHz boost":         "১.৭ গিগাহার্টজ বেস / ৫.০ গিগাহার্টজ বুস্ট",
-		"12 MB cache":                          "১২ এমবি ক্যাশ",
-		"1080p FHD":                            "১০৮০পি এফএইচডি",
-		"Harman Kardon Speakers":               "হারম্যান কার্ডন স্পিকার",
-		"313 x 220 x 15 mm":                    "৩১৩ x ২২০ x ১৫ মিমি",
+		"6-8 hours":                            "৬-৮ ঘন্টা",
+		"IPS, 250 nits":                        "আইপিএস, ২৫০ নিটস",
+		"2.1 GHz base / 4.0 GHz boost":         "২.১ গিগাহার্টজ বেস / ৪.০ গিগাহার্টজ বুস্ট",
+		"8 MB cache":                           "৮ এমবি ক্যাশ",
+		"720p HD":                              "৭২০পি এইচডি",
+		"Stereo Speakers":                      "স্টেরিও স্পিকার",
+		"323.7 x 226.6 x 16.9 mm":              "৩২৩.৭ x ২২৬.৬ x ১৬.৯ মিমি",
 		"TPM 2.0":                              "টিপিএম ২.০",
-		"10":                                   "১০",
+		"6":                                    "৬",
 		"12":                                   "১২",
-		"4266 MHz":                             "৪২৬৬ মেগাহার্টজ",
+		"3200 MHz":                             "৩২০০ মেগাহার্টজ",
 		"Yes (up to 32GB)":                     "হ্যাঁ (৩২জিবি পর্যন্ত)",
-		"NVMe PCIe Gen4":                       "এনভিএমই পিসিআই জেন৪",
+		"NVMe PCIe Gen3":                       "এনভিএমই পিসিআই জেন৩",
 		"Yes (M.2 slot)":                       "হ্যাঁ (এম.২ স্লট)",
 		"Shared":                               "শেয়ার্ড",
 		"English/Bangla":                       "ইংরেজি/বাংলা",
 		"Standard":                             "স্ট্যান্ডার্ড",
-		"HDMI 2.1":                             "এইচডিএমআই ২.১",
+		"HDMI 2.0":                             "এইচডিএমআই ২.০",
 		"1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2": "১x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ২",
-		"Thunderbolt 4":                        "থান্ডারবোল্ট ৪",
+		"Huawei Share":                         "হুয়াওয়ে শেয়ার",
 	}
 }
 
-// Seed implements the Seeder interface for Asus ZenBook 14 OLED
-func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
-	productSlug := "asus-zenbook-14-oled"
+// Seed implements the Seeder interface for Huawei MateBook D15
+func (hms *HuaweiMatebookD15Seeder) Seed(db *gorm.DB) error {
+	productSlug := "huawei-matebook-d15"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -168,76 +168,76 @@ func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                   "Asus",
-		"Model Name":              "ZenBook 14 OLED",
+		"Brand":                   "Huawei",
+		"Model Name":              "MateBook D15",
 		"Operating System":        "Windows 11 Home",
-		"Processor Brand":         "Intel",
-		"Processor Model":         "Core i7-1355U",
-		"Processor Generation":    "13th Gen",
-		"Chipset":                 "Intel Platform Controller Hub",
-		"Graphics Card":           "Intel Iris Xe",
-		"Screen Resolution":       "2880 x 1800 pixels",
-		"Display Size":            "14 inches",
-		"Battery Capacity":        "75 Wh",
-		"Build Material":          "Aluminum",
-		"Color":                   "Pine Grey",
-		"Product Weight":          "1.2 kg",
-		"Release Year":            "2023",
+		"Processor Brand":         "AMD",
+		"Processor Model":         "Ryzen 5 5500U",
+		"Processor Generation":    "5th Gen",
+		"Chipset":                 "AMD Platform Controller Hub",
+		"Graphics Card":           "Radeon Graphics",
+		"Screen Resolution":       "1920 x 1080 pixels",
+		"Display Size":            "15.6 inches",
+		"Battery Capacity":        "42 Wh",
+		"Build Material":          "Plastic",
+		"Color":                   "Space Gray",
+		"Product Weight":          "1.56 kg",
+		"Release Year":            "2021",
 		"Warranty":                "1 Year International Warranty",
 		"Storage Capacity":        "512 GB",
-		"Bluetooth Version":       "Bluetooth 5.3",
-		"RAM":                     "16 GB",
-		"Weight":                  "1.2 kg",
-		"Display Type":            "OLED",
-		"Refresh Rate":            "90 Hz",
-		"Screen Size":             "14 inches",
+		"Bluetooth Version":       "Bluetooth 5.0",
+		"RAM":                     "8 GB",
+		"Weight":                  "1.56 kg",
+		"Display Type":            "IPS",
+		"Refresh Rate":            "60 Hz",
+		"Screen Size":             "15.6 inches",
 		"Backlit Keyboard":        "Yes",
 		"Audio Jack":              "3.5mm Combo Jack",
-		"Ram":                     "16 GB",
-		"Wifi Support":            "Wi-Fi 6E (802.11ax)",
+		"Ram":                     "8 GB",
+		"Wifi Support":            "Wi-Fi 5 (802.11ac)",
 		"Usb Type":                "USB 3.2 Gen 1",
-		"Battery":                 "75 Wh",
+		"Battery":                 "42 Wh",
 		"Gpu Type":                "Integrated",
 		"Storage":                 "512 GB SSD",
-		"Cpu Type":                "Intel Core i7",
+		"Cpu Type":                "AMD Ryzen 5",
 		"Cooling Technology":      "Single Fan",
-		"Frequency (Hz)":          "90",
+		"Frequency (Hz)":          "60",
 		"App Control":             "No",
 		"Warranty Period":         "1 Year",
 		"Laptop Type":             "Ultraportable",
 		"Battery Type":            "Lithium-ion",
 		"Charging Speed":          "65W USB-C",
-		"Standby Time":            "10-12 hours",
+		"Standby Time":            "6-8 hours",
 		"Wireless Charging":       "No",
-		"Resolution":              "2880 x 1800 pixels",
-		"Display Characteristics": "OLED, 400 nits",
-		"Processor Speed":         "1.7 GHz base / 5.0 GHz boost",
-		"Clock Feature":           "12 MB cache",
+		"Resolution":              "1920 x 1080 pixels",
+		"Display Characteristics": "IPS, 250 nits",
+		"Processor Speed":         "2.1 GHz base / 4.0 GHz boost",
+		"Clock Feature":           "8 MB cache",
 		"3.5mm Audio Jack":        "Yes",
-		"Camera Features":         "1080p FHD",
-		"Audio Quality":           "Harman Kardon Speakers",
+		"Camera Features":         "720p HD",
+		"Audio Quality":           "Stereo Speakers",
 		"Sensors":                 "No",
-		"Dimensions":              "313 x 220 x 15 mm",
-		"Body Type":               "Aluminum",
+		"Dimensions":              "323.7 x 226.6 x 16.9 mm",
+		"Body Type":               "Plastic",
 		"Cooling System":          "Single Fan",
-		"Available Colors":        "Pine Grey",
-		"Special Features":        "TPM 2.0",
-		"Processor Cores":         "10",
+		"Available Colors":        "Space Gray",
+		"Special Features":        "Huawei Share, TPM 2.0",
+		"Processor Cores":         "6",
 		"Processor Threads":       "12",
-		"RAM Speed":               "4266 MHz",
+		"RAM Speed":               "3200 MHz",
 		"RAM Slots":               "2",
 		"RAM Expandable":          "Yes (up to 32GB)",
-		"Storage Interface":       "NVMe PCIe Gen4",
+		"Storage Interface":       "NVMe PCIe Gen3",
 		"Storage Expandable":      "Yes (M.2 slot)",
 		"Graphics VRAM":           "Shared",
 		"Display Touch Support":   "No",
 		"Ethernet":                "No",
-		"Thunderbolt Version":     "Thunderbolt 4",
+		"Thunderbolt Version":     "No",
 		"SD Card Reader":          "No",
 		"Keyboard Language":       "English/Bangla",
 		"Build Standard":          "Standard",
 		"Touchscreen":             "No",
-		"HDMI Ports":              "HDMI 2.1",
+		"HDMI Ports":              "HDMI 2.0",
 		"USB Ports":               "1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
 	}
 
@@ -274,7 +274,7 @@ func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
 		}
 
 		// Create translation if Bangla translation exists
-		if banglaValue, exists := az.getBanglaTranslations()[value]; exists {
+		if banglaValue, exists := hms.getBanglaTranslations()[value]; exists {
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
 				Locale:          "bn",
@@ -287,6 +287,6 @@ func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
 		}
 	}
 
-	log.Printf("✅ Asus ZenBook 14 OLED specifications seeded successfully")
+	log.Printf("✅ Huawei MateBook D15 specifications seeded successfully")
 	return nil
 }

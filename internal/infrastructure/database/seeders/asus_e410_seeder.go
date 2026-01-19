@@ -7,81 +7,76 @@ import (
 	"gorm.io/gorm"
 )
 
-// AsusZenbook14OledSeeder seeds specifications for Asus ZenBook 14 OLED
-type AsusZenbook14OledSeeder struct {
+// AsusE410Seeder seeds specifications for Asus E410
+type AsusE410Seeder struct {
 	BaseSeeder
 }
 
-// NewAsusZenbook14OledSeeder creates a new Asus ZenBook 14 OLED seeder
-func NewAsusZenbook14OledSeeder() *AsusZenbook14OledSeeder {
-	return &AsusZenbook14OledSeeder{
-		BaseSeeder: BaseSeeder{name: "Asus ZenBook 14 OLED Specifications"},
+// NewAsusE410Seeder creates a new Asus E410 seeder
+func NewAsusE410Seeder() *AsusE410Seeder {
+	return &AsusE410Seeder{
+		BaseSeeder: BaseSeeder{name: "Asus E410 Specifications"},
 	}
 }
 
-func (az *AsusZenbook14OledSeeder) getBanglaTranslations() map[string]string {
+func (ae *AsusE410Seeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
 		"Asus":                                 "এসুস",
-		"ZenBook 14 OLED":                      "জেনবুক ১৪ ওএলইডি",
+		"E410":                                 "ই৪১০",
 		"Windows 11 Home":                      "উইন্ডোজ ১১ হোম",
 		"Intel":                                "ইন্টেল",
-		"Core i7-1355U":                        "কোর আই৭-১৩৫৫ইউ",
-		"13th Gen":                             "১৩তম প্রজন্ম",
+		"Celeron N4020":                        "সেলেরন এন৪০২০",
+		"10th Gen":                             "১০তম প্রজন্ম",
 		"Intel Platform Controller Hub":        "ইন্টেল প্ল্যাটফর্ম কন্ট্রোলার হাব",
-		"Intel Iris Xe":                        "ইন্টেল আইরিস এক্সই",
-		"2880 x 1800 pixels":                   "২৮৮০ x ১৮০০ পিক্সেল",
+		"Intel UHD Graphics 600":               "ইন্টেল ইউএইচডি গ্রাফিক্স ৬০০",
+		"1366 x 768 pixels":                    "১৩৬৬ x ৭৬৮ পিক্সেল",
 		"14 inches":                            "১৪ ইঞ্চি",
-		"75 Wh":                                "৭৫ ডব্লিউএইচ",
-		"Aluminum":                             "অ্যালুমিনিয়াম",
-		"Pine Grey":                            "পাইন গ্রে",
-		"1.2 kg":                               "১.২ কেজি",
-		"2023":                                 "২০২৩",
+		"37 Wh":                                "৩৭ ডব্লিউএইচ",
+		"Plastic":                              "প্লাস্টিক",
+		"Black":                                "ব্ল্যাক",
+		"1.4 kg":                               "১.৪ কেজি",
+		"2022":                                 "২০২২",
 		"1 Year International Warranty":        "১ বছর আন্তর্জাতিক ওয়ারেন্টি",
-		"512 GB":                               "৫১২ জিবি",
-		"Bluetooth 5.3":                        "ব্লুটুথ ৫.৩",
-		"16 GB":                                "১৬ জিবি",
-		"OLED":                                 "ওএলইডি",
-		"90 Hz":                                "৯০ হার্জ",
-		"Yes":                                  "হ্যাঁ",
+		"128 GB":                               "১২৮ জিবি",
+		"Bluetooth 4.2":                        "ব্লুটুথ ৪.২",
+		"4 GB":                                 "৪ জিবি",
+		"TN":                                   "টিএন",
+		"60 Hz":                                "৬০ হার্জ",
+		"No":                                   "না",
 		"3.5mm Combo Jack":                     "৩.৫মিমি কম্বো জ্যাক",
-		"Wi-Fi 6E (802.11ax)":                  "ওয়াই-ফাই ৬ই (৮০২.১১এক্স)",
+		"Wi-Fi 5 (802.11ac)":                   "ওয়াই-ফাই ৫ (৮০২.১১এসি)",
 		"USB 3.2 Gen 1":                        "ইউএসবি ৩.২ জেন ১",
 		"Integrated":                           "ইন্টিগ্রেটেড",
-		"512 GB SSD":                           "৫১২ জিবি এসএসডি",
-		"Intel Core i7":                        "ইন্টেল কোর আই৭",
+		"128 GB SSD":                           "১২৮ জিবি এসএসডি",
+		"Intel Celeron":                        "ইন্টেল সেলেরন",
 		"Single Fan":                           "সিঙ্গেল ফ্যান",
-		"90":                                   "৯০",
-		"No":                                   "না",
+		"60":                                   "৬০",
 		"1 Year":                               "১ বছর",
-		"Ultraportable":                        "আল্ট্রাপোর্টেবল",
+		"Budget":                               "বাজেট",
 		"Lithium-ion":                          "লিথিয়াম-আয়ন",
-		"65W USB-C":                            "৬৫ওয়াট ইউএসবি-সি",
-		"10-12 hours":                          "১০-১২ ঘন্টা",
-		"OLED, 400 nits":                       "ওএলইডি, ৪০০ নিটস",
-		"1.7 GHz base / 5.0 GHz boost":         "১.৭ গিগাহার্টজ বেস / ৫.০ গিগাহার্টজ বুস্ট",
-		"12 MB cache":                          "১২ এমবি ক্যাশ",
-		"1080p FHD":                            "১০৮০পি এফএইচডি",
-		"Harman Kardon Speakers":               "হারম্যান কার্ডন স্পিকার",
-		"313 x 220 x 15 mm":                    "৩১৩ x ২২০ x ১৫ মিমি",
+		"45W":                                  "৪৫ওয়াট",
+		"6-8 hours":                            "৬-৮ ঘন্টা",
+		"TN, 220 nits":                         "টিএন, ২২০ নিটস",
+		"1.1 GHz base / 2.8 GHz boost":         "১.১ গিগাহার্টজ বেস / ২.৮ গিগাহার্টজ বুস্ট",
+		"4 MB cache":                           "৪ এমবি ক্যাশ",
+		"720p HD":                              "৭২০পি এইচডি",
+		"Stereo Speakers":                      "স্টেরিও স্পিকার",
+		"326 x 216 x 19 mm":                    "৩২৬ x ২১৬ x ১৯ মিমি",
 		"TPM 2.0":                              "টিপিএম ২.০",
-		"10":                                   "১০",
-		"12":                                   "১২",
-		"4266 MHz":                             "৪২৬৬ মেগাহার্টজ",
-		"Yes (up to 32GB)":                     "হ্যাঁ (৩২জিবি পর্যন্ত)",
-		"NVMe PCIe Gen4":                       "এনভিএমই পিসিআই জেন৪",
-		"Yes (M.2 slot)":                       "হ্যাঁ (এম.২ স্লট)",
+		"2":                                    "২",
+		"2400 MHz":                             "২৪০০ মেগাহার্টজ",
+		"NVMe PCIe Gen3":                       "এনভিএমই পিসিআই জেন৩",
 		"Shared":                               "শেয়ার্ড",
 		"English/Bangla":                       "ইংরেজি/বাংলা",
 		"Standard":                             "স্ট্যান্ডার্ড",
-		"HDMI 2.1":                             "এইচডিএমআই ২.১",
-		"1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2": "১x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ২",
-		"Thunderbolt 4":                        "থান্ডারবোল্ট ৪",
+		"HDMI 1.4":                             "এইচডিএমআই ১.৪",
+		"1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 1": "১x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ১",
 	}
 }
 
-// Seed implements the Seeder interface for Asus ZenBook 14 OLED
-func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
-	productSlug := "asus-zenbook-14-oled"
+// Seed implements the Seeder interface for Asus E410
+func (ae *AsusE410Seeder) Seed(db *gorm.DB) error {
+	productSlug := "asus-e410"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -169,76 +164,76 @@ func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
 
 	specs := map[string]string{
 		"Brand":                   "Asus",
-		"Model Name":              "ZenBook 14 OLED",
+		"Model Name":              "E410",
 		"Operating System":        "Windows 11 Home",
 		"Processor Brand":         "Intel",
-		"Processor Model":         "Core i7-1355U",
-		"Processor Generation":    "13th Gen",
+		"Processor Model":         "Celeron N4020",
+		"Processor Generation":    "10th Gen",
 		"Chipset":                 "Intel Platform Controller Hub",
-		"Graphics Card":           "Intel Iris Xe",
-		"Screen Resolution":       "2880 x 1800 pixels",
+		"Graphics Card":           "Intel UHD Graphics 600",
+		"Screen Resolution":       "1366 x 768 pixels",
 		"Display Size":            "14 inches",
-		"Battery Capacity":        "75 Wh",
-		"Build Material":          "Aluminum",
-		"Color":                   "Pine Grey",
-		"Product Weight":          "1.2 kg",
-		"Release Year":            "2023",
+		"Battery Capacity":        "37 Wh",
+		"Build Material":          "Plastic",
+		"Color":                   "Black",
+		"Product Weight":          "1.4 kg",
+		"Release Year":            "2022",
 		"Warranty":                "1 Year International Warranty",
-		"Storage Capacity":        "512 GB",
-		"Bluetooth Version":       "Bluetooth 5.3",
-		"RAM":                     "16 GB",
-		"Weight":                  "1.2 kg",
-		"Display Type":            "OLED",
-		"Refresh Rate":            "90 Hz",
+		"Storage Capacity":        "128 GB",
+		"Bluetooth Version":       "Bluetooth 4.2",
+		"RAM":                     "4 GB",
+		"Weight":                  "1.4 kg",
+		"Display Type":            "TN",
+		"Refresh Rate":            "60 Hz",
 		"Screen Size":             "14 inches",
-		"Backlit Keyboard":        "Yes",
+		"Backlit Keyboard":        "No",
 		"Audio Jack":              "3.5mm Combo Jack",
-		"Ram":                     "16 GB",
-		"Wifi Support":            "Wi-Fi 6E (802.11ax)",
+		"Ram":                     "4 GB",
+		"Wifi Support":            "Wi-Fi 5 (802.11ac)",
 		"Usb Type":                "USB 3.2 Gen 1",
-		"Battery":                 "75 Wh",
+		"Battery":                 "37 Wh",
 		"Gpu Type":                "Integrated",
-		"Storage":                 "512 GB SSD",
-		"Cpu Type":                "Intel Core i7",
+		"Storage":                 "128 GB SSD",
+		"Cpu Type":                "Intel Celeron",
 		"Cooling Technology":      "Single Fan",
-		"Frequency (Hz)":          "90",
+		"Frequency (Hz)":          "60",
 		"App Control":             "No",
 		"Warranty Period":         "1 Year",
-		"Laptop Type":             "Ultraportable",
+		"Laptop Type":             "Budget",
 		"Battery Type":            "Lithium-ion",
-		"Charging Speed":          "65W USB-C",
-		"Standby Time":            "10-12 hours",
+		"Charging Speed":          "45W",
+		"Standby Time":            "6-8 hours",
 		"Wireless Charging":       "No",
-		"Resolution":              "2880 x 1800 pixels",
-		"Display Characteristics": "OLED, 400 nits",
-		"Processor Speed":         "1.7 GHz base / 5.0 GHz boost",
-		"Clock Feature":           "12 MB cache",
+		"Resolution":              "1366 x 768 pixels",
+		"Display Characteristics": "TN, 220 nits",
+		"Processor Speed":         "1.1 GHz base / 2.8 GHz boost",
+		"Clock Feature":           "4 MB cache",
 		"3.5mm Audio Jack":        "Yes",
-		"Camera Features":         "1080p FHD",
-		"Audio Quality":           "Harman Kardon Speakers",
+		"Camera Features":         "720p HD",
+		"Audio Quality":           "Stereo Speakers",
 		"Sensors":                 "No",
-		"Dimensions":              "313 x 220 x 15 mm",
-		"Body Type":               "Aluminum",
+		"Dimensions":              "326 x 216 x 19 mm",
+		"Body Type":               "Plastic",
 		"Cooling System":          "Single Fan",
-		"Available Colors":        "Pine Grey",
+		"Available Colors":        "Black",
 		"Special Features":        "TPM 2.0",
-		"Processor Cores":         "10",
-		"Processor Threads":       "12",
-		"RAM Speed":               "4266 MHz",
-		"RAM Slots":               "2",
-		"RAM Expandable":          "Yes (up to 32GB)",
-		"Storage Interface":       "NVMe PCIe Gen4",
-		"Storage Expandable":      "Yes (M.2 slot)",
+		"Processor Cores":         "2",
+		"Processor Threads":       "2",
+		"RAM Speed":               "2400 MHz",
+		"RAM Slots":               "1",
+		"RAM Expandable":          "No",
+		"Storage Interface":       "NVMe PCIe Gen3",
+		"Storage Expandable":      "No",
 		"Graphics VRAM":           "Shared",
 		"Display Touch Support":   "No",
 		"Ethernet":                "No",
-		"Thunderbolt Version":     "Thunderbolt 4",
+		"Thunderbolt Version":     "No",
 		"SD Card Reader":          "No",
 		"Keyboard Language":       "English/Bangla",
 		"Build Standard":          "Standard",
 		"Touchscreen":             "No",
-		"HDMI Ports":              "HDMI 2.1",
-		"USB Ports":               "1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
+		"HDMI Ports":              "HDMI 1.4",
+		"USB Ports":               "1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 1",
 	}
 
 	// Create specifications
@@ -274,7 +269,7 @@ func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
 		}
 
 		// Create translation if Bangla translation exists
-		if banglaValue, exists := az.getBanglaTranslations()[value]; exists {
+		if banglaValue, exists := ae.getBanglaTranslations()[value]; exists {
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
 				Locale:          "bn",
@@ -287,6 +282,6 @@ func (az *AsusZenbook14OledSeeder) Seed(db *gorm.DB) error {
 		}
 	}
 
-	log.Printf("✅ Asus ZenBook 14 OLED specifications seeded successfully")
+	log.Printf("✅ Asus E410 specifications seeded successfully")
 	return nil
 }

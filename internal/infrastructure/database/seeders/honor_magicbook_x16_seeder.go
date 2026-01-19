@@ -7,81 +7,79 @@ import (
 	"gorm.io/gorm"
 )
 
-// AsusRogZephyrusM16Seeder seeds specifications for Asus ROG Zephyrus M16
-type AsusRogZephyrusM16Seeder struct {
+// HonorMagicbookX16Seeder seeds specifications for Honor MagicBook X16
+type HonorMagicbookX16Seeder struct {
 	BaseSeeder
 }
 
-// NewAsusRogZephyrusM16Seeder creates a new Asus ROG Zephyrus M16 seeder
-func NewAsusRogZephyrusM16Seeder() *AsusRogZephyrusM16Seeder {
-	return &AsusRogZephyrusM16Seeder{
-		BaseSeeder: BaseSeeder{name: "Asus ROG Zephyrus M16 Specifications"},
+// NewHonorMagicbookX16Seeder creates a new Honor MagicBook X16 seeder
+func NewHonorMagicbookX16Seeder() *HonorMagicbookX16Seeder {
+	return &HonorMagicbookX16Seeder{
+		BaseSeeder: BaseSeeder{name: "Honor MagicBook X16 Specifications"},
 	}
 }
 
-func (arz *AsusRogZephyrusM16Seeder) getBanglaTranslations() map[string]string {
+func (hms *HonorMagicbookX16Seeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Asus":                                 "এসুস",
-		"ROG Zephyrus M16":                     "আরওজি জেফাইরাস এম১৬",
+		"Honor":                                "অনার",
+		"MagicBook X16":                        "ম্যাজিকবুক এক্স১৬",
 		"Windows 11 Home":                      "উইন্ডোজ ১১ হোম",
 		"Intel":                                "ইন্টেল",
-		"Core i9-13900H":                       "কোর আই৯-১৩৯০০এইচ",
-		"13th Gen":                             "১৩তম প্রজন্ম",
+		"Core i5-12450H":                       "কোর আই৫-১২৪৫০এইচ",
+		"12th Gen":                             "১২তম প্রজন্ম",
 		"Intel Platform Controller Hub":        "ইন্টেল প্ল্যাটফর্ম কন্ট্রোলার হাব",
-		"NVIDIA GeForce RTX 4060":              "এনভিডিয়া গেফোর্স আরটিএক্স ৪০৬০",
-		"2560 x 1600 pixels":                   "২৫৬০ x ১৬০০ পিক্সেল",
+		"Intel Iris Xe":                        "ইন্টেল আইরিস এক্সই",
+		"1920 x 1200 pixels":                   "১৯২০ x ১২০০ পিক্সেল",
 		"16 inches":                            "১৬ ইঞ্চি",
-		"90 Wh":                                "৯০ ডব্লিউএইচ",
+		"60 Wh":                                "৬০ ডব্লিউএইচ",
 		"Aluminum":                             "অ্যালুমিনিয়াম",
-		"Black":                                "ব্ল্যাক",
-		"2.1 kg":                               "২.১ কেজি",
+		"Mystic Silver":                        "মিস্টিক সিলভার",
+		"1.68 kg":                              "১.৬৮ কেজি",
 		"2023":                                 "২০২৩",
 		"1 Year International Warranty":        "১ বছর আন্তর্জাতিক ওয়ারেন্টি",
-		"1 TB":                                 "১ টেরাবাইট",
+		"512 GB":                               "৫১২ জিবি",
 		"Bluetooth 5.2":                        "ব্লুটুথ ৫.২",
-		"32 GB":                                "৩২ জিবি",
+		"16 GB":                                "১৬ জিবি",
 		"IPS":                                  "আইপিএস",
-		"165 Hz":                               "১৬৫ হার্জ",
+		"60 Hz":                                "৬০ হার্জ",
 		"Yes":                                  "হ্যাঁ",
 		"3.5mm Combo Jack":                     "৩.৫মিমি কম্বো জ্যাক",
 		"Wi-Fi 6 (802.11ax)":                   "ওয়াই-ফাই ৬ (৮০২.১১এক্স)",
 		"USB 3.2 Gen 1":                        "ইউএসবি ৩.২ জেন ১",
-		"Dedicated":                            "ডেডিকেটেড",
-		"1 TB SSD":                             "১ টেরাবাইট এসএসডি",
-		"Intel Core i9":                        "ইন্টেল কোর আই৯",
+		"Integrated":                           "ইন্টিগ্রেটেড",
+		"512 GB SSD":                           "৫১২ জিবি এসএসডি",
+		"Intel Core i5":                        "ইন্টেল কোর আই৫",
 		"Dual Fan":                             "ডুয়াল ফ্যান",
-		"165":                                  "১৬৫",
+		"60":                                   "৬০",
 		"No":                                   "না",
 		"1 Year":                               "১ বছর",
-		"Gaming":                               "গেমিং",
+		"Ultraportable":                        "আল্ট্রাপোর্টেবল",
 		"Lithium-ion":                          "লিথিয়াম-আয়ন",
-		"240W":                                 "২৪০ওয়াট",
+		"65W USB-C":                            "৬৫ওয়াট ইউএসবি-সি",
 		"8-10 hours":                           "৮-১০ ঘন্টা",
-		"IPS, 500 nits":                        "আইপিএস, ৫০০ নিটস",
-		"2.6 GHz base / 5.4 GHz boost":         "২.৬ গিগাহার্টজ বেস / ৫.৪ গিগাহার্টজ বুস্ট",
-		"24 MB cache":                          "২৪ এমবি ক্যাশ",
-		"1080p FHD":                            "১০৮০পি এফএইচডি",
-		"Dolby Atmos Speakers":                 "ডলবি অ্যাটমস স্পিকার",
-		"354 x 248 x 19 mm":                    "৩৫৪ x ২৪৮ x ১৯ মিমি",
+		"IPS, 300 nits":                        "আইপিএস, ৩০০ নিটস",
+		"2.0 GHz base / 4.4 GHz boost":         "২.০ গিগাহার্টজ বেস / ৪.৪ গিগাহার্টজ বুস্ট",
+		"12 MB cache":                          "১২ এমবি ক্যাশ",
+		"720p HD":                              "৭২০পি এইচডি",
+		"Dual Speakers":                        "ডুয়াল স্পিকার",
+		"356.5 x 249.5 x 15.9 mm":              "৩৫৬.৫ x ২৪৯.৫ x ১৫.৯ মিমি",
 		"TPM 2.0":                              "টিপিএম ২.০",
-		"14":                                   "১৪",
-		"20":                                   "২০",
-		"5200 MHz":                             "৫২০০ মেগাহার্টজ",
-		"Yes (up to 64GB)":                     "হ্যাঁ (৬৪জিবি পর্যন্ত)",
-		"NVMe PCIe Gen4":                       "এনভিএমই পিসিআই জেন৪",
+		"8":                                    "৮",
+		"12":                                   "১২",
+		"3200 MHz":                             "৩২০০ মেগাহার্টজ",
+		"Yes (up to 32GB)":                     "হ্যাঁ (৩২জিবি পর্যন্ত)",
+		"NVMe PCIe Gen3":                       "এনভিএমই পিসিআই জেন৩",
 		"Yes (M.2 slot)":                       "হ্যাঁ (এম.২ স্লট)",
-		"8 GB GDDR6":                           "৮ জিবি জিডিডিআর৬",
+		"Shared":                               "শেয়ার্ড",
 		"English/Bangla":                       "ইংরেজি/বাংলা",
 		"Standard":                             "স্ট্যান্ডার্ড",
-		"HDMI 2.1":                             "এইচডিএমআই ২.১",
-		"2x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2": "২x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ২",
-		"Thunderbolt 4":                        "থান্ডারবোল্ট ৪",
-	}
+		"HDMI 2.0":                             "এইচডিএমআই ২.০",
+		"1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2": "১x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ২"}
 }
 
-// Seed implements the Seeder interface for Asus ROG Zephyrus M16
-func (arz *AsusRogZephyrusM16Seeder) Seed(db *gorm.DB) error {
-	productSlug := "asus-rog-zephyrus-m16"
+// Seed implements the Seeder interface for Honor MagicBook X16
+func (hms *HonorMagicbookX16Seeder) Seed(db *gorm.DB) error {
+	productSlug := "honor-magicbook-x16"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -168,77 +166,77 @@ func (arz *AsusRogZephyrusM16Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                   "Asus",
-		"Model Name":              "ROG Zephyrus M16",
+		"Brand":                   "Honor",
+		"Model Name":              "MagicBook X16",
 		"Operating System":        "Windows 11 Home",
 		"Processor Brand":         "Intel",
-		"Processor Model":         "Core i9-13900H",
-		"Processor Generation":    "13th Gen",
+		"Processor Model":         "Core i5-12450H",
+		"Processor Generation":    "12th Gen",
 		"Chipset":                 "Intel Platform Controller Hub",
-		"Graphics Card":           "NVIDIA GeForce RTX 4060",
-		"Screen Resolution":       "2560 x 1600 pixels",
+		"Graphics Card":           "Intel Iris Xe",
+		"Screen Resolution":       "1920 x 1200 pixels",
 		"Display Size":            "16 inches",
-		"Battery Capacity":        "90 Wh",
+		"Battery Capacity":        "60 Wh",
 		"Build Material":          "Aluminum",
-		"Color":                   "Black",
-		"Product Weight":          "2.1 kg",
+		"Color":                   "Mystic Silver",
+		"Product Weight":          "1.68 kg",
 		"Release Year":            "2023",
 		"Warranty":                "1 Year International Warranty",
-		"Storage Capacity":        "1 TB",
+		"Storage Capacity":        "512 GB",
 		"Bluetooth Version":       "Bluetooth 5.2",
-		"RAM":                     "32 GB",
-		"Weight":                  "2.1 kg",
+		"RAM":                     "16 GB",
+		"Weight":                  "1.68 kg",
 		"Display Type":            "IPS",
-		"Refresh Rate":            "165 Hz",
+		"Refresh Rate":            "60 Hz",
 		"Screen Size":             "16 inches",
 		"Backlit Keyboard":        "Yes",
 		"Audio Jack":              "3.5mm Combo Jack",
-		"Ram":                     "32 GB",
+		"Ram":                     "16 GB",
 		"Wifi Support":            "Wi-Fi 6 (802.11ax)",
 		"Usb Type":                "USB 3.2 Gen 1",
-		"Battery":                 "90 Wh",
-		"Gpu Type":                "Dedicated",
-		"Storage":                 "1 TB SSD",
-		"Cpu Type":                "Intel Core i9",
+		"Battery":                 "60 Wh",
+		"Gpu Type":                "Integrated",
+		"Storage":                 "512 GB SSD",
+		"Cpu Type":                "Intel Core i5",
 		"Cooling Technology":      "Dual Fan",
-		"Frequency (Hz)":          "165",
+		"Frequency (Hz)":          "60",
 		"App Control":             "No",
 		"Warranty Period":         "1 Year",
-		"Laptop Type":             "Gaming",
+		"Laptop Type":             "Ultraportable",
 		"Battery Type":            "Lithium-ion",
-		"Charging Speed":          "240W",
+		"Charging Speed":          "65W USB-C",
 		"Standby Time":            "8-10 hours",
 		"Wireless Charging":       "No",
-		"Resolution":              "2560 x 1600 pixels",
-		"Display Characteristics": "IPS, 500 nits",
-		"Processor Speed":         "2.6 GHz base / 5.4 GHz boost",
-		"Clock Feature":           "24 MB cache",
+		"Resolution":              "1920 x 1200 pixels",
+		"Display Characteristics": "IPS, 300 nits",
+		"Processor Speed":         "2.0 GHz base / 4.4 GHz boost",
+		"Clock Feature":           "12 MB cache",
 		"3.5mm Audio Jack":        "Yes",
-		"Camera Features":         "1080p FHD",
-		"Audio Quality":           "Dolby Atmos Speakers",
+		"Camera Features":         "720p HD",
+		"Audio Quality":           "Dual Speakers",
 		"Sensors":                 "No",
-		"Dimensions":              "354 x 248 x 19 mm",
+		"Dimensions":              "356.5 x 249.5 x 15.9 mm",
 		"Body Type":               "Aluminum",
 		"Cooling System":          "Dual Fan",
-		"Available Colors":        "Black",
+		"Available Colors":        "Mystic Silver",
 		"Special Features":        "TPM 2.0",
-		"Processor Cores":         "14",
-		"Processor Threads":       "20",
-		"RAM Speed":               "5200 MHz",
+		"Processor Cores":         "8",
+		"Processor Threads":       "12",
+		"RAM Speed":               "3200 MHz",
 		"RAM Slots":               "2",
-		"RAM Expandable":          "Yes (up to 64GB)",
-		"Storage Interface":       "NVMe PCIe Gen4",
+		"RAM Expandable":          "Yes (up to 32GB)",
+		"Storage Interface":       "NVMe PCIe Gen3",
 		"Storage Expandable":      "Yes (M.2 slot)",
-		"Graphics VRAM":           "8 GB GDDR6",
+		"Graphics VRAM":           "Shared",
 		"Display Touch Support":   "No",
 		"Ethernet":                "No",
-		"Thunderbolt Version":     "Thunderbolt 4",
+		"Thunderbolt Version":     "No",
 		"SD Card Reader":          "No",
 		"Keyboard Language":       "English/Bangla",
 		"Build Standard":          "Standard",
 		"Touchscreen":             "No",
-		"HDMI Ports":              "HDMI 2.1",
-		"USB Ports":               "2x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
+		"HDMI Ports":              "HDMI 2.0",
+		"USB Ports":               "1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
 	}
 
 	// Create specifications
@@ -274,7 +272,7 @@ func (arz *AsusRogZephyrusM16Seeder) Seed(db *gorm.DB) error {
 		}
 
 		// Create translation if Bangla translation exists
-		if banglaValue, exists := arz.getBanglaTranslations()[value]; exists {
+		if banglaValue, exists := hms.getBanglaTranslations()[value]; exists {
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
 				Locale:          "bn",
@@ -287,6 +285,6 @@ func (arz *AsusRogZephyrusM16Seeder) Seed(db *gorm.DB) error {
 		}
 	}
 
-	log.Printf("✅ Asus ROG Zephyrus M16 specifications seeded successfully")
+	log.Printf("✅ Honor MagicBook X16 specifications seeded successfully")
 	return nil
 }

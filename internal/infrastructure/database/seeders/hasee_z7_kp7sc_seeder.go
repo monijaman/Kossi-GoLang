@@ -7,80 +7,78 @@ import (
 	"gorm.io/gorm"
 )
 
-// AsusRogStrixG15Seeder seeds specifications for Asus ROG Strix G15
-type AsusRogStrixG15Seeder struct {
+// HaseeZ7Kp7scSeeder seeds specifications for Hasee Z7-KP7SC
+type HaseeZ7Kp7scSeeder struct {
 	BaseSeeder
 }
 
-// NewAsusRogStrixG15Seeder creates a new Asus ROG Strix G15 seeder
-func NewAsusRogStrixG15Seeder() *AsusRogStrixG15Seeder {
-	return &AsusRogStrixG15Seeder{
-		BaseSeeder: BaseSeeder{name: "Asus ROG Strix G15 Specifications"},
+// NewHaseeZ7Kp7scSeeder creates a new Hasee Z7-KP7SC seeder
+func NewHaseeZ7Kp7scSeeder() *HaseeZ7Kp7scSeeder {
+	return &HaseeZ7Kp7scSeeder{
+		BaseSeeder: BaseSeeder{name: "Hasee Z7-KP7SC Specifications"},
 	}
 }
 
-func (arz *AsusRogStrixG15Seeder) getBanglaTranslations() map[string]string {
+func (hz7kp7scs *HaseeZ7Kp7scSeeder) getBanglaTranslations() map[string]string {
 	return map[string]string{
-		"Asus":                                 "এসুস",
-		"ROG Strix G15":                        "আরওজি স্ট্রিক্স জি১৫",
-		"Windows 11 Home":                      "উইন্ডোজ ১১ হোম",
-		"AMD":                                  "এএমডি",
-		"Ryzen 7 7735HS":                       "রাইজেন ৭ ৭৭৩৫এইচএস",
-		"7th Gen":                              "৭ম প্রজন্ম",
-		"AMD Platform Controller Hub":          "এএমডি প্ল্যাটফর্ম কন্ট্রোলার হাব",
-		"NVIDIA GeForce RTX 4060":              "এনভিডিয়া গেফোর্স আরটিএক্স ৪০৬০",
-		"1920 x 1080 pixels":                   "১৯২০ x ১০৮০ পিক্সেল",
-		"15.6 inches":                          "১৫.৬ ইঞ্চি",
-		"56 Wh":                                "৫৬ ডব্লিউএইচ",
-		"Plastic":                              "প্লাস্টিক",
-		"Black":                                "ব্ল্যাক",
-		"2.1 kg":                               "২.১ কেজি",
-		"2023":                                 "২০২৩",
-		"1 Year International Warranty":        "১ বছর আন্তর্জাতিক ওয়ারেন্টি",
-		"512 GB":                               "৫১২ জিবি",
-		"Bluetooth 5.2":                        "ব্লুটুথ ৫.২",
-		"16 GB":                                "১৬ জিবি",
-		"IPS":                                  "আইপিএস",
-		"144 Hz":                               "১৪৪ হার্জ",
-		"Yes":                                  "হ্যাঁ",
-		"3.5mm Combo Jack":                     "৩.৫মিমি কম্বো জ্যাক",
-		"Wi-Fi 6 (802.11ax)":                   "ওয়াই-ফাই ৬ (৮০২.১১এক্স)",
-		"USB 3.2 Gen 1":                        "ইউএসবি ৩.২ জেন ১",
-		"Dedicated":                            "ডেডিকেটেড",
-		"512 GB SSD":                           "৫১২ জিবি এসএসডি",
-		"AMD Ryzen 7":                          "এএমডি রাইজেন ৭",
-		"Dual Fan":                             "ডুয়াল ফ্যান",
-		"144":                                  "১৪৪",
-		"No":                                   "না",
-		"1 Year":                               "১ বছর",
-		"Gaming":                               "গেমিং",
-		"Lithium-ion":                          "লিথিয়াম-আয়ন",
-		"200W":                                 "২০০ওয়াট",
-		"6-8 hours":                            "৬-৮ ঘন্টা",
-		"IPS, 300 nits":                        "আইপিএস, ৩০০ নিটস",
-		"2.0 GHz base / 4.7 GHz boost":         "২.০ গিগাহার্টজ বেস / ৪.৭ গিগাহার্টজ বুস্ট",
-		"16 MB cache":                          "১৬ এমবি ক্যাশ",
-		"720p HD":                              "৭২০পি এইচডি",
-		"Stereo Speakers":                      "স্টেরিও স্পিকার",
-		"354 x 232 x 22 mm":                    "৩৫৪ x ২৩২ x ২২ মিমি",
-		"TPM 2.0":                              "টিপিএম ২.০",
-		"8":                                    "৮",
-		"16":                                   "১৬",
-		"4800 MHz":                             "৪৮০০ মেগাহার্টজ",
-		"Yes (up to 32GB)":                     "হ্যাঁ (৩২জিবি পর্যন্ত)",
-		"NVMe PCIe Gen4":                       "এনভিএমই পিসিআই জেন৪",
-		"Yes (M.2 slot)":                       "হ্যাঁ (এম.২ স্লট)",
-		"8 GB GDDR6":                           "৮ জিবি জিডিডিআর৬",
-		"English/Bangla":                       "ইংরেজি/বাংলা",
-		"Standard":                             "স্ট্যান্ডার্ড",
-		"HDMI 2.1":                             "এইচডিএমআই ২.১",
-		"3x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2": "৩x ইউএসবি ৩.২ জেন ১, ১x ইউএসবি-সি ৩.২ জেন ২",
+		"Hasee":                        "হাসি",
+		"Z7-KP7SC":                     "জেড৭-কেপি৭এসসি",
+		"Windows 11 Home":              "উইন্ডোজ ১১ হোম",
+		"AMD":                          "এএমডি",
+		"Ryzen 7 7735HS":               "রাইজেন ৭ ৭৭৩৫এইচএস",
+		"Zen 3+":                       "জেন ৩+",
+		"NVIDIA GeForce RTX 4060":      "এনভিডিয়া গেফোর্স আরটিএক্স ৪০৬০",
+		"1920 x 1080 pixels":           "১৯২০ x ১০৮০ পিক্সেল",
+		"15.6 inches":                  "১৫.৬ ইঞ্চি",
+		"53 Wh":                        "৫৩ ডব্লিউএইচ",
+		"Plastic":                      "প্লাস্টিক",
+		"Black":                        "কালো",
+		"2.2 kg":                       "২.২ কেজি",
+		"2023":                         "২০২৩",
+		"1 Year Warranty":              "১ বছর ওয়ারেন্টি",
+		"512 GB":                       "৫১২ জিবি",
+		"Bluetooth 5.2":                "ব্লুটুথ ৫.২",
+		"16 GB":                        "১৬ জিবি",
+		"IPS":                          "আইপিএস",
+		"144 Hz":                       "১৪৪ হার্জ",
+		"Yes":                          "হ্যাঁ",
+		"3.5mm Combo Jack":             "৩.৫মিমি কম্বো জ্যাক",
+		"Wi-Fi 6":                      "ওয়াই-ফাই ৬",
+		"USB 3.2 Gen 1":                "ইউএসবি ৩.২ জেন ১",
+		"Dedicated":                    "ডেডিকেটেড",
+		"512 GB SSD":                   "৫১২ জিবি এসএসডি",
+		"AMD Ryzen 7":                  "এএমডি রাইজেন ৭",
+		"Dual Fan":                     "ডুয়াল ফ্যান",
+		"144":                          "১৪৪",
+		"No":                           "না",
+		"1 Year":                       "১ বছর",
+		"Gaming":                       "গেমিং",
+		"Lithium-ion":                  "লিথিয়াম-আয়ন",
+		"150W Adapter":                 "১৫০ওয়াট অ্যাডাপ্টার",
+		"4-5 hours gaming":             "৪-৫ ঘন্টা গেমিং",
+		"IPS, 300 nits":                "আইপিএস, ৩০০ নিটস",
+		"2.7 GHz base / 4.7 GHz boost": "২.৭ গিগাহার্টজ বেস / ৪.৭ গিগাহার্টজ বুস্ট",
+		"16 MB cache":                  "১৬ এমবি ক্যাশ",
+		"1MP":                          "১এমপি",
+		"Stereo Speakers":              "স্টেরিও স্পিকার",
+		"360 x 250 x 25 mm":            "৩৬০ x ২৫০ x ২৫ মিমি",
+		"8":                            "৮",
+		"16":                           "১৬",
+		"4800 MHz":                     "৪৮০০ মেগাহার্টজ",
+		"Yes (up to 32GB)":             "হ্যাঁ (৩২জিবি পর্যন্ত)",
+		"PCIe Gen4":                    "পিসিআই জেন৪",
+		"Yes (M.2)":                    "হ্যাঁ (এম.২)",
+		"8 GB GDDR6":                   "৮ জিবি জিডিডিআর৬",
+		"English/Bangla":               "ইংরেজি/বাংলা",
+		"Standard":                     "স্ট্যান্ডার্ড",
+		"HDMI 2.1":                     "এইচডিএমআই ২.১",
+		"3x USB 3.2 Gen 1, USB-C":      "৩x ইউএসবি ৩.২ জেন ১, ইউএসবি-সি",
 	}
 }
 
-// Seed implements the Seeder interface for Asus ROG Strix G15
-func (arz *AsusRogStrixG15Seeder) Seed(db *gorm.DB) error {
-	productSlug := "asus-rog-strix-g15"
+// Seed implements the Seeder interface for Hasee Z7-KP7SC
+func (hz7kp7scs *HaseeZ7Kp7scSeeder) Seed(db *gorm.DB) error {
+	productSlug := "hasee-z7-kp7sc"
 	var prod models.ProductModel
 	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -99,7 +97,6 @@ func (arz *AsusRogStrixG15Seeder) Seed(db *gorm.DB) error {
 		"Processor Brand":         204,
 		"Processor Model":         206,
 		"Processor Generation":    205,
-		"Chipset":                 19,
 		"Graphics Card":           200,
 		"Screen Resolution":       207,
 		"Display Size":            683,
@@ -167,35 +164,34 @@ func (arz *AsusRogStrixG15Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
-		"Brand":                   "Asus",
-		"Model Name":              "ROG Strix G15",
+		"Brand":                   "Hasee",
+		"Model Name":              "Z7-KP7SC",
 		"Operating System":        "Windows 11 Home",
 		"Processor Brand":         "AMD",
 		"Processor Model":         "Ryzen 7 7735HS",
-		"Processor Generation":    "7th Gen",
-		"Chipset":                 "AMD Platform Controller Hub",
+		"Processor Generation":    "Zen 3+",
 		"Graphics Card":           "NVIDIA GeForce RTX 4060",
 		"Screen Resolution":       "1920 x 1080 pixels",
 		"Display Size":            "15.6 inches",
-		"Battery Capacity":        "56 Wh",
+		"Battery Capacity":        "53 Wh",
 		"Build Material":          "Plastic",
 		"Color":                   "Black",
-		"Product Weight":          "2.1 kg",
+		"Product Weight":          "2.2 kg",
 		"Release Year":            "2023",
-		"Warranty":                "1 Year International Warranty",
+		"Warranty":                "1 Year Warranty",
 		"Storage Capacity":        "512 GB",
 		"Bluetooth Version":       "Bluetooth 5.2",
 		"RAM":                     "16 GB",
-		"Weight":                  "2.1 kg",
+		"Weight":                  "2.2 kg",
 		"Display Type":            "IPS",
 		"Refresh Rate":            "144 Hz",
 		"Screen Size":             "15.6 inches",
 		"Backlit Keyboard":        "Yes",
 		"Audio Jack":              "3.5mm Combo Jack",
 		"Ram":                     "16 GB",
-		"Wifi Support":            "Wi-Fi 6 (802.11ax)",
+		"Wifi Support":            "Wi-Fi 6",
 		"Usb Type":                "USB 3.2 Gen 1",
-		"Battery":                 "56 Wh",
+		"Battery":                 "53 Wh",
 		"Gpu Type":                "Dedicated",
 		"Storage":                 "512 GB SSD",
 		"Cpu Type":                "AMD Ryzen 7",
@@ -205,39 +201,39 @@ func (arz *AsusRogStrixG15Seeder) Seed(db *gorm.DB) error {
 		"Warranty Period":         "1 Year",
 		"Laptop Type":             "Gaming",
 		"Battery Type":            "Lithium-ion",
-		"Charging Speed":          "200W",
-		"Standby Time":            "6-8 hours",
+		"Charging Speed":          "150W Adapter",
+		"Standby Time":            "4-5 hours gaming",
 		"Wireless Charging":       "No",
 		"Resolution":              "1920 x 1080 pixels",
 		"Display Characteristics": "IPS, 300 nits",
-		"Processor Speed":         "2.0 GHz base / 4.7 GHz boost",
+		"Processor Speed":         "2.7 GHz base / 4.7 GHz boost",
 		"Clock Feature":           "16 MB cache",
 		"3.5mm Audio Jack":        "Yes",
-		"Camera Features":         "720p HD",
+		"Camera Features":         "1MP",
 		"Audio Quality":           "Stereo Speakers",
 		"Sensors":                 "No",
-		"Dimensions":              "354 x 232 x 22 mm",
+		"Dimensions":              "360 x 250 x 25 mm",
 		"Body Type":               "Plastic",
 		"Cooling System":          "Dual Fan",
 		"Available Colors":        "Black",
-		"Special Features":        "TPM 2.0",
+		"Special Features":        "No",
 		"Processor Cores":         "8",
 		"Processor Threads":       "16",
 		"RAM Speed":               "4800 MHz",
 		"RAM Slots":               "2",
 		"RAM Expandable":          "Yes (up to 32GB)",
-		"Storage Interface":       "NVMe PCIe Gen4",
-		"Storage Expandable":      "Yes (M.2 slot)",
+		"Storage Interface":       "PCIe Gen4",
+		"Storage Expandable":      "Yes (M.2)",
 		"Graphics VRAM":           "8 GB GDDR6",
 		"Display Touch Support":   "No",
-		"Ethernet":                "No",
+		"Ethernet":                "Yes",
 		"Thunderbolt Version":     "No",
 		"SD Card Reader":          "No",
 		"Keyboard Language":       "English/Bangla",
 		"Build Standard":          "Standard",
 		"Touchscreen":             "No",
 		"HDMI Ports":              "HDMI 2.1",
-		"USB Ports":               "3x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 2",
+		"USB Ports":               "3x USB 3.2 Gen 1, USB-C",
 	}
 
 	// Create specifications
@@ -273,7 +269,7 @@ func (arz *AsusRogStrixG15Seeder) Seed(db *gorm.DB) error {
 		}
 
 		// Create translation if Bangla translation exists
-		if banglaValue, exists := arz.getBanglaTranslations()[value]; exists {
+		if banglaValue, exists := hz7kp7scs.getBanglaTranslations()[value]; exists {
 			translation := models.SpecificationTranslationModel{
 				SpecificationID: spec.ID,
 				Locale:          "bn",
@@ -286,6 +282,6 @@ func (arz *AsusRogStrixG15Seeder) Seed(db *gorm.DB) error {
 		}
 	}
 
-	log.Printf("✅ Asus ROG Strix G15 specifications seeded successfully")
+	log.Printf("✅ Hasee Z7-KP7SC specifications seeded successfully")
 	return nil
 }
