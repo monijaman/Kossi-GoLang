@@ -12,33 +12,33 @@ import (
 	"gorm.io/gorm"
 )
 
-// CameraProductSeeder handles seeding camera products for Bangladesh
-type CameraProductSeeder struct {
+// LaptopProductSeeder handles seeding laptop products for Bangladesh
+type LaptopProductSeeder struct {
 	BaseSeeder
 }
 
-// NewCameraProductSeeder creates a new CameraProductSeeder
-func NewCameraProductSeeder() *CameraProductSeeder {
-	return &CameraProductSeeder{BaseSeeder: BaseSeeder{name: "Camera Products"}}
+// NewLaptopProductSeeder creates a new LaptopProductSeeder
+func NewLaptopProductSeeder() *LaptopProductSeeder {
+	return &LaptopProductSeeder{BaseSeeder: BaseSeeder{name: "Laptop Products"}}
 }
 
 // Seed implements the Seeder interface
-func (cps *CameraProductSeeder) Seed(db *gorm.DB) error {
+func (lps *LaptopProductSeeder) Seed(db *gorm.DB) error {
 	// Ensure category exists
-	category, err := CreateOrFindCategory(db, "Cameras", "cameras")
+	category, err := CreateOrFindCategory(db, "Laptops", "laptops")
 	if err != nil {
 		return err
 	}
 
 	// Load dataset from JSON file for maintainability
-	jsonPath := filepath.Join("init-db", "seeders", "cameras.json")
+	jsonPath := filepath.Join("init-db", "seeders", "laptops.json")
 	raw, err := os.ReadFile(jsonPath)
 	if err != nil {
-		return fmt.Errorf("failed to read camera dataset %s: %w", jsonPath, err)
+		return fmt.Errorf("failed to read laptop dataset %s: %w", jsonPath, err)
 	}
 
 	var data struct {
-		CamerasInBangladesh struct {
+		LaptopsInBangladesh struct {
 			Brands []struct {
 				Brand         string   `json:"brand"`
 				Origin        string   `json:"origin"`
@@ -46,15 +46,15 @@ func (cps *CameraProductSeeder) Seed(db *gorm.DB) error {
 				Availability  string   `json:"availability"`
 				PopularModels []string `json:"popular_models"`
 			} `json:"brands"`
-		} `json:"cameras_in_bangladesh"`
+		} `json:"laptops_in_bangladesh"`
 	}
 
 	if err := json.Unmarshal(raw, &data); err != nil {
-		return fmt.Errorf("failed to parse camera dataset: %w", err)
+		return fmt.Errorf("failed to parse laptop dataset: %w", err)
 	}
 
 	// Process each brand and its models
-	for _, brandData := range data.CamerasInBangladesh.Brands {
+	for _, brandData := range data.LaptopsInBangladesh.Brands {
 		// Ensure brand exists
 		brand, err := CreateOrFindBrand(db, brandData.Brand, strings.ToLower(brandData.Brand))
 		if err != nil {
@@ -68,7 +68,7 @@ func (cps *CameraProductSeeder) Seed(db *gorm.DB) error {
 
 		// Create products for each model
 		for _, model := range brandData.PopularModels {
-			if err := cps.createCameraProduct(db, brand.ID, category.ID, brandData.Brand, model); err != nil {
+			if err := lps.createLaptopProduct(db, brand.ID, category.ID, brandData.Brand, model); err != nil {
 				return fmt.Errorf("failed to create product %s: %w", model, err)
 			}
 		}
@@ -77,8 +77,8 @@ func (cps *CameraProductSeeder) Seed(db *gorm.DB) error {
 	return nil
 }
 
-// createCameraProduct creates a single camera product
-func (cps *CameraProductSeeder) createCameraProduct(db *gorm.DB, brandID, categoryID uint, brandName, modelName string) error {
+// createLaptopProduct creates a single laptop product
+func (lps *LaptopProductSeeder) createLaptopProduct(db *gorm.DB, brandID, categoryID uint, brandName, modelName string) error {
 	// Generate full product name with brand
 	fullName := fmt.Sprintf("%s %s", brandName, modelName)
 
@@ -99,16 +99,7 @@ func (cps *CameraProductSeeder) createCameraProduct(db *gorm.DB, brandID, catego
 	// Trim any trailing dashes
 	slug = strings.Trim(slug, "-")
 
-	// Check if product already exists
-	var existing models.ProductModel
-	if err := db.Where("slug = ?", slug).First(&existing).Error; err == nil {
-		// Product already exists, skip
-		return nil
-	} else if err != gorm.ErrRecordNotFound {
-		return err
-	}
-
-	// Create new product
+	// Create or find product by name OR slug to avoid constraint violations
 	product := &models.ProductModel{
 		Name:       fullName,
 		Slug:       slug,
@@ -117,10 +108,15 @@ func (cps *CameraProductSeeder) createCameraProduct(db *gorm.DB, brandID, catego
 		Status:     1, // Active
 	}
 
-	if err := db.Create(product).Error; err != nil {
+	// Check both name and slug to handle unique constraints on either field
+	if err := db.Where("slug = ? OR name = ?", slug, fullName).FirstOrCreate(product).Error; err != nil {
 		return err
 	}
 
-	fmt.Printf("   ✅ Created camera product: %s\n", fullName)
+	if product.CreatedAt.Equal(product.UpdatedAt) {
+		fmt.Printf("   ✅ Created laptop product: %s\n", fullName)
+	} else {
+		fmt.Printf("   ⚠️  Skipped existing product: %s\n", fullName)
+	}
 	return nil
 }

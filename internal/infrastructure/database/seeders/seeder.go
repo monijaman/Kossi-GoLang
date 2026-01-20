@@ -413,22 +413,15 @@ func (bs *BaseSeeder) GetCommonBanglaTranslations() map[string]string {
 func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, error) {
 	var categoryModel models.CategoryModel
 
-	// Try to find existing category
-	if err := db.Where("name = ?", name).First(&categoryModel).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// Create new category
-			category := &entities.Category{
-				Name: name,
-				Slug: slug,
-			}
+	// Use FirstOrCreate to handle duplicates
+	category := &entities.Category{
+		Name: name,
+		Slug: slug,
+	}
 
-			categoryModel.FromEntity(category)
-			if err := db.Create(&categoryModel).Error; err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, err
-		}
+	categoryModel.FromEntity(category)
+	if err := db.Where("slug = ?", slug).FirstOrCreate(&categoryModel).Error; err != nil {
+		return nil, err
 	}
 
 	return categoryModel.ToEntity(), nil
@@ -438,22 +431,15 @@ func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, e
 func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) {
 	var brandModel models.BrandModel
 
-	// Try to find existing brand
-	if err := db.Where("name = ?", name).First(&brandModel).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// Create new brand
-			brand := &entities.Brand{
-				Name: name,
-				Slug: slug,
-			}
+	// Use FirstOrCreate to handle duplicates
+	brand := &entities.Brand{
+		Name: name,
+		Slug: slug,
+	}
 
-			brandModel.FromEntity(brand)
-			if err := db.Create(&brandModel).Error; err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, err
-		}
+	brandModel.FromEntity(brand)
+	if err := db.Where("slug = ?", slug).FirstOrCreate(&brandModel).Error; err != nil {
+		return nil, err
 	}
 
 	return brandModel.ToEntity(), nil
@@ -463,22 +449,15 @@ func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) 
 func CreateBrandCategoryRelation(db *gorm.DB, brandID, categoryID uint) error {
 	var brandCategoryModel models.BrandCategoryModel
 
-	// Check if relation already exists
-	if err := db.Where("brand_id = ? AND category_id = ?", brandID, categoryID).First(&brandCategoryModel).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// Create new relation
-			relation := &entities.BrandCategory{
-				BrandID:    brandID,
-				CategoryID: categoryID,
-			}
+	// Use FirstOrCreate to handle duplicates
+	relation := &entities.BrandCategory{
+		BrandID:    brandID,
+		CategoryID: categoryID,
+	}
 
-			brandCategoryModel.FromEntity(relation)
-			if err := db.Create(&brandCategoryModel).Error; err != nil {
-				return err
-			}
-		} else {
-			return err
-		}
+	brandCategoryModel.FromEntity(relation)
+	if err := db.Where("brand_id = ? AND category_id = ?", brandID, categoryID).FirstOrCreate(&brandCategoryModel).Error; err != nil {
+		return err
 	}
 
 	return nil
@@ -542,11 +521,15 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// This avoids referencing constructors that may not exist yet while we
 	// iteratively add more motorcycle-specific seeders.
 
+	// Core/global seeders - Specification keys MUST run first
+	// NOTE: SpecificationKeySeeder is in mobiles/ subdirectory which causes compilation issues
+	// The CreateOrFindSpecificationKey function already handles auto-creation of missing keys
+	// manager.AddSeeder(NewSpecificationKeySeeder())
+
 	// Core/global seeders
 	// manager.AddSeeder(NewCategorySeeder())
 	// manager.AddSeeder(NewBrandSeeder())
 	// manager.AddSeeder(NewUserSeeder())
-	// manager.AddSeeder(NewSpecificationKeySeeder())
 	// // manager.AddSeeder(NewCategoryTranslationSeeder())
 	// // manager.AddSeeder(NewBrandTranslationSeeder())
 	// manager.AddSeeder(NewSpecificationKeyTranslationSeeder())
@@ -574,9 +557,31 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// manager.AddSeeder(NewBanglalinkReviewTranslationSeeder())
 
 	// Laptop category seeders (Category ID: 71)
-	// manager.AddSeeder(NewTeclastF15PlusSeeder())
-	// manager.AddSeeder(NewTeclastF7PlusSeeder())
-	// manager.AddSeeder(NewTeclastF6PlusSeeder())
+	// Product seeder MUST run first to create products before specification seeders
+	manager.AddSeeder(NewLaptopProductSeeder())
+	manager.AddSeeder(NewSpecificLaptopProductsSeeder()) // Create specific products for specification seeders
+
+	// Specification seeders (only run after products exist)
+	manager.AddSeeder(NewGpdP2MaxSeeder())
+	manager.AddSeeder(NewGpdPocket3Seeder())
+	manager.AddSeeder(NewGpdWin4Seeder())
+	manager.AddSeeder(NewGpdWinMax2Seeder())
+	manager.AddSeeder(NewIballCompbookPremioV20Seeder())
+	manager.AddSeeder(NewMsiCrosshair15Seeder())
+	manager.AddSeeder(NewMsiCyborg15Seeder())
+	manager.AddSeeder(NewMsiKatana15Seeder())
+	manager.AddSeeder(NewMsiKatana17Seeder())
+	manager.AddSeeder(NewMsiPulse15Seeder())
+	manager.AddSeeder(NewMsiPulse17Seeder())
+	manager.AddSeeder(NewMsiRaiderGe68HxSeeder())
+	manager.AddSeeder(NewMsiRaiderGe78HxSeeder())
+	manager.AddSeeder(NewMsiStealth14StudioSeeder())
+	manager.AddSeeder(NewMsiStealth16StudioSeeder())
+	manager.AddSeeder(NewMsiTitanGt77HxSeeder())
+	manager.AddSeeder(NewMsiVectorGp78Seeder())
+	manager.AddSeeder(NewOneNetbookOneGx1ProSeeder())
+	manager.AddSeeder(NewOneNetbookOneMix4Seeder())
+	manager.AddSeeder(NewOnenetbookOnexplayer2Seeder())
 
 	// TV category seeders (Category ID: 124)
 	// manager.AddSeeder(NewTVSpecificationSeeder())

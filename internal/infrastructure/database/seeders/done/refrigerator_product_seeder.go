@@ -79,16 +79,7 @@ func (rps *RefrigeratorProductSeeder) createRefrigeratorProduct(db *gorm.DB, bra
 	slug = strings.ReplaceAll(slug, ")", "")
 	slug = strings.ReplaceAll(slug, "/", "-")
 
-	// Check if product already exists
-	var existing models.ProductModel
-	if err := db.Where("slug = ?", slug).First(&existing).Error; err == nil {
-		// Product already exists, skip
-		return nil
-	} else if err != gorm.ErrRecordNotFound {
-		return err
-	}
-
-	// Create new product
+	// Create or find product by name OR slug to avoid constraint violations
 	product := &models.ProductModel{
 		Name:       modelName,
 		Slug:       slug,
@@ -97,10 +88,15 @@ func (rps *RefrigeratorProductSeeder) createRefrigeratorProduct(db *gorm.DB, bra
 		Status:     1, // Active
 	}
 
-	if err := db.Create(product).Error; err != nil {
+	// Check both name and slug to handle unique constraints on either field
+	if err := db.Where("slug = ? OR name = ?", slug, modelName).FirstOrCreate(product).Error; err != nil {
 		return err
 	}
 
-	fmt.Printf("   ✅ Created refrigerator product: %s\n", modelName)
+	if product.CreatedAt.Equal(product.UpdatedAt) {
+		fmt.Printf("   ✅ Created refrigerator product: %s\n", modelName)
+	} else {
+		fmt.Printf("   ⚠️  Skipped existing product: %s\n", modelName)
+	}
 	return nil
 }
