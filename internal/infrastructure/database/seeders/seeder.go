@@ -573,6 +573,11 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// manager.AddSeeder(NewBanglalinkReviewSeeder())
 	// manager.AddSeeder(NewBanglalinkReviewTranslationSeeder())
 
+	// Laptop category seeders (Category ID: 71)
+	// manager.AddSeeder(NewTeclastF15PlusSeeder())
+	// manager.AddSeeder(NewTeclastF7PlusSeeder())
+	// manager.AddSeeder(NewTeclastF6PlusSeeder())
+
 	// TV category seeders (Category ID: 124)
 	// manager.AddSeeder(NewTVSpecificationSeeder())
 	// manager.AddSeeder(NewTVSpecificationKeyTranslationSeeder())
