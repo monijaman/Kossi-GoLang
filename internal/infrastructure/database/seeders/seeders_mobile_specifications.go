@@ -8722,7 +8722,7 @@ func SeedMobileSpecifications(db *gorm.DB) error {
 			fmt.Printf("   - %s\n", key)
 		}
 		fmt.Println("\nThese specifications will be SKIPPED during insertion.")
-		fmt.Println("Please add these keys to existingkeyMapping or remove them from product data.\n")
+		fmt.Println("Please add these keys to existingkeyMapping or remove them from product data.")
 	}
 
 	fmt.Printf("✅ Successfully seeded %d mobile specifications and %d Bangla translations\n", specCount, translationCount)

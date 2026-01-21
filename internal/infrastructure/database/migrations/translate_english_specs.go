@@ -153,7 +153,7 @@ func TranslateEnglishSpecifications(db *gorm.DB) error {
 	}
 
 	fmt.Printf("\n✅ Translated %d values to Bengali\n", updatedCount)
-	fmt.Println("=================================================================\n")
+	fmt.Println("=================================================================")
 
 	return nil
 }

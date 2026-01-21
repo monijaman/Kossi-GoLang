@@ -34,7 +34,7 @@ func main() {
 	}
 
 	fmt.Println("🧪 TESTING SMARTRON T.BOOK SEEDERS")
-	fmt.Println("=================================\n")
+	fmt.Println("=================================")
 
 	// Run the Smartron t.book flex Seeder
 	fmt.Println("Testing Smartron t.book flex Seeder...")
@@ -42,7 +42,7 @@ func main() {
 	if err := seeder1.Seed(db); err != nil {
 		log.Printf("❌ Error running Smartron t.book flex seeder: %v\n", err)
 	} else {
-		fmt.Println("✅ Smartron t.book flex Seeder completed!\n")
+		fmt.Println("✅ Smartron t.book flex Seeder completed!")
 	}
 
 	// Run the Smartron t.book Seeder
@@ -51,7 +51,7 @@ func main() {
 	if err := seeder2.Seed(db); err != nil {
 		log.Printf("❌ Error running Smartron t.book seeder: %v\n", err)
 	} else {
-		fmt.Println("✅ Smartron t.book Seeder completed!\n")
+		fmt.Println("✅ Smartron t.book Seeder completed!")
 	}
 
 	fmt.Println("🎉 All Smartron seeders tested!")

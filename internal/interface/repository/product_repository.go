@@ -3,8 +3,8 @@ package repository
 
 import (
 	"context"
-	"koshti/gocrit_server/internal/domain/entities"
-	"koshti/gocrit_server/internal/interface/models"
+	"kossti/internal/domain/entities"
+	"kossti/internal/infrastructure/database/models"
 
 	"gorm.io/gorm"
 )
@@ -30,7 +30,7 @@ type GetProductsFilter struct {
 
 // GetProducts retrieves products based on the filter
 func (r *ProductRepository) GetProducts(ctx context.Context, filter *GetProductsFilter) ([]entities.Product, int64, error) {
-	var products []models.Product
+	var products []models.ProductModel
 	query := r.db.WithContext(ctx)
 
 	if filter.Category != "" {
@@ -45,7 +45,7 @@ func (r *ProductRepository) GetProducts(ctx context.Context, filter *GetProducts
 	}
 
 	var total int64
-	query.Model(&models.Product{}).Count(&total)
+	query.Model(&models.ProductModel{}).Count(&total)
 
 	offset := (filter.Page - 1) * filter.Limit
 	err := query.Offset(offset).Limit(filter.Limit).Find(&products).Error
@@ -55,11 +55,15 @@ func (r *ProductRepository) GetProducts(ctx context.Context, filter *GetProducts
 
 	var productEntities []entities.Product
 	for _, p := range products {
+		price := 0.0
+		if p.Price != nil {
+			price = *p.Price
+		}
 		productEntities = append(productEntities, entities.Product{
 			ID:          p.ID,
 			Name:        p.Name,
 			Description: p.Description,
-			Price:       p.Price,
+			Price:       price,
 			CategoryID:  p.CategoryID,
 			BrandID:     p.BrandID,
 			CreatedAt:   p.CreatedAt,

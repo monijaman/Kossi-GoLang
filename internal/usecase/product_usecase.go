@@ -3,7 +3,7 @@ package usecase
 
 import (
 	"context"
-	"go-crit/internal/domain/entities"
+	"kossti/internal/domain/entities"
 )
 
 // ProductUsecase represents the product use case
