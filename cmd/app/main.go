@@ -21,6 +21,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -363,6 +364,11 @@ func main() {
 
 	// Determine which port to use
 	preferredPort := 8080
+	if portEnv := os.Getenv("PORT"); portEnv != "" {
+		if p, err := strconv.Atoi(portEnv); err == nil {
+			preferredPort = p
+		}
+	}
 	availablePort := findAvailablePort(preferredPort)
 
 	if availablePort != preferredPort {
