@@ -178,8 +178,8 @@ func main() {
 	}
 
 	fmt.Println("Auth microservice starting...")
-	fmt.Println("Database URL:", dbURL)
-	fmt.Println("JWT Secret:", jwtSecret)
+	fmt.Printf("PORT from env: %s\n", os.Getenv("PORT"))
+	fmt.Println("Database URL: configured")
 	fmt.Println("Kafka Broker:", kafkaBroker)
 
 	// Validate required environment variables
@@ -327,9 +327,14 @@ func main() {
 
 	// Determine which port to use
 	preferredPort := 8080
-	if portEnv := os.Getenv("PORT"); portEnv != "" {
+	portEnv := os.Getenv("PORT")
+	fmt.Printf("[STARTUP] PORT env var: '%s'\n", portEnv)
+	if portEnv != "" {
 		if p, err := strconv.Atoi(portEnv); err == nil {
 			preferredPort = p
+			fmt.Printf("[STARTUP] Using PORT from env: %d\n", p)
+		} else {
+			fmt.Printf("[STARTUP] Failed to parse PORT: %v\n", err)
 		}
 	}
 	availablePort := preferredPort
@@ -339,6 +344,7 @@ func main() {
 	}
 
 	serverAddr := fmt.Sprintf(":%d", availablePort)
+	fmt.Printf("[STARTUP] Server will bind to: %s\n", serverAddr)
 
 	// Create HTTP server with CORS middleware
 	server := &http.Server{
@@ -356,20 +362,17 @@ func main() {
 	// Start server in a goroutine
 	serverReady := make(chan bool, 1)
 	go func() {
-		fmt.Printf("\n🚀 Server is running on http://localhost:%d\n", availablePort)
-		fmt.Println("Press Ctrl+C to stop the server")
+		fmt.Printf("[STARTUP] Starting ListenAndServe on %s\n", serverAddr)
 		serverReady <- true
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			if err.Error() == "listen tcp "+serverAddr+": bind: Only one usage of each socket address (protocol/network address/port) is normally permitted." {
-				killProcessOnPort(availablePort)
-			}
-			log.Fatalf("Failed to start HTTP server: %v", err)
+			log.Printf("ERROR: ListenAndServe failed: %v", err)
 		}
 	}()
 
 	// Wait for server to be ready before proceeding
 	<-serverReady
-	time.Sleep(100 * time.Millisecond) // Brief pause to ensure routes are registered
+	time.Sleep(50 * time.Millisecond)
+	fmt.Printf("[STARTUP] Server ready and accepting connections\n")
 
 	// Wait for interrupt signal
 	<-stop
