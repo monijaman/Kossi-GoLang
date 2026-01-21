@@ -332,10 +332,10 @@ func main() {
 			preferredPort = p
 		}
 	}
-	availablePort := findAvailablePort(preferredPort)
+	availablePort := preferredPort
 
 	if availablePort != preferredPort {
-		fmt.Printf("⚠️   Port %d is  in use, using port %d instead\n", preferredPort, availablePort)
+		fmt.Printf("⚠️   Port %d is in use, using port %d instead\n", preferredPort, availablePort)
 	}
 
 	serverAddr := fmt.Sprintf(":%d", availablePort)
@@ -354,9 +354,11 @@ func main() {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	// Start server in a goroutine
+	serverReady := make(chan bool, 1)
 	go func() {
 		fmt.Printf("\n🚀 Server is running on http://localhost:%d\n", availablePort)
 		fmt.Println("Press Ctrl+C to stop the server")
+		serverReady <- true
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			if err.Error() == "listen tcp "+serverAddr+": bind: Only one usage of each socket address (protocol/network address/port) is normally permitted." {
 				killProcessOnPort(availablePort)
@@ -364,6 +366,10 @@ func main() {
 			log.Fatalf("Failed to start HTTP server: %v", err)
 		}
 	}()
+
+	// Wait for server to be ready before proceeding
+	<-serverReady
+	time.Sleep(100 * time.Millisecond) // Brief pause to ensure routes are registered
 
 	// Wait for interrupt signal
 	<-stop
