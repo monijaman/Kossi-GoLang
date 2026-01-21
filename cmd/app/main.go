@@ -244,21 +244,23 @@ func main() {
 		dbReady <- true
 	}()
 
-	// Create a new HTTP mux
+	routesReady := make(chan bool, 1)
+
+	// Initialize router
 	mux := http.NewServeMux()
 
-	// Add health check endpoint (works immediately)
+	// Register a basic health check route immediately.
+	// This is crucial for deployment platforms like Railway/Heroku
+	// which need a fast-responding endpoint to confirm the server started.
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(map[string]string{
-			"status":  "healthy",
-			"service": "kossti",
-		})
+		w.WriteHeader(http.StatusOK) // Explicitly set 200 OK
+		json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 	})
 
-	// Initialize repositories and routes once DB is ready
+	// Asynchronously register other routes that depend on the database
 	go func() {
+		// Wait for the database to be ready
 		<-dbReady
 		if db == nil {
 			log.Println("ERROR: Database connection failed, routes will not be available")
@@ -289,10 +291,11 @@ func main() {
 		handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
 		handlerfeedback.RegisterRoutes(mux, feedbackRepo)
 
-		fmt.Println("API routes registered successfully!")
+		fmt.Println("[STARTUP] All application routes have been registered.")
+		routesReady <- true
 	}()
 
-	// Determine which port to use
+	// Determine port for the server
 	preferredPort := 8080
 	portEnv := os.Getenv("PORT")
 	fmt.Printf("[STARTUP] PORT env var: '%s'\n", portEnv)
