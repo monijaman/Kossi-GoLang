@@ -791,12 +791,27 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Check for category_id query parameter
+	// Check for category_id or category_slug query parameter
 	categoryIDStr := r.URL.Query().Get("category_id")
+	categorySlug := r.URL.Query().Get("category_slug")
 
-	if categoryIDStr != "" {
+	var categoryID uint
+
+	// Handle category_slug parameter
+	if categorySlug != "" {
+		category, err := categoryRepo.GetBySlug(r.Context(), categorySlug)
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": "Category not found",
+				"slug":  categorySlug,
+			})
+			return
+		}
+		categoryID = category.ID
+	} else if categoryIDStr != "" {
 		// Get relations for specific category
-		categoryID, err := strconv.ParseUint(categoryIDStr, 10, 32)
+		catID, err := strconv.ParseUint(categoryIDStr, 10, 32)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{
@@ -805,8 +820,11 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 			})
 			return
 		}
+		categoryID = uint(catID)
+	}
 
-		relations, err := categoryRepo.GetBrandRelations(r.Context(), uint(categoryID))
+	if categoryID > 0 {
+		relations, err := categoryRepo.GetBrandRelations(r.Context(), categoryID)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get brand relations"})

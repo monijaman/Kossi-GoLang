@@ -1,0 +1,224 @@
+package seeders
+
+import (
+	"kossti/internal/infrastructure/database/models"
+	"log"
+
+	"gorm.io/gorm"
+)
+
+type AcerSwiftXSeeder struct {
+	BaseSeeder
+}
+
+func NewAcerSwiftXSeeder() *AcerSwiftXSeeder {
+	return &AcerSwiftXSeeder{
+		BaseSeeder: BaseSeeder{name: "Acer Swift X Specifications"},
+	}
+}
+
+func (ass *AcerSwiftXSeeder) getBanglaTranslations() map[string]string {
+	return map[string]string{
+		"Acer": "এসার", "Swift 5": "সুইফট ৫", "Premium Ultraportable": "প্রিমিয়াম আল্ট্রাপোর্টেবল",
+		"Windows 11 Home": "উইন্ডোজ ১১ হোম", "Intel": "ইন্টেল",
+		"Core i7-1260P": "কোর আই৭-১২৬০পি", "12th Gen": "১২তম প্রজন্ম",
+		"12": "১২", "16": "১৬", "2.1 GHz": "২.১ গিগাহার্টজ",
+		"4.6 GHz": "৪.৬ গিগাহার্টজ", "18 MB": "১৮ এমবি",
+		"Integrated":             "ইন্টিগ্রেটেড",
+		"Intel Iris Xe Graphics": "ইন্টেল আইরিস এক্সই গ্রাফিক্স",
+		"Shared":                 "শেয়ার্ড", "14 inches": "১৪ ইঞ্চি",
+		"1920 x 1200 pixels": "১৯২০ x ১২০০ পিক্সেল", "IPS": "আইপিএস",
+		"60Hz": "৬০ হার্জ", "16:10": "১৬:১০", "400 nits": "৪০০ নিটস",
+		"100% sRGB": "১০০% এসআরজিবি", "Touch Support": "টাচ সাপোর্ট",
+		"Glossy": "গ্লসি", "LPDDR5": "এলপিডিডিআর৫", "16 GB": "১৬ জিবি",
+		"5200 MHz": "৫২০০ মেগাহার্টজ", "Soldered": "সোল্ডার্ড",
+		"No": "না", "SSD": "এসএসডি", "1 TB": "১ টেরাবাইট",
+		"NVMe PCIe Gen4": "এনভিএমই পিসিআই জেন৪",
+		"None":           "কোনটি নয়",
+		"Standard":       "স্ট্যান্ডার্ড", "Yes": "হ্যাঁ",
+		"English/Bangla": "ইংরেজি/বাংলা", "Precision Touchpad": "প্রিসিশন টাচপ্যাড",
+		"1080p FHD":       "১০৮০পি এফএইচডি",
+		"Privacy Shutter": "প্রাইভেসি শাটার", "Dual Microphone": "ডুয়াল মাইক্রোফোন",
+		"Acer TrueHarmony": "এসার ট্রু হারমোনি", "Stereo Speakers": "স্টেরিও স্পিকার",
+		"Wi-Fi 6E (802.11ax)": "ওয়াই-ফাই ৬ই (৮০২.১১এক্স)",
+		"Bluetooth 5.2":       "ব্লুটুথ ৫.২",
+		"1x USB 3.2 Gen 1":    "১x ইউএসবি ৩.২ জেন ১",
+		"2x USB-C (USB 4)":    "২x ইউএসবি-সি (ইউএসবি ৪)",
+		"Thunderbolt 4":       "থান্ডারবোল্ট ৪", "HDMI 2.1": "এইচডিএমআই ২.১",
+		"3.5mm Combo Jack": "৩.৫মিমি কম্বো জ্যাক",
+		"65 Wh":            "৬৫ ডব্লিউএইচ", "10-12 hours": "১০-১২ ঘন্টা",
+		"65W":             "৬৫ওয়াট",
+		"Magnesium Alloy": "ম্যাগনেসিয়াম অ্যালয়", "Starlight Silver": "স্টারলাইট সিলভার",
+		"312.2 x 217.9 x 14.9 mm": "৩১২.২ x ২১৭.৯ x ১৪.৯ মিমি",
+		"1.05 kg":                 "১.০৫ কেজি", "Premium": "প্রিমিয়াম",
+		"Single Fan": "সিঙ্গেল ফ্যান", "TPM 2.0": "টিপিএম ২.০",
+		"2024": "২০২৪", "1 Year International Warranty": "১ বছর আন্তর্জাতিক ওয়ারেন্টি",
+	}
+}
+
+func (ass *AcerSwiftXSeeder) Seed(db *gorm.DB) error {
+	productSlug := "acer-swift-5"
+	var prod models.ProductModel
+	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			log.Printf("⚠️  Product not found: %s", productSlug)
+			return nil
+		}
+		return err
+	}
+
+	existingKeyMapping := map[string]uint{
+		"Brand":                310,
+		"Model Name":           316,
+		"Operating System":     49,
+		"Processor Brand":      204,
+		"Processor Model":      206,
+		"Processor Generation": 205,
+		"Chipset":              19,
+		"Graphics Card":        200,
+		"Screen Resolution":    207,
+		"Display Size":         683,
+		"Battery Capacity":     11,
+		"Build Material":       14,
+		"Color":                318,
+		"Product Weight":       697,
+		"Release Year":         317,
+		"Warranty":             323,
+		"Storage Capacity":     71,
+		"Bluetooth Version":    13,
+		"RAM":                  60,
+		"Weight":               80,
+		"Display Type":         27,
+		"Refresh Rate":         61,
+		"Screen Size":          66,
+		"Backlit Keyboard":     199,
+		"Audio Jack":           682,
+		"Ram":                  684,
+		"Wifi Support":         687,
+		"Usb Type":             688,
+		"Battery":              689,
+		"Gpu Type":             691,
+		"Storage":              693,
+		"Cpu Type":             696,
+		"Cooling Technology":   698,
+		"Frequency (Hz)":       704,
+		"App Control":          705,
+		"Warranty Period":      706,
+		// New additions from specs.sql
+		"Laptop Type":             24,
+		"Battery Type":            12,
+		"Charging Speed":          18,
+		"Standby Time":            70,
+		"Wireless Charging":       82,
+		"Resolution":              62,
+		"Display Characteristics": 26,
+		"Processor Speed":         57,
+		"Clock Feature":           20,
+		"3.5mm Audio Jack":        2,
+		"Camera Features":         16,
+		"Audio Quality":           9,
+		"Sensors":                 67,
+		"Dimensions":              25,
+		"Body Type":               89,
+		"Cooling System":          95,
+		"Available Colors":        10,
+		"Special Features":        69,
+		// Major laptop specs added to database
+		"Processor Cores":       786,
+		"Processor Threads":     787,
+		"RAM Speed":             788,
+		"RAM Slots":             789,
+		"RAM Expandable":        790,
+		"Storage Interface":     791,
+		"Storage Expandable":    792,
+		"Graphics VRAM":         793,
+		"Display Touch Support": 794,
+		"Ethernet":              795,
+		"Thunderbolt Version":   796,
+		"SD Card Reader":        797,
+		"Keyboard Language":     798,
+		"Build Standard":        799,
+		// Additional available keys
+		"Touchscreen": 129,
+		"HDMI Ports":  167,
+		"USB Ports":   173,
+	}
+
+	specs := map[string]string{
+		"Brand": "Acer", "Model Name": "Swift 5", "Laptop Type": "Premium Ultraportable",
+		"Operating System": "Windows 11 Home", "Processor Brand": "Intel",
+		"Processor Model": "Core i7-1260P", "Processor Generation": "12th Gen",
+		"Processor Cores": "12", "Processor Threads": "16",
+		"Processor Base Clock": "2.1 GHz", "Processor Boost Clock": "4.6 GHz",
+		"Processor Cache": "18 MB", "Chipset": "Intel Platform Controller Hub",
+		"Graphics Type": "Integrated", "Graphics Brand": "Intel",
+		"Graphics Card": "Intel Iris Xe Graphics", "Graphics VRAM": "Shared",
+		"Display Size": "14 inches", "Screen Resolution": "1920 x 1200 pixels",
+		"Display Panel Type": "IPS", "Display Refresh Rate": "60Hz",
+		"Display Aspect Ratio": "16:10", "Display Brightness": "400 nits",
+		"Display Color Gamut": "100% sRGB", "Display Touch Support": "Touch Support",
+		"Display Surface": "Glossy", "RAM Type": "LPDDR5", "RAM Capacity": "16 GB",
+		"RAM Speed": "5200 MHz", "RAM Slots": "Soldered",
+		"RAM Expandable": "No", "Storage Type": "SSD",
+		"Storage Capacity": "1 TB", "Storage Interface": "NVMe PCIe Gen4",
+		"Storage Expandable": "No", "Secondary Storage Type": "None",
+		"Secondary Storage Capacity": "None", "Keyboard Type": "Standard",
+		"Backlit Keyboard": "Yes", "Keyboard Language": "English/Bangla",
+		"Touchpad Type": "Precision Touchpad", "Fingerprint Reader": "Yes",
+		"Webcam Resolution": "1080p FHD", "Webcam Privacy Shutter": "Privacy Shutter",
+		"Microphone Type": "Dual Microphone", "Speaker Brand": "Acer TrueHarmony",
+		"Audio Features": "Stereo Speakers", "WiFi Standard": "Wi-Fi 6E (802.11ax)",
+		"Bluetooth Version": "Bluetooth 5.2", "Ethernet": "No",
+		"USB A Ports": "1x USB 3.2 Gen 1", "USB C Ports": "2x USB-C (USB 4)",
+		"Thunderbolt Version": "Thunderbolt 4", "HDMI Version": "HDMI 2.1",
+		"DisplayPort Support": "No", "SD Card Reader": "No",
+		"Audio Jack": "3.5mm Combo Jack", "Battery Capacity": "65 Wh",
+		"Battery Life": "10-12 hours", "Fast Charging": "Yes",
+		"Power Adapter Wattage": "65W", "USB-C Charging": "Yes",
+		"Body Material": "Magnesium Alloy", "Color": "Starlight Silver",
+		"Product Dimensions": "312.2 x 217.9 x 14.9 mm",
+		"Product Weight":     "1.05 kg", "Build Standard": "Premium",
+		"Cooling System": "Single Fan", "Security Chip": "TPM 2.0",
+		"Release Year": "2024", "Warranty": "1 Year International Warranty",
+	}
+
+	for key, value := range specs {
+		keyID, exists := existingKeyMapping[key]
+		if !exists {
+			log.Printf("⚠️  Specification key not found: %s", key)
+			continue
+		}
+
+		spec := models.SpecificationModel{
+			ProductID: prod.ID, SpecificationKeyID: keyID, Value: value,
+		}
+
+		var existingSpec models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", prod.ID, keyID).First(&existingSpec).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				if err := db.Create(&spec).Error; err != nil {
+					log.Printf("❌ Failed to create specification for key %s: %v", key, err)
+					continue
+				}
+			} else {
+				log.Printf("❌ Error checking existing specification for key %s: %v", key, err)
+				continue
+			}
+		} else {
+			log.Printf("ℹ️  Specification already exists for key %s, skipping", key)
+			continue
+		}
+
+		if banglaValue, exists := ass.getBanglaTranslations()[value]; exists {
+			translation := models.SpecificationTranslationModel{
+				SpecificationID: spec.ID, Locale: "bn", Value: banglaValue,
+			}
+			if err := db.Create(&translation).Error; err != nil {
+				log.Printf("❌ Failed to create translation for key %s: %v", key, err)
+			}
+		}
+	}
+
+	log.Printf("✅ Acer Swift 5 specifications seeded successfully")
+	return nil
+}

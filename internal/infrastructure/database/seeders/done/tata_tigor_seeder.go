@@ -1,0 +1,289 @@
+package seeders
+
+import (
+	"kossti/internal/infrastructure/database/models"
+	"log"
+
+	"gorm.io/gorm"
+)
+
+// TataTigorSeeder seeds specifications for Tata Tigor
+type TataTigorSeeder struct {
+	BaseSeeder
+}
+
+// NewTataTigorSeeder creates a new Tata Tigor seeder
+func NewTataTigorSeeder() *TataTigorSeeder {
+	return &TataTigorSeeder{
+		BaseSeeder: BaseSeeder{name: "Tata Tigor Specifications"},
+	}
+}
+
+func (tts *TataTigorSeeder) getBanglaTranslations() map[string]string {
+	return map[string]string{
+		"1.2L":                               "১.২ লিটার",
+		"1st":                                "১ম প্রজন্ম",
+		"Compact Sedan":                      "কমপ্যাক্ট সেডান",
+		"2017":                               "২০১৭",
+		"Sedan":                              "সেডান",
+		"Carbon Black":                       "কার্বন ব্ল্যাক",
+		"In-line":                            "ইন-লাইন",
+		"1199":                               "১১৯৯ সিসি",
+		"3":                                  "৩ (সিলিন্ডার)",
+		"86 hp":                              "৮৬ হর্স পাওয়ার",
+		"86 hp @ 6000 rpm":                   "৬০০০ আরপিএম এ ৮৬ হর্স পাওয়ার",
+		"113 Nm @ 3300 rpm":                  "৩৩০০ আরপিএম এ ১১৩ এনএম",
+		"Petrol":                             "পেট্রোল",
+		"Naturally Aspirated":                "ন্যাচারালি অ্যাসপিরেটেড",
+		"13.2 seconds":                       "১৩.২ সেকেন্ড",
+		"164 km/h":                           "১৬৪ কিমি/ঘণ্টা",
+		"19 km/L":                            "১৯ কিমি/লিটার",
+		"25 km/L":                            "২৫ কিমি/লিটার",
+		"21 km/L":                            "২১ কিমি/লিটার",
+		"Manual (Transmission)":              "ম্যানুয়াল (ট্রান্সমিশন)",
+		"5-Speed Manual":                     "৫-স্পিড ম্যানুয়াল",
+		"Front-Wheel Drive":                  "সামনে চাকা চালিত",
+		"Single Plate Dry Clutch":            "সিঙ্গেল প্লেট ড্রাই ক্লাচ",
+		"3992 mm":                            "৩৯৯২ মিমি",
+		"1677 mm":                            "১৬৭৭ মিমি",
+		"1537 mm":                            "১৫৩৭ মিমি",
+		"2450 mm":                            "২৪৫০ মিমি",
+		"170 mm":                             "১৭০ মিমি",
+		"1035 kg":                            "১০৩৫ কেজি",
+		"419 L":                              "৪১৯ লিটার",
+		"175/65 R14":                         "১৭৫/৬৫ আর১৪",
+		"Radial Tubeless":                    "রেডিয়াল টিউবলেস",
+		"Steel":                              "স্টিল",
+		"Halogen (Headlamps)":                "হ্যালোজেন (হেডল্যাম্পস)",
+		"No (DRL)":                           "না (ডিআরএল)",
+		"No (Fog Lamp)":                      "না (ফগ ল্যাম্প)",
+		"No (Sunroof)":                       "না (সানরুফ)",
+		"No (Roof Rails)":                    "না (রুফ রেলস)",
+		"Manual (ORVM)":                      "ম্যানুয়াল (ওআরভিএম)",
+		"Manual (Wiper)":                     "ম্যানুয়াল (ওয়াইপার)",
+		"5 (Seating)":                        "৫ (সিটিং)",
+		"5 (Seats)":                          "৫ (সিটস)",
+		"Manual (Driver Seat)":               "ম্যানুয়াল (ড্রাইভার সিট)",
+		"No (Ventilated Seats)":              "না (ভেন্টিলেটেড সিটস)",
+		"Manual (Air Conditioning)":          "ম্যানুয়াল (এয়ার কন্ডিশনিং)",
+		"No (Climate Control)":               "না (ক্লাইমেট কন্ট্রোল)",
+		"No (Infotainment)":                  "না (ইনফোটেইনমেন্ট)",
+		"No (Apple CarPlay)":                 "না (অ্যাপল কারপ্লে)",
+		"No (Android Auto)":                  "না (অ্যান্ড্রয়েড অটো)",
+		"No (Sound System)":                  "না (সাউন্ড সিস্টেম)",
+		"No (Ambient Lighting)":              "না (অ্যাম্বিয়েন্ট লাইটিং)",
+		"Yes (ABS)":                          "হ্যাঁ (এবিএস)",
+		"Driver + Passenger (Airbags)":       "ড্রাইভার + প্যাসেঞ্জার (এয়ারব্যাগস)",
+		"Yes (EBD)":                          "হ্যাঁ (ইবিডি)",
+		"Disc (Front) / Drum (Rear)":         "ডিস্ক (সামনে) / ড্রাম (পিছনে)",
+		"No (Traction Control)":              "না (ট্র্যাকশন কন্ট্রোল)",
+		"No (ESC)":                           "না (ইএসসি)",
+		"No (Hill Assist)":                   "না (হিল অ্যাসিস্ট)",
+		"Yes (Power Steering)":               "হ্যাঁ (পাওয়ার স্টিয়ারিং)",
+		"No (Touchscreen)":                   "না (টাচস্ক্রিন)",
+		"No (Rear Camera)":                   "না (রিয়ার ক্যামেরা)",
+		"No (Keyless Entry)":                 "না (কীলেস এন্ট্রি)",
+		"No (Push Button Start)":             "না (পুশ বাটন স্টার্ট)",
+		"No (Height Adjustable Driver Seat)": "না (হাইট অ্যাডজাস্টেবল ড্রাইভার সিট)",
+		"No (Rear AC Vents)":                 "না (রিয়ার এসি ভেন্টস)",
+		"No (Steering Mounted Controls)":     "না (স্টিয়ারিং মাউন্টেড কন্ট্রোলস)",
+		"No (Cruise Control)":                "না (ক্রুজ কন্ট্রোল)",
+		"No (Front Parking Sensors)":         "না (সামনে পার্কিং সেন্সরস)",
+		"No (Rear Parking Sensors)":          "না (রিয়ার পার্কিং সেন্সরস)",
+		"No (Auto Headlamps)":                "না (অটো হেডল্যাম্পস)",
+		"No (Rain Sensing Wipers)":           "না (রেইন সেন্সিং ওয়াইপারস)",
+		"No (Follow Me Home Headlamps)":      "না (ফলো মি হোম হেডল্যাম্পস)",
+		"No (Alloy Wheels)":                  "না (অ্যালয় হুইলস)",
+		"14 inch":                            "১৪ ইঞ্চি",
+		"Independent Lower Wishbone":         "ইন্ডিপেন্ডেন্ট লোয়ার উইশবোন",
+		"Semi-independent Twist Beam":        "সেমি-ইন্ডিপেন্ডেন্ট টুইস্ট বিম",
+		"Rack and Pinion":                    "র্যাক অ্যান্ড পিনিয়ন",
+		"Tilt":                               "টিল্ট",
+		"14":                                 "১৪",
+	}
+}
+
+// Seed implements the Seeder interface for Tata Tigor
+func (tts *TataTigorSeeder) Seed(db *gorm.DB) error {
+	productSlug := "tata-tigor"
+	var prod models.ProductModel
+	if err := db.Where("slug = ?", productSlug).First(&prod).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			log.Printf("⚠️  Product not found: %s", productSlug)
+			return nil
+		}
+		return err
+	}
+	productID := prod.ID
+
+	existingKeyMapping := map[string]uint{
+		"Brand":                             310,
+		"Model Name":                        316,
+		"Variant":                        728,
+		"Generation":                     729,
+		"Segment":                        730,
+		"Launch Year":                    731,
+		"Engine Configuration":           732,
+		"Valves Per Cylinder":            733,
+		"Engine Aspiration":              734,
+		"Differential Type":              735,
+		"Power to Weight (HP/ton)":       737,
+		"Mileage City (km/L)":            738,
+		"Mileage Highway (km/L)":         739,
+		"Mileage Combined (km/L)":        740,
+		"Front Suspension":               745,
+		"Rear Suspension":                746,
+		"Steering Type":                  747,
+		"Steering Adjustment":            748,
+		"Wheel Size (inch)":              749,
+		"Spare Wheel Type":               750,
+		"DRL":                            753,
+		"Fog Lamp Type":                  754,
+		"Alloy Wheels":                   755,
+		"Sunroof Type":                   756,
+		"Roof Rails":                     757,
+		"ORVM Type":                      758,
+		"Wiper Type":                     759,
+		"Seating Capacity":               760,
+		"Number of Seats":                761,
+		"Driver Seat Adjustment":         762,
+		"Ventilated Seats":               763,
+		"Air Conditioning":               764,
+		"Climate Control":                765,
+		"Infotainment System":            766,
+		"Infotainment Screen (inch)":     767,
+		"Apple CarPlay":                  768,
+		"Android Auto":                   769,
+		"Sound System Brand":             770,
+		"Number of Speakers":             771,
+		"Ambient Lighting":               772,
+		"ABS (Anti-lock Braking System)": 773,
+		"Airbags":                        774,
+		"EBD":                            775,
+		"Brake Type":                     776,
+		"Traction Control":               777,
+		"ESC":                            778,
+		"Hill Assist":                    779,
+		"Power Steering":                 780,
+		"Touchscreen":                    781,
+		"Suspension Type":                782,
+		"Emission Standard":              783,
+		"Starting System":                784,
+		"Cooling System":                 785,
+		"Ignition Type":                  786,
+		"Compression Ratio":              787,
+		"Valve Configuration":            788,
+		"Valve Per Cylinder":             789,
+		"Displacement (cc)":              790,
+	}
+
+	specs := map[string]string{
+		"Brand":                       "Tata",
+		"Model Name":                  "Tigor",
+		"Variant":                        "XZ Plus",
+		"Generation":                     "1st",
+		"Segment":                        "Compact Sedan",
+		"Launch Year":                    "2017",
+		"Engine Configuration":           "In-line",
+		"Displacement (cc)":              "1199",
+		"Valves Per Cylinder":            "4",
+		"Engine Aspiration":              "Naturally Aspirated",
+		"Differential Type":              "Open",
+		"Power to Weight (HP/ton)":       "83 hp/ton",
+		"Mileage City (km/L)":            "19 km/L",
+		"Mileage Highway (km/L)":         "25 km/L",
+		"Mileage Combined (km/L)":        "21 km/L",
+		"Front Suspension":               "Independent Lower Wishbone",
+		"Rear Suspension":                "Semi-independent Twist Beam",
+		"Steering Type":                  "Rack and Pinion",
+		"Steering Adjustment":            "Tilt",
+		"Wheel Size (inch)":              "14",
+		"Spare Wheel Type":               "Steel",
+		"DRL":                            "No",
+		"Fog Lamp Type":                  "No",
+		"Alloy Wheels":                   "No",
+		"Sunroof Type":                   "No",
+		"Roof Rails":                     "No",
+		"ORVM Type":                      "Manual",
+		"Wiper Type":                     "Manual",
+		"Seating Capacity":               "5",
+		"Number of Seats":                "5",
+		"Driver Seat Adjustment":         "Manual",
+		"Ventilated Seats":               "No",
+		"Air Conditioning":               "Manual",
+		"Climate Control":                "No",
+		"Infotainment System":            "No",
+		"Infotainment Screen (inch)":     "No",
+		"Apple CarPlay":                  "No",
+		"Android Auto":                   "No",
+		"Sound System Brand":             "No",
+		"Number of Speakers":             "No",
+		"Ambient Lighting":               "No",
+		"ABS (Anti-lock Braking System)": "Yes",
+		"Airbags":                        "Driver + Passenger",
+		"EBD":                            "Yes",
+		"Brake Type":                     "Disc (Front) / Drum (Rear)",
+		"Traction Control":               "No",
+		"ESC":                            "No",
+		"Hill Assist":                    "No",
+		"Power Steering":                 "Yes",
+		"Touchscreen":                    "No",
+		"Suspension Type":                "Independent Lower Wishbone / Semi-independent Twist Beam",
+		"Emission Standard":              "BS6",
+		"Starting System":                "Electric",
+		"Cooling System":                 "Liquid Cooled",
+		"Ignition Type":                  "Electronic",
+		"Compression Ratio":              "10.8:1",
+		"Valve Configuration":            "SOHC",
+		"Valve Per Cylinder":             "4",
+	}
+
+	// Create specifications
+	for key, value := range specs {
+		keyID, exists := existingKeyMapping[key]
+		if !exists {
+			log.Printf("⚠️  Specification key not found: %s", key)
+			continue
+		}
+
+		spec := models.SpecificationModel{
+			ProductID:          productID,
+			SpecificationKeyID: keyID,
+			Value:              value,
+		}
+
+		// Check if specification already exists
+		var existingSpec models.SpecificationModel
+		if err := db.Where("product_id = ? AND specification_key_id = ?", productID, keyID).First(&existingSpec).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				// Create new specification
+				if err := db.Create(&spec).Error; err != nil {
+					log.Printf("❌ Failed to create specification for key %s: %v", key, err)
+					continue
+				}
+			} else {
+				log.Printf("❌ Error checking existing specification for key %s: %v", key, err)
+				continue
+			}
+		} else {
+			log.Printf("ℹ️  Specification already exists for key %s, skipping", key)
+			continue
+		}
+
+		// Create translation if Bangla translation exists
+		if banglaValue, exists := tts.getBanglaTranslations()[value]; exists {
+			translation := models.SpecificationTranslationModel{
+				SpecificationID: spec.ID,
+				Locale:          "bn",
+				Value:           banglaValue,
+			}
+
+			if err := db.Create(&translation).Error; err != nil {
+				log.Printf("❌ Failed to create translation for key %s: %v", key, err)
+			}
+		}
+	}
+
+	log.Printf("✅ Tata Tigor specifications seeded successfully")
+	return nil
+}

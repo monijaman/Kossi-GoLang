@@ -459,17 +459,17 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 
 	// Create filters struct
 	filters := &repository.ProductFilters{
-		Page:       page,
-		Limit:      limit,
-		Locale:     locale,
-		SearchTerm: searchterm,
-		Category:   category,
-		Brand:      brandParam, // Store original comma-separated string
-		BrandSlugs: brands,     // Store as array for filtering
-		PriceRange: priceRange,
-		SortBy:     sortby,
+		Page:         page,
+		Limit:        limit,
+		Locale:       locale,
+		SearchTerm:   searchterm,
+		Category:     category,
+		CategorySlug: category,   // Use category value as slug for filtering
+		Brand:        brandParam, // Store original comma-separated string
+		BrandSlugs:   brands,     // Store as array for filtering
+		PriceRange:   priceRange,
+		SortBy:       sortby,
 	}
-	// fmt.Println(filters)
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
 	if err != nil {
@@ -528,6 +528,39 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 		}
 	}
 
+	// If a category query param is provided, return popular products within that category
+	category := r.URL.Query().Get("category")
+	if category != "" {
+		filters := &repository.ProductFilters{
+			Page:         1,
+			Limit:        limit,
+			Locale:       r.URL.Query().Get("locale"),
+			SearchTerm:   "",
+			Category:     category,
+			CategorySlug: category,
+			SortBy:       "popular",
+		}
+
+		products, total, err := repo.GetWithFilters(r.Context(), filters)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+			return
+		}
+
+		productResponses := make([]ProductResponse, len(products))
+		for i, product := range products {
+			productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
+		}
+
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"products":      productResponses,
+			"totalProducts": total,
+		})
+		return
+	}
+
+	// No category filter: return globally popular products
 	products, err := repo.GetPopular(r.Context(), limit)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

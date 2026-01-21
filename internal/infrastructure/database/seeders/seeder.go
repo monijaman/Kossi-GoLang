@@ -413,22 +413,15 @@ func (bs *BaseSeeder) GetCommonBanglaTranslations() map[string]string {
 func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, error) {
 	var categoryModel models.CategoryModel
 
-	// Try to find existing category
-	if err := db.Where("name = ?", name).First(&categoryModel).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// Create new category
-			category := &entities.Category{
-				Name: name,
-				Slug: slug,
-			}
+	// Use FirstOrCreate to handle duplicates
+	category := &entities.Category{
+		Name: name,
+		Slug: slug,
+	}
 
-			categoryModel.FromEntity(category)
-			if err := db.Create(&categoryModel).Error; err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, err
-		}
+	categoryModel.FromEntity(category)
+	if err := db.Where("slug = ?", slug).FirstOrCreate(&categoryModel).Error; err != nil {
+		return nil, err
 	}
 
 	return categoryModel.ToEntity(), nil
@@ -438,22 +431,15 @@ func CreateOrFindCategory(db *gorm.DB, name, slug string) (*entities.Category, e
 func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) {
 	var brandModel models.BrandModel
 
-	// Try to find existing brand
-	if err := db.Where("name = ?", name).First(&brandModel).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// Create new brand
-			brand := &entities.Brand{
-				Name: name,
-				Slug: slug,
-			}
+	// Use FirstOrCreate to handle duplicates
+	brand := &entities.Brand{
+		Name: name,
+		Slug: slug,
+	}
 
-			brandModel.FromEntity(brand)
-			if err := db.Create(&brandModel).Error; err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, err
-		}
+	brandModel.FromEntity(brand)
+	if err := db.Where("slug = ?", slug).FirstOrCreate(&brandModel).Error; err != nil {
+		return nil, err
 	}
 
 	return brandModel.ToEntity(), nil
@@ -463,22 +449,15 @@ func CreateOrFindBrand(db *gorm.DB, name, slug string) (*entities.Brand, error) 
 func CreateBrandCategoryRelation(db *gorm.DB, brandID, categoryID uint) error {
 	var brandCategoryModel models.BrandCategoryModel
 
-	// Check if relation already exists
-	if err := db.Where("brand_id = ? AND category_id = ?", brandID, categoryID).First(&brandCategoryModel).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// Create new relation
-			relation := &entities.BrandCategory{
-				BrandID:    brandID,
-				CategoryID: categoryID,
-			}
+	// Use FirstOrCreate to handle duplicates
+	relation := &entities.BrandCategory{
+		BrandID:    brandID,
+		CategoryID: categoryID,
+	}
 
-			brandCategoryModel.FromEntity(relation)
-			if err := db.Create(&brandCategoryModel).Error; err != nil {
-				return err
-			}
-		} else {
-			return err
-		}
+	brandCategoryModel.FromEntity(relation)
+	if err := db.Where("brand_id = ? AND category_id = ?", brandID, categoryID).FirstOrCreate(&brandCategoryModel).Error; err != nil {
+		return err
 	}
 
 	return nil
@@ -542,11 +521,15 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// This avoids referencing constructors that may not exist yet while we
 	// iteratively add more motorcycle-specific seeders.
 
+	// Core/global seeders - Specification keys MUST run first
+	// NOTE: SpecificationKeySeeder is in mobiles/ subdirectory which causes compilation issues
+	// The CreateOrFindSpecificationKey function already handles auto-creation of missing keys
+	// manager.AddSeeder(NewSpecificationKeySeeder())
+
 	// Core/global seeders
 	// manager.AddSeeder(NewCategorySeeder())
 	// manager.AddSeeder(NewBrandSeeder())
 	// manager.AddSeeder(NewUserSeeder())
-	// manager.AddSeeder(NewSpecificationKeySeeder())
 	// // manager.AddSeeder(NewCategoryTranslationSeeder())
 	// // manager.AddSeeder(NewBrandTranslationSeeder())
 	// manager.AddSeeder(NewSpecificationKeyTranslationSeeder())
@@ -573,6 +556,11 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// manager.AddSeeder(NewBanglalinkReviewSeeder())
 	// manager.AddSeeder(NewBanglalinkReviewTranslationSeeder())
 
+	// Laptop category seeders (Category ID: 71)
+	// Product seeder MUST run first to create products before specification seeders
+	manager.AddSeeder(NewLaptopProductSeeder())
+	manager.AddSeeder(NewSpecificLaptopProductsSeeder()) // Create specific products for specification seeders
+
 	// TV category seeders (Category ID: 124)
 	// manager.AddSeeder(NewTVSpecificationSeeder())
 	// manager.AddSeeder(NewTVSpecificationKeyTranslationSeeder())
@@ -592,144 +580,6 @@ func SetupAllSeeders(db *gorm.DB) *SeederManager {
 	// Bajaj example template
 
 	// Car category seeders (Category ID: 18)
-	manager.AddSeeder(NewFormGeneratorCarSeeder())
-	manager.AddSeeder(NewToyotaCorollaSeeder())
-	manager.AddSeeder(NewToyotaCorollaAxioSeeder())
-	manager.AddSeeder(NewToyotaPremioSeeder())
-	manager.AddSeeder(NewToyotaAllionSeeder())
-	manager.AddSeeder(NewToyotaAxioSeeder())
-	manager.AddSeeder(NewToyotaAquaSeeder())
-	manager.AddSeeder(NewToyotaPriusSeeder())
-	manager.AddSeeder(NewToyotaHarrierSeeder())
-	manager.AddSeeder(NewToyotaRav4Seeder())
-	manager.AddSeeder(NewToyotaLandCruiserSeeder())
-	manager.AddSeeder(NewToyotaHiaceSeeder())
-	manager.AddSeeder(NewToyotaProboxSeeder())
-	manager.AddSeeder(NewToyotaFortunerSeeder())
-	manager.AddSeeder(NewToyotaVitzSeeder())
-	manager.AddSeeder(NewToyotaPassoSeeder())
-	manager.AddSeeder(NewToyotaSientaSeeder())
-	manager.AddSeeder(NewToyotaVoxySeeder())
-	manager.AddSeeder(NewToyotaNoahSeeder())
-	// Honda car seeders
-	manager.AddSeeder(NewHondaCivicSeeder())
-	manager.AddSeeder(NewHondaCitySeeder())
-	manager.AddSeeder(NewHondaAmazeSeeder())
-	manager.AddSeeder(NewHondaAccordSeeder())
-	manager.AddSeeder(NewHondaCRVSeeder())
-	manager.AddSeeder(NewHondaBRVSeeder())
-	manager.AddSeeder(NewHondaJazzSeeder())
-	manager.AddSeeder(NewHondaFitSeeder())
-	// Mitsubishi car seeders
-	manager.AddSeeder(NewMitsubishiPajeroSeeder())
-	manager.AddSeeder(NewMitsubishiMonteroSeeder())
-	manager.AddSeeder(NewMitsubishiOutlanderSeeder())
-	manager.AddSeeder(NewMitsubishiASXSeeder())
-	manager.AddSeeder(NewMitsubishiLancerSeeder())
-	manager.AddSeeder(NewMitsubishiMirageSeeder())
-	manager.AddSeeder(NewMitsubishiTritonSeeder())
-	// Mazda car seeders
-	manager.AddSeeder(NewMazdaMazda2Seeder())
-	manager.AddSeeder(NewMazdaMazda3Seeder())
-	manager.AddSeeder(NewMazdaMazda6Seeder())
-	manager.AddSeeder(NewMazdaCx3Seeder())
-	manager.AddSeeder(NewMazdaCx5Seeder())
-	manager.AddSeeder(NewMazdaCx30Seeder())
-	manager.AddSeeder(NewMazdaBt50Seeder())
-	// Subaru car seeders
-	manager.AddSeeder(NewSubaruForesterSeeder())
-	manager.AddSeeder(NewSubaruXVSeeder())
-	manager.AddSeeder(NewSubaruImprezaSeeder())
-	manager.AddSeeder(NewSubaruOutbackSeeder())
-	manager.AddSeeder(NewSubaruLegacySeeder())
-	// Suzuki car seeders
-	manager.AddSeeder(NewSuzukiSwiftSeeder())
-	manager.AddSeeder(NewSuzukiCelerioSeeder())
-	manager.AddSeeder(NewSuzukiAltoSeeder())
-	manager.AddSeeder(NewSuzukiWagonRSeeder())
-	manager.AddSeeder(NewSuzukiErtigaSeeder())
-	manager.AddSeeder(NewSuzukiBalenoSeeder())
-	manager.AddSeeder(NewSuzukiVitaraBrezzaSeeder())
-	manager.AddSeeder(NewSuzukiJimnySeeder())
-	// Daihatsu car seeders
-	manager.AddSeeder(NewDaihatsuMiraSeeder())
-	manager.AddSeeder(NewDaihatsuMoveSeeder())
-	manager.AddSeeder(NewDaihatsuCastSeeder())
-	manager.AddSeeder(NewDaihatsuTeriosSeeder())
-	manager.AddSeeder(NewDaihatsuSirionSeeder())
-	// Hyundai car seeders
-	manager.AddSeeder(NewHyundaiCretaSeeder())
-	manager.AddSeeder(NewHyundaiTucsonSeeder())
-	manager.AddSeeder(NewHyundaiSantaFeSeeder())
-	manager.AddSeeder(NewHyundaiElantraSeeder())
-	manager.AddSeeder(NewHyundaiSonataSeeder())
-	manager.AddSeeder(NewHyundaiAccentSeeder())
-	manager.AddSeeder(NewHyundaiI20Seeder())
-	manager.AddSeeder(NewHyundaiI10Seeder())
-	manager.AddSeeder(NewHyundaiVenueSeeder())
-	// Kia car seeders
-	manager.AddSeeder(NewKiaSeltosSeeder())
-	manager.AddSeeder(NewKiaSportageSeeder())
-	manager.AddSeeder(NewKiaSorentoSeeder())
-	manager.AddSeeder(NewKiaCarnivalSeeder())
-	manager.AddSeeder(NewKiaStonicSeeder())
-	manager.AddSeeder(NewKiaPicantoSeeder())
-	manager.AddSeeder(NewKiaSonetSeeder())
-	// Proton car seeders
-	manager.AddSeeder(NewProtonSagaSeeder())
-	manager.AddSeeder(NewProtonPersonaSeeder())
-	manager.AddSeeder(NewProtonX70Seeder())
-	manager.AddSeeder(NewProtonX50Seeder())
-	// BMW car seeders
-	manager.AddSeeder(NewBmw3SeriesSeeder())
-	manager.AddSeeder(NewBmw5SeriesSeeder())
-	manager.AddSeeder(NewBmw7SeriesSeeder())
-	manager.AddSeeder(NewBmwX1Seeder())
-	manager.AddSeeder(NewBmwX3Seeder())
-	manager.AddSeeder(NewBmwX5Seeder())
-	manager.AddSeeder(NewBmwX6Seeder())
-	manager.AddSeeder(NewBmwZ4Seeder())
-	manager.AddSeeder(NewBmwI3Seeder())
-	manager.AddSeeder(NewBmwI8Seeder())
-	// Audi car seeders
-	manager.AddSeeder(NewAudiA3Seeder())
-	manager.AddSeeder(NewAudiA4Seeder())
-	manager.AddSeeder(NewAudiA6Seeder())
-	manager.AddSeeder(NewAudiA8Seeder())
-	manager.AddSeeder(NewAudiQ3Seeder())
-	manager.AddSeeder(NewAudiQ5Seeder())
-	manager.AddSeeder(NewAudiQ7Seeder())
-	manager.AddSeeder(NewAudiQ8Seeder())
-	manager.AddSeeder(NewAudiTTSeeder())
-	// Volkswagen car seeders
-	manager.AddSeeder(NewVolkswagenPoloSeeder())
-	manager.AddSeeder(NewVolkswagenGolfSeeder())
-	manager.AddSeeder(NewVolkswagenPassatSeeder())
-	manager.AddSeeder(NewVolkswagenTiguanSeeder())
-	manager.AddSeeder(NewVolkswagenTouaregSeeder())
-	manager.AddSeeder(NewVolkswagenVentoSeeder())
-	// Tata car seeders
-	manager.AddSeeder(NewTataNexonSeeder())
-	manager.AddSeeder(NewTataTiagoSeeder())
-	manager.AddSeeder(NewTataTigorSeeder())
-	manager.AddSeeder(NewTataSafariSeeder())
-	manager.AddSeeder(NewTataHarrierSeeder())
-	manager.AddSeeder(NewTataAltrozSeeder())
-	// Ford car seeders
-	manager.AddSeeder(NewFordEcoSportSeeder())
-	manager.AddSeeder(NewFordEndeavourSeeder())
-	manager.AddSeeder(NewFordRangerSeeder())
-	manager.AddSeeder(NewFordFocusSeeder())
-	manager.AddSeeder(NewFordFiestaSeeder())
-	// Changan car seeders
-	manager.AddSeeder(NewChanganAlsvinSeeder())
-	manager.AddSeeder(NewChanganCs35Seeder())
-	manager.AddSeeder(NewChanganCs55Seeder())
-	manager.AddSeeder(NewChanganCs75Seeder())
-	// Chery car seeders
-	manager.AddSeeder(NewCheryTiggo3Seeder())
-	manager.AddSeeder(NewCheryTiggo7Seeder())
-	manager.AddSeeder(NewCheryTiggo8Seeder())
-	manager.AddSeeder(NewCheryQqSeeder())
+
 	return manager
 }

@@ -120,6 +120,8 @@ func (vxs *VolvoXc90Seeder) Seed(db *gorm.DB) error {
 	productID := prod.ID
 
 	existingKeyMapping := map[string]uint{
+		"Brand":                             310,
+		"Model Name":                        316,
 		"Variant":                        728,
 		"Generation":                     729,
 		"Segment":                        730,
@@ -179,6 +181,8 @@ func (vxs *VolvoXc90Seeder) Seed(db *gorm.DB) error {
 	}
 
 	specs := map[string]string{
+		"Brand":                       "Volvo",
+		"Model Name":                  "XC90",
 		"Variant":                        "T6 AWD Inscription",
 		"Generation":                     "2nd",
 		"Segment":                        "Full-size SUV",
