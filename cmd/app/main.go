@@ -29,8 +29,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	// "kossti/internal/infrastructure/database" // Not used since migrations are managed separately
-
+	database_migrations "kossti/internal/infrastructure/database/migrations"
+	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
@@ -217,7 +217,7 @@ func main() {
 		sqlDB.SetConnMaxLifetime(30 * time.Minute)
 
 		fmt.Println("Database connection successful!")
-		
+
 		// Run migrations and seeders
 		fmt.Println("Running specification translation verification...")
 		if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
@@ -244,21 +244,6 @@ func main() {
 		dbReady <- true
 	}()
 
-	// Setup routes immediately (can work with nil DB initially)
-	var (
-		userRepo              interface{}
-		refreshTokenRepo      interface{}
-		productRepo           interface{}
-		imageRepo             interface{}
-		categoryRepo          interface{}
-		brandRepo             interface{}
-		specificationRepo     interface{}
-		specificationKeyRepo  interface{}
-		productReviewRepo     interface{}
-		formGeneratorRepo     interface{}
-		feedbackRepo          interface{}
-	)
-
 	// Create a new HTTP mux
 	mux := http.NewServeMux()
 
@@ -281,28 +266,28 @@ func main() {
 		}
 
 		fmt.Println("Initializing repositories...")
-		userRepo = pgRepo.NewPostgresUserRepo(db)
-		refreshTokenRepo = pgRepo.NewPostgresRefreshTokenRepo(db)
-		productRepo = pgRepo.NewPostgresProductRepo(db)
-		imageRepo = pgRepo.NewPostgresImageRepo(db)
-		categoryRepo = pgRepo.NewPostgresCategoryRepo(db)
-		brandRepo = pgRepo.NewPostgresBrandRepo(db)
-		specificationRepo = pgRepo.NewPostgresSpecificationRepo(db)
-		specificationKeyRepo = pgRepo.NewPostgresSpecificationKeyRepo(db)
-		productReviewRepo = pgRepo.NewProductReviewRepository(db)
-		formGeneratorRepo = pgRepo.NewFormGeneratorRepository(db)
-		feedbackRepo = pgRepo.NewFeedbackRepository(db)
+		userRepo := pgRepo.NewPostgresUserRepo(db)
+		refreshTokenRepo := pgRepo.NewPostgresRefreshTokenRepo(db)
+		productRepo := pgRepo.NewPostgresProductRepo(db)
+		imageRepo := pgRepo.NewPostgresImageRepo(db)
+		categoryRepo := pgRepo.NewPostgresCategoryRepo(db)
+		brandRepo := pgRepo.NewPostgresBrandRepo(db)
+		specificationRepo := pgRepo.NewPostgresSpecificationRepo(db)
+		specificationKeyRepo := pgRepo.NewPostgresSpecificationKeyRepo(db)
+		productReviewRepo := pgRepo.NewProductReviewRepository(db)
+		formGeneratorRepo := pgRepo.NewFormGeneratorRepository(db)
+		feedbackRepo := pgRepo.NewFeedbackRepository(db)
 
 		fmt.Println("Registering API routes...")
-		handlerauth.RegisterAuthRoutes(mux, userRepo.(pgRepo.UserRepository), refreshTokenRepo.(pgRepo.RefreshTokenRepository))
-		handleruser.RegisterUserRoutes(mux, userRepo.(pgRepo.UserRepository))
-		handlerproduct.RegisterProductRoutes(mux, productRepo.(pgRepo.ProductRepository), imageRepo.(pgRepo.ImageRepository), categoryRepo.(pgRepo.CategoryRepository), brandRepo.(pgRepo.BrandRepository), productReviewRepo.(pgRepo.ProductReviewRepository))
-		handlercategory.RegisterCategoryRoutes(mux, categoryRepo.(pgRepo.CategoryRepository))
-		handlerbrand.RegisterBrandRoutes(mux, brandRepo.(pgRepo.BrandRepository))
-		handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo.(pgRepo.SpecificationRepository), specificationKeyRepo.(pgRepo.SpecificationKeyRepository), productRepo.(pgRepo.ProductRepository), formGeneratorRepo.(pgRepo.FormGeneratorRepository))
-		handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo.(pgRepo.ProductReviewRepository), productRepo.(pgRepo.ProductRepository), imageRepo.(pgRepo.ImageRepository))
-		handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo.(pgRepo.FormGeneratorRepository))
-		handlerfeedback.RegisterRoutes(mux, feedbackRepo.(pgRepo.FeedbackRepository))
+		handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
+		handleruser.RegisterUserRoutes(mux, userRepo)
+		handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo, productReviewRepo)
+		handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
+		handlerbrand.RegisterBrandRoutes(mux, brandRepo)
+		handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo, formGeneratorRepo)
+		handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo, imageRepo)
+		handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
+		handlerfeedback.RegisterRoutes(mux, feedbackRepo)
 
 		fmt.Println("API routes registered successfully!")
 	}()
