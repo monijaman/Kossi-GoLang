@@ -30,8 +30,7 @@ import (
 	"gorm.io/gorm"
 
 	// "kossti/internal/infrastructure/database" // Not used since migrations are managed separately
-	database_migrations "kossti/internal/infrastructure/database/migrations"
-	database_seeders "kossti/internal/infrastructure/database/seeders"
+
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
@@ -211,42 +210,6 @@ func main() {
 	sqlDB.SetConnMaxLifetime(30 * time.Minute) // recycle connections every 30 minutes
 
 	fmt.Println("Database connection successful!")
-
-	// Run translation migration to ensure all specification values are in Bengali
-	fmt.Println("\nRunning specification translation verification...")
-	if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
-		log.Printf("Warning: Specification translation verification failed (non-critical): %v", err)
-	}
-
-	// Convert specifications after ID 9833 to Bengali (excluding URLs)
-	fmt.Println("\nConverting specifications after ID 9833 to Bengali...")
-	if err := database_migrations.ConvertSpecificationsAfter9833ToBengali(db); err != nil {
-		log.Printf("Warning: Specifications conversion failed (non-critical): %v", err)
-	}
-
-	// NOTE: Migrations are managed separately via `go run ./cmd/migrate/main.go`
-	// Commenting out auto-migration to avoid conflicts. Run migrations manually before starting the app.
-	//
-	// migrationManager := database.NewMigrationManager(db)
-	// if err := migrationManager.Setup(); err != nil {
-	//     log.Fatalf("Database migration failed: %v", err)
-	// }
-
-	// --- Seed data only if not already seeded ---
-	var userCount int64
-	err = db.Table("users").Count(&userCount).Error
-	if err != nil {
-		log.Fatalf("Failed to check users table for seeding: %v", err)
-	}
-	if userCount == 0 {
-		fmt.Println("No users found, running initial data seeder...")
-		if err := database_seeders.SetupAllSeeders(db).RunAll(); err != nil {
-			log.Fatalf("Database seeding failed: %v", err)
-		}
-		fmt.Println("Database seeding complete!")
-	} else {
-		fmt.Println("Seed data already exists, skipping seeder.")
-	}
 
 	// Create repository instance with GORM DB
 	userRepo := pgRepo.NewPostgresUserRepo(db)
