@@ -190,57 +190,79 @@ func main() {
 		log.Fatal("JWT_SECRET environment variable is required")
 	}
 
-	fmt.Println("Attempting to connect to the database and migrate schema...")
+	fmt.Println("Starting initialization...")
 
-	// Try to connect with retries/backoff to tolerate transient DB startup or proxy hiccups
-	db, err := connectWithRetry(dbURL, 12, 2*time.Second)
-	if err != nil {
-		log.Fatalf("GORM database connection failed: %v", err)
-	}
+	// Initialize database connection variable
+	var db *gorm.DB
+	dbReady := make(chan bool, 1)
 
-	// Test database connection and configure pool
-	sqlDB, err := db.DB()
-	if err != nil {
-		log.Fatalf("Failed to get underlying sql.DB: %v", err)
-	}
+	// Connect to database asynchronously
+	go func() {
+		fmt.Println("Attempting to connect to the database...")
+		var err error
+		db, err = connectWithRetry(dbURL, 12, 2*time.Second)
+		if err != nil {
+			log.Printf("ERROR: Database connection failed: %v", err)
+			return
+		}
 
-	// Production connection pool settings
-	sqlDB.SetMaxOpenConns(50)                  // max open connections (adjust based on DB plan limits)
-	sqlDB.SetMaxIdleConns(10)                  // max idle connections
-	sqlDB.SetConnMaxLifetime(30 * time.Minute) // recycle connections every 30 minutes
+		sqlDB, err := db.DB()
+		if err != nil {
+			log.Printf("ERROR: Failed to get underlying sql.DB: %v", err)
+			return
+		}
 
-	fmt.Println("Database connection successful!")
+		sqlDB.SetMaxOpenConns(50)
+		sqlDB.SetMaxIdleConns(10)
+		sqlDB.SetConnMaxLifetime(30 * time.Minute)
 
-	// Create repository instance with GORM DB
-	userRepo := pgRepo.NewPostgresUserRepo(db)
-	refreshTokenRepo := pgRepo.NewPostgresRefreshTokenRepo(db)
-	productRepo := pgRepo.NewPostgresProductRepo(db)
-	imageRepo := pgRepo.NewPostgresImageRepo(db)
-	categoryRepo := pgRepo.NewPostgresCategoryRepo(db)
-	brandRepo := pgRepo.NewPostgresBrandRepo(db)
-	specificationRepo := pgRepo.NewPostgresSpecificationRepo(db)
-	specificationKeyRepo := pgRepo.NewPostgresSpecificationKeyRepo(db)
-	productReviewRepo := pgRepo.NewProductReviewRepository(db)
-	formGeneratorRepo := pgRepo.NewFormGeneratorRepository(db)
-	feedbackRepo := pgRepo.NewFeedbackRepository(db)
+		fmt.Println("Database connection successful!")
+		
+		// Run migrations and seeders
+		fmt.Println("Running specification translation verification...")
+		if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
+			log.Printf("Warning: Specification translation failed: %v", err)
+		}
 
-	fmt.Println("Database migration complete! Setting up HTTP routes...")
+		fmt.Println("Converting specifications to Bengali...")
+		if err := database_migrations.ConvertSpecificationsAfter9833ToBengali(db); err != nil {
+			log.Printf("Warning: Specifications conversion failed: %v", err)
+		}
 
-	// Create a new HTTP mux for better route handling
+		var userCount int64
+		err = db.Table("users").Count(&userCount).Error
+		if err != nil {
+			log.Printf("Failed to check users table: %v", err)
+		} else if userCount == 0 {
+			fmt.Println("Running initial data seeder...")
+			if err := database_seeders.SetupAllSeeders(db).RunAll(); err != nil {
+				log.Printf("Seeding failed: %v", err)
+			}
+			fmt.Println("Seeding complete!")
+		}
+
+		dbReady <- true
+	}()
+
+	// Setup routes immediately (can work with nil DB initially)
+	var (
+		userRepo              interface{}
+		refreshTokenRepo      interface{}
+		productRepo           interface{}
+		imageRepo             interface{}
+		categoryRepo          interface{}
+		brandRepo             interface{}
+		specificationRepo     interface{}
+		specificationKeyRepo  interface{}
+		productReviewRepo     interface{}
+		formGeneratorRepo     interface{}
+		feedbackRepo          interface{}
+	)
+
+	// Create a new HTTP mux
 	mux := http.NewServeMux()
 
-	// Register grouped routes
-	handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
-	handleruser.RegisterUserRoutes(mux, userRepo)
-	handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo, productReviewRepo)
-	handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
-	handlerbrand.RegisterBrandRoutes(mux, brandRepo)
-	handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo, formGeneratorRepo)
-	handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo, imageRepo)
-	handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
-	handlerfeedback.RegisterRoutes(mux, feedbackRepo)
-
-	// Add health check endpoint
+	// Add health check endpoint (works immediately)
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
@@ -250,80 +272,40 @@ func main() {
 		})
 	})
 
-	fmt.Println("\nAPI Endpoints:")
-	// Authentication endpoints
-	fmt.Println("POST http://localhost:8080/register")
-	fmt.Println("POST http://localhost:8080/login")
-	fmt.Println("POST http://localhost:8080/v1/refresh-token")
-	fmt.Println("POST http://localhost:8080/v1/registration")
-	fmt.Println("POST http://localhost:8080/v1/login")
-	fmt.Println("POST http://localhost:8080/v1/forgot-password")
-	fmt.Println("POST http://localhost:8080/v1/reset-password")
-	fmt.Println("POST http://localhost:8080/v1/logout")
-	fmt.Println("GET  http://localhost:8080/v1/check-token")
-	fmt.Println("GET  http://localhost:8080/v1/search_users")
-	fmt.Println("GET  http://localhost:8080/v1/profile")
-	fmt.Println("POST http://localhost:8080/v1/profile")
-	fmt.Println("GET  http://localhost:8080/v1/checkrole")
-	// User endpoints
-	fmt.Println("GET  http://localhost:8080/api/users")
-	fmt.Println("GET  http://localhost:8080/api/users/all")
-	fmt.Println("GET  http://localhost:8080/api/users/search")
-	fmt.Println("GET  http://localhost:8080/api/users/count")
-	fmt.Println("GET  http://localhost:8080/api/users/{id}")
-	// Product endpoints
-	fmt.Println("GET  http://localhost:8080/api/products")
-	fmt.Println("POST http://localhost:8080/api/products")
-	fmt.Println("GET  http://localhost:8080/api/products/{id}")
-	fmt.Println("PATCH http://localhost:8080/api/products/{id}")
-	fmt.Println("GET  http://localhost:8080/api/products-by-slug/{slug}")
-	fmt.Println("GET  http://localhost:8080/api/popular-products")
-	fmt.Println("POST http://localhost:8080/api/products/{id}/increment-views")
-	// Category endpoints
-	fmt.Println("GET  http://localhost:8080/api/categories")
-	fmt.Println("POST http://localhost:8080/api/categories")
-	fmt.Println("GET  http://localhost:8080/api/categories/{id}")
-	fmt.Println("PUT  http://localhost:8080/api/categories/{id}")
-	fmt.Println("DELETE http://localhost:8080/api/categories/{id}")
-	fmt.Println("GET  http://localhost:8080/api/wide-categories")
-	fmt.Println("POST http://localhost:8080/api/category-translation")
-	fmt.Println("GET  http://localhost:8080/api/category-translation/{id}")
-	fmt.Println("POST http://localhost:8080/api/category-brands")
-	fmt.Println("GET  http://localhost:8080/api/category-brands")
-	fmt.Println("POST http://localhost:8080/api/category-status/{id}")
-	// Brand endpoints
-	fmt.Println("GET  http://localhost:8080/api/brands")
-	fmt.Println("POST http://localhost:8080/api/brands")
-	fmt.Println("GET  http://localhost:8080/api/brands/{id}")
-	fmt.Println("PUT  http://localhost:8080/api/brands/{id}")
-	fmt.Println("DELETE http://localhost:8080/api/brands/{id}")
-	fmt.Println("GET  http://localhost:8080/api/specifications/{id}")
-	fmt.Println("PUT  http://localhost:8080/api/specifications/{id}")
-	fmt.Println("DELETE http://localhost:8080/api/specifications/{id}")
-	fmt.Println("GET  http://localhost:8080/api/specificationsearch")
-	fmt.Println("POST http://localhost:8080/api/spec_translation")
-	fmt.Println("GET  http://localhost:8080/api/spec_translation/{id}")
-	fmt.Println("GET  http://localhost:8080/api/get-public-spec/{id}")
-	fmt.Println("GET  http://localhost:8080/api/speckey")
-	fmt.Println("POST http://localhost:8080/api/speckey")
-	fmt.Println("GET  http://localhost:8080/api/speckey/{id}")
-	fmt.Println("POST http://localhost:8080/api/specremove/{id}")
-	fmt.Println("GET  http://localhost:8080/api/speckey-translation")
-	fmt.Println("POST http://localhost:8080/api/speckey-translation")
-	// FormGenerator endpoints
-	fmt.Println("POST http://localhost:8080/api/formgenerator")
-	fmt.Println("GET  http://localhost:8080/api/formgenerator/{id}")
-	fmt.Println("PUT  http://localhost:8080/api/formgenerator/{id}")
-	fmt.Println("GET  http://localhost:8080/api/catgory-specs/{categoryId}")
-	fmt.Println("")
-	fmt.Println("📋 Feedback Endpoints:")
-	fmt.Println("GET  http://localhost:8080/api/feedbacks")
-	fmt.Println("POST http://localhost:8080/api/feedbacks")
-	fmt.Println("GET  http://localhost:8080/api/feedbacks/{id}")
-	fmt.Println("PUT  http://localhost:8080/api/feedbacks/{id}")
-	fmt.Println("DEL  http://localhost:8080/api/feedbacks/{id}")
-	fmt.Println("GET  http://localhost:8080/api/feedbacks/{id}/translations")
-	fmt.Println("GET  http://localhost:8080/health")
+	// Initialize repositories and routes once DB is ready
+	go func() {
+		<-dbReady
+		if db == nil {
+			log.Println("ERROR: Database connection failed, routes will not be available")
+			return
+		}
+
+		fmt.Println("Initializing repositories...")
+		userRepo = pgRepo.NewPostgresUserRepo(db)
+		refreshTokenRepo = pgRepo.NewPostgresRefreshTokenRepo(db)
+		productRepo = pgRepo.NewPostgresProductRepo(db)
+		imageRepo = pgRepo.NewPostgresImageRepo(db)
+		categoryRepo = pgRepo.NewPostgresCategoryRepo(db)
+		brandRepo = pgRepo.NewPostgresBrandRepo(db)
+		specificationRepo = pgRepo.NewPostgresSpecificationRepo(db)
+		specificationKeyRepo = pgRepo.NewPostgresSpecificationKeyRepo(db)
+		productReviewRepo = pgRepo.NewProductReviewRepository(db)
+		formGeneratorRepo = pgRepo.NewFormGeneratorRepository(db)
+		feedbackRepo = pgRepo.NewFeedbackRepository(db)
+
+		fmt.Println("Registering API routes...")
+		handlerauth.RegisterAuthRoutes(mux, userRepo.(pgRepo.UserRepository), refreshTokenRepo.(pgRepo.RefreshTokenRepository))
+		handleruser.RegisterUserRoutes(mux, userRepo.(pgRepo.UserRepository))
+		handlerproduct.RegisterProductRoutes(mux, productRepo.(pgRepo.ProductRepository), imageRepo.(pgRepo.ImageRepository), categoryRepo.(pgRepo.CategoryRepository), brandRepo.(pgRepo.BrandRepository), productReviewRepo.(pgRepo.ProductReviewRepository))
+		handlercategory.RegisterCategoryRoutes(mux, categoryRepo.(pgRepo.CategoryRepository))
+		handlerbrand.RegisterBrandRoutes(mux, brandRepo.(pgRepo.BrandRepository))
+		handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo.(pgRepo.SpecificationRepository), specificationKeyRepo.(pgRepo.SpecificationKeyRepository), productRepo.(pgRepo.ProductRepository), formGeneratorRepo.(pgRepo.FormGeneratorRepository))
+		handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo.(pgRepo.ProductReviewRepository), productRepo.(pgRepo.ProductRepository), imageRepo.(pgRepo.ImageRepository))
+		handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo.(pgRepo.FormGeneratorRepository))
+		handlerfeedback.RegisterRoutes(mux, feedbackRepo.(pgRepo.FeedbackRepository))
+
+		fmt.Println("API routes registered successfully!")
+	}()
 
 	// Determine which port to use
 	preferredPort := 8080
