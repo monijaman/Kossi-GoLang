@@ -57,7 +57,7 @@ func connectWithRetry(dsn string, maxAttempts int, baseWait time.Duration) (*gor
 				lastErr = err
 				_ = sqlDB // just to keep linter happy if nil
 			} else {
-				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 				defer cancel()
 				if err := sqlDB.PingContext(ctx); err == nil {
 					return db, nil
@@ -212,9 +212,9 @@ func main() {
 			return
 		}
 
-		sqlDB.SetMaxOpenConns(50)
-		sqlDB.SetMaxIdleConns(10)
-		sqlDB.SetConnMaxLifetime(30 * time.Minute)
+		sqlDB.SetMaxOpenConns(25)
+		sqlDB.SetMaxIdleConns(5)
+		sqlDB.SetConnMaxLifetime(5 * time.Minute)
 
 		fmt.Println("Database connection successful!")
 
@@ -320,9 +320,9 @@ func main() {
 	server := &http.Server{
 		Addr:         serverAddr,
 		Handler:      corsMiddleware(mux),
-		ReadTimeout:  15 * time.Second,
-		WriteTimeout: 15 * time.Second,
-		IdleTimeout:  60 * time.Second,
+		ReadTimeout:  60 * time.Second,
+		WriteTimeout: 60 * time.Second,
+		IdleTimeout:  120 * time.Second,
 	}
 
 	// Channel to listen for interrupt signal to terminate gracefully
