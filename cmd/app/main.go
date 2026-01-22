@@ -313,7 +313,7 @@ func main() {
 		fmt.Printf("⚠️   Port %d is in use, using port %d instead\n", preferredPort, availablePort)
 	}
 
-	serverAddr := fmt.Sprintf(":%d", availablePort)
+	serverAddr := fmt.Sprintf("0.0.0.0:%d", availablePort)
 	fmt.Printf("[STARTUP] Server will bind to: %s\n", serverAddr)
 
 	// Create HTTP server with CORS middleware
