@@ -13,7 +13,7 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 	// Public auth endpoints (no auth required)
 
 	// POST /register - User registration
-	mux.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -26,7 +26,7 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 	})
 
 	// POST /login - User login
-	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -40,8 +40,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 
 	// V1 API endpoints
 
-	// POST /v1/refresh-token - Refresh access token
-	mux.HandleFunc("/v1/refresh-token", func(w http.ResponseWriter, r *http.Request) {
+	// POST /api/v1/refresh-token - Refresh access token
+	mux.HandleFunc("/api/v1/refresh-token", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -53,8 +53,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 		RefreshTokenHandler(w, r, userRepo, refreshTokenRepo)
 	})
 
-	// POST /v1/registration - Alternative registration endpoint
-	mux.HandleFunc("/v1/registration", func(w http.ResponseWriter, r *http.Request) {
+	// POST /api/v1/registration - Alternative registration endpoint
+	mux.HandleFunc("/api/v1/registration", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -66,8 +66,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 		RegisterHandler(w, r, userRepo)
 	})
 
-	// POST /v1/login - V1 login endpoint
-	mux.HandleFunc("/v1/login", func(w http.ResponseWriter, r *http.Request) {
+	// POST /api/v1/login - V1 login endpoint
+	mux.HandleFunc("/api/v1/login", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -79,8 +79,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 		LoginHandler(w, r, userRepo, refreshTokenRepo)
 	})
 
-	// POST /v1/forgot-password - Password reset request
-	mux.HandleFunc("/v1/forgot-password", func(w http.ResponseWriter, r *http.Request) {
+	// POST /api/v1/forgot-password - Password reset request
+	mux.HandleFunc("/api/v1/forgot-password", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -92,8 +92,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 		ForgotPasswordHandler(w, r, userRepo)
 	})
 
-	// POST /v1/reset-password - Password reset
-	mux.HandleFunc("/v1/reset-password", func(w http.ResponseWriter, r *http.Request) {
+	// POST /api/v1/reset-password - Password reset
+	mux.HandleFunc("/api/v1/reset-password", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -105,8 +105,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 		ResetPasswordHandler(w, r, userRepo)
 	})
 
-	// POST /v1/logout - User logout (auth required)
-	mux.HandleFunc("/v1/logout", func(w http.ResponseWriter, r *http.Request) {
+	// POST /api/v1/logout - User logout (auth required)
+	mux.HandleFunc("/api/v1/logout", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -119,8 +119,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 		LogoutHandler(w, r, refreshTokenRepo)
 	})
 
-	// GET /v1/check-token - Check token validity (auth required)
-	mux.HandleFunc("/v1/check-token", func(w http.ResponseWriter, r *http.Request) {
+	// GET /api/v1/check-token - Check token validity (auth required)
+	mux.HandleFunc("/api/v1/check-token", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)

@@ -89,12 +89,15 @@ func NewFeedbackHandler(repo repository.FeedbackRepository) *FeedbackHandler {
 	}
 }
 
-// CreateFeedback handles POST /feedback/{product_id}
+// CreateFeedback handles POST /api/v1/feedback/{product_id}
 func (h *FeedbackHandler) CreateFeedback(w http.ResponseWriter, r *http.Request) {
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/feedback/")
+	path := strings.TrimPrefix(r.URL.Path, "/api/v1/feedback/")
 	if path == r.URL.Path {
 		path = strings.TrimPrefix(r.URL.Path, "/v1/feedback/")
+	}
+	if path == r.URL.Path {
+		path = strings.TrimPrefix(r.URL.Path, "/feedback/")
 	}
 
 	productIDStr := strings.Split(path, "/")[0]
@@ -175,12 +178,15 @@ func (h *FeedbackHandler) GetAllFeedback(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetFeedbackByID handles GET /feedback/{id}
+// GetFeedbackByID handles GET /api/v1/feedback/{id}
 func (h *FeedbackHandler) GetFeedbackByID(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/feedback/")
+	path := strings.TrimPrefix(r.URL.Path, "/api/v1/feedback/")
 	if path == r.URL.Path {
 		path = strings.TrimPrefix(r.URL.Path, "/v1/feedback/")
+	}
+	if path == r.URL.Path {
+		path = strings.TrimPrefix(r.URL.Path, "/feedback/")
 	}
 
 	idStr := strings.Split(path, "/")[0]
@@ -202,12 +208,15 @@ func (h *FeedbackHandler) GetFeedbackByID(w http.ResponseWriter, r *http.Request
 	json.NewEncoder(w).Encode(response)
 }
 
-// UpdateFeedback handles PUT /feedback/{id}
+// UpdateFeedback handles PUT /api/v1/feedback/{id}
 func (h *FeedbackHandler) UpdateFeedback(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/feedback/")
+	path := strings.TrimPrefix(r.URL.Path, "/api/v1/feedback/")
 	if path == r.URL.Path {
 		path = strings.TrimPrefix(r.URL.Path, "/v1/feedback/")
+	}
+	if path == r.URL.Path {
+		path = strings.TrimPrefix(r.URL.Path, "/feedback/")
 	}
 
 	idStr := strings.Split(path, "/")[0]
@@ -235,12 +244,15 @@ func (h *FeedbackHandler) UpdateFeedback(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(response)
 }
 
-// DeleteFeedback handles DELETE /feedback/{id}
+// DeleteFeedback handles DELETE /api/v1/feedback/{id}
 func (h *FeedbackHandler) DeleteFeedback(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/feedback/")
+	path := strings.TrimPrefix(r.URL.Path, "/api/v1/feedback/")
 	if path == r.URL.Path {
 		path = strings.TrimPrefix(r.URL.Path, "/v1/feedback/")
+	}
+	if path == r.URL.Path {
+		path = strings.TrimPrefix(r.URL.Path, "/feedback/")
 	}
 
 	idStr := strings.Split(path, "/")[0]

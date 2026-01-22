@@ -28,7 +28,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 	})
 
 	// V1 API routes (for compatibility)
-	mux.HandleFunc("/v1/feedback/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/v1/feedback/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
 			handler.CreateFeedback(w, r)
@@ -52,7 +52,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 		}
 	})
 
-	mux.HandleFunc("/v1/feedback", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/v1/feedback", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			handler.GetAllFeedback(w, r)
 		} else {
