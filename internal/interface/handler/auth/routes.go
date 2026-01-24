@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"kossti/internal/domain/repository"
 	"kossti/internal/interface/handler"
+	"kossti/internal/interface/middleware"
 	"net/http"
 )
 
@@ -106,7 +107,7 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 	})
 
 	// POST /api/v1/logout - User logout (auth required)
-	mux.HandleFunc("/api/v1/logout", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/v1/logout", middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -115,9 +116,8 @@ func RegisterAuthRoutes(mux *http.ServeMux, userRepo repository.UserRepository, 
 			})
 			return
 		}
-		// TODO: Add JWT middleware for authentication
 		LogoutHandler(w, r, refreshTokenRepo)
-	})
+	}))
 
 	// GET /api/v1/check-token - Check token validity (auth required)
 	mux.HandleFunc("/api/v1/check-token", func(w http.ResponseWriter, r *http.Request) {

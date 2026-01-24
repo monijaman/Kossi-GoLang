@@ -4,11 +4,18 @@ import (
 	"encoding/json"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
+	"kossti/internal/interface/middleware"
 	"kossti/internal/usecase/auth"
+	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
+
+	"github.com/golang-jwt/jwt/v5"
 )
+
+var jwtKey = []byte("your_secret_key")
 
 // Request/Response structures
 type RegisterRequest struct {
@@ -138,25 +145,63 @@ func LoginHandler(w http.ResponseWriter, r *http.Request, userRepo repository.Us
 func RefreshTokenHandler(w http.ResponseWriter, r *http.Request, userRepo repository.UserRepository, refreshTokenRepo repository.RefreshTokenRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var req RefreshTokenRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid request body"})
+	// Get refresh token from Authorization header
+	authHeader := r.Header.Get("Authorization")
+	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Missing or invalid Authorization header"})
 		return
 	}
+	refreshToken := strings.TrimPrefix(authHeader, "Bearer ")
 
-	if req.RefreshToken == "" {
+	if refreshToken == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "refresh_token is required"})
 		return
 	}
 
-	// TODO: Implement refresh token logic in use case
-	// For now, return a placeholder response
+	// Get refresh token from database
+	refreshTokenEntity, err := refreshTokenRepo.GetByToken(r.Context(), refreshToken)
+	if err != nil || refreshTokenEntity == nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid refresh token"})
+		return
+	}
+
+	// Check if refresh token is expired
+	if refreshTokenEntity.ExpiresAt < time.Now().Unix() {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Refresh token expired"})
+		return
+	}
+
+	// Get user
+	user, err := userRepo.GetByID(r.Context(), refreshTokenEntity.UserID)
+	if err != nil || user == nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "User not found"})
+		return
+	}
+
+	// Generate new access token
+	claims := jwt.MapClaims{
+		"user_id": user.ID,
+		"email":   user.Email,
+		"exp":     time.Now().Add(time.Hour * 1).Unix(), // 1 hour expiry
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	accessToken, err := token.SignedString(jwtKey)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to generate token"})
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Token refreshed successfully",
-		"token":   "new-access-token", // TODO: Generate actual token
+		"message":      "Token refreshed successfully",
+		"access_token": accessToken,
 	})
 }
 
@@ -222,9 +267,20 @@ func ResetPasswordHandler(w http.ResponseWriter, r *http.Request, userRepo repos
 func LogoutHandler(w http.ResponseWriter, r *http.Request, refreshTokenRepo repository.RefreshTokenRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// TODO: Extract user ID from JWT token
-	// TODO: Invalidate refresh tokens for user
-	// For now, return success response
+	// Get user ID from context (set by JWT middleware)
+	userID, err := middleware.GetUserIDFromContext(r)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid user context"})
+		return
+	}
+
+	// Delete all refresh tokens for this user
+	if err := refreshTokenRepo.DeleteByUserID(r.Context(), userID); err != nil {
+		// Log error but don't fail the logout
+		log.Printf("Warning: Failed to delete refresh tokens for user %d: %v", userID, err)
+	}
+
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{
 		"message": "Logged out successfully",
