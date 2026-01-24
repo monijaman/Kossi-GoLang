@@ -359,13 +359,20 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters) {
 	// Search term filter
 	if filters.SearchTerm != "" {
-		query.Where("name ILIKE ?", "%"+filters.SearchTerm+"%")
+		query.Where("products.name ILIKE ?", "%"+filters.SearchTerm+"%")
 	}
 
-	// Category filter
+	// Category filter - supports both ID (numeric) and slug (alphanumeric)
 	if filters.CategorySlug != "" {
-		query.Joins("JOIN categories ON products.category_id = categories.id").
-			Where("categories.slug = ?", filters.CategorySlug)
+		categoryValue := filters.CategorySlug
+		if isNumeric(categoryValue) {
+			// It's an ID - search by ID directly
+			query.Where("products.category_id = ?", categoryValue)
+		} else {
+			// It's a slug - search by slug
+			query.Joins("LEFT JOIN categories ON products.category_id = categories.id").
+				Where("categories.slug = ?", categoryValue)
+		}
 	}
 
 	// Brand filter (multiple brands supported)
@@ -376,11 +383,24 @@ func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.P
 
 	// Price range filter
 	if filters.MinPrice != nil {
-		query.Where("price >= ?", *filters.MinPrice)
+		query.Where("products.price >= ?", *filters.MinPrice)
 	}
 	if filters.MaxPrice != nil {
-		query.Where("price <= ?", *filters.MaxPrice)
+		query.Where("products.price <= ?", *filters.MaxPrice)
 	}
+}
+
+// isNumeric checks if a string represents a numeric value
+func isNumeric(s string) bool {
+	if s == "" {
+		return false
+	}
+	for _, c := range s {
+		if c < '0' || c > '9' {
+			return false
+		}
+	}
+	return true
 }
 
 // applySorting applies sorting based on sortby parameter
