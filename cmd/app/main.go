@@ -29,7 +29,6 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	database_migrations "kossti/internal/infrastructure/database/migrations"
 	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
@@ -219,15 +218,15 @@ func main() {
 		fmt.Println("Database connection successful!")
 
 		// Run migrations and seeders
-		fmt.Println("Running specification translation verification...")
-		if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
-			log.Printf("Warning: Specification translation failed: %v", err)
-		}
+		// fmt.Println("Running specification translation verification...")
+		// if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
+		// 	log.Printf("Warning: Specification translation failed: %v", err)
+		// }
 
-		fmt.Println("Converting specifications to Bengali...")
-		if err := database_migrations.ConvertSpecificationsAfter9833ToBengali(db); err != nil {
-			log.Printf("Warning: Specifications conversion failed: %v", err)
-		}
+		// fmt.Println("Converting specifications to Bengali...")
+		// if err := database_migrations.ConvertSpecificationsAfter9833ToBengali(db); err != nil {
+		// 	log.Printf("Warning: Specifications conversion failed: %v", err)
+		// }
 
 		var userCount int64
 		err = db.Table("users").Count(&userCount).Error
