@@ -278,6 +278,8 @@ func (m *MigrationManager) Setup() error {
 		return err
 	}
 
+	// Ensure users table has a 'type' column with default 'guest'
+
 	return nil
 }
 

@@ -14,6 +14,7 @@ type User struct {
 	EmailVerifiedAt *time.Time
 	Password        string
 	RememberToken   *string
+	Type            string
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
 }

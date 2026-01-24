@@ -5,6 +5,7 @@ import (
 	"errors"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
+	"strings"
 )
 
 // UserUseCase handles user-related business logic
@@ -21,7 +22,7 @@ func NewUserUseCase(userRepo repository.UserRepository) *UserUseCase {
 }
 
 // CreateUser creates a new user with validation
-func (uc *UserUseCase) CreateUser(ctx context.Context, username, email, password string) (*entities.User, error) {
+func (uc *UserUseCase) CreateUser(ctx context.Context, username, email, password, typ string) (*entities.User, error) {
 	// Check if user already exists.
 	existingUser, err := uc.userRepo.GetByEmail(ctx, email)
 	if err != nil {
@@ -40,10 +41,23 @@ func (uc *UserUseCase) CreateUser(ctx context.Context, username, email, password
 		return nil, errors.New("username is already taken")
 	}
 
-	// Create new user using domain entity constructor
+	// Create new user entity (basic validation already performed above)
 	user := &entities.User{
+		Name:     username,
 		Email:    email,
-		Password: password, // This should be hashed in practice
+		Password: password, // hashing should happen in auth layer
+		Type:     "guest",
+	}
+
+	// Validate and set provided type if present
+	if typ != "" {
+		t := strings.ToLower(strings.TrimSpace(typ))
+		switch t {
+		case "admin", "reviewer", "guest":
+			user.Type = t
+		default:
+			return nil, errors.New("invalid user type; must be admin, reviewer, or guest")
+		}
 	}
 
 	// Save user to repository

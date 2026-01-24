@@ -30,6 +30,8 @@ type User struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time
+	// Type represents the role of the user: admin, reviewer, or guest
+	Type string
 }
 
 // NewUser creates a new user with validation
@@ -37,23 +39,37 @@ func NewUser(name, email, password string) (*User, error) {
 	if err := validateEmail(email); err != nil {
 		return nil, err
 	}
-	
+
 	if err := validateName(name); err != nil {
 		return nil, err
 	}
-	
+
 	if err := validatePassword(password); err != nil {
 		return nil, err
 	}
-	
+
 	now := time.Now()
 	return &User{
 		Name:      name,
 		Email:     email,
 		Password:  password,
+		Type:      "guest",
 		CreatedAt: now,
 		UpdatedAt: now,
 	}, nil
+}
+
+// SetType sets the user's type after validation
+func (u *User) SetType(t string) error {
+	t = strings.ToLower(strings.TrimSpace(t))
+	switch t {
+	case "admin", "reviewer", "guest":
+		u.Type = t
+		u.UpdatedAt = time.Now()
+		return nil
+	default:
+		return errors.New("invalid user type; must be admin, reviewer, or guest")
+	}
 }
 
 // UpdateProfile updates user profile information
@@ -129,11 +145,11 @@ func ParseUserIDToUint(id UserID) (uint, error) {
 	if id == "" {
 		return 0, errors.New("empty user ID")
 	}
-	
+
 	parsedID, err := strconv.ParseUint(string(id), 10, 32)
 	if err != nil {
 		return 0, errors.New("invalid user ID format")
 	}
-	
+
 	return uint(parsedID), nil
 }

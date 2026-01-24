@@ -18,6 +18,7 @@ import (
 	"kossti/internal/domain/repository"
 	"kossti/internal/usecase/auth"
 	"net/http"
+	"strings"
 ) // This file is part of the Interface Adapters Layer in Clean Code Architecture.
 // - These handlers adapt HTTP requests to use case calls.
 // - They parse input, call the appropriate use case, and write the response.
@@ -28,6 +29,7 @@ type RegisterRequest struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	Type     string `json:"type,omitempty"`
 }
 
 type LoginRequest struct {
@@ -49,6 +51,18 @@ func RegisterHandlerWithRepo(w http.ResponseWriter, r *http.Request, repo reposi
 		Name:     req.Username, // Using username as name for compatibility
 		Email:    req.Email,
 		Password: req.Password,
+	}
+
+	if req.Type != "" {
+		t := strings.ToLower(strings.TrimSpace(req.Type))
+		switch t {
+		case "admin", "reviewer", "guest":
+			user.Type = t
+		default:
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "invalid user type; must be admin, reviewer, or guest"})
+			return
+		}
 	}
 
 	err := auth.Register(r.Context(), repo, user)

@@ -16,6 +16,7 @@ type UserModel struct {
 	EmailVerifiedAt *time.Time `gorm:""`
 	Password        string     `gorm:"type:varchar(255);not null"`
 	RememberToken   *string    `gorm:"type:varchar(100)"`
+	Type            string     `gorm:"type:varchar(50);not null;default:'guest'"`
 	CreatedAt       time.Time  `gorm:"autoCreateTime"`
 	UpdatedAt       time.Time  `gorm:"autoUpdateTime"`
 }
@@ -29,6 +30,7 @@ func (u *UserModel) ToEntity() *entities.User {
 		EmailVerifiedAt: u.EmailVerifiedAt,
 		Password:        u.Password,
 		RememberToken:   u.RememberToken,
+		Type:            u.Type,
 		CreatedAt:       u.CreatedAt,
 		UpdatedAt:       u.UpdatedAt,
 	}
@@ -42,6 +44,7 @@ func (u *UserModel) FromEntity(entity *entities.User) {
 	u.EmailVerifiedAt = entity.EmailVerifiedAt
 	u.Password = entity.Password
 	u.RememberToken = entity.RememberToken
+	u.Type = entity.Type
 	u.CreatedAt = entity.CreatedAt
 	u.UpdatedAt = entity.UpdatedAt
 }
