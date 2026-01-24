@@ -259,13 +259,14 @@ func GetAllReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo rep
 	}
 
 	searchTerm := r.URL.Query().Get("searchterm")
+	categoryID := r.URL.Query().Get("category")
 
 	var reviews []*entities.ProductReview
 	var total int
 	var err error
 
-	if searchTerm != "" {
-		reviews, total, err = productreview.SearchReviews(r.Context(), reviewRepo, searchTerm, page, limit, sortOrder)
+	if searchTerm != "" || categoryID != "" {
+		reviews, total, err = productreview.SearchReviews(r.Context(), reviewRepo, searchTerm, page, limit, sortOrder, categoryID)
 	} else {
 		reviews, total, err = productreview.GetAllReviews(r.Context(), reviewRepo, page, limit, sortOrder)
 	}

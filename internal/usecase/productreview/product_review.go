@@ -203,8 +203,8 @@ func UpdateReviewStatus(ctx context.Context, repo repository.ProductReviewReposi
 	return repo.UpdateStatus(ctx, reviewID, status)
 }
 
-// SearchReviews searches for reviews based on search term
-func SearchReviews(ctx context.Context, repo repository.ProductReviewRepository, searchTerm string, page, limit int, sortOrder string) ([]*entities.ProductReview, int, error) {
+// SearchReviews searches for reviews based on search term and/or category
+func SearchReviews(ctx context.Context, repo repository.ProductReviewRepository, searchTerm string, page, limit int, sortOrder string, categoryID string) ([]*entities.ProductReview, int, error) {
 	if page < 1 {
 		page = 1
 	}
@@ -215,7 +215,7 @@ func SearchReviews(ctx context.Context, repo repository.ProductReviewRepository,
 		sortOrder = "desc"
 	}
 
-	return repo.SearchReviews(ctx, searchTerm, page, limit, sortOrder)
+	return repo.SearchReviews(ctx, searchTerm, page, limit, sortOrder, categoryID)
 }
 
 // GetAllReviews gets all reviews with pagination

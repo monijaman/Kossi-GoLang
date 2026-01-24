@@ -23,7 +23,7 @@ type ProductReviewRepository interface {
 
 	// Search and filtering operations
 	GetAll(ctx context.Context, page, limit int, sortOrder string) ([]*entities.ProductReview, int, error)
-	SearchReviews(ctx context.Context, searchTerm string, page, limit int, sortOrder string) ([]*entities.ProductReview, int, error)
+	SearchReviews(ctx context.Context, searchTerm string, page, limit int, sortOrder string, categoryID string) ([]*entities.ProductReview, int, error)
 	GetPublicReviewsByProduct(ctx context.Context, productID uint, locale string) (*entities.ProductReview, error)
 
 	// Rating operations

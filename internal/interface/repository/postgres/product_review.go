@@ -128,31 +128,41 @@ func (r *productReviewRepository) GetAll(ctx context.Context, page, limit int, s
 	}
 
 	return reviews, int(total), nil
-} // SearchReviews searches reviews by content with pagination
-func (r *productReviewRepository) SearchReviews(ctx context.Context, searchTerm string, page, limit int, sortOrder string) ([]*entities.ProductReview, int, error) {
+} // SearchReviews searches reviews by content and/or category with pagination
+func (r *productReviewRepository) SearchReviews(ctx context.Context, searchTerm string, page, limit int, sortOrder string, categoryID string) ([]*entities.ProductReview, int, error) {
 	var models []models.ProductReviewModel
 	var total int64
 
-	searchPattern := "%" + searchTerm + "%"
+	query := r.db.WithContext(ctx).Table("product_reviews")
+
+	// Add search term filter if provided
+	if searchTerm != "" {
+		searchPattern := "%" + searchTerm + "%"
+		query = query.Where("reviews ILIKE ?", searchPattern)
+	}
+
+	// Add category filter if provided
+	if categoryID != "" {
+		query = query.Joins("JOIN products ON product_reviews.product_id = products.id").
+			Where("products.category_id = ?", categoryID)
+	}
 
 	// Count total matching records
-	if err := r.db.WithContext(ctx).Table("product_reviews").
-		Where("reviews ILIKE ?", searchPattern).Count(&total).Error; err != nil {
+	if err := query.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
 	// Apply pagination and sorting
 	offset := (page - 1) * limit
-	query := r.db.WithContext(ctx).Where("reviews ILIKE ?", searchPattern).
-		Offset(offset).Limit(limit)
+	finalQuery := query.Offset(offset).Limit(limit)
 
 	if sortOrder == "asc" {
-		query = query.Order("updated_at ASC")
+		finalQuery = finalQuery.Order("product_reviews.updated_at ASC")
 	} else {
-		query = query.Order("updated_at DESC")
+		finalQuery = finalQuery.Order("product_reviews.updated_at DESC")
 	}
 
-	if err := query.Find(&models).Error; err != nil {
+	if err := finalQuery.Find(&models).Error; err != nil {
 		return nil, 0, err
 	}
 
