@@ -227,6 +227,7 @@ func (m *MigrationManager) CreateIndexes() error {
 		{&models.ProductModel{}, []string{"slug"}, "idx_products_slug", true},
 		{&models.ProductModel{}, []string{"category_id", "brand_id"}, "idx_products_category_brand", false},
 		{&models.CategoryModel{}, []string{"slug"}, "idx_categories_slug", true},
+		{&models.CategoryModel{}, []string{"id"}, "idx_categories_id", false},
 		{&models.BrandModel{}, []string{"slug"}, "idx_brands_slug", true},
 	}
 
@@ -237,8 +238,9 @@ func (m *MigrationManager) CreateIndexes() error {
 		}
 
 		log.Printf("Creating index: %s on %T(%v)", idx.name, idx.table, idx.fields)
-		// Note: GORM AutoMigrate should handle most indexes from struct tags
-		// This is here for any additional custom indexes needed
+		if err := m.db.Migrator().CreateIndex(idx.table, idx.name); err != nil {
+			return fmt.Errorf("failed to create index %s: %w", idx.name, err)
+		}
 	}
 
 	log.Println("Additional indexes created!")
