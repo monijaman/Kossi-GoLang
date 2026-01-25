@@ -30,6 +30,7 @@ import (
 	"gorm.io/gorm"
 
 	database_seeders "kossti/internal/infrastructure/database/seeders"
+	handleradmin "kossti/internal/interface/handler/admin"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
@@ -288,6 +289,7 @@ func main() {
 		handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo, formGeneratorRepo)
 		handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo, imageRepo)
 		handlerformgenerator.RegisterRoutes(mux, formGeneratorRepo)
+		handleradmin.RegisterAdminRoutes(mux, userRepo, productRepo)
 		handlerfeedback.RegisterRoutes(mux, feedbackRepo)
 
 		fmt.Println("[STARTUP] All application routes have been registered.")

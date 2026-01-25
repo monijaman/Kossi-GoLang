@@ -108,6 +108,13 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			return
 		}
+		
+		// Check for specific sub-paths manually since we are using prefix matching
+		if strings.HasSuffix(r.URL.Path, "/similar") {
+			GetSimilarProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
+			return
+		}
+		
 		GetProductBySlugHandler(w, r, productRepo, categoryRepo, brandRepo)
 	})
 

@@ -22,6 +22,7 @@ type RegisterRequest struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	Type     string `json:"type,omitempty"`
 }
 
 type LoginRequest struct {
@@ -94,6 +95,18 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request, userRepo repository
 		UpdatedAt: time.Now(),
 	}
 
+	if req.Type != "" {
+		t := strings.ToLower(strings.TrimSpace(req.Type))
+		switch t {
+		case "admin", "reviewer", "guest":
+			user.Type = t
+		default:
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "invalid user type; must be admin, reviewer, or guest"})
+			return
+		}
+	}
+
 	err := auth.Register(r.Context(), userRepo, user)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -125,7 +138,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request, userRepo repository.Us
 		return
 	}
 
-	accessToken, refreshToken, err := auth.Login(r.Context(), userRepo, refreshTokenRepo, req.Email, req.Password)
+	accessToken, refreshToken, user, err := auth.Login(r.Context(), userRepo, refreshTokenRepo, req.Email, req.Password)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -135,7 +148,9 @@ func LoginHandler(w http.ResponseWriter, r *http.Request, userRepo repository.Us
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{
 		"message":       "Login successful",
-		"email":         req.Email,
+		"email":         user.Email,
+		"name":          user.Name,
+		"type":          user.Type,
 		"token":         accessToken,
 		"refresh_token": refreshToken,
 	})

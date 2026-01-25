@@ -89,7 +89,7 @@ func LoginHandlerWithRepo(w http.ResponseWriter, r *http.Request, repo repositor
 		return
 	}
 
-	accessToken, refreshToken, err := auth.Login(r.Context(), repo, refreshTokenRepo, req.Email, req.Password)
+	accessToken, refreshToken, user, err := auth.Login(r.Context(), repo, refreshTokenRepo, req.Email, req.Password)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -99,7 +99,9 @@ func LoginHandlerWithRepo(w http.ResponseWriter, r *http.Request, repo repositor
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{
 		"message":       "Login successful",
-		"email":         req.Email,
+		"email":         user.Email,
+		"name":          user.Name,
+		"type":          user.Type,
 		"token":         accessToken,
 		"refresh_token": refreshToken,
 	})

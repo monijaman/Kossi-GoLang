@@ -24,13 +24,13 @@ func Login(
 	userRepo repository.UserRepository,
 	refreshTokenRepo repository.RefreshTokenRepository,
 	email, password string,
-) (string, string, error) {
+) (string, string, *entities.User, error) {
 	user, err := userRepo.GetByEmail(ctx, email)
 	if err != nil || user == nil {
-		return "", "", errors.New("user not found")
+		return "", "", nil, errors.New("user not found")
 	}
 	if !hash.CheckPasswordHash(password, user.Password) {
-		return "", "", errors.New("invalid password")
+		return "", "", nil, errors.New("invalid password")
 	}
 
 	// Create JWT claims
@@ -44,7 +44,7 @@ func Login(
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	accessToken, err := token.SignedString(jwtKey)
 	if err != nil {
-		return "", "", err
+		return "", "", nil, err
 	}
 
 	// Generate refresh token
@@ -56,7 +56,7 @@ func Login(
 	refreshTokenObj := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
 	refreshToken, err := refreshTokenObj.SignedString(jwtKey)
 	if err != nil {
-		return "", "", err
+		return "", "", nil, err
 	}
 
 	// Save refresh token to DB
@@ -66,8 +66,8 @@ func Login(
 		ExpiresAt: refreshClaims["exp"].(int64),
 	}
 	if err := refreshTokenRepo.Save(ctx, rt); err != nil {
-		return "", "", err
+		return "", "", nil, err
 	}
 
-	return accessToken, refreshToken, nil
+	return accessToken, refreshToken, user, nil
 }

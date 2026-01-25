@@ -219,6 +219,39 @@ func (r *PostgresProductRepo) GetByBrand(ctx context.Context, brandID uint, limi
 	return products, nil
 }
 
+func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *entities.Product, limit int) ([]*entities.Product, error) {
+	var productModels []models.ProductModel
+	
+	if product.CategoryID == nil {
+		return nil, nil // No category to match against
+	}
+
+	// Calculate price range (+/- 10%)
+	minPrice := product.Price * 0.9
+	maxPrice := product.Price * 1.1
+
+	query := r.db.WithContext(ctx).
+		Where("deleted_at IS NULL").
+		Where("category_id = ?", *product.CategoryID).
+		Where("id != ?", product.ID).
+		Where("price BETWEEN ? AND ?", minPrice, maxPrice)
+
+	if limit > 0 {
+		query = query.Limit(limit)
+	}
+
+	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+
+	products := make([]*entities.Product, len(productModels))
+	for i, model := range productModels {
+		products[i] = model.ToEntity()
+	}
+
+	return products, nil
+}
+
 func (r *PostgresProductRepo) IncrementViews(ctx context.Context, id uint) error {
 	// First check if the product exists
 	var productModel models.ProductModel

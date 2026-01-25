@@ -583,6 +583,60 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	json.NewEncoder(w).Encode(response)
 }
 
+// GetSimilarProductsHandler handles GET /products-by-slug/{slug}/similar
+func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Extract slug from URL path
+	path := strings.TrimPrefix(r.URL.Path, "/products-by-slug/")
+	path = strings.TrimSuffix(path, "/similar")
+	path = strings.TrimSuffix(path, "/")
+
+	if path == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Product slug is required"})
+		return
+	}
+
+	// 1. Get the main product first
+	product, err := repo.GetBySlug(r.Context(), path)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Product not found",
+			"slug":  path,
+		})
+		return
+	}
+
+	// 2. Get similar products
+	// Default limit 4, but can be overridden
+	limit := 4
+	if limitStr := r.URL.Query().Get("limit"); limitStr != "" {
+		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
+			limit = l
+		}
+	}
+
+	similarProducts, err := repo.GetSimilarProducts(r.Context(), product, limit)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		return
+	}
+
+	// 3. Convert to response
+	productResponses := make([]ProductResponse, len(similarProducts))
+	for i, p := range similarProducts {
+		productResponses[i] = convertProductToResponse(p, categoryRepo, brandRepo)
+	}
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"products": productResponses,
+		"count":    len(productResponses),
+	})
+}
+
 // IncrementProductViewsHandler handles POST /products/{id}/increment-views
 func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
