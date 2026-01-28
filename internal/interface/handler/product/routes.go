@@ -108,13 +108,13 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			return
 		}
-		
+
 		// Check for specific sub-paths manually since we are using prefix matching
 		if strings.HasSuffix(r.URL.Path, "/similar") {
 			GetSimilarProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
 			return
 		}
-		
+
 		GetProductBySlugHandler(w, r, productRepo, categoryRepo, brandRepo)
 	})
 
@@ -193,14 +193,14 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 		CreateProductTranslationHandler(w, r, productRepo)
 	})
 
-	// GET /public-reviews/{id} - Get public reviews for a product (Laravel compatibility)
-	mux.HandleFunc("/public-reviews/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			GetPublicReviewsHandler(w, r, productRepo)
-		} else {
+	// GET /market-products - Get new products from market (CSV)
+	mux.HandleFunc("/market-products", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
+			return
 		}
+		GetMarketProductsHandler(w, r)
 	})
 }

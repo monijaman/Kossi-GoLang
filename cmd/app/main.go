@@ -22,6 +22,7 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
+	"strings"
 	"syscall"
 	"time"
 
@@ -34,6 +35,7 @@ import (
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
+	handlercomment "kossti/internal/interface/handler/comment"
 	handlerfeedback "kossti/internal/interface/handler/feedback"
 	handlerformgenerator "kossti/internal/interface/handler/formgenerator"
 	handlerproduct "kossti/internal/interface/handler/product"
@@ -150,10 +152,42 @@ func main() {
 				os.Setenv("GO_ENV", "production")
 			}
 		} else {
+			log.Println("DEBUG: Attempting to load .env file...")
 			if err := godotenv.Load(".env"); err != nil {
-				log.Println("warning: no .env file found or error loading .env file")
+				log.Printf("ERROR: failed to load .env file: %v", err)
+			} else {
+				log.Println("SUCCESS: .env file loaded by godotenv")
+				// Check immediately after loading
+				testKey := os.Getenv("OPENAI_API_KEY")
+				log.Printf("DEBUG: OPENAI_API_KEY after godotenv.Load(): length=%d", len(testKey))
 			}
 		}
+	}
+
+	// Manual loading of OPENAI_API_KEY as fallback
+	if os.Getenv("OPENAI_API_KEY") == "" {
+		log.Println("DEBUG: OPENAI_API_KEY not set, trying manual loading...")
+		if content, err := os.ReadFile(".env"); err == nil {
+			lines := strings.Split(string(content), "\n")
+			for _, line := range lines {
+				line = strings.TrimSpace(line)
+				if strings.HasPrefix(line, "OPENAI_API_KEY=") {
+					keyValue := strings.TrimPrefix(line, "OPENAI_API_KEY=")
+					os.Setenv("OPENAI_API_KEY", keyValue)
+					log.Printf("DEBUG: Manually set OPENAI_API_KEY, length: %d", len(keyValue))
+					break
+				}
+			}
+		}
+	}
+
+	// Final check
+	openaiKey := os.Getenv("OPENAI_API_KEY")
+	log.Printf("DEBUG: Final OPENAI_API_KEY check, length: %d", len(openaiKey))
+	if len(openaiKey) > 0 {
+		log.Printf("DEBUG: OPENAI_API_KEY starts with: %s", openaiKey[:10])
+	} else {
+		log.Println("DEBUG: OPENAI_API_KEY is still empty")
 	}
 
 	// Compose DB connection string: prefer DATABASE_URL, otherwise build from DB_* variables
@@ -283,6 +317,7 @@ func main() {
 		fmt.Println("Registering API routes...")
 		handlerauth.RegisterAuthRoutes(mux, userRepo, refreshTokenRepo)
 		handleruser.RegisterUserRoutes(mux, userRepo)
+		handlercomment.RegisterCommentRoutes(mux, db)
 		handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo, productReviewRepo)
 		handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
 		handlerbrand.RegisterBrandRoutes(mux, brandRepo)

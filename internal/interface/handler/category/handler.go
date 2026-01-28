@@ -373,6 +373,8 @@ func DeleteCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 //   - category_id: Filter results by specific category ID
 //   - page: Current page number for pagination (default: 1)
 //   - status: Category status filter (0 = inactive, 1 = active)
+//   - sort_by: Field to sort by ("name" or "status")
+//   - sort_order: Sort order ("asc" or "desc")
 //
 // Response Formats:
 //   - When paginate=true: {"data": {"categories": [...], "total": number}, "success": true}
@@ -393,6 +395,11 @@ func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRe
 	categoryIDStr := r.URL.Query().Get("category_id")
 	statusStr := r.URL.Query().Get("status")
 	pageStr := r.URL.Query().Get("page")
+	sortBy := r.URL.Query().Get("sort_by")
+	sortOrder := r.URL.Query().Get("sort_order")
+
+	// Debug logging
+	fmt.Printf("Sort parameters - sort_by: %s, sort_order: %s\n", sortBy, sortOrder)
 
 	// Set defaults
 	perPage := 10
@@ -469,6 +476,63 @@ func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRe
 			}
 			filteredCategories = filtered
 		}
+	}
+
+	// Sort categories if sort parameters are provided
+	if sortBy != "" && sortOrder != "" {
+		fmt.Printf("Sorting by %s in %s order\n", sortBy, sortOrder)
+		fmt.Printf("Before sorting, first 5 categories status: ")
+		for i := 0; i < len(filteredCategories) && i < 5; i++ {
+			fmt.Printf("%d ", filteredCategories[i].Status)
+		}
+		fmt.Println()
+		switch sortBy {
+		case "name":
+			if sortOrder == "asc" {
+				// Sort by name ascending
+				for i := 0; i < len(filteredCategories)-1; i++ {
+					for j := i + 1; j < len(filteredCategories); j++ {
+						if strings.ToLower(filteredCategories[i].Name) > strings.ToLower(filteredCategories[j].Name) {
+							filteredCategories[i], filteredCategories[j] = filteredCategories[j], filteredCategories[i]
+						}
+					}
+				}
+			} else if sortOrder == "desc" {
+				// Sort by name descending
+				for i := 0; i < len(filteredCategories)-1; i++ {
+					for j := i + 1; j < len(filteredCategories); j++ {
+						if strings.ToLower(filteredCategories[i].Name) < strings.ToLower(filteredCategories[j].Name) {
+							filteredCategories[i], filteredCategories[j] = filteredCategories[j], filteredCategories[i]
+						}
+					}
+				}
+			}
+		case "status":
+			if sortOrder == "asc" {
+				// Sort by status ascending (inactive first, then active)
+				for i := 0; i < len(filteredCategories)-1; i++ {
+					for j := i + 1; j < len(filteredCategories); j++ {
+						if filteredCategories[i].Status > filteredCategories[j].Status {
+							filteredCategories[i], filteredCategories[j] = filteredCategories[j], filteredCategories[i]
+						}
+					}
+				}
+			} else if sortOrder == "desc" {
+				// Sort by status descending (active first, then inactive)
+				for i := 0; i < len(filteredCategories)-1; i++ {
+					for j := i + 1; j < len(filteredCategories); j++ {
+						if filteredCategories[i].Status < filteredCategories[j].Status {
+							filteredCategories[i], filteredCategories[j] = filteredCategories[j], filteredCategories[i]
+						}
+					}
+				}
+			}
+		}
+		fmt.Printf("After sorting, first 5 categories status: ")
+		for i := 0; i < len(filteredCategories) && i < 5; i++ {
+			fmt.Printf("%d ", filteredCategories[i].Status)
+		}
+		fmt.Println()
 	}
 
 	responses := make([]CategoryResponse, len(filteredCategories))

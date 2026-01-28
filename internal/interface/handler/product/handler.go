@@ -1,12 +1,14 @@
 package product
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -1292,4 +1294,199 @@ func DeleteProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 		"message": fmt.Sprintf("Translation deleted successfully for locale %s", locale),
 	}
 	json.NewEncoder(w).Encode(response)
+}
+
+// MarketProduct represents a product from the market
+type MarketProduct struct {
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Type        string  `json:"type"`
+	Price       float64 `json:"price,omitempty"`
+	CategoryID  uint    `json:"category_id,omitempty"`
+}
+
+// GetMarketProductsHandler handles GET /market-products
+func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Get query parameters
+	brandID := r.URL.Query().Get("brand_id")
+	brandName := r.URL.Query().Get("brand_name")
+
+	log.Printf("Market products request - Brand ID: %s, Brand Name: %s", brandID, brandName)
+
+	// Get OpenAI API key from environment
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	// Remove quotes if present (from .env file)
+	apiKey = strings.Trim(apiKey, `"`)
+	log.Printf("OPENAI_API_KEY length after trimming: %d", len(apiKey))
+	if len(apiKey) > 10 {
+		log.Printf("OPENAI_API_KEY starts with: %s", apiKey[:10]+"...")
+	}
+	if apiKey == "" || apiKey == "your_openai_api_key_here" {
+		log.Println("OPENAI_API_KEY not set or is placeholder, returning fallback products")
+		response := map[string]interface{}{
+			"success": true,
+			"data":    getFallbackProducts(),
+		}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	// Call OpenAI to research new products
+	products, err := researchNewProducts(apiKey, brandName)
+	if err != nil {
+		log.Printf("Error researching products: %v", err)
+		// Return fallback products instead of error
+		response := map[string]interface{}{
+			"success": true,
+			"data":    getFallbackProducts(),
+		}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	response := map[string]interface{}{
+		"success": true,
+		"data":    products,
+	}
+	json.NewEncoder(w).Encode(response)
+}
+
+// researchNewProducts uses OpenAI to research and generate new product ideas
+func researchNewProducts(apiKey string, brandName string) ([]MarketProduct, error) {
+	var prompt string
+	if brandName != "" {
+		prompt = fmt.Sprintf(`Research and suggest 5 new innovative consumer electronics products that would fit well with the %s brand.
+For each product, provide:
+- Name: A catchy product name that could be from %s
+- Description: A brief description (2-3 sentences) of what makes this product innovative
+- Type: The product category (e.g., Smartphone, Laptop, Smart Home Device, Wearable Technology, Accessories, etc.)
+
+Make the products relevant to %s's typical product line and brand positioning.
+Format the response as a JSON array of objects with keys: name, description, type.
+Focus on trending technologies like AI, IoT, sustainability, and emerging markets.`, brandName, brandName, brandName)
+		log.Printf("Generated brand-specific prompt for %s: %s", brandName, prompt)
+	} else {
+		prompt = `Research and suggest 5 new innovative consumer electronics products that could be available in the market. 
+	For each product, provide:
+	- Name: A catchy product name
+	- Description: A brief description (2-3 sentences)
+	- Type: The product category (e.g., Smartphone, Laptop, Smart Home Device, etc.)
+	
+	Format the response as a JSON array of objects with keys: name, description, type.
+	Focus on trending technologies like AI, IoT, sustainability, and emerging markets.`
+		log.Println("Generated generic prompt (no brand specified)")
+	}
+
+	requestBody := map[string]interface{}{
+		"model": "gpt-3.5-turbo",
+		"messages": []map[string]string{
+			{
+				"role":    "user",
+				"content": prompt,
+			},
+		},
+		"max_tokens":  1000,
+		"temperature": 0.7,
+	}
+
+	jsonData, err := json.Marshal(requestBody)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal request: %w", err)
+	}
+
+	req, err := http.NewRequest("POST", "https://api.openai.com/v1/chat/completions", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+apiKey)
+
+	client := &http.Client{Timeout: 30 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to call OpenAI: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		body, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("OpenAI API error: %s", string(body))
+	}
+
+	var openaiResp struct {
+		Choices []struct {
+			Message struct {
+				Content string `json:"content"`
+			} `json:"message"`
+		} `json:"choices"`
+	}
+
+	if err := json.NewDecoder(resp.Body).Decode(&openaiResp); err != nil {
+		return nil, fmt.Errorf("failed to decode response: %w", err)
+	}
+
+	if len(openaiResp.Choices) == 0 {
+		return nil, fmt.Errorf("no response from OpenAI")
+	}
+
+	content := openaiResp.Choices[0].Message.Content
+
+	// Strip markdown code block formatting if present
+	content = strings.TrimSpace(content)
+	if strings.HasPrefix(content, "```json") {
+		content = strings.TrimPrefix(content, "```json")
+	} else if strings.HasPrefix(content, "```") {
+		content = strings.TrimPrefix(content, "```")
+	}
+	if strings.HasSuffix(content, "```") {
+		content = strings.TrimSuffix(content, "```")
+	}
+	content = strings.TrimSpace(content)
+
+	// Parse the JSON response from OpenAI
+	var products []MarketProduct
+	if err := json.Unmarshal([]byte(content), &products); err != nil {
+		log.Printf("Failed to parse OpenAI response as JSON: %v", err)
+		log.Printf("OpenAI response (after stripping): %s", content)
+		// Return sample products as fallback
+		return getFallbackProducts(), nil
+	}
+
+	// Add default price and category
+	for i := range products {
+		products[i].Price = 99.99 + float64(i*50) // Sample prices
+		products[i].CategoryID = 1                // Default category
+	}
+
+	return products, nil
+}
+
+// getFallbackProducts returns sample products when OpenAI fails
+func getFallbackProducts() []MarketProduct {
+	return []MarketProduct{
+		{
+			Name:        "AI-Powered Smart Glasses",
+			Description: "Revolutionary smart glasses with built-in AI assistant for real-time translation and augmented reality navigation.",
+			Type:        "Wearable Technology",
+			Price:       299.99,
+			CategoryID:  1,
+		},
+		{
+			Name:        "Eco-Friendly Wireless Charger",
+			Description: "Sustainable wireless charging pad made from recycled materials with solar panel integration.",
+			Type:        "Accessories",
+			Price:       49.99,
+			CategoryID:  1,
+		},
+		{
+			Name:        "Smart Home Energy Monitor",
+			Description: "IoT device that tracks and optimizes energy usage in your home with AI-powered recommendations.",
+			Type:        "Smart Home",
+			Price:       79.99,
+			CategoryID:  1,
+		},
+	}
 }
