@@ -356,8 +356,7 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 // ListProductsHandler handles GET /products
 func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
-
-	// Parse query parameters
+	w.Header().Set("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
 	limitStr := r.URL.Query().Get("limit")
 	offsetStr := r.URL.Query().Get("offset")
 	searchQuery := r.URL.Query().Get("search")
@@ -436,8 +435,7 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 // GET /products?locale=en&page=1&limit=10&category=&brand=&priceRange=&searchterm=&sortby=
 func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
-
-	// Parse query parameters with Laravel compatibility
+	w.Header().Set("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
 	locale := r.URL.Query().Get("locale")
 	pageStr := r.URL.Query().Get("page")
 	limitStr := r.URL.Query().Get("limit")
@@ -1455,9 +1453,7 @@ Focus on trending technologies like AI, IoT, sustainability, and emerging market
 	} else if strings.HasPrefix(content, "```") {
 		content = strings.TrimPrefix(content, "```")
 	}
-	if strings.HasSuffix(content, "```") {
-		content = strings.TrimSuffix(content, "```")
-	}
+	content = strings.TrimSuffix(content, "```")
 	content = strings.TrimSpace(content)
 
 	// Parse the JSON response from OpenAI

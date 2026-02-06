@@ -11,6 +11,7 @@ The N+1 query problem occurs when an application executes one query to fetch a l
 When fetching 100 products with their categories and brands:
 
 **Bad (N+1 Queries):**
+
 ```
 1. SELECT * FROM products LIMIT 100;           -- 1 query
 2. SELECT * FROM categories WHERE id = 1;      -- 100 queries for categories
@@ -23,6 +24,7 @@ Total: 201 queries!
 ```
 
 **Good (Optimized):**
+
 ```
 1. SELECT * FROM products LIMIT 100;
 2. SELECT * FROM categories WHERE id IN (1, 2, 3, ...);
@@ -33,6 +35,7 @@ Total: 3 queries!
 ## How to Identify N+1 Query Problems
 
 ### Symptoms
+
 - Slow API response times for list endpoints
 - Response time increases linearly with result count
 - Database connection pool exhaustion
@@ -41,6 +44,7 @@ Total: 3 queries!
 ### Detection Methods
 
 1. **Enable GORM Logging:**
+
 ```go
 db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
     Logger: logger.Default.LogMode(logger.Info), // Shows all SQL queries
@@ -48,10 +52,10 @@ db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 ```
 
 2. **Check Query Count:**
-Look for patterns where queries repeat with different IDs.
+   Look for patterns where queries repeat with different IDs.
 
 3. **Performance Monitoring:**
-Monitor database query counts vs API response times.
+   Monitor database query counts vs API response times.
 
 ## Solution: GORM Preload
 
@@ -67,16 +71,17 @@ type ProductModel struct {
     Name        string     `gorm:"type:varchar(255);not null"`
     CategoryID  *uint      `gorm:""`
     BrandID     *uint      `gorm:""`
-    
+
     // Add relationship fields
     Category    *CategoryModel `gorm:"foreignKey:CategoryID"`
     Brand       *BrandModel    `gorm:"foreignKey:BrandID"`
-    
+
     // ... other fields
 }
 ```
 
 **Important Notes:**
+
 - These fields are for ORM relationships only
 - No database schema changes required
 - Existing foreign key columns remain unchanged
@@ -91,7 +96,7 @@ func (p *ProductModel) ToEntity() *entities.Product {
     if p.Category != nil {
         category = p.Category.ToEntity()
     }
-    
+
     // Handle preloaded brand
     var brand *entities.Brand
     if p.Brand != nil {
@@ -120,11 +125,11 @@ type Product struct {
     Name       string     `json:"name"`
     CategoryID *uint      `json:"category_id,omitempty"`
     BrandID    *uint      `json:"brand_id,omitempty"`
-    
+
     // Add relationship fields
     Category   *Category  `json:"category,omitempty"`
     Brand      *Brand     `json:"brand,omitempty"`
-    
+
     // ... other fields
 }
 ```
@@ -152,7 +157,7 @@ func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*e
     if err := query.Find(&productModels).Error; err != nil {
         return nil, err
     }
-    
+
     // Convert to entities - preloaded data is included
     products := make([]*entities.Product, len(productModels))
     for i, model := range productModels {
@@ -164,6 +169,7 @@ func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*e
 ```
 
 **Apply to all list-type queries:**
+
 - `List()`
 - `Search()`
 - `GetByCategory()`
@@ -206,7 +212,7 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
     }
 
     // Same for brand...
-    
+
     return response
 }
 ```
@@ -251,6 +257,7 @@ db.Preload("Category.ParentCategory").
 ## Performance Comparison
 
 ### Before Optimization
+
 ```
 Endpoint: GET /products?limit=100
 Query Count: 201 queries
@@ -259,6 +266,7 @@ Database Load: High
 ```
 
 ### After Optimization
+
 ```
 Endpoint: GET /products?limit=100
 Query Count: 3 queries
@@ -284,6 +292,7 @@ When adding new list endpoints or optimizing existing ones:
 ## Common Pitfalls to Avoid
 
 ### 1. Forgetting Nil Checks
+
 ```go
 // ❌ BAD - will panic if Category is nil
 category := p.Category.ToEntity()
@@ -296,6 +305,7 @@ if p.Category != nil {
 ```
 
 ### 2. Not Using Preload Consistently
+
 ```go
 // ❌ BAD - mixing preloaded and non-preloaded queries
 products1 := repo.List()        // With preload
@@ -307,6 +317,7 @@ products2 := repo.GetByID(123)  // Also with preload
 ```
 
 ### 3. Over-Preloading
+
 ```go
 // ❌ BAD - loading unnecessary data
 db.Preload("Category").
@@ -323,6 +334,7 @@ db.Preload("Category").
 ```
 
 ### 4. Preload in Count Queries
+
 ```go
 // ❌ BAD - wasting resources
 db.Preload("Category").Preload("Brand").Count(&count)
@@ -334,11 +346,13 @@ db.Model(&ProductModel{}).Count(&count)
 ## Database Schema Requirements
 
 **Important:** Preloading requires:
+
 1. Foreign key columns exist (e.g., `category_id`, `brand_id`)
 2. Related tables exist (e.g., `categories`, `brands`)
 3. No additional indexes required (but recommended for performance)
 
 **Recommended Indexes:**
+
 ```sql
 CREATE INDEX idx_products_category_id ON products(category_id);
 CREATE INDEX idx_products_brand_id ON products(brand_id);
@@ -359,6 +373,7 @@ db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 ### Verify Query Count
 
 Look for patterns like:
+
 ```sql
 -- Good: Batch loading
 SELECT * FROM categories WHERE id IN (1, 2, 3, 4, 5);

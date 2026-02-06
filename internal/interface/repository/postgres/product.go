@@ -104,7 +104,7 @@ func (r *PostgresProductRepo) Update(ctx context.Context, id uint, product *enti
 
 func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL").Preload("Category").Preload("Brand")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL").Preload("Category").Preload("Brand").Order("priority ASC, id DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -364,7 +364,7 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).Preload("Category").Preload("Brand")
 
 	// Apply filters
-	r.applyFilters(query, filters)
+	query = r.applyFilters(query, filters)
 
 	// Get total count for pagination
 	if err := query.Count(&totalCount).Error; err != nil {
@@ -372,7 +372,7 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	}
 
 	// Apply sorting
-	r.applySorting(query, filters.SortBy)
+	query = r.applySorting(query, filters.SortBy)
 
 	// Apply pagination
 	offset := (filters.Page - 1) * filters.Limit
@@ -389,11 +389,12 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	return products, totalCount, nil
 }
 
-// applyFilters applies all filters to the query
-func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters) {
+// applyFilters applies all filters to the query and returns the modified query
+// IMPORTANT: GORM's Where/Joins methods return a new *gorm.DB, so we must reassign
+func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters) *gorm.DB {
 	// Search term filter
 	if filters.SearchTerm != "" {
-		query.Where("products.name ILIKE ?", "%"+filters.SearchTerm+"%")
+		query = query.Where("products.name ILIKE ?", "%"+filters.SearchTerm+"%")
 	}
 
 	// Category filter - supports both ID (numeric) and slug (alphanumeric)
@@ -401,27 +402,29 @@ func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.P
 		categoryValue := filters.CategorySlug
 		if isNumeric(categoryValue) {
 			// It's an ID - search by ID directly
-			query.Where("products.category_id = ?", categoryValue)
+			query = query.Where("products.category_id = ?", categoryValue)
 		} else {
 			// It's a slug - search by slug
-			query.Joins("LEFT JOIN categories ON products.category_id = categories.id").
+			query = query.Joins("LEFT JOIN categories ON products.category_id = categories.id").
 				Where("categories.slug = ?", categoryValue)
 		}
 	}
 
 	// Brand filter (multiple brands supported)
 	if len(filters.BrandSlugs) > 0 {
-		query.Joins("JOIN brands ON products.brand_id = brands.id").
+		query = query.Joins("JOIN brands ON products.brand_id = brands.id").
 			Where("brands.slug IN ?", filters.BrandSlugs)
 	}
 
 	// Price range filter
 	if filters.MinPrice != nil {
-		query.Where("products.price >= ?", *filters.MinPrice)
+		query = query.Where("products.price >= ?", *filters.MinPrice)
 	}
 	if filters.MaxPrice != nil {
-		query.Where("products.price <= ?", *filters.MaxPrice)
+		query = query.Where("products.price <= ?", *filters.MaxPrice)
 	}
+
+	return query
 }
 
 // isNumeric checks if a string represents a numeric value
@@ -437,19 +440,20 @@ func isNumeric(s string) bool {
 	return true
 }
 
-// applySorting applies sorting based on sortby parameter
-func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) {
+// applySorting applies sorting based on sortby parameter and returns the modified query
+func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) *gorm.DB {
 	switch sortBy {
 	case "popular":
-		query.Order("priority ASC, views_count DESC")
+		query = query.Order("priority ASC, views_count DESC")
 	case "price_asc":
-		query.Order("priority ASC, price ASC")
+		query = query.Order("priority ASC, price ASC")
 	case "price_desc":
-		query.Order("priority ASC, price DESC")
+		query = query.Order("priority ASC, price DESC")
 	default:
 		// Default sorting by priority
-		query.Order("priority ASC")
+		query = query.Order("priority ASC")
 	}
+	return query
 }
 
 // DeleteTranslation deletes a product translation by its ID
