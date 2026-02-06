@@ -78,8 +78,15 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
 
-	// Fetch category information if category ID exists
-	if product.CategoryID != nil && categoryRepo != nil {
+	// Use preloaded category information or fetch if not available
+	if product.Category != nil {
+		response.CategorySlug = &product.Category.Slug
+		response.Category = &CategoryResponse{
+			ID:   product.Category.ID,
+			Name: product.Category.Name,
+			Slug: product.Category.Slug,
+		}
+	} else if product.CategoryID != nil && categoryRepo != nil {
 		category, err := categoryRepo.GetByID(context.Background(), *product.CategoryID)
 		if err == nil && category != nil {
 			response.CategorySlug = &category.Slug
@@ -91,8 +98,15 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		}
 	}
 
-	// Fetch brand information if brand ID exists
-	if product.BrandID != nil && brandRepo != nil {
+	// Use preloaded brand information or fetch if not available
+	if product.Brand != nil {
+		response.BrandSlug = &product.Brand.Slug
+		response.Brand = &BrandResponse{
+			ID:   product.Brand.ID,
+			Name: product.Brand.Name,
+			Slug: product.Brand.Slug,
+		}
+	} else if product.BrandID != nil && brandRepo != nil {
 		brand, err := brandRepo.GetByID(context.Background(), *product.BrandID)
 		if err == nil && brand != nil {
 			response.BrandSlug = &brand.Slug
