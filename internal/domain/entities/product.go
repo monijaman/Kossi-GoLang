@@ -15,6 +15,8 @@ type Product struct {
 	Price       float64    `json:"price"`
 	CategoryID  *uint      `json:"category_id,omitempty"`
 	BrandID     *uint      `json:"brand_id,omitempty"`
+	Category    *Category  `json:"category,omitempty"`
+	Brand       *Brand     `json:"brand,omitempty"`
 	ViewsCount  int64      `json:"views_count"`
 	Status      bool       `json:"status"`
 	Priority    int        `json:"priority"`

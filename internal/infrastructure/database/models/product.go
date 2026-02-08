@@ -10,22 +10,24 @@ import (
 
 // ProductModel represents the database model for products (GORM-specific)
 type ProductModel struct {
-	ID          uint       `gorm:"primaryKey;autoIncrement"`
-	Name        string     `gorm:"type:varchar(255);not null"`
-	Description *string    `gorm:"type:text"`
-	Slug        string     `gorm:"type:varchar(255);unique;not null"`
-	CategoryID  *uint      `gorm:""`
-	BrandID     *uint      `gorm:""`
-	Model       *string    `gorm:"type:varchar(255)"`
-	Price       *float64   `gorm:"type:decimal(10,2)"`
-	Status      int        `gorm:"type:integer;default:1"`
-	Priority    int        `gorm:"default:1"`
-	CreatedBy   *string    `gorm:"type:varchar(255)"`
-	ViewsCount  int64      `gorm:"default:0"`
-	CreatedAt   time.Time  `gorm:"autoCreateTime"`
-	UpdatedAt   time.Time  `gorm:"autoUpdateTime"`
-	UpdatedBy   *string    `gorm:"type:varchar(255)"`
-	DeletedAt   *time.Time `gorm:"index"`
+	ID          uint           `gorm:"primaryKey;autoIncrement"`
+	Name        string         `gorm:"type:varchar(255);not null"`
+	Description *string        `gorm:"type:text"`
+	Slug        string         `gorm:"type:varchar(255);unique;not null"`
+	CategoryID  *uint          `gorm:""`
+	BrandID     *uint          `gorm:""`
+	Category    *CategoryModel `gorm:"foreignKey:CategoryID"`
+	Brand       *BrandModel    `gorm:"foreignKey:BrandID"`
+	Model       *string        `gorm:"type:varchar(255)"`
+	Price       *float64       `gorm:"type:decimal(10,2)"`
+	Status      int            `gorm:"type:integer;default:1"`
+	Priority    int            `gorm:"default:1"`
+	CreatedBy   *string        `gorm:"type:varchar(255)"`
+	ViewsCount  int64          `gorm:"default:0"`
+	CreatedAt   time.Time      `gorm:"autoCreateTime"`
+	UpdatedAt   time.Time      `gorm:"autoUpdateTime"`
+	UpdatedBy   *string        `gorm:"type:varchar(255)"`
+	DeletedAt   *time.Time     `gorm:"index"`
 }
 
 // ToEntity converts GORM model to domain entity
@@ -33,6 +35,15 @@ func (p *ProductModel) ToEntity() *entities.Product {
 	var price float64
 	if p.Price != nil {
 		price = *p.Price
+	}
+
+	var category *entities.Category
+	if p.Category != nil {
+		category = p.Category.ToEntity()
+	}
+	var brand *entities.Brand
+	if p.Brand != nil {
+		brand = p.Brand.ToEntity()
 	}
 
 	return &entities.Product{
@@ -43,6 +54,8 @@ func (p *ProductModel) ToEntity() *entities.Product {
 		Price:       price,
 		CategoryID:  p.CategoryID,
 		BrandID:     p.BrandID,
+		Category:    category,
+		Brand:       brand,
 		ViewsCount:  p.ViewsCount,
 		Status:      p.Status > 0, // Convert int to bool: 1+ = true, 0 = false
 		Priority:    p.Priority,

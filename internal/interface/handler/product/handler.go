@@ -78,8 +78,15 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
 
-	// Fetch category information if category ID exists
-	if product.CategoryID != nil && categoryRepo != nil {
+	// Use preloaded category information or fetch if not available
+	if product.Category != nil {
+		response.CategorySlug = &product.Category.Slug
+		response.Category = &CategoryResponse{
+			ID:   product.Category.ID,
+			Name: product.Category.Name,
+			Slug: product.Category.Slug,
+		}
+	} else if product.CategoryID != nil && categoryRepo != nil {
 		category, err := categoryRepo.GetByID(context.Background(), *product.CategoryID)
 		if err == nil && category != nil {
 			response.CategorySlug = &category.Slug
@@ -91,8 +98,15 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		}
 	}
 
-	// Fetch brand information if brand ID exists
-	if product.BrandID != nil && brandRepo != nil {
+	// Use preloaded brand information or fetch if not available
+	if product.Brand != nil {
+		response.BrandSlug = &product.Brand.Slug
+		response.Brand = &BrandResponse{
+			ID:   product.Brand.ID,
+			Name: product.Brand.Name,
+			Slug: product.Brand.Slug,
+		}
+	} else if product.BrandID != nil && brandRepo != nil {
 		brand, err := brandRepo.GetByID(context.Background(), *product.BrandID)
 		if err == nil && brand != nil {
 			response.BrandSlug = &brand.Slug
@@ -342,8 +356,7 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 // ListProductsHandler handles GET /products
 func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
-
-	// Parse query parameters
+	w.Header().Set("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
 	limitStr := r.URL.Query().Get("limit")
 	offsetStr := r.URL.Query().Get("offset")
 	searchQuery := r.URL.Query().Get("search")
@@ -422,8 +435,7 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 // GET /products?locale=en&page=1&limit=10&category=&brand=&priceRange=&searchterm=&sortby=
 func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
-
-	// Parse query parameters with Laravel compatibility
+	w.Header().Set("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
 	locale := r.URL.Query().Get("locale")
 	pageStr := r.URL.Query().Get("page")
 	limitStr := r.URL.Query().Get("limit")
@@ -1441,9 +1453,7 @@ Focus on trending technologies like AI, IoT, sustainability, and emerging market
 	} else if strings.HasPrefix(content, "```") {
 		content = strings.TrimPrefix(content, "```")
 	}
-	if strings.HasSuffix(content, "```") {
-		content = strings.TrimSuffix(content, "```")
-	}
+	content = strings.TrimSuffix(content, "```")
 	content = strings.TrimSpace(content)
 
 	// Parse the JSON response from OpenAI

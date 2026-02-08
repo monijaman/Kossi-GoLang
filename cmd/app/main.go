@@ -247,8 +247,9 @@ func main() {
 		}
 
 		sqlDB.SetMaxOpenConns(25)
-		sqlDB.SetMaxIdleConns(5)
+		sqlDB.SetMaxIdleConns(15) // Increased from 5 to reduce connection churn
 		sqlDB.SetConnMaxLifetime(5 * time.Minute)
+		sqlDB.SetConnMaxIdleTime(3 * time.Minute) // Close idle connections after 3 minutes
 
 		fmt.Println("Database connection successful!")
 
