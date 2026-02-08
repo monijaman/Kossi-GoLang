@@ -793,11 +793,12 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 	imageResponses := make([]map[string]interface{}, 0, len(images))
 	for _, img := range images {
 		imageResp := map[string]interface{}{
-			"id":         img.ID,
-			"path":       img.ImagePath,
-			"product_id": productID,
-			"created_at": img.CreatedAt.Format(time.RFC3339),
-			"updated_at": img.UpdatedAt.Format(time.RFC3339),
+			"id":           img.ID,
+			"path":         img.ImagePath,
+			"product_id":   productID,
+			"defaultphoto": img.DefaultPhoto,
+			"created_at":   img.CreatedAt.Format(time.RFC3339),
+			"updated_at":   img.UpdatedAt.Format(time.RFC3339),
 		}
 
 		// Generate presigned URL for viewing

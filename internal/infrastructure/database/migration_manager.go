@@ -280,6 +280,11 @@ func (m *MigrationManager) Setup() error {
 		return err
 	}
 
+	// Add default_photo column to images table
+	if err := migrations.AddDefaultPhotoToImages(m.db); err != nil {
+		return err
+	}
+
 	// Ensure users table has a 'type' column with default 'guest'
 
 	return nil

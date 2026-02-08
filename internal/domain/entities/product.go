@@ -80,6 +80,7 @@ type Image struct {
 	ImageableID   uint
 	ImagePath     string
 	Status        int
+	DefaultPhoto  int `json:"defaultphoto"` // 0 = not default, 1 = is default
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 	DeletedAt     *time.Time
