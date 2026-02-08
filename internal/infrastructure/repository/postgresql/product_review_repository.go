@@ -343,22 +343,22 @@ func (r *productReviewRepository) DetachImage(ctx context.Context, reviewID, ima
 
 // SetDefaultImage sets an image as default for a product and unsets others
 func (r *productReviewRepository) SetDefaultImage(ctx context.Context, imageID uint) error {
-	if err := r.db.WithContext(ctx).Model(&models.ImageModel{}).
-		Where("id = ?", imageID).
+	// Set the target image as default - Create an instance with ID set
+	if err := r.db.WithContext(ctx).Model(&models.ImageModel{ID: imageID}).
 		Update("default_photo", 1).Error; err != nil {
 		return err
 	}
 
 	// Get the image to find which product it belongs to
 	var img models.ImageModel
-	if err := r.db.WithContext(ctx).Model(&models.ImageModel{}).
+	if err := r.db.WithContext(ctx).
 		Where("id = ?", imageID).
 		First(&img).Error; err != nil {
 		return err
 	}
 
 	// Unset default_photo for all other images of the same product
-	if err := r.db.WithContext(ctx).Model(&models.ImageModel{}).
+	if err := r.db.WithContext(ctx).
 		Where("imageable_type = ? AND imageable_id = ? AND id != ?", img.ImageableType, img.ImageableID, imageID).
 		Update("default_photo", 0).Error; err != nil {
 		return err

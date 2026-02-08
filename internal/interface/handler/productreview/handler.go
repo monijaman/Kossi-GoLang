@@ -708,12 +708,13 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 
 	// Persist files to DB
 	images := make([]ImageResponse, 0, len(payload.Files))
-	for i, f := range payload.Files {
+	for _, f := range payload.Files {
 		image := &entities.Image{
 			ImageableType: "Product",
 			ImageableID:   payload.ProductID,
 			ImagePath:     f.Key,
 			Status:        1, // Active
+			DefaultPhoto:  0, // Don't mark any as default - let user decide
 			CreatedAt:     time.Now(),
 			UpdatedAt:     time.Now(),
 		}
@@ -731,7 +732,7 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 			Name:         f.Name,
 			Path:         createdImage.ImagePath,
 			ProductID:    payload.ProductID,
-			DefaultPhoto: i == 0,
+			DefaultPhoto: false, // All initially set to not default
 			CreatedAt:    createdImage.CreatedAt.Format(time.RFC3339),
 			UpdatedAt:    createdImage.UpdatedAt.Format(time.RFC3339),
 		})

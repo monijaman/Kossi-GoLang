@@ -16,6 +16,10 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
 // CategoryResponse represents the response format for categories
@@ -45,6 +49,7 @@ type ProductResponse struct {
 	BrandSlug    *string           `json:"brand_slug,omitempty"`
 	Category     *CategoryResponse `json:"category,omitempty"`
 	Brand        *BrandResponse    `json:"brand,omitempty"`
+	Photo        *string           `json:"photo,omitempty"`
 	ViewsCount   int64             `json:"views_count"`
 	Status       bool              `json:"status"`
 	Priority     int               `json:"priority"`
@@ -62,7 +67,7 @@ type ProductListResponse struct {
 }
 
 // convertProductToResponse converts domain entity to response format
-func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) ProductResponse {
+func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) ProductResponse {
 	response := ProductResponse{
 		ID:          product.ID,
 		Name:        product.Name,
@@ -118,12 +123,34 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		}
 	}
 
+	// Fetch and set product photo if imageRepo is available
+	if imageRepo != nil {
+		images, err := imageRepo.GetByImageableID(context.Background(), "product", product.ID)
+		if err == nil && len(images) > 0 {
+			// Find default photo or use first image
+			var selectedImage *entities.Image
+			for _, img := range images {
+				if img.DefaultPhoto == 1 {
+					selectedImage = img
+					break
+				}
+			}
+			if selectedImage == nil {
+				selectedImage = images[0]
+			}
+
+			// Generate image URL
+			photoURL := generateImageURL(selectedImage.ImagePath)
+			response.Photo = &photoURL
+		}
+	}
+
 	return response
 }
 
 // convertProductToResponseSimple converts domain entity to response format without fetching related data
-func convertProductToResponseSimple(product *entities.Product) ProductResponse {
-	return ProductResponse{
+func convertProductToResponseSimple(product *entities.Product, imageRepo repository.ImageRepository) ProductResponse {
+	response := ProductResponse{
 		ID:          product.ID,
 		Name:        product.Name,
 		Description: product.Description,
@@ -137,10 +164,104 @@ func convertProductToResponseSimple(product *entities.Product) ProductResponse {
 		CreatedAt:   product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
+
+	// Fetch and set product photo if imageRepo is available
+	if imageRepo != nil {
+		images, err := imageRepo.GetByImageableID(context.Background(), "product", product.ID)
+		if err == nil && len(images) > 0 {
+			// Find default photo or use first image
+			var selectedImage *entities.Image
+			for _, img := range images {
+				if img.DefaultPhoto == 1 {
+					selectedImage = img
+					break
+				}
+			}
+			if selectedImage == nil {
+				selectedImage = images[0]
+			}
+
+			// Generate image URL
+			photoURL := generateImageURL(selectedImage.ImagePath)
+			response.Photo = &photoURL
+		}
+	}
+
+	return response
+}
+
+// generateImageURL generates a presigned URL for S3 image access with fallback to direct URL
+func generateImageURL(imagePath string) string {
+	bucket := os.Getenv("S3_BUCKET")
+	region := os.Getenv("AWS_REGION")
+
+	// Use defaults if not set
+	if bucket == "" {
+		bucket = "kossti"
+	}
+	if region == "" {
+		region = "ap-southeast-1"
+	}
+
+	// Try to generate presigned URL using AWS credentials
+	cfg, err := loadAWSConfig(region)
+	if err == nil && cfg != nil {
+		preSignedURL, err := generatePresignedURL(imagePath, bucket)
+		if err == nil && preSignedURL != "" {
+			return preSignedURL
+		}
+	}
+
+	// Fallback to direct S3 URL
+	return fmt.Sprintf("https://%s.s3.%s.amazonaws.com/%s", bucket, region, imagePath)
+}
+
+// loadAWSConfig loads AWS configuration (returns nil if credentials not available)
+func loadAWSConfig(region string) (interface{}, error) {
+	// Try to load AWS config - if credentials aren't available, this will not error
+	// but the subsequent PresignClient calls will fail gracefully
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	_, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
+	return nil, err
+}
+
+// generatePresignedURL generates a presigned S3 GET URL
+func generatePresignedURL(imagePath, bucket string) (string, error) {
+	region := os.Getenv("AWS_REGION")
+	if region == "" {
+		region = "ap-southeast-1"
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
+	if err != nil {
+		return "", err
+	}
+
+	s3Client := s3.NewFromConfig(cfg)
+	presignClient := s3.NewPresignClient(s3Client)
+
+	input := &s3.GetObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(imagePath),
+	}
+
+	presigned, err := presignClient.PresignGetObject(ctx, input, func(opts *s3.PresignOptions) {
+		opts.Expires = 1 * time.Hour
+	})
+	if err != nil {
+		return "", err
+	}
+
+	return presigned.URL, nil
 }
 
 // GetProductByIDHandler handles GET /products/{id}
-func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// fmt.Println("========== DEBUG: GetProductByIDHandler called ==========")
@@ -181,7 +302,7 @@ func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo reposito
 	// DEBUG: Log the product entity before conversion
 	// fmt.Printf("DEBUG: Product entity - ID: %d, Status: %v, Priority: %d\n", product.ID, product.Status, product.Priority)
 
-	response := convertProductToResponse(product, categoryRepo, brandRepo)
+	response := convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 
 	// DEBUG: Log the response before JSON encoding
 	// fmt.Printf("DEBUG: Response struct - ID: %d, Status: %v, Priority: %d\n", response.ID, response.Status, response.Priority)
@@ -190,7 +311,7 @@ func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo reposito
 }
 
 // GetProductBySlugHandler handles GET /products-by-slug/{slug}
-func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract slug from URL path
@@ -213,12 +334,12 @@ func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo reposi
 		return
 	}
 
-	response := convertProductToResponse(product, categoryRepo, brandRepo)
+	response := convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 	json.NewEncoder(w).Encode(response)
 }
 
 // CreateProductHandler handles POST /products
-func CreateProductHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+func CreateProductHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var req entities.Product
@@ -297,13 +418,13 @@ func CreateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 		return
 	}
 
-	response := convertProductToResponseSimple(product)
+	response := convertProductToResponseSimple(product, imageRepo)
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(response)
 }
 
 // UpdateProductHandler handles PATCH /products/{id}
-func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository) {
+func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract ID from URL path
@@ -349,12 +470,12 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request, repo repositor
 		return
 	}
 
-	response := convertProductToResponseSimple(product)
+	response := convertProductToResponseSimple(product, imageRepo)
 	json.NewEncoder(w).Encode(response)
 }
 
 // ListProductsHandler handles GET /products
-func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
 	limitStr := r.URL.Query().Get("limit")
@@ -414,7 +535,7 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 	// Convert products to response format
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 	}
 
 	// Get total count
@@ -433,7 +554,7 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 
 // GetFilteredProductsHandler handles Laravel-compatible filtered product listing
 // GET /products?locale=en&page=1&limit=10&category=&brand=&priceRange=&searchterm=&sortby=
-func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
 	locale := r.URL.Query().Get("locale")
@@ -495,7 +616,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	// Convert products to response format
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 	}
 
 	// Calculate pagination info
@@ -530,7 +651,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 }
 
 // GetPopularProductsHandler handles GET /popular-products
-func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	limitStr := r.URL.Query().Get("limit")
@@ -564,7 +685,7 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 
 		productResponses := make([]ProductResponse, len(products))
 		for i, product := range products {
-			productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
+			productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
@@ -584,7 +705,7 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 	}
 
 	response := ProductListResponse{
@@ -598,7 +719,7 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 }
 
 // GetSimilarProductsHandler handles GET /products-by-slug/{slug}/similar
-func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract slug from URL path
@@ -642,7 +763,7 @@ func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	// 3. Convert to response
 	productResponses := make([]ProductResponse, len(similarProducts))
 	for i, p := range similarProducts {
-		productResponses[i] = convertProductToResponse(p, categoryRepo, brandRepo)
+		productResponses[i] = convertProductToResponse(p, categoryRepo, brandRepo, imageRepo)
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -652,7 +773,7 @@ func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 }
 
 // IncrementProductViewsHandler handles POST /products/{id}/increment-views
-func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
+func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo repository.ProductRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Extract ID from URL path - expecting /products/{id}/increment-views
@@ -696,7 +817,7 @@ func IncrementProductViewsHandler(w http.ResponseWriter, r *http.Request, repo r
 		return
 	}
 
-	response := convertProductToResponse(product, categoryRepo, brandRepo)
+	response := convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 	json.NewEncoder(w).Encode(response)
 }
 

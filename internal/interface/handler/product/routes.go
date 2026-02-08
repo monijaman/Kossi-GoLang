@@ -15,12 +15,12 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 		if r.Method == http.MethodGet {
 			// Check if   parameters are present (locale, page, sortby)
 			if r.URL.Query().Get("locale") != "" || r.URL.Query().Get("page") != "" || r.URL.Query().Get("sortby") != "" {
-				GetFilteredProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
+				GetFilteredProductsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 			} else {
-				ListProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
+				ListProductsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 			}
 		} else if r.Method == http.MethodPost {
-			CreateProductHandler(w, r, productRepo)
+			CreateProductHandler(w, r, productRepo, imageRepo)
 		} else {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)
@@ -36,9 +36,9 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 		if len(pathParts) == 1 && pathParts[0] != "" {
 			// Single ID or slug
 			if r.Method == http.MethodGet {
-				GetProductByIDHandler(w, r, productRepo, categoryRepo, brandRepo)
+				GetProductByIDHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 			} else if r.Method == http.MethodPatch {
-				UpdateProductHandler(w, r, productRepo)
+				UpdateProductHandler(w, r, productRepo, imageRepo)
 			} else {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusMethodNotAllowed)
@@ -47,7 +47,7 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 		} else if len(pathParts) == 2 && pathParts[1] == "increment-views" {
 			// POST /products/{id}/increment-views
 			if r.Method == http.MethodPost {
-				IncrementProductViewsHandler(w, r, productRepo, categoryRepo, brandRepo)
+				IncrementProductViewsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 			} else {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusMethodNotAllowed)
@@ -111,11 +111,11 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 
 		// Check for specific sub-paths manually since we are using prefix matching
 		if strings.HasSuffix(r.URL.Path, "/similar") {
-			GetSimilarProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
+			GetSimilarProductsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 			return
 		}
 
-		GetProductBySlugHandler(w, r, productRepo, categoryRepo, brandRepo)
+		GetProductBySlugHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 	})
 
 	// GET /popular-products - Get popular products
@@ -126,7 +126,7 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			return
 		}
-		GetPopularProductsHandler(w, r, productRepo, categoryRepo, brandRepo)
+		GetPopularProductsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 	})
 
 	// Image upload endpoints
