@@ -3,6 +3,7 @@ package specification
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"net/http"
@@ -74,9 +75,9 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 		return
 	}
 
-	if request.ProductID == 0 || request.Value == "" {
+	if request.ProductID == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "product_id and value are required"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "product_id is required"})
 		return
 	}
 
@@ -146,6 +147,15 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
+	// Read the entire body
+	bodyBytes, err := io.ReadAll(r.Body)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to read request body"})
+		return
+	}
+	defer r.Body.Close()
+
 	var request struct {
 		Specifications []struct {
 			ID                 *uint  `json:"id,omitempty"`
@@ -157,13 +167,30 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 				IsVisible    bool   `json:"is_visible"`
 				IsFilterable bool   `json:"is_filterable"`
 			} `json:"specification_key,omitempty"`
-		} `json:"specifications"`
+		} `json:"specifications,omitempty"`
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
-		return
+	// First, try to decode as object with specifications key
+	err = json.Unmarshal(bodyBytes, &request)
+	if err != nil {
+		// If that fails, try to decode as direct array
+		var specs []struct {
+			ID                 *uint  `json:"id,omitempty"`
+			ProductID          uint   `json:"product_id"`
+			SpecificationKeyID *uint  `json:"specification_key_id,omitempty"`
+			Value              string `json:"value"`
+			SpecificationKey   *struct {
+				Name         string `json:"name"`
+				IsVisible    bool   `json:"is_visible"`
+				IsFilterable bool   `json:"is_filterable"`
+			} `json:"specification_key,omitempty"`
+		}
+		if err2 := json.Unmarshal(bodyBytes, &specs); err2 != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+			return
+		}
+		request.Specifications = specs
 	}
 
 	if len(request.Specifications) == 0 {
@@ -856,32 +883,52 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var request struct {
-		ProductID      uint `json:"productId"`
-		Specifications []struct {
-			ID              uint   `json:"id"` // specification_id
-			Locale          string `json:"locale"`
-			TranslatedValue string `json:"translated_value"`
-		} `json:"specifications"`
-	}
-
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+	// Read the entire body
+	bodyBytes, err := io.ReadAll(r.Body)
+	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to read request body"})
 		return
 	}
+	defer r.Body.Close()
 
-	if request.ProductID == 0 {
+	var translations []struct {
+		ID              uint   `json:"id"` // specification_id
+		Locale          string `json:"locale"`
+		TranslatedValue string `json:"translated_value"`
+	}
+
+	// First, try to decode as array
+	err = json.Unmarshal(bodyBytes, &translations)
+	if err != nil {
+		// If that fails, try to decode as object with specifications key
+		var request struct {
+			ProductID      uint `json:"productId"`
+			Specifications []struct {
+				ID              uint   `json:"id"` // specification_id
+				Locale          string `json:"locale"`
+				TranslatedValue string `json:"translated_value"`
+			} `json:"specifications"`
+		}
+		if err2 := json.Unmarshal(bodyBytes, &request); err2 != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+			return
+		}
+		translations = request.Specifications
+	}
+
+	if len(translations) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "productId is required"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "translations array cannot be empty"})
 		return
 	}
 
 	var savedTranslations []*entities.SpecificationTranslation
 
 	// Process each specification translation
-	for i, specReq := range request.Specifications {
-		if specReq.ID == 0 || specReq.Locale == "" || specReq.TranslatedValue == "" {
+	for i, transReq := range translations {
+		if transReq.ID == 0 || transReq.Locale == "" || transReq.TranslatedValue == "" {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{
 				"error": fmt.Sprintf("specification id, locale and translated_value are required at index %d", i),
@@ -891,9 +938,9 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 
 		// Create or update translation using upsert approach
 		translation := &entities.SpecificationTranslation{
-			SpecificationID: specReq.ID,
-			Locale:          specReq.Locale,
-			TranslatedValue: specReq.TranslatedValue,
+			SpecificationID: transReq.ID,
+			Locale:          transReq.Locale,
+			TranslatedValue: transReq.TranslatedValue,
 			CreatedAt:       time.Now(),
 			UpdatedAt:       time.Now(),
 		}
@@ -909,9 +956,8 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message":    "Specification translation values updated successfully!",
-		"data":       savedTranslations,
-		"count":      len(savedTranslations),
-		"product_id": request.ProductID,
+		"message": "Specification translation values updated successfully!",
+		"data":    savedTranslations,
+		"count":   len(savedTranslations),
 	})
 }

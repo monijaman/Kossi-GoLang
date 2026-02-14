@@ -148,50 +148,75 @@ func (r *PostgresSpecificationRepo) BulkUpsert(ctx context.Context, specs []*ent
 		var existingSpec *entities.Specification
 		var err error
 
-		// If ID is provided, try to find by ID first
 		if spec.ID != 0 {
+			// ID provided: try to update that specific record
 			existingSpec, err = r.GetByID(ctx, spec.ID)
 			if err != nil && err.Error() != "specification not found" {
 				return nil, err
 			}
-			// If specification not found by ID, existingSpec remains nil
-		}
+			if existingSpec != nil {
+				// Update existing specification
+				existingSpec.Value = spec.Value
+				existingSpec.SpecificationKeyID = spec.SpecificationKeyID
+				existingSpec.ProductID = spec.ProductID
+				existingSpec.UpdatedAt = time.Now()
 
-		// If not found by ID (or no ID provided), check by product_id and specification_key_id
-		if existingSpec == nil {
+				var specModel models.SpecificationModel
+				specModel.FromEntity(existingSpec)
+
+				if err := r.db.WithContext(ctx).Save(&specModel).Error; err != nil {
+					return nil, err
+				}
+
+				result = append(result, specModel.ToEntity())
+			} else {
+				// ID not found, create new with this ID
+				spec.CreatedAt = time.Now()
+				spec.UpdatedAt = time.Now()
+
+				var specModel models.SpecificationModel
+				specModel.FromEntity(spec)
+
+				if err := r.db.WithContext(ctx).Create(&specModel).Error; err != nil {
+					return nil, err
+				}
+
+				result = append(result, specModel.ToEntity())
+			}
+		} else {
+			// No ID provided: upsert by product_id and specification_key_id
 			existingSpec, err = r.GetByProductAndKey(ctx, spec.ProductID, spec.SpecificationKeyID)
 			if err != nil {
 				return nil, err
 			}
-		}
 
-		if existingSpec != nil {
-			// Update existing specification
-			existingSpec.Value = spec.Value
-			existingSpec.SpecificationKeyID = spec.SpecificationKeyID // Allow key changes
-			existingSpec.UpdatedAt = time.Now()
+			if existingSpec != nil {
+				// Update existing specification
+				existingSpec.Value = spec.Value
+				existingSpec.UpdatedAt = time.Now()
 
-			var specModel models.SpecificationModel
-			specModel.FromEntity(existingSpec)
+				var specModel models.SpecificationModel
+				specModel.FromEntity(existingSpec)
 
-			if err := r.db.WithContext(ctx).Save(&specModel).Error; err != nil {
-				return nil, err
+				if err := r.db.WithContext(ctx).Save(&specModel).Error; err != nil {
+					return nil, err
+				}
+
+				result = append(result, specModel.ToEntity())
+			} else {
+				// Create new specification
+				spec.CreatedAt = time.Now()
+				spec.UpdatedAt = time.Now()
+
+				var specModel models.SpecificationModel
+				specModel.FromEntity(spec)
+
+				if err := r.db.WithContext(ctx).Create(&specModel).Error; err != nil {
+					return nil, err
+				}
+
+				result = append(result, specModel.ToEntity())
 			}
-
-			result = append(result, specModel.ToEntity())
-		} else {
-			// Create new specification
-			spec.CreatedAt = time.Now()
-			spec.UpdatedAt = time.Now()
-
-			var specModel models.SpecificationModel
-			specModel.FromEntity(spec)
-
-			if err := r.db.WithContext(ctx).Create(&specModel).Error; err != nil {
-				return nil, err
-			}
-
-			result = append(result, specModel.ToEntity())
 		}
 	}
 
