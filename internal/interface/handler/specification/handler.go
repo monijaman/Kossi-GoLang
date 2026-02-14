@@ -176,10 +176,10 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 
 	// Process each specification in the request
 	for i, specReq := range request.Specifications {
-		if specReq.ProductID == 0 || specReq.Value == "" {
+		if specReq.ProductID == 0 {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{
-				"error": "product_id and value are required for all specifications",
+				"error": "product_id is required for all specifications",
 				"index": strconv.Itoa(i),
 			})
 			return
