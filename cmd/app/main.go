@@ -284,6 +284,10 @@ func main() {
 	// Initialize router
 	mux := http.NewServeMux()
 
+	// Serve uploaded files from the uploads directory at the /uploads/ URL path
+	// This allows images saved to the local filesystem to be fetched by clients
+	mux.Handle("/uploads/", http.StripPrefix("/uploads/", http.FileServer(http.Dir("uploads"))))
+
 	// Register a basic health check route immediately.
 	// This is crucial for deployment platforms like Railway/Heroku
 	// which need a fast-responding endpoint to confirm the server started.

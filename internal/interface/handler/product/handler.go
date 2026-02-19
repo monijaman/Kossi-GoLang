@@ -50,6 +50,7 @@ type ProductResponse struct {
 	Category     *CategoryResponse `json:"category,omitempty"`
 	Brand        *BrandResponse    `json:"brand,omitempty"`
 	Photo        *string           `json:"photo,omitempty"`
+	DefaultPhoto *int              `json:"defaultphoto,omitempty"`
 	ViewsCount   int64             `json:"views_count"`
 	Status       bool              `json:"status"`
 	Priority     int               `json:"priority"`
@@ -125,7 +126,7 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 
 	// Fetch and set product photo if imageRepo is available
 	if imageRepo != nil {
-		images, err := imageRepo.GetByImageableID(context.Background(), "product", product.ID)
+		images, err := imageRepo.GetByImageableID(context.Background(), "Product", product.ID)
 		if err == nil && len(images) > 0 {
 			// Find default photo or use first image
 			var selectedImage *entities.Image
@@ -142,6 +143,8 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 			// Generate image URL
 			photoURL := generateImageURL(selectedImage.ImagePath)
 			response.Photo = &photoURL
+			// Set default photo flag from DB (0/1)
+			response.DefaultPhoto = &selectedImage.DefaultPhoto
 		}
 	}
 
@@ -167,7 +170,7 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 
 	// Fetch and set product photo if imageRepo is available
 	if imageRepo != nil {
-		images, err := imageRepo.GetByImageableID(context.Background(), "product", product.ID)
+		images, err := imageRepo.GetByImageableID(context.Background(), "Product", product.ID)
 		if err == nil && len(images) > 0 {
 			// Find default photo or use first image
 			var selectedImage *entities.Image
@@ -184,6 +187,8 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 			// Generate image URL
 			photoURL := generateImageURL(selectedImage.ImagePath)
 			response.Photo = &photoURL
+			// Set default photo flag from DB (0/1)
+			response.DefaultPhoto = &selectedImage.DefaultPhoto
 		}
 	}
 
@@ -192,10 +197,25 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 
 // generateImageURL generates a presigned URL for S3 image access with fallback to direct URL
 func generateImageURL(imagePath string) string {
+	// If the imagePath is already a full URL, return as-is
+	if strings.HasPrefix(imagePath, "http://") || strings.HasPrefix(imagePath, "https://") {
+		return imagePath
+	}
+
+	// If the file exists on local filesystem, return a server-relative URL
+	fsPath := imagePath
+	if strings.HasPrefix(fsPath, "/") {
+		fsPath = strings.TrimPrefix(fsPath, "/")
+	}
+	if _, err := os.Stat(fsPath); err == nil {
+		// Use forward slashes for URLs on all platforms
+		return "/" + filepath.ToSlash(fsPath)
+	}
+
+	// Otherwise try S3 (use env vars or defaults)
 	bucket := os.Getenv("S3_BUCKET")
 	region := os.Getenv("AWS_REGION")
 
-	// Use defaults if not set
 	if bucket == "" {
 		bucket = "kossti"
 	}
@@ -203,7 +223,6 @@ func generateImageURL(imagePath string) string {
 		region = "ap-southeast-1"
 	}
 
-	// Try to generate presigned URL using AWS credentials
 	cfg, err := loadAWSConfig(region)
 	if err == nil && cfg != nil {
 		preSignedURL, err := generatePresignedURL(imagePath, bucket)
@@ -217,14 +236,15 @@ func generateImageURL(imagePath string) string {
 }
 
 // loadAWSConfig loads AWS configuration (returns nil if credentials not available)
-func loadAWSConfig(region string) (interface{}, error) {
-	// Try to load AWS config - if credentials aren't available, this will not error
-	// but the subsequent PresignClient calls will fail gracefully
+func loadAWSConfig(region string) (*aws.Config, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
-	_, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
-	return nil, err
+	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
+	if err != nil {
+		return nil, err
+	}
+	return &cfg, nil
 }
 
 // generatePresignedURL generates a presigned S3 GET URL
@@ -927,7 +947,7 @@ func GetProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo re
 		return
 	}
 
-	images, err := imageRepo.GetByImageableID(r.Context(), "product", uint(productID))
+	images, err := imageRepo.GetByImageableID(r.Context(), "Product", uint(productID))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get images"})

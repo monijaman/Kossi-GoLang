@@ -10,6 +10,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -802,25 +803,39 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 			"updated_at":   img.UpdatedAt.Format(time.RFC3339),
 		}
 
-		// Generate presigned URL for viewing
-		if presignClient != nil {
-			input := &s3.GetObjectInput{
-				Bucket: aws.String(bucket),
-				Key:    aws.String(img.ImagePath),
-			}
-
-			presigned, err := presignClient.PresignGetObject(r.Context(), input, func(opts *s3.PresignOptions) {
-				opts.Expires = 1 * time.Hour
-			})
-
-			if err == nil {
-				imageResp["url"] = presigned.URL
-			} else {
-				// Fallback to direct URL
-				imageResp["url"] = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + img.ImagePath
-			}
+		// Prefer returning full URLs unchanged
+		if strings.HasPrefix(img.ImagePath, "http://") || strings.HasPrefix(img.ImagePath, "https://") {
+			imageResp["url"] = img.ImagePath
 		} else {
-			imageResp["url"] = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + img.ImagePath
+			// If local file exists, return server-relative URL
+			fsPath := img.ImagePath
+			if strings.HasPrefix(fsPath, "/") {
+				fsPath = strings.TrimPrefix(fsPath, "/")
+			}
+			if _, err := os.Stat(fsPath); err == nil {
+				imageResp["url"] = "/" + filepath.ToSlash(fsPath)
+			} else if presignClient != nil && bucket != "" {
+				// Try presigned S3 URL when configured
+				input := &s3.GetObjectInput{
+					Bucket: aws.String(bucket),
+					Key:    aws.String(img.ImagePath),
+				}
+
+				presigned, err := presignClient.PresignGetObject(r.Context(), input, func(opts *s3.PresignOptions) {
+					opts.Expires = 1 * time.Hour
+				})
+
+				if err == nil {
+					imageResp["url"] = presigned.URL
+				} else {
+					imageResp["url"] = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + img.ImagePath
+				}
+			} else if bucket != "" {
+				imageResp["url"] = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + img.ImagePath
+			} else {
+				// Last resort: return server-relative path even if file not found
+				imageResp["url"] = "/" + filepath.ToSlash(img.ImagePath)
+			}
 		}
 
 		imageResponses = append(imageResponses, imageResp)
