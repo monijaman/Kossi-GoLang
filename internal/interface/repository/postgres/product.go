@@ -104,7 +104,7 @@ func (r *PostgresProductRepo) Update(ctx context.Context, id uint, product *enti
 
 func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL").Preload("Category").Preload("Brand").Order("priority ASC, id DESC")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand").Order("priority ASC, id DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -127,7 +127,7 @@ func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*e
 
 func (r *PostgresProductRepo) Search(ctx context.Context, query string, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	dbQuery := r.db.WithContext(ctx).Where("deleted_at IS NULL").Preload("Category").Preload("Brand")
+	dbQuery := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand")
 
 	if query != "" {
 		searchTerm := "%" + query + "%"
@@ -155,7 +155,7 @@ func (r *PostgresProductRepo) Search(ctx context.Context, query string, limit, o
 
 func (r *PostgresProductRepo) GetPopular(ctx context.Context, limit int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Preload("Category").Preload("Brand").Where("deleted_at IS NULL").Order("views_count DESC")
+	query := r.db.WithContext(ctx).Preload("Category").Preload("Brand").Where("deleted_at IS NULL AND status >= 1").Order("views_count DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -175,7 +175,7 @@ func (r *PostgresProductRepo) GetPopular(ctx context.Context, limit int) ([]*ent
 
 func (r *PostgresProductRepo) GetByCategory(ctx context.Context, categoryID uint, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND category_id = ?", categoryID).Preload("Category").Preload("Brand")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1 AND category_id = ?", categoryID).Preload("Category").Preload("Brand")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -198,7 +198,7 @@ func (r *PostgresProductRepo) GetByCategory(ctx context.Context, categoryID uint
 
 func (r *PostgresProductRepo) GetByBrand(ctx context.Context, brandID uint, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND brand_id = ?", brandID).Preload("Category").Preload("Brand")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1 AND brand_id = ?", brandID).Preload("Category").Preload("Brand")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -232,7 +232,7 @@ func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *e
 
 	query := r.db.WithContext(ctx).
 		Preload("Category").Preload("Brand").
-		Where("deleted_at IS NULL").
+		Where("deleted_at IS NULL AND status >= 1").
 		Where("category_id = ?", *product.CategoryID).
 		Where("id != ?", product.ID).
 		Where("price BETWEEN ? AND ?", minPrice, maxPrice)
@@ -270,21 +270,21 @@ func (r *PostgresProductRepo) IncrementViews(ctx context.Context, id uint) error
 
 func (r *PostgresProductRepo) Count(ctx context.Context) (int64, error) {
 	var count int64
-	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).Where("deleted_at IS NULL").Count(&count).Error
+	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).Where("deleted_at IS NULL AND status >= 1").Count(&count).Error
 	return count, err
 }
 
 func (r *PostgresProductRepo) CountByCategory(ctx context.Context, categoryID uint) (int64, error) {
 	var count int64
 	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).
-		Where("deleted_at IS NULL AND category_id = ?", categoryID).Count(&count).Error
+		Where("deleted_at IS NULL AND status >= 1 AND category_id = ?", categoryID).Count(&count).Error
 	return count, err
 }
 
 func (r *PostgresProductRepo) CountByBrand(ctx context.Context, brandID uint) (int64, error) {
 	var count int64
 	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).
-		Where("deleted_at IS NULL AND brand_id = ?", brandID).Count(&count).Error
+		Where("deleted_at IS NULL AND status >= 1 AND brand_id = ?", brandID).Count(&count).Error
 	return count, err
 }
 
@@ -360,8 +360,8 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	var productModels []models.ProductModel
 	var totalCount int64
 
-	// Start building the query
-	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).Preload("Category").Preload("Brand")
+	// Start building the query (only include non-deleted, active products by default)
+	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).Preload("Category").Preload("Brand").Where("deleted_at IS NULL AND status >= 1")
 
 	// Apply filters
 	query = r.applyFilters(query, filters)

@@ -147,6 +147,9 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
+	// Log request arrival
+	fmt.Printf("%s - BulkUpsertSpecificationHandler: received request from %s\n", time.Now().Format(time.RFC3339), r.RemoteAddr)
+
 	// Read the entire body
 	bodyBytes, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -192,6 +195,8 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 		}
 		request.Specifications = specs
 	}
+
+	fmt.Printf("%s - BulkUpsertSpecificationHandler: parsed %d specifications\n", time.Now().Format(time.RFC3339), len(request.Specifications))
 
 	if len(request.Specifications) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
@@ -924,9 +929,7 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	var savedTranslations []*entities.SpecificationTranslation
-
-	// Process each specification translation
+	// Validate all translations first
 	for i, transReq := range translations {
 		if transReq.ID == 0 || transReq.Locale == "" || transReq.TranslatedValue == "" {
 			w.WriteHeader(http.StatusBadRequest)
@@ -935,24 +938,26 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 			})
 			return
 		}
+	}
 
-		// Create or update translation using upsert approach
-		translation := &entities.SpecificationTranslation{
+	// Build the list of entities for bulk upsert
+	translationEntities := make([]*entities.SpecificationTranslation, len(translations))
+	for i, transReq := range translations {
+		translationEntities[i] = &entities.SpecificationTranslation{
 			SpecificationID: transReq.ID,
 			Locale:          transReq.Locale,
 			TranslatedValue: transReq.TranslatedValue,
 			CreatedAt:       time.Now(),
 			UpdatedAt:       time.Now(),
 		}
+	}
 
-		// Use the new UpsertTranslation method which handles create/update automatically
-		savedTranslation, err := specRepo.UpsertTranslation(r.Context(), translation)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("Failed to upsert specification translation: %v", err)})
-			return
-		}
-		savedTranslations = append(savedTranslations, savedTranslation)
+	// Use bulk upsert for performance
+	savedTranslations, err := specRepo.BulkUpsertTranslations(r.Context(), translationEntities)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("Failed to upsert specification translations: %v", err)})
+		return
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -961,3 +966,4 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 		"count":   len(savedTranslations),
 	})
 }
+

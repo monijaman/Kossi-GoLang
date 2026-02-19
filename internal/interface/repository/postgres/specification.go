@@ -143,81 +143,102 @@ func (r *PostgresSpecificationRepo) BulkUpsert(ctx context.Context, specs []*ent
 
 	var result []*entities.Specification
 
-	// Process each specification
-	for _, spec := range specs {
-		var existingSpec *entities.Specification
-		var err error
+	// Use a single transaction for atomicity and performance
+	err := r.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		// Collect all unique product IDs to pre-fetch existing specs
+		productIDs := make(map[uint]bool)
+		for _, spec := range specs {
+			productIDs[spec.ProductID] = true
+		}
 
-		if spec.ID != 0 {
-			// ID provided: try to update that specific record
-			existingSpec, err = r.GetByID(ctx, spec.ID)
-			if err != nil && err.Error() != "specification not found" {
-				return nil, err
-			}
-			if existingSpec != nil {
-				// Update existing specification
-				existingSpec.Value = spec.Value
-				existingSpec.SpecificationKeyID = spec.SpecificationKeyID
-				existingSpec.ProductID = spec.ProductID
-				existingSpec.UpdatedAt = time.Now()
+		// Pre-fetch ALL existing specs for these products in ONE query
+		var existingModels []models.SpecificationModel
+		pids := make([]uint, 0, len(productIDs))
+		for pid := range productIDs {
+			pids = append(pids, pid)
+		}
+		if err := tx.Where("product_id IN ?", pids).Find(&existingModels).Error; err != nil {
+			return err
+		}
 
-				var specModel models.SpecificationModel
-				specModel.FromEntity(existingSpec)
+		// Build lookup maps for fast access
+		// Map by ID for specs that have an ID
+		byID := make(map[uint]*models.SpecificationModel)
+		// Map by (product_id, specification_key_id) for specs without an ID
+		type prodKeyPair struct {
+			ProductID uint
+			KeyID     uint
+		}
+		byProdKey := make(map[prodKeyPair]*models.SpecificationModel)
 
-				if err := r.db.WithContext(ctx).Save(&specModel).Error; err != nil {
-					return nil, err
+		for i := range existingModels {
+			m := &existingModels[i]
+			byID[m.ID] = m
+			byProdKey[prodKeyPair{m.ProductID, m.SpecificationKeyID}] = m
+		}
+
+		now := time.Now()
+
+		for _, spec := range specs {
+			if spec.ID != 0 {
+				// ID provided: try to update that specific record
+				if existing, ok := byID[spec.ID]; ok {
+					existing.Value = spec.Value
+					existing.SpecificationKeyID = spec.SpecificationKeyID
+					existing.ProductID = spec.ProductID
+					existing.UpdatedAt = now
+
+					if err := tx.Save(existing).Error; err != nil {
+						return err
+					}
+					result = append(result, existing.ToEntity())
+				} else {
+					// ID not found, create new
+					spec.CreatedAt = now
+					spec.UpdatedAt = now
+
+					var specModel models.SpecificationModel
+					specModel.FromEntity(spec)
+
+					if err := tx.Create(&specModel).Error; err != nil {
+						return err
+					}
+					result = append(result, specModel.ToEntity())
 				}
-
-				result = append(result, specModel.ToEntity())
 			} else {
-				// ID not found, create new with this ID
-				spec.CreatedAt = time.Now()
-				spec.UpdatedAt = time.Now()
+				// No ID provided: upsert by product_id and specification_key_id
+				key := prodKeyPair{spec.ProductID, spec.SpecificationKeyID}
+				if existing, ok := byProdKey[key]; ok {
+					existing.Value = spec.Value
+					existing.UpdatedAt = now
 
-				var specModel models.SpecificationModel
-				specModel.FromEntity(spec)
+					if err := tx.Save(existing).Error; err != nil {
+						return err
+					}
+					result = append(result, existing.ToEntity())
+				} else {
+					// Create new specification
+					spec.CreatedAt = now
+					spec.UpdatedAt = now
 
-				if err := r.db.WithContext(ctx).Create(&specModel).Error; err != nil {
-					return nil, err
+					var specModel models.SpecificationModel
+					specModel.FromEntity(spec)
+
+					if err := tx.Create(&specModel).Error; err != nil {
+						return err
+					}
+					// Add to lookup map in case there are duplicates in the same batch
+					byProdKey[key] = &specModel
+					result = append(result, specModel.ToEntity())
 				}
-
-				result = append(result, specModel.ToEntity())
-			}
-		} else {
-			// No ID provided: upsert by product_id and specification_key_id
-			existingSpec, err = r.GetByProductAndKey(ctx, spec.ProductID, spec.SpecificationKeyID)
-			if err != nil {
-				return nil, err
-			}
-
-			if existingSpec != nil {
-				// Update existing specification
-				existingSpec.Value = spec.Value
-				existingSpec.UpdatedAt = time.Now()
-
-				var specModel models.SpecificationModel
-				specModel.FromEntity(existingSpec)
-
-				if err := r.db.WithContext(ctx).Save(&specModel).Error; err != nil {
-					return nil, err
-				}
-
-				result = append(result, specModel.ToEntity())
-			} else {
-				// Create new specification
-				spec.CreatedAt = time.Now()
-				spec.UpdatedAt = time.Now()
-
-				var specModel models.SpecificationModel
-				specModel.FromEntity(spec)
-
-				if err := r.db.WithContext(ctx).Create(&specModel).Error; err != nil {
-					return nil, err
-				}
-
-				result = append(result, specModel.ToEntity())
 			}
 		}
+
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
 	}
 
 	return result, nil
@@ -282,6 +303,78 @@ func (r *PostgresSpecificationRepo) UpsertTranslation(ctx context.Context, trans
 	}
 
 	return translationModel.ToEntity(), nil
+}
+
+// BulkUpsertTranslations creates or updates multiple translations in a single transaction
+func (r *PostgresSpecificationRepo) BulkUpsertTranslations(ctx context.Context, translations []*entities.SpecificationTranslation) ([]*entities.SpecificationTranslation, error) {
+	if len(translations) == 0 {
+		return []*entities.SpecificationTranslation{}, nil
+	}
+
+	var result []*entities.SpecificationTranslation
+
+	err := r.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		// Collect all specification IDs to pre-fetch existing translations
+		specIDs := make([]uint, 0, len(translations))
+		for _, t := range translations {
+			specIDs = append(specIDs, t.SpecificationID)
+		}
+
+		// Pre-fetch ALL existing translations for these specification IDs in ONE query
+		var existingModels []models.SpecificationTranslationModel
+		if err := tx.Where("specification_id IN ?", specIDs).Find(&existingModels).Error; err != nil {
+			return err
+		}
+
+		// Build lookup map: (specification_id, locale) -> existing model
+		type specLocalePair struct {
+			SpecID uint
+			Locale string
+		}
+		existingMap := make(map[specLocalePair]*models.SpecificationTranslationModel)
+		for i := range existingModels {
+			m := &existingModels[i]
+			existingMap[specLocalePair{m.SpecificationID, m.Locale}] = m
+		}
+
+		now := time.Now()
+
+		for _, translation := range translations {
+			key := specLocalePair{translation.SpecificationID, translation.Locale}
+
+			if existing, ok := existingMap[key]; ok {
+				// Update existing translation
+				existing.Value = translation.TranslatedValue
+				existing.UpdatedAt = now
+
+				if err := tx.Save(existing).Error; err != nil {
+					return err
+				}
+				result = append(result, existing.ToEntity())
+			} else {
+				// Create new translation
+				var newModel models.SpecificationTranslationModel
+				newModel.FromEntity(translation)
+				newModel.ID = 0
+				newModel.CreatedAt = now
+				newModel.UpdatedAt = now
+
+				if err := tx.Create(&newModel).Error; err != nil {
+					return err
+				}
+				existingMap[key] = &newModel
+				result = append(result, newModel.ToEntity())
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
 
 func (r *PostgresSpecificationRepo) GetTranslations(ctx context.Context, specID uint) ([]*entities.SpecificationTranslation, error) {

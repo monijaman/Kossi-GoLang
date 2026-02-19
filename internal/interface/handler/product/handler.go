@@ -505,7 +505,7 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 	brandIDStr := r.URL.Query().Get("brand_id")
 
 	// Set defaults
-	limit := 10
+	limit := 20
 	offset := 0
 
 	if limitStr != "" {
