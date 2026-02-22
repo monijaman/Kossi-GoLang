@@ -23,6 +23,8 @@ type Product struct {
 	CreatedAt   time.Time  `json:"created_at"`
 	UpdatedAt   time.Time  `json:"updated_at"`
 	DeletedAt   *time.Time `json:"deleted_at,omitempty"`
+	StartPrice  *float64   `json:"start_price,omitempty"`
+	EndPrice    *float64   `json:"end_price,omitempty"`
 }
 
 // ProductReview represents a product review

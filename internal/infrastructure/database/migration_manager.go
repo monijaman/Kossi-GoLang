@@ -261,6 +261,11 @@ func (m *MigrationManager) Setup() error {
 		return err
 	}
 
+	// Convert price columns to varchar for Bengali text support BEFORE AutoMigrate
+	if err := migrations.ConvertPriceColumnsToVarchar(m.db); err != nil {
+		return err
+	}
+
 	// First create all tables (AutoMigrate will now see string type in the model)
 	if err := m.MigrateAll(); err != nil {
 		return err

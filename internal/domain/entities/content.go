@@ -45,7 +45,8 @@ type ProductTranslation struct {
 	ProductID      uint
 	Locale         string
 	TranslatedName string
-	Price          *string `json:"price,omitempty"`
+	StartPrice     *string `json:"start_price,omitempty"`
+	EndPrice       *string `json:"end_price,omitempty"`
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 }

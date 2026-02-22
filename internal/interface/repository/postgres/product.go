@@ -226,16 +226,25 @@ func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *e
 		return nil, nil // No category to match against
 	}
 
+	// Determine representative price from start/end for similarity calculation
+	var centerPrice float64
+	if product.StartPrice != nil {
+		centerPrice = *product.StartPrice
+	} else if product.EndPrice != nil {
+		centerPrice = *product.EndPrice
+	} else {
+		centerPrice = product.Price
+	}
 	// Calculate price range (+/- 10%)
-	minPrice := product.Price * 0.9
-	maxPrice := product.Price * 1.1
+	minPrice := centerPrice * 0.9
+	maxPrice := centerPrice * 1.1
 
 	query := r.db.WithContext(ctx).
 		Preload("Category").Preload("Brand").
 		Where("deleted_at IS NULL AND status >= 1").
 		Where("category_id = ?", *product.CategoryID).
 		Where("id != ?", product.ID).
-		Where("price BETWEEN ? AND ?", minPrice, maxPrice)
+		Where("COALESCE(start_price, end_price, 0) BETWEEN ? AND ?", minPrice, maxPrice)
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -294,21 +303,23 @@ func (r *PostgresProductRepo) CreateTranslation(ctx context.Context, translation
 	translationModel.FromEntity(translation)
 
 	// Debug: Log what's being sent to database
-	// fmt.Printf("Repository CreateTranslation - Model before DB: ProductID=%d, Locale='%s', TranslatedName='%s' (len=%d)\n",
-	// 	translationModel.ProductID, translationModel.Locale, translationModel.TranslatedName, len(translationModel.TranslatedName))
+	fmt.Printf("Repository CreateTranslation - Model before DB: ProductID=%d, Locale='%s', TranslatedName='%s', StartPrice=%v, EndPrice=%v\n",
+		translationModel.ProductID, translationModel.Locale, translationModel.TranslatedName, translationModel.StartPrice, translationModel.EndPrice)
 
 	// Validate that the translated_name field is not empty before database call
 	if translationModel.TranslatedName == "" {
-		// fmt.Printf("ERROR: Model.TranslatedName is empty before database call!\n")
+		fmt.Printf("ERROR: Model.TranslatedName is empty before database call!\n")
 		return nil, fmt.Errorf("translated_name field cannot be empty")
 	}
 
+	// Create using raw SQL to ensure proper handling of nullable columns
 	if err := r.db.WithContext(ctx).Create(&translationModel).Error; err != nil {
-		// fmt.Printf("Database create error: %v\n", err)
+		fmt.Printf("ERROR creating translation: %v\n", err)
 		return nil, err
 	}
 
-	// fmt.Printf("Translation created successfully in database with ID: %d\n", translationModel.ID)
+	fmt.Printf("Translation created successfully in database with ID: %d, StartPrice=%v, EndPrice=%v\n",
+		translationModel.ID, translationModel.StartPrice, translationModel.EndPrice)
 	return translationModel.ToEntity(), nil
 }
 
@@ -348,10 +359,37 @@ func (r *PostgresProductRepo) UpdateTranslation(ctx context.Context, translation
 	var translationModel models.ProductTranslationModel
 	translationModel.FromEntity(translation)
 
-	if err := r.db.WithContext(ctx).Save(&translationModel).Error; err != nil {
+	fmt.Printf("Repository UpdateTranslation - Updating ID=%d with StartPrice=%v, EndPrice=%v\n",
+		translationModel.ID, translationModel.StartPrice, translationModel.EndPrice)
+
+	// Use raw SQL to ensure nullable columns are properly updated (including NULLs)
+	// This bypasses GORM's default behavior of skipping nil/zero values
+	sql := `UPDATE product_translations 
+	        SET translated_name = ?, 
+	            start_price = ?, 
+	            end_price = ?, 
+	            updated_at = ? 
+	        WHERE id = ?`
+
+	if err := r.db.WithContext(ctx).Exec(sql,
+		translationModel.TranslatedName,
+		translationModel.StartPrice,
+		translationModel.EndPrice,
+		translationModel.UpdatedAt,
+		translationModel.ID,
+	).Error; err != nil {
+		fmt.Printf("ERROR updating translation via raw SQL: %v\n", err)
 		return nil, err
 	}
 
+	// Reload to get the latest data from database
+	if err := r.db.WithContext(ctx).Where("id = ?", translationModel.ID).First(&translationModel).Error; err != nil {
+		fmt.Printf("ERROR reloading translation after update: %v\n", err)
+		return nil, err
+	}
+
+	fmt.Printf("Translation updated successfully - StartPrice=%v, EndPrice=%v\n",
+		translationModel.StartPrice, translationModel.EndPrice)
 	return translationModel.ToEntity(), nil
 }
 
@@ -416,12 +454,12 @@ func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.P
 			Where("brands.slug IN ?", filters.BrandSlugs)
 	}
 
-	// Price range filter
+	// Price range filter - use COALESCE of start/end price for comparisons
 	if filters.MinPrice != nil {
-		query = query.Where("products.price >= ?", *filters.MinPrice)
+		query = query.Where("COALESCE(products.start_price, products.end_price, 0) >= ?", *filters.MinPrice)
 	}
 	if filters.MaxPrice != nil {
-		query = query.Where("products.price <= ?", *filters.MaxPrice)
+		query = query.Where("COALESCE(products.start_price, products.end_price, 0) <= ?", *filters.MaxPrice)
 	}
 
 	return query
@@ -446,9 +484,9 @@ func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) *gorm.
 	case "popular":
 		query = query.Order("priority ASC, views_count DESC")
 	case "price_asc":
-		query = query.Order("priority ASC, price ASC")
+		query = query.Order("priority ASC, COALESCE(start_price, end_price) ASC")
 	case "price_desc":
-		query = query.Order("priority ASC, price DESC")
+		query = query.Order("priority ASC, COALESCE(start_price, end_price) DESC")
 	default:
 		// Default sorting by priority
 		query = query.Order("priority ASC")

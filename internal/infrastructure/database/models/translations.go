@@ -47,7 +47,8 @@ type ProductTranslationModel struct {
 	ProductID      uint      `gorm:"not null"`
 	Locale         string    `gorm:"type:varchar(255);not null"`
 	TranslatedName string    `gorm:"column:translated_name;type:varchar(255);not null"` // Database column is 'translated_name'
-	Price          *string   `gorm:"type:varchar(255)"`                                 // Laravel uses varchar for price
+	StartPrice     *string   `gorm:"type:varchar(255)"`
+	EndPrice       *string   `gorm:"type:varchar(255)"`
 	CreatedAt      time.Time `gorm:"autoCreateTime"`
 	UpdatedAt      time.Time `gorm:"autoUpdateTime"`
 }
@@ -59,7 +60,8 @@ func (pt *ProductTranslationModel) ToEntity() *entities.ProductTranslation {
 		ProductID:      pt.ProductID,
 		Locale:         pt.Locale,
 		TranslatedName: pt.TranslatedName, // Direct mapping
-		Price:          pt.Price,
+		StartPrice:     pt.StartPrice,
+		EndPrice:       pt.EndPrice,
 		CreatedAt:      pt.CreatedAt,
 		UpdatedAt:      pt.UpdatedAt,
 	}
@@ -71,7 +73,8 @@ func (pt *ProductTranslationModel) FromEntity(entity *entities.ProductTranslatio
 	pt.ProductID = entity.ProductID
 	pt.Locale = entity.Locale
 	pt.TranslatedName = entity.TranslatedName // Direct mapping
-	pt.Price = entity.Price
+	pt.StartPrice = entity.StartPrice
+	pt.EndPrice = entity.EndPrice
 	pt.CreatedAt = entity.CreatedAt
 	pt.UpdatedAt = entity.UpdatedAt
 

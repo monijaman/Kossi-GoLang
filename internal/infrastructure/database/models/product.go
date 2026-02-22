@@ -11,6 +11,7 @@ import (
 // ProductModel represents the database model for products (GORM-specific)
 type ProductModel struct {
 	ID          uint           `gorm:"primaryKey;autoIncrement"`
+	Price       *float64       `gorm:"-"` // Legacy price field (ignored for persistence)
 	Name        string         `gorm:"type:varchar(255);not null"`
 	Description *string        `gorm:"type:text"`
 	Slug        string         `gorm:"type:varchar(255);unique;not null"`
@@ -19,7 +20,8 @@ type ProductModel struct {
 	Category    *CategoryModel `gorm:"foreignKey:CategoryID"`
 	Brand       *BrandModel    `gorm:"foreignKey:BrandID"`
 	Model       *string        `gorm:"type:varchar(255)"`
-	Price       *float64       `gorm:"type:decimal(10,2)"`
+	StartPrice  *float64       `gorm:"type:decimal(10,2)"`
+	EndPrice    *float64       `gorm:"type:decimal(10,2)"`
 	Status      int            `gorm:"type:integer;default:1"`
 	Priority    int            `gorm:"default:1"`
 	CreatedBy   *string        `gorm:"type:varchar(255)"`
@@ -33,8 +35,13 @@ type ProductModel struct {
 // ToEntity converts GORM model to domain entity
 func (p *ProductModel) ToEntity() *entities.Product {
 	var price float64
-	if p.Price != nil {
-		price = *p.Price
+	var startPrice *float64
+	var endPrice *float64
+	if p.StartPrice != nil {
+		startPrice = p.StartPrice
+	}
+	if p.EndPrice != nil {
+		endPrice = p.EndPrice
 	}
 
 	var category *entities.Category
@@ -52,6 +59,8 @@ func (p *ProductModel) ToEntity() *entities.Product {
 		Description: p.Description,
 		Slug:        p.Slug,
 		Price:       price,
+		StartPrice:  startPrice,
+		EndPrice:    endPrice,
 		CategoryID:  p.CategoryID,
 		BrandID:     p.BrandID,
 		Category:    category,
@@ -71,7 +80,9 @@ func (p *ProductModel) FromEntity(entity *entities.Product) {
 	p.Name = entity.Name
 	p.Description = entity.Description
 	p.Slug = entity.Slug
-	p.Price = &entity.Price
+	// Map start/end price if provided
+	p.StartPrice = entity.StartPrice
+	p.EndPrice = entity.EndPrice
 	p.CategoryID = entity.CategoryID
 	p.BrandID = entity.BrandID
 	p.ViewsCount = entity.ViewsCount

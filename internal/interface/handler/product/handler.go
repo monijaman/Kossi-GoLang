@@ -43,6 +43,8 @@ type ProductResponse struct {
 	Description  *string           `json:"description,omitempty"`
 	Slug         string            `json:"slug"`
 	Price        float64           `json:"price"`
+	StartPrice   *float64          `json:"start_price,omitempty"`
+	EndPrice     *float64          `json:"end_price,omitempty"`
 	CategoryID   *uint             `json:"category_id,omitempty"`
 	CategorySlug *string           `json:"category_slug,omitempty"`
 	BrandID      *uint             `json:"brand_id,omitempty"`
@@ -75,6 +77,8 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		Description: product.Description,
 		Slug:        product.Slug,
 		Price:       product.Price,
+		StartPrice:  product.StartPrice,
+		EndPrice:    product.EndPrice,
 		CategoryID:  product.CategoryID,
 		BrandID:     product.BrandID,
 		ViewsCount:  product.ViewsCount,
@@ -159,6 +163,8 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 		Description: product.Description,
 		Slug:        product.Slug,
 		Price:       product.Price,
+		StartPrice:  product.StartPrice,
+		EndPrice:    product.EndPrice,
 		CategoryID:  product.CategoryID,
 		BrandID:     product.BrandID,
 		ViewsCount:  product.ViewsCount,
@@ -1086,19 +1092,43 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 	var request struct {
 		Locale         string  `json:"locale"`
 		TranslatedName string  `json:"translated_name"`
-		Price          *string `json:"price"`
+		StartPrice     *string `json:"start_price"`
+		EndPrice       *string `json:"end_price"`
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		// fmt.Printf("JSON decode error: %v\n", err)
+	// Read and log the raw body for debugging
+	bodyBytes, readErr := io.ReadAll(r.Body)
+	if readErr != nil {
+		fmt.Printf("Error reading body: %v\n", readErr)
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to read request body"})
+		return
+	}
+	fmt.Printf("Raw request body: %s\n", string(bodyBytes))
+
+	// Decode the body
+	if err := json.Unmarshal(bodyBytes, &request); err != nil {
+		fmt.Printf("JSON decode error: %v\n", err)
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload", "details": err.Error()})
 		return
 	}
 
 	// Debug: Log the decoded request
-	// fmt.Printf("Decoded request: Locale='%s', TranslatedName='%s'\n", request.Locale, request.TranslatedName)
-	// fmt.Printf("Raw TranslatedName bytes: %v\n", []byte(request.TranslatedName))
+	fmt.Printf("Decoded request: Locale='%s', TranslatedName='%s'\n", request.Locale, request.TranslatedName)
+	fmt.Printf("Raw TranslatedName bytes: %v\n", []byte(request.TranslatedName))
+
+	// Parse string prices to *float64
+	var startPrice *string
+	var endPrice *string
+
+	if request.StartPrice != nil && *request.StartPrice != "" {
+		startPrice = request.StartPrice
+	}
+
+	if request.EndPrice != nil && *request.EndPrice != "" {
+		endPrice = request.EndPrice
+	}
 
 	if request.Locale == "" || request.TranslatedName == "" {
 		// fmt.Printf("Validation failed: Locale='%s' (len=%d), TranslatedName='%s' (len=%d)\n",
@@ -1116,8 +1146,8 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 		return
 	}
 
-	// First, verify that the product exists
-	_, productErr := productRepo.GetByID(r.Context(), uint(productID))
+	// First, fetch the product so we can use its prices as defaults
+	product, productErr := productRepo.GetByID(r.Context(), uint(productID))
 	if productErr != nil {
 		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode(map[string]string{
@@ -1147,7 +1177,13 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 		isUpdate = true
 		fmt.Printf("Updating existing translation for product %d, locale %s\n", productID, request.Locale)
 		existingTranslation.TranslatedName = request.TranslatedName
-		existingTranslation.Price = request.Price
+		// Only overwrite start/end if provided in request (allow omission to keep existing)
+		if startPrice != nil {
+			existingTranslation.StartPrice = startPrice
+		}
+		if endPrice != nil {
+			existingTranslation.EndPrice = endPrice
+		}
 		existingTranslation.UpdatedAt = time.Now()
 
 		savedTranslation, err = productRepo.UpdateTranslation(r.Context(), existingTranslation)
@@ -1163,12 +1199,12 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 			return
 		}
 
-		fmt.Printf("Translation updated successfully\n")
+		fmt.Printf("Translation updated successfully - StartPrice: %v, EndPrice: %v\n",
+			savedTranslation.StartPrice, savedTranslation.EndPrice)
 	} else {
 		// Translation doesn't exist - create new one
 		isUpdate = false
 		fmt.Printf("Creating new translation for product %d, locale %s\n", productID, request.Locale)
-
 		// Ensure we're not passing empty values
 		translatedName := strings.TrimSpace(request.TranslatedName)
 		if translatedName == "" {
@@ -1178,11 +1214,41 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 			return
 		}
 
+		// Determine start/end price to save: prefer request, then product defaults
+		// IMPORTANT: Declare price strings outside if blocks to keep them in scope
+		var spStr, epStr string
+		var sp *string
+		var ep *string
+
+		if startPrice != nil {
+			sp = startPrice
+		} else if product != nil && product.StartPrice != nil {
+			// Convert product start price float to string
+			spStr = fmt.Sprintf("%.2f", *product.StartPrice)
+			sp = &spStr
+		} else if product != nil && product.Price != 0 {
+			// Convert product price float to string as fallback
+			spStr = fmt.Sprintf("%.2f", product.Price)
+			sp = &spStr
+		}
+
+		if endPrice != nil {
+			ep = endPrice
+		} else if product != nil && product.EndPrice != nil {
+			// Convert product end price float to string
+			epStr = fmt.Sprintf("%.2f", *product.EndPrice)
+			ep = &epStr
+		}
+
+		fmt.Printf("Setting translation prices - StartPrice: %v, EndPrice: %v (from product: Start=%v, End=%v, Price=%v)\n",
+			sp, ep, product.StartPrice, product.EndPrice, product.Price)
+
 		translation := &entities.ProductTranslation{
 			ProductID:      uint(productID),
 			Locale:         request.Locale,
 			TranslatedName: translatedName,
-			Price:          request.Price,
+			StartPrice:     sp,
+			EndPrice:       ep,
 			CreatedAt:      time.Now(),
 			UpdatedAt:      time.Now(),
 		}
@@ -1212,7 +1278,8 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 			return
 		}
 
-		fmt.Printf("Translation created successfully\n")
+		fmt.Printf("Translation created successfully - StartPrice: %v, EndPrice: %v\n",
+			savedTranslation.StartPrice, savedTranslation.EndPrice)
 	}
 
 	// Set appropriate status code
@@ -1228,9 +1295,24 @@ func CreateProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 		message = "Translation created successfully"
 	}
 
+	// Explicitly structure translation response with start_price and end_price always included
+	translationResp := map[string]interface{}{
+		"id":              savedTranslation.ID,
+		"product_id":      savedTranslation.ProductID,
+		"locale":          savedTranslation.Locale,
+		"translated_name": savedTranslation.TranslatedName,
+		"start_price":     savedTranslation.StartPrice,
+		"end_price":       savedTranslation.EndPrice,
+		"created_at":      savedTranslation.CreatedAt,
+		"updated_at":      savedTranslation.UpdatedAt,
+	}
+
+	fmt.Printf("Final response - start_price: %v, end_price: %v\n",
+		translationResp["start_price"], translationResp["end_price"])
+
 	response := map[string]interface{}{
 		"message":     message,
-		"translation": savedTranslation,
+		"translation": translationResp,
 		"action":      map[string]bool{"created": !isUpdate, "updated": isUpdate},
 	}
 	json.NewEncoder(w).Encode(response)
@@ -1345,9 +1427,20 @@ func GetProductTranslationsHandler(w http.ResponseWriter, r *http.Request, produ
 			return
 		}
 
+		// Only return start_price and end_price (and core fields)
+		resp := map[string]interface{}{
+			"id":              translation.ID,
+			"product_id":      translation.ProductID,
+			"locale":          translation.Locale,
+			"translated_name": translation.TranslatedName,
+			"start_price":     translation.StartPrice,
+			"end_price":       translation.EndPrice,
+			"created_at":      translation.CreatedAt,
+			"updated_at":      translation.UpdatedAt,
+		}
 		w.WriteHeader(http.StatusOK)
 		response := map[string]interface{}{
-			"data":    translation,
+			"data":    resp,
 			"success": true,
 			"message": fmt.Sprintf("Translation retrieved successfully for locale %s", locale),
 		}
@@ -1364,9 +1457,23 @@ func GetProductTranslationsHandler(w http.ResponseWriter, r *http.Request, produ
 			return
 		}
 
+		// Map to only include start_price/end_price and core fields
+		respList := make([]map[string]interface{}, len(translations))
+		for i, t := range translations {
+			respList[i] = map[string]interface{}{
+				"id":              t.ID,
+				"product_id":      t.ProductID,
+				"locale":          t.Locale,
+				"translated_name": t.TranslatedName,
+				"start_price":     t.StartPrice,
+				"end_price":       t.EndPrice,
+				"created_at":      t.CreatedAt,
+				"updated_at":      t.UpdatedAt,
+			}
+		}
 		w.WriteHeader(http.StatusOK)
 		response := map[string]interface{}{
-			"data":    translations,
+			"data":    respList,
 			"success": true,
 			"message": "Translations retrieved successfully",
 		}

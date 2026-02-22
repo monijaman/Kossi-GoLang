@@ -55,15 +55,22 @@ func (r *ProductRepository) GetProducts(ctx context.Context, filter *GetProducts
 
 	var productEntities []entities.Product
 	for _, p := range products {
-		price := 0.0
-		if p.Price != nil {
-			price = *p.Price
+		// Map start/end price from model
+		var startPrice *float64
+		var endPrice *float64
+		if p.StartPrice != nil {
+			startPrice = p.StartPrice
+		}
+		if p.EndPrice != nil {
+			endPrice = p.EndPrice
 		}
 		productEntities = append(productEntities, entities.Product{
 			ID:          p.ID,
 			Name:        p.Name,
 			Description: p.Description,
-			Price:       price,
+			Price:       0.0,
+			StartPrice:  startPrice,
+			EndPrice:    endPrice,
 			CategoryID:  p.CategoryID,
 			BrandID:     p.BrandID,
 			CreatedAt:   p.CreatedAt,

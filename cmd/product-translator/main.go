@@ -145,7 +145,7 @@ func main() {
 
 		var missingBN []*entities.Product
 		rows, err := sqlDB.Query(`
-			SELECT p.id, p.name, p.description, p.slug, p.price, p.category_id, p.brand_id, p.views_count, p.status, p.priority, p.created_at, p.updated_at
+			SELECT p.id, p.name, p.description, p.slug, p.start_price, p.end_price, p.category_id, p.brand_id, p.views_count, p.status, p.priority, p.created_at, p.updated_at
 			FROM products p
 			WHERE p.deleted_at IS NULL
 			AND p.id NOT IN (SELECT product_id FROM product_translations WHERE locale='bn')
@@ -159,11 +159,11 @@ func main() {
 
 		for rows.Next() {
 			product := &entities.Product{}
-			var nullPrice sql.NullFloat64
+			var nullStartPrice, nullEndPrice sql.NullFloat64
 			var nullCategoryID sql.NullInt64
 			var nullBrandID sql.NullInt64
 
-			err := rows.Scan(&product.ID, &product.Name, &product.Description, &product.Slug, &nullPrice,
+			err := rows.Scan(&product.ID, &product.Name, &product.Description, &product.Slug, &nullStartPrice, &nullEndPrice,
 				&nullCategoryID, &nullBrandID, &product.ViewsCount, &product.Status, &product.Priority,
 				&product.CreatedAt, &product.UpdatedAt)
 			if err != nil {
@@ -172,8 +172,13 @@ func main() {
 			}
 
 			// Handle nullable fields
-			if nullPrice.Valid {
-				product.Price = nullPrice.Float64
+			if nullStartPrice.Valid {
+				v := nullStartPrice.Float64
+				product.StartPrice = &v
+			}
+			if nullEndPrice.Valid {
+				v := nullEndPrice.Float64
+				product.EndPrice = &v
 			}
 			if nullCategoryID.Valid {
 				id := uint(nullCategoryID.Int64)
@@ -196,11 +201,24 @@ func main() {
 		for i, product := range missingBN {
 			bengaliName := enToBengali(product.Name)
 
+			// Convert float prices to strings for Bengali text support
+			var startPriceStr *string
+			var endPriceStr *string
+			if product.StartPrice != nil {
+				sp := fmt.Sprintf("%.2f", *product.StartPrice)
+				startPriceStr = &sp
+			}
+			if product.EndPrice != nil {
+				ep := fmt.Sprintf("%.2f", *product.EndPrice)
+				endPriceStr = &ep
+			}
+
 			translation := &entities.ProductTranslation{
 				ProductID:      product.ID,
 				Locale:         "bn",
 				TranslatedName: bengaliName,
-				Price:          nil, // Keep price as nil for now
+				StartPrice:     startPriceStr, // Optional start price
+				EndPrice:       endPriceStr,   // Optional end price
 			}
 
 			_, err := productRepo.CreateTranslation(ctx, translation)

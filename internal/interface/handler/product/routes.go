@@ -53,8 +53,8 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 				w.WriteHeader(http.StatusMethodNotAllowed)
 				w.Write([]byte(`{"error": "Only POST method is allowed"}`))
 			}
-		} else if len(pathParts) == 2 && pathParts[1] == "translations" {
-			// GET and POST /products/{id}/translations
+		} else if len(pathParts) == 2 && (pathParts[1] == "translation" || pathParts[1] == "translations") {
+			// GET and POST /products/{id}/translation or /products/{id}/translations
 			if r.Method == http.MethodGet {
 				GetProductTranslationsHandler(w, r, productRepo)
 			} else if r.Method == http.MethodPost {
