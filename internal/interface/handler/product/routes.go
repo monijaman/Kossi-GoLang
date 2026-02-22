@@ -26,13 +26,13 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 	mux.HandleFunc("/debug/env", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		
+
 		response := map[string]interface{}{
-			"GO_ENV": os.Getenv("GO_ENV"),
-			"SERVER_URL": os.Getenv("SERVER_URL"),
-			"S3_BUCKET": os.Getenv("S3_BUCKET"),
-			"AWS_REGION": os.Getenv("AWS_REGION"),
-			"AWS_ACCESS_KEY_ID": obfuscateKey(os.Getenv("AWS_ACCESS_KEY_ID")),
+			"GO_ENV":                os.Getenv("GO_ENV"),
+			"SERVER_URL":            os.Getenv("SERVER_URL"),
+			"S3_BUCKET":             os.Getenv("S3_BUCKET"),
+			"AWS_REGION":            os.Getenv("AWS_REGION"),
+			"AWS_ACCESS_KEY_ID":     obfuscateKey(os.Getenv("AWS_ACCESS_KEY_ID")),
 			"AWS_SECRET_ACCESS_KEY": obfuscateKey(os.Getenv("AWS_SECRET_ACCESS_KEY")),
 		}
 		json.NewEncoder(w).Encode(response)

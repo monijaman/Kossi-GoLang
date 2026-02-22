@@ -997,7 +997,7 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	
+
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
 		return
@@ -1021,7 +1021,7 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 
 	bucket := os.Getenv("S3_BUCKET")
 	region := os.Getenv("AWS_REGION")
-	
+
 	if bucket == "" {
 		bucket = "kossti"
 	}
@@ -1035,10 +1035,10 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 	// Load AWS config - explicitly use environment variable credentials
 	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
 	awsSecretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
-	
+
 	var cfg aws.Config
 	var err error
-	
+
 	if awsAccessKey != "" && awsSecretKey != "" {
 		// If credentials are in environment, use them explicitly
 		log.Printf("[ProxyImage] Loading AWS credentials from environment (access key starting with %s)", awsAccessKey[:4])
@@ -1051,7 +1051,7 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[ProxyImage] No environment credentials found, using default credential chain")
 		cfg, err = config.LoadDefaultConfig(ctx, config.WithRegion(region))
 	}
-	
+
 	if err != nil {
 		log.Printf("[ProxyImage] AWS config load error: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -1061,16 +1061,16 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s3Client := s3.NewFromConfig(cfg)
-	
+
 	log.Printf("[ProxyImage] Fetching from S3: bucket=%s, region=%s, key=%s", bucket, region, imagePath)
-	
+
 	result, err := s3Client.GetObject(ctx, &s3.GetObjectInput{
 		Bucket: aws.String(bucket),
 		Key:    aws.String(imagePath),
 	})
 	if err != nil {
 		log.Printf("[ProxyImage] S3 GetObject error: type=%T, error=%v", err, err)
-		
+
 		// Check for specific S3 errors
 		errMsg := err.Error()
 		if strings.Contains(errMsg, "NoSuchKey") || strings.Contains(errMsg, "not found") {
@@ -1079,7 +1079,7 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(map[string]string{"error": "image not found", "key": imagePath})
 			return
 		}
-		
+
 		if strings.Contains(errMsg, "Forbidden") || strings.Contains(errMsg, "403") || strings.Contains(errMsg, "AccessDenied") {
 			log.Printf("[ProxyImage] Access denied - check AWS credentials and bucket permissions")
 			w.WriteHeader(http.StatusForbidden)
@@ -1087,7 +1087,7 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(map[string]string{"error": "access denied"})
 			return
 		}
-		
+
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{"error": "failed to fetch image", "details": errMsg})
@@ -1101,7 +1101,7 @@ func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.Header().Set("Content-Type", "image/jpeg")
 	}
-	
+
 	// Cache for 1 hour
 	w.Header().Set("Cache-Control", "public, max-age=3600")
 

@@ -93,7 +93,7 @@ func (r *PostgresImageRepo) Update(ctx context.Context, image *entities.Image) (
 // Returns a map of productID -> image, avoiding N+1 queries
 func (r *PostgresImageRepo) GetDefaultImagesByProductIDs(ctx context.Context, productIDs []uint) (map[uint]*entities.Image, error) {
 	result := make(map[uint]*entities.Image)
-	
+
 	if len(productIDs) == 0 {
 		return result, nil
 	}
