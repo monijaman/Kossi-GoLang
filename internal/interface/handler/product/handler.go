@@ -168,19 +168,10 @@ func generateImageURL(imagePath string) string {
 		return imagePath
 	}
 
-	// If the file exists on local filesystem, return a server-relative URL
-	fsPath := imagePath
-	if strings.HasPrefix(fsPath, "/") {
-		fsPath = strings.TrimPrefix(fsPath, "/")
-	}
-	if _, err := os.Stat(fsPath); err == nil {
-		// Use forward slashes for URLs on all platforms
-		return "/" + filepath.ToSlash(fsPath)
-	}
-
-	// Otherwise try S3 (use env vars or defaults)
+	// Get S3 config (use env vars or defaults)
 	bucket := os.Getenv("S3_BUCKET")
 	region := os.Getenv("AWS_REGION")
+	goEnv := os.Getenv("GO_ENV")
 
 	if bucket == "" {
 		bucket = "kossti"
@@ -189,6 +180,21 @@ func generateImageURL(imagePath string) string {
 		region = "ap-southeast-1"
 	}
 
+	// On production, skip local filesystem check and go straight to S3
+	// Local files won't exist in Railway container
+	if goEnv != "production" {
+		// In development, check if the file exists on local filesystem
+		fsPath := imagePath
+		if strings.HasPrefix(fsPath, "/") {
+			fsPath = strings.TrimPrefix(fsPath, "/")
+		}
+		if _, err := os.Stat(fsPath); err == nil {
+			// Use forward slashes for URLs on all platforms
+			return "/" + filepath.ToSlash(fsPath)
+		}
+	}
+
+	// Try S3 presigned URL
 	cfg, err := loadAWSConfig(region)
 	if err == nil && cfg != nil {
 		preSignedURL, err := generatePresignedURL(imagePath, bucket)
