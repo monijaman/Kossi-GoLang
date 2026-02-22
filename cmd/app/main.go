@@ -137,7 +137,7 @@ func (m *dbReadinessMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request
 		m.handler.ServeHTTP(w, r)
 		return
 	}
-	
+
 	// For other endpoints, wait for database or timeout
 	select {
 	case <-m.dbReady:
@@ -323,17 +323,17 @@ func main() {
 	// which need a fast-responding endpoint to confirm the server started.
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		
+
 		// Check if database is ready
 		dbStatus := "pending"
 		if db != nil {
 			dbStatus = "ready"
 		}
-		
+
 		w.WriteHeader(http.StatusOK) // Explicitly set 200 OK
 		json.NewEncoder(w).Encode(map[string]string{
-			"status": "ok",
-			"database": dbStatus,
+			"status":    "ok",
+			"database":  dbStatus,
 			"timestamp": time.Now().UTC().Format(time.RFC3339),
 		})
 	})
@@ -412,7 +412,7 @@ func main() {
 		handler: corsMiddleware(mux),
 		dbReady: dbReady,
 	}
-	
+
 	server := &http.Server{
 		Addr:         serverAddr,
 		Handler:      dbMiddleware,
