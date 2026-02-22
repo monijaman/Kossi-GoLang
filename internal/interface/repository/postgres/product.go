@@ -399,7 +399,7 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	var totalCount int64
 
 	// Start building the query (only include non-deleted, active products by default)
-	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).Preload("Category").Preload("Brand").Where("deleted_at IS NULL AND status >= 1")
+	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).Preload("Category").Preload("Brand").Where("products.deleted_at IS NULL AND products.status >= 1")
 
 	// Apply filters
 	query = r.applyFilters(query, filters)
