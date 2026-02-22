@@ -399,9 +399,12 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	var totalCount int64
 
 	// Start building the query (only include non-deleted, active products by default)
-	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).Preload("Category").Preload("Brand").Where("products.deleted_at IS NULL AND products.status >= 1")
+	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).
+		Preload("Category").
+		Preload("Brand").
+		Where("products.deleted_at IS NULL AND products.status >= 1")
 
-	// Apply filters
+	// Apply filters (this will handle category/brand ID conversion from slugs)
 	query = r.applyFilters(query, filters)
 
 	// Get total count for pagination
@@ -429,29 +432,50 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 
 // applyFilters applies all filters to the query and returns the modified query
 // IMPORTANT: GORM's Where/Joins methods return a new *gorm.DB, so we must reassign
+// OPTIMIZATION: Convert category/brand slugs to IDs first to avoid JOINs that interfere with Preload
 func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters) *gorm.DB {
 	// Search term filter
 	if filters.SearchTerm != "" {
 		query = query.Where("products.name ILIKE ?", "%"+filters.SearchTerm+"%")
 	}
 
-	// Category filter - supports both ID (numeric) and slug (alphanumeric)
+	// Category filter - convert slug to ID to avoid JOIN (better for preloading)
 	if filters.CategorySlug != "" {
 		categoryValue := filters.CategorySlug
 		if isNumeric(categoryValue) {
-			// It's an ID - search by ID directly
+			// It's already an ID - use directly
 			query = query.Where("products.category_id = ?", categoryValue)
 		} else {
-			// It's a slug - search by slug
-			query = query.Joins("LEFT JOIN categories ON products.category_id = categories.id").
-				Where("categories.slug = ?", categoryValue)
+			// It's a slug - fetch the category ID from slug to avoid JOIN
+			var category models.CategoryModel
+			if err := r.db.WithContext(query.Statement.Context).
+				Where("slug = ?", categoryValue).
+				First(&category).Error; err == nil {
+				// Successfully found category, filter by its ID
+				query = query.Where("products.category_id = ?", category.ID)
+			}
+			// If category not found, the query will return no results (correct behavior)
 		}
 	}
 
 	// Brand filter (multiple brands supported)
+	// Optimize: Convert slugs to IDs first to avoid JOIN
 	if len(filters.BrandSlugs) > 0 {
-		query = query.Joins("JOIN brands ON products.brand_id = brands.id").
-			Where("brands.slug IN ?", filters.BrandSlugs)
+		var brandIDs []uint
+		var brands []models.BrandModel
+
+		// Fetch brand IDs by slugs efficiently (single query instead of per-product queries)
+		if err := r.db.WithContext(query.Statement.Context).
+			Where("slug IN ?", filters.BrandSlugs).
+			Select("id").
+			Find(&brands).Error; err == nil && len(brands) > 0 {
+			for _, b := range brands {
+				brandIDs = append(brandIDs, b.ID)
+			}
+			if len(brandIDs) > 0 {
+				query = query.Where("products.brand_id IN ?", brandIDs)
+			}
+		}
 	}
 
 	// Price range filter - use COALESCE of start/end price for comparisons

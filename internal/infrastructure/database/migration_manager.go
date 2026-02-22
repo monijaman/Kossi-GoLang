@@ -230,6 +230,8 @@ func (m *MigrationManager) CreateIndexes() error {
 		{&models.ProductModel{}, []string{"brand_id"}, "idx_products_brand_id", false},
 		{&models.ProductModel{}, []string{"views_count"}, "idx_products_views_count", false},
 		{&models.ProductModel{}, []string{"priority"}, "idx_products_priority", false},
+		{&models.ProductModel{}, []string{"status"}, "idx_products_status", false},
+		{&models.ProductModel{}, []string{"start_price", "end_price"}, "idx_products_price_range", false},
 		{&models.CategoryModel{}, []string{"slug"}, "idx_categories_slug", true},
 		{&models.CategoryModel{}, []string{"id"}, "idx_categories_id", false},
 		{&models.BrandModel{}, []string{"slug"}, "idx_brands_slug", true},
@@ -244,6 +246,22 @@ func (m *MigrationManager) CreateIndexes() error {
 		log.Printf("Creating index: %s on %T(%v)", idx.name, idx.table, idx.fields)
 		if err := m.db.Migrator().CreateIndex(idx.table, idx.name); err != nil {
 			return fmt.Errorf("failed to create index %s: %w", idx.name, err)
+		}
+	}
+
+	// Create composite index for popular products sorting (priority ASC, views_count DESC)
+	if !m.db.Migrator().HasIndex(&models.ProductModel{}, "idx_products_priority_views") {
+		log.Println("Creating composite index: idx_products_priority_views")
+		if err := m.db.Exec("CREATE INDEX IF NOT EXISTS idx_products_priority_views ON products(priority ASC, views_count DESC) WHERE deleted_at IS NULL").Error; err != nil {
+			log.Printf("Warning: failed to create composite index idx_products_priority_views: %v", err)
+		}
+	}
+
+	// Create index for image lookups
+	if !m.db.Migrator().HasIndex(&models.ImageModel{}, "idx_images_imageable") {
+		log.Println("Creating index: idx_images_imageable")
+		if err := m.db.Exec("CREATE INDEX IF NOT EXISTS idx_images_imageable ON images(imageable_type, imageable_id)").Error; err != nil {
+			log.Printf("Warning: failed to create index idx_images_imageable: %v", err)
 		}
 	}
 

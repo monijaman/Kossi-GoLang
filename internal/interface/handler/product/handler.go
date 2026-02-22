@@ -70,6 +70,7 @@ type ProductListResponse struct {
 }
 
 // convertProductToResponse converts domain entity to response format
+// OPTIMIZED: Only uses preloaded data, no fallback queries to prevent N+1
 func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) ProductResponse {
 	response := ProductResponse{
 		ID:          product.ID,
@@ -88,7 +89,7 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
 
-	// Use preloaded category information or fetch if not available
+	// Use preloaded category information (OPTIMIZED: no fallback query)
 	if product.Category != nil {
 		response.CategorySlug = &product.Category.Slug
 		response.Category = &CategoryResponse{
@@ -96,19 +97,9 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 			Name: product.Category.Name,
 			Slug: product.Category.Slug,
 		}
-	} else if product.CategoryID != nil && categoryRepo != nil {
-		category, err := categoryRepo.GetByID(context.Background(), *product.CategoryID)
-		if err == nil && category != nil {
-			response.CategorySlug = &category.Slug
-			response.Category = &CategoryResponse{
-				ID:   category.ID,
-				Name: category.Name,
-				Slug: category.Slug,
-			}
-		}
 	}
 
-	// Use preloaded brand information or fetch if not available
+	// Use preloaded brand information (OPTIMIZED: no fallback query)
 	if product.Brand != nil {
 		response.BrandSlug = &product.Brand.Slug
 		response.Brand = &BrandResponse{
@@ -116,41 +107,10 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 			Name: product.Brand.Name,
 			Slug: product.Brand.Slug,
 		}
-	} else if product.BrandID != nil && brandRepo != nil {
-		brand, err := brandRepo.GetByID(context.Background(), *product.BrandID)
-		if err == nil && brand != nil {
-			response.BrandSlug = &brand.Slug
-			response.Brand = &BrandResponse{
-				ID:   brand.ID,
-				Name: brand.Name,
-				Slug: brand.Slug,
-			}
-		}
 	}
 
-	// Fetch and set product photo if imageRepo is available
-	if imageRepo != nil {
-		images, err := imageRepo.GetByImageableID(context.Background(), "Product", product.ID)
-		if err == nil && len(images) > 0 {
-			// Find default photo or use first image
-			var selectedImage *entities.Image
-			for _, img := range images {
-				if img.DefaultPhoto == 1 {
-					selectedImage = img
-					break
-				}
-			}
-			if selectedImage == nil {
-				selectedImage = images[0]
-			}
-
-			// Generate image URL
-			photoURL := generateImageURL(selectedImage.ImagePath)
-			response.Photo = &photoURL
-			// Set default photo flag from DB (0/1)
-			response.DefaultPhoto = &selectedImage.DefaultPhoto
-		}
-	}
+	// Note: Images are NOT fetched here to prevent N+1 queries
+	// Call getProductImages separately if needed for detailed product pages
 
 	return response
 }
