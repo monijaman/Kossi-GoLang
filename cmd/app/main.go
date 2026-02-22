@@ -125,6 +125,30 @@ func corsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// dbReadinessMiddleware ensures database is ready before processing requests
+type dbReadinessMiddleware struct {
+	handler http.Handler
+	dbReady chan bool
+}
+
+func (m *dbReadinessMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// Allow health checks without database
+	if r.URL.Path == "/health" {
+		m.handler.ServeHTTP(w, r)
+		return
+	}
+	
+	// For other endpoints, wait for database or timeout
+	select {
+	case <-m.dbReady:
+		m.handler.ServeHTTP(w, r)
+	case <-time.After(30 * time.Second):
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusServiceUnavailable)
+		json.NewEncoder(w).Encode(map[string]string{"error": "database not ready"})
+	}
+}
+
 // killProcessOnPort attempts to find and kill any process using the specified port
 func killProcessOnPort(port int) {
 	// On Windows, you can use netstat + taskkill, but for now we'll just log
@@ -246,10 +270,16 @@ func main() {
 			return
 		}
 
-		sqlDB.SetMaxOpenConns(25)
-		sqlDB.SetMaxIdleConns(15) // Increased from 5 to reduce connection churn
+		// Optimize connection pool for Railway managed database
+		// Railway shared databases have connection limits, use smaller pool
+		maxConns := 10
+		if os.Getenv("GO_ENV") == "production" {
+			maxConns = 8 // More conservative for managed databases
+		}
+		sqlDB.SetMaxOpenConns(maxConns)
+		sqlDB.SetMaxIdleConns(maxConns / 2)
 		sqlDB.SetConnMaxLifetime(5 * time.Minute)
-		sqlDB.SetConnMaxIdleTime(3 * time.Minute) // Close idle connections after 3 minutes
+		sqlDB.SetConnMaxIdleTime(2 * time.Minute) // More aggressive idle timeout
 
 		fmt.Println("Database connection successful!")
 
@@ -293,8 +323,19 @@ func main() {
 	// which need a fast-responding endpoint to confirm the server started.
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
+		
+		// Check if database is ready
+		dbStatus := "pending"
+		if db != nil {
+			dbStatus = "ready"
+		}
+		
 		w.WriteHeader(http.StatusOK) // Explicitly set 200 OK
-		json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+		json.NewEncoder(w).Encode(map[string]string{
+			"status": "ok",
+			"database": dbStatus,
+			"timestamp": time.Now().UTC().Format(time.RFC3339),
+		})
 	})
 
 	// Asynchronously register other routes that depend on the database
@@ -336,6 +377,15 @@ func main() {
 		routesReady <- true
 	}()
 
+	// Wait for routes to be ready before starting the server
+	fmt.Println("[STARTUP] Waiting for routes to be initialized...")
+	select {
+	case <-routesReady:
+		fmt.Println("[STARTUP] Routes initialized successfully")
+	case <-time.After(30 * time.Second):
+		log.Println("WARNING: Routes initialization timeout after 30 seconds, continuing anyway")
+	}
+
 	// Determine port for the server
 	preferredPort := 8080
 	portEnv := os.Getenv("PORT")
@@ -357,10 +407,15 @@ func main() {
 	serverAddr := fmt.Sprintf("0.0.0.0:%d", availablePort)
 	fmt.Printf("[STARTUP] Server will bind to: %s\n", serverAddr)
 
-	// Create HTTP server with CORS middleware
+	// Create HTTP server with both CORS and database readiness middleware
+	dbMiddleware := &dbReadinessMiddleware{
+		handler: corsMiddleware(mux),
+		dbReady: dbReady,
+	}
+	
 	server := &http.Server{
 		Addr:         serverAddr,
-		Handler:      corsMiddleware(mux),
+		Handler:      dbMiddleware,
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  120 * time.Second,
@@ -383,7 +438,7 @@ func main() {
 	// Wait for server to be ready before proceeding
 	<-serverReady
 	time.Sleep(50 * time.Millisecond)
-	fmt.Printf("[STARTUP] Server ready and accepting connections\n")
+	fmt.Printf("[STARTUP] ✅ Server ready and accepting connections on %s\n", serverAddr)
 
 	// Wait for interrupt signal
 	<-stop
