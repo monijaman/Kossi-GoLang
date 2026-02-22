@@ -204,5 +204,3 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 		GetMarketProductsHandler(w, r)
 	})
 }
-
-
