@@ -5,39 +5,11 @@ import (
 	"kossti/internal/domain/repository"
 	handlerproductreview "kossti/internal/interface/handler/productreview"
 	"net/http"
-	"os"
 	"strings"
 )
 
 // RegisterProductRoutes registers product-related endpoints to the mux.
 func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRepository, imageRepo repository.ImageRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, reviewRepo repository.ProductReviewRepository) {
-	// GET /proxy-image?path=... - Proxy for backend-authenticated S3 image access
-	mux.HandleFunc("/proxy-image", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet || r.Method == http.MethodOptions {
-			ProxyImageHandler(w, r)
-		} else {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
-		}
-	})
-
-	// GET /debug/env - Diagnostic endpoint to check environment variables (remove in production!)
-	mux.HandleFunc("/debug/env", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-
-		response := map[string]interface{}{
-			"GO_ENV":                os.Getenv("GO_ENV"),
-			"SERVER_URL":            os.Getenv("SERVER_URL"),
-			"S3_BUCKET":             os.Getenv("S3_BUCKET"),
-			"AWS_REGION":            os.Getenv("AWS_REGION"),
-			"AWS_ACCESS_KEY_ID":     obfuscateKey(os.Getenv("AWS_ACCESS_KEY_ID")),
-			"AWS_SECRET_ACCESS_KEY": obfuscateKey(os.Getenv("AWS_SECRET_ACCESS_KEY")),
-		}
-		json.NewEncoder(w).Encode(response)
-	})
-
 	// GET /products - List products with search, pagination, and filtering
 	mux.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
@@ -233,13 +205,4 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 	})
 }
 
-// obfuscateKey masks sensitive keys for debugging (shows first 4 and last 4 chars)
-func obfuscateKey(key string) string {
-	if key == "" {
-		return "(empty)"
-	}
-	if len(key) <= 8 {
-		return "***"
-	}
-	return key[:4] + "..." + key[len(key)-4:]
-}
+
