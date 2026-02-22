@@ -23,6 +23,7 @@ import (
 	"os/signal"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"syscall"
 	"time"
 
@@ -128,25 +129,37 @@ func corsMiddleware(next http.Handler) http.Handler {
 // dbReadinessMiddleware ensures database is ready before processing requests
 type dbReadinessMiddleware struct {
 	handler http.Handler
-	dbReady chan bool
+	dbReady *atomic.Bool
 }
 
 func (m *dbReadinessMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Allow health checks without database
-	if r.URL.Path == "/health" {
+	if r.URL.Path == "/health" || r.URL.Path == "/uploads/" || strings.HasPrefix(r.URL.Path, "/uploads/") {
 		m.handler.ServeHTTP(w, r)
 		return
 	}
 
-	// For other endpoints, wait for database or timeout
-	select {
-	case <-m.dbReady:
-		m.handler.ServeHTTP(w, r)
-	case <-time.After(30 * time.Second):
+	// For other endpoints, check if database is ready
+	// If not, wait up to 5 seconds for it to become ready
+	if !m.dbReady.Load() {
+		for i := 0; i < 50; i++ { // 50 * 100ms = 5 seconds
+			time.Sleep(100 * time.Millisecond)
+			if m.dbReady.Load() {
+				break
+			}
+		}
+	}
+
+	// Check again after wait
+	if !m.dbReady.Load() {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusServiceUnavailable)
-		json.NewEncoder(w).Encode(map[string]string{"error": "database not ready"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "database not ready", "hint": "check /health endpoint"})
+		return
 	}
+
+	// Database is ready, process the request
+	m.handler.ServeHTTP(w, r)
 }
 
 // killProcessOnPort attempts to find and kill any process using the specified port
@@ -252,7 +265,8 @@ func main() {
 
 	// Initialize database connection variable
 	var db *gorm.DB
-	dbReady := make(chan bool, 1)
+	dbReadyFlag := &atomic.Bool{}
+	dbReadyFlag.Store(false)
 
 	// Connect to database asynchronously
 	go func() {
@@ -306,7 +320,9 @@ func main() {
 			fmt.Println("Seeding complete!")
 		}
 
-		dbReady <- true
+		// Mark database as ready
+		dbReadyFlag.Store(true)
+		fmt.Println("[STARTUP] Database marked as READY for requests")
 	}()
 
 	routesReady := make(chan bool, 1)
@@ -326,7 +342,7 @@ func main() {
 
 		// Check if database is ready
 		dbStatus := "pending"
-		if db != nil {
+		if dbReadyFlag.Load() {
 			dbStatus = "ready"
 		}
 
@@ -340,10 +356,25 @@ func main() {
 
 	// Asynchronously register other routes that depend on the database
 	go func() {
-		// Wait for the database to be ready
-		<-dbReady
-		if db == nil {
+		// Wait for the database to be ready (poll atomic flag with timeout)
+		dbReady := false
+		for i := 0; i < 300; i++ { // 300 * 100ms = 30 seconds timeout
+			if dbReadyFlag.Load() {
+				dbReady = true
+				break
+			}
+			time.Sleep(100 * time.Millisecond)
+		}
+
+		if !dbReady {
 			log.Println("ERROR: Database connection failed, routes will not be available")
+			routesReady <- true // Signal completion even if failed
+			return
+		}
+
+		if db == nil {
+			log.Println("ERROR: Database connection is nil, routes will not be available")
+			routesReady <- true // Signal completion even if failed
 			return
 		}
 
@@ -410,7 +441,7 @@ func main() {
 	// Create HTTP server with both CORS and database readiness middleware
 	dbMiddleware := &dbReadinessMiddleware{
 		handler: corsMiddleware(mux),
-		dbReady: dbReady,
+		dbReady: dbReadyFlag,
 	}
 
 	server := &http.Server{
