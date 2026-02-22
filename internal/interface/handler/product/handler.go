@@ -19,6 +19,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
@@ -71,7 +72,8 @@ type ProductListResponse struct {
 
 // convertProductToResponse converts domain entity to response format
 // OPTIMIZED: Only uses preloaded data, no fallback queries to prevent N+1
-func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository) ProductResponse {
+// imagesMap is optional - if provided, uses pre-fetched images; otherwise none
+func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository, imagesMap ...map[uint]*entities.Image) ProductResponse {
 	response := ProductResponse{
 		ID:          product.ID,
 		Name:        product.Name,
@@ -109,8 +111,14 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		}
 	}
 
-	// Note: Images are NOT fetched here to prevent N+1 queries
-	// Call getProductImages separately if needed for detailed product pages
+	// Use pre-fetched images from imagesMap if available (batch loaded)
+	if len(imagesMap) > 0 && imagesMap[0] != nil {
+		if img, exists := imagesMap[0][product.ID]; exists {
+			photoURL := generateImageURL(img.ImagePath)
+			response.Photo = &photoURL
+			response.DefaultPhoto = &img.DefaultPhoto
+		}
+	}
 
 	return response
 }
@@ -161,77 +169,42 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 	return response
 }
 
-// generateImageURL generates a presigned URL for S3 image access with fallback to direct URL
+// generateImageURL generates an S3 URL for image access
 func generateImageURL(imagePath string) string {
 	// If the imagePath is already a full URL, return as-is
 	if strings.HasPrefix(imagePath, "http://") || strings.HasPrefix(imagePath, "https://") {
 		return imagePath
 	}
 
-	// Get S3 config (use env vars or defaults)
-	bucket := os.Getenv("S3_BUCKET")
-	region := os.Getenv("AWS_REGION")
-	goEnv := os.Getenv("GO_ENV")
-
-	if bucket == "" {
-		bucket = "kossti"
+	// Check if the file exists on local filesystem (for development static files)
+	fsPath := imagePath
+	if strings.HasPrefix(fsPath, "/") {
+		fsPath = strings.TrimPrefix(fsPath, "/")
 	}
-	if region == "" {
-		region = "ap-southeast-1"
+	if _, err := os.Stat(fsPath); err == nil {
+		// Use forward slashes for URLs on all platforms
+		return "/" + filepath.ToSlash(fsPath)
 	}
 
-	// On production, skip local filesystem check and go straight to S3
-	// Local files won't exist in Railway container
-	if goEnv != "production" {
-		// In development, check if the file exists on local filesystem
-		fsPath := imagePath
-		if strings.HasPrefix(fsPath, "/") {
-			fsPath = strings.TrimPrefix(fsPath, "/")
-		}
-		if _, err := os.Stat(fsPath); err == nil {
-			// Use forward slashes for URLs on all platforms
-			return "/" + filepath.ToSlash(fsPath)
-		}
-	}
-
-	// Try S3 presigned URL
-	cfg, err := loadAWSConfig(region)
-	if err == nil && cfg != nil {
-		preSignedURL, err := generatePresignedURL(imagePath, bucket)
-		if err == nil && preSignedURL != "" {
-			return preSignedURL
-		}
-	}
-
-	// Fallback to direct S3 URL
-	return fmt.Sprintf("https://%s.s3.%s.amazonaws.com/%s", bucket, region, imagePath)
+	// For S3 images, return a relative proxy path.
+	// Next.js rewrites /proxy-image -> backend, so no CORS or presigned URL issues.
+	return "/proxy-image?path=" + imagePath
 }
 
-// loadAWSConfig loads AWS configuration (returns nil if credentials not available)
-func loadAWSConfig(region string) (*aws.Config, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+// generatePresignedURL generates a presigned S3 GET URL with timeout handling
+func generatePresignedURL(imagePath, bucket, region string) (string, error) {
+	if imagePath == "" || bucket == "" {
+		return "", fmt.Errorf("empty imagePath or bucket")
+	}
+
+	// Use longer timeout (5 seconds) to allow AWS SDK to initialize
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
 	if err != nil {
-		return nil, err
-	}
-	return &cfg, nil
-}
-
-// generatePresignedURL generates a presigned S3 GET URL
-func generatePresignedURL(imagePath, bucket string) (string, error) {
-	region := os.Getenv("AWS_REGION")
-	if region == "" {
-		region = "ap-southeast-1"
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
-
-	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
-	if err != nil {
-		return "", err
+		// Log error for debugging but don't fail - direct URL will be used as fallback
+		return "", fmt.Errorf("failed to load AWS config: %w", err)
 	}
 
 	s3Client := s3.NewFromConfig(cfg)
@@ -246,7 +219,7 @@ func generatePresignedURL(imagePath, bucket string) (string, error) {
 		opts.Expires = 1 * time.Hour
 	})
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to generate presigned URL: %w", err)
 	}
 
 	return presigned.URL, nil
@@ -524,10 +497,20 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 		return
 	}
 
+	// Batch fetch images (OPTIMIZED: 1 query instead of N+1)
+	var imagesMap map[uint]*entities.Image = make(map[uint]*entities.Image)
+	if imageRepo != nil && len(products) > 0 {
+		productIDs := make([]uint, len(products))
+		for i, p := range products {
+			productIDs[i] = p.ID
+		}
+		imagesMap, _ = imageRepo.GetDefaultImagesByProductIDs(r.Context(), productIDs)
+	}
+
 	// Convert products to response format
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
 
 	// Get total count
@@ -605,10 +588,20 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		return
 	}
 
+	// Batch fetch images for all products (OPTIMIZED: 1 query instead of N+1)
+	var imagesMap map[uint]*entities.Image = make(map[uint]*entities.Image)
+	if imageRepo != nil && len(products) > 0 {
+		productIDs := make([]uint, len(products))
+		for i, p := range products {
+			productIDs[i] = p.ID
+		}
+		imagesMap, _ = imageRepo.GetDefaultImagesByProductIDs(r.Context(), productIDs)
+	}
+
 	// Convert products to response format
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
 
 	// Calculate pagination info
@@ -675,9 +668,19 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 			return
 		}
 
+		// Batch fetch images (OPTIMIZED: 1 query instead of N+1)
+		var imagesMap map[uint]*entities.Image = make(map[uint]*entities.Image)
+		if imageRepo != nil && len(products) > 0 {
+			productIDs := make([]uint, len(products))
+			for i, p := range products {
+				productIDs[i] = p.ID
+			}
+			imagesMap, _ = imageRepo.GetDefaultImagesByProductIDs(r.Context(), productIDs)
+		}
+
 		productResponses := make([]ProductResponse, len(products))
 		for i, product := range products {
-			productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
+			productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
@@ -695,9 +698,19 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 		return
 	}
 
+	// Batch fetch images (OPTIMIZED: 1 query instead of N+1)
+	var imagesMap map[uint]*entities.Image = make(map[uint]*entities.Image)
+	if imageRepo != nil && len(products) > 0 {
+		productIDs := make([]uint, len(products))
+		for i, p := range products {
+			productIDs[i] = p.ID
+		}
+		imagesMap, _ = imageRepo.GetDefaultImagesByProductIDs(r.Context(), productIDs)
+	}
+
 	productResponses := make([]ProductResponse, len(products))
 	for i, product := range products {
-		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
+		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
 
 	response := ProductListResponse{
@@ -752,10 +765,20 @@ func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 		return
 	}
 
+	// Batch fetch images (OPTIMIZED: 1 query instead of N+1)
+	var imagesMap map[uint]*entities.Image = make(map[uint]*entities.Image)
+	if imageRepo != nil && len(similarProducts) > 0 {
+		productIDs := make([]uint, len(similarProducts))
+		for i, p := range similarProducts {
+			productIDs[i] = p.ID
+		}
+		imagesMap, _ = imageRepo.GetDefaultImagesByProductIDs(r.Context(), productIDs)
+	}
+
 	// 3. Convert to response
 	productResponses := make([]ProductResponse, len(similarProducts))
 	for i, p := range similarProducts {
-		productResponses[i] = convertProductToResponse(p, categoryRepo, brandRepo, imageRepo)
+		productResponses[i] = convertProductToResponse(p, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -930,6 +953,127 @@ func GetProductImageHandler(w http.ResponseWriter, r *http.Request, imageRepo re
 		"product_id": productID,
 		"images":     images,
 	})
+}
+
+// ProxyImageHandler serves product images from S3 through backend (avoids CORS issues)
+// GET /proxy-image?path=product-images/p-330/image.jpg
+func ProxyImageHandler(w http.ResponseWriter, r *http.Request) {
+	// CORS headers to allow frontend access
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	imagePath := r.URL.Query().Get("path")
+	if imagePath == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{"error": "path query parameter required"})
+		return
+	}
+
+	// Security: prevent path traversal
+	if strings.Contains(imagePath, "..") {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{"error": "invalid path"})
+		return
+	}
+
+	bucket := os.Getenv("S3_BUCKET")
+	region := os.Getenv("AWS_REGION")
+	
+	if bucket == "" {
+		bucket = "kossti"
+	}
+	if region == "" {
+		region = "ap-southeast-1"
+	}
+
+	ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
+	defer cancel()
+
+	// Load AWS config - explicitly use environment variable credentials
+	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
+	awsSecretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
+	
+	var cfg aws.Config
+	var err error
+	
+	if awsAccessKey != "" && awsSecretKey != "" {
+		// If credentials are in environment, use them explicitly
+		log.Printf("[ProxyImage] Loading AWS credentials from environment (access key starting with %s)", awsAccessKey[:4])
+		cfg, err = config.LoadDefaultConfig(ctx,
+			config.WithRegion(region),
+			config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(awsAccessKey, awsSecretKey, "")),
+		)
+	} else {
+		// Fall back to default credential chain (EC2 role, IAM, etc.)
+		log.Printf("[ProxyImage] No environment credentials found, using default credential chain")
+		cfg, err = config.LoadDefaultConfig(ctx, config.WithRegion(region))
+	}
+	
+	if err != nil {
+		log.Printf("[ProxyImage] AWS config load error: %v", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{"error": "failed to initialize AWS", "details": err.Error()})
+		return
+	}
+
+	s3Client := s3.NewFromConfig(cfg)
+	
+	log.Printf("[ProxyImage] Fetching from S3: bucket=%s, region=%s, key=%s", bucket, region, imagePath)
+	
+	result, err := s3Client.GetObject(ctx, &s3.GetObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(imagePath),
+	})
+	if err != nil {
+		log.Printf("[ProxyImage] S3 GetObject error: type=%T, error=%v", err, err)
+		
+		// Check for specific S3 errors
+		errMsg := err.Error()
+		if strings.Contains(errMsg, "NoSuchKey") || strings.Contains(errMsg, "not found") {
+			w.WriteHeader(http.StatusNotFound)
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(map[string]string{"error": "image not found", "key": imagePath})
+			return
+		}
+		
+		if strings.Contains(errMsg, "Forbidden") || strings.Contains(errMsg, "403") || strings.Contains(errMsg, "AccessDenied") {
+			log.Printf("[ProxyImage] Access denied - check AWS credentials and bucket permissions")
+			w.WriteHeader(http.StatusForbidden)
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(map[string]string{"error": "access denied"})
+			return
+		}
+		
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{"error": "failed to fetch image", "details": errMsg})
+		return
+	}
+	defer result.Body.Close()
+
+	// Set content headers
+	if result.ContentType != nil {
+		w.Header().Set("Content-Type", *result.ContentType)
+	} else {
+		w.Header().Set("Content-Type", "image/jpeg")
+	}
+	
+	// Cache for 1 hour
+	w.Header().Set("Cache-Control", "public, max-age=3600")
+
+	// Stream image to client
+	if _, err := io.Copy(w, result.Body); err != nil {
+		log.Printf("Error streaming image: %v", err)
+	}
 }
 
 // AddProductImageAltHandler handles POST /products/{product}/image

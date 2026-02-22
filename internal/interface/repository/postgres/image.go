@@ -89,5 +89,35 @@ func (r *PostgresImageRepo) Update(ctx context.Context, image *entities.Image) (
 	return imageModel.ToEntity(), nil
 }
 
+// GetDefaultImagesByProductIDs fetches default images for multiple products in a single query
+// Returns a map of productID -> image, avoiding N+1 queries
+func (r *PostgresImageRepo) GetDefaultImagesByProductIDs(ctx context.Context, productIDs []uint) (map[uint]*entities.Image, error) {
+	result := make(map[uint]*entities.Image)
+	
+	if len(productIDs) == 0 {
+		return result, nil
+	}
+
+	var imageModels []models.ImageModel
+
+	// Fetch all images for these products, preferring default_photo = 1
+	if err := r.db.WithContext(ctx).
+		Where("imageable_type = ? AND imageable_id IN ? AND deleted_at IS NULL", "Product", productIDs).
+		Order("default_photo DESC"). // Default photo first
+		Find(&imageModels).Error; err != nil {
+		return result, err
+	}
+
+	// For each product, keep only the first (default) image
+	for _, model := range imageModels {
+		if _, exists := result[model.ImageableID]; !exists {
+			// Only add if we haven't already added an image for this product
+			result[model.ImageableID] = model.ToEntity()
+		}
+	}
+
+	return result, nil
+}
+
 // Ensure the implementation satisfies the interface
 var _ repository.ImageRepository = (*PostgresImageRepo)(nil)

@@ -21,4 +21,7 @@ type ImageRepository interface {
 
 	// Update updates an existing image
 	Update(ctx context.Context, image *entities.Image) (*entities.Image, error)
+
+	// GetDefaultImagesByProductIDs fetches default images for multiple products efficiently (batch query)
+	GetDefaultImagesByProductIDs(ctx context.Context, productIDs []uint) (map[uint]*entities.Image, error)
 }
