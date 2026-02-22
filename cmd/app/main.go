@@ -173,7 +173,7 @@ func killProcessOnPort(port int) {
 func main() {
 	// Load environment files. Priority:
 	// 1) If GO_ENV=production -> load .env.production
-	// 2) Else if .env.production exists -> load it and set GO_ENV=production
+	// 2) Else if .env.production exists -> load it (allows local dev against Railway DB)
 	// 3) Else load .env (development)
 	if os.Getenv("GO_ENV") == "production" {
 		if err := godotenv.Load(".env.production"); err != nil {
@@ -181,20 +181,17 @@ func main() {
 		}
 	} else {
 		if _, err := os.Stat(".env.production"); err == nil {
-			// .env.production exists - prefer it for local production-like runs
 			if err := godotenv.Load(".env.production"); err != nil {
 				log.Println("warning: failed loading .env.production:", err)
 			} else {
-				// mark runtime as production when loading .env.production
 				os.Setenv("GO_ENV", "production")
 			}
 		} else {
-			log.Println("DEBUG: Attempting to load .env file...")
+			log.Println("DEBUG: Loading .env file for development...")
 			if err := godotenv.Load(".env"); err != nil {
 				log.Printf("ERROR: failed to load .env file: %v", err)
 			} else {
-				log.Println("SUCCESS: .env file loaded by godotenv")
-				// Check immediately after loading
+				log.Println("SUCCESS: .env file loaded")
 				testKey := os.Getenv("OPENAI_API_KEY")
 				log.Printf("DEBUG: OPENAI_API_KEY after godotenv.Load(): length=%d", len(testKey))
 			}

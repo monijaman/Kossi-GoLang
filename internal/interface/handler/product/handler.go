@@ -176,19 +176,54 @@ func generateImageURL(imagePath string) string {
 		return imagePath
 	}
 
-	// Check if the file exists on local filesystem (for development static files)
+	// Check local filesystem first (development static files)
 	fsPath := imagePath
 	if strings.HasPrefix(fsPath, "/") {
 		fsPath = strings.TrimPrefix(fsPath, "/")
 	}
 	if _, err := os.Stat(fsPath); err == nil {
-		// Use forward slashes for URLs on all platforms
 		return "/" + filepath.ToSlash(fsPath)
 	}
 
-	// For S3 images, return a relative proxy path.
-	// Next.js rewrites /proxy-image -> backend, so no CORS or presigned URL issues.
-	return "/proxy-image?path=" + imagePath
+	bucket := os.Getenv("S3_BUCKET")
+	region := os.Getenv("AWS_REGION")
+	accessKey := os.Getenv("AWS_ACCESS_KEY_ID")
+	secretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
+
+	if bucket == "" {
+		bucket = "kossti"
+	}
+	if region == "" {
+		region = "ap-southeast-1"
+	}
+
+	// Only attempt presigned URL when credentials are explicitly set
+	if accessKey != "" && secretKey != "" {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		cfg, err := config.LoadDefaultConfig(ctx,
+			config.WithRegion(region),
+			config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(accessKey, secretKey, "")),
+		)
+		if err == nil {
+			s3Client := s3.NewFromConfig(cfg)
+			presignClient := s3.NewPresignClient(s3Client)
+
+			presigned, err := presignClient.PresignGetObject(ctx, &s3.GetObjectInput{
+				Bucket: aws.String(bucket),
+				Key:    aws.String(imagePath),
+			}, func(opts *s3.PresignOptions) {
+				opts.Expires = 1 * time.Hour
+			})
+			if err == nil {
+				return presigned.URL
+			}
+		}
+	}
+
+	// Fallback: direct S3 URL (works if bucket/object is public-read)
+	return fmt.Sprintf("https://%s.s3.%s.amazonaws.com/%s", bucket, region, imagePath)
 }
 
 // generatePresignedURL generates a presigned S3 GET URL with timeout handling
