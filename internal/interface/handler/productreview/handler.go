@@ -79,6 +79,7 @@ type ImageResponse struct {
 	ID           uint   `json:"id"`
 	Name         string `json:"name"`
 	Path         string `json:"path"`
+	URL          string `json:"url"` // presigned GET or public URL
 	ProductID    uint   `json:"product_id"`
 	DefaultPhoto bool   `json:"defaultphoto"`
 	CreatedAt    string `json:"created_at"`
@@ -707,15 +708,25 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 		return
 	}
 
-	// Persist files to DB
+	// Build presign client once for all images
+	bucket := os.Getenv("S3_BUCKET")
+	region := os.Getenv("AWS_REGION")
+	var presignClient *s3.PresignClient
+	if bucket != "" && region != "" {
+		if cfg, err := config.LoadDefaultConfig(r.Context(), config.WithRegion(region)); err == nil {
+			presignClient = s3.NewPresignClient(s3.NewFromConfig(cfg))
+		}
+	}
+
+	// Persist files to DB and return presigned GET URLs
 	images := make([]ImageResponse, 0, len(payload.Files))
 	for _, f := range payload.Files {
 		image := &entities.Image{
 			ImageableType: "Product",
 			ImageableID:   payload.ProductID,
 			ImagePath:     f.Key,
-			Status:        1, // Active
-			DefaultPhoto:  0, // Don't mark any as default - let user decide
+			Status:        1,
+			DefaultPhoto:  0,
 			CreatedAt:     time.Now(),
 			UpdatedAt:     time.Now(),
 		}
@@ -728,12 +739,28 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 			return
 		}
 
+		imgURL := ""
+		if presignClient != nil {
+			presigned, err := presignClient.PresignGetObject(r.Context(), &s3.GetObjectInput{
+				Bucket: aws.String(bucket),
+				Key:    aws.String(createdImage.ImagePath),
+			}, func(opts *s3.PresignOptions) { opts.Expires = 1 * time.Hour })
+			if err == nil {
+				imgURL = presigned.URL
+			}
+		}
+		if imgURL == "" && bucket != "" {
+			// Fallback: plain public URL (works if bucket policy allows public-read)
+			imgURL = "https://" + bucket + ".s3." + region + ".amazonaws.com/" + createdImage.ImagePath
+		}
+
 		images = append(images, ImageResponse{
 			ID:           createdImage.ID,
 			Name:         f.Name,
 			Path:         createdImage.ImagePath,
+			URL:          imgURL,
 			ProductID:    payload.ProductID,
-			DefaultPhoto: false, // All initially set to not default
+			DefaultPhoto: false,
 			CreatedAt:    createdImage.CreatedAt.Format(time.RFC3339),
 			UpdatedAt:    createdImage.UpdatedAt.Format(time.RFC3339),
 		})
