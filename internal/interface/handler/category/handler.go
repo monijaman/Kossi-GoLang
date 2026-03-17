@@ -14,12 +14,13 @@ import (
 
 // CategoryResponse represents the response format for categories
 type CategoryResponse struct {
-	ID        uint   `json:"id"`
-	Name      string `json:"name"`
-	Slug      string `json:"slug"`
-	Status    int    `json:"status"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	ID             uint    `json:"id"`
+	Name           string  `json:"name"`
+	TranslatedName *string `json:"translated_name,omitempty"`
+	Slug           string  `json:"slug"`
+	Status         int     `json:"status"`
+	CreatedAt      string  `json:"created_at"`
+	UpdatedAt      string  `json:"updated_at"`
 }
 
 // CategoryTranslationResponse represents the response format for category translations
@@ -538,6 +539,22 @@ func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRe
 	responses := make([]CategoryResponse, len(filteredCategories))
 	for i, category := range filteredCategories {
 		responses[i] = convertCategoryToResponse(category)
+	}
+
+	// Batch-apply translations for non-English locales (single query)
+	if locale != "" && locale != "en" && len(responses) > 0 {
+		categoryIDs := make([]uint, len(responses))
+		for i, resp := range responses {
+			categoryIDs[i] = resp.ID
+		}
+		if translationMap, err := categoryRepo.GetTranslatedNamesByCategoryIDs(r.Context(), categoryIDs, locale); err == nil {
+			for i := range responses {
+				if name, ok := translationMap[responses[i].ID]; ok {
+					n := name
+					responses[i].TranslatedName = &n
+				}
+			}
+		}
 	}
 
 	var total int

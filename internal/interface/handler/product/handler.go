@@ -39,26 +39,27 @@ type BrandResponse struct {
 
 // ProductResponse represents the response format for products
 type ProductResponse struct {
-	ID           uint              `json:"id"`
-	Name         string            `json:"name"`
-	Description  *string           `json:"description,omitempty"`
-	Slug         string            `json:"slug"`
-	Price        float64           `json:"price"`
-	StartPrice   *float64          `json:"start_price,omitempty"`
-	EndPrice     *float64          `json:"end_price,omitempty"`
-	CategoryID   *uint             `json:"category_id,omitempty"`
-	CategorySlug *string           `json:"category_slug,omitempty"`
-	BrandID      *uint             `json:"brand_id,omitempty"`
-	BrandSlug    *string           `json:"brand_slug,omitempty"`
-	Category     *CategoryResponse `json:"category,omitempty"`
-	Brand        *BrandResponse    `json:"brand,omitempty"`
-	Photo        *string           `json:"photo,omitempty"`
-	DefaultPhoto *int              `json:"defaultphoto,omitempty"`
-	ViewsCount   int64             `json:"views_count"`
-	Status       bool              `json:"status"`
-	Priority     int               `json:"priority"`
-	CreatedAt    string            `json:"created_at"`
-	UpdatedAt    string            `json:"updated_at"`
+	ID             uint              `json:"id"`
+	Name           string            `json:"name"`
+	TranslatedName *string           `json:"translated_name,omitempty"`
+	Description    *string           `json:"description,omitempty"`
+	Slug           string            `json:"slug"`
+	Price          float64           `json:"price"`
+	StartPrice     *float64          `json:"start_price,omitempty"`
+	EndPrice       *float64          `json:"end_price,omitempty"`
+	CategoryID     *uint             `json:"category_id,omitempty"`
+	CategorySlug   *string           `json:"category_slug,omitempty"`
+	BrandID        *uint             `json:"brand_id,omitempty"`
+	BrandSlug      *string           `json:"brand_slug,omitempty"`
+	Category       *CategoryResponse `json:"category,omitempty"`
+	Brand          *BrandResponse    `json:"brand,omitempty"`
+	Photo          *string           `json:"photo,omitempty"`
+	DefaultPhoto   *int              `json:"defaultphoto,omitempty"`
+	ViewsCount     int64             `json:"views_count"`
+	Status         bool              `json:"status"`
+	Priority       int               `json:"priority"`
+	CreatedAt      string            `json:"created_at"`
+	UpdatedAt      string            `json:"updated_at"`
 }
 
 // ProductListResponse represents paginated product list response
@@ -224,6 +225,28 @@ func generateImageURL(imagePath string) string {
 
 	// Fallback: direct S3 URL (works if bucket/object is public-read)
 	return fmt.Sprintf("https://%s.s3.%s.amazonaws.com/%s", bucket, region, imagePath)
+}
+
+// batchApplyTranslations fetches Bengali (or any non-English locale) translated
+// names in a single DB query and sets TranslatedName on each ProductResponse.
+func batchApplyTranslations(ctx context.Context, responses []ProductResponse, repo repository.ProductRepository, locale string) {
+	if locale == "" || locale == "en" || len(responses) == 0 {
+		return
+	}
+	ids := make([]uint, len(responses))
+	for i, r := range responses {
+		ids[i] = r.ID
+	}
+	translationMap, err := repo.GetTranslatedNamesByProductIDs(ctx, ids, locale)
+	if err != nil {
+		return
+	}
+	for i := range responses {
+		if name, ok := translationMap[responses[i].ID]; ok {
+			n := name
+			responses[i].TranslatedName = &n
+		}
+	}
 }
 
 // GetProductByIDHandler handles GET /products/{id}
@@ -605,6 +628,9 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
 
+	// Batch-apply Bengali (or any non-English) translations in one query
+	batchApplyTranslations(r.Context(), productResponses, repo, locale)
+
 	// Calculate pagination info
 	totalPages := (totalCount + int64(limit) - 1) / int64(limit)
 	hasNextPage := page < int(totalPages)
@@ -684,6 +710,9 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 			productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 		}
 
+		// Batch-apply translations for non-English locales
+		batchApplyTranslations(r.Context(), productResponses, repo, r.URL.Query().Get("locale"))
+
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"products":      productResponses,
 			"totalProducts": total,
@@ -713,6 +742,9 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	for i, product := range products {
 		productResponses[i] = convertProductToResponse(product, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
+
+	// Batch-apply translations for non-English locales
+	batchApplyTranslations(r.Context(), productResponses, repo, r.URL.Query().Get("locale"))
 
 	response := ProductListResponse{
 		Products: productResponses,
@@ -781,6 +813,9 @@ func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	for i, p := range similarProducts {
 		productResponses[i] = convertProductToResponse(p, categoryRepo, brandRepo, imageRepo, imagesMap)
 	}
+
+	// Batch-apply translations for non-English locales
+	batchApplyTranslations(r.Context(), productResponses, repo, r.URL.Query().Get("locale"))
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"products": productResponses,

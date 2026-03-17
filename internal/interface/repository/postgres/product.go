@@ -527,4 +527,33 @@ func (r *PostgresProductRepo) DeleteTranslation(ctx context.Context, translation
 	return nil
 }
 
+// GetTranslatedNamesByProductIDs batch-fetches translated names for a list of product IDs.
+// Returns a map of productID -> translatedName for the given locale.
+func (r *PostgresProductRepo) GetTranslatedNamesByProductIDs(ctx context.Context, productIDs []uint, locale string) (map[uint]string, error) {
+	if len(productIDs) == 0 || locale == "" {
+		return map[uint]string{}, nil
+	}
+
+	var rows []struct {
+		ProductID      uint   `gorm:"column:product_id"`
+		TranslatedName string `gorm:"column:translated_name"`
+	}
+
+	if err := r.db.WithContext(ctx).
+		Table("product_translations").
+		Select("product_id, translated_name").
+		Where("product_id IN ? AND locale = ?", productIDs, locale).
+		Scan(&rows).Error; err != nil {
+		return nil, fmt.Errorf("failed to batch-fetch translations: %w", err)
+	}
+
+	result := make(map[uint]string, len(rows))
+	for _, row := range rows {
+		if row.TranslatedName != "" {
+			result[row.ProductID] = row.TranslatedName
+		}
+	}
+	return result, nil
+}
+
 var _ repository.ProductRepository = (*PostgresProductRepo)(nil)
