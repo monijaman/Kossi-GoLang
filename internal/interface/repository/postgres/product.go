@@ -511,9 +511,11 @@ func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) *gorm.
 		query = query.Order("priority ASC, COALESCE(start_price, end_price) ASC")
 	case "price_desc":
 		query = query.Order("priority ASC, COALESCE(start_price, end_price) DESC")
+	case "priority":
+		query = query.Order("priority DESC")
 	default:
-		// Default sorting by priority
-		query = query.Order("priority ASC")
+		// Default sorting by priority descending
+		query = query.Order("priority DESC")
 	}
 	return query
 }
