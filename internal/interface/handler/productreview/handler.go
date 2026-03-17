@@ -1002,26 +1002,40 @@ func GetPublicReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 
 	locale := r.URL.Query().Get("locale")
 
-	review, err := reviewRepo.GetPublicReviewsByProduct(r.Context(), uint(productID), locale)
-	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "No reviews found"})
+	// Get all reviews for this product
+	reviews, err := reviewRepo.GetByProductID(r.Context(), uint(productID))
+	if err != nil || len(reviews) == 0 {
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"product_id": productID,
+			"count":      0,
+			"reviews":    []interface{}{},
+		})
 		return
 	}
 
-	response := map[string]interface{}{
-		"product_id": productID,
-	}
-
-	if review != nil {
-		response["reviews"] = convertReviewToResponse(review)
-	} else {
-		response["reviews"] = map[string]interface{}{
-			"reviews": nil,
-			"rating":  nil,
+	// Build response with translations for non-English locales
+	reviewsData := make([]map[string]interface{}, 0, len(reviews))
+	for _, review := range reviews {
+		reviewData := map[string]interface{}{
+			"review": convertReviewToResponse(review),
 		}
+
+		// If locale is specified and not English, attach the translation
+		if locale != "" && locale != "en" {
+			translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale)
+			if err == nil && translation != nil {
+				reviewData["translation"] = convertTranslationToResponse(translation)
+			}
+		}
+
+		reviewsData = append(reviewsData, reviewData)
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"product_id": productID,
+		"count":      len(reviewsData),
+		"reviews":    reviewsData,
+	})
 }
