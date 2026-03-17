@@ -875,6 +875,7 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 	// Check for category_id or category_slug query parameter
 	categoryIDStr := r.URL.Query().Get("category_id")
 	categorySlug := r.URL.Query().Get("category_slug")
+	locale := r.URL.Query().Get("locale")
 
 	var categoryID uint
 
@@ -942,10 +943,18 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 		// Build full brands response for the provided brand IDs so client can display full brand objects
 		var brandsResp []map[string]interface{}
 		if len(brandIDs) > 0 {
+			// Fetch translated names if locale is provided
+			translatedNames := map[uint]string{}
+			if locale != "" {
+				if tNames, err := categoryRepo.GetBrandTranslatedNamesByIDs(r.Context(), brandIDs, locale); err == nil {
+					translatedNames = tNames
+				}
+			}
+
 			if fetchedBrands, err := categoryRepo.GetBrandsByIDs(r.Context(), brandIDs); err == nil {
 				brandsResp = make([]map[string]interface{}, len(fetchedBrands))
 				for i, b := range fetchedBrands {
-					brandsResp[i] = map[string]interface{}{
+					entry := map[string]interface{}{
 						"id":         b.ID,
 						"name":       b.Name,
 						"slug":       b.Slug,
@@ -953,6 +962,10 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 						"created_at": b.CreatedAt.Format(time.RFC3339),
 						"updated_at": b.UpdatedAt.Format(time.RFC3339),
 					}
+					if tn, ok := translatedNames[b.ID]; ok && tn != "" {
+						entry["translated_name"] = tn
+					}
+					brandsResp[i] = entry
 				}
 			}
 		}

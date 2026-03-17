@@ -391,5 +391,33 @@ func (r *PostgresCategoryRepo) GetTranslatedNamesByCategoryIDs(ctx context.Conte
 	return result, nil
 }
 
+// GetBrandTranslatedNamesByIDs batch-fetches translated names for a list of brand IDs.
+func (r *PostgresCategoryRepo) GetBrandTranslatedNamesByIDs(ctx context.Context, brandIDs []uint, locale string) (map[uint]string, error) {
+	if len(brandIDs) == 0 || locale == "" {
+		return map[uint]string{}, nil
+	}
+
+	var rows []struct {
+		BrandID        uint   `gorm:"column:brand_id"`
+		TranslatedName string `gorm:"column:name"`
+	}
+
+	if err := r.db.WithContext(ctx).
+		Table("brand_translations").
+		Select("brand_id, name").
+		Where("brand_id IN ? AND locale = ?", brandIDs, locale).
+		Scan(&rows).Error; err != nil {
+		return nil, fmt.Errorf("failed to batch-fetch brand translations: %w", err)
+	}
+
+	result := make(map[uint]string, len(rows))
+	for _, row := range rows {
+		if row.TranslatedName != "" {
+			result[row.BrandID] = row.TranslatedName
+		}
+	}
+	return result, nil
+}
+
 // Ensure the implementation satisfies the interface
 var _ repository.CategoryRepository = (*PostgresCategoryRepo)(nil)

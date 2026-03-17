@@ -65,3 +65,4 @@ debug_*.go
 # Editor/IDE
 # .idea/
 # .vscode/
+.env.production

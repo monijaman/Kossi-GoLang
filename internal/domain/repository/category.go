@@ -37,4 +37,6 @@ type CategoryRepository interface {
 	GetCount(ctx context.Context) (int64, error)
 	// Batch-fetches translated names for a list of category IDs; returns map[categoryID]translatedName
 	GetTranslatedNamesByCategoryIDs(ctx context.Context, categoryIDs []uint, locale string) (map[uint]string, error)
+	// Batch-fetches translated names for a list of brand IDs; returns map[brandID]translatedName
+	GetBrandTranslatedNamesByIDs(ctx context.Context, brandIDs []uint, locale string) (map[uint]string, error)
 }
