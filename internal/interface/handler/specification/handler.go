@@ -951,4 +951,3 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 		"count":   len(savedTranslations),
 	})
 }
-
