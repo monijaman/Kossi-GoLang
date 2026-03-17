@@ -371,12 +371,12 @@ func (r *PostgresCategoryRepo) GetTranslatedNamesByCategoryIDs(ctx context.Conte
 
 	var rows []struct {
 		CategoryID     uint   `gorm:"column:category_id"`
-		TranslatedName string `gorm:"column:translated_name"`
+		TranslatedName string `gorm:"column:name"`
 	}
 
 	if err := r.db.WithContext(ctx).
 		Table("category_translations").
-		Select("category_id, translated_name").
+		Select("category_id, name").
 		Where("category_id IN ? AND locale = ?", categoryIDs, locale).
 		Scan(&rows).Error; err != nil {
 		return nil, fmt.Errorf("failed to batch-fetch category translations: %w", err)
