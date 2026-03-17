@@ -104,7 +104,7 @@ func (r *PostgresProductRepo) Update(ctx context.Context, id uint, product *enti
 
 func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand").Order("priority ASC, id DESC")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand").Order("priority DESC, id DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -506,14 +506,16 @@ func isNumeric(s string) bool {
 func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) *gorm.DB {
 	switch sortBy {
 	case "popular":
-		query = query.Order("priority ASC, views_count DESC")
+		query = query.Order("views_count DESC, priority DESC")
 	case "price_asc":
-		query = query.Order("priority ASC, COALESCE(start_price, end_price) ASC")
+		query = query.Order("priority DESC, COALESCE(start_price, end_price) ASC")
 	case "price_desc":
-		query = query.Order("priority ASC, COALESCE(start_price, end_price) DESC")
+		query = query.Order("priority DESC, COALESCE(start_price, end_price) DESC")
+	case "priority":
+		query = query.Order("priority DESC")
 	default:
-		// Default sorting by priority
-		query = query.Order("priority ASC")
+		// Default sorting by priority descending
+		query = query.Order("priority DESC")
 	}
 	return query
 }
@@ -525,6 +527,35 @@ func (r *PostgresProductRepo) DeleteTranslation(ctx context.Context, translation
 		return fmt.Errorf("failed to delete product translation: %w", err)
 	}
 	return nil
+}
+
+// GetTranslatedNamesByProductIDs batch-fetches translated names for a list of product IDs.
+// Returns a map of productID -> translatedName for the given locale.
+func (r *PostgresProductRepo) GetTranslatedNamesByProductIDs(ctx context.Context, productIDs []uint, locale string) (map[uint]string, error) {
+	if len(productIDs) == 0 || locale == "" {
+		return map[uint]string{}, nil
+	}
+
+	var rows []struct {
+		ProductID      uint   `gorm:"column:product_id"`
+		TranslatedName string `gorm:"column:translated_name"`
+	}
+
+	if err := r.db.WithContext(ctx).
+		Table("product_translations").
+		Select("product_id, translated_name").
+		Where("product_id IN ? AND locale = ?", productIDs, locale).
+		Scan(&rows).Error; err != nil {
+		return nil, fmt.Errorf("failed to batch-fetch translations: %w", err)
+	}
+
+	result := make(map[uint]string, len(rows))
+	for _, row := range rows {
+		if row.TranslatedName != "" {
+			result[row.ProductID] = row.TranslatedName
+		}
+	}
+	return result, nil
 }
 
 var _ repository.ProductRepository = (*PostgresProductRepo)(nil)

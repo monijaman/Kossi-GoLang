@@ -53,4 +53,6 @@ type ProductRepository interface {
 	GetTranslations(ctx context.Context, productID uint) ([]*entities.ProductTranslation, error)
 	GetTranslationByLocale(ctx context.Context, productID uint, locale string) (*entities.ProductTranslation, error)
 	DeleteTranslation(ctx context.Context, translationID uint) error
+	// Batch-fetches translated names for a list of product IDs; returns map[productID]translatedName
+	GetTranslatedNamesByProductIDs(ctx context.Context, productIDs []uint, locale string) (map[uint]string, error)
 }

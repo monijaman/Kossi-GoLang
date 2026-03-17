@@ -1,3 +1,5 @@
+Go Backend of https://kossti.com/
+
 # Clean Architecture Authentication System in Go — Presentation Guide
 
 Welcome! This guide is designed to help you present and explain your Go authentication project using Clean Architecture to students.
@@ -15,16 +17,6 @@ Short description: This repository contains the Go backend for the Kossti produc
 - [3. Layers Explained (Simple)](#3-layers-explained-simple)
 - [4. How the Parts Work Together](#4-how-the-parts-work-together)
 
-### 🚀 **Getting Started**
-
-- [4.5. Quick Start (Working Tools)](#45-quick-start-working-tools-)
-- [5. Setup & Run (Step-by-Step)](#5-setup--run-step-by-step)
-  - [5.1. Install Go and PostgreSQL](#1-install-go-and-postgresql)
-  - [5.2. Install Project Dependencies](#2-install-project-dependencies)
-  - [5.3. Create a Database](#3-create-a-database)
-  - [5.4. Set Environment Variables](#4-set-environment-variables)
-  - [5.5. Run the Applications](#5-run-the-applications)
-  - [5.6. Test the API](#6-test-the-api)
 
 ### � **API Reference**
 
@@ -38,54 +30,6 @@ Short description: This repository contains the Go backend for the Kossti produc
   - [Form Generator](#-form-generator)
   - [Example API Requests](#-example-api-requests)
 
-### �🛠️ **Development Tools**
-
-- [6. Development Tools & Troubleshooting](#6-development-tools--troubleshooting)
-  - [6.1. Air Hot Reloading Issues](#61-air-hot-reloading-issues)
-  - [6.2. Go Dependencies Issues](#62-go-dependencies-issues)
-  - [6.3. PostgreSQL Connection Issues](#63-postgresql-connection-issues)
-- [7. PostgreSQL Password Setup](#7-how-to-set-or-change-the-password-for-the-postgres-user-in-postgresql)
-
-### 📊 **Database Management**
-
-- [9. How to Migrate the Database Schema](#9-how-to-migrate-the-database-schema-automigrate)
-- [10. Advanced Database Migration System](#10-advanced-database-migration-system)
-  - [10.1. Migration Manager Features](#101-migration-manager-features)
-  - [10.2. Using the Migration CLI Tool](#102-using-the-migration-cli-tool)
-  - [10.3. Migration CLI Options](#103-migration-cli-options)
-  - [10.4. Programmatic Usage](#104-programmatic-usage-in-your-app)
-  - [10.5. What Gets Migrated](#105-what-gets-migrated)
-  - [10.6. Migration Best Practices](#106-migration-best-practices)
-  - [10.7. Troubleshooting Migrations](#107-troubleshooting-migrations)
-- [11. Database Seeding System](#11-database-seeding-system-)
-  - [11.1. Quick Start](#111-quick-start)
-  - [11.2. What Gets Seeded](#112-what-gets-seeded)
-  - [11.3. Seeded Data Examples](#113-seeded-data-examples)
-  - [11.4. Seeding CLI Options](#114-seeding-cli-options)
-  - [11.5. Architecture Overview](#115-architecture-overview)
-  - [11.6. Programmatic Usage](#116-programmatic-usage)
-  - [11.7. Creating Custom Seeders](#117-creating-custom-seeders)
-  - [11.8. Verification & Testing](#118-verification--testing)
-
-### 🔧 **CLI Tools & Commands**
-
-- [12. CLI Tools Available](#12-cli-tools-available)
-  - [12.1. Main Application Server](#121-main-application-server)
-  - [12.2. Database Migration Tool](#122-database-migration-tool)
-  - [12.3. Database Seeding Verification Tool](#123-database-seeding-verification-tool)
-  - [12.4. Build All Tools](#124-build-all-tools)
-
-### 🐘 **PostgreSQL Reference**
-
-- [13. PostgreSQL Troubleshooting](#13-postgresql-troubleshooting)
-  - [13.1. Common PostgreSQL Docker Issues](#131-common-postgresql-docker-issues)
-  - [13.2. Connection Problems](#132-connection-problems)
-  - [13.3. Best Practices](#133-best-practices)
-
-### 🎓 **Learning Resources**
-
-- [8. Clean Architecture Benefits (Recap)](#8-clean-architecture-benefits-recap)
-- [9. For You](#9-for-you)
 
 ---
 

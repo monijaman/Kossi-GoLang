@@ -194,8 +194,8 @@ func (SpecificationTranslationModel) TableName() string {
 // SpecificationKeyTranslationModel represents the database model for specification key translations (GORM-specific)
 type SpecificationKeyTranslationModel struct {
 	ID                 uint      `gorm:"primaryKey;autoIncrement"`
-	SpecificationKeyID uint      `gorm:"not null"`
-	Locale             string    `gorm:"type:varchar(255);not null"`
+	SpecificationKeyID uint      `gorm:"not null;uniqueIndex:uniq_spec_key_locale"`
+	Locale             string    `gorm:"type:varchar(255);not null;uniqueIndex:uniq_spec_key_locale"`
 	SpecificationKey   string    `gorm:"type:varchar(255);not null"`
 	CreatedAt          time.Time `gorm:"autoCreateTime"`
 	UpdatedAt          time.Time `gorm:"autoUpdateTime"`

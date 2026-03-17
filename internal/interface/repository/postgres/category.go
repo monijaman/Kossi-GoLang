@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"errors"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/infrastructure/database/models"
@@ -360,6 +361,62 @@ func (r *PostgresCategoryRepo) GetCount(ctx context.Context) (int64, error) {
 		return 0, err
 	}
 	return count, nil
+}
+
+// GetTranslatedNamesByCategoryIDs batch-fetches translated names for a list of category IDs.
+func (r *PostgresCategoryRepo) GetTranslatedNamesByCategoryIDs(ctx context.Context, categoryIDs []uint, locale string) (map[uint]string, error) {
+	if len(categoryIDs) == 0 || locale == "" {
+		return map[uint]string{}, nil
+	}
+
+	var rows []struct {
+		CategoryID     uint   `gorm:"column:category_id"`
+		TranslatedName string `gorm:"column:name"`
+	}
+
+	if err := r.db.WithContext(ctx).
+		Table("category_translations").
+		Select("category_id, name").
+		Where("category_id IN ? AND locale = ?", categoryIDs, locale).
+		Scan(&rows).Error; err != nil {
+		return nil, fmt.Errorf("failed to batch-fetch category translations: %w", err)
+	}
+
+	result := make(map[uint]string, len(rows))
+	for _, row := range rows {
+		if row.TranslatedName != "" {
+			result[row.CategoryID] = row.TranslatedName
+		}
+	}
+	return result, nil
+}
+
+// GetBrandTranslatedNamesByIDs batch-fetches translated names for a list of brand IDs.
+func (r *PostgresCategoryRepo) GetBrandTranslatedNamesByIDs(ctx context.Context, brandIDs []uint, locale string) (map[uint]string, error) {
+	if len(brandIDs) == 0 || locale == "" {
+		return map[uint]string{}, nil
+	}
+
+	var rows []struct {
+		BrandID        uint   `gorm:"column:brand_id"`
+		TranslatedName string `gorm:"column:name"`
+	}
+
+	if err := r.db.WithContext(ctx).
+		Table("brand_translations").
+		Select("brand_id, name").
+		Where("brand_id IN ? AND locale = ?", brandIDs, locale).
+		Scan(&rows).Error; err != nil {
+		return nil, fmt.Errorf("failed to batch-fetch brand translations: %w", err)
+	}
+
+	result := make(map[uint]string, len(rows))
+	for _, row := range rows {
+		if row.TranslatedName != "" {
+			result[row.BrandID] = row.TranslatedName
+		}
+	}
+	return result, nil
 }
 
 // Ensure the implementation satisfies the interface

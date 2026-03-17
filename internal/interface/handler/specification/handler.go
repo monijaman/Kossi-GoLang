@@ -841,8 +841,8 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 		locale = "en"
 	}
 
-	// Get all specifications for the product
-	specifications, err := specRepo.GetByProductID(r.Context(), uint(productID))
+	// Single JOIN query - replaces N+1 per-spec lookups
+	results, err := specRepo.GetPublicSpecsWithTranslations(r.Context(), uint(productID), locale)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get specifications"})
@@ -855,28 +855,13 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 		TranslatedValue    string `json:"translated_value"`
 	}
 
-	var dataset []SpecificationResponse
-	for _, spec := range specifications {
-		translatedKey := spec.SpecificationKey // fallback
-		translatedValue := spec.Value          // fallback
-
-		// Get translated key if locale is not 'en'
-		if locale != "en" {
-			if keyTranslation, err := keyRepo.GetKeyTranslationByLocale(r.Context(), spec.SpecificationKeyID, locale); err == nil && keyTranslation != nil && keyTranslation.TranslatedKey != "" {
-				translatedKey = keyTranslation.TranslatedKey
-			}
-
-			// Get translated value if locale is not 'en'
-			if valueTranslation, err := specRepo.GetTranslationByLocale(r.Context(), spec.ID, locale); err == nil && valueTranslation != nil && valueTranslation.TranslatedValue != "" {
-				translatedValue = valueTranslation.TranslatedValue
-			}
+	dataset := make([]SpecificationResponse, len(results))
+	for i, r := range results {
+		dataset[i] = SpecificationResponse{
+			SpecificationKeyID: r.SpecificationKeyID,
+			TranslatedKey:      r.TranslatedKey,
+			TranslatedValue:    r.TranslatedValue,
 		}
-
-		dataset = append(dataset, SpecificationResponse{
-			SpecificationKeyID: spec.SpecificationKeyID,
-			TranslatedKey:      translatedKey,
-			TranslatedValue:    translatedValue,
-		})
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -966,4 +951,3 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 		"count":   len(savedTranslations),
 	})
 }
-

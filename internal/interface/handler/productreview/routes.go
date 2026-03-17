@@ -133,6 +133,15 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 	// Note: product review GET /products/{id}/reviews is routed from the product handler
 	// to avoid registering the same "/products/" pattern twice on the default ServeMux.
 
+	// Get public reviews for a product with optional locale -> GET /public-reviews/{id}
+	mux.HandleFunc("/public-reviews/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			GetPublicReviewsHandler(w, r, reviewRepo)
+			return
+		}
+		http.NotFound(w, r)
+	})
+
 	// Get product images -> GET /productimages/{id}
 	mux.HandleFunc("/productimages/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {

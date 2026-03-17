@@ -565,19 +565,24 @@ func GetReviewsByProductHandler(w http.ResponseWriter, r *http.Request, reviewRe
 	// Build response with all reviews and their translations if locale specified
 	reviewsData := make([]map[string]interface{}, 0)
 	for _, review := range reviews {
-		reviewData := map[string]interface{}{
-			"review": convertReviewToResponse(review),
-		}
+		resp := convertReviewToResponse(review)
 
-		// If locale is specified and it's not English, get the translation
+		// If locale is specified and not English, merge translation into the review
 		if locale != "" && locale != "en" {
 			translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale)
-			if err == nil {
-				reviewData["translation"] = convertTranslationToResponse(translation)
+			if err == nil && translation != nil {
+				if translation.TranslatedReview != "" {
+					resp.Reviews = translation.TranslatedReview
+				}
+				if translation.Rating != "" {
+					resp.Rating = translation.Rating
+				}
 			}
 		}
 
-		reviewsData = append(reviewsData, reviewData)
+		reviewsData = append(reviewsData, map[string]interface{}{
+			"review": resp,
+		})
 	}
 
 	response := map[string]interface{}{
@@ -1002,26 +1007,46 @@ func GetPublicReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 
 	locale := r.URL.Query().Get("locale")
 
-	review, err := reviewRepo.GetPublicReviewsByProduct(r.Context(), uint(productID), locale)
-	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "No reviews found"})
+	// Get all reviews for this product
+	reviews, err := reviewRepo.GetByProductID(r.Context(), uint(productID))
+	if err != nil || len(reviews) == 0 {
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"product_id": productID,
+			"count":      0,
+			"reviews":    []interface{}{},
+		})
 		return
 	}
 
-	response := map[string]interface{}{
-		"product_id": productID,
-	}
+	// Build response with translations for non-English locales
+	reviewsData := make([]map[string]interface{}, 0, len(reviews))
+	for _, review := range reviews {
+		resp := convertReviewToResponse(review)
 
-	if review != nil {
-		response["reviews"] = convertReviewToResponse(review)
-	} else {
-		response["reviews"] = map[string]interface{}{
-			"reviews": nil,
-			"rating":  nil,
+		// If locale is specified and not English, merge the translation into the review
+		if locale != "" && locale != "en" {
+			translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale)
+			if err == nil && translation != nil {
+				// Override review text and rating with Bengali values
+				if translation.TranslatedReview != "" {
+					resp.Reviews = translation.TranslatedReview
+				}
+				if translation.Rating != "" {
+					resp.Rating = translation.Rating
+				}
+			}
 		}
+
+		reviewsData = append(reviewsData, map[string]interface{}{
+			"review": resp,
+		})
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"product_id": productID,
+		"count":      len(reviewsData),
+		"reviews":    reviewsData,
+	})
 }
