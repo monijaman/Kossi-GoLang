@@ -324,6 +324,15 @@ func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo reposi
 	}
 
 	response := convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
+
+	// Apply locale translation if non-English
+	locale := r.URL.Query().Get("locale")
+	if locale != "" && locale != "en" {
+		responses := []ProductResponse{response}
+		batchApplyTranslations(r.Context(), responses, repo, locale)
+		response = responses[0]
+	}
+
 	json.NewEncoder(w).Encode(response)
 }
 
