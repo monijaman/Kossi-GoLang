@@ -23,6 +23,16 @@ type SpecificationRepository interface {
 	BulkUpsertTranslations(ctx context.Context, translations []*entities.SpecificationTranslation) ([]*entities.SpecificationTranslation, error)
 	GetTranslations(ctx context.Context, specID uint) ([]*entities.SpecificationTranslation, error)
 	GetTranslationByLocale(ctx context.Context, specID uint, locale string) (*entities.SpecificationTranslation, error)
+
+	// Public spec with translations in a single query
+	GetPublicSpecsWithTranslations(ctx context.Context, productID uint, locale string) ([]PublicSpecResult, error)
+}
+
+// PublicSpecResult holds the result of a public spec query with translations
+type PublicSpecResult struct {
+	SpecificationKeyID uint
+	TranslatedKey      string
+	TranslatedValue    string
 }
 
 // SpecificationKeyRepository defines the interface for specification key operations

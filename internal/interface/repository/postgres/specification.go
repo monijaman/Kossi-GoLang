@@ -409,5 +409,43 @@ func (r *PostgresSpecificationRepo) GetTranslationByLocale(ctx context.Context, 
 	return translationModel.ToEntity(), nil
 }
 
+// GetPublicSpecsWithTranslations returns all specs for a product with translations in a single query
+func (r *PostgresSpecificationRepo) GetPublicSpecsWithTranslations(ctx context.Context, productID uint, locale string) ([]repository.PublicSpecResult, error) {
+	type row struct {
+		SpecificationKeyID uint   `gorm:"column:specification_key_id"`
+		TranslatedKey      string `gorm:"column:translated_key"`
+		TranslatedValue    string `gorm:"column:translated_value"`
+	}
+
+	var rows []row
+	err := r.db.WithContext(ctx).Raw(`
+		SELECT
+			s.specification_key_id,
+			COALESCE(NULLIF(kt.specification_key, ''), sk.specification_key) AS translated_key,
+			COALESCE(NULLIF(st.value, ''), s.value) AS translated_value
+		FROM specifications s
+		JOIN specification_keys sk ON sk.id = s.specification_key_id
+		LEFT JOIN specification_key_translations kt
+			ON kt.specification_key_id = s.specification_key_id AND kt.locale = ?
+		LEFT JOIN specification_translations st
+			ON st.specification_id = s.id AND st.locale = ?
+		WHERE s.product_id = ?
+	`, locale, locale, productID).Scan(&rows).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	results := make([]repository.PublicSpecResult, len(rows))
+	for i, r := range rows {
+		results[i] = repository.PublicSpecResult{
+			SpecificationKeyID: r.SpecificationKeyID,
+			TranslatedKey:      r.TranslatedKey,
+			TranslatedValue:    r.TranslatedValue,
+		}
+	}
+	return results, nil
+}
+
 // Ensure the implementation satisfies the interface
 var _ repository.SpecificationRepository = (*PostgresSpecificationRepo)(nil)
