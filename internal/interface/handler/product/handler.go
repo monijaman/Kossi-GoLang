@@ -32,9 +32,10 @@ type CategoryResponse struct {
 
 // BrandResponse represents the response format for brands
 type BrandResponse struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-	Slug string `json:"slug"`
+	ID             uint    `json:"id"`
+	Name           string  `json:"name"`
+	TranslatedName *string `json:"translated_name,omitempty"`
+	Slug           string  `json:"slug"`
 }
 
 // ProductResponse represents the response format for products
@@ -293,6 +294,21 @@ func GetProductByIDHandler(w http.ResponseWriter, r *http.Request, repo reposito
 
 	response := convertProductToResponse(product, categoryRepo, brandRepo, imageRepo)
 
+	// Apply locale translation if non-English
+	locale := r.URL.Query().Get("locale")
+	if locale != "" && locale != "en" {
+		responses := []ProductResponse{response}
+		batchApplyTranslations(r.Context(), responses, repo, locale)
+		response = responses[0]
+
+		// Apply brand translation if brand exists
+		if response.Brand != nil && response.Brand.ID > 0 {
+			if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), response.Brand.ID, locale); err == nil && brandTranslation != nil {
+				response.Brand.TranslatedName = &brandTranslation.TranslatedName
+			}
+		}
+	}
+
 	// DEBUG: Log the response before JSON encoding
 	// fmt.Printf("DEBUG: Response struct - ID: %d, Status: %v, Priority: %d\n", response.ID, response.Status, response.Priority)
 
@@ -331,6 +347,13 @@ func GetProductBySlugHandler(w http.ResponseWriter, r *http.Request, repo reposi
 		responses := []ProductResponse{response}
 		batchApplyTranslations(r.Context(), responses, repo, locale)
 		response = responses[0]
+
+		// Apply brand translation if brand exists
+		if response.Brand != nil && response.Brand.ID > 0 {
+			if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), response.Brand.ID, locale); err == nil && brandTranslation != nil {
+				response.Brand.TranslatedName = &brandTranslation.TranslatedName
+			}
+		}
 	}
 
 	json.NewEncoder(w).Encode(response)
@@ -640,6 +663,17 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	// Batch-apply Bengali (or any non-English) translations in one query
 	batchApplyTranslations(r.Context(), productResponses, repo, locale)
 
+	// Apply brand translations if non-English locale
+	if locale != "" && locale != "en" {
+		for i := range productResponses {
+			if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+				if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
+					productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+				}
+			}
+		}
+	}
+
 	// Calculate pagination info
 	totalPages := (totalCount + int64(limit) - 1) / int64(limit)
 	hasNextPage := page < int(totalPages)
@@ -720,7 +754,19 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 		}
 
 		// Batch-apply translations for non-English locales
-		batchApplyTranslations(r.Context(), productResponses, repo, r.URL.Query().Get("locale"))
+		locale := r.URL.Query().Get("locale")
+		batchApplyTranslations(r.Context(), productResponses, repo, locale)
+
+		// Apply brand translations if non-English locale
+		if locale != "" && locale != "en" {
+			for i := range productResponses {
+				if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+					if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
+						productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+					}
+				}
+			}
+		}
 
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"products":      productResponses,
@@ -753,7 +799,19 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	}
 
 	// Batch-apply translations for non-English locales
-	batchApplyTranslations(r.Context(), productResponses, repo, r.URL.Query().Get("locale"))
+	locale := r.URL.Query().Get("locale")
+	batchApplyTranslations(r.Context(), productResponses, repo, locale)
+
+	// Apply brand translations if non-English locale
+	if locale != "" && locale != "en" {
+		for i := range productResponses {
+			if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+				if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
+					productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+				}
+			}
+		}
+	}
 
 	response := ProductListResponse{
 		Products: productResponses,
@@ -824,7 +882,19 @@ func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	}
 
 	// Batch-apply translations for non-English locales
-	batchApplyTranslations(r.Context(), productResponses, repo, r.URL.Query().Get("locale"))
+	locale := r.URL.Query().Get("locale")
+	batchApplyTranslations(r.Context(), productResponses, repo, locale)
+
+	// Apply brand translations if non-English locale
+	if locale != "" && locale != "en" {
+		for i := range productResponses {
+			if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+				if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
+					productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+				}
+			}
+		}
+	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"products": productResponses,
