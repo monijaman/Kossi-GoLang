@@ -104,7 +104,7 @@ func (r *PostgresProductRepo) Update(ctx context.Context, id uint, product *enti
 
 func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand").Order("priority ASC, id DESC")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand").Order("priority DESC, id DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -506,11 +506,11 @@ func isNumeric(s string) bool {
 func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) *gorm.DB {
 	switch sortBy {
 	case "popular":
-		query = query.Order("priority ASC, views_count DESC")
+		query = query.Order("priority DESC, views_count DESC")
 	case "price_asc":
-		query = query.Order("priority ASC, COALESCE(start_price, end_price) ASC")
+		query = query.Order("priority DESC, COALESCE(start_price, end_price) ASC")
 	case "price_desc":
-		query = query.Order("priority ASC, COALESCE(start_price, end_price) DESC")
+		query = query.Order("priority DESC, COALESCE(start_price, end_price) DESC")
 	case "priority":
 		query = query.Order("priority DESC")
 	default:
