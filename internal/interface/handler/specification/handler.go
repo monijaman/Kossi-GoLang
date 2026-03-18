@@ -1,6 +1,7 @@
 package specification
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -745,6 +746,14 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 // GetSpecificationTranslationHandler handles GET /spec_translation/{id}?locale=xx
 func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+	// Handle CORS preflight
+	if r.Method == http.MethodOptions {
+		return
+	}
 
 	// Extract product ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/spec_translation/")
@@ -768,9 +777,16 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
+	fmt.Printf("[GetSpecificationTranslationHandler] Fetching translations for product %d, locale: %s\n", productID, locale)
+
+	// Create a context with timeout for the database query
+	ctx, cancel := context.WithTimeout(r.Context(), 15*time.Second)
+	defer cancel()
+
 	// Use the optimized single-query method instead of N+1 loop
-	results, err := specRepo.GetPublicSpecsWithTranslations(r.Context(), uint(productID), locale)
+	results, err := specRepo.GetPublicSpecsWithTranslations(ctx, uint(productID), locale)
 	if err != nil {
+		fmt.Printf("[GetSpecificationTranslationHandler] Error fetching translations: %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{
 			"error":   "Failed to get product specifications",
@@ -778,6 +794,8 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		})
 		return
 	}
+
+	fmt.Printf("[GetSpecificationTranslationHandler] Found %d specifications for product %d\n", len(results), productID)
 
 	// Build response in Laravel-compatible format
 	var formattedDataset []map[string]interface{}
@@ -791,7 +809,6 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		// Only add translations if we have data
 		if result.TranslatedValue != "" {
 			specData["translations"] = map[string]interface{}{
-				"specification_id": result.SpecificationID,
 				"locale":           locale,
 				"translated_key":   result.TranslatedKey,
 				"translated_value": result.TranslatedValue,
@@ -801,6 +818,7 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		formattedDataset = append(formattedDataset, specData)
 	}
 
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"dataset": formattedDataset,
 	})
