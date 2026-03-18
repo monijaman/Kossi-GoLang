@@ -18,6 +18,7 @@ type BrandResponse struct {
 	Status    int    `json:"status"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
+	Total     int    `json:"total,omitempty"`
 }
 
 // BrandTranslationResponse represents the response format for brand translations
@@ -31,8 +32,8 @@ type BrandTranslationResponse struct {
 }
 
 // convertBrandToResponse converts entity to response format
-func convertBrandToResponse(brand *entities.Brand) BrandResponse {
-	return BrandResponse{
+func convertBrandToResponse(brand *entities.Brand, total ...int) BrandResponse {
+	resp := BrandResponse{
 		ID:        brand.ID,
 		Name:      brand.Name,
 		Slug:      brand.Slug,
@@ -40,6 +41,10 @@ func convertBrandToResponse(brand *entities.Brand) BrandResponse {
 		CreatedAt: brand.CreatedAt.Format(time.RFC3339),
 		UpdatedAt: brand.UpdatedAt.Format(time.RFC3339),
 	}
+	if len(total) > 0 {
+		resp.Total = total[0]
+	}
+	return resp
 }
 
 // convertBrandTranslationToResponse converts entity to response format
@@ -174,6 +179,8 @@ func GetBrandsHandlero(w http.ResponseWriter, r *http.Request, brandRepo reposit
 func GetBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	// func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// Cache for 10 minutes - brands with counts don't change frequently
+	w.Header().Set("Cache-Control", "public, max-age=600")
 
 	// Parse query parameters
 	perPageStr := r.URL.Query().Get("limit")
@@ -262,8 +269,20 @@ func GetBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo reposito
 	}
 
 	responses := make([]BrandResponse, len(filteredBrands))
+
+	// Fetch product counts for all brands (OPTIMIZED: single batch query)
+	brandIDs := make([]uint, len(filteredBrands))
 	for i, brand := range filteredBrands {
-		responses[i] = convertBrandToResponse(brand)
+		brandIDs[i] = brand.ID
+	}
+
+	countMap := make(map[uint]int)
+	if len(brandIDs) > 0 {
+		countMap, _ = brandRepo.GetProductCountsByBrandIDs(r.Context(), brandIDs)
+	}
+
+	for i, brand := range filteredBrands {
+		responses[i] = convertBrandToResponse(brand, countMap[brand.ID])
 	}
 
 	var total int
@@ -531,6 +550,8 @@ func GetWideBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repo
 // GetPublicBrandsHandler handles GET /public-brands
 func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// Cache for 10 minutes - brands with counts don't change frequently
+	w.Header().Set("Cache-Control", "public, max-age=600")
 
 	// Parse query parameters
 	limitStr := r.URL.Query().Get("limit")
@@ -562,9 +583,20 @@ func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo re
 		return
 	}
 
+	// Fetch product counts for all brands (OPTIMIZED: single batch query)
+	brandIDs := make([]uint, len(brands))
+	for i, brand := range brands {
+		brandIDs[i] = brand.ID
+	}
+
+	countMap := make(map[uint]int)
+	if len(brandIDs) > 0 {
+		countMap, _ = brandRepo.GetProductCountsByBrandIDs(r.Context(), brandIDs)
+	}
+
 	responses := make([]BrandResponse, len(brands))
 	for i, brand := range brands {
-		responses[i] = convertBrandToResponse(brand)
+		responses[i] = convertBrandToResponse(brand, countMap[brand.ID])
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{

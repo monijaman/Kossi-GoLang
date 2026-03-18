@@ -393,7 +393,7 @@ func main() {
 		handleruser.RegisterUserRoutes(mux, userRepo)
 		handlercomment.RegisterCommentRoutes(mux, db)
 		handlerproduct.RegisterProductRoutes(mux, productRepo, imageRepo, categoryRepo, brandRepo, productReviewRepo)
-		handlercategory.RegisterCategoryRoutes(mux, categoryRepo)
+		handlercategory.RegisterCategoryRoutes(mux, categoryRepo, brandRepo)
 		handlerbrand.RegisterBrandRoutes(mux, brandRepo)
 		handlerspecification.RegisterSpecificationRoutes(mux, specificationRepo, specificationKeyRepo, productRepo, formGeneratorRepo)
 		handlerproductreview.RegisterProductReviewRoutes(mux, productReviewRepo, productRepo, imageRepo)

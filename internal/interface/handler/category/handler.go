@@ -21,6 +21,7 @@ type CategoryResponse struct {
 	Status         int     `json:"status"`
 	CreatedAt      string  `json:"created_at"`
 	UpdatedAt      string  `json:"updated_at"`
+	Total          int     `json:"total,omitempty"`
 }
 
 // CategoryTranslationResponse represents the response format for category translations
@@ -42,8 +43,8 @@ type BrandCategoryResponse struct {
 }
 
 // convertCategoryToResponse converts entity to response format
-func convertCategoryToResponse(category *entities.Category) CategoryResponse {
-	return CategoryResponse{
+func convertCategoryToResponse(category *entities.Category, total ...int) CategoryResponse {
+	resp := CategoryResponse{
 		ID:        category.ID,
 		Name:      category.Name,
 		Slug:      category.Slug,
@@ -51,6 +52,10 @@ func convertCategoryToResponse(category *entities.Category) CategoryResponse {
 		CreatedAt: category.CreatedAt.Format(time.RFC3339),
 		UpdatedAt: category.UpdatedAt.Format(time.RFC3339),
 	}
+	if len(total) > 0 {
+		resp.Total = total[0]
+	}
+	return resp
 }
 
 // convertCategoryTranslationToResponse converts entity to response format
@@ -164,6 +169,8 @@ func CreateCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 // GetCategoriesHandler handles GET /categories
 func GetCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// Cache for 10 minutes - categories with counts don't change frequently
+	w.Header().Set("Cache-Control", "public, max-age=600")
 
 	// Parse query parameters
 	limitStr := r.URL.Query().Get("limit")
@@ -204,6 +211,19 @@ func GetCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo r
 	responses := make([]CategoryResponse, len(categories))
 	for i, category := range categories {
 		responses[i] = convertCategoryToResponse(category)
+	}
+
+	// Fetch product counts for all categories (OPTIMIZED: single batch query)
+	if len(responses) > 0 {
+		categoryIDs := make([]uint, len(responses))
+		for i, resp := range responses {
+			categoryIDs[i] = resp.ID
+		}
+		if countMap, err := categoryRepo.GetProductCountsByCategoryIDs(r.Context(), categoryIDs); err == nil {
+			for i := range responses {
+				responses[i].Total = countMap[responses[i].ID]
+			}
+		}
 	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -387,6 +407,8 @@ func DeleteCategoryHandler(w http.ResponseWriter, r *http.Request, categoryRepo 
 //   - Falls back to GetWideCategories() for simple listing
 func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// Cache for 10 minutes - categories with counts don't change frequently
+	w.Header().Set("Cache-Control", "public, max-age=600")
 
 	// Parse query parameters
 	perPageStr := r.URL.Query().Get("per_page")
@@ -553,6 +575,24 @@ func GetWideCategoriesHandler(w http.ResponseWriter, r *http.Request, categoryRe
 					n := name
 					responses[i].TranslatedName = &n
 				}
+			}
+		}
+
+		// Fetch product counts for all categories (OPTIMIZED: single batch query)
+		if countMap, err := categoryRepo.GetProductCountsByCategoryIDs(r.Context(), categoryIDs); err == nil {
+			for i := range responses {
+				responses[i].Total = countMap[responses[i].ID]
+			}
+		}
+	} else {
+		// Fetch product counts even for English locale
+		categoryIDs := make([]uint, len(responses))
+		for i, resp := range responses {
+			categoryIDs[i] = resp.ID
+		}
+		if countMap, err := categoryRepo.GetProductCountsByCategoryIDs(r.Context(), categoryIDs); err == nil {
+			for i := range responses {
+				responses[i].Total = countMap[responses[i].ID]
 			}
 		}
 	}
@@ -869,8 +909,10 @@ func CreateCategoryBrandRelationHandler(w http.ResponseWriter, r *http.Request, 
 }
 
 // GetCategoryBrandRelationsHandler handles GET /category-brands
-func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository) {
+func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// Cache for 10 minutes - category-brand relations with counts don't change frequently
+	w.Header().Set("Cache-Control", "public, max-age=600")
 
 	// Check for category_id or category_slug query parameter
 	categoryIDStr := r.URL.Query().Get("category_id")
@@ -951,6 +993,12 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 				}
 			}
 
+			// Fetch product counts for all brands WITHIN THIS CATEGORY (OPTIMIZED: single batch query)
+			countMap := make(map[uint]int)
+			if len(brandIDs) > 0 {
+				countMap, _ = categoryRepo.GetProductCountsByCategoryAndBrands(r.Context(), categoryID, brandIDs)
+			}
+
 			if fetchedBrands, err := categoryRepo.GetBrandsByIDs(r.Context(), brandIDs); err == nil {
 				brandsResp = make([]map[string]interface{}, len(fetchedBrands))
 				for i, b := range fetchedBrands {
@@ -961,6 +1009,7 @@ func GetCategoryBrandRelationsHandler(w http.ResponseWriter, r *http.Request, ca
 						"status":     b.Status,
 						"created_at": b.CreatedAt.Format(time.RFC3339),
 						"updated_at": b.UpdatedAt.Format(time.RFC3339),
+						"total":      countMap[b.ID],
 					}
 					if tn, ok := translatedNames[b.ID]; ok && tn != "" {
 						entry["translated_name"] = tn

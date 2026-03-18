@@ -419,5 +419,86 @@ func (r *PostgresCategoryRepo) GetBrandTranslatedNamesByIDs(ctx context.Context,
 	return result, nil
 }
 
+// GetProductCountsByCategoryIDs returns a map of category ID to product count (OPTIMIZED: single query)
+func (r *PostgresCategoryRepo) GetProductCountsByCategoryIDs(ctx context.Context, categoryIDs []uint) (map[uint]int, error) {
+	if len(categoryIDs) == 0 {
+		return make(map[uint]int), nil
+	}
+
+	type CountResult struct {
+		CategoryID uint `gorm:"column:category_id"`
+		Count      int  `gorm:"column:count"`
+	}
+	var results []CountResult
+
+	// Query to count active products per category in a single query
+	err := r.db.WithContext(ctx).
+		Table("products").
+		Select("category_id, COUNT(*) as count").
+		Where("category_id IN ? AND deleted_at IS NULL AND status >= 1", categoryIDs).
+		Group("category_id").
+		Scan(&results).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert to map for easy lookup
+	countMap := make(map[uint]int)
+	for _, result := range results {
+		countMap[result.CategoryID] = result.Count
+	}
+
+	// Ensure all category IDs have an entry (even if count is 0)
+	for _, categoryID := range categoryIDs {
+		if _, exists := countMap[categoryID]; !exists {
+			countMap[categoryID] = 0
+		}
+	}
+
+	return countMap, nil
+}
+
+// GetProductCountsByCategoryAndBrands returns product counts for brands within a specific category
+// Returns map[brandID]count for the given category and brands
+func (r *PostgresCategoryRepo) GetProductCountsByCategoryAndBrands(ctx context.Context, categoryID uint, brandIDs []uint) (map[uint]int, error) {
+	if len(brandIDs) == 0 {
+		return make(map[uint]int), nil
+	}
+
+	type CountResult struct {
+		BrandID uint `gorm:"column:brand_id"`
+		Count   int  `gorm:"column:count"`
+	}
+	var results []CountResult
+
+	// Query to count active products per brand within the specified category
+	err := r.db.WithContext(ctx).
+		Table("products").
+		Select("brand_id, COUNT(*) as count").
+		Where("category_id = ? AND brand_id IN ? AND deleted_at IS NULL AND status >= 1", categoryID, brandIDs).
+		Group("brand_id").
+		Scan(&results).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert to map for easy lookup
+	countMap := make(map[uint]int)
+	for _, result := range results {
+		countMap[result.BrandID] = result.Count
+	}
+
+	// Ensure all brand IDs have an entry (even if count is 0)
+	for _, brandID := range brandIDs {
+		if _, exists := countMap[brandID]; !exists {
+			countMap[brandID] = 0
+		}
+	}
+
+	return countMap, nil
+}
+
 // Ensure the implementation satisfies the interface
 var _ repository.CategoryRepository = (*PostgresCategoryRepo)(nil)

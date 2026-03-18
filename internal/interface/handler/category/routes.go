@@ -7,7 +7,7 @@ import (
 )
 
 // RegisterCategoryRoutes registers category-related endpoints to the mux.
-func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.CategoryRepository) {
+func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository) {
 
 	// Public category endpoints
 
@@ -82,7 +82,7 @@ func RegisterCategoryRoutes(mux *http.ServeMux, categoryRepo repository.Category
 		if r.Method == http.MethodPost {
 			CreateCategoryBrandRelationHandler(w, r, categoryRepo)
 		} else if r.Method == http.MethodGet {
-			GetCategoryBrandRelationsHandler(w, r, categoryRepo)
+			GetCategoryBrandRelationsHandler(w, r, categoryRepo, brandRepo)
 		} else {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusMethodNotAllowed)

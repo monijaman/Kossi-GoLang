@@ -311,5 +311,45 @@ func (r *PostgresBrandRepo) GetCount(ctx context.Context) (int64, error) {
 	return count, nil
 }
 
+// GetProductCountsByBrandIDs returns a map of brand ID to product count (OPTIMIZED: single query)
+func (r *PostgresBrandRepo) GetProductCountsByBrandIDs(ctx context.Context, brandIDs []uint) (map[uint]int, error) {
+	if len(brandIDs) == 0 {
+		return make(map[uint]int), nil
+	}
+
+	type CountResult struct {
+		BrandID uint `gorm:"column:brand_id"`
+		Count   int  `gorm:"column:count"`
+	}
+	var results []CountResult
+
+	// Query to count active products per brand in a single query
+	err := r.db.WithContext(ctx).
+		Table("products").
+		Select("brand_id, COUNT(*) as count").
+		Where("brand_id IN ? AND deleted_at IS NULL AND status >= 1", brandIDs).
+		Group("brand_id").
+		Scan(&results).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert to map for easy lookup
+	countMap := make(map[uint]int)
+	for _, result := range results {
+		countMap[result.BrandID] = result.Count
+	}
+
+	// Ensure all brand IDs have an entry (even if count is 0)
+	for _, brandID := range brandIDs {
+		if _, exists := countMap[brandID]; !exists {
+			countMap[brandID] = 0
+		}
+	}
+
+	return countMap, nil
+}
+
 // Ensure the implementation satisfies the interface
 var _ repository.BrandRepository = (*PostgresBrandRepo)(nil)

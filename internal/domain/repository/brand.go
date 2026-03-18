@@ -28,4 +28,7 @@ type BrandRepository interface {
 	// Status operations
 	UpdateStatus(ctx context.Context, id uint, status int) error
 	GetCount(ctx context.Context) (int64, error)
+
+	// Product count operations
+	GetProductCountsByBrandIDs(ctx context.Context, brandIDs []uint) (map[uint]int, error)
 }
