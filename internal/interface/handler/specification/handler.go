@@ -768,44 +768,33 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
-	// Get all specifications for the product
-	specifications, err := specRepo.GetByProductID(r.Context(), uint(productID))
+	// Use the optimized single-query method instead of N+1 loop
+	results, err := specRepo.GetPublicSpecsWithTranslations(r.Context(), uint(productID), locale)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to get product specifications"})
+		json.NewEncoder(w).Encode(map[string]string{
+			"error":   "Failed to get product specifications",
+			"details": err.Error(),
+		})
 		return
 	}
 
 	// Build response in Laravel-compatible format
 	var formattedDataset []map[string]interface{}
 
-	for _, spec := range specifications {
-		// Get translations for this specification
-		translations, err := specRepo.GetTranslations(r.Context(), spec.ID)
-		if err != nil {
-			continue // Skip on error, don't fail the whole request
-		}
-
-		// Find translation for the requested locale
-		var translation *entities.SpecificationTranslation
-		for _, trans := range translations {
-			if trans.Locale == locale {
-				translation = trans
-				break
-			}
-		}
-
+	for _, result := range results {
 		specData := map[string]interface{}{
-			"specification_key_id": spec.SpecificationKeyID,
+			"specification_key_id": result.SpecificationKeyID,
 			"translations":         nil,
 		}
 
-		if translation != nil {
+		// Only add translations if we have data
+		if result.TranslatedValue != "" {
 			specData["translations"] = map[string]interface{}{
-				"specification_id": translation.SpecificationID,
-				"locale":           translation.Locale,
-				"translated_key":   "", // This would come from SpecificationKeyTranslation
-				"translated_value": translation.TranslatedValue,
+				"specification_id": result.SpecificationID,
+				"locale":           locale,
+				"translated_key":   result.TranslatedKey,
+				"translated_value": result.TranslatedValue,
 			}
 		}
 
