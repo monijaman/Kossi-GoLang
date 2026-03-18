@@ -195,6 +195,33 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 		CreateSpecificationTranslationHandler(w, r, specRepo)
 	})
 
+	// PUT /spec_translation/values - Update only translated values
+	// Bulk updates translation values (the translated_value field only, not keys) for multiple
+	// specifications. Used when original specification values change and translations need updating.
+	//
+	// Request Body:
+	//   Array of update objects:
+	//   [
+	//     {
+	//       "specification_id": 123,
+	//       "translated_value": "আপডেট করা মূল্য",
+	//       "locale": "bn"
+	//     },
+	//     ...
+	//   ]
+	//
+	// Response: Array of updated translation objects
+	// Expected HTTP Status: 200 OK | 400 Bad Request | 404 Not Found | 500 Internal Server Error
+	mux.HandleFunc("/spec_translation/values", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPut && r.Method != http.MethodPost {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only PUT and POST methods are allowed"}`))
+			return
+		}
+		UpdateSpecificationTranslationValues(w, r, specRepo)
+	})
+
 	// GET /spec_translation/{product_id} - Get specification translations
 	// Retrieves all specifications for a product with their translations in the specified language.
 	// CRITICAL PERFORMANCE ENDPOINT: Uses optimized single JOIN query (no N+1 queries).
@@ -230,33 +257,6 @@ func RegisterSpecificationRoutes(mux *http.ServeMux, specRepo repository.Specifi
 			return
 		}
 		GetSpecificationTranslationHandler(w, r, specRepo, productRepo)
-	})
-
-	// PUT /spec_translation/values - Update only translated values
-	// Bulk updates translation values (the translated_value field only, not keys) for multiple
-	// specifications. Used when original specification values change and translations need updating.
-	//
-	// Request Body:
-	//   Array of update objects:
-	//   [
-	//     {
-	//       "specification_id": 123,
-	//       "translated_value": "আপডেট করা মূল্য",
-	//       "locale": "bn"
-	//     },
-	//     ...
-	//   ]
-	//
-	// Response: Array of updated translation objects
-	// Expected HTTP Status: 200 OK | 400 Bad Request | 404 Not Found | 500 Internal Server Error
-	mux.HandleFunc("/spec_translation/values", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPut && r.Method != http.MethodPost {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte(`{"error": "Only PUT and POST methods are allowed"}`))
-			return
-		}
-		UpdateSpecificationTranslationValues(w, r, specRepo)
 	})
 
 	// ============= PUBLIC API ENDPOINTS =============
