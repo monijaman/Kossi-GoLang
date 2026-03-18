@@ -1334,7 +1334,11 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 	}
 
 	// Use bulk upsert for performance
-	savedTranslations, err := specRepo.BulkUpsertTranslations(r.Context(), translationEntities)
+	// Create context with 120 second timeout for large bulk operations
+	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
+	defer cancel()
+	
+	savedTranslations, err := specRepo.BulkUpsertTranslations(ctx, translationEntities)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("Failed to upsert specification translations: %v", err)})
