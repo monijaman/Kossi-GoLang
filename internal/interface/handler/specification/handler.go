@@ -212,11 +212,11 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// Create a context with 30-second timeout for bulk operations (longer than default 15s)
-	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
+	// Create a context with 150-second timeout for bulk operations (handles large payloads with Railway latency)
+	// Railway databases have higher latency than local connections, so we need extra time
+	ctx, cancel := context.WithTimeout(r.Context(), 150*time.Second)
 	defer cancel()
-
-	// Log request arrival
+	
 	fmt.Printf("%s - BulkUpsertSpecificationHandler: received request from %s\n", time.Now().Format(time.RFC3339), r.RemoteAddr)
 
 	// Read the entire body
@@ -356,17 +356,40 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 		specs = append(specs, spec)
 	}
 
-	// Perform bulk upsert
-	savedSpecs, err := specRepo.BulkUpsert(ctx, specs)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to bulk upsert specifications"})
-		return
+	// Perform bulk upsert in batches to avoid overloading database
+	const batchSize = 25
+	var allSavedSpecs []*entities.Specification
+
+	for batchStart := 0; batchStart < len(specs); batchStart += batchSize {
+		batchEnd := batchStart + batchSize
+		if batchEnd > len(specs) {
+			batchEnd = len(specs)
+		}
+		batch := specs[batchStart:batchEnd]
+
+		fmt.Printf("%s - BulkUpsertSpecificationHandler: processing batch %d/%d (%d specs)\n", 
+			time.Now().Format(time.RFC3339), 
+			(batchStart/batchSize)+1, 
+			(len(specs)+batchSize-1)/batchSize,
+			len(batch))
+
+		savedSpecs, err := specRepo.BulkUpsert(ctx, batch)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"error":           "Failed to bulk upsert specifications",
+				"failed_at_batch": (batchStart / batchSize) + 1,
+				"processed_count": len(allSavedSpecs),
+				"details":         err.Error(),
+			})
+			return
+		}
+		allSavedSpecs = append(allSavedSpecs, savedSpecs...)
 	}
 
 	// Convert to response format
-	responses := make([]SpecificationResponse, len(savedSpecs))
-	for i, spec := range savedSpecs {
+	responses := make([]SpecificationResponse, len(allSavedSpecs))
+	for i, spec := range allSavedSpecs {
 		responses[i] = convertSpecificationToResponse(spec)
 	}
 
