@@ -1,3 +1,13 @@
+// Package specification contains HTTP handlers for product specification management.
+// It handles CRUD operations for specifications, specification keys, translations,
+// and provides both admin and public endpoints for specification data retrieval.
+//
+// Key Features:
+// - Specification creation and management (with or without pre-defined keys)
+// - Bulk upsert operations for efficient batch updates
+// - Specification translations in multiple locales
+// - Optimized queries to prevent N+1 query problems
+// - CORS-enabled endpoints for cross-origin requests
 package specification
 
 import (
@@ -13,26 +23,29 @@ import (
 	"time"
 )
 
-// SpecificationResponse represents the response format for specifications
+// SpecificationResponse represents the HTTP response format for a single specification.
+// Includes product association, key reference, value, and timestamps.
 type SpecificationResponse struct {
-	ID                 uint   `json:"id"`
-	ProductID          uint   `json:"product_id"`
-	SpecificationKeyID uint   `json:"specification_key_id"`
-	SpecificationKey   string `json:"specification_key"`
-	Value              string `json:"value"`
-	CreatedAt          string `json:"created_at"`
-	UpdatedAt          string `json:"updated_at"`
+	ID                 uint   `json:"id"`                   // Unique identifier
+	ProductID          uint   `json:"product_id"`           // Associated product
+	SpecificationKeyID uint   `json:"specification_key_id"` // Reference to specification key
+	SpecificationKey   string `json:"specification_key"`    // Key name (e.g., "Color", "Size")
+	Value              string `json:"value"`                // Specification value (e.g., "Red", "Large")
+	CreatedAt          string `json:"created_at"`           // Creation timestamp (RFC3339 format)
+	UpdatedAt          string `json:"updated_at"`           // Last update timestamp (RFC3339 format)
 }
 
-// SpecificationKeyResponse represents the response format for specification keys
+// SpecificationKeyResponse represents the HTTP response format for a specification key.
+// Keys are the categories of specifications (e.g., Color, Size, Brand).
 type SpecificationKeyResponse struct {
-	ID               uint   `json:"id"`
-	SpecificationKey string `json:"specification_key"`
-	CreatedAt        string `json:"created_at"`
-	UpdatedAt        string `json:"updated_at"`
+	ID               uint   `json:"id"`                // Unique identifier
+	SpecificationKey string `json:"specification_key"` // Key name
+	CreatedAt        string `json:"created_at"`        // Creation timestamp
+	UpdatedAt        string `json:"updated_at"`        // Last update timestamp
 }
 
-// convertSpecificationToResponse converts entity to response format
+// convertSpecificationToResponse converts a specification entity to HTTP response format.
+// Formats timestamps to RFC3339 standard for JSON serialization.
 func convertSpecificationToResponse(spec *entities.Specification) SpecificationResponse {
 	return SpecificationResponse{
 		ID:                 spec.ID,
@@ -45,7 +58,7 @@ func convertSpecificationToResponse(spec *entities.Specification) SpecificationR
 	}
 }
 
-// convertSpecificationKeyToResponse converts entity to response format
+// convertSpecificationKeyToResponse converts a specification key entity to HTTP response format.
 func convertSpecificationKeyToResponse(key *entities.SpecificationKey) SpecificationKeyResponse {
 	return SpecificationKeyResponse{
 		ID:               key.ID,
@@ -56,9 +69,26 @@ func convertSpecificationKeyToResponse(key *entities.SpecificationKey) Specifica
 }
 
 // CreateSpecificationHandler handles POST /specifications
+// Creates a new specification for a product. Supports two modes:
+// 1. Using an existing specification key ID
+// 2. Creating a new specification key inline
+//
+// Request JSON:
+//
+//	{
+//	  "product_id": 123,
+//	  "specification_key_id": 45,  // Either this or specification_key
+//	  "value": "Red",
+//	  "specification_key": {        // Or this
+//	    "name": "Color",
+//	    "is_visible": true,
+//	    "is_filterable": true
+//	  }
+//	}
 func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
+	// Define request payload structure
 	var request struct {
 		ProductID          uint   `json:"product_id"`
 		SpecificationKeyID *uint  `json:"specification_key_id,omitempty"`
@@ -70,19 +100,21 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 		} `json:"specification_key,omitempty"`
 	}
 
+	// Parse request body
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON payload"})
 		return
 	}
 
+	// Validate required product ID
 	if request.ProductID == 0 {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "product_id is required"})
 		return
 	}
 
-	// Either specification_key_id or specification_key object must be provided
+	// Validate that at least one key source is provided
 	if request.SpecificationKeyID == nil && request.SpecificationKey == nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Either specification_key_id or specification_key object is required"})
@@ -91,14 +123,15 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 
 	var specKeyID uint
 
-	// If SpecificationKeyID is provided, use it directly
+	// Handle key ID resolution: use provided ID or create/find key
 	if request.SpecificationKeyID != nil {
+		// Mode 1: UseExisting specification key ID
 		specKeyID = *request.SpecificationKeyID
 	} else if request.SpecificationKey != nil {
-		// Create or find the specification key
+		// Mode 2: Find or create specification key
 		specKeyName := request.SpecificationKey.Name
 
-		// First, try to find existing key by name
+		// Try to find existing key by name to avoid duplicates
 		existingKey, err := keyRepo.GetByKey(r.Context(), specKeyName)
 		if err == nil && existingKey != nil {
 			// Key already exists, use its ID
@@ -125,6 +158,7 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 		return
 	}
 
+	// Create specification entity
 	spec := &entities.Specification{
 		ProductID:          request.ProductID,
 		SpecificationKeyID: specKeyID,
@@ -133,6 +167,7 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 		UpdatedAt:          time.Now(),
 	}
 
+	// Save to database
 	savedSpec, err := specRepo.Create(r.Context(), spec)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -140,13 +175,46 @@ func CreateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 		return
 	}
 
+	// Return created specification
 	response := convertSpecificationToResponse(savedSpec)
 	json.NewEncoder(w).Encode(response)
 }
 
 // BulkUpsertSpecificationHandler handles POST /specifications/bulk
+// Creates or updates multiple specifications in a single database transaction.
+// Supports both creating new keys inline and using existing key IDs.
+// If any specification fails validation, the entire batch is rejected.
+//
+// Request JSON (array or wrapped in "specifications" key):
+//
+//	[
+//	  {
+//	    "id": 123,  // optional - if provided, updates existing spec
+//	    "product_id": 456,
+//	    "specification_key_id": 45,
+//	    "value": "Red"
+//	  },
+//	  {
+//	    "product_id": 789,
+//	    "specification_key": {
+//	      "name": "New Key",
+//	      "is_visible": true,
+//	      "is_filterable": false
+//	    },
+//	    "value": "Value"
+//	  }
+//	]
+//
+// Response: Array of created/updated specification responses with timestamps
+// Error Handling: Returns 400 for invalid JSON or empty array, 500 for database errors
+// Transaction Behavior: All-or-nothing - either all specs are processed or none
+// Performance: Caches key lookups to avoid N+1 queries for duplicate key names
 func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
+
+	// Create a context with 30-second timeout for bulk operations (longer than default 15s)
+	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
+	defer cancel()
 
 	// Log request arrival
 	fmt.Printf("%s - BulkUpsertSpecificationHandler: received request from %s\n", time.Now().Format(time.RFC3339), r.RemoteAddr)
@@ -207,6 +275,9 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 
 	var specs []*entities.Specification
 
+	// Cache for key lookups to avoid N+1 for duplicate key names
+	keyCache := make(map[string]*entities.SpecificationKey)
+
 	// Process each specification in the request
 	for i, specReq := range request.Specifications {
 		if specReq.ProductID == 0 {
@@ -234,32 +305,38 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 		if specReq.SpecificationKeyID != nil {
 			specKeyID = *specReq.SpecificationKeyID
 		} else if specReq.SpecificationKey != nil {
-			// Create or find the specification key
 			specKeyName := specReq.SpecificationKey.Name
 
-			// First, try to find existing key by name
-			existingKey, err := keyRepo.GetByKey(r.Context(), specKeyName)
-			if err == nil && existingKey != nil {
-				// Key already exists, use its ID
-				specKeyID = existingKey.ID
+			// Check cache first to avoid duplicate lookups
+			if cachedKey, exists := keyCache[specKeyName]; exists {
+				specKeyID = cachedKey.ID
 			} else {
-				// Key doesn't exist, create a new one
-				newKey := &entities.SpecificationKey{
-					SpecificationKey: specKeyName,
-					CreatedAt:        time.Now(),
-					UpdatedAt:        time.Now(),
-				}
+				// Try to find existing key by name
+				existingKey, err := keyRepo.GetByKey(ctx, specKeyName)
+				if err == nil && existingKey != nil {
+					// Key already exists
+					specKeyID = existingKey.ID
+					keyCache[specKeyName] = existingKey
+				} else {
+					// Key doesn't exist, create a new one
+					newKey := &entities.SpecificationKey{
+						SpecificationKey: specKeyName,
+						CreatedAt:        time.Now(),
+						UpdatedAt:        time.Now(),
+					}
 
-				createdKey, err := keyRepo.Create(r.Context(), newKey)
-				if err != nil {
-					w.WriteHeader(http.StatusInternalServerError)
-					json.NewEncoder(w).Encode(map[string]string{
-						"error": "Failed to create specification key",
-						"index": strconv.Itoa(i),
-					})
-					return
+					createdKey, err := keyRepo.Create(ctx, newKey)
+					if err != nil {
+						w.WriteHeader(http.StatusInternalServerError)
+						json.NewEncoder(w).Encode(map[string]string{
+							"error": "Failed to create specification key",
+							"index": strconv.Itoa(i),
+						})
+						return
+					}
+					specKeyID = createdKey.ID
+					keyCache[specKeyName] = createdKey
 				}
-				specKeyID = createdKey.ID
 			}
 		}
 
@@ -280,7 +357,7 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 	}
 
 	// Perform bulk upsert
-	savedSpecs, err := specRepo.BulkUpsert(r.Context(), specs)
+	savedSpecs, err := specRepo.BulkUpsert(ctx, specs)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to bulk upsert specifications"})
@@ -301,6 +378,29 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 }
 
 // UpdateSpecificationHandler handles PUT /specifications/{id}
+// Updates an existing specification. Can update the key (by ID or creating new key)
+// and/or the value.
+//
+// URL Path: /specifications/{id}
+// Request JSON:
+//
+//	{
+//	  "specification_key_id": 45,  // optional - to change the key
+//	  "value": "New Value",        // optional - to change the value
+//	  "specification_key": {       // optional - to create new key inline
+//	    "name": "New Key Name",
+//	    "is_visible": true,
+//	    "is_filterable": true
+//	  }
+//	}
+//
+// Response: Updated specification object with new timestamps
+// Error Handling:
+//   - 400: Invalid ID format or missing update data
+//   - 404: Specification not found
+//   - 500: Database error during update
+//
+// Note: Must provide at least one field to update (value or key reference)
 func UpdateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -403,9 +503,38 @@ func UpdateSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 	json.NewEncoder(w).Encode(response)
 }
 
-// GetSpecificationsByProductHandler handles GET /get-specifications/{id}
-// This handler will return all specification keys for the product's category (via form generator)
-// merged with any existing specification values for the product.
+// GetSpecificationsByProductHandler handles GET /get-specifications/{product_id}
+// Retrieves all specification keys for the product's category (from form generator)
+// and merges them with any existing specification values already set for the product.
+// Used by admin to display editable form fields for a product's specifications.
+//
+// URL Path: /get-specifications/{product_id}
+// Query Parameters: None
+//
+// Response Structure:
+//
+//	[
+//	  {
+//	    "id": 123,
+//	    "product_id": 456,
+//	    "specification_key_id": 5,
+//	    "specification_key": "Color",
+//	    "value": "Red",
+//	    "created_at": "2024-01-15T10:30:00Z",
+//	    "updated_at": "2024-01-15T10:30:00Z"
+//	  },
+//	  ...
+//	]
+//
+// Behavior:
+//   - Queries form generator for all possible keys for product's category
+//   - Queries existing specifications for the product
+//   - Returns merged result showing both filled and empty fields
+//
+// Error Handling:
+//   - 400: Invalid product ID format
+//   - 404: Product not found
+//   - 500: Database error
 func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, productRepo repository.ProductRepository, formGenRepo repository.FormGeneratorRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -491,6 +620,28 @@ func GetSpecificationsByProductHandler(w http.ResponseWriter, r *http.Request, s
 }
 
 // GetSpecificationByIDHandler handles GET /specifications/{id}
+// Retrieves a single specification by its ID. Returns complete specification details
+// including product association, key reference, and timestamps.
+//
+// URL Path: /specifications/{id}
+// Query Parameters: None
+//
+// Response: Single specification object
+//
+//	{
+//	  "id": 123,
+//	  "product_id": 456,
+//	  "specification_key_id": 5,
+//	  "specification_key": "Color",
+//	  "value": "Red",
+//	  "created_at": "2024-01-15T10:30:00Z",
+//	  "updated_at": "2024-01-15T10:30:00Z"
+//	}
+//
+// Error Handling:
+//   - 400: Invalid specification ID format
+//   - 404: Specification not found
+//   - 500: Database error
 func GetSpecificationByIDHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -525,6 +676,21 @@ func GetSpecificationByIDHandler(w http.ResponseWriter, r *http.Request, specRep
 }
 
 // DeleteSpecificationHandler handles DELETE /specifications/{id}
+// Permanently removes a specification from the database.
+// Warning: This operation is irreversible. All translations for this specification are also removed.
+//
+// URL Path: /specifications/{id}
+// Request Body: None
+//
+// Response: Empty or confirmation message (HTTP 204 has no body)
+// Expected HTTP Status:
+//   - 204: Successfully deleted (no content)
+//   - 400: Invalid specification ID format
+//   - 404: Specification not found
+//   - 500: Database error during deletion
+//
+// Side Effects: Cascades to delete all associated translations
+// Use Cases: Removing incorrect or outdated specifications, data cleanup
 func DeleteSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -558,6 +724,38 @@ func DeleteSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo
 }
 
 // SearchSpecificationsHandler handles GET /specificationsearch
+// Performs full-text search across all specifications. Searches across product IDs,
+// specification keys, and values. Results are ordered by relevance with pagination support.
+//
+// URI: /specificationsearch?query=<search_term>&limit=<limit>&offset=<offset>
+// Query Parameters:
+//   - query: Search term (required). Matches against keys and values.
+//   - limit: Maximum number of results (optional, default: repository default)
+//   - offset: Pagination offset (optional, default: 0)
+//
+// Response: Array of matching specifications ordered by relevance
+//
+//	[
+//	  {
+//	    "id": 123,
+//	    "product_id": 456,
+//	    "specification_key": "Color",
+//	    "value": "Red",
+//	    ...
+//	  },
+//	  ...
+//	]
+//
+// Search Examples:
+//   - /specificationsearch?query=red - Find all specs with "red" in key or value
+//   - /specificationsearch?query=color&limit=10 - Search with result limit
+//   - /specificationsearch?query=battery&offset=20&limit=10 - Pagination
+//
+// Error Handling:
+//   - 400: Missing required query parameter
+//   - 500: Database search error
+//
+// Performance: Uses database full-text search indexes if available
 func SearchSpecificationsHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -610,6 +808,54 @@ func SearchSpecificationsHandler(w http.ResponseWriter, r *http.Request, specRep
 }
 
 // CreateSpecificationTranslationHandler handles POST /spec_translation
+// Creates or updates translations for multiple specifications in a specific language/locale.
+// Translations allow displaying specification keys and values in different languages
+// (e.g., "Color" → "রঙ" in Bengali, "Red" → "লাল").
+//
+// Request JSON:
+//
+//	{
+//	  "productId": 928,
+//	  "specifications": [
+//	    {
+//	      "id": 1234,  // specification_id
+//	      "locale": "bn",  // Language code: "bn" (Bengali), "en" (English), etc.
+//	      "translated_key": "রঙ",  // Translated specification key name
+//	      "translated_value": "লাল"  // Translated specification value
+//	    },
+//	    {
+//	      "id": 1235,
+//	      "locale": "bn",
+//	      "translated_key": "আকার",
+//	      "translated_value": "বড়"
+//	    },
+//	    ...
+//	  ]
+//	}
+//
+// Response: Confirmation with count of translations created/updated
+//
+//	{
+//	  "message": "Translations created/updated successfully",
+//	  "count": 2
+//	}
+//
+// Behavior:
+//   - If translation exists for (specification_id, locale) pair, updates it
+//   - If translation doesn't exist, creates it
+//   - All translations in batch processed atomically (all succeed or all fail)
+//
+// Supported Locales: "bn" (Bengali), "en" (English), and others based on system configuration
+//
+// Error Handling:
+//   - 400: Invalid JSON or missing required fields
+//   - 404: Product or specification not found
+//   - 500: Database error during batch processing
+//
+// Use Cases:
+//   - Creating multilingual product specifications
+//   - Updating translations when original specifications change
+//   - Supporting customers in their preferred language
 func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -744,18 +990,43 @@ func CreateSpecificationTranslationHandler(w http.ResponseWriter, r *http.Reques
 }
 
 // GetSpecificationTranslationHandler handles GET /spec_translation/{id}?locale=xx
+// Retrieves all specifications for a product with translations in the specified locale.
+// This endpoint is OPTIMIZED to use a single database query (no N+1 queries).
+//
+// Parameters:
+//   - id (URL path): Product ID whose specifications we want
+//   - locale (query): Language locale (e.g., "en", "bn", "es")
+//
+// Response format (Laravel-compatible):
+//
+//	{
+//	  "dataset": [
+//	    {
+//	      "specification_key_id": 5,
+//	      "translations": {
+//	        "locale": "bn",
+//	        "translated_key": "রঙ",
+//	        "translated_value": "লাল"
+//	      }
+//	    }
+//	  ]
+//	}
+//
+// Performance: Uses optimized JOIN query instead of looping through specs
+// and querying translations for each one (this prevents the N+1 query problem).
 func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// Enable CORS to allow requests from frontend on different domain
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
-	// Handle CORS preflight
+	// Handle CORS preflight request (browser sends OPTIONS before GET)
 	if r.Method == http.MethodOptions {
 		return
 	}
 
-	// Extract product ID from URL path
+	// Parse product ID from URL path (format: /spec_translation/{product_id})
 	path := strings.TrimPrefix(r.URL.Path, "/spec_translation/")
 	productIDStr := strings.Trim(path, "/")
 
@@ -769,7 +1040,7 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
-	// Get locale from query parameter
+	// Extract and validate locale parameter from query string
 	locale := r.URL.Query().Get("locale")
 	if locale == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -777,15 +1048,19 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
+	// Log request for debugging and monitoring
 	fmt.Printf("[GetSpecificationTranslationHandler] Fetching translations for product %d, locale: %s\n", productID, locale)
 
-	// Create a context with timeout for the database query
+	// Create a context with timeout to prevent hanging requests
+	// This ensures the database query completes or timeouts within 15 seconds
 	ctx, cancel := context.WithTimeout(r.Context(), 15*time.Second)
 	defer cancel()
 
-	// Use the optimized single-query method instead of N+1 loop
+	// Execute optimized query: single JOIN to get specs + translations
+	// This replaces the old N+1 approach where we queried each spec's translations separately
 	results, err := specRepo.GetPublicSpecsWithTranslations(ctx, uint(productID), locale)
 	if err != nil {
+		// Log error for debugging
 		fmt.Printf("[GetSpecificationTranslationHandler] Error fetching translations: %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{
@@ -795,18 +1070,21 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
+	// Log success for monitoring
 	fmt.Printf("[GetSpecificationTranslationHandler] Found %d specifications for product %d\n", len(results), productID)
 
 	// Build response in Laravel-compatible format
 	var formattedDataset []map[string]interface{}
 
+	// Process each specification result
 	for _, result := range results {
 		specData := map[string]interface{}{
 			"specification_key_id": result.SpecificationKeyID,
-			"translations":         nil,
+			"translations":         nil, // Default to null if no translation
 		}
 
-		// Only add translations if we have data
+		// Include translations if they exist for the requested locale
+		// Only include if we have actual translated value
 		if result.TranslatedValue != "" {
 			specData["translations"] = map[string]interface{}{
 				"locale":           locale,
@@ -818,13 +1096,53 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		formattedDataset = append(formattedDataset, specData)
 	}
 
+	// Return formatted response with dataset array
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"dataset": formattedDataset,
 	})
 }
 
-// GetPublicSpecificationHandler handles GET /get-public-spec/{id} - Get specifications for a product (Laravel compatibility)
+// GetPublicSpecificationHandler handles GET /get-public-spec/{product_id}
+// Retrieves publicly available specifications for a product.
+// This is the client-facing endpoint used by frontend/mobile to display product specifications.
+// Data is filtered for public consumption (excludes internal fields, sensitive data).
+// Maintains Laravel API compatibility for legacy client applications.
+//
+// URL Path: /get-public-spec/{product_id}
+// Query Parameters: None
+//
+// Response: Public specification data formatted for client consumption
+//
+//	{
+//	  "id": 123,
+//	  "product_id": 456,
+//	  "specification_key_id": 5,
+//	  "key": "Color",
+//	  "value": "Red",
+//	  ...
+//	}
+//
+// Behavior:
+//   - Returns only specifications marked as publicly visible
+//   - Filters out draft/unpublished specifications
+//   - Used by e-commerce frontend to display product details
+//   - Read-only endpoint (GET only)
+//
+// Error Handling:
+//   - 400: Invalid product ID format
+//   - 404: Product not found or has no public specifications
+//   - 500: Database error
+//
+// Caching:
+//   - Recommended to cache this endpoint response (product specs rarely change)
+//   - Cache key should include product_id
+//   - Invalidate cache when specifications are updated
+//
+// Use Cases:
+//   - Display specifications on product detail page
+//   - Client-side specification filtering/search
+//   - Mobile app product information display
 func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository, keyRepo repository.SpecificationKeyRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -876,7 +1194,55 @@ func GetPublicSpecificationHandler(w http.ResponseWriter, r *http.Request, specR
 	})
 }
 
-// UpdateSpecificationTranslationValues handles PUT/PATCH requests to update only translated_value
+// UpdateSpecificationTranslationValues handles PUT/POST requests to update only translated_value
+// Bulk updates the translated values (translated_value field only) for multiple specifications.
+// Does NOT update translated_key - use CreateSpecificationTranslationHandler to update keys.
+// Used when original specification values change and translations need updating.
+//
+// Supports both PUT and POST methods for client compatibility.
+//
+// Request JSON (array of translation updates):
+//
+//	[
+//	  {
+//	    "id": 1234,  // specification_id
+//	    "locale": "bn",  // Language code
+//	    "translated_value": "নতুন অনুবাদ"  // Only field updated
+//	  },
+//	  {
+//	    "id": 1235,
+//	    "locale": "bn",
+//	    "translated_value": "আরও অনুবাদ"
+//	  },
+//	  ...
+//	]
+//
+// Response: Confirmation message with count of updated translations
+//
+//	{
+//	  "message": "Translation values updated successfully",
+//	  "count": 2
+//	}
+//
+// Behavior:
+//   - Only updates translated_value field
+//   - translated_key remains unchanged
+//   - If translation doesn't exist, creates it with only the value set
+//   - Useful for bulk updates when keys are already translated
+//
+// Error Handling:
+//   - 400: Invalid JSON or empty array
+//   - 404: Specification not found
+//   - 500: Database error during batch update
+//
+// Difference from CreateSpecificationTranslationHandler:
+//   - This endpoint: Only updates translated_value, key stays the same
+//   - CreateSpecificationTranslationHandler: Updates both key and value
+//
+// Use Cases:
+//   - Updating product value translations (e.g., "Red" changed to "Dark Red" → update Bengali translation)
+//   - Bulk translation updates
+//   - Fixing translation values without affecting key names
 func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request, specRepo repository.SpecificationRepository) {
 	w.Header().Set("Content-Type", "application/json")
 

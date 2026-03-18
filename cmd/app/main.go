@@ -60,7 +60,7 @@ func connectWithRetry(dsn string, maxAttempts int, baseWait time.Duration) (*gor
 				lastErr = err
 				_ = sqlDB // just to keep linter happy if nil
 			} else {
-				ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 				defer cancel()
 				if err := sqlDB.PingContext(ctx); err == nil {
 					return db, nil
