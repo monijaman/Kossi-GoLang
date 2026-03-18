@@ -216,7 +216,7 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 	// Railway databases have higher latency than local connections, so we need extra time
 	ctx, cancel := context.WithTimeout(r.Context(), 150*time.Second)
 	defer cancel()
-	
+
 	fmt.Printf("%s - BulkUpsertSpecificationHandler: received request from %s\n", time.Now().Format(time.RFC3339), r.RemoteAddr)
 
 	// Read the entire body
@@ -367,9 +367,9 @@ func BulkUpsertSpecificationHandler(w http.ResponseWriter, r *http.Request, spec
 		}
 		batch := specs[batchStart:batchEnd]
 
-		fmt.Printf("%s - BulkUpsertSpecificationHandler: processing batch %d/%d (%d specs)\n", 
-			time.Now().Format(time.RFC3339), 
-			(batchStart/batchSize)+1, 
+		fmt.Printf("%s - BulkUpsertSpecificationHandler: processing batch %d/%d (%d specs)\n",
+			time.Now().Format(time.RFC3339),
+			(batchStart/batchSize)+1,
 			(len(specs)+batchSize-1)/batchSize,
 			len(batch))
 
