@@ -10,26 +10,27 @@ import (
 
 // ProductModel represents the database model for products (GORM-specific)
 type ProductModel struct {
-	ID          uint           `gorm:"primaryKey;autoIncrement"`
-	Price       *float64       `gorm:"-"` // Legacy price field (ignored for persistence)
-	Name        string         `gorm:"type:varchar(255);not null"`
-	Description *string        `gorm:"type:text"`
-	Slug        string         `gorm:"type:varchar(255);unique;not null"`
-	CategoryID  *uint          `gorm:""`
-	BrandID     *uint          `gorm:""`
-	Category    *CategoryModel `gorm:"foreignKey:CategoryID"`
-	Brand       *BrandModel    `gorm:"foreignKey:BrandID"`
-	Model       *string        `gorm:"type:varchar(255)"`
-	StartPrice  *float64       `gorm:"type:decimal(10,2)"`
-	EndPrice    *float64       `gorm:"type:decimal(10,2)"`
-	Status      int            `gorm:"type:integer;default:1"`
-	Priority    int            `gorm:"default:1"`
-	CreatedBy   *string        `gorm:"type:varchar(255)"`
-	ViewsCount  int64          `gorm:"default:0"`
-	CreatedAt   time.Time      `gorm:"autoCreateTime"`
-	UpdatedAt   time.Time      `gorm:"autoUpdateTime"`
-	UpdatedBy   *string        `gorm:"type:varchar(255)"`
-	DeletedAt   *time.Time     `gorm:"index"`
+	ID            uint           `gorm:"primaryKey;autoIncrement"`
+	Price         *float64       `gorm:"-"` // Legacy price field (ignored for persistence)
+	Name          string         `gorm:"type:varchar(255);not null"`
+	Description   *string        `gorm:"type:text"`
+	Slug          string         `gorm:"type:varchar(255);unique;not null"`
+	CategoryID    *uint          `gorm:""`
+	BrandID       *uint          `gorm:""`
+	Category      *CategoryModel `gorm:"foreignKey:CategoryID"`
+	Brand         *BrandModel    `gorm:"foreignKey:BrandID"`
+	Model         *string        `gorm:"type:varchar(255)"`
+	StartPrice    *float64       `gorm:"type:decimal(10,2)"`
+	EndPrice      *float64       `gorm:"type:decimal(10,2)"`
+	Status        int            `gorm:"type:integer;default:1"`
+	Priority      int            `gorm:"default:1"`
+	CreatedBy     *string        `gorm:"type:varchar(255)"`
+	ViewsCount    int64          `gorm:"default:0"`
+	CreatedAt     time.Time      `gorm:"autoCreateTime"`
+	UpdatedAt     time.Time      `gorm:"autoUpdateTime"`
+	UpdatedBy     *string        `gorm:"type:varchar(255)"`
+	DeletedAt     *time.Time     `gorm:"index"`
+	AverageRating *float64       `gorm:"-"` // Computed field, not persisted
 }
 
 // ToEntity converts GORM model to domain entity
@@ -54,23 +55,24 @@ func (p *ProductModel) ToEntity() *entities.Product {
 	}
 
 	return &entities.Product{
-		ID:          p.ID,
-		Name:        p.Name,
-		Description: p.Description,
-		Slug:        p.Slug,
-		Price:       price,
-		StartPrice:  startPrice,
-		EndPrice:    endPrice,
-		CategoryID:  p.CategoryID,
-		BrandID:     p.BrandID,
-		Category:    category,
-		Brand:       brand,
-		ViewsCount:  p.ViewsCount,
-		Status:      p.Status > 0, // Convert int to bool: 1+ = true, 0 = false
-		Priority:    p.Priority,
-		CreatedAt:   p.CreatedAt,
-		UpdatedAt:   p.UpdatedAt,
-		DeletedAt:   p.DeletedAt,
+		ID:            p.ID,
+		Name:          p.Name,
+		Description:   p.Description,
+		Slug:          p.Slug,
+		Price:         price,
+		StartPrice:    startPrice,
+		EndPrice:      endPrice,
+		CategoryID:    p.CategoryID,
+		BrandID:       p.BrandID,
+		Category:      category,
+		Brand:         brand,
+		ViewsCount:    p.ViewsCount,
+		Status:        p.Status > 0, // Convert int to bool: 1+ = true, 0 = false
+		Priority:      p.Priority,
+		CreatedAt:     p.CreatedAt,
+		UpdatedAt:     p.UpdatedAt,
+		DeletedAt:     p.DeletedAt,
+		AverageRating: p.AverageRating,
 	}
 }
 

@@ -421,6 +421,59 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 		return nil, 0, err
 	}
 
+	// Fetch average ratings for all products in this batch (OPTIMIZED: single query instead of N queries)
+	if len(productModels) > 0 {
+		productIDs := make([]uint, len(productModels))
+		for i, model := range productModels {
+			productIDs[i] = model.ID
+		}
+		
+		fmt.Printf("[DEBUG] Fetching ratings for product IDs: %v\n", productIDs)
+		
+		// Query to get average ratings 
+		type RatingResult struct {
+			ProductID     uint     `gorm:"column:product_id"`
+			AverageRating *float64 `gorm:"column:average_rating"`
+		}
+		var ratings []RatingResult
+		
+		// Use Table().Select().Where().Group().Scan() approach for better GORM support
+		err := r.db.WithContext(ctx).
+			Table("product_reviews").
+			Select(
+				"product_id", 
+				"AVG(CAST(NULLIF(rating,'') AS NUMERIC)) as average_rating",
+			).
+			Where("product_id IN ? AND deleted_at IS NULL AND rating IS NOT NULL AND rating != ''", productIDs).
+			Group("product_id").
+			Scan(&ratings).Error
+			
+		fmt.Printf("[DEBUG] Rating query executed - Error: %v, Results count: %d\n", err, len(ratings))
+		if len(ratings) > 0 {
+			fmt.Printf("[DEBUG] First result: ProductID=%d, Rating=%v\n", ratings[0].ProductID, ratings[0].AverageRating)
+		}
+		
+		if err == nil && len(ratings) > 0 {
+			// Create a map for quick lookup
+			ratingsMap := make(map[uint]*float64)
+			for _, rating := range ratings {
+				if rating.AverageRating != nil {
+					ratingsMap[rating.ProductID] = rating.AverageRating
+					fmt.Printf("[DEBUG] Mapped Product %d -> Rating: %.2f\n", rating.ProductID, *rating.AverageRating)
+				}
+			}
+			
+			// Assign ratings to products
+			for i := range productModels {
+				if rating, exists := ratingsMap[productModels[i].ID]; exists {
+					productModels[i].AverageRating = rating
+				}
+			}
+		} else {
+			fmt.Printf("[DEBUG] No ratings found. Query error was: %v\n", err)
+		}
+	}
+
 	// Convert models to entities
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {

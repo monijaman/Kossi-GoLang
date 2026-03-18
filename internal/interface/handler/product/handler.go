@@ -48,6 +48,7 @@ type ProductResponse struct {
 	Price          float64           `json:"price"`
 	StartPrice     *float64          `json:"start_price,omitempty"`
 	EndPrice       *float64          `json:"end_price,omitempty"`
+	AverageRating  *float64          `json:"average_rating,omitempty"`
 	CategoryID     *uint             `json:"category_id,omitempty"`
 	CategorySlug   *string           `json:"category_slug,omitempty"`
 	BrandID        *uint             `json:"brand_id,omitempty"`
@@ -77,20 +78,21 @@ type ProductListResponse struct {
 // imagesMap is optional - if provided, uses pre-fetched images; otherwise none
 func convertProductToResponse(product *entities.Product, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, imageRepo repository.ImageRepository, imagesMap ...map[uint]*entities.Image) ProductResponse {
 	response := ProductResponse{
-		ID:          product.ID,
-		Name:        product.Name,
-		Description: product.Description,
-		Slug:        product.Slug,
-		Price:       product.Price,
-		StartPrice:  product.StartPrice,
-		EndPrice:    product.EndPrice,
-		CategoryID:  product.CategoryID,
-		BrandID:     product.BrandID,
-		ViewsCount:  product.ViewsCount,
-		Status:      product.Status,
-		Priority:    product.Priority,
-		CreatedAt:   product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
-		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		ID:            product.ID,
+		Name:          product.Name,
+		Description:   product.Description,
+		Slug:          product.Slug,
+		Price:         product.Price,
+		StartPrice:    product.StartPrice,
+		EndPrice:      product.EndPrice,
+		AverageRating: product.AverageRating,
+		CategoryID:    product.CategoryID,
+		BrandID:       product.BrandID,
+		ViewsCount:    product.ViewsCount,
+		Status:        product.Status,
+		Priority:      product.Priority,
+		CreatedAt:     product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		UpdatedAt:     product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
 
 	// Use preloaded category information (OPTIMIZED: no fallback query)
@@ -128,20 +130,21 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 // convertProductToResponseSimple converts domain entity to response format without fetching related data
 func convertProductToResponseSimple(product *entities.Product, imageRepo repository.ImageRepository) ProductResponse {
 	response := ProductResponse{
-		ID:          product.ID,
-		Name:        product.Name,
-		Description: product.Description,
-		Slug:        product.Slug,
-		Price:       product.Price,
-		StartPrice:  product.StartPrice,
-		EndPrice:    product.EndPrice,
-		CategoryID:  product.CategoryID,
-		BrandID:     product.BrandID,
-		ViewsCount:  product.ViewsCount,
-		Status:      product.Status,
-		Priority:    product.Priority,
-		CreatedAt:   product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
-		UpdatedAt:   product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		ID:            product.ID,
+		Name:          product.Name,
+		Description:   product.Description,
+		Slug:          product.Slug,
+		Price:         product.Price,
+		StartPrice:    product.StartPrice,
+		EndPrice:      product.EndPrice,
+		AverageRating: product.AverageRating,
+		CategoryID:    product.CategoryID,
+		BrandID:       product.BrandID,
+		ViewsCount:    product.ViewsCount,
+		Status:        product.Status,
+		Priority:      product.Priority,
+		CreatedAt:     product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		UpdatedAt:     product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	}
 
 	// Fetch and set product photo if imageRepo is available
