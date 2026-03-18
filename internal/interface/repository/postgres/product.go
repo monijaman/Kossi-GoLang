@@ -254,6 +254,49 @@ func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *e
 		return nil, err
 	}
 
+	// Fetch average ratings for all similar products (OPTIMIZED: single query instead of N queries)
+	if len(productModels) > 0 {
+		productIDs := make([]uint, len(productModels))
+		for i, model := range productModels {
+			productIDs[i] = model.ID
+		}
+
+		// Query to get average ratings
+		type RatingResult struct {
+			ProductID     uint     `gorm:"column:product_id"`
+			AverageRating *float64 `gorm:"column:average_rating"`
+		}
+		var ratings []RatingResult
+
+		// Use Table().Select().Where().Group().Scan() approach for better GORM support
+		err := r.db.WithContext(ctx).
+			Table("product_reviews").
+			Select(
+				"product_id",
+				"AVG(CAST(NULLIF(rating,'') AS NUMERIC)) as average_rating",
+			).
+			Where("product_id IN ? AND deleted_at IS NULL AND rating IS NOT NULL AND rating != ''", productIDs).
+			Group("product_id").
+			Scan(&ratings).Error
+
+		if err == nil && len(ratings) > 0 {
+			// Create a map for quick lookup
+			ratingsMap := make(map[uint]*float64)
+			for _, rating := range ratings {
+				if rating.AverageRating != nil {
+					ratingsMap[rating.ProductID] = rating.AverageRating
+				}
+			}
+
+			// Assign ratings to products
+			for i := range productModels {
+				if rating, exists := ratingsMap[productModels[i].ID]; exists {
+					productModels[i].AverageRating = rating
+				}
+			}
+		}
+	}
+
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {
 		products[i] = model.ToEntity()

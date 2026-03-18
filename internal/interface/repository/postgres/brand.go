@@ -222,6 +222,33 @@ func (r *PostgresBrandRepo) GetTranslationByLocale(ctx context.Context, brandID 
 	return translationModel.ToEntity(), nil
 }
 
+// GetTranslationsByLocaleAndBrandIDs batch fetches translations for multiple brand IDs - OPTIMIZED: 1 query instead of N
+func (r *PostgresBrandRepo) GetTranslationsByLocaleAndBrandIDs(ctx context.Context, brandIDs []uint, locale string) (map[uint]*entities.BrandTranslation, error) {
+	if len(brandIDs) == 0 {
+		return make(map[uint]*entities.BrandTranslation), nil
+	}
+
+	var translationModels []models.BrandTranslationModel
+
+	if err := r.db.WithContext(ctx).
+		Where("brand_id IN ? AND locale = ?", brandIDs, locale).
+		Find(&translationModels).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return make(map[uint]*entities.BrandTranslation), nil
+		}
+		return nil, err
+	}
+
+	// Convert to map for easy lookup
+	result := make(map[uint]*entities.BrandTranslation)
+	for i := range translationModels {
+		entity := translationModels[i].ToEntity()
+		result[translationModels[i].BrandID] = entity
+	}
+
+	return result, nil
+}
+
 func (r *PostgresBrandRepo) UpdateTranslation(ctx context.Context, id uint, translation *entities.BrandTranslation) (*entities.BrandTranslation, error) {
 	var translationModel models.BrandTranslationModel
 	translationModel.FromEntity(translation)

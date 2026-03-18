@@ -40,9 +40,13 @@ func (p *ProductModel) ToEntity() *entities.Product {
 	var endPrice *float64
 	if p.StartPrice != nil {
 		startPrice = p.StartPrice
+		price = *p.StartPrice // Use StartPrice as the main price
 	}
 	if p.EndPrice != nil {
 		endPrice = p.EndPrice
+		if price == 0 { // Only use EndPrice if StartPrice wasn't available
+			price = *p.EndPrice
+		}
 	}
 
 	var category *entities.Category

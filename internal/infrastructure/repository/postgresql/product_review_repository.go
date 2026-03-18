@@ -320,6 +320,25 @@ func (r *productReviewRepository) GetTranslationsByReview(ctx context.Context, r
 	return translations, nil
 }
 
+// GetTranslationsByReviewIDsAndLocale retrieves translations for multiple reviews and a specific locale (OPTIMIZED: batch query)
+func (r *productReviewRepository) GetTranslationsByReviewIDsAndLocale(ctx context.Context, reviewIDs []uint, locale string) (map[uint]*entities.ProductReviewTranslation, error) {
+	if len(reviewIDs) == 0 {
+		return make(map[uint]*entities.ProductReviewTranslation), nil
+	}
+
+	var translationModels []models.ProductReviewTranslationModel
+	if err := r.db.WithContext(ctx).Where("product_review_id IN ? AND locale = ?", reviewIDs, locale).Find(&translationModels).Error; err != nil {
+		return make(map[uint]*entities.ProductReviewTranslation), nil
+	}
+
+	result := make(map[uint]*entities.ProductReviewTranslation)
+	for i := range translationModels {
+		entity := translationModels[i].ToEntity()
+		result[translationModels[i].ProductReviewID] = entity
+	}
+	return result, nil
+}
+
 // GetReviewImages retrieves all images for a specific review
 func (r *productReviewRepository) GetReviewImages(ctx context.Context, reviewID uint) ([]*entities.Image, error) {
 	// This would need proper implementation based on review-image relationships

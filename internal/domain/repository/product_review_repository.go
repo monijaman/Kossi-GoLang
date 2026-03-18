@@ -39,6 +39,7 @@ type ProductReviewRepository interface {
 	UpdateTranslation(ctx context.Context, translation *entities.ProductReviewTranslation) error
 	GetTranslation(ctx context.Context, reviewID uint, locale string) (*entities.ProductReviewTranslation, error)
 	GetTranslationsByReview(ctx context.Context, reviewID uint) ([]*entities.ProductReviewTranslation, error)
+	GetTranslationsByReviewIDsAndLocale(ctx context.Context, reviewIDs []uint, locale string) (map[uint]*entities.ProductReviewTranslation, error)
 
 	// Image operations
 	GetReviewImages(ctx context.Context, reviewID uint) ([]*entities.Image, error)

@@ -1021,13 +1021,23 @@ func GetPublicReviewsHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 
 	// Build response with translations for non-English locales
 	reviewsData := make([]map[string]interface{}, 0, len(reviews))
+
+	// If locale is non-English, batch fetch ALL translations in ONE query (OPTIMIZED: 1 query instead of N)
+	var translationsMap map[uint]*entities.ProductReviewTranslation
+	if locale != "" && locale != "en" {
+		reviewIDs := make([]uint, len(reviews))
+		for i, review := range reviews {
+			reviewIDs[i] = review.ID
+		}
+		translationsMap, _ = reviewRepo.GetTranslationsByReviewIDsAndLocale(r.Context(), reviewIDs, locale)
+	}
+
 	for _, review := range reviews {
 		resp := convertReviewToResponse(review)
 
-		// If locale is specified and not English, merge the translation into the review
+		// If locale is specified and not English, use translation from batch-fetched map
 		if locale != "" && locale != "en" {
-			translation, err := reviewRepo.GetTranslation(r.Context(), review.ID, locale)
-			if err == nil && translation != nil {
+			if translation, exists := translationsMap[review.ID]; exists {
 				// Override review text and rating with Bengali values
 				if translation.TranslatedReview != "" {
 					resp.Reviews = translation.TranslatedReview

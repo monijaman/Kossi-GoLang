@@ -666,12 +666,32 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	// Batch-apply Bengali (or any non-English) translations in one query
 	batchApplyTranslations(r.Context(), productResponses, repo, locale)
 
-	// Apply brand translations if non-English locale
+	// Apply brand translations in BATCH if non-English locale (OPTIMIZED: 1 query instead of N+1)
 	if locale != "" && locale != "en" {
-		for i := range productResponses {
-			if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
-				if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
-					productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+		// Collect all unique brand IDs
+		brandIDSet := make(map[uint]bool)
+		for _, p := range productResponses {
+			if p.Brand != nil && p.Brand.ID > 0 {
+				brandIDSet[p.Brand.ID] = true
+			}
+		}
+
+		if len(brandIDSet) > 0 {
+			// Convert to slice for batch query
+			brandIDs := make([]uint, 0, len(brandIDSet))
+			for id := range brandIDSet {
+				brandIDs = append(brandIDs, id)
+			}
+
+			// Fetch all translations in ONE query
+			brandTranslationsMap, _ := brandRepo.GetTranslationsByLocaleAndBrandIDs(r.Context(), brandIDs, locale)
+
+			// Apply translations from map
+			for i := range productResponses {
+				if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+					if trans, exists := brandTranslationsMap[productResponses[i].Brand.ID]; exists {
+						productResponses[i].Brand.TranslatedName = &trans.TranslatedName
+					}
 				}
 			}
 		}
@@ -760,12 +780,32 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 		locale := r.URL.Query().Get("locale")
 		batchApplyTranslations(r.Context(), productResponses, repo, locale)
 
-		// Apply brand translations if non-English locale
+		// Apply brand translations in BATCH if non-English locale (OPTIMIZED: 1 query instead of N+1)
 		if locale != "" && locale != "en" {
-			for i := range productResponses {
-				if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
-					if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
-						productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+			// Collect all unique brand IDs
+			brandIDSet := make(map[uint]bool)
+			for _, p := range productResponses {
+				if p.Brand != nil && p.Brand.ID > 0 {
+					brandIDSet[p.Brand.ID] = true
+				}
+			}
+
+			if len(brandIDSet) > 0 {
+				// Convert to slice for batch query
+				brandIDs := make([]uint, 0, len(brandIDSet))
+				for id := range brandIDSet {
+					brandIDs = append(brandIDs, id)
+				}
+
+				// Fetch all translations in ONE query
+				brandTranslationsMap, _ := brandRepo.GetTranslationsByLocaleAndBrandIDs(r.Context(), brandIDs, locale)
+
+				// Apply translations from map
+				for i := range productResponses {
+					if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+						if trans, exists := brandTranslationsMap[productResponses[i].Brand.ID]; exists {
+							productResponses[i].Brand.TranslatedName = &trans.TranslatedName
+						}
 					}
 				}
 			}
@@ -805,12 +845,32 @@ func GetPopularProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	locale := r.URL.Query().Get("locale")
 	batchApplyTranslations(r.Context(), productResponses, repo, locale)
 
-	// Apply brand translations if non-English locale
+	// Apply brand translations in BATCH if non-English locale (OPTIMIZED: 1 query instead of N+1)
 	if locale != "" && locale != "en" {
-		for i := range productResponses {
-			if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
-				if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
-					productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+		// Collect all unique brand IDs
+		brandIDSet := make(map[uint]bool)
+		for _, p := range productResponses {
+			if p.Brand != nil && p.Brand.ID > 0 {
+				brandIDSet[p.Brand.ID] = true
+			}
+		}
+
+		if len(brandIDSet) > 0 {
+			// Convert to slice for batch query
+			brandIDs := make([]uint, 0, len(brandIDSet))
+			for id := range brandIDSet {
+				brandIDs = append(brandIDs, id)
+			}
+
+			// Fetch all translations in ONE query
+			brandTranslationsMap, _ := brandRepo.GetTranslationsByLocaleAndBrandIDs(r.Context(), brandIDs, locale)
+
+			// Apply translations from map
+			for i := range productResponses {
+				if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+					if trans, exists := brandTranslationsMap[productResponses[i].Brand.ID]; exists {
+						productResponses[i].Brand.TranslatedName = &trans.TranslatedName
+					}
 				}
 			}
 		}
@@ -888,12 +948,32 @@ func GetSimilarProductsHandler(w http.ResponseWriter, r *http.Request, repo repo
 	locale := r.URL.Query().Get("locale")
 	batchApplyTranslations(r.Context(), productResponses, repo, locale)
 
-	// Apply brand translations if non-English locale
+	// Apply brand translations in BATCH if non-English locale (OPTIMIZED: 1 query instead of N+1)
 	if locale != "" && locale != "en" {
-		for i := range productResponses {
-			if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
-				if brandTranslation, err := brandRepo.GetTranslationByLocale(r.Context(), productResponses[i].Brand.ID, locale); err == nil && brandTranslation != nil {
-					productResponses[i].Brand.TranslatedName = &brandTranslation.TranslatedName
+		// Collect all unique brand IDs
+		brandIDSet := make(map[uint]bool)
+		for _, p := range productResponses {
+			if p.Brand != nil && p.Brand.ID > 0 {
+				brandIDSet[p.Brand.ID] = true
+			}
+		}
+
+		if len(brandIDSet) > 0 {
+			// Convert to slice for batch query
+			brandIDs := make([]uint, 0, len(brandIDSet))
+			for id := range brandIDSet {
+				brandIDs = append(brandIDs, id)
+			}
+
+			// Fetch all translations in ONE query
+			brandTranslationsMap, _ := brandRepo.GetTranslationsByLocaleAndBrandIDs(r.Context(), brandIDs, locale)
+
+			// Apply translations from map
+			for i := range productResponses {
+				if productResponses[i].Brand != nil && productResponses[i].Brand.ID > 0 {
+					if trans, exists := brandTranslationsMap[productResponses[i].Brand.ID]; exists {
+						productResponses[i].Brand.TranslatedName = &trans.TranslatedName
+					}
 				}
 			}
 		}
