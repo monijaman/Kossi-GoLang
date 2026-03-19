@@ -1337,7 +1337,7 @@ func UpdateSpecificationTranslationValues(w http.ResponseWriter, r *http.Request
 	// Create context with 120 second timeout for large bulk operations
 	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer cancel()
-	
+
 	savedTranslations, err := specRepo.BulkUpsertTranslations(ctx, translationEntities)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

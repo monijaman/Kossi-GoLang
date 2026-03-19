@@ -3,9 +3,11 @@ package postgres
 import (
 	"context"
 	"errors"
+	"fmt"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/infrastructure/database/models"
+	"strings"
 	"time"
 
 	"gorm.io/gorm"
@@ -311,66 +313,52 @@ func (r *PostgresSpecificationRepo) BulkUpsertTranslations(ctx context.Context, 
 		return []*entities.SpecificationTranslation{}, nil
 	}
 
-	var result []*entities.SpecificationTranslation
+	now := time.Now()
 
-	err := r.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-		// Collect all specification IDs to pre-fetch existing translations
-		specIDs := make([]uint, 0, len(translations))
-		for _, t := range translations {
-			specIDs = append(specIDs, t.SpecificationID)
-		}
+	// Build a single INSERT … ON CONFLICT DO UPDATE statement so the entire
+	// batch is handled in ONE database round-trip regardless of how many rows.
+	//
+	// SQL shape:
+	//   INSERT INTO specification_translations (specification_id, locale, value, created_at, updated_at)
+	//   VALUES ($1,$2,$3,$4,$5), ($6,$7,$8,$9,$10), ...
+	//   ON CONFLICT (specification_id, locale)
+	//   DO UPDATE SET value = EXCLUDED.value, updated_at = EXCLUDED.updated_at
+	//   RETURNING id, specification_id, locale, value, created_at, updated_at
 
-		// Pre-fetch ALL existing translations for these specification IDs in ONE query
-		var existingModels []models.SpecificationTranslationModel
-		if err := tx.Where("specification_id IN ?", specIDs).Find(&existingModels).Error; err != nil {
-			return err
-		}
+	placeholders := make([]string, 0, len(translations))
+	args := make([]interface{}, 0, len(translations)*5)
+	paramIdx := 1
 
-		// Build lookup map: (specification_id, locale) -> existing model
-		type specLocalePair struct {
-			SpecID uint
-			Locale string
-		}
-		existingMap := make(map[specLocalePair]*models.SpecificationTranslationModel)
-		for i := range existingModels {
-			m := &existingModels[i]
-			existingMap[specLocalePair{m.SpecificationID, m.Locale}] = m
-		}
+	for _, t := range translations {
+		placeholders = append(placeholders,
+			fmt.Sprintf("($%d,$%d,$%d,$%d,$%d)", paramIdx, paramIdx+1, paramIdx+2, paramIdx+3, paramIdx+4))
+		args = append(args, t.SpecificationID, t.Locale, t.TranslatedValue, now, now)
+		paramIdx += 5
+	}
 
-		now := time.Now()
+	query := fmt.Sprintf(`
+		INSERT INTO specification_translations (specification_id, locale, value, created_at, updated_at)
+		VALUES %s
+		ON CONFLICT (specification_id, locale)
+		DO UPDATE SET value = EXCLUDED.value, updated_at = EXCLUDED.updated_at
+		RETURNING id, specification_id, locale, value, created_at, updated_at`,
+		strings.Join(placeholders, ","))
 
-		for _, translation := range translations {
-			key := specLocalePair{translation.SpecificationID, translation.Locale}
-
-			if existing, ok := existingMap[key]; ok {
-				// Update existing translation
-				existing.Value = translation.TranslatedValue
-				existing.UpdatedAt = now
-
-				if err := tx.Save(existing).Error; err != nil {
-					return err
-				}
-				result = append(result, existing.ToEntity())
-			} else {
-				// Create new translation
-				var newModel models.SpecificationTranslationModel
-				newModel.FromEntity(translation)
-				newModel.ID = 0
-				newModel.CreatedAt = now
-				newModel.UpdatedAt = now
-
-				if err := tx.Create(&newModel).Error; err != nil {
-					return err
-				}
-				existingMap[key] = &newModel
-				result = append(result, newModel.ToEntity())
-			}
-		}
-
-		return nil
-	})
-
+	rows, err := r.db.WithContext(ctx).Raw(query, args...).Rows()
 	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var result []*entities.SpecificationTranslation
+	for rows.Next() {
+		var m models.SpecificationTranslationModel
+		if err := rows.Scan(&m.ID, &m.SpecificationID, &m.Locale, &m.Value, &m.CreatedAt, &m.UpdatedAt); err != nil {
+			return nil, err
+		}
+		result = append(result, m.ToEntity())
+	}
+	if err := rows.Err(); err != nil {
 		return nil, err
 	}
 
