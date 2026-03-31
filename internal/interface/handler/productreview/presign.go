@@ -3,7 +3,6 @@ package productreview
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -63,12 +62,9 @@ func PresignS3Handler(w http.ResponseWriter, r *http.Request) {
 	// Generate a unique key. Keep original extension if present.
 	ext := filepath.Ext(req.Filename)
 	uid := uuid.New().String()
-	key := "product-images/"
-	if req.ProductID != 0 {
-		// Use fmt to format numeric product ID correctly
-		key = key + fmt.Sprintf("p-%d/", req.ProductID)
-	}
-	key = key + uid + ext
+	// Store all images in a single directory `product-images/` so
+	// backups and bulk operations can target one prefix.
+	key := "product-images/" + uid + ext
 
 	// Build PutObject input
 	input := &s3.PutObjectInput{

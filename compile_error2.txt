@@ -1,3 +1,0 @@
-# kossti/internal/infrastructure/database/seeders
-internal\infrastructure\database\seeders\seeders_mobile_specifications.go:7952:3: syntax error: unexpected newline in composite literal; possibly missing comma or }
-internal\infrastructure\database\seeders\seeders_mobile_specifications.go:7955:2: syntax error: unexpected keyword for in composite literal; possibly missing comma or }
