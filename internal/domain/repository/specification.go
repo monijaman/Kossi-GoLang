@@ -30,7 +30,9 @@ type SpecificationRepository interface {
 
 // PublicSpecResult holds the result of a public spec query with translations
 type PublicSpecResult struct {
+	SpecificationID    uint
 	SpecificationKeyID uint
+	TranslationID      uint
 	TranslatedKey      string
 	TranslatedValue    string
 }

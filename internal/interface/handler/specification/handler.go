@@ -1110,6 +1110,8 @@ func GetSpecificationTranslationHandler(w http.ResponseWriter, r *http.Request, 
 		// Only include if we have actual translated value
 		if result.TranslatedValue != "" {
 			specData["translations"] = map[string]interface{}{
+				"id":               result.TranslationID,
+				"specification_id": result.SpecificationID,
 				"locale":           locale,
 				"translated_key":   result.TranslatedKey,
 				"translated_value": result.TranslatedValue,
