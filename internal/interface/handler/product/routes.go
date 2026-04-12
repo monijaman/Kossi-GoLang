@@ -10,6 +10,17 @@ import (
 
 // RegisterProductRoutes registers product-related endpoints to the mux.
 func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRepository, imageRepo repository.ImageRepository, categoryRepo repository.CategoryRepository, brandRepo repository.BrandRepository, reviewRepo repository.ProductReviewRepository) {
+	// GET /product-videos/{id} - Get YouTube videos from product reviews
+	mux.HandleFunc("/product-videos/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
+			return
+		}
+		GetProductVideosHandler(w, r, reviewRepo)
+	})
+
 	// GET /products - List products with search, pagination, and filtering
 	mux.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
