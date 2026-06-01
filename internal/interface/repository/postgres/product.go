@@ -238,6 +238,31 @@ func (r *PostgresProductRepo) GetByBrand(ctx context.Context, brandID uint, limi
 	return products, nil
 }
 
+func (r *PostgresProductRepo) GetByBrandAndCategory(ctx context.Context, brandID uint, categoryID uint, limit, offset int) ([]*entities.Product, error) {
+	var productModels []models.ProductModel
+	query := r.db.WithContext(ctx).
+		Where("deleted_at IS NULL AND status >= 1 AND brand_id = ? AND category_id = ?", brandID, categoryID).
+		Preload("Category").Preload("Brand")
+
+	if limit > 0 {
+		query = query.Limit(limit)
+	}
+	if offset > 0 {
+		query = query.Offset(offset)
+	}
+
+	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+
+	products := make([]*entities.Product, len(productModels))
+	for i, model := range productModels {
+		products[i] = model.ToEntity()
+	}
+
+	return products, nil
+}
+
 func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *entities.Product, limit int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
 

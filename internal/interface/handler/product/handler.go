@@ -1771,14 +1771,61 @@ type MarketProduct struct {
 }
 
 // GetMarketProductsHandler handles GET /market-products
-func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request) {
+func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request, productRepo repository.ProductRepository) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Get query parameters
 	brandID := r.URL.Query().Get("brand_id")
 	brandName := r.URL.Query().Get("brand_name")
+	categoryName := r.URL.Query().Get("category_name")
+	categoryIDStr := r.URL.Query().Get("category_id")
+	extraInstructions := r.URL.Query().Get("instructions")
 
-	log.Printf("Market products request - Brand ID: %s, Brand Name: %s", brandID, brandName)
+	categoryID := uint(0)
+	if categoryIDStr != "" {
+		if parsed, err := strconv.ParseUint(categoryIDStr, 10, 64); err == nil {
+			categoryID = uint(parsed)
+		}
+	}
+
+	log.Printf("Market products request - Brand ID: %s, Brand Name: %s, Category: %s (id=%d)", brandID, brandName, categoryName, categoryID)
+
+	// Parse brand_id for DB lookup
+	var brandIDUint uint
+	if brandID != "" {
+		if parsed, err := strconv.ParseUint(brandID, 10, 64); err == nil {
+			brandIDUint = uint(parsed)
+		}
+	}
+
+	// Fetch existing product names for this brand+category from DB (for deduplication + passing to OpenAI)
+	existingNames := map[string]struct{}{}
+	var existingNamesList []string
+	if brandIDUint > 0 {
+		var existing []*entities.Product
+		var fetchErr error
+
+		if categoryID > 0 {
+			// Prefer brand+category query — gives OpenAI exactly the relevant models to build successors from
+			existing, fetchErr = productRepo.GetByBrandAndCategory(r.Context(), brandIDUint, categoryID, 1000, 0)
+			log.Printf("Fetching existing products for brand=%d category=%d", brandIDUint, categoryID)
+		} else {
+			// Fall back to brand-only when no category selected
+			existing, fetchErr = productRepo.GetByBrand(r.Context(), brandIDUint, 1000, 0)
+			log.Printf("Fetching existing products for brand=%d (no category filter)", brandIDUint)
+		}
+
+		if fetchErr != nil {
+			log.Printf("Warning: could not fetch existing products: %v", fetchErr)
+		} else {
+			for _, p := range existing {
+				normalized := strings.ToLower(strings.TrimSpace(p.Name))
+				existingNames[normalized] = struct{}{}
+				existingNamesList = append(existingNamesList, p.Name)
+			}
+			log.Printf("Found %d existing products for brand=%d category=%d", len(existing), brandIDUint, categoryID)
+		}
+	}
 
 	// Get OpenAI API key from environment
 	apiKey := os.Getenv("OPENAI_API_KEY")
@@ -1799,7 +1846,7 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call OpenAI to research new products
-	products, err := researchNewProducts(apiKey, brandName)
+	products, err := researchNewProducts(apiKey, brandName, categoryName, extraInstructions, categoryID, existingNamesList)
 	if err != nil {
 		log.Printf("Error researching products: %v", err)
 		// Return fallback products instead of error
@@ -1811,38 +1858,95 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Filter out products that already exist in DB for this brand (case-insensitive name match)
+	var newProducts []MarketProduct
+	for _, p := range products {
+		if _, exists := existingNames[strings.ToLower(strings.TrimSpace(p.Name))]; !exists {
+			newProducts = append(newProducts, p)
+		} else {
+			log.Printf("Skipping already-existing product: %s", p.Name)
+		}
+	}
+	if newProducts == nil {
+		newProducts = []MarketProduct{}
+	}
+	log.Printf("OpenAI returned %d products; %d are new (not in DB)", len(products), len(newProducts))
+
 	response := map[string]interface{}{
 		"success": true,
-		"data":    products,
+		"data":    newProducts,
 	}
 	json.NewEncoder(w).Encode(response)
 }
 
 // researchNewProducts uses OpenAI to research and generate new product ideas
-func researchNewProducts(apiKey string, brandName string) ([]MarketProduct, error) {
+func researchNewProducts(apiKey string, brandName string, categoryName string, extraInstructions string, categoryID uint, existingProducts []string) ([]MarketProduct, error) {
 	var prompt string
-	if brandName != "" {
-		prompt = fmt.Sprintf(`Research and suggest 5 new innovative consumer electronics products that would fit well with the %s brand.
-For each product, provide:
-- Name: A catchy product name that could be from %s
-- Description: A brief description (2-3 sentences) of what makes this product innovative
-- Type: The product category (e.g., Smartphone, Laptop, Smart Home Device, Wearable Technology, Accessories, etc.)
 
-Make the products relevant to %s's typical product line and brand positioning.
-Format the response as a JSON array of objects with keys: name, description, type.
-Focus on trending technologies like AI, IoT, sustainability, and emerging markets.`, brandName, brandName, brandName)
-		log.Printf("Generated brand-specific prompt for %s: %s", brandName, prompt)
-	} else {
-		prompt = `Research and suggest 5 new innovative consumer electronics products that could be available in the market. 
-	For each product, provide:
-	- Name: A catchy product name
-	- Description: A brief description (2-3 sentences)
-	- Type: The product category (e.g., Smartphone, Laptop, Smart Home Device, etc.)
-	
-	Format the response as a JSON array of objects with keys: name, description, type.
-	Focus on trending technologies like AI, IoT, sustainability, and emerging markets.`
-		log.Println("Generated generic prompt (no brand specified)")
+	// Build context strings
+	brandContext := "a well-known brand"
+	if brandName != "" {
+		brandContext = brandName
 	}
+
+	extraContext := ""
+	if extraInstructions != "" {
+		extraContext = fmt.Sprintf("\nAdditional instructions: %s", extraInstructions)
+	}
+
+	// Build existing products context — limit to 50 names to stay within token budget
+	existingContext := ""
+	if len(existingProducts) > 0 {
+		names := existingProducts
+		if len(names) > 50 {
+			names = names[:50]
+		}
+		existingContext = fmt.Sprintf("\n\nProducts already in our database (DO NOT suggest these):\n- %s",
+			strings.Join(names, "\n- "))
+	}
+
+	// Build the prompt — enforce both brand AND category strictly
+	if categoryName != "" {
+		prompt = fmt.Sprintf(`You are a product catalog assistant. We sell "%s" products in the "%s" category.%s
+
+Your task: Suggest 10-15 products that:
+1. Are STRICTLY "%s" products — no other categories (no smartwatches, tablets, earbuds, VR headsets, etc. unless that IS the category).
+2. Have names that clearly reference the brand "%s".
+3. Are NOT already in our database listed above.
+4. Include the NEXT version/successor of any existing models if applicable (e.g. if "Samsung Galaxy M34 5G" exists, suggest "Samsung Galaxy M35 5G").%s
+
+For each product provide:
+- name: specific product name referencing "%s"
+- description: 2-3 sentence description
+- type: sub-type within the "%s" category
+
+Respond ONLY with a valid JSON array of objects with keys: name, description, type. No extra text.`,
+			brandContext, categoryName, existingContext,
+			categoryName,
+			brandContext,
+			extraContext,
+			brandContext, categoryName)
+	} else {
+		prompt = fmt.Sprintf(`You are a product catalog assistant. We sell "%s" products.%s
+
+Your task: Suggest 10-15 new products that:
+1. Have names that clearly reference the brand "%s".
+2. Are NOT already in our database listed above.
+3. Include the NEXT version/successor of any existing models if applicable.%s
+
+For each product provide:
+- name: specific product name referencing "%s"
+- description: 2-3 sentence description
+- type: product sub-category
+
+Respond ONLY with a valid JSON array of objects with keys: name, description, type. No extra text.`,
+			brandContext, existingContext,
+			brandContext,
+			extraContext,
+			brandContext)
+	}
+
+	log.Printf("Generated prompt for brand=%s category=%s", brandName, categoryName)
 
 	requestBody := map[string]interface{}{
 		"model": "gpt-3.5-turbo",
@@ -1918,10 +2022,16 @@ Focus on trending technologies like AI, IoT, sustainability, and emerging market
 		return getFallbackProducts(), nil
 	}
 
-	// Add default price and category
+	// Stamp real category_id from request; fall back to 1 if nothing provided
+	effectiveCategoryID := uint(1)
+	if categoryID > 0 {
+		effectiveCategoryID = categoryID
+	}
 	for i := range products {
-		products[i].Price = 99.99 + float64(i*50) // Sample prices
-		products[i].CategoryID = 1                // Default category
+		if products[i].Price == 0 {
+			products[i].Price = 99.99 + float64(i*50)
+		}
+		products[i].CategoryID = effectiveCategoryID
 	}
 
 	return products, nil

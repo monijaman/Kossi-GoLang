@@ -212,6 +212,6 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 			w.Write([]byte(`{"error": "Only GET method is allowed"}`))
 			return
 		}
-		GetMarketProductsHandler(w, r)
+		GetMarketProductsHandler(w, r, productRepo)
 	})
 }

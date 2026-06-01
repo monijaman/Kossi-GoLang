@@ -38,6 +38,7 @@ type ProductRepository interface {
 	GetPopular(ctx context.Context, limit int) ([]*entities.Product, error)
 	GetByCategory(ctx context.Context, categoryID uint, limit, offset int) ([]*entities.Product, error)
 	GetByBrand(ctx context.Context, brandID uint, limit, offset int) ([]*entities.Product, error)
+	GetByBrandAndCategory(ctx context.Context, brandID uint, categoryID uint, limit, offset int) ([]*entities.Product, error)
 	GetSimilarProducts(ctx context.Context, product *entities.Product, limit int) ([]*entities.Product, error)
 
 	// View tracking
