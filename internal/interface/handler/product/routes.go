@@ -24,8 +24,9 @@ func RegisterProductRoutes(mux *http.ServeMux, productRepo repository.ProductRep
 	// GET /products - List products with search, pagination, and filtering
 	mux.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			// Check if   parameters are present (locale, page, sortby)
-			if r.URL.Query().Get("locale") != "" || r.URL.Query().Get("page") != "" || r.URL.Query().Get("sortby") != "" {
+			q := r.URL.Query()
+			if q.Get("locale") != "" || q.Get("page") != "" || q.Get("sortby") != "" ||
+				q.Get("search") != "" || q.Get("category") != "" || q.Get("brand") != "" || q.Get("priceRange") != "" {
 				GetFilteredProductsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
 			} else {
 				ListProductsHandler(w, r, productRepo, categoryRepo, brandRepo, imageRepo)
