@@ -1849,10 +1849,12 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request, productRep
 	products, err := researchNewProducts(apiKey, brandName, categoryName, extraInstructions, categoryID, existingNamesList)
 	if err != nil {
 		log.Printf("Error researching products: %v", err)
-		// Return fallback products instead of error
+		// Return fallback products instead of error, but surface the reason
+		// so it's visible in the response without needing server log access.
 		response := map[string]interface{}{
-			"success": true,
-			"data":    getFallbackProducts(),
+			"success":               true,
+			"data":                  getFallbackProducts(),
+			"debug_fallback_reason": err.Error(),
 		}
 		json.NewEncoder(w).Encode(response)
 		return
@@ -2018,8 +2020,7 @@ Respond ONLY with a valid JSON array of objects with keys: name, description, ty
 	if err := json.Unmarshal([]byte(content), &products); err != nil {
 		log.Printf("Failed to parse OpenAI response as JSON: %v", err)
 		log.Printf("OpenAI response (after stripping): %s", content)
-		// Return sample products as fallback
-		return getFallbackProducts(), nil
+		return nil, fmt.Errorf("failed to parse OpenAI response as JSON: %w (raw content: %s)", err, content)
 	}
 
 	// Stamp real category_id from request; fall back to 1 if nothing provided
