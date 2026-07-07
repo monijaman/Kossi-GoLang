@@ -1860,7 +1860,7 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request, productRep
 		return
 	}
 
-	// Filter out products that already exist in DB for this brand (case-insensitive name match)
+	// ..Filter out products that already exist in DB for this brand (case-insensitive name match)
 	var newProducts []MarketProduct
 	for _, p := range products {
 		if _, exists := existingNames[strings.ToLower(strings.TrimSpace(p.Name))]; !exists {
