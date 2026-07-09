@@ -614,9 +614,6 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		}
 	}
 
-	// Debug: Log what limit is being used
-	fmt.Printf("[GetFilteredProductsHandler] page=%d, limit=%d, category=%s\n", page, limit, category)
-
 	// Convert brand parameter to array (Laravel sends comma-separated)
 	var brands []string
 	if brandParam != "" {
@@ -715,10 +712,6 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	totalPages := (totalCount + int64(limit) - 1) / int64(limit)
 	hasNextPage := page < int(totalPages)
 	hasPrevPage := page > 1
-
-	// Debug logging
-	fmt.Printf("[GetFilteredProductsHandler] Response - totalCount: %d, limit: %d, page: %d, totalPages: %d, productsReturned: %d\n",
-		totalCount, limit, page, totalPages, len(productResponses))
 
 	// Laravel-compatible response format
 	response := map[string]interface{}{
@@ -1838,8 +1831,9 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request, productRep
 	if apiKey == "" || apiKey == "your_openai_api_key_here" {
 		log.Println("OPENAI_API_KEY not set or is placeholder, returning fallback products")
 		response := map[string]interface{}{
-			"success": true,
-			"data":    getFallbackProducts(),
+			"success":               true,
+			"data":                  getFallbackProducts(),
+			"debug_fallback_reason": "OPENAI_API_KEY is not set (or is the placeholder) on this server",
 		}
 		json.NewEncoder(w).Encode(response)
 		return
