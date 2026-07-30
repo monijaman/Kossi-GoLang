@@ -33,6 +33,7 @@ import (
 
 	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handleradmin "kossti/internal/interface/handler/admin"
+	appmiddleware "kossti/internal/interface/middleware"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
@@ -438,7 +439,9 @@ func main() {
 	serverAddr := fmt.Sprintf("0.0.0.0:%d", availablePort)
 	fmt.Printf("[STARTUP] Server will bind to: %s\n", serverAddr)
 
-	// Create HTTP server with both CORS and database readiness middleware
+	// Create HTTP server with database readiness, CORS, and rate limiting.
+	// Rate limiting sits outermost so floods are rejected before they even
+	// reach the DB-readiness wait or CORS header logic.
 	dbMiddleware := &dbReadinessMiddleware{
 		handler: corsMiddleware(mux),
 		dbReady: dbReadyFlag,
@@ -446,7 +449,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:         serverAddr,
-		Handler:      dbMiddleware,
+		Handler:      appmiddleware.RateLimitMiddleware(dbMiddleware),
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  120 * time.Second,
