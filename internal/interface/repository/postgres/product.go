@@ -495,18 +495,21 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 		query := r.db.WithContext(ctx).Model(&models.ProductModel{}).
 			Preload("Category").
 			Preload("Brand").
-			Where("products.deleted_at IS NULL AND products.status >= 1")
+			Where("products.deleted_at IS NULL")
+		if !filters.IncludeInactive {
+			query = query.Where("products.status >= 1")
+		}
 		return r.applyFilters(query, filters, resolved)
 	}
 
 	// Count and Find are independent queries against the same filters —
 	// run them concurrently instead of one after the other.
 	var (
-		wg           sync.WaitGroup
-		totalCount   int64
+		wg            sync.WaitGroup
+		totalCount    int64
 		productModels []models.ProductModel
-		countErr     error
-		findErr      error
+		countErr      error
+		findErr       error
 	)
 
 	wg.Add(2)

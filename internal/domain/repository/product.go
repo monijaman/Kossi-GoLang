@@ -20,6 +20,7 @@ type ProductFilters struct {
 	BrandSlugs        []string `json:"brandSlugs,omitempty"`
 	CategorySlug      string   `json:"categorySlug,omitempty"`
 	ExcludeProductIDs []uint   `json:"excludeProductIds,omitempty"`
+	IncludeInactive   bool     `json:"includeInactive,omitempty"`
 }
 
 type ProductRepository interface {

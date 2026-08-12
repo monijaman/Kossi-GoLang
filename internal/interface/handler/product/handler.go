@@ -597,6 +597,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	searchterm := r.URL.Query().Get("search")
 	sortby := r.URL.Query().Get("sortby")
 	excludeParam := r.URL.Query().Get("exclude")
+	includeInactive := r.URL.Query().Get("include_inactive") == "true"
 
 	// Set defaults
 	page := 1
@@ -649,6 +650,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		PriceRange:        priceRange,
 		SortBy:            sortby,
 		ExcludeProductIDs: excludeIDs,
+		IncludeInactive:   includeInactive,
 	}
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
