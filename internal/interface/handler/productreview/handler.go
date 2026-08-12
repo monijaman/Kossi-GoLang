@@ -10,6 +10,7 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -216,10 +217,24 @@ func CreateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 		json.NewEncoder(w).Encode(map[string]string{"error": "Rating must be between 1 and 5"})
 		return
 	}
+	if req.SourceURL != nil && *req.SourceURL != "" {
+		parsedURL, parseErr := url.ParseRequestURI(*req.SourceURL)
+		if parseErr != nil || (parsedURL.Scheme != "http" && parsedURL.Scheme != "https") || parsedURL.Host == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Source URL must be a valid HTTP or HTTPS URL"})
+			return
+		}
+	}
 
 	if req.Reviews == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Review content is required"})
+		return
+	}
+	reviewText, moderationError := moderateReview(req.Reviews)
+	if moderationError != "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": moderationError})
 		return
 	}
 
@@ -231,7 +246,7 @@ func CreateReviewHandler(w http.ResponseWriter, r *http.Request, reviewRepo repo
 	}
 
 	// Pass additional_details raw JSON to usecase so it's stored as structured JSON
-	review, err := productreview.CreateReview(r.Context(), reviewRepo, userID, uint(productID), req.Rating, req.Reviews, req.SourceURL, req.AdditionalDetails)
+	review, err := productreview.CreateReview(r.Context(), reviewRepo, userID, uint(productID), req.Rating, reviewText, req.SourceURL, req.AdditionalDetails)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})

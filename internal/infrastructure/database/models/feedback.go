@@ -11,7 +11,10 @@ import (
 // FeedbackModel represents the database model for feedback (GORM-specific)
 type FeedbackModel struct {
 	ID        uint       `gorm:"primaryKey;autoIncrement"`
+	ProductID uint       `gorm:"default:0;index"`
 	UserID    uint       `gorm:"not null"`
+	Rating    string     `gorm:"type:varchar(10);default:''"`
+	SourceURL *string    `gorm:"type:text"`
 	Content   string     `gorm:"type:text;not null"`
 	Status    int        `gorm:"type:integer;default:1"`
 	CreatedBy *uint      `gorm:"nullable"`
@@ -25,7 +28,10 @@ type FeedbackModel struct {
 func (f *FeedbackModel) ToEntity() *entities.Feedback {
 	return &entities.Feedback{
 		ID:        f.ID,
+		ProductID: f.ProductID,
 		UserID:    f.UserID,
+		Rating:    f.Rating,
+		SourceURL: f.SourceURL,
 		Content:   f.Content,
 		Status:    f.Status,
 		CreatedBy: f.CreatedBy,
@@ -39,6 +45,9 @@ func (f *FeedbackModel) ToEntity() *entities.Feedback {
 // FromEntity converts domain entity to GORM model
 func (f *FeedbackModel) FromEntity(entity *entities.Feedback) {
 	f.ID = entity.ID
+	f.ProductID = entity.ProductID
+	f.Rating = entity.Rating
+	f.SourceURL = entity.SourceURL
 	f.UserID = entity.UserID
 	f.Content = entity.Content
 	f.Status = entity.Status

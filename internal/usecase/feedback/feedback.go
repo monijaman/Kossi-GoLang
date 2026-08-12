@@ -13,6 +13,10 @@ import (
 
 // CreateFeedback creates a new feedback for a product
 func CreateFeedback(ctx context.Context, repo repository.FeedbackRepository, userID uint, productID uint, content string) (*entities.Feedback, error) {
+	return CreateFeedbackWithDetails(ctx, repo, userID, productID, content, "", nil)
+}
+
+func CreateFeedbackWithDetails(ctx context.Context, repo repository.FeedbackRepository, userID uint, productID uint, content, rating string, sourceURL *string) (*entities.Feedback, error) {
 	if userID == 0 {
 		return nil, errors.New("user ID is required")
 	}
@@ -30,7 +34,10 @@ func CreateFeedback(ctx context.Context, repo repository.FeedbackRepository, use
 	}
 
 	feedback := &entities.Feedback{
+		ProductID: productID,
 		UserID:    userID,
+		Rating:    rating,
+		SourceURL: sourceURL,
 		Content:   content,
 		Status:    1,
 		CreatedAt: time.Now(),
@@ -39,11 +46,6 @@ func CreateFeedback(ctx context.Context, repo repository.FeedbackRepository, use
 
 	createdFeedback, err := repo.Create(ctx, feedback)
 	if err != nil {
-		return nil, err
-	}
-
-	// Attach feedback to product
-	if err := repo.AttachToProduct(ctx, createdFeedback.ID, productID); err != nil {
 		return nil, err
 	}
 

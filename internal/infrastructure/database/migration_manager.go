@@ -123,6 +123,9 @@ func (m *MigrationManager) MigrateAll() error {
 	models := m.GetAllModels()
 
 	log.Println("Starting database migration...")
+	if err := migrations.AddProductIDToFeedback(m.db); err != nil {
+		return fmt.Errorf("failed to migrate feedback.product_id: %w", err)
+	}
 
 	for i, model := range models {
 		log.Printf("Migrating model %d/%d: %T", i+1, len(models), model)

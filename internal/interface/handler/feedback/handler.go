@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
+	"kossti/internal/interface/middleware"
 	"kossti/internal/usecase/feedback"
 	"net/http"
 	"strconv"
@@ -12,7 +13,42 @@ import (
 
 // Request/Response structures
 type CreateFeedbackRequest struct {
-	Content string `json:"content"`
+	Content   string  `json:"content"`
+	Rating    string  `json:"rating,omitempty"`
+	SourceURL *string `json:"source_url,omitempty"`
+}
+
+// CreateProductFeedback handles POST /product-feedback/{product_id}.
+func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.Request) {
+	productIDStr := strings.Trim(strings.TrimPrefix(r.URL.Path, "/product-feedback/"), "/")
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		http.Error(w, "Invalid product ID", http.StatusBadRequest)
+		return
+	}
+	var req CreateFeedbackRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
+		return
+	}
+	content := strings.TrimSpace(strings.Join(strings.Fields(req.Content), " "))
+	if len([]rune(content)) < 3 || len([]rune(content)) > 500 {
+		http.Error(w, "Comment must be between 3 and 500 characters", http.StatusBadRequest)
+		return
+	}
+	userID, err := middleware.GetUserIDFromContext(r)
+	if err != nil || userID == 0 {
+		http.Error(w, "You must be logged in to comment", http.StatusUnauthorized)
+		return
+	}
+	created, err := feedback.CreateFeedbackWithDetails(r.Context(), h.repo, userID, uint(productID), content, req.Rating, req.SourceURL)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]interface{}{"message": "Comment submitted successfully", "feedback": convertFeedbackToResponse(created)})
 }
 
 type UpdateFeedbackRequest struct {
@@ -27,14 +63,17 @@ type CreateTranslationRequest struct {
 }
 
 type FeedbackResponse struct {
-	ID        uint   `json:"id"`
-	UserID    uint   `json:"user_id"`
-	Content   string `json:"content"`
-	Status    int    `json:"status"`
-	CreatedBy *uint  `json:"created_by"`
-	UpdatedBy *uint  `json:"updated_by"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	ID        uint    `json:"id"`
+	ProductID uint    `json:"product_id"`
+	Rating    string  `json:"rating"`
+	SourceURL *string `json:"source_url,omitempty"`
+	UserID    uint    `json:"user_id"`
+	Content   string  `json:"content"`
+	Status    int     `json:"status"`
+	CreatedBy *uint   `json:"created_by"`
+	UpdatedBy *uint   `json:"updated_by"`
+	CreatedAt string  `json:"created_at"`
+	UpdatedAt string  `json:"updated_at"`
 }
 
 type TranslationResponse struct {
@@ -55,6 +94,9 @@ type FeedbackListResponse struct {
 func convertFeedbackToResponse(f *entities.Feedback) FeedbackResponse {
 	return FeedbackResponse{
 		ID:        f.ID,
+		ProductID: f.ProductID,
+		Rating:    f.Rating,
+		SourceURL: f.SourceURL,
 		UserID:    f.UserID,
 		Content:   f.Content,
 		Status:    f.Status,
@@ -274,7 +316,10 @@ func (h *FeedbackHandler) DeleteFeedback(w http.ResponseWriter, r *http.Request)
 // GetProductFeedback handles GET /feedback/{productId} (for product-specific feedback)
 func (h *FeedbackHandler) GetProductFeedback(w http.ResponseWriter, r *http.Request) {
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/feedback/")
+	path := strings.TrimPrefix(r.URL.Path, "/product-feedback/")
+	if path == r.URL.Path {
+		path = strings.TrimPrefix(r.URL.Path, "/feedback/")
+	}
 	if path == r.URL.Path {
 		path = strings.TrimPrefix(r.URL.Path, "/v1/feedback/")
 	}
