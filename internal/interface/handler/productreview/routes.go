@@ -2,6 +2,7 @@ package productreview
 
 import (
 	"kossti/internal/domain/repository"
+	"kossti/internal/interface/middleware"
 	"log"
 	"net/http"
 	"strings"
@@ -14,7 +15,9 @@ func RegisterProductReviewRoutes(mux *http.ServeMux, reviewRepo repository.Produ
 	// Create review -> POST /reviews/{id}
 	mux.HandleFunc("/reviews/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
-			CreateReviewHandler(w, r, reviewRepo, productRepo)
+			middleware.JWTAuthMiddleware(func(w http.ResponseWriter, r *http.Request) {
+				CreateReviewHandler(w, r, reviewRepo, productRepo)
+			})(w, r)
 			return
 		}
 
