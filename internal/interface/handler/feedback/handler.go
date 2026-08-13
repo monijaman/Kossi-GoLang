@@ -2,6 +2,7 @@ package feedback
 
 import (
 	"encoding/json"
+	"errors"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
 	"kossti/internal/interface/middleware"
@@ -18,6 +19,20 @@ type CreateFeedbackRequest struct {
 	SourceURL *string `json:"source_url,omitempty"`
 }
 
+func (h *FeedbackHandler) CreateFeedbackTranslation(w http.ResponseWriter, r *http.Request) {
+	var req CreateTranslationRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil || req.FeedbackID == 0 || req.Locale == "" || req.TranslatedContent == "" {
+		http.Error(w, "invalid translation", http.StatusBadRequest)
+		return
+	}
+	created, err := feedback.CreateFeedbackTranslation(r.Context(), h.repo, req.FeedbackID, req.Locale, req.TranslatedContent)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(convertTranslationToResponse(created))
+}
+
 // CreateProductFeedback handles POST /product-feedback/{product_id}.
 func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.Request) {
 	productIDStr := strings.Trim(strings.TrimPrefix(r.URL.Path, "/product-feedback/"), "/")
@@ -32,8 +47,13 @@ func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.R
 		return
 	}
 	content := strings.TrimSpace(strings.Join(strings.Fields(req.Content), " "))
-	if len([]rune(content)) < 3 || len([]rune(content)) > 500 {
-		http.Error(w, "Comment must be between 3 and 500 characters", http.StatusBadRequest)
+	if len([]rune(content)) < 3 || len([]rune(content)) > 2000 {
+		http.Error(w, "Comment must be between 3 and 2000 characters", http.StatusBadRequest)
+		return
+	}
+	rating, ratingErr := strconv.Atoi(strings.TrimSpace(req.Rating))
+	if ratingErr != nil || rating < 1 || rating > 5 {
+		http.Error(w, "Rating must be between 1 and 5", http.StatusBadRequest)
 		return
 	}
 	userID, err := middleware.GetUserIDFromContext(r)
@@ -43,6 +63,10 @@ func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.R
 	}
 	created, err := feedback.CreateFeedbackWithDetails(r.Context(), h.repo, userID, uint(productID), content, req.Rating, req.SourceURL)
 	if err != nil {
+		if errors.Is(err, feedback.ErrDailyFeedbackLimitReached) {
+			http.Error(w, err.Error(), http.StatusTooManyRequests)
+			return
+		}
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -52,8 +76,10 @@ func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.R
 }
 
 type UpdateFeedbackRequest struct {
-	Content *string `json:"content,omitempty"`
-	Status  *int    `json:"status,omitempty"`
+	Content   *string `json:"content,omitempty"`
+	Status    *int    `json:"status,omitempty"`
+	Rating    *string `json:"rating,omitempty"`
+	SourceURL *string `json:"source_url,omitempty"`
 }
 
 type CreateTranslationRequest struct {
@@ -63,17 +89,18 @@ type CreateTranslationRequest struct {
 }
 
 type FeedbackResponse struct {
-	ID        uint    `json:"id"`
-	ProductID uint    `json:"product_id"`
-	Rating    string  `json:"rating"`
-	SourceURL *string `json:"source_url,omitempty"`
-	UserID    uint    `json:"user_id"`
-	Content   string  `json:"content"`
-	Status    int     `json:"status"`
-	CreatedBy *uint   `json:"created_by"`
-	UpdatedBy *uint   `json:"updated_by"`
-	CreatedAt string  `json:"created_at"`
-	UpdatedAt string  `json:"updated_at"`
+	ID          uint    `json:"id"`
+	ProductID   uint    `json:"product_id"`
+	Rating      string  `json:"rating"`
+	SourceURL   *string `json:"source_url,omitempty"`
+	UserID      uint    `json:"user_id"`
+	Content     string  `json:"content"`
+	Status      int     `json:"status"`
+	CreatedBy   *uint   `json:"created_by"`
+	UpdatedBy   *uint   `json:"updated_by"`
+	CreatedAt   string  `json:"created_at"`
+	UpdatedAt   string  `json:"updated_at"`
+	Translation string  `json:"translation,omitempty"`
 }
 
 type TranslationResponse struct {
@@ -165,7 +192,7 @@ func (h *FeedbackHandler) CreateFeedback(w http.ResponseWriter, r *http.Request)
 	// For now, using a placeholder user ID
 	userID := uint(1)
 
-	_, err = feedback.CreateFeedback(r.Context(), h.repo, userID, uint(productID), req.Content)
+	_, err = feedback.CreateFeedbackWithDetails(r.Context(), h.repo, userID, uint(productID), req.Content, req.Rating, req.SourceURL)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -209,7 +236,21 @@ func (h *FeedbackHandler) GetAllFeedback(w http.ResponseWriter, r *http.Request)
 
 	var feedbackResponses []FeedbackResponse
 	for _, f := range feedbacks {
-		feedbackResponses = append(feedbackResponses, convertFeedbackToResponse(f))
+		item := convertFeedbackToResponse(f)
+		if locale := r.URL.Query().Get("locale"); locale != "" {
+			if translations, err := h.repo.GetTranslations(r.Context(), f.ID); err == nil {
+				for _, t := range translations {
+					if t.Locale == locale {
+						item.Translation = t.TranslatedContent
+						break
+					}
+				}
+			}
+		}
+		if item.Translation != "" {
+			item.Content = item.Translation
+		}
+		feedbackResponses = append(feedbackResponses, item)
 	}
 
 	response := FeedbackListResponse{
@@ -274,7 +315,7 @@ func (h *FeedbackHandler) UpdateFeedback(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	f, err := feedback.UpdateFeedback(r.Context(), h.repo, uint(id), req.Content, req.Status)
+	f, err := feedback.UpdateFeedback(r.Context(), h.repo, uint(id), req.Content, req.Status, req.Rating, req.SourceURL)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

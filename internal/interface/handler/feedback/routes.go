@@ -9,6 +9,13 @@ import (
 // RegisterRoutes registers all feedback routes
 func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 	handler := NewFeedbackHandler(repo)
+	mux.HandleFunc("/feedback-translation", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		middleware.JWTAuthMiddleware(handler.CreateFeedbackTranslation)(w, r)
+	})
 
 	// Product feedback is separate from editorial product reviews.
 	mux.HandleFunc("/product-feedback/", func(w http.ResponseWriter, r *http.Request) {

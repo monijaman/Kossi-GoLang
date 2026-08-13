@@ -8,8 +8,12 @@ import (
 	"errors"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
+	"strconv"
+	"strings"
 	"time"
 )
+
+var ErrDailyFeedbackLimitReached = errors.New("you can submit a maximum of 10 feedback entries per day")
 
 // CreateFeedback creates a new feedback for a product
 func CreateFeedback(ctx context.Context, repo repository.FeedbackRepository, userID uint, productID uint, content string) (*entities.Feedback, error) {
@@ -28,9 +32,30 @@ func CreateFeedbackWithDetails(ctx context.Context, repo repository.FeedbackRepo
 	if content == "" {
 		return nil, errors.New("content is required")
 	}
+	if err := validateRating(rating); err != nil {
+		return nil, err
+	}
 
-	if len(content) > 500 {
-		return nil, errors.New("content must be 500 characters or less")
+	// Limit submissions across all products to ten per user per UTC calendar
+	// day. Translations are stored separately and do not count as submissions.
+	existing, err := repo.GetByUserID(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+	now := time.Now().UTC()
+	dailyCount := 0
+	for _, item := range existing {
+		createdAt := item.CreatedAt.UTC()
+		if createdAt.Year() == now.Year() && createdAt.YearDay() == now.YearDay() {
+			dailyCount++
+		}
+	}
+	if dailyCount >= 10 {
+		return nil, ErrDailyFeedbackLimitReached
+	}
+
+	if len(content) > 2000 {
+		return nil, errors.New("content must be 2000 characters or less")
 	}
 
 	feedback := &entities.Feedback{
@@ -85,7 +110,7 @@ func GetAllFeedback(ctx context.Context, repo repository.FeedbackRepository, lim
 }
 
 // UpdateFeedback updates an existing feedback
-func UpdateFeedback(ctx context.Context, repo repository.FeedbackRepository, id uint, content *string, status *int) (*entities.Feedback, error) {
+func UpdateFeedback(ctx context.Context, repo repository.FeedbackRepository, id uint, content *string, status *int, rating *string, sourceURL *string) (*entities.Feedback, error) {
 	if id == 0 {
 		return nil, errors.New("feedback ID is required")
 	}
@@ -101,14 +126,23 @@ func UpdateFeedback(ctx context.Context, repo repository.FeedbackRepository, id 
 		if *content == "" {
 			return nil, errors.New("content cannot be empty")
 		}
-		if len(*content) > 500 {
-			return nil, errors.New("content must be 500 characters or less")
+		if len(*content) > 2000 {
+			return nil, errors.New("content must be 2000 characters or less")
 		}
 		existingFeedback.Content = *content
 	}
 
 	if status != nil {
 		existingFeedback.Status = *status
+	}
+	if rating != nil {
+		if err := validateRating(*rating); err != nil {
+			return nil, err
+		}
+		existingFeedback.Rating = *rating
+	}
+	if sourceURL != nil {
+		existingFeedback.SourceURL = sourceURL
 	}
 
 	existingFeedback.UpdatedAt = time.Now()
@@ -119,6 +153,15 @@ func UpdateFeedback(ctx context.Context, repo repository.FeedbackRepository, id 
 	}
 
 	return updatedFeedback, nil
+}
+
+func validateRating(rating string) error {
+	rating = strings.TrimSpace(rating)
+	value, err := strconv.Atoi(rating)
+	if err != nil || value < 1 || value > 5 {
+		return errors.New("rating must be between 1 and 5")
+	}
+	return nil
 }
 
 // DeleteFeedback soft deletes a feedback

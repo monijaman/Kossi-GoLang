@@ -35,6 +35,47 @@ func generateSlug(name string) string {
 	return slug
 }
 
+// populateAverageRatings combines editorial product reviews and active user
+// feedback ratings so the product's displayed rating reflects both sources.
+func (r *PostgresProductRepo) populateAverageRatings(ctx context.Context, productModels []models.ProductModel) error {
+	if len(productModels) == 0 {
+		return nil
+	}
+	productIDs := make([]uint, len(productModels))
+	for i, product := range productModels {
+		productIDs[i] = product.ID
+	}
+	type RatingResult struct {
+		ProductID     uint     `gorm:"column:product_id"`
+		AverageRating *float64 `gorm:"column:average_rating"`
+	}
+	var ratings []RatingResult
+	err := r.db.WithContext(ctx).Raw(`
+		SELECT product_id, AVG(rating) AS average_rating
+		FROM (
+			SELECT product_id, CAST(NULLIF(rating, '') AS NUMERIC) AS rating
+			FROM product_reviews
+			WHERE product_id IN ? AND deleted_at IS NULL AND rating IS NOT NULL AND rating <> ''
+			UNION ALL
+			SELECT product_id, CAST(NULLIF(rating, '') AS NUMERIC) AS rating
+			FROM feedback
+			WHERE product_id IN ? AND deleted_at IS NULL AND status > 0 AND rating IS NOT NULL AND rating <> ''
+		) AS all_ratings
+		GROUP BY product_id
+	`, productIDs, productIDs).Scan(&ratings).Error
+	if err != nil {
+		return err
+	}
+	byProduct := make(map[uint]*float64, len(ratings))
+	for _, rating := range ratings {
+		byProduct[rating.ProductID] = rating.AverageRating
+	}
+	for i := range productModels {
+		productModels[i].AverageRating = byProduct[productModels[i].ID]
+	}
+	return nil
+}
+
 func (r *PostgresProductRepo) GetByID(ctx context.Context, id uint) (*entities.Product, error) {
 	var productModel models.ProductModel
 	if err := r.db.WithContext(ctx).Preload("Category").Preload("Brand").First(&productModel, id).Error; err != nil {
@@ -43,6 +84,11 @@ func (r *PostgresProductRepo) GetByID(ctx context.Context, id uint) (*entities.P
 		}
 		return nil, err
 	}
+	ratedProducts := []models.ProductModel{productModel}
+	if err := r.populateAverageRatings(ctx, ratedProducts); err != nil {
+		return nil, err
+	}
+	productModel = ratedProducts[0]
 	return productModel.ToEntity(), nil
 }
 
@@ -74,6 +120,11 @@ func (r *PostgresProductRepo) GetBySlug(ctx context.Context, slug string) (*enti
 	if err := r.db.WithContext(ctx).Preload("Category").Preload("Brand").Where("slug = ?", slug).First(&productModel).Error; err != nil {
 		return nil, err
 	}
+	ratedProducts := []models.ProductModel{productModel}
+	if err := r.populateAverageRatings(ctx, ratedProducts); err != nil {
+		return nil, err
+	}
+	productModel = ratedProducts[0]
 	return productModel.ToEntity(), nil
 }
 
@@ -137,6 +188,9 @@ func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*e
 	if err := query.Find(&productModels).Error; err != nil {
 		return nil, err
 	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, err
+	}
 
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {
@@ -165,6 +219,9 @@ func (r *PostgresProductRepo) Search(ctx context.Context, query string, limit, o
 	if err := dbQuery.Find(&productModels).Error; err != nil {
 		return nil, err
 	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, err
+	}
 
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {
@@ -183,6 +240,9 @@ func (r *PostgresProductRepo) GetPopular(ctx context.Context, limit int) ([]*ent
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -208,6 +268,9 @@ func (r *PostgresProductRepo) GetByCategory(ctx context.Context, categoryID uint
 	if err := query.Find(&productModels).Error; err != nil {
 		return nil, err
 	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, err
+	}
 
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {
@@ -229,6 +292,9 @@ func (r *PostgresProductRepo) GetByBrand(ctx context.Context, brandID uint, limi
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -254,6 +320,9 @@ func (r *PostgresProductRepo) GetByBrandAndCategory(ctx context.Context, brandID
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -341,6 +410,10 @@ func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *e
 				}
 			}
 		}
+	}
+
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, err
 	}
 
 	products := make([]*entities.Product, len(productModels))
@@ -531,6 +604,9 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	if findErr != nil {
 		return nil, 0, findErr
 	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, 0, err
+	}
 
 	// Fetch average ratings for all products in this batch (single query instead of N queries)
 	if len(productModels) > 0 {
@@ -569,6 +645,10 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 				}
 			}
 		}
+	}
+
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, 0, err
 	}
 
 	// Convert models to entities

@@ -31,9 +31,9 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
+	database_models "kossti/internal/infrastructure/database/models"
 	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handleradmin "kossti/internal/interface/handler/admin"
-	appmiddleware "kossti/internal/interface/middleware"
 	handlerauth "kossti/internal/interface/handler/auth"
 	handlerbrand "kossti/internal/interface/handler/brand"
 	handlercategory "kossti/internal/interface/handler/category"
@@ -45,6 +45,7 @@ import (
 	handlerproductreview "kossti/internal/interface/handler/productreview"
 	handlerspecification "kossti/internal/interface/handler/specification"
 	handleruser "kossti/internal/interface/handler/user"
+	appmiddleware "kossti/internal/interface/middleware"
 	pgRepo "kossti/internal/interface/repository/postgres"
 )
 
@@ -295,6 +296,14 @@ func main() {
 		sqlDB.SetConnMaxIdleTime(2 * time.Minute) // More aggressive idle timeout
 
 		fmt.Println("Database connection successful!")
+
+		// Keep the feedback schema compatible with existing deployments. Older
+		// databases may have the feedback table without product_id; this safe
+		// AutoMigrate adds the missing columns before routes accept requests.
+		if err := db.AutoMigrate(&database_models.FeedbackModel{}, &database_models.FeedbackTranslationModel{}); err != nil {
+			log.Printf("ERROR: Feedback schema migration failed: %v", err)
+			return
+		}
 
 		// Run migrations and seeders
 		// fmt.Println("Running specification translation verification...")
