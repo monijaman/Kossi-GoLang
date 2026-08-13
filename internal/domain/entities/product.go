@@ -117,6 +117,8 @@ type Feedback struct {
 	Rating    string
 	SourceURL *string
 	Content   string
+	ContentEN string
+	ContentBN string
 	Status    int
 	CreatedBy *uint
 	UpdatedBy *uint

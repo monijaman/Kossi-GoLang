@@ -106,7 +106,6 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		&models.ImageModel{},
 		&models.TagModel{},
 		&models.FeedbackModel{},
-		&models.FeedbackTranslationModel{},
 
 		// Form generator
 		&models.FormGeneratorModel{},
@@ -125,6 +124,9 @@ func (m *MigrationManager) MigrateAll() error {
 	log.Println("Starting database migration...")
 	if err := migrations.AddProductIDToFeedback(m.db); err != nil {
 		return fmt.Errorf("failed to migrate feedback.product_id: %w", err)
+	}
+	if err := m.db.Exec("DROP TABLE IF EXISTS feedback_translations").Error; err != nil {
+		return fmt.Errorf("failed to remove obsolete feedback_translations table: %w", err)
 	}
 
 	for i, model := range models {

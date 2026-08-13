@@ -64,6 +64,7 @@ func CreateFeedbackWithDetails(ctx context.Context, repo repository.FeedbackRepo
 		Rating:    rating,
 		SourceURL: sourceURL,
 		Content:   content,
+		ContentEN: content,
 		Status:    1,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),

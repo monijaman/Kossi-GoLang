@@ -300,8 +300,12 @@ func main() {
 		// Keep the feedback schema compatible with existing deployments. Older
 		// databases may have the feedback table without product_id; this safe
 		// AutoMigrate adds the missing columns before routes accept requests.
-		if err := db.AutoMigrate(&database_models.FeedbackModel{}, &database_models.FeedbackTranslationModel{}); err != nil {
+		if err := db.AutoMigrate(&database_models.FeedbackModel{}); err != nil {
 			log.Printf("ERROR: Feedback schema migration failed: %v", err)
+			return
+		}
+		if err := db.Exec("DROP TABLE IF EXISTS feedback_translations").Error; err != nil {
+			log.Printf("ERROR: obsolete feedback_translations removal failed: %v", err)
 			return
 		}
 

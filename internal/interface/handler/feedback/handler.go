@@ -15,6 +15,9 @@ import (
 // Request/Response structures
 type CreateFeedbackRequest struct {
 	Content   string  `json:"content"`
+	Locale    string  `json:"locale,omitempty"`
+	ContentEN string  `json:"content_en,omitempty"`
+	ContentBN string  `json:"content_bn,omitempty"`
 	Rating    string  `json:"rating,omitempty"`
 	SourceURL *string `json:"source_url,omitempty"`
 }
@@ -25,12 +28,27 @@ func (h *FeedbackHandler) CreateFeedbackTranslation(w http.ResponseWriter, r *ht
 		http.Error(w, "invalid translation", http.StatusBadRequest)
 		return
 	}
-	created, err := feedback.CreateFeedbackTranslation(r.Context(), h.repo, req.FeedbackID, req.Locale, req.TranslatedContent)
+	item, err := h.repo.GetByID(r.Context(), req.FeedbackID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(convertTranslationToResponse(created))
+	if req.Locale == "bn" {
+		item.ContentBN = req.TranslatedContent
+	} else if req.Locale == "en" {
+		item.ContentEN = req.TranslatedContent
+		item.Content = req.TranslatedContent
+	} else {
+		http.Error(w, "locale must be en or bn", http.StatusBadRequest)
+		return
+	}
+	updated, err := h.repo.Update(r.Context(), req.FeedbackID, item)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(convertFeedbackToResponse(updated))
 }
 
 // CreateProductFeedback handles POST /product-feedback/{product_id}.
@@ -70,6 +88,20 @@ func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.R
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	if req.Locale == "bn" {
+		created.ContentEN = ""
+		created.ContentBN = content
+		if _, err = h.repo.Update(r.Context(), created.ID, created); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	} else {
+		created.ContentEN = content
+		if _, err = h.repo.Update(r.Context(), created.ID, created); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(map[string]interface{}{"message": "Comment submitted successfully", "feedback": convertFeedbackToResponse(created)})
@@ -77,6 +109,8 @@ func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.R
 
 type UpdateFeedbackRequest struct {
 	Content   *string `json:"content,omitempty"`
+	ContentEN *string `json:"content_en,omitempty"`
+	ContentBN *string `json:"content_bn,omitempty"`
 	Status    *int    `json:"status,omitempty"`
 	Rating    *string `json:"rating,omitempty"`
 	SourceURL *string `json:"source_url,omitempty"`
@@ -89,18 +123,21 @@ type CreateTranslationRequest struct {
 }
 
 type FeedbackResponse struct {
-	ID          uint    `json:"id"`
-	ProductID   uint    `json:"product_id"`
-	Rating      string  `json:"rating"`
-	SourceURL   *string `json:"source_url,omitempty"`
-	UserID      uint    `json:"user_id"`
-	Content     string  `json:"content"`
-	Status      int     `json:"status"`
-	CreatedBy   *uint   `json:"created_by"`
-	UpdatedBy   *uint   `json:"updated_by"`
-	CreatedAt   string  `json:"created_at"`
-	UpdatedAt   string  `json:"updated_at"`
-	Translation string  `json:"translation,omitempty"`
+	ID           uint              `json:"id"`
+	ProductID    uint              `json:"product_id"`
+	Rating       string            `json:"rating"`
+	SourceURL    *string           `json:"source_url,omitempty"`
+	UserID       uint              `json:"user_id"`
+	Content      string            `json:"content"`
+	ContentEN    string            `json:"content_en,omitempty"`
+	ContentBN    string            `json:"content_bn,omitempty"`
+	Status       int               `json:"status"`
+	CreatedBy    *uint             `json:"created_by"`
+	UpdatedBy    *uint             `json:"updated_by"`
+	CreatedAt    string            `json:"created_at"`
+	UpdatedAt    string            `json:"updated_at"`
+	Translation  string            `json:"translation,omitempty"`
+	Translations map[string]string `json:"translations,omitempty"`
 }
 
 type TranslationResponse struct {
@@ -126,6 +163,8 @@ func convertFeedbackToResponse(f *entities.Feedback) FeedbackResponse {
 		SourceURL: f.SourceURL,
 		UserID:    f.UserID,
 		Content:   f.Content,
+		ContentEN: f.ContentEN,
+		ContentBN: f.ContentBN,
 		Status:    f.Status,
 		CreatedBy: f.CreatedBy,
 		UpdatedBy: f.UpdatedBy,
@@ -237,18 +276,14 @@ func (h *FeedbackHandler) GetAllFeedback(w http.ResponseWriter, r *http.Request)
 	var feedbackResponses []FeedbackResponse
 	for _, f := range feedbacks {
 		item := convertFeedbackToResponse(f)
-		if locale := r.URL.Query().Get("locale"); locale != "" {
-			if translations, err := h.repo.GetTranslations(r.Context(), f.ID); err == nil {
-				for _, t := range translations {
-					if t.Locale == locale {
-						item.Translation = t.TranslatedContent
-						break
-					}
-				}
-			}
+		locale := r.URL.Query().Get("locale")
+		if locale == "bn" {
+			item.Content = f.ContentBN
+		} else if locale == "en" {
+			item.Content = f.ContentEN
 		}
-		if item.Translation != "" {
-			item.Content = item.Translation
+		if locale != "" && item.Content == "" {
+			continue
 		}
 		feedbackResponses = append(feedbackResponses, item)
 	}
@@ -320,6 +355,20 @@ func (h *FeedbackHandler) UpdateFeedback(w http.ResponseWriter, r *http.Request)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	if req.ContentEN != nil || req.ContentBN != nil {
+		if req.ContentEN != nil {
+			f.ContentEN = *req.ContentEN
+			f.Content = *req.ContentEN
+		}
+		if req.ContentBN != nil {
+			f.ContentBN = *req.ContentBN
+		}
+		f, err = h.repo.Update(r.Context(), uint(id), f)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
 
 	response := convertFeedbackToResponse(f)
 
@@ -380,7 +429,17 @@ func (h *FeedbackHandler) GetProductFeedback(w http.ResponseWriter, r *http.Requ
 
 	var feedbackResponses []FeedbackResponse
 	for _, f := range feedbacks {
-		feedbackResponses = append(feedbackResponses, convertFeedbackToResponse(f))
+		item := convertFeedbackToResponse(f)
+		locale := r.URL.Query().Get("locale")
+		if locale == "bn" {
+			item.Content = f.ContentBN
+		} else if locale == "en" {
+			item.Content = f.ContentEN
+		}
+		if locale != "" && item.Content == "" {
+			continue
+		}
+		feedbackResponses = append(feedbackResponses, item)
 	}
 
 	response := FeedbackListResponse{

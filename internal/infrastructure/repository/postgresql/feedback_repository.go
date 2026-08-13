@@ -65,7 +65,12 @@ func (r *feedbackRepository) Update(ctx context.Context, id uint, feedback *enti
 	model.FromEntity(feedback)
 	model.ID = id
 
-	if err := r.db.WithContext(ctx).Model(&model).Updates(model).Error; err != nil {
+	if err := r.db.WithContext(ctx).Model(&models.FeedbackModel{}).Where("id = ?", id).Updates(map[string]interface{}{
+		"product_id": model.ProductID, "user_id": model.UserID, "rating": model.Rating,
+		"source_url": model.SourceURL, "content": model.Content, "content_en": model.ContentEN,
+		"content_bn": model.ContentBN, "status": model.Status, "created_by": model.CreatedBy,
+		"updated_by": model.UpdatedBy,
+	}).Error; err != nil {
 		return nil, err
 	}
 
