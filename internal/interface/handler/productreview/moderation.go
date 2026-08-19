@@ -25,8 +25,8 @@ func moderateReview(input string) (string, string) {
 	if len([]rune(text)) < 3 {
 		return "", "Comment must contain at least 3 characters"
 	}
-	if len([]rune(text)) > 5000 {
-		return "", "Comment must be 5000 characters or fewer"
+	if len([]rune(text)) > 20000 {
+		return "", "Comment must be 20000 characters or fewer"
 	}
 
 	blocked := os.Getenv("REVIEW_BLOCKED_WORDS")

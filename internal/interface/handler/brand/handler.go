@@ -134,10 +134,14 @@ func GetBrandsHandlero(w http.ResponseWriter, r *http.Request, brandRepo reposit
 	// Set defaults
 	limit := 50
 	offset := 0
+	const maxLimit = 100
 
 	if limitStr != "" {
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
+			if limit > maxLimit {
+				limit = maxLimit
+			}
 		}
 	}
 
@@ -560,10 +564,14 @@ func GetPublicBrandsHandler(w http.ResponseWriter, r *http.Request, brandRepo re
 	// Set defaults
 	limit := 50
 	offset := 0
+	const maxLimit = 100
 
 	if limitStr != "" {
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
+			if limit > maxLimit {
+				limit = maxLimit
+			}
 		}
 	}
 

@@ -254,10 +254,14 @@ func (h *FeedbackHandler) GetAllFeedback(w http.ResponseWriter, r *http.Request)
 
 	limit := 10
 	offset := 0
+	const maxLimit = 100
 
 	if limitStr != "" {
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
+			if limit > maxLimit {
+				limit = maxLimit
+			}
 		}
 	}
 

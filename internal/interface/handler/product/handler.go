@@ -509,9 +509,16 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 	limit := 20
 	offset := 0
 
+	// Hard cap regardless of what the client requests - prevents a scraper
+	// from pulling the entire catalog in one shot via a large limit value.
+	const maxLimit = 100
+
 	if limitStr != "" {
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
+			if limit > maxLimit {
+				limit = maxLimit
+			}
 		}
 	}
 
