@@ -87,6 +87,7 @@ func GetAllSpecificationKeysHandler(w http.ResponseWriter, r *http.Request, keyR
 	// Set defaults
 	limit := 10
 	offset := 0
+	const maxLimit = 100
 
 	// Handle per_page parameter (alternative to limit)
 	if perPageStr != "" {
@@ -99,6 +100,10 @@ func GetAllSpecificationKeysHandler(w http.ResponseWriter, r *http.Request, keyR
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
 		}
+	}
+
+	if limit > maxLimit {
+		limit = maxLimit
 	}
 
 	if offsetStr != "" {

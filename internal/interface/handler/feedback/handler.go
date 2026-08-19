@@ -2,8 +2,10 @@ package feedback
 
 import (
 	"encoding/json"
+	"errors"
 	"kossti/internal/domain/entities"
 	"kossti/internal/domain/repository"
+	"kossti/internal/interface/middleware"
 	"kossti/internal/usecase/feedback"
 	"net/http"
 	"strconv"
@@ -12,12 +14,106 @@ import (
 
 // Request/Response structures
 type CreateFeedbackRequest struct {
-	Content string `json:"content"`
+	Content   string  `json:"content"`
+	Locale    string  `json:"locale,omitempty"`
+	ContentEN string  `json:"content_en,omitempty"`
+	ContentBN string  `json:"content_bn,omitempty"`
+	Rating    string  `json:"rating,omitempty"`
+	SourceURL *string `json:"source_url,omitempty"`
+}
+
+func (h *FeedbackHandler) CreateFeedbackTranslation(w http.ResponseWriter, r *http.Request) {
+	var req CreateTranslationRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil || req.FeedbackID == 0 || req.Locale == "" || req.TranslatedContent == "" {
+		http.Error(w, "invalid translation", http.StatusBadRequest)
+		return
+	}
+	item, err := h.repo.GetByID(r.Context(), req.FeedbackID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if req.Locale == "bn" {
+		item.ContentBN = req.TranslatedContent
+	} else if req.Locale == "en" {
+		item.ContentEN = req.TranslatedContent
+		item.Content = req.TranslatedContent
+	} else {
+		http.Error(w, "locale must be en or bn", http.StatusBadRequest)
+		return
+	}
+	updated, err := h.repo.Update(r.Context(), req.FeedbackID, item)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(convertFeedbackToResponse(updated))
+}
+
+// CreateProductFeedback handles POST /product-feedback/{product_id}.
+func (h *FeedbackHandler) CreateProductFeedback(w http.ResponseWriter, r *http.Request) {
+	productIDStr := strings.Trim(strings.TrimPrefix(r.URL.Path, "/product-feedback/"), "/")
+	productID, err := strconv.ParseUint(productIDStr, 10, 32)
+	if err != nil {
+		http.Error(w, "Invalid product ID", http.StatusBadRequest)
+		return
+	}
+	var req CreateFeedbackRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
+		return
+	}
+	content := strings.TrimSpace(strings.Join(strings.Fields(req.Content), " "))
+	if len([]rune(content)) < 3 || len([]rune(content)) > 2000 {
+		http.Error(w, "Comment must be between 3 and 2000 characters", http.StatusBadRequest)
+		return
+	}
+	rating, ratingErr := strconv.Atoi(strings.TrimSpace(req.Rating))
+	if ratingErr != nil || rating < 1 || rating > 5 {
+		http.Error(w, "Rating must be between 1 and 5", http.StatusBadRequest)
+		return
+	}
+	userID, err := middleware.GetUserIDFromContext(r)
+	if err != nil || userID == 0 {
+		http.Error(w, "You must be logged in to comment", http.StatusUnauthorized)
+		return
+	}
+	created, err := feedback.CreateFeedbackWithDetails(r.Context(), h.repo, userID, uint(productID), content, req.Rating, req.SourceURL)
+	if err != nil {
+		if errors.Is(err, feedback.ErrDailyFeedbackLimitReached) {
+			http.Error(w, err.Error(), http.StatusTooManyRequests)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if req.Locale == "bn" {
+		created.ContentEN = ""
+		created.ContentBN = content
+		if _, err = h.repo.Update(r.Context(), created.ID, created); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	} else {
+		created.ContentEN = content
+		if _, err = h.repo.Update(r.Context(), created.ID, created); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]interface{}{"message": "Comment submitted successfully", "feedback": convertFeedbackToResponse(created)})
 }
 
 type UpdateFeedbackRequest struct {
-	Content *string `json:"content,omitempty"`
-	Status  *int    `json:"status,omitempty"`
+	Content   *string `json:"content,omitempty"`
+	ContentEN *string `json:"content_en,omitempty"`
+	ContentBN *string `json:"content_bn,omitempty"`
+	Status    *int    `json:"status,omitempty"`
+	Rating    *string `json:"rating,omitempty"`
+	SourceURL *string `json:"source_url,omitempty"`
 }
 
 type CreateTranslationRequest struct {
@@ -27,14 +123,21 @@ type CreateTranslationRequest struct {
 }
 
 type FeedbackResponse struct {
-	ID        uint   `json:"id"`
-	UserID    uint   `json:"user_id"`
-	Content   string `json:"content"`
-	Status    int    `json:"status"`
-	CreatedBy *uint  `json:"created_by"`
-	UpdatedBy *uint  `json:"updated_by"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	ID           uint              `json:"id"`
+	ProductID    uint              `json:"product_id"`
+	Rating       string            `json:"rating"`
+	SourceURL    *string           `json:"source_url,omitempty"`
+	UserID       uint              `json:"user_id"`
+	Content      string            `json:"content"`
+	ContentEN    string            `json:"content_en,omitempty"`
+	ContentBN    string            `json:"content_bn,omitempty"`
+	Status       int               `json:"status"`
+	CreatedBy    *uint             `json:"created_by"`
+	UpdatedBy    *uint             `json:"updated_by"`
+	CreatedAt    string            `json:"created_at"`
+	UpdatedAt    string            `json:"updated_at"`
+	Translation  string            `json:"translation,omitempty"`
+	Translations map[string]string `json:"translations,omitempty"`
 }
 
 type TranslationResponse struct {
@@ -55,8 +158,13 @@ type FeedbackListResponse struct {
 func convertFeedbackToResponse(f *entities.Feedback) FeedbackResponse {
 	return FeedbackResponse{
 		ID:        f.ID,
+		ProductID: f.ProductID,
+		Rating:    f.Rating,
+		SourceURL: f.SourceURL,
 		UserID:    f.UserID,
 		Content:   f.Content,
+		ContentEN: f.ContentEN,
+		ContentBN: f.ContentBN,
 		Status:    f.Status,
 		CreatedBy: f.CreatedBy,
 		UpdatedBy: f.UpdatedBy,
@@ -123,7 +231,7 @@ func (h *FeedbackHandler) CreateFeedback(w http.ResponseWriter, r *http.Request)
 	// For now, using a placeholder user ID
 	userID := uint(1)
 
-	_, err = feedback.CreateFeedback(r.Context(), h.repo, userID, uint(productID), req.Content)
+	_, err = feedback.CreateFeedbackWithDetails(r.Context(), h.repo, userID, uint(productID), req.Content, req.Rating, req.SourceURL)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -146,10 +254,14 @@ func (h *FeedbackHandler) GetAllFeedback(w http.ResponseWriter, r *http.Request)
 
 	limit := 10
 	offset := 0
+	const maxLimit = 100
 
 	if limitStr != "" {
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
+			if limit > maxLimit {
+				limit = maxLimit
+			}
 		}
 	}
 
@@ -167,7 +279,17 @@ func (h *FeedbackHandler) GetAllFeedback(w http.ResponseWriter, r *http.Request)
 
 	var feedbackResponses []FeedbackResponse
 	for _, f := range feedbacks {
-		feedbackResponses = append(feedbackResponses, convertFeedbackToResponse(f))
+		item := convertFeedbackToResponse(f)
+		locale := r.URL.Query().Get("locale")
+		if locale == "bn" {
+			item.Content = f.ContentBN
+		} else if locale == "en" {
+			item.Content = f.ContentEN
+		}
+		if locale != "" && item.Content == "" {
+			continue
+		}
+		feedbackResponses = append(feedbackResponses, item)
 	}
 
 	response := FeedbackListResponse{
@@ -232,10 +354,24 @@ func (h *FeedbackHandler) UpdateFeedback(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	f, err := feedback.UpdateFeedback(r.Context(), h.repo, uint(id), req.Content, req.Status)
+	f, err := feedback.UpdateFeedback(r.Context(), h.repo, uint(id), req.Content, req.Status, req.Rating, req.SourceURL)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+	}
+	if req.ContentEN != nil || req.ContentBN != nil {
+		if req.ContentEN != nil {
+			f.ContentEN = *req.ContentEN
+			f.Content = *req.ContentEN
+		}
+		if req.ContentBN != nil {
+			f.ContentBN = *req.ContentBN
+		}
+		f, err = h.repo.Update(r.Context(), uint(id), f)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
 	response := convertFeedbackToResponse(f)
@@ -274,7 +410,10 @@ func (h *FeedbackHandler) DeleteFeedback(w http.ResponseWriter, r *http.Request)
 // GetProductFeedback handles GET /feedback/{productId} (for product-specific feedback)
 func (h *FeedbackHandler) GetProductFeedback(w http.ResponseWriter, r *http.Request) {
 	// Extract product ID from URL path
-	path := strings.TrimPrefix(r.URL.Path, "/feedback/")
+	path := strings.TrimPrefix(r.URL.Path, "/product-feedback/")
+	if path == r.URL.Path {
+		path = strings.TrimPrefix(r.URL.Path, "/feedback/")
+	}
 	if path == r.URL.Path {
 		path = strings.TrimPrefix(r.URL.Path, "/v1/feedback/")
 	}
@@ -294,7 +433,17 @@ func (h *FeedbackHandler) GetProductFeedback(w http.ResponseWriter, r *http.Requ
 
 	var feedbackResponses []FeedbackResponse
 	for _, f := range feedbacks {
-		feedbackResponses = append(feedbackResponses, convertFeedbackToResponse(f))
+		item := convertFeedbackToResponse(f)
+		locale := r.URL.Query().Get("locale")
+		if locale == "bn" {
+			item.Content = f.ContentBN
+		} else if locale == "en" {
+			item.Content = f.ContentEN
+		}
+		if locale != "" && item.Content == "" {
+			continue
+		}
+		feedbackResponses = append(feedbackResponses, item)
 	}
 
 	response := FeedbackListResponse{

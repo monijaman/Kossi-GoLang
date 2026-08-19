@@ -2,12 +2,33 @@ package feedback
 
 import (
 	"kossti/internal/domain/repository"
+	"kossti/internal/interface/middleware"
 	"net/http"
 )
 
 // RegisterRoutes registers all feedback routes
 func RegisterRoutes(mux *http.ServeMux, repo repository.FeedbackRepository) {
 	handler := NewFeedbackHandler(repo)
+	mux.HandleFunc("/feedback-translation", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		middleware.JWTAuthMiddleware(handler.CreateFeedbackTranslation)(w, r)
+	})
+
+	// Product feedback is separate from editorial product reviews.
+	mux.HandleFunc("/product-feedback/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			handler.GetProductFeedback(w, r)
+			return
+		}
+		if r.Method == http.MethodPost {
+			middleware.JWTAuthMiddleware(handler.CreateProductFeedback)(w, r)
+			return
+		}
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	})
 
 	// Protected routes (TODO: Add JWT middleware)
 	mux.HandleFunc("/feedback/", func(w http.ResponseWriter, r *http.Request) {

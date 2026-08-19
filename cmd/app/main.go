@@ -31,6 +31,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
+	database_models "kossti/internal/infrastructure/database/models"
 	database_seeders "kossti/internal/infrastructure/database/seeders"
 	handleradmin "kossti/internal/interface/handler/admin"
 	handlerauth "kossti/internal/interface/handler/auth"
@@ -44,6 +45,7 @@ import (
 	handlerproductreview "kossti/internal/interface/handler/productreview"
 	handlerspecification "kossti/internal/interface/handler/specification"
 	handleruser "kossti/internal/interface/handler/user"
+	appmiddleware "kossti/internal/interface/middleware"
 	pgRepo "kossti/internal/interface/repository/postgres"
 )
 
@@ -295,6 +297,18 @@ func main() {
 
 		fmt.Println("Database connection successful!")
 
+		// Keep the feedback schema compatible with existing deployments. Older
+		// databases may have the feedback table without product_id; this safe
+		// AutoMigrate adds the missing columns before routes accept requests.
+		if err := db.AutoMigrate(&database_models.FeedbackModel{}); err != nil {
+			log.Printf("ERROR: Feedback schema migration failed: %v", err)
+			return
+		}
+		if err := db.Exec("DROP TABLE IF EXISTS feedback_translations").Error; err != nil {
+			log.Printf("ERROR: obsolete feedback_translations removal failed: %v", err)
+			return
+		}
+
 		// Run migrations and seeders
 		// fmt.Println("Running specification translation verification...")
 		// if err := database_migrations.TranslateEnglishSpecifications(db); err != nil {
@@ -438,7 +452,9 @@ func main() {
 	serverAddr := fmt.Sprintf("0.0.0.0:%d", availablePort)
 	fmt.Printf("[STARTUP] Server will bind to: %s\n", serverAddr)
 
-	// Create HTTP server with both CORS and database readiness middleware
+	// Create HTTP server with database readiness, CORS, and rate limiting.
+	// Rate limiting sits outermost so floods are rejected before they even
+	// reach the DB-readiness wait or CORS header logic.
 	dbMiddleware := &dbReadinessMiddleware{
 		handler: corsMiddleware(mux),
 		dbReady: dbReadyFlag,
@@ -446,7 +462,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:         serverAddr,
-		Handler:      dbMiddleware,
+		Handler:      appmiddleware.RateLimitMiddleware(dbMiddleware),
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  120 * time.Second,

@@ -112,8 +112,13 @@ type FormGenerator struct {
 // Feedback represents user feedback for products
 type Feedback struct {
 	ID        uint
+	ProductID uint
 	UserID    uint
+	Rating    string
+	SourceURL *string
 	Content   string
+	ContentEN string
+	ContentBN string
 	Status    int
 	CreatedBy *uint
 	UpdatedBy *uint

@@ -106,7 +106,6 @@ func (m *MigrationManager) GetAllModels() []interface{} {
 		&models.ImageModel{},
 		&models.TagModel{},
 		&models.FeedbackModel{},
-		&models.FeedbackTranslationModel{},
 
 		// Form generator
 		&models.FormGeneratorModel{},
@@ -123,6 +122,12 @@ func (m *MigrationManager) MigrateAll() error {
 	models := m.GetAllModels()
 
 	log.Println("Starting database migration...")
+	if err := migrations.AddProductIDToFeedback(m.db); err != nil {
+		return fmt.Errorf("failed to migrate feedback.product_id: %w", err)
+	}
+	if err := m.db.Exec("DROP TABLE IF EXISTS feedback_translations").Error; err != nil {
+		return fmt.Errorf("failed to remove obsolete feedback_translations table: %w", err)
+	}
 
 	for i, model := range models {
 		log.Printf("Migrating model %d/%d: %T", i+1, len(models), model)
@@ -216,38 +221,46 @@ func (m *MigrationManager) AddForeignKeys() error {
 	return nil
 }
 
-// CreateIndexes creates additional indexes for performance
+// CreateIndexes creates additional indexes for performance.
+// Uses raw SQL rather than db.Migrator().CreateIndex, because that method
+// resolves columns from a matching `gorm:"index:<name>"` struct tag — none
+// of these models declare one under these names, so it always failed on
+// the very first entry (idx_users_email) and never reached the rest.
 func (m *MigrationManager) CreateIndexes() error {
 	log.Println("Creating additional indexes...")
 
 	indexes := []struct {
-		table  interface{}
+		table  string
 		fields []string
 		name   string
 		unique bool
 	}{
-		{&models.UserModel{}, []string{"email"}, "idx_users_email", true},
-		{&models.ProductModel{}, []string{"slug"}, "idx_products_slug", true},
-		{&models.ProductModel{}, []string{"category_id", "brand_id"}, "idx_products_category_brand", false},
-		{&models.ProductModel{}, []string{"category_id"}, "idx_products_category_id", false},
-		{&models.ProductModel{}, []string{"brand_id"}, "idx_products_brand_id", false},
-		{&models.ProductModel{}, []string{"views_count"}, "idx_products_views_count", false},
-		{&models.ProductModel{}, []string{"priority"}, "idx_products_priority", false},
-		{&models.ProductModel{}, []string{"status"}, "idx_products_status", false},
-		{&models.ProductModel{}, []string{"start_price", "end_price"}, "idx_products_price_range", false},
-		{&models.CategoryModel{}, []string{"slug"}, "idx_categories_slug", true},
-		{&models.CategoryModel{}, []string{"id"}, "idx_categories_id", false},
-		{&models.BrandModel{}, []string{"slug"}, "idx_brands_slug", true},
+		{"users", []string{"email"}, "idx_users_email", true},
+		{"products", []string{"slug"}, "idx_products_slug", true},
+		{"products", []string{"category_id", "brand_id"}, "idx_products_category_brand", false},
+		{"products", []string{"category_id"}, "idx_products_category_id", false},
+		{"products", []string{"brand_id"}, "idx_products_brand_id", false},
+		{"products", []string{"views_count"}, "idx_products_views_count", false},
+		{"products", []string{"priority"}, "idx_products_priority", false},
+		{"products", []string{"status"}, "idx_products_status", false},
+		{"products", []string{"start_price", "end_price"}, "idx_products_price_range", false},
+		{"categories", []string{"slug"}, "idx_categories_slug", true},
+		{"categories", []string{"id"}, "idx_categories_id", false},
+		{"brands", []string{"slug"}, "idx_brands_slug", true},
 	}
 
 	for _, idx := range indexes {
-		if m.db.Migrator().HasIndex(idx.table, idx.name) {
-			log.Printf("Index already exists: %s", idx.name)
-			continue
+		uniqueKeyword := ""
+		if idx.unique {
+			uniqueKeyword = "UNIQUE "
 		}
+		sql := fmt.Sprintf(
+			"CREATE %sINDEX IF NOT EXISTS %s ON %s(%s)",
+			uniqueKeyword, idx.name, idx.table, strings.Join(idx.fields, ", "),
+		)
 
-		log.Printf("Creating index: %s on %T(%v)", idx.name, idx.table, idx.fields)
-		if err := m.db.Migrator().CreateIndex(idx.table, idx.name); err != nil {
+		log.Printf("Creating index: %s on %s(%v)", idx.name, idx.table, idx.fields)
+		if err := m.db.Exec(sql).Error; err != nil {
 			return fmt.Errorf("failed to create index %s: %w", idx.name, err)
 		}
 	}

@@ -8,7 +8,9 @@ import (
 	"kossti/internal/domain/repository"
 	"kossti/internal/infrastructure/database/models"
 	"regexp"
+	"strconv"
 	"strings"
+	"sync"
 
 	"gorm.io/gorm"
 )
@@ -16,6 +18,10 @@ import (
 type PostgresProductRepo struct {
 	db *gorm.DB
 }
+
+// activeCategoryFilter excludes products whose category has been
+// deactivated. Uncategorized products (category_id IS NULL) are unaffected.
+const activeCategoryFilter = "(category_id IS NULL OR category_id IN (SELECT id FROM categories WHERE status >= 1))"
 
 func NewPostgresProductRepo(db *gorm.DB) *PostgresProductRepo {
 	return &PostgresProductRepo{db: db}
@@ -33,6 +39,47 @@ func generateSlug(name string) string {
 	return slug
 }
 
+// populateAverageRatings combines editorial product reviews and active user
+// feedback ratings so the product's displayed rating reflects both sources.
+func (r *PostgresProductRepo) populateAverageRatings(ctx context.Context, productModels []models.ProductModel) error {
+	if len(productModels) == 0 {
+		return nil
+	}
+	productIDs := make([]uint, len(productModels))
+	for i, product := range productModels {
+		productIDs[i] = product.ID
+	}
+	type RatingResult struct {
+		ProductID     uint     `gorm:"column:product_id"`
+		AverageRating *float64 `gorm:"column:average_rating"`
+	}
+	var ratings []RatingResult
+	err := r.db.WithContext(ctx).Raw(`
+		SELECT product_id, AVG(rating) AS average_rating
+		FROM (
+			SELECT product_id, CAST(NULLIF(rating, '') AS NUMERIC) AS rating
+			FROM product_reviews
+			WHERE product_id IN ? AND deleted_at IS NULL AND rating IS NOT NULL AND rating <> ''
+			UNION ALL
+			SELECT product_id, CAST(NULLIF(rating, '') AS NUMERIC) AS rating
+			FROM feedback
+			WHERE product_id IN ? AND deleted_at IS NULL AND status > 0 AND rating IS NOT NULL AND rating <> ''
+		) AS all_ratings
+		GROUP BY product_id
+	`, productIDs, productIDs).Scan(&ratings).Error
+	if err != nil {
+		return err
+	}
+	byProduct := make(map[uint]*float64, len(ratings))
+	for _, rating := range ratings {
+		byProduct[rating.ProductID] = rating.AverageRating
+	}
+	for i := range productModels {
+		productModels[i].AverageRating = byProduct[productModels[i].ID]
+	}
+	return nil
+}
+
 func (r *PostgresProductRepo) GetByID(ctx context.Context, id uint) (*entities.Product, error) {
 	var productModel models.ProductModel
 	if err := r.db.WithContext(ctx).Preload("Category").Preload("Brand").First(&productModel, id).Error; err != nil {
@@ -41,6 +88,11 @@ func (r *PostgresProductRepo) GetByID(ctx context.Context, id uint) (*entities.P
 		}
 		return nil, err
 	}
+	ratedProducts := []models.ProductModel{productModel}
+	if err := r.populateAverageRatings(ctx, ratedProducts); err != nil {
+		return nil, err
+	}
+	productModel = ratedProducts[0]
 	return productModel.ToEntity(), nil
 }
 
@@ -72,6 +124,11 @@ func (r *PostgresProductRepo) GetBySlug(ctx context.Context, slug string) (*enti
 	if err := r.db.WithContext(ctx).Preload("Category").Preload("Brand").Where("slug = ?", slug).First(&productModel).Error; err != nil {
 		return nil, err
 	}
+	ratedProducts := []models.ProductModel{productModel}
+	if err := r.populateAverageRatings(ctx, ratedProducts); err != nil {
+		return nil, err
+	}
+	productModel = ratedProducts[0]
 	return productModel.ToEntity(), nil
 }
 
@@ -123,7 +180,7 @@ func (r *PostgresProductRepo) Update(ctx context.Context, id uint, product *enti
 
 func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand").Order("priority DESC, id DESC")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Where(activeCategoryFilter).Preload("Category").Preload("Brand").Order("priority DESC, id DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -133,6 +190,9 @@ func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*e
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -146,7 +206,7 @@ func (r *PostgresProductRepo) List(ctx context.Context, limit, offset int) ([]*e
 
 func (r *PostgresProductRepo) Search(ctx context.Context, query string, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	dbQuery := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Preload("Category").Preload("Brand")
+	dbQuery := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1").Where(activeCategoryFilter).Preload("Category").Preload("Brand")
 
 	if query != "" {
 		searchTerm := "%" + query + "%"
@@ -163,6 +223,9 @@ func (r *PostgresProductRepo) Search(ctx context.Context, query string, limit, o
 	if err := dbQuery.Find(&productModels).Error; err != nil {
 		return nil, err
 	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, err
+	}
 
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {
@@ -174,13 +237,16 @@ func (r *PostgresProductRepo) Search(ctx context.Context, query string, limit, o
 
 func (r *PostgresProductRepo) GetPopular(ctx context.Context, limit int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Preload("Category").Preload("Brand").Where("deleted_at IS NULL AND status >= 1").Order("views_count DESC")
+	query := r.db.WithContext(ctx).Preload("Category").Preload("Brand").Where("deleted_at IS NULL AND status >= 1").Where(activeCategoryFilter).Order("views_count DESC")
 
 	if limit > 0 {
 		query = query.Limit(limit)
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -194,7 +260,7 @@ func (r *PostgresProductRepo) GetPopular(ctx context.Context, limit int) ([]*ent
 
 func (r *PostgresProductRepo) GetByCategory(ctx context.Context, categoryID uint, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1 AND category_id = ?", categoryID).Preload("Category").Preload("Brand")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1 AND category_id = ?", categoryID).Where(activeCategoryFilter).Preload("Category").Preload("Brand")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -204,6 +270,9 @@ func (r *PostgresProductRepo) GetByCategory(ctx context.Context, categoryID uint
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -217,7 +286,7 @@ func (r *PostgresProductRepo) GetByCategory(ctx context.Context, categoryID uint
 
 func (r *PostgresProductRepo) GetByBrand(ctx context.Context, brandID uint, limit, offset int) ([]*entities.Product, error) {
 	var productModels []models.ProductModel
-	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1 AND brand_id = ?", brandID).Preload("Category").Preload("Brand")
+	query := r.db.WithContext(ctx).Where("deleted_at IS NULL AND status >= 1 AND brand_id = ?", brandID).Where(activeCategoryFilter).Preload("Category").Preload("Brand")
 
 	if limit > 0 {
 		query = query.Limit(limit)
@@ -227,6 +296,9 @@ func (r *PostgresProductRepo) GetByBrand(ctx context.Context, brandID uint, limi
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -242,6 +314,7 @@ func (r *PostgresProductRepo) GetByBrandAndCategory(ctx context.Context, brandID
 	var productModels []models.ProductModel
 	query := r.db.WithContext(ctx).
 		Where("deleted_at IS NULL AND status >= 1 AND brand_id = ? AND category_id = ?", brandID, categoryID).
+		Where(activeCategoryFilter).
 		Preload("Category").Preload("Brand")
 
 	if limit > 0 {
@@ -252,6 +325,9 @@ func (r *PostgresProductRepo) GetByBrandAndCategory(ctx context.Context, brandID
 	}
 
 	if err := query.Find(&productModels).Error; err != nil {
+		return nil, err
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, err
 	}
 
@@ -286,6 +362,7 @@ func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *e
 	query := r.db.WithContext(ctx).
 		Preload("Category").Preload("Brand").
 		Where("deleted_at IS NULL AND status >= 1").
+		Where(activeCategoryFilter).
 		Where("category_id = ?", *product.CategoryID).
 		Where("id != ?", product.ID).
 		Where("COALESCE(start_price, end_price, 0) BETWEEN ? AND ?", minPrice, maxPrice)
@@ -341,6 +418,10 @@ func (r *PostgresProductRepo) GetSimilarProducts(ctx context.Context, product *e
 		}
 	}
 
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, err
+	}
+
 	products := make([]*entities.Product, len(productModels))
 	for i, model := range productModels {
 		products[i] = model.ToEntity()
@@ -366,21 +447,21 @@ func (r *PostgresProductRepo) IncrementViews(ctx context.Context, id uint) error
 
 func (r *PostgresProductRepo) Count(ctx context.Context) (int64, error) {
 	var count int64
-	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).Where("deleted_at IS NULL AND status >= 1").Count(&count).Error
+	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).Where("deleted_at IS NULL AND status >= 1").Where(activeCategoryFilter).Count(&count).Error
 	return count, err
 }
 
 func (r *PostgresProductRepo) CountByCategory(ctx context.Context, categoryID uint) (int64, error) {
 	var count int64
 	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).
-		Where("deleted_at IS NULL AND status >= 1 AND category_id = ?", categoryID).Count(&count).Error
+		Where("deleted_at IS NULL AND status >= 1 AND category_id = ?", categoryID).Where(activeCategoryFilter).Count(&count).Error
 	return count, err
 }
 
 func (r *PostgresProductRepo) CountByBrand(ctx context.Context, brandID uint) (int64, error) {
 	var count int64
 	err := r.db.WithContext(ctx).Model(&models.ProductModel{}).
-		Where("deleted_at IS NULL AND status >= 1 AND brand_id = ?", brandID).Count(&count).Error
+		Where("deleted_at IS NULL AND status >= 1 AND brand_id = ?", brandID).Where(activeCategoryFilter).Count(&count).Error
 	return count, err
 }
 
@@ -482,52 +563,70 @@ func (r *PostgresProductRepo) UpdateTranslation(ctx context.Context, translation
 
 // GetWithFilters implements Laravel-compatible filtering for products
 func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repository.ProductFilters) ([]*entities.Product, int64, error) {
-	var productModels []models.ProductModel
-	var totalCount int64
-
-	// Start building the query (only include non-deleted, active products by default)
-	query := r.db.WithContext(ctx).Model(&models.ProductModel{}).
-		Preload("Category").
-		Preload("Brand").
-		Where("products.deleted_at IS NULL AND products.status >= 1")
-
-	// Apply filters (this will handle category/brand ID conversion from slugs)
-	query = r.applyFilters(query, filters)
-
-	// Get total count for pagination
-	if err := query.Count(&totalCount).Error; err != nil {
+	// Resolve category/brand slugs to IDs once, up front, so the count and
+	// find queries below don't each re-resolve them sequentially.
+	resolved, err := r.resolveFilterIDs(ctx, filters)
+	if err != nil {
 		return nil, 0, err
 	}
 
-	// Debug logging
-	fmt.Printf("[GetWithFilters] Total count: %d for category: '%s', page: %d, limit: %d\n", totalCount, filters.CategorySlug, filters.Page, filters.Limit)
+	buildQuery := func() *gorm.DB {
+		query := r.db.WithContext(ctx).Model(&models.ProductModel{}).
+			Preload("Category").
+			Preload("Brand").
+			Where("products.deleted_at IS NULL")
+		if !filters.IncludeInactive {
+			query = query.Where("products.status >= 1").Where(activeCategoryFilter)
+		}
+		return r.applyFilters(query, filters, resolved)
+	}
 
-	// Apply sorting
-	query = r.applySorting(query, filters.SortBy)
+	// Count and Find are independent queries against the same filters —
+	// run them concurrently instead of one after the other.
+	var (
+		wg            sync.WaitGroup
+		totalCount    int64
+		productModels []models.ProductModel
+		countErr      error
+		findErr       error
+	)
 
-	// Apply pagination
-	offset := (filters.Page - 1) * filters.Limit
-	if err := query.Limit(filters.Limit).Offset(offset).Find(&productModels).Error; err != nil {
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		countErr = buildQuery().Count(&totalCount).Error
+	}()
+	go func() {
+		defer wg.Done()
+		findQuery := r.applySorting(buildQuery(), filters.SortBy)
+		offset := (filters.Page - 1) * filters.Limit
+		findErr = findQuery.Limit(filters.Limit).Offset(offset).Find(&productModels).Error
+	}()
+	wg.Wait()
+
+	if countErr != nil {
+		return nil, 0, countErr
+	}
+	if findErr != nil {
+		return nil, 0, findErr
+	}
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
 		return nil, 0, err
 	}
 
-	// Fetch average ratings for all products in this batch (OPTIMIZED: single query instead of N queries)
+	// Fetch average ratings for all products in this batch (single query instead of N queries)
 	if len(productModels) > 0 {
 		productIDs := make([]uint, len(productModels))
 		for i, model := range productModels {
 			productIDs[i] = model.ID
 		}
 
-		fmt.Printf("[DEBUG] Fetching ratings for product IDs: %v\n", productIDs)
-
-		// Query to get average ratings
 		type RatingResult struct {
 			ProductID     uint     `gorm:"column:product_id"`
 			AverageRating *float64 `gorm:"column:average_rating"`
 		}
 		var ratings []RatingResult
 
-		// Use Table().Select().Where().Group().Scan() approach for better GORM support
 		err := r.db.WithContext(ctx).
 			Table("product_reviews").
 			Select(
@@ -538,30 +637,24 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 			Group("product_id").
 			Scan(&ratings).Error
 
-		fmt.Printf("[DEBUG] Rating query executed - Error: %v, Results count: %d\n", err, len(ratings))
-		if len(ratings) > 0 {
-			fmt.Printf("[DEBUG] First result: ProductID=%d, Rating=%v\n", ratings[0].ProductID, ratings[0].AverageRating)
-		}
-
 		if err == nil && len(ratings) > 0 {
-			// Create a map for quick lookup
 			ratingsMap := make(map[uint]*float64)
 			for _, rating := range ratings {
 				if rating.AverageRating != nil {
 					ratingsMap[rating.ProductID] = rating.AverageRating
-					fmt.Printf("[DEBUG] Mapped Product %d -> Rating: %.2f\n", rating.ProductID, *rating.AverageRating)
 				}
 			}
 
-			// Assign ratings to products
 			for i := range productModels {
 				if rating, exists := ratingsMap[productModels[i].ID]; exists {
 					productModels[i].AverageRating = rating
 				}
 			}
-		} else {
-			fmt.Printf("[DEBUG] No ratings found. Query error was: %v\n", err)
 		}
+	}
+
+	if err := r.populateAverageRatings(ctx, productModels); err != nil {
+		return nil, 0, err
 	}
 
 	// Convert models to entities
@@ -573,56 +666,91 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 	return products, totalCount, nil
 }
 
+// resolvedFilterIDs holds category/brand slugs already converted to IDs.
+type resolvedFilterIDs struct {
+	categoryID *uint
+	brandIDs   []uint
+}
+
+// resolveFilterIDs converts category/brand slugs to IDs, resolving both
+// concurrently since they're independent lookups.
+func (r *PostgresProductRepo) resolveFilterIDs(ctx context.Context, filters *repository.ProductFilters) (*resolvedFilterIDs, error) {
+	resolved := &resolvedFilterIDs{}
+	var wg sync.WaitGroup
+	var categoryErr, brandErr error
+
+	if filters.CategorySlug != "" {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if isNumeric(filters.CategorySlug) {
+				if id, err := strconv.ParseUint(filters.CategorySlug, 10, 64); err == nil {
+					uid := uint(id)
+					resolved.categoryID = &uid
+				}
+				return
+			}
+			var category models.CategoryModel
+			if err := r.db.WithContext(ctx).
+				Where("LOWER(slug) = LOWER(?)", filters.CategorySlug).
+				First(&category).Error; err == nil {
+				resolved.categoryID = &category.ID
+			} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+				categoryErr = err
+			}
+		}()
+	}
+
+	if len(filters.BrandSlugs) > 0 {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			var brands []models.BrandModel
+			if err := r.db.WithContext(ctx).
+				Where("slug IN ?", filters.BrandSlugs).
+				Select("id").
+				Find(&brands).Error; err == nil {
+				for _, b := range brands {
+					resolved.brandIDs = append(resolved.brandIDs, b.ID)
+				}
+			} else {
+				brandErr = err
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	if categoryErr != nil {
+		return nil, categoryErr
+	}
+	if brandErr != nil {
+		return nil, brandErr
+	}
+	return resolved, nil
+}
+
 // applyFilters applies all filters to the query and returns the modified query
 // IMPORTANT: GORM's Where/Joins methods return a new *gorm.DB, so we must reassign
-// OPTIMIZATION: Convert category/brand slugs to IDs first to avoid JOINs that interfere with Preload
-func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters) *gorm.DB {
+// Category/brand slugs are pre-resolved to IDs by resolveFilterIDs so this
+// function never issues its own DB queries.
+func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.ProductFilters, resolved *resolvedFilterIDs) *gorm.DB {
 	// Search term filter
 	if filters.SearchTerm != "" {
 		query = query.Where("products.name ILIKE ?", "%"+filters.SearchTerm+"%")
 	}
 
-	// Category filter - convert slug to ID to avoid JOIN (better for preloading)
-	if filters.CategorySlug != "" {
-		categoryValue := filters.CategorySlug
-		if isNumeric(categoryValue) {
-			// It's already an ID - use directly
-			query = query.Where("products.category_id = ?", categoryValue)
-		} else {
-			// It's a slug - fetch the category ID from slug to avoid JOIN
-			// Use LOWER() for case-insensitive slug matching
-			var category models.CategoryModel
-			if err := r.db.WithContext(query.Statement.Context).
-				Where("LOWER(slug) = LOWER(?)", categoryValue).
-				First(&category).Error; err == nil {
-				// Successfully found category, filter by its ID
-				query = query.Where("products.category_id = ?", category.ID)
-				fmt.Printf("[applyFilters] Found category '%s' with ID %d for slug '%s'\n", category.Name, category.ID, categoryValue)
-			} else {
-				// Category not found - log warning
-				fmt.Printf("[applyFilters] WARNING: Category slug '%s' not found in database - no results will be returned\n", categoryValue)
-			}
-		}
+	// Category filter (already resolved from slug to ID)
+	if resolved.categoryID != nil {
+		query = query.Where("products.category_id = ?", *resolved.categoryID)
+	} else if filters.CategorySlug != "" {
+		// Slug didn't resolve to any category - no results should match
+		query = query.Where("1 = 0")
 	}
 
-	// Brand filter (multiple brands supported)
-	// Optimize: Convert slugs to IDs first to avoid JOIN
-	if len(filters.BrandSlugs) > 0 {
-		var brandIDs []uint
-		var brands []models.BrandModel
-
-		// Fetch brand IDs by slugs efficiently (single query instead of per-product queries)
-		if err := r.db.WithContext(query.Statement.Context).
-			Where("slug IN ?", filters.BrandSlugs).
-			Select("id").
-			Find(&brands).Error; err == nil && len(brands) > 0 {
-			for _, b := range brands {
-				brandIDs = append(brandIDs, b.ID)
-			}
-			if len(brandIDs) > 0 {
-				query = query.Where("products.brand_id IN ?", brandIDs)
-			}
-		}
+	// Brand filter (multiple brands supported, already resolved from slugs to IDs)
+	if len(resolved.brandIDs) > 0 {
+		query = query.Where("products.brand_id IN ?", resolved.brandIDs)
 	}
 
 	// Price range filter - use COALESCE of start/end price for comparisons

@@ -509,9 +509,16 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request, repo repository
 	limit := 20
 	offset := 0
 
+	// Hard cap regardless of what the client requests - prevents a scraper
+	// from pulling the entire catalog in one shot via a large limit value.
+	const maxLimit = 100
+
 	if limitStr != "" {
 		if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 			limit = l
+			if limit > maxLimit {
+				limit = maxLimit
+			}
 		}
 	}
 
@@ -597,6 +604,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	searchterm := r.URL.Query().Get("search")
 	sortby := r.URL.Query().Get("sortby")
 	excludeParam := r.URL.Query().Get("exclude")
+	includeInactive := r.URL.Query().Get("include_inactive") == "true"
 
 	// Set defaults
 	page := 1
@@ -613,9 +621,6 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 			limit = l
 		}
 	}
-
-	// Debug: Log what limit is being used
-	fmt.Printf("[GetFilteredProductsHandler] page=%d, limit=%d, category=%s\n", page, limit, category)
 
 	// Convert brand parameter to array (Laravel sends comma-separated)
 	var brands []string
@@ -652,6 +657,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		PriceRange:        priceRange,
 		SortBy:            sortby,
 		ExcludeProductIDs: excludeIDs,
+		IncludeInactive:   includeInactive,
 	}
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
@@ -715,10 +721,6 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	totalPages := (totalCount + int64(limit) - 1) / int64(limit)
 	hasNextPage := page < int(totalPages)
 	hasPrevPage := page > 1
-
-	// Debug logging
-	fmt.Printf("[GetFilteredProductsHandler] Response - totalCount: %d, limit: %d, page: %d, totalPages: %d, productsReturned: %d\n",
-		totalCount, limit, page, totalPages, len(productResponses))
 
 	// Laravel-compatible response format
 	response := map[string]interface{}{
@@ -1838,8 +1840,9 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request, productRep
 	if apiKey == "" || apiKey == "your_openai_api_key_here" {
 		log.Println("OPENAI_API_KEY not set or is placeholder, returning fallback products")
 		response := map[string]interface{}{
-			"success": true,
-			"data":    getFallbackProducts(),
+			"success":               true,
+			"data":                  getFallbackProducts(),
+			"debug_fallback_reason": "OPENAI_API_KEY is not set (or is the placeholder) on this server",
 		}
 		json.NewEncoder(w).Encode(response)
 		return

@@ -65,7 +65,12 @@ func (r *feedbackRepository) Update(ctx context.Context, id uint, feedback *enti
 	model.FromEntity(feedback)
 	model.ID = id
 
-	if err := r.db.WithContext(ctx).Model(&model).Updates(model).Error; err != nil {
+	if err := r.db.WithContext(ctx).Model(&models.FeedbackModel{}).Where("id = ?", id).Updates(map[string]interface{}{
+		"product_id": model.ProductID, "user_id": model.UserID, "rating": model.Rating,
+		"source_url": model.SourceURL, "content": model.Content, "content_en": model.ContentEN,
+		"content_bn": model.ContentBN, "status": model.Status, "created_by": model.CreatedBy,
+		"updated_by": model.UpdatedBy,
+	}).Error; err != nil {
 		return nil, err
 	}
 
@@ -81,11 +86,8 @@ func (r *feedbackRepository) Delete(ctx context.Context, id uint) error {
 func (r *feedbackRepository) GetByProductID(ctx context.Context, productID uint) ([]*entities.Feedback, error) {
 	var models []models.FeedbackModel
 
-	// Query through the polymorphic productables table
 	if err := r.db.WithContext(ctx).
-		Table("feedback").
-		Joins("JOIN productables ON productables.productable_id = feedback.id").
-		Where("productables.productable_type = ? AND productables.product_id = ?", "feedback", productID).
+		Where("product_id = ?", productID).
 		Find(&models).Error; err != nil {
 		return nil, err
 	}
@@ -160,22 +162,12 @@ func (r *feedbackRepository) GetByStatus(ctx context.Context, status bool, limit
 
 // AttachToProduct creates a polymorphic relationship between feedback and product
 func (r *feedbackRepository) AttachToProduct(ctx context.Context, feedbackID, productID uint) error {
-	productable := map[string]interface{}{
-		"product_id":       productID,
-		"productable_id":   feedbackID,
-		"productable_type": "feedback",
-		"created_at":       "NOW()",
-		"updated_at":       "NOW()",
-	}
-
-	return r.db.WithContext(ctx).Table("productables").Create(productable).Error
+	return r.db.WithContext(ctx).Model(&models.FeedbackModel{}).Where("id = ?", feedbackID).Update("product_id", productID).Error
 }
 
 // DetachFromProduct removes the polymorphic relationship between feedback and product
 func (r *feedbackRepository) DetachFromProduct(ctx context.Context, feedbackID, productID uint) error {
-	return r.db.WithContext(ctx).Table("productables").
-		Where("product_id = ? AND productable_id = ? AND productable_type = ?",
-			productID, feedbackID, "feedback").Delete(nil).Error
+	return r.db.WithContext(ctx).Model(&models.FeedbackModel{}).Where("id = ? AND product_id = ?", feedbackID, productID).Update("product_id", 0).Error
 }
 
 // GetProductFeedbacks retrieves all feedback for a specific product
