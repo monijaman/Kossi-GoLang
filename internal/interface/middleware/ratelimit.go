@@ -135,10 +135,12 @@ func clientIP(r *http.Request) string {
 
 // Default limits: generous enough for normal browsing/app usage (product
 // listing + images loading in parallel) while capping sustained bulk
-// scraping. Override with RATE_LIMIT_RPM / RATE_LIMIT_BURST env vars.
+// scraping. Tightened Aug 2026 after a bot-shaped traffic spike from a
+// small set of source countries. Override with RATE_LIMIT_RPM /
+// RATE_LIMIT_BURST env vars.
 var defaultLimiter = newRateLimiter(
-	envInt("RATE_LIMIT_RPM", 300),
-	envInt("RATE_LIMIT_BURST", 60),
+	envInt("RATE_LIMIT_RPM", 120),
+	envInt("RATE_LIMIT_BURST", 30),
 )
 
 // exemptPaths bypasses rate limiting for infrastructure endpoints and
