@@ -1776,6 +1776,7 @@ type MarketProduct struct {
 	Brand       string  `json:"brand,omitempty"`
 	Description string  `json:"description"`
 	Type        string  `json:"type"`
+	ReleaseDate string  `json:"release_date,omitempty"`
 	Price       float64 `json:"price,omitempty"`
 	CategoryID  uint    `json:"category_id,omitempty"`
 }
@@ -1949,8 +1950,9 @@ For each product provide:
 - brand: the manufacturer/brand name for this product
 - description: 2-3 sentence description
 - type: sub-type within the "%s" category
+- release_date: the product's actual or expected release date (format "YYYY-MM" or "YYYY-MM-DD"; use your best estimate if unannounced)
 
-Respond ONLY with a valid JSON array of objects with keys: name, brand, description, type. No extra text.`,
+Respond ONLY with a valid JSON array of objects with keys: name, brand, description, type, release_date. No extra text.`,
 			categoryName, existingContext,
 			categoryName,
 			extraContext,
@@ -1968,8 +1970,9 @@ For each product provide:
 - name: specific product name referencing "%s"
 - description: 2-3 sentence description
 - type: sub-type within the "%s" category
+- release_date: the product's actual or expected release date (format "YYYY-MM" or "YYYY-MM-DD"; use your best estimate if unannounced)
 
-Respond ONLY with a valid JSON array of objects with keys: name, description, type. No extra text.`,
+Respond ONLY with a valid JSON array of objects with keys: name, description, type, release_date. No extra text.`,
 			brandContext, categoryName, existingContext,
 			categoryName,
 			brandContext,
@@ -1987,8 +1990,9 @@ For each product provide:
 - name: specific product name referencing "%s"
 - description: 2-3 sentence description
 - type: product sub-category
+- release_date: the product's actual or expected release date (format "YYYY-MM" or "YYYY-MM-DD"; use your best estimate if unannounced)
 
-Respond ONLY with a valid JSON array of objects with keys: name, description, type. No extra text.`,
+Respond ONLY with a valid JSON array of objects with keys: name, description, type, release_date. No extra text.`,
 			brandContext, existingContext,
 			brandContext,
 			extraContext,
@@ -2005,7 +2009,7 @@ Respond ONLY with a valid JSON array of objects with keys: name, description, ty
 				"content": prompt,
 			},
 		},
-		"max_tokens":  1000,
+		"max_tokens":  1200,
 		"temperature": 0.7,
 	}
 
@@ -2092,6 +2096,7 @@ func getFallbackProducts() []MarketProduct {
 			Name:        "AI-Powered Smart Glasses",
 			Description: "Revolutionary smart glasses with built-in AI assistant for real-time translation and augmented reality navigation.",
 			Type:        "Wearable Technology",
+			ReleaseDate: "2025-03",
 			Price:       299.99,
 			CategoryID:  1,
 		},
@@ -2099,6 +2104,7 @@ func getFallbackProducts() []MarketProduct {
 			Name:        "Eco-Friendly Wireless Charger",
 			Description: "Sustainable wireless charging pad made from recycled materials with solar panel integration.",
 			Type:        "Accessories",
+			ReleaseDate: "2025-01",
 			Price:       49.99,
 			CategoryID:  1,
 		},
@@ -2106,6 +2112,7 @@ func getFallbackProducts() []MarketProduct {
 			Name:        "Smart Home Energy Monitor",
 			Description: "IoT device that tracks and optimizes energy usage in your home with AI-powered recommendations.",
 			Type:        "Smart Home",
+			ReleaseDate: "2025-06",
 			Price:       79.99,
 			CategoryID:  1,
 		},
