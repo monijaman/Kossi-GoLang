@@ -766,6 +766,11 @@ func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.P
 		query = query.Where("products.id NOT IN ?", filters.ExcludeProductIDs)
 	}
 
+	// Created-by filter (e.g. "ai_import" to show only AI-imported products)
+	if filters.CreatedBy != "" {
+		query = query.Where("products.created_by = ?", filters.CreatedBy)
+	}
+
 	return query
 }
 

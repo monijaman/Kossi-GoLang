@@ -77,6 +77,7 @@ func (p *ProductModel) ToEntity() *entities.Product {
 		UpdatedAt:     p.UpdatedAt,
 		DeletedAt:     p.DeletedAt,
 		AverageRating: p.AverageRating,
+		CreatedBy:     p.CreatedBy,
 	}
 }
 
@@ -102,6 +103,7 @@ func (p *ProductModel) FromEntity(entity *entities.Product) {
 	p.CreatedAt = entity.CreatedAt
 	p.UpdatedAt = entity.UpdatedAt
 	p.DeletedAt = entity.DeletedAt
+	p.CreatedBy = entity.CreatedBy
 }
 
 // TableName returns the table name for GORM

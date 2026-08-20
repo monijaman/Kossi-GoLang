@@ -26,6 +26,7 @@ type Product struct {
 	StartPrice    *float64   `json:"start_price,omitempty"`
 	EndPrice      *float64   `json:"end_price,omitempty"`
 	AverageRating *float64   `json:"average_rating,omitempty"`
+	CreatedBy     *string    `json:"created_by,omitempty"`
 }
 
 // ProductReview represents a product review

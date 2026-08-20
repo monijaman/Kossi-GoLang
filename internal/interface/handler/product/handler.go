@@ -62,6 +62,7 @@ type ProductResponse struct {
 	Priority       int               `json:"priority"`
 	CreatedAt      string            `json:"created_at"`
 	UpdatedAt      string            `json:"updated_at"`
+	CreatedBy      *string           `json:"created_by,omitempty"`
 }
 
 // ProductListResponse represents paginated product list response
@@ -93,6 +94,7 @@ func convertProductToResponse(product *entities.Product, categoryRepo repository
 		Priority:      product.Priority,
 		CreatedAt:     product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt:     product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		CreatedBy:     product.CreatedBy,
 	}
 
 	// Use preloaded category information (OPTIMIZED: no fallback query)
@@ -145,6 +147,7 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 		Priority:      product.Priority,
 		CreatedAt:     product.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		UpdatedAt:     product.UpdatedAt.Format("2006-01-02T15:04:05Z07:00"),
+		CreatedBy:     product.CreatedBy,
 	}
 
 	// Fetch and set product photo if imageRepo is available
@@ -605,6 +608,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	sortby := r.URL.Query().Get("sortby")
 	excludeParam := r.URL.Query().Get("exclude")
 	includeInactive := r.URL.Query().Get("include_inactive") == "true"
+	importedOnly := r.URL.Query().Get("imported") == "true"
 
 	// Set defaults
 	page := 1
@@ -658,6 +662,9 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		SortBy:            sortby,
 		ExcludeProductIDs: excludeIDs,
 		IncludeInactive:   includeInactive,
+	}
+	if importedOnly {
+		filters.CreatedBy = "ai_import"
 	}
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
@@ -1766,6 +1773,7 @@ func DeleteProductTranslationHandler(w http.ResponseWriter, r *http.Request, pro
 // MarketProduct represents a product from the market
 type MarketProduct struct {
 	Name        string  `json:"name"`
+	Brand       string  `json:"brand,omitempty"`
 	Description string  `json:"description"`
 	Type        string  `json:"type"`
 	Price       float64 `json:"price,omitempty"`
@@ -1826,6 +1834,20 @@ func GetMarketProductsHandler(w http.ResponseWriter, r *http.Request, productRep
 				existingNamesList = append(existingNamesList, p.Name)
 			}
 			log.Printf("Found %d existing products for brand=%d category=%d", len(existing), brandIDUint, categoryID)
+		}
+	} else if categoryID > 0 {
+		// No brand given (category-only search, e.g. from /admin/categories) —
+		// dedupe against every existing product in the category regardless of brand.
+		existing, fetchErr := productRepo.GetByCategory(r.Context(), categoryID, 1000, 0)
+		if fetchErr != nil {
+			log.Printf("Warning: could not fetch existing products for category=%d: %v", categoryID, fetchErr)
+		} else {
+			for _, p := range existing {
+				normalized := strings.ToLower(strings.TrimSpace(p.Name))
+				existingNames[normalized] = struct{}{}
+				existingNamesList = append(existingNamesList, p.Name)
+			}
+			log.Printf("Found %d existing products for category=%d (no brand filter)", len(existing), categoryID)
 		}
 	}
 
@@ -1911,7 +1933,29 @@ func researchNewProducts(apiKey string, brandName string, categoryName string, e
 	}
 
 	// Build the prompt — enforce both brand AND category strictly
-	if categoryName != "" {
+	if categoryName != "" && brandName == "" {
+		// Category-only search (no brand picked): ask for a spread of real
+		// brands within the category, and require a "brand" field per item.
+		prompt = fmt.Sprintf(`You are a product catalog assistant. We want to discover new "%s" products across a variety of brands.%s
+
+Your task: Suggest 10-15 products that:
+1. Are STRICTLY "%s" products — no other categories (no smartwatches, tablets, earbuds, VR headsets, etc. unless that IS the category).
+2. Come from a variety of real, well-known brands relevant to this category — do not repeat the same brand for every product.
+3. Are NOT already in our database listed above.
+4. Include the NEXT version/successor of any existing models if applicable (e.g. if "Samsung Galaxy M34 5G" exists, suggest "Samsung Galaxy M35 5G").%s
+
+For each product provide:
+- name: specific product name
+- brand: the manufacturer/brand name for this product
+- description: 2-3 sentence description
+- type: sub-type within the "%s" category
+
+Respond ONLY with a valid JSON array of objects with keys: name, brand, description, type. No extra text.`,
+			categoryName, existingContext,
+			categoryName,
+			extraContext,
+			categoryName)
+	} else if categoryName != "" {
 		prompt = fmt.Sprintf(`You are a product catalog assistant. We sell "%s" products in the "%s" category.%s
 
 Your task: Suggest 10-15 products that:

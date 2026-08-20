@@ -21,6 +21,7 @@ type ProductFilters struct {
 	CategorySlug      string   `json:"categorySlug,omitempty"`
 	ExcludeProductIDs []uint   `json:"excludeProductIds,omitempty"`
 	IncludeInactive   bool     `json:"includeInactive,omitempty"`
+	CreatedBy         string   `json:"createdBy,omitempty"`
 }
 
 type ProductRepository interface {
