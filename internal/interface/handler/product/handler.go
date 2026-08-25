@@ -219,7 +219,7 @@ func generateImageURL(imagePath string) string {
 				Bucket: aws.String(bucket),
 				Key:    aws.String(imagePath),
 			}, func(opts *s3.PresignOptions) {
-				opts.Expires = 1 * time.Hour
+				opts.Expires = 24 * time.Hour
 			})
 			if err == nil {
 				return presigned.URL

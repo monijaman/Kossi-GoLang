@@ -811,6 +811,8 @@ func RegisterS3ImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 // GetProductImagesHandler handles GET /productimages/{id}
 func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo repository.ProductReviewRepository, imageRepo repository.ImageRepository) {
 	w.Header().Set("Content-Type", "application/json")
+	// The response contains time-limited S3 URLs and must never be cached.
+	w.Header().Set("Cache-Control", "no-store, no-cache, must-revalidate")
 
 	// Extract product ID from URL path
 	path := strings.TrimPrefix(r.URL.Path, "/productimages/")
@@ -883,7 +885,7 @@ func GetProductImagesHandler(w http.ResponseWriter, r *http.Request, reviewRepo 
 				}
 
 				presigned, err := presignClient.PresignGetObject(r.Context(), input, func(opts *s3.PresignOptions) {
-					opts.Expires = 1 * time.Hour
+					opts.Expires = 24 * time.Hour
 				})
 
 				if err == nil {
