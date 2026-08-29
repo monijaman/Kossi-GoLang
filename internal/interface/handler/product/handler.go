@@ -1943,14 +1943,14 @@ Your task: Suggest 10-15 products that:
 1. Are STRICTLY "%s" products — no other categories (no smartwatches, tablets, earbuds, VR headsets, etc. unless that IS the category).
 2. Come from a variety of real, well-known brands relevant to this category — do not repeat the same brand for every product.
 3. Are NOT already in our database listed above.
-4. Include the NEXT version/successor of any existing models if applicable (e.g. if "Samsung Galaxy M34 5G" exists, suggest "Samsung Galaxy M35 5G").%s
+4. Only include real products that have been publicly released or officially announced by the manufacturer. Do not invent model names, sequential successors, or unreleased products. If a product cannot be verified, omit it.%s
 
 For each product provide:
 - name: specific product name
 - brand: the manufacturer/brand name for this product
 - description: 2-3 sentence description
 - type: sub-type within the "%s" category
-- release_date: the product's actual or expected release date (format "YYYY-MM" or "YYYY-MM-DD"; use your best estimate if unannounced)
+- release_date: the product's actual release date (format "YYYY-MM" or "YYYY-MM-DD")
 
 Respond ONLY with a valid JSON array of objects with keys: name, brand, description, type, release_date. No extra text.`,
 			categoryName, existingContext,
@@ -1964,13 +1964,13 @@ Your task: Suggest 10-15 products that:
 1. Are STRICTLY "%s" products — no other categories (no smartwatches, tablets, earbuds, VR headsets, etc. unless that IS the category).
 2. Have names that clearly reference the brand "%s".
 3. Are NOT already in our database listed above.
-4. Include the NEXT version/successor of any existing models if applicable (e.g. if "Samsung Galaxy M34 5G" exists, suggest "Samsung Galaxy M35 5G").%s
+4. Only include real products that have been publicly released or officially announced by the manufacturer. Do not invent model names, sequential successors, or unreleased products. If a product cannot be verified, omit it.%s
 
 For each product provide:
 - name: specific product name referencing "%s"
 - description: 2-3 sentence description
 - type: sub-type within the "%s" category
-- release_date: the product's actual or expected release date (format "YYYY-MM" or "YYYY-MM-DD"; use your best estimate if unannounced)
+- release_date: the product's actual release date (format "YYYY-MM" or "YYYY-MM-DD")
 
 Respond ONLY with a valid JSON array of objects with keys: name, description, type, release_date. No extra text.`,
 			brandContext, categoryName, existingContext,
@@ -1984,13 +1984,13 @@ Respond ONLY with a valid JSON array of objects with keys: name, description, ty
 Your task: Suggest 10-15 new products that:
 1. Have names that clearly reference the brand "%s".
 2. Are NOT already in our database listed above.
-3. Include the NEXT version/successor of any existing models if applicable.%s
+3. Only include real products that have been publicly released or officially announced by the manufacturer. Do not invent model names, sequential successors, or unreleased products. If a product cannot be verified, omit it.%s
 
 For each product provide:
 - name: specific product name referencing "%s"
 - description: 2-3 sentence description
 - type: product sub-category
-- release_date: the product's actual or expected release date (format "YYYY-MM" or "YYYY-MM-DD"; use your best estimate if unannounced)
+- release_date: the product's actual release date (format "YYYY-MM" or "YYYY-MM-DD")
 
 Respond ONLY with a valid JSON array of objects with keys: name, description, type, release_date. No extra text.`,
 			brandContext, existingContext,
@@ -2089,32 +2089,9 @@ Respond ONLY with a valid JSON array of objects with keys: name, description, ty
 	return products, nil
 }
 
-// getFallbackProducts returns sample products when OpenAI fails
+// getFallbackProducts returns no products when the research provider fails.
+// Generic samples are misleading because they may not match the selected
+// category or represent real products.
 func getFallbackProducts() []MarketProduct {
-	return []MarketProduct{
-		{
-			Name:        "AI-Powered Smart Glasses",
-			Description: "Revolutionary smart glasses with built-in AI assistant for real-time translation and augmented reality navigation.",
-			Type:        "Wearable Technology",
-			ReleaseDate: "2025-03",
-			Price:       299.99,
-			CategoryID:  1,
-		},
-		{
-			Name:        "Eco-Friendly Wireless Charger",
-			Description: "Sustainable wireless charging pad made from recycled materials with solar panel integration.",
-			Type:        "Accessories",
-			ReleaseDate: "2025-01",
-			Price:       49.99,
-			CategoryID:  1,
-		},
-		{
-			Name:        "Smart Home Energy Monitor",
-			Description: "IoT device that tracks and optimizes energy usage in your home with AI-powered recommendations.",
-			Type:        "Smart Home",
-			ReleaseDate: "2025-06",
-			Price:       79.99,
-			CategoryID:  1,
-		},
-	}
+	return []MarketProduct{}
 }
