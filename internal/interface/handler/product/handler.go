@@ -1999,6 +1999,17 @@ Respond ONLY with a valid JSON array of objects with keys: name, description, ty
 			brandContext)
 	}
 
+	// This endpoint is for importing real catalogue entries, not brainstorming.
+	// Explicitly tell the model to prefer no result over an unverifiable result;
+	// otherwise it tends to invent numbered successors such as future iPhones.
+	prompt = `IMPORTANT VERIFICATION RULES:
+- Return only products that are real and publicly released or officially announced.
+- Do not invent products, model numbers, release dates, or successor models.
+- Do not extrapolate a numbered product line (for example, do not turn iPhone 17 into iPhone 28).
+- If you cannot verify an item from your knowledge, leave it out. It is valid to return [] if no items can be verified.
+
+` + prompt
+
 	log.Printf("Generated prompt for brand=%s category=%s", brandName, categoryName)
 
 	requestBody := map[string]interface{}{
@@ -2010,7 +2021,7 @@ Respond ONLY with a valid JSON array of objects with keys: name, description, ty
 			},
 		},
 		"max_tokens":  1200,
-		"temperature": 0.7,
+		"temperature": 0.2,
 	}
 
 	jsonData, err := json.Marshal(requestBody)
