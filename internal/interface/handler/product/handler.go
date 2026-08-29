@@ -665,6 +665,9 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	}
 	if importedOnly {
 		filters.CreatedBy = "ai_import"
+		// Imported products are created inactive until reviewed. They must still
+		// be visible when the admin explicitly filters for imported products.
+		filters.IncludeInactive = true
 	}
 	// Get filtered products
 	products, totalCount, err := repo.GetWithFilters(r.Context(), filters)
