@@ -26,6 +26,7 @@ func CreateOrUpdateSpecificationKeyHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	request.SpecificationKey = strings.TrimSpace(request.SpecificationKey)
 	if request.SpecificationKey == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"error": "specification_key is required"})
@@ -54,6 +55,17 @@ func CreateOrUpdateSpecificationKeyHandler(w http.ResponseWriter, r *http.Reques
 		response := convertSpecificationKeyToResponse(updatedKey)
 		json.NewEncoder(w).Encode(response)
 	} else {
+		// specification_key is unique. Return a useful client error instead of
+		// exposing a database constraint failure as a generic 500 response.
+		if existingKey, err := keyRepo.GetByKey(r.Context(), request.SpecificationKey); err == nil && existingKey != nil {
+			w.WriteHeader(http.StatusConflict)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"error": "Specification key already exists",
+				"id":    existingKey.ID,
+			})
+			return
+		}
+
 		// Create new key
 		key := &entities.SpecificationKey{
 			SpecificationKey: request.SpecificationKey,
