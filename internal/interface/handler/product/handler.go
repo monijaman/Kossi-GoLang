@@ -606,6 +606,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 	priceRange := r.URL.Query().Get("priceRange")
 	searchterm := r.URL.Query().Get("search")
 	sortby := r.URL.Query().Get("sortby")
+	status := r.URL.Query().Get("status")
 	excludeParam := r.URL.Query().Get("exclude")
 	includeInactive := r.URL.Query().Get("include_inactive") == "true"
 	importedOnly := r.URL.Query().Get("imported") == "true"
@@ -660,6 +661,7 @@ func GetFilteredProductsHandler(w http.ResponseWriter, r *http.Request, repo rep
 		BrandSlugs:        brands,     // Store as array for filtering
 		PriceRange:        priceRange,
 		SortBy:            sortby,
+		Status:            status,
 		ExcludeProductIDs: excludeIDs,
 		IncludeInactive:   includeInactive,
 	}

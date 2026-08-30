@@ -570,14 +570,40 @@ func (r *PostgresProductRepo) GetWithFilters(ctx context.Context, filters *repos
 		return nil, 0, err
 	}
 
+	// Sorting or filtering by rating needs the average rating available in
+	// SQL (it isn't a stored column - populateAverageRatings computes it
+	// separately, after pagination, which is too late for ORDER BY/WHERE).
+	// Only join the aggregate subquery when actually needed.
+	needsRatingJoin := filters.SortBy == "rating" || filters.MinRating != nil
+
 	buildQuery := func() *gorm.DB {
 		query := r.db.WithContext(ctx).Model(&models.ProductModel{}).
 			Preload("Category").
 			Preload("Brand").
 			Where("products.deleted_at IS NULL")
-		if !filters.IncludeInactive {
+
+		switch filters.Status {
+		case "inactive":
+			query = query.Where("products.status = 0")
+		case "all":
+			// no status filter
+		case "active":
 			query = query.Where("products.status >= 1").Where(activeCategoryFilter)
+		default:
+			// Status not explicitly set - preserve legacy IncludeInactive behavior.
+			if !filters.IncludeInactive {
+				query = query.Where("products.status >= 1").Where(activeCategoryFilter)
+			}
 		}
+
+		if needsRatingJoin {
+			query = query.Joins(
+				"LEFT JOIN (SELECT product_id, AVG(CAST(NULLIF(rating,'') AS NUMERIC)) as avg_rating " +
+					"FROM product_reviews WHERE deleted_at IS NULL AND rating IS NOT NULL AND rating != '' " +
+					"GROUP BY product_id) pr_ratings ON pr_ratings.product_id = products.id",
+			)
+		}
+
 		return r.applyFilters(query, filters, resolved)
 	}
 
@@ -771,6 +797,13 @@ func (r *PostgresProductRepo) applyFilters(query *gorm.DB, filters *repository.P
 		query = query.Where("products.created_by = ?", filters.CreatedBy)
 	}
 
+	// Minimum average rating (requires the pr_ratings join added in buildQuery).
+	// Products with no reviews have avg_rating IS NULL and are correctly
+	// excluded by this comparison.
+	if filters.MinRating != nil {
+		query = query.Where("pr_ratings.avg_rating >= ?", *filters.MinRating)
+	}
+
 	return query
 }
 
@@ -792,6 +825,12 @@ func (r *PostgresProductRepo) applySorting(query *gorm.DB, sortBy string) *gorm.
 	switch sortBy {
 	case "popular":
 		query = query.Order("priority DESC, views_count DESC, updated_at DESC")
+	case "rating":
+		// Requires the pr_ratings join added by GetWithFilters whenever
+		// SortBy == "rating" - products with no reviews sort last, not first.
+		query = query.Order("COALESCE(pr_ratings.avg_rating, 0) DESC, priority DESC, updated_at DESC")
+	case "newest":
+		query = query.Order("created_at DESC")
 	case "price_asc":
 		query = query.Order("priority DESC, COALESCE(start_price, end_price) ASC, updated_at DESC")
 	case "price_desc":

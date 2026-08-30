@@ -22,6 +22,15 @@ type ProductFilters struct {
 	ExcludeProductIDs []uint   `json:"excludeProductIds,omitempty"`
 	IncludeInactive   bool     `json:"includeInactive,omitempty"`
 	CreatedBy         string   `json:"createdBy,omitempty"`
+	// Status explicitly selects "active" (default), "inactive", or "all".
+	// Empty falls back to the legacy IncludeInactive bool for callers that
+	// don't set it. Unlike IncludeInactive (which only ever adds inactive
+	// products alongside active ones), Status can isolate inactive-only.
+	Status string `json:"status,omitempty"`
+	// MinRating filters to products whose average review rating is at
+	// least this value. Requires a join against an aggregated
+	// product_reviews subquery since average rating isn't a stored column.
+	MinRating *float64 `json:"minRating,omitempty"`
 }
 
 type ProductRepository interface {
