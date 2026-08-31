@@ -2,7 +2,7 @@
 
 ## Overview
 
-You now have a **complete solution** to translate all your products to Bengali. This guide explains the options and how to use them.
+You now have a **complete solution** to translate all your products to Bengali. This guide explains the options and how to use them..
 
 ---
 
