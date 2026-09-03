@@ -16,11 +16,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/credentials"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
 // CategoryResponse represents the response format for categories
@@ -177,7 +172,11 @@ func convertProductToResponseSimple(product *entities.Product, imageRepo reposit
 	return response
 }
 
-// generateImageURL generates an S3 URL for image access
+// generateImageURL generates a permanent, non-expiring URL for a product image.
+// Product photos are public catalog content served from a public-read S3 prefix
+// (product-images/*), so plain URLs are used instead of presigned ones: a presigned
+// URL baked into an ISR-cached page would go stale and 403 once its expiry passes,
+// showing broken images to the next visitor after any sufficiently long idle period.
 func generateImageURL(imagePath string) string {
 	// If the imagePath is already a full URL, return as-is
 	if strings.HasPrefix(imagePath, "http://") || strings.HasPrefix(imagePath, "https://") {
@@ -192,8 +191,6 @@ func generateImageURL(imagePath string) string {
 
 	bucket := os.Getenv("S3_BUCKET")
 	region := os.Getenv("AWS_REGION")
-	accessKey := os.Getenv("AWS_ACCESS_KEY_ID")
-	secretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 
 	if bucket == "" {
 		bucket = "kossti"
@@ -202,32 +199,6 @@ func generateImageURL(imagePath string) string {
 		region = "ap-southeast-1"
 	}
 
-	// Only attempt presigned URL when credentials are explicitly set
-	if accessKey != "" && secretKey != "" {
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		defer cancel()
-
-		cfg, err := config.LoadDefaultConfig(ctx,
-			config.WithRegion(region),
-			config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(accessKey, secretKey, "")),
-		)
-		if err == nil {
-			s3Client := s3.NewFromConfig(cfg)
-			presignClient := s3.NewPresignClient(s3Client)
-
-			presigned, err := presignClient.PresignGetObject(ctx, &s3.GetObjectInput{
-				Bucket: aws.String(bucket),
-				Key:    aws.String(imagePath),
-			}, func(opts *s3.PresignOptions) {
-				opts.Expires = 24 * time.Hour
-			})
-			if err == nil {
-				return presigned.URL
-			}
-		}
-	}
-
-	// Fallback: direct S3 URL (works if bucket/object is public-read)
 	return fmt.Sprintf("https://%s.s3.%s.amazonaws.com/%s", bucket, region, imagePath)
 }
 
