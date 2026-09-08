@@ -1,5 +1,98 @@
 Go Backend of https://kossti.com/
 
+## Kossti Backend Overview
+
+`gocrit_server` is the HTTP API and data service for Kossti, a multilingual product discovery and review platform. It provides authentication, product/catalogue management, categories, brands, specifications, product images and videos, professional and user reviews, comments, feedback, contact handling, and form-generation endpoints. The web and Flutter clients consume this service.
+
+### How the backend runs
+
+The application starts from `cmd/app/main.go`. Startup loads environment configuration, connects to PostgreSQL through GORM with retry/backoff, initializes repositories and use cases, registers HTTP handlers and middleware, and starts the HTTP server. The server also exposes `/health`, serves `/uploads`, applies CORS, rate limiting and JWT/role checks, and waits for database readiness before serving database-backed requests.
+
+Typical request flow:
+
+```text
+HTTP request
+  -> CORS / rate limit / readiness middleware
+  -> route handler
+  -> use case (business logic)
+  -> domain repository interface
+  -> PostgreSQL repository implementation
+  -> GORM model / PostgreSQL
+  -> JSON response
+```
+
+Run the backend locally from this directory:
+
+```bash
+go mod download
+go run ./cmd/migrate/main.go -create-db
+go run ./cmd/migrate/main.go -seed
+go run ./cmd/app/main.go
+```
+
+The default port is controlled by `PORT` (commonly `8080`; check the environment file and startup configuration). Verify the service with `GET /health`. For development, Air configurations are available in `.air.toml` and `.air-migrate.toml`.
+
+### Backend project structure
+
+```text
+gocrit_server/
+├── cmd/
+│   ├── app/                    # API server entry point
+│   ├── migrate/                # Migration and seeding CLI
+│   ├── seedtest/               # Seed verification tool
+│   └── tools/                  # Maintenance and data utilities
+├── internal/
+│   ├── domain/                 # Entities and repository contracts
+│   ├── usecase/                # Application/business workflows
+│   ├── interface/
+│   │   ├── handler/            # HTTP handlers and route registration
+│   │   ├── middleware/         # JWT, role, CORS-related controls
+│   │   └── repository/postgres # PostgreSQL adapter implementations
+│   ├── infrastructure/
+│   │   ├── database/           # GORM connection, models, migrations, seeders
+│   │   ├── token/              # JWT implementation
+│   │   └── kafka/              # Kafka integration
+│   └── config/                 # Dependency injection and configuration
+├── pkg/hash/                   # Shared bcrypt password hashing
+├── init-db/                    # Initialization assets and datasets
+├── migrations/                 # Migration-related files
+├── uploads/                    # Local uploaded files when enabled
+├── Dockerfile                  # Container build
+└── docker-compose.yml          # Local service orchestration
+```
+
+### Architecture
+
+The backend follows Clean Architecture. The **domain** contains business entities and interfaces and does not depend on PostgreSQL or HTTP. **Use cases** coordinate workflows such as registration, login, product operations, and review operations. **Interface adapters** translate HTTP requests into use-case calls and implement repository contracts. **Infrastructure** contains replaceable details such as GORM/PostgreSQL, JWT, Kafka, migrations, and seeders. Dependency injection in `internal/config` wires the concrete implementations at startup.
+
+This separation makes business rules testable, keeps handlers small, and allows database or transport details to change without rewriting the core use cases.
+
+### Main route groups
+
+Routes are registered by feature under `internal/interface/handler/*/routes.go`:
+
+| Area | Representative endpoints |
+|---|---|
+| Health | `GET /health` |
+| Authentication | `POST /register`, `POST /login`, `/v1/refresh-token`, `/v1/logout` |
+| Users | `/users`, `/users/{id}`, `/v1/profile` |
+| Products | `GET /products`, `POST /products`, `GET /products/{id}`, `PATCH /products/{id}` |
+| Product discovery | `/products-by-slug/{slug}`, `/popular-products`, product view increment |
+| Images/media | `/products/{id}/images`, `/products/{id}/image`, S3 presign endpoints |
+| Translations | `/products/{id}/translations`, `/product-trans/{id}` |
+| Reviews | `/products/{id}/reviews`, `/reviews`, review translation and moderation routes |
+| Categories/brands | `/categories`, `/brands`, and related management routes |
+| Specifications | Specification keys, values, translations, and form-generator routes |
+| Feedback/contact | `/feedback`, `/v1/feedback`, `/contact` |
+
+Most read endpoints are public. Create, update, delete, admin, profile, upload, and moderation operations require JWT authentication and, where applicable, role authorization. See the API reference later in this document for the complete endpoint list and request examples.
+
+### Data and operations
+
+PostgreSQL is the source of truth. GORM models live in `internal/infrastructure/database/models`; migration orchestration is handled by the migration manager and `cmd/migrate`. Seeders populate categories, brands, products, translations, specifications, and reviews. Use `-migrate` or `-create-db` for safe setup; use `-fresh` and `-drop` only for disposable development databases.
+
+Required configuration normally includes `DATABASE_URL`, `JWT_SECRET`, `PORT`, and optional Kafka/S3 settings. Keep `.env` and production credentials out of source control.
+
 # Clean Architecture Authentication System in Go — Presentation Guide
 
 Welcome! This guide is designed to help you present and explain your Go authentication project using Clean Architecture to students.
